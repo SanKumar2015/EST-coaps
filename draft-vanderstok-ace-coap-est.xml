@@ -428,7 +428,8 @@ RES:
       Option Length = 0xD
       Extended Option Length = 0x09
       Option Value = <number for application/pkcs7-mime> 
-                [EDNOTE: We need a new CoAP IANA registered value   
+                [EDNOTE: We need a new CoAP IANA registered value 
+                in section 8  
                 application/pkcs7-mime; smime-type=certs-only, 
                 application/csrattrs, application/pkcs10, 
                 application/pkcs8, 
@@ -530,6 +531,7 @@ GET [192.0.2.1:8085]/.well-known/est/cacerts     -->
       Option Value = <number for application/pkcs7-mime; 
                       smime-type=certs-only> 
                 [EDNOTE: We need a new CoAP IANA registered value 
+                in section 8
                 application/pkcs7-mime, application/csrattrs, 
                 application/pkcs10, application/pkcs8, 
                 application/pkcs12]
@@ -556,7 +558,8 @@ GET [192.0.2.1:8085]/.well-known/est/cacerts     -->
       Extended Option Length = 0x09
       Option Value = <number for application/pkcs7-mime; 
                      smime-type=certs-only> 
-                [EDNOTE: We need a new CoAP IANA registered value  
+                [EDNOTE: We need a new CoAP IANA registered value 
+                in section 8 
                 application/pkcs7-mime, application/csrattrs, 
                 application/pkcs10, application/pkcs8, 
                 application/pkcs12 ]
@@ -580,6 +583,7 @@ GET [192.0.2.1:8085]/.well-known/est/cacerts     -->
       Option Value = <number for application/pkcs7-mime; 
                       smime-type=certs-only> 
                 [EDNOTE: We need a new CoAP IANA registered value 
+                in section 8
                 application/pkcs7-mime, application/csrattrs, 
                 application/pkcs10, application/pkcs8, 
                 application/pkcs12 ]

@@ -5,10 +5,10 @@
 ACE                                                             S. Kumar
 Internet-Draft                                 Philips Lighting Research
 Intended status: Standards Track                         P. van der Stok
-Expires: July 22, 2017                                        Consultant
+Expires: August 5, 2017                                       Consultant
                                                            P. Kampanakis
                                                            Cisco Systems
-                                                        January 18, 2017
+                                                        February 1, 2017
 
 
                     EST over secure CoAP (EST-coaps)
@@ -20,7 +20,7 @@ Abstract
    operate in a mesh network using the IPv6 over Low-power Personal Area
    Networks (6LoWPAN) and IEEE 802.15.4 link-layer standards.
    Provisioning these devices in a secure manner with keys (often called
-   security bootstrapping) used to encrypt and authenticate messages is
+   secure bootstrapping) used to encrypt and authenticate messages is
    the subject of Bootstrapping of Remote Secure Key Infrastructures
    (BRSKI) [I-D.ietf-anima-bootstrapping-keyinfra].  Enrollment over
    Secure Transport (EST) [RFC7030], based on TLS and HTTP, is used in
@@ -46,16 +46,16 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on July 22, 2017.
+   This Internet-Draft will expire on August 5, 2017.
 
 
 
 
 
 
-Kumar, et al.             Expires July 22, 2017                 [Page 1]
+Kumar, et al.            Expires August 5, 2017                 [Page 1]
 
-Internet-Draft                  EST-coaps                   January 2017
+Internet-Draft                  EST-coaps                  February 2017
 
 
 Copyright Notice
@@ -80,38 +80,38 @@ Table of Contents
    3.  EST/BRSKI operational differences . . . . . . . . . . . . . .   4
    4.  Protocol Design and Layering  . . . . . . . . . . . . . . . .   4
      4.1.  Message Bindings  . . . . . . . . . . . . . . . . . . . .   6
-     4.2.  CoAP response codes . . . . . . . . . . . . . . . . . . .   7
-     4.3.  Message fragmentation . . . . . . . . . . . . . . . . . .   8
-   5.  Transport Protocol  . . . . . . . . . . . . . . . . . . . . .   9
-     5.1.  DTLS  . . . . . . . . . . . . . . . . . . . . . . . . . .  10
-     5.2.  [EDNOTE: Placeholder] . . . . . . . . . . . . . . . . . .  11
-   6.  Proxying  . . . . . . . . . . . . . . . . . . . . . . . . . .  11
-   7.  Parameters  . . . . . . . . . . . . . . . . . . . . . . . . .  11
-   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  11
-   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  14
-   10. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  14
-   11. Change Log  . . . . . . . . . . . . . . . . . . . . . . . . .  14
-   12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  14
-     12.1.  Normative References . . . . . . . . . . . . . . . . . .  14
-     12.2.  Informative References . . . . . . . . . . . . . . . . .  15
-   Appendix A.  EST messages to EST-coaps  . . . . . . . . . . . . .  16
-     A.1.  cacerts . . . . . . . . . . . . . . . . . . . . . . . . .  16
-     A.2.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  18
-     A.3.  csrattr . . . . . . . . . . . . . . . . . . . . . . . . .  18
-     A.4.  enrollstatus  . . . . . . . . . . . . . . . . . . . . . .  18
-     A.5.  voucher_status  . . . . . . . . . . . . . . . . . . . . .  19
-     A.6.  requestvoucher  . . . . . . . . . . . . . . . . . . . . .  19
-     A.7.  requestlog  . . . . . . . . . . . . . . . . . . . . . . .  19
-   Appendix B.  EST-coaps Block message examples . . . . . . . . . .  19
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  22
+     4.2.  CoAP response codes . . . . . . . . . . . . . . . . . . .   6
+     4.3.  Message fragmentation . . . . . . . . . . . . . . . . . .   7
+   5.  Transport Protocol  . . . . . . . . . . . . . . . . . . . . .   8
+     5.1.  DTLS  . . . . . . . . . . . . . . . . . . . . . . . . . .   8
+     5.2.  [EDNOTE: Placeholder for EDHOC] . . . . . . . . . . . . .   9
+   6.  Proxying  . . . . . . . . . . . . . . . . . . . . . . . . . .   9
+   7.  Parameters  . . . . . . . . . . . . . . . . . . . . . . . . .  10
+   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  10
+   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  12
+   10. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  13
+   11. Change Log  . . . . . . . . . . . . . . . . . . . . . . . . .  13
+   12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
+     12.1.  Normative References . . . . . . . . . . . . . . . . . .  13
+     12.2.  Informative References . . . . . . . . . . . . . . . . .  14
+   Appendix A.  EST messages to EST-coaps  . . . . . . . . . . . . .  15
+     A.1.  cacerts . . . . . . . . . . . . . . . . . . . . . . . . .  15
+     A.2.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  17
+     A.3.  csrattr . . . . . . . . . . . . . . . . . . . . . . . . .  17
+     A.4.  enrollstatus  . . . . . . . . . . . . . . . . . . . . . .  17
+     A.5.  voucher_status  . . . . . . . . . . . . . . . . . . . . .  17
+     A.6.  requestvoucher  . . . . . . . . . . . . . . . . . . . . .  17
+     A.7.  requestlog  . . . . . . . . . . . . . . . . . . . . . . .  17
+   Appendix B.  EST-coaps Block message examples . . . . . . . . . .  18
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  21
 
 
 
 
 
-Kumar, et al.             Expires July 22, 2017                 [Page 2]
+Kumar, et al.            Expires August 5, 2017                 [Page 2]
 
-Internet-Draft                  EST-coaps                   January 2017
+Internet-Draft                  EST-coaps                  February 2017
 
 
 1.  Introduction
@@ -145,7 +145,7 @@ Internet-Draft                  EST-coaps                   January 2017
    Although EST-coaps paves the way for the utilization of BRSKI and EST
    for constrained devices on constrained networks, some devices will
    not have enough resources to handle the large payloads that come with
-   EST-coaps.  The definition of EST-coaps is intended to ensure that
+   EST-coaps.  The specification of EST-coaps is intended to ensure that
    bootstrapping works for less constrained devices that choose to limit
    their communications stack to UDP/CoAP.  It is up to the network
    designer to decide which devices execute the EST protocol and which
@@ -165,20 +165,19 @@ Internet-Draft                  EST-coaps                   January 2017
 
 
 
-Kumar, et al.             Expires July 22, 2017                 [Page 3]
+Kumar, et al.            Expires August 5, 2017                 [Page 3]
 
-Internet-Draft                  EST-coaps                   January 2017
+Internet-Draft                  EST-coaps                  February 2017
 
 
-   Because the relatively large messages involved in EST cannot be
-   readily transported over constrained (6LoWPAN, LLN) wireless
-   networks, this document defines the use of CoAP Block-Wise Transfer
-   ("Block") [RFC7959] to fragment EST messages at the application
-   layer.
+   Because the relatively large EST messages cannot be readily
+   transported over constrained (6LoWPAN, LLN) wireless networks, this
+   document specifies the use of CoAP Block-Wise Transfer ("Block")
+   [RFC7959] to fragment EST messages at the application layer.
 
-   Support for Observe CoAP options [RFC7641] in Blocks with BRSKI is
-   not supported in the current BRSKI/EST message flows and is thus out-
-   of-scope for this discussion.  Observe options could be used by the
+   Support for Observe CoAP options [RFC7641]  with BRSKI is not
+   supported in the current BRSKI/EST message flows and is thus out-of-
+   scope for this discussion.  Observe options could be used by the
    server to notify clients about a change in the cacerts or csr
    attributes (resources) and might be an area of future work.
 
@@ -194,11 +193,10 @@ Internet-Draft                  EST-coaps                   January 2017
 3.  EST/BRSKI operational differences
 
    Only the differences to EST and BRSKI with respect to operational
-   scenarios are described in this section.  EST-coaps server
-   authentication differs from EST as follows:
+   scenarios are described in this section.  EST-coaps server differs
+   from EST server as follows:
 
-   o  Replacement of TLS by a secure transport protocol and HTTP by
-      CoAP, resulting in:
+   o  Replacement of TLS by DTLS and HTTP by CoAP, resulting in:
 
       *  DTLS-secured CoAP sessions between EST-coaps client and EST-
          coaps server.
@@ -217,17 +215,16 @@ Internet-Draft                  EST-coaps                   January 2017
    Transfer [RFC7959] to transport CoAP messages in blocks thus avoiding
    (excessive) 6LoWPAN fragmentation of UDP datagrams.  The use of
    "Block" for the transfer of larger EST messages is specified in
-
-
-
-
-Kumar, et al.             Expires July 22, 2017                 [Page 4]
-
-Internet-Draft                  EST-coaps                   January 2017
-
-
    Section 4.3.  The Figure 1 below shows the layered EST-coaps
    architecture.
+
+
+
+
+Kumar, et al.            Expires August 5, 2017                 [Page 4]
+
+Internet-Draft                  EST-coaps                  February 2017
+
 
    +------------------------------------------------+
    |    EST request/response messages               |
@@ -244,17 +241,16 @@ Internet-Draft                  EST-coaps                   January 2017
    The EST-coaps protocol design follows closely the EST design,
    excluding some aspects that are not relevant for automatic
    bootstrapping of constrained devices within a professional context.
-   The parts supported by EST-coaps are:
+   The parts supported by EST-coaps are identified by their message
+   types:
 
-   Message types:
+   o  Simple enroll and reenroll.
 
-      *  Simple enroll and reenroll.
+   o  CA certificate retrieval.
 
-      *  CA certificate retrieval.
+   o  CSR Attributes request messages.
 
-      *  CSR Attributes request messages.
-
-      *  Server-side key generation messages.
+   o  Server-side key generation messages.
 
    The EST-coaps server URIs are identical to the EST URI (except for
    replacing the scheme https by coaps):
@@ -262,100 +258,49 @@ Internet-Draft                  EST-coaps                   January 2017
    coaps://www.example.com/.well-known/est
    coaps://www.example.com/.well-known/est/arbitraryLabel1
 
-   Figure 5 in section 3.2.2 of [RFC7030] addresses he path URIs
-   (operations) are supported by EST.
+   Figure 5 in section 3.2.2 of [RFC7030] enumerates the operations and
+   corresponding paths which are supported by EST.
 
    The content-format (media type equivalent) of the CoAP message
    determines which EST message is transported in the CoAP payload.  The
    media types specified in the HTTP Content-Type header(see section
    3.2.2 of [RFC7030]) are in EST-coaps specified by the Content-Format
    Option (12) of CoAP.  The combination of URI path-suffix and content-
-   format used MUST map to an allowed combination of path-suffix and
-   media type as defined for EST.  The required content-formats for
-   these request and response messages are defined in Section 8.  The
-   CoAP response codes are defined in Section 4.2.
-
-
-
-Kumar, et al.             Expires July 22, 2017                 [Page 5]
-
-Internet-Draft                  EST-coaps                   January 2017
-
+   format used for coap MUST map to an allowed combination of path-
+   suffix and media type as defined for EST.  The required content-
+   formats for these request and response messages are defined in
+   Section 8.  The CoAP response codes are defined in Section 4.2.
 
    EST-coaps is designed for use between low-resource devices using CoAP
-   and hence does not need to send base64-encoded data.  Simple binary
-   coding is more efficient (30% less payload compared to base64) and
-   well supported by CoAP.  Therefore, the content formats specification
-   in Section 8 requires the use of binary encoding for all EST-coaps
-   CoAP payloads.  [EDNOTE: Revisit the binary format. ]
+   and hence does not need to send base64-encoded data.  Simple CBOR
+   byte string is more efficient (30% less payload compared to base64)
+
+
+
+Kumar, et al.            Expires August 5, 2017                 [Page 5]
+
+Internet-Draft                  EST-coaps                  February 2017
+
+
+   and well supported by CoAP.  Therefore, the content formats
+   specification in Section 8 requires the use of CBOR byte string for
+   all EST-coaps CoAP payloads.  [EDNOTE: Suggestion above is to use
+   CBOR h'xxxx' ]
 
 4.1.  Message Bindings
 
    This section describes BRSKI to CoAP message mappings.
 
-   CoAP defines confirmed (CON), acknowledgements (ACK), reset (RST) and
-   non-corfirmed (NON) message types.  For confirmable messages, the
-   responses are CoAP ACKs or RSTs.  All /cacerts, /simpleenroll,
-   /simplereenroll, /csrattrs and /serverkeygen EST messages expect a
-   response, so they are all COAP CON messages.
+   All /cacerts, /simpleenroll, /simplereenroll, /csrattrs and
+   /serverkeygen EST messages expect a response, so they are all COAP
+   CON messages.
 
-   A CoAP message has the following fields ([RFC7252]):
+   The Ver, TKL, Token, and Message ID values of the coap header are not
+   influenced by EST.
 
-       0                   1                   2                   3
-       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-      |Ver| T |  TKL  |      Code     |          Message ID           |
-      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-      |   Token (if any, TKL bytes) ...
-      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-      |   Options (if any) ...
-      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-      |1 1 1 1 1 1 1 1|    Payload (if any) ...
-      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-   Then Ver, TKL, Token, Message ID are not affected in BRSKI.  Their
-   use is the same as in CoAP.
-
-   The options that can be used in a CoAP header have the following
-   format:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Kumar, et al.             Expires July 22, 2017                 [Page 6]
-
-Internet-Draft                  EST-coaps                   January 2017
-
-
-               0   1   2   3   4   5   6   7
-      +---------------+---------------+
-      |  Option Delta | Option Length |   1 byte
-      +---------------+---------------+
-      /         Option Delta          /   0-2 bytes
-      \          (extended)           \
-      +-------------------------------+
-      /         Option Length         /   0-2 bytes
-      \          (extended)           \
-      +-------------------------------+
-      \                               \
-      /         Option Value          /   0 or more bytes
-      \                               \
-      +-------------------------------+
-
-   Options are used to convey Uri-Host, Uri-Path, Uri-Port, Content-
-   Format and more in COAP.  For BRSKI, COAP Options are used to
-   communicate the HTTP fields used in the BRSKI REST messages.
+   Coap options are used to convey Uri-Host, Uri-Path, Uri-Port,
+   Content-Format and more in COAP.  The COAP Options are used to
+   communicate the HTTP fields specified in the BRSKI REST messages.
 
    BRSKI URLs are HTTPS based (https:// ), in CoAP these will be assumed
    to be transformed to coaps (coaps://)
@@ -363,8 +308,7 @@ Internet-Draft                  EST-coaps                   January 2017
    Some examples of how an BRSKI message would be translated in CoAP
    follow.  [EDNOTE: This section to be expanded to ensure it covers all
    BRSKI edge conditions.]  Appendix A includes some practical examples
-   of EST messages translated to COAP.  [EDNOTE: This section to be
-   expanded.
+   of EST messages translated to COAP.
 
 4.2.  CoAP response codes
 
@@ -372,40 +316,27 @@ Internet-Draft                  EST-coaps                   January 2017
    to CoAP response codes.  Every time the HTTP response code 200 is
    specified in [RFC7030] in response to a GET request, in EST-coaps the
    equivalent CoAP response code 2.05 MUST be used.  Response code HTTP
-   202 in EST is mapped as indicated below; while other HTTP 2xx
-   response codes are not used by EST.  For the following HTTP 4xx error
-   codes that may occur: 400, 401, 403, 404, 405, 406, 412, 413, 415 ;
-   the equivalent CoAP response code for EST-coaps is 4.xx.  For the
-   HTTP 5xx error codes: 500, 501, 502, 503, 504 the equivalent CoAP
-   response code is 5.xx.
-
-   HTTP response code 202 needs a different treatment from the one
-   described for [RFC7030].  A new CoAP response code 2.06 is needed.
-   When the EST over CoAP request cannot be treated immediately, a CoAP
-   response code 2.06 Delayed is returned with Content-Format:
-   application/link-format described in [RFC6690].  The payload of the
-   response contains a link to receive the delayed response.
-   ALTERNATIVE (to discuss) : a 2.06 Delayed response without payload
-
-
-
-Kumar, et al.             Expires July 22, 2017                 [Page 7]
-
-Internet-Draft                  EST-coaps                   January 2017
-
-
-   and the link to receive the delayed response indicated using the
-   Location-Path and Location-Query Options.
-
-   The waiting client may send GET requests to the returned link.  When
-   the response is not available, the server returns response code 2.06
-   with again the link for the client to query.  When the response is
-   available, the server returns the response code 2.05 Content with a
-   payload containing the requested response in the appropriate content
-   format.
+   202 in EST is mapped to CoAP 2.06 as specified in [I-D.hartke-core-
+   imminent-latest].  All other HTTP 2xx response codes are not used by
+   EST.  For the following HTTP 4xx error codes that may occur: 400,
+   401, 403, 404, 405, 406, 412, 413, 415 ; the equivalent CoAP response
+   code for EST-coaps is 4.xx.  For the HTTP 5xx error codes: 500, 501,
+   502, 503, 504 the equivalent CoAP response code is 5.xx.
 
    Appendix A includes some practical examples of HTTP response codes
    from EST translated to COAP.
+
+
+
+
+
+
+
+
+Kumar, et al.            Expires August 5, 2017                 [Page 6]
+
+Internet-Draft                  EST-coaps                  February 2017
+
 
 4.3.  Message fragmentation
 
@@ -426,59 +357,44 @@ Internet-Draft                  EST-coaps                   January 2017
    algorithms, OIDs, SANs and cert fields.  For 384-bit curves, ECDSA
    certs increase in size and can sometimes reach 1.5KB.  Additionally,
    there are times when the EST cacert response from the server can
-   include multiple certs that amount large payloads.  CoAP [RFC7252]'s
-   section 4.6 describes the possible payload sizes: "if nothing is
-   known about the size of the headers, good upper bounds are 1152 bytes
-   for the message size and 1024 bytes for the payload size".  Also "If
-   IPv4 support on unusual networks is a consideration, implementations
-   may want to limit themselves to more conservative IPv4 datagram sizes
-   such as 576 bytes; per [RFC0791], the absolute minimum value of the
-   IP MTU for IPv4 is as low as 68 bytes, which would leave only 40
-   bytes minus security overhead for a UDP payload".  Thus, even with
-   ECC certs, EST-coaps messages can still exceed sizes in MTU of 1280
-   for IPv6 or 60-80 bytes for 6LoWPAN [RFC4919] as explained in section
-   2 of [RFC7959].  EST-coaps needs to be able to fragment EST messages
-   into multiple DTLS datagrams with each DTLS datagram.  Fine-grained
-   fragmentation of EST messages is essential.
-
-
-
-
-
-Kumar, et al.             Expires July 22, 2017                 [Page 8]
-
-Internet-Draft                  EST-coaps                   January 2017
-
+   include multiple certs that amount to large payloads.  CoAP
+   [RFC7252]'s section 4.6 describes the possible payload sizes: "if
+   nothing is known about the size of the headers, good upper bounds are
+   1152 bytes for the message size and 1024 bytes for the payload size".
+   Also "If IPv4 support on unusual networks is a consideration,
+   implementations may want to limit themselves to more conservative
+   IPv4 datagram sizes such as 576 bytes; per [RFC0791], the absolute
+   minimum value of the IP MTU for IPv4 is as low as 68 bytes, which
+   would leave only 40 bytes minus security overhead for a UDP payload".
+   Thus, even with ECC certs, EST-coaps messages can still exceed sizes
+   in MTU of 1280 for IPv6 or 60-80 bytes for 6LoWPAN [RFC4919] as
+   explained in section 2 of [RFC7959].  EST-coaps needs to be able to
+   fragment EST messages into multiple DTLS datagrams with each DTLS
+   datagram.  Fine-grained fragmentation of EST messages is essential.
 
    To perform fragmentation in COAP, [RFC7959] specifies the "Block1"
    option for fragmentation of the request payload and the "Block2"
    option for fragmentation of the return payload of a COAP flow.
-   Block1 options are used by the client PUT and POST requests.  A
-   Block1 in a client request requires a Block1 option in the responses.
-   A Block2 comes from a server response that will also need Block2 from
-   the client to acknowledge the block and get the rest of blocks from
-   the server.  Block1 is used when a request (POST for example) is used
-   with a payload that needs fragmentation.  The server responds with
-   Block1 option to acknowledge the fragment-blocks.  Block2 is used
-   when a BRSKI server response is big and needs fragmentation.  The
-   Block2 acknowledgements are requests with the same options as the
-   initial request and a Block2 option.  "To influence the block size
-   used in a response, the requester MAY also use the Block2 Option on
-   the initial request, giving the desired size, a block number of zero
-   and an M bit of zero".  The CoAP client MAY specify the Block1 size
-   and MAY also specify the Block2 size.  The CoAP server MAY specify
-   the Block2 size, but not the Block1 size.  As explained in Section 1
-   of [RFC7959]), blockwise transfers SHOULD be used in Confirmable COAP
-   messages to avoid the exacerbation of lost blocks.
 
-   In a scenario with a big BRSKI POST request we might have Block1
-   options from client to server and Block2 from server to client.  In
-   this case the Block1 blocks get completed and then the Block2 flows
-   the opposite direction.
+   The BLOCK draft defines SZX in the Block1 and block2 option fields.
+   These are used to convey the size of the blocks in the requests or
+   responses.
 
-   The BLOCK draft also defines Size1 and Size2 options.  These are used
-   to convey the size of the resources in the requests or responses.
-   The Size1 response MAY be parsed by the client as an size indication
+   The CoAP client MAY specify the Block1 size and MAY also specify the
+   Block2 size.  The CoAP server MAY specify the Block2 size, but not
+   the Block1 size.  As explained in Section 1 of [RFC7959]), blockwise
+   transfers SHOULD be used in Confirmable COAP messages to avoid the
+   exacerbation of lost blocks.
+
+
+
+
+Kumar, et al.            Expires August 5, 2017                 [Page 7]
+
+Internet-Draft                  EST-coaps                  February 2017
+
+
+   The Size1 response MAY be parsed by the client as a size indication
    of the Block2 resource in the server response or by the server as a
    request for a size estimate by the client.  Similarly, Size2 option
    defined in BLOCK should be parsed by the server as an indication of
@@ -486,25 +402,12 @@ Internet-Draft                  EST-coaps                   January 2017
    as a maximum size expected in the 4.13 (Request Entity Too Large)
    response to a request.
 
-   Block options in CoAP messages can contain fields, SZX, M and NUM
-   which are not affected by BRSKI.
-
    Examples of fragmented messages are shown in Appendix B.
 
 5.  Transport Protocol
 
    EST-coaps depends on a secure transport mechanism over UDP that can
    secure (confidentiality, authenticity) the COAP messages exchanged.
-
-
-
-
-
-
-Kumar, et al.             Expires July 22, 2017                 [Page 9]
-
-Internet-Draft                  EST-coaps                   January 2017
-
 
 5.1.  DTLS
 
@@ -522,7 +425,7 @@ Internet-Draft                  EST-coaps                   January 2017
    separately, thus avoiding IP fragmentation" [RFC6347].
 
    The EST-coaps client MUST be configured with an explicit TA database
-   at least an implicit TA database from its manufacturer.  The
+   or at least an implicit TA database from its manufacturer.  The
    authentication of the EST-coaps server by the EST-coaps client is
    based on Certificate authentication in the DTLS handshake.
 
@@ -539,29 +442,33 @@ Internet-Draft                  EST-coaps                   January 2017
    The details on checking the validity of the certificates are
    identical to EST.
 
+
+
+
+Kumar, et al.            Expires August 5, 2017                 [Page 8]
+
+Internet-Draft                  EST-coaps                  February 2017
+
+
    EST-coaps does not support full PKI Requests.  Consequently, the
    fullcmc request of section 4.3 of [RFC7030] and response MUST NOT be
    supported by EST-coaps.
 
    Channel-binding information for linking proof-of-identity with
-   message-based proof-of-possession (OPTIONAL).  Given that CoAP and
-   DTLS can provide proof of identity for EST-coaps clients and server,
-   simple PKI messages can be used conformant to section 3.1 of
-   [RFC5272].  EST-coaps supports the certificate types and Trust
-   Anchors (TA) that are specified for EST in section 3 of [RFC7030].
+   message-based proof-of-possession is optional for coap-est.  Given
+   that CoAP and DTLS can provide proof of identity for EST-coaps
+   clients and server, simple PKI messages can be used conformant to
+   section 3.1 of [RFC5272].  EST-coaps supports the certificate types
+   and Trust Anchors (TA) that are specified for EST in section 3 of
+   [RFC7030].
+
+   [EDNOTE: The above text is not very clear and needs reviewing]
+
    [EDNOTE: To describe POP in the DTLS context]
 
    In a constrained CoAP environment, endpoints can't afford to
    establish a DTLS connection for every EST transaction.
    Authenticating and negotiating DTLS keys requires resources on low-
-
-
-
-Kumar, et al.             Expires July 22, 2017                [Page 10]
-
-Internet-Draft                  EST-coaps                   January 2017
-
-
    end endpoints and consumes valuable bandwidth.  The DTLS connection
    SHOULD remain open for persistent EST connections.  For example, an
    EST cacerts request that is followed by a simpleenroll request can
@@ -580,7 +487,7 @@ Internet-Draft                  EST-coaps                   January 2017
    Point Formats Extensions [RFC4492]; the uncompressed point format
    MUST be supported; [RFC6090] can be used as an implementation method.
 
-5.2.  [EDNOTE: Placeholder]
+5.2.  [EDNOTE: Placeholder for EDHOC]
 
    [EDNOTE: Other secure transport mechanisms placeholder section. ]
 
@@ -590,6 +497,14 @@ Internet-Draft                  EST-coaps                   January 2017
    can take place by an entity that resides at the edge of the CoAP
    network, such as the Registrar, and can reach the BRSKI server
    residing in a traditional "TCP setting". ]
+
+
+
+
+Kumar, et al.            Expires August 5, 2017                 [Page 9]
+
+Internet-Draft                  EST-coaps                  February 2017
+
 
 7.  Parameters
 
@@ -603,20 +518,12 @@ Internet-Draft                  EST-coaps                   January 2017
 
 8.  IANA Considerations
 
-   Additions to the sub-registry "CoAPContent-Formats", within the "CoRE
-   Parameters" registry are needed for the below media types.  These can
-   be registered either in the Expert Review range (0-255) or IETF
-   Review range (256-9999).
+   Additions to the sub-registry "CoAP Content-Formats", within the
+   "CoRE Parameters" registry are needed for the below media types.
+   These can be registered either in the Expert Review range (0-255) or
+   IETF Review range (256-9999).
 
    1.
-
-
-
-
-Kumar, et al.             Expires July 22, 2017                [Page 11]
-
-Internet-Draft                  EST-coaps                   January 2017
-
 
        *  application/pkcs7-mime
 
@@ -632,7 +539,7 @@ Internet-Draft                  EST-coaps                   January 2017
 
        *  Optional parameters: None
 
-       *  Encoding considerations: Binary
+       *  Encoding considerations: CBOR byte string
 
        *  Security considerations: As defined in this specification
 
@@ -647,6 +554,14 @@ Internet-Draft                  EST-coaps                   January 2017
 
        *  Type name: application
 
+
+
+
+Kumar, et al.            Expires August 5, 2017                [Page 10]
+
+Internet-Draft                  EST-coaps                  February 2017
+
+
        *  Subtype name: pkcs8
 
        *  ID: TBD2
@@ -655,7 +570,7 @@ Internet-Draft                  EST-coaps                   January 2017
 
        *  Optional parameters: None
 
-       *  Encoding considerations: Binary
+       *  Encoding considerations: CBOR byte string
 
        *  Security considerations: As defined in this specification
 
@@ -665,14 +580,6 @@ Internet-Draft                  EST-coaps                   January 2017
           and EST
 
    3.
-
-
-
-
-Kumar, et al.             Expires July 22, 2017                [Page 12]
-
-Internet-Draft                  EST-coaps                   January 2017
-
 
        *  application/csrattrs
 
@@ -686,7 +593,7 @@ Internet-Draft                  EST-coaps                   January 2017
 
        *  Optional parameters: None
 
-       *  Encoding considerations: Binary
+       *  Encoding considerations: CBOR byte string
 
        *  Security considerations: As defined in this specification
 
@@ -703,13 +610,21 @@ Internet-Draft                  EST-coaps                   January 2017
 
        *  Subtype name: pkcs10
 
+
+
+
+Kumar, et al.            Expires August 5, 2017                [Page 11]
+
+Internet-Draft                  EST-coaps                  February 2017
+
+
        *  ID: TBD4
 
-       *  Required paraeters: None
+       *  Required parameters: None
 
        *  Optional parameters: None
 
-       *  Encoding considerations: binary
+       *  Encoding considerations: CBOR byte string
 
        *  Security considerations: As defined in this specification
 
@@ -718,21 +633,28 @@ Internet-Draft                  EST-coaps                   January 2017
        *  Applications that use this media type: ANIMA bootstrap (BRSKI)
           and EST
 
-   Additions to the sub-registry "CoAP Response Code", within the "CoRE
-   Parameters" registry are needed for the following response codes:
+       *
 
-   o  Code: 2.06
+          +  application/pkcs12
 
+          +  Type name: application
 
+          +  Subtype name: pkcs12
 
-Kumar, et al.             Expires July 22, 2017                [Page 13]
-
-Internet-Draft                  EST-coaps                   January 2017
+          +  ID: TBD5
 
+          +  Required parameters: None
 
-   o  Description: Delayed
+          +  Optional parameters: None
 
-   o  Reference: this document
+          +  Encoding considerations: CBOR byte string
+
+          +  Security considerations: As defined in this specification
+
+          +  Published specification: IETF
+
+          +  Applications that use this media type: ANIMA bootstrap
+             (BRSKI) and EST
 
    [EDNOTE: This section will be expanded to includes types needed that
    do not exist in COAP.]
@@ -744,6 +666,14 @@ Internet-Draft                  EST-coaps                   January 2017
    security concerns added beyond the protocol's or CoAP's specifics
    security considerations.  The security considerations mentioned in
    EST applies also to EST-coaps.  Specifically for server-side key
+
+
+
+Kumar, et al.            Expires August 5, 2017                [Page 12]
+
+Internet-Draft                  EST-coaps                  February 2017
+
+
    generation, it introduces implications for the endpoints and their
    private keys, which will be covered here. ]
 
@@ -778,14 +708,6 @@ Internet-Draft                  EST-coaps                   January 2017
               DOI 10.17487/RFC2119, March 1997,
               <http://www.rfc-editor.org/info/rfc2119>.
 
-
-
-
-Kumar, et al.             Expires July 22, 2017                [Page 14]
-
-Internet-Draft                  EST-coaps                   January 2017
-
-
    [RFC5272]  Schaad, J. and M. Myers, "Certificate Management over CMS
               (CMC)", RFC 5272, DOI 10.17487/RFC5272, June 2008,
               <http://www.rfc-editor.org/info/rfc5272>.
@@ -799,13 +721,18 @@ Internet-Draft                  EST-coaps                   January 2017
               DOI 10.17487/RFC5967, August 2010,
               <http://www.rfc-editor.org/info/rfc5967>.
 
+
+
+
+
+Kumar, et al.            Expires August 5, 2017                [Page 13]
+
+Internet-Draft                  EST-coaps                  February 2017
+
+
    [RFC6347]  Rescorla, E. and N. Modadugu, "Datagram Transport Layer
               Security Version 1.2", RFC 6347, DOI 10.17487/RFC6347,
               January 2012, <http://www.rfc-editor.org/info/rfc6347>.
-
-   [RFC6690]  Shelby, Z., "Constrained RESTful Environments (CoRE) Link
-              Format", RFC 6690, DOI 10.17487/RFC6690, August 2012,
-              <http://www.rfc-editor.org/info/rfc6690>.
 
    [RFC7030]  Pritikin, M., Ed., Yee, P., Ed., and D. Harkins, Ed.,
               "Enrollment over Secure Transport", RFC 7030,
@@ -834,14 +761,6 @@ Internet-Draft                  EST-coaps                   January 2017
               DOI 10.17487/RFC4492, May 2006,
               <http://www.rfc-editor.org/info/rfc4492>.
 
-
-
-
-Kumar, et al.             Expires July 22, 2017                [Page 15]
-
-Internet-Draft                  EST-coaps                   January 2017
-
-
    [RFC4919]  Kushalnagar, N., Montenegro, G., and C. Schumacher, "IPv6
               over Low-Power Wireless Personal Area Networks (6LoWPANs):
               Overview, Assumptions, Problem Statement, and Goals",
@@ -857,6 +776,15 @@ Internet-Draft                  EST-coaps                   January 2017
               (TLS) Protocol Version 1.2", RFC 5246,
               DOI 10.17487/RFC5246, August 2008,
               <http://www.rfc-editor.org/info/rfc5246>.
+
+
+
+
+
+Kumar, et al.            Expires August 5, 2017                [Page 14]
+
+Internet-Draft                  EST-coaps                  February 2017
+
 
    [RFC5958]  Turner, S., "Asymmetric Key Packages", RFC 5958,
               DOI 10.17487/RFC5958, August 2010,
@@ -888,17 +816,7 @@ A.1.  cacerts
 
    In EST, an HTTPS cacerts message can be
 
-
-
-
-
-
-Kumar, et al.             Expires July 22, 2017                [Page 16]
-
-Internet-Draft                  EST-coaps                   January 2017
-
-
-     GET /.well-known/est/cacerts HTTP/1.1
+   GET /.well-known/est/cacerts HTTP/1.1
         User-Agent: curl/7.22.0 (i686-pc-linux-gnu) libcurl/7.22.0
                     OpenSSL/1.0.1 zlib/1.2.3.4 libidn/1.23 librtmp/2.3
         Host: 192.0.2.1:8085
@@ -906,38 +824,50 @@ Internet-Draft                  EST-coaps                   January 2017
 
    The corresponding CoAP request is
 
-   REQ:
-           GET coaps://[192.0.2.1:8085]/.well-known/est/cacerts
+   GET coaps://[192.0.2.1:8085]/.well-known/est/cacerts
 
    with COAP fields
+
+
+
+
+
+
+
+
+
+
+Kumar, et al.            Expires August 5, 2017                [Page 15]
+
+Internet-Draft                  EST-coaps                  February 2017
+
 
      Ver = 1
      T = 0 (CON)
      Code = 0x01 (0.01 is GET)
      Options
       Option1 (Uri-Host)
-        Option Delta = 0x3
+        Option Delta = 0x3  (option nr = 3)
         Option Length = 0x9
         Option Value = 192.0.2.1
       Option2 (Uri-Port)
-        Option Delta = 0xA
+        Option Delta = 0x4  (option nr = 4+3=7)
         Option Length = 0x4
         Option Value = 8085
       Option3 (Uri-Path)
-        Option Delta = 0xD
+        Option Delta = 0x4   (option nr = 7+4= 11)
         Option Length = 0xD
-        Extended Option Delta = 0x08
-        Extended Option Length = 0x14
-        Option Value = /.well-known/est/cacerts HTTP/1.1
+        Extended Option Length = 0xB  (length = 13+11=24)
+        Option Value = /.well-known/est/cacerts
      Payload = [Empty]
 
-   A 200 OK response with a cert in EST will them be
+   A 200 OK response with a cert in EST will then be
 
-      HTTP/1.1 200 OK
+
+     200 OK
       Status: 200 OK
       Content-Type: application/pkcs7-mime
-      Content-Transfer-Encoding: base64 [EDNOTE: Verify if we need a new
-                                         option registry for Encoding?)
+      Content-Transfer-Encoding: base64
       Content-Length: 4246 [EDNOTE: this example overflows and would
                             need fragmentation. Choose a better example.
                             Regardless we might need an CoAP option for
@@ -947,37 +877,37 @@ Internet-Draft                  EST-coaps                   January 2017
       +zCCAeOgAwIBAgIJAJpY3nUZO3qcMA0GCSqGSIb3DQEBBQUAMBsxGTAXBgNVBAMT
       ...
 
-
-
-Kumar, et al.             Expires July 22, 2017                [Page 17]
-
-Internet-Draft                  EST-coaps                   January 2017
-
-
    The corresponding CoAP response is
 
-   RES:
-           2.05 Content (Content-Format: application/pkcs7-mime)
-           {payload}
+   2.05 Content (Content-Format: application/pkcs7-mime)
+      {payload}
 
    with COAP fields
 
-    Ver = 1
-    T = 2 (ACK)
-    Code = 0x21 [EDNOTE: Maybe we need to create a 0x200 response code.)
-    Options
-      Option1 (Content-Format)
-        Option Delta = 0xC
-        Option Length = 0xD
-        Extended Option Length = 0x09
-        Option Value = <number for application/pkcs7-mime>
-                  [EDNOTE: We need a new CoAP IANA registered value
-                  application/pkcs7-mime; smime-type=certs-only,
-                  application/csrattrs, application/pkcs10,
-                  application/pkcs8,
-                  application/pkcs12 )
-    Payload = MIIMOQYJKoZIhvcNAQcCoIIMKjCCDCYCAQExA \
-                DALBgkqhkiG9w0BBwGgggwMMIIC...
+
+
+
+
+
+
+
+
+
+Kumar, et al.            Expires August 5, 2017                [Page 16]
+
+Internet-Draft                  EST-coaps                  February 2017
+
+
+     Ver = 1
+     T = 2 (ACK)
+     Code = 0x45 (2.05 Content)
+     Options
+       Option1 (Content-Format)
+         Option Delta = 0xC  (option nr = 12)
+         Option Length = 0x2
+         Option Value = TBD1 (defined in this note)
+
+     Payload = h'123456789ABCDEF...'
 
 A.2.  enroll / reenroll
 
@@ -1001,15 +931,6 @@ A.4.  enrollstatus
 
    [EDNOTE: Include COAP message examples. ]
 
-
-
-
-
-Kumar, et al.             Expires July 22, 2017                [Page 18]
-
-Internet-Draft                  EST-coaps                   January 2017
-
-
 A.5.  voucher_status
 
    [EDNOTE: Include COAP message examples. ]
@@ -1025,9 +946,17 @@ A.7.  requestlog
    [EDNOTE: More examples can be added, for server-side key generation
    in CMS envelopes. ]
 
+
+
+
+Kumar, et al.            Expires August 5, 2017                [Page 17]
+
+Internet-Draft                  EST-coaps                  February 2017
+
+
 Appendix B.  EST-coaps Block message examples
 
-   This section provides detailed examples of the messages using DTLS
+   This section provides a detailed example of the messages using DTLS
    and BLOCK option Block2.  The minimum PMTU is 1280 bytes, which is
    the example value assumed for the DTLS datagram size.  The example
    block length is taken as 64 which gives an SZX value of 2.
@@ -1053,19 +982,6 @@ Appendix B.  EST-coaps Block message examples
    confirmable (CON) option and the content format of the Response is
    /application/cacerts.
 
-
-
-
-
-
-
-
-
-Kumar, et al.             Expires July 22, 2017                [Page 19]
-
-Internet-Draft                  EST-coaps                   January 2017
-
-
    GET [192.0.2.1:8085]/.well-known/est/cacerts     -->
                  <--   (2:0/1/64) 2.05 Content
        GET URI (2:1/1/64)                           -->
@@ -1076,32 +992,66 @@ Internet-Draft                  EST-coaps                   January 2017
         GET URI (2:49/1/64)                         -->
                  <--   (2:49/0/64) 2.05 Content
 
-   An example HTTP cacerts response that exceeds the MTU can be
+   For further detailing the coap headers of the first two blocks are
+   written out.
 
-   HTTP/1.1 200 OK
-      Status: 200 OK
-      Content-Type: application/pkcs7-mime; smime-type=certs-only
-      Content-Transfer-Encoding: base64
-      Content-Length: 1122
+   The header of the first GET looks like:
 
-      MIIDOAYJKoZIhvcNAQcCoIIDKTCCAyUCAQExADALBgkqhkiG9w0BBwGgggMLMIID
-      BzCCAe+gAwIBAgIBFTANBgkqhkiG9w0BAQUFADAbMRkwFwYDVQQDExBlc3RFeGFt
-      cGxlQ0EgTndOMB4XDTEzMDUwOTIzMTU1M1oXDTE0MDUwOTIzMTU1M1owHzEdMBsG
-      A1UEAxMUZGVtb3N0ZXA0IDEzNjgxNDEzNTIwggEiMA0GCSqGSIb3DQEBAQUAA4IB
-      DwAwggEKAoIBAQClNp+kdz+Nj8XpEp9kaumWxDZ3eFYJpQKz9ddD5e5OzUeCm103
-      ZIXQIxc0eVtMCatnRr3dnZRCAxGjwbqoB3eKt29/XSQffVv+odbyw0WdkQOIbntC
-      Qry8YdcBZ+8LjI/N7M2krmjmoSLmLwU2V4aNKf0YMLR5Krmah3Ik31jmYCSvwTnv
-      6mx6pr2pTJ82JavhTEIIt/fAYq1RYhkM1CXoBL+yhEoDanN7TzC94skfS3VV+f53
-      J9SkUxTYcy1Rw0k3VXfxWwy+cSKEPREl7I6k0YeKtDEVAgBIEYM/L1S69RXTLuji
-      rwnqSRjOquzkAkD31BE961KZCxeYGrhxaR4PAgMBAAGjUjBQMA4GA1UdDwEB/wQE
-      AwIEsDAdBgNVHQ4EFgQU/qDdB6ii6icQ8wGMXvy1jfE4xtUwHwYDVR0jBBgwFoAU
-      scRp5lujBKfYl6OLO7+5arIyQjwwDQYJKoZIhvcNAQEFBQADggEBACmxg1hvL6+7
-      a+lFTARoxainBx5gxdZ9omSb0L+qL+4PDvg/+KHzKsDnMCrcU6M4YP5n0EDKmGa6
-      4lY8fbET4tt7juJg6ixb95/760Th0vuctwkGr6+D6ETTfqyHnrbhX3lAhnB+0Ja7
-      o1gv4CWxh1I8aRaTXdpOHORvN0SMXdcrlCys2vrtOl+LjR2a3kajJO6eQ5leOdzF
-      QlZfOPhaLWen0e2BLNJI0vsC2Fa+2LMCnfC38XfGALa5A8e7fNHXWZBjXZLBCza3
-      rEs9Mlh2CjA/ocSC/WxmMvd+Eqnt/FpggRy+F8IZSRvBaRUCtGE1lgDmu6AFUxce
-      R4POrT2xz8ChADEA
+
+
+
+
+
+
+
+
+Kumar, et al.            Expires August 5, 2017                [Page 18]
+
+Internet-Draft                  EST-coaps                  February 2017
+
+
+     Ver = 1
+     T = 0 (CON)
+     Code = 0x01 (0.1 GET)
+     Options
+      Option1 (Uri-Host)
+        Option Delta = 0x3  (option nr = 3)
+        Option Length = 0x9
+        Option Value = 192.0.2.1
+      Option2 (Uri-Port)
+        Option Delta = 0x4   (option nr = 3+4=7)
+        Option Length = 0x4
+        Option Value = 8085
+      Option3 (Uri-Path)
+        Option Delta = 0x4    (option nr = 7+4=11)
+        Option Length = 0xD
+        Extended Option Length = 0xB  (length = 13+11=24)
+        Option Value = /.well-known/est/cacerts
+     Payload = [Empty]
+
+
+   The header of the first response looks like:
+
+
+     Ver = 1
+     T = 2 (means ACK)
+     Code = 0x45 (2.05 Content)
+     Options
+       Option1 (Content-Format)
+         Option Delta = 0xC   (option nr = 12)
+         Option Length = 0x2
+         Option Value = TBD1   (value defined in this draft)
+       Option2 (Block2)
+         Option Delta = 0xB    (option nr = 11+12=23)
+         Option Length = 0x1
+         Option Value = 0x1D   (szx=2, M=0, number 0)
+     Payload = h'123456789ABCDF'.. (64 bytes)
+
+   [EDNOTE: The contents of the payload do not need to be written as
+   they are encoded with DTLS into something unreadable.]
+
+   [EDNOTE: I want to suppress the example with the http - coap
+   conversion below]
 
    As another example, let's assume that the cacerts message will need
    to be broken up to three messages.  The first Block2 will be
@@ -1111,57 +1061,37 @@ Internet-Draft                  EST-coaps                   January 2017
 
 
 
-
-
-
-
-
-
-Kumar, et al.             Expires July 22, 2017                [Page 20]
+Kumar, et al.            Expires August 5, 2017                [Page 19]
 
-Internet-Draft                  EST-coaps                   January 2017
+Internet-Draft                  EST-coaps                  February 2017
 
 
      Ver = 1
      T = 2 (ACK)
-     Code = 0x21 (2.01 success message.
-            EDNOTE: Do we need to create a 0x200 respond code.)
+     Code = 0x45 (2.05 Content.)
      Options
        Option1 (Content-Format)
-         Option Delta = 0xC
+         Option Delta = 0xC  (option 12)
          Option Length = 0xD
          Extended Option Length = 0x09
-         Option Value = <number for application/pkcs7-mime;
-                         smime-type=certs-only>
-                   [EDNOTE: We need a new CoAP IANA registered value
-                   application/pkcs7-mime, application/csrattrs,
-                   application/pkcs10, application/pkcs8,
-                   application/pkcs12]
+         Option Value = TBD1
        Option2 (Block2)
-         Option Delta = 0xD
-         Option Length = 0x1
-         Extended Option Delta = 0x16
-         Option Value = 0x0D
-     Payload = MIIMOQYJKoZIhvcNAQcCoIIMKjCCDCYC \
-               AQExADALBgkqhkiG9w0BBwGgggwMMIIC... (512 bytes)
-   [EDNOTE: Potentially replace base64 with binary ]
+         Option Delta = 0xB  (option 23 = 12 + 11)
+         Option Length = 0x2
+         Option Value = 0x0A (block number = 0, M=1, SZX=2)
+     Payload = h'123456789ABCDEF...' (512 bytes)
 
    The second Block2:
 
      Ver = 1
      T = 2 (means ACK)
-     Code = 0x21
+     Code = 0x45
      Options
        Option1 (Content-Format)
          Option Delta = 0xC
          Option Length = 0xD
          Extended Option Length = 0x09
-         Option Value = <number for application/pkcs7-mime;
-                        smime-type=certs-only>
-                   [EDNOTE: We need a new CoAP IANA registered value
-                   application/pkcs7-mime, application/csrattrs,
-                   application/pkcs10, application/pkcs8,
-                   application/pkcs12 ]
+         Option Value = TBD1
        Option2 (Block2)
          Option Delta = 0xD
          Option Length = 0x1
@@ -1173,9 +1103,23 @@ Internet-Draft                  EST-coaps                   January 2017
 
 
 
-Kumar, et al.             Expires July 22, 2017                [Page 21]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Kumar, et al.            Expires August 5, 2017                [Page 20]
 
-Internet-Draft                  EST-coaps                   January 2017
+Internet-Draft                  EST-coaps                  February 2017
 
 
      Ver = 1
@@ -1186,12 +1130,7 @@ Internet-Draft                  EST-coaps                   January 2017
          Option Delta = 0xC
          Option Length = 0xD
          Extended Option Length = 0x09
-         Option Value = <number for application/pkcs7-mime;
-                         smime-type=certs-only>
-                   [EDNOTE: We need a new CoAP IANA registered value
-                   application/pkcs7-mime, application/csrattrs,
-                   application/pkcs10, application/pkcs8,
-                   application/pkcs12 ]
+         Option Value = TBD1;
        Option2 (Block2)
          Option Delta = 0xD
          Option Length = 0x1
@@ -1199,10 +1138,9 @@ Internet-Draft                  EST-coaps                   January 2017
          Option Value = 0x25
      Payload = ...
 
-   [EDNOTE: We can add Fragmented request example with Block1 ]
-
-   [EDNOTE: Fragmented request/response example with Block1, Size1 and
-   Block2">
+   [EDNOTE: This is wrong because does not use DTLS, should be aligned
+   with example above in this appendix B, and conversion from base64 to
+   CBOR byte string should be done ]
 
 Authors' Addresses
 
@@ -1229,4 +1167,10 @@ Authors' Addresses
 
 
 
-Kumar, et al.             Expires July 22, 2017                [Page 22]
+
+
+
+
+
+
+Kumar, et al.            Expires August 5, 2017                [Page 21]

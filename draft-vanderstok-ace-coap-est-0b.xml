@@ -71,12 +71,32 @@
         <email>pkampana@cisco.com</email>
       </address>
     </author>
+    <author fullname="Martin Furuhed" initials="M" surname="Furuhed">
+        <organization>Nexus Technology</organization>
+        <address>
+            <email>martin.furuhed@nexusgroup.com</email>
+        </address>
+    </author>
+    <author fullname="Shahid Raza" initials="S" surname="Raza">
+        <organization>RISE SICS </organization>
+        <address>
+            <postal>
+                <street>Isafjordsgatan 22</street>
+                <city>Kista</city>
+                <region>Stockholm</region>
+                <code>16440</code>
+                <country>SE</country>
+            </postal>
+            <email>shahid@sics.se</email>
+        </address>
+    </author>
+    
     <date/>
     <area>Security</area>
     <workgroup>ACE</workgroup>
 
     <abstract>
-      <t>Low-resource devices in a Low-power and Lossy Network (LLN) can operate in a mesh network using the IPv6 over Low-power Personal Area Networks (6LoWPAN) and IEEE 802.15.4 link-layer standards. Provisioning these devices in a secure manner with keys (often called secure bootstrapping) used to encrypt and authenticate messages is the subject of Bootstrapping of Remote Secure Key Infrastructures (BRSKI) <xref target="I-D.ietf-anima-bootstrapping-keyinfra"/> and 6tisch Secure Join <xref target="I-D.ietf-6tisch-dtsecurity-secure-join"/>. Enrollment over Secure Transport (EST) <xref target="RFC7030"/>, based on TLS and HTTP, is used in BRSKI. Low-resource devices often use the lightweight Constrained Application Protocol (COAP) <xref target="RFC7252"/> for message exchanges. This document defines how low-resource devices are expected to use EST over secure CoAP (EST-coaps) for secure bootstrapping and certificate enrollment. 6LoWPAN fragmentation management and minor extensions to CoAP are needed to enable EST-coaps.</t>
+      <t>Low-resource devices in a Low-power and Lossy Network (LLN) can operate in a mesh network using the IPv6 over Low-power Wireless Personal Area Networks (6LoWPAN) and IEEE 802.15.4 link-layer standards. Provisioning these devices in a secure manner with keys (often called secure bootstrapping) used to encrypt and authenticate messages is the subject of Bootstrapping of Remote Secure Key Infrastructures (BRSKI) <xref target="I-D.ietf-anima-bootstrapping-keyinfra"/> and 6tisch Secure Join <xref target="I-D.ietf-6tisch-dtsecurity-secure-join"/>. Enrollment over Secure Transport (EST) <xref target="RFC7030"/>, based on TLS and HTTP, is used in BRSKI. Low-resource devices often use the lightweight Constrained Application Protocol (CoAP) <xref target="RFC7252"/> for message exchanges. This document defines how low-resource devices are expected to use EST over secure CoAP (EST-coaps) for secure bootstrapping and certificate enrollment. 6LoWPAN fragmentation management and minor extensions to CoAP are needed to enable EST-coaps.</t>
     </abstract>
 
   </front>
@@ -94,7 +114,7 @@ EST-coaps provides a subset of EST functionality and extends EST with BRSKI func
     <t>EST-coaps is designed for use in professional control networks such as Building Control. The autonomic bootstrapping is interesting because it reduces the manual intervention during the commissioning of the network. Typing in passwords is contrary to this wish. Therefore, the HTTP Basic authentication of EST is not supported in EST-coaps. </t>
     <t>In the constrained devices context it is very unlikely that full PKI request messages will be used. For that reason, full PKI messages are not supported in EST-coaps.</t>
     <t>Because the relatively large EST messages cannot be readily transported over constrained (6LoWPAN, LLN) wireless networks, this document specifies the use of CoAP Block-Wise Transfer ("Block") <xref target="RFC7959"/> to fragment EST messages at the application layer.</t>
-    <t>Support for Observe CoAP options <xref target="RFC7641"/>  with BRSKI is not supported in the current BRSKI/EST message flows and is thus out-of-scope for this discussion. Observe options could be used by the server to notify clients about a change in the cacerts or csr attributes (resources) and might be an area of future work.</t>
+    <t>Support for Observe CoAP options <xref target="RFC7641"/> with BRSKI is not supported in the current BRSKI/EST message flows and is thus out-of-scope for this discussion. Observe options could be used by the server to notify clients about a change in the cacerts or csr attributes (resources) and might be an area of future work.</t>
 
 <section anchor="terminology" title="Terminology">
 <t>
@@ -139,7 +159,7 @@ EST-coaps transport is limited to certificates, as described in section 4.4 of <
 <t>The EST-coaps client MUST be configured with an explicit TA database or at least an implicit TA database from its manufacturer. The authentication of the EST-coaps server by the EST-coaps client is based on Certificate authentication in the DTLS handshake.</t>
       <t>The authentication of the EST-coaps client is based on client certificate in the DTLS handshake. This can either be
         <list style="symbols">
-          <t>DTLS with a previously issued client certificate (e.g., an existing certificate issued by the EST CA); </t>
+            <t>DTLS with a previously issued client certificate (e.g., an existing certificate issued by the EST CA); this could be a common case for simple re-enrollment of clients; </t>
           <t>DTLS with a previously installed certificate (e.g., manufacturer-installed certificate or a certificate issued by some other party);</t>
         </list>
 </t>
@@ -147,7 +167,7 @@ EST-coaps transport is limited to certificates, as described in section 4.4 of <
 
   <section anchor="design" title="Protocol Design and Layering">
     <t>EST-coaps uses CoAP to transfer EST messages, aided by Block-Wise Transfer <xref target="RFC7959"/> to transport CoAP messages in blocks thus avoiding (excessive) 6LoWPAN fragmentation of UDP datagrams. The use of "Block" for the transfer of larger EST messages is specified in <xref target="fragment"/>. The <xref target="fig-est-coaps-layers"/> below shows the layered EST-coaps architecture.</t>
-<figure align="left" title="EST-coaps protocol layers" anchor="fig-est-coaps-layers"><artwork><![CDATA[
+<figure align="center" title="EST-coaps protocol layers" anchor="fig-est-coaps-layers"><artwork><![CDATA[
 +------------------------------------------------+
 |    EST request/response messages               |
 +------------------------------------------------+
@@ -166,6 +186,10 @@ EST-coaps transport is limited to certificates, as described in section 4.4 of <
             <t>Server-side key generation messages.</t>
           </list>
 </t>
+    <t>In the response to a /serverkeygen request, an EST server uses the multipart/mixed HTTP content type. The response message consists of two parts: the private key data and the certificate data. The CoAP RFC does not specify the multipart/mixed content type; it is though defined in an old draft: draft-fossati-core-multipart-ct-01.
+    </t>
+    
+    <t>[EDNOTE: In EST-coaps, we need to define an equivalent CoAP content-format to match the HTTP multipart/mixed content type.</t>
 
 <section anchor="discovery" title = "Discovery and URI">
 <t>
@@ -204,6 +228,8 @@ coaps://www.example.com/est/small-name
   
 </texttable>
 
+
+
 </section> <!-- discovery and URI -->
 
 <section anchor="format" title ="Payload format">
@@ -218,11 +244,11 @@ coaps://www.example.com/est/small-name
       
       <t>The Ver, TKL, Token, and Message ID values of the coap header are not influenced by EST.</t>
 
-      <t>Coap options are used to convey Uri-Host, Uri-Path, Uri-Port, Content-Format and more in COAP. The COAP Options are used to communicate the HTTP fields specified in the BRSKI REST messages. </t>
+      <t>Coap options are used to convey Uri-Host, Uri-Path, Uri-Port, Content-Format and more in COAP. The CoAP Options are used to communicate the HTTP fields specified in the BRSKI REST messages. </t>
 
       <t>BRSKI URLs are HTTPS based (https:// ), in CoAP these will be assumed to be transformed to coaps (coaps://)</t>
 
-      <t>Some examples of how an BRSKI message would be translated in CoAP follow. [EDNOTE: This section to be expanded to ensure it covers all BRSKI edge conditions.] <xref target="messagebindings"/> includes some practical examples of EST messages translated to COAP. 
+      <t>Some examples of how an BRSKI message would be translated in CoAP follow. [EDNOTE: This section to be expanded to ensure it covers all BRSKI edge conditions.] <xref target="messagebindings"/> includes some practical examples of EST messages translated to CoAP. 
 </t>
     </section> <!-- Message bindings -->
 
@@ -233,18 +259,18 @@ coaps://www.example.com/est/small-name
 [I-D.hartke-core-imminent-latest].
 All other HTTP 2xx response codes are not used by EST. For the following HTTP 4xx error codes that may occur: 400, 401, 403, 404, 405, 406, 412, 413, 415 ; the equivalent CoAP response code for EST-coaps is 4.xx. For the HTTP 5xx error codes: 500, 501, 502, 503, 504 the equivalent CoAP response code is 5.xx.</t>
       
-      <t><xref target="messagebindings"/> includes some practical examples of HTTP response codes from EST translated to COAP.</t>
+      <t><xref target="messagebindings"/> includes some practical examples of HTTP response codes from EST translated to CoAP.</t>
     </section> <!-- CoAP response codes -->
 
     <section anchor="fragment" title="Message fragmentation">
       <t>DTLS defines fragmentation only for the handshake part and not for secure data exchange (DTLS records). <xref target="RFC6347"/> states "Each DTLS record MUST fit within a single datagram". In order to avoid using IP fragmentation, which is not supported by 6LoWPAN, invokers of the DTLS record layer MUST size DTLS records so that they fit within any Path MTU estimates obtained from the record layer. In addition, invokers residing on a 6LoWPAN over IEEE 802.15.4 network SHOULD attempt to size CoAP messages such that each DTLS record will fit within one or two IEEE 802.15.4 frames.</t>
       <t>That is not always possible. Even though ECC certificates are small in size, they can vary greatly based on signature algorithms, key sizes, and OID fields used. For 256-bit curves, common ECDSA cert sizes are 500-1000 bytes which could fluctuate further based on the algorithms, OIDs, SANs and cert fields. For 384-bit curves, ECDSA certs increase in size and can sometimes reach 1.5KB. Additionally, there are times when the EST cacert response from the server can include multiple certs that amount to large payloads. CoAP <xref target="RFC7252"/>'s section 4.6 describes the possible payload sizes: "if nothing is known about the size of the headers, good upper bounds are 1152 bytes for the message size and 1024 bytes for the payload size". Also "If IPv4 support on unusual networks is a consideration, implementations may want to limit themselves to more conservative IPv4 datagram sizes such as 576 bytes; per [RFC0791], the absolute minimum value of the IP MTU for IPv4 is as low as 68 bytes, which would leave only 40 bytes minus security overhead for a UDP payload". Thus, even with ECC certs, EST-coaps messages can still exceed sizes in MTU of 1280 for IPv6 or 60-80 bytes for 6LoWPAN <xref target="RFC4919"/> as explained in section 2 of <xref target="RFC7959"/>. EST-coaps needs to be able to fragment EST messages into multiple DTLS datagrams with each DTLS datagram. Fine-grained fragmentation of EST messages is essential.</t>
-      <t>To perform fragmentation in COAP, <xref target="RFC7959"/> specifies the "Block1" option for fragmentation of the request payload and the "Block2" option for fragmentation of the return payload of a COAP flow. </t>
+      <t>To perform fragmentation in CoAP, <xref target="RFC7959"/> specifies the "Block1" option for fragmentation of the request payload and the "Block2" option for fragmentation of the return payload of a CoAP flow. </t>
 
       
       <t>The BLOCK draft defines SZX in the Block1 and block2 option fields. These are used to convey the size of the blocks in the requests or responses. 
 </t><t>
-The CoAP client MAY specify the Block1 size and MAY also specify the Block2 size.  The CoAP server MAY specify the Block2 size, but not the Block1 size. As explained in Section 1 of <xref target="RFC7959"/>), blockwise transfers SHOULD be used in Confirmable COAP messages to avoid the exacerbation of lost blocks.</t>
+The CoAP client MAY specify the Block1 size and MAY also specify the Block2 size.  The CoAP server MAY specify the Block2 size, but not the Block1 size. As explained in Section 1 of <xref target="RFC7959"/>), blockwise transfers SHOULD be used in Confirmable CoAP messages to avoid the exacerbation of lost blocks.</t>
 <t>
 The Size1 response MAY be parsed by the client as a size indication of the Block2 resource in the server response or by the server as a request for a size estimate by the client. Similarly, Size2 option defined in BLOCK should be parsed by the server as an indication of the size of the resource carried in Block1 options and by the client as a maximum size expected in the 4.13 (Request Entity Too Large) response to a request.</t>
       
@@ -256,15 +282,18 @@ The Size1 response MAY be parsed by the client as a size indication of the Block
 
   <section anchor="transport" title = "Transport Protocol">
     <!-- [EDNOTE: This section mostly talked about DTLS. Panos renamed it to Transport Protocol that addresses DTLS and could be later updated to address COSE concerns etc. ] -->
-    <t>EST-coaps depends on a secure transport mechanism over UDP that can secure (confidentiality, authenticity) the COAP messages exchanged. </t>
+    <t>EST-coaps depends on a secure transport mechanism over UDP that can secure (confidentiality, authenticity) the CoAP messages exchanged. </t>
     
     <section title = "DTLS">
       <t> DTLS is one such secure protocol. Within BRSKI and EST when "TLS" is referred to, it is understood that in EST-coaps, security is provided using DTLS instead. No other changes are necessary (all provisional modes etc are the same as for TLS).</t>
-      <t>COAP was designed to avoid fragmentation. DTLS is used to secure COAP messages. When using DTLS, even though it can be avoided by using pre-shared keys or ECC ciphersuites, sometimes fragmentation will be needed. During the DTLS handshake, if fragmentation is necessary, "DTLS provides a mechanism for fragmenting a handshake message over a number of records, each of which can be transmitted separately, thus avoiding IP fragmentation" <xref target="RFC6347"/>.</t>
+      <t>CoAP was designed to avoid fragmentation. DTLS is used to secure CoAP messages. When using DTLS, even though it can be avoided by using pre-shared keys or ECC ciphersuites, sometimes fragmentation will be needed. During the DTLS handshake, if fragmentation is necessary, "DTLS provides a mechanism for fragmenting a handshake message over a number of records, each of which can be transmitted separately, thus avoiding IP fragmentation" <xref target="RFC6347"/>.</t>
       <t>EST-coaps does not support full PKI Requests. Consequently, the fullcmc request of section 4.3 of <xref target="RFC7030"/> and response MUST NOT be supported by EST-coaps.</t>
-      <t>Channel-binding information for linking proof-of-identity with message-based proof-of-possession is optional for EST-coaps. Given that CoAP and DTLS can provide proof of identity for EST-coaps clients and server, simple PKI messages can be used conformant to section 3.1 of <xref target="RFC5272"/>. EST-coaps supports the certificate types and Trust Anchors (TA) that are specified for EST in section 3 of <xref target="RFC7030"/>.
-</t><t>
-[EDNOTE: The above text is not very clear and needs reviewing]</t><t>
+      <t>Channel-binding information for linking proof-of-identity with message-based proof-of-possession is optional for EST-coaps. Given that CoAP and DTLS can provide proof of identity for EST-coaps clients and server, simple PKI messages can be used conformant to section 3.1 of <xref target="RFC5272"/>. EST-coaps supports the certificate types and Trust Anchors (TA) that are specified for EST in section 3 of <xref target="RFC7030"/>.</t>
+        <t>
+          When proof-of-possession is desired, a set of actions are required regarding the use of tls-connect, described in section 3.5 in <xref target="RFC7030"/> -- Linking Identity and POP Information. tls-unique translates to the contents of the first "Finished" message in the TLS handshake between server and client. The client is then supposed to add this "Finished" message as a ChallengePassword to the PKCS#10 to prove that the client is indeed in control of the private key at the time of the TLS session when performing a /simpleenroll, for example. In the case of EST-coaps, the same operations can perform but during the DTLS handshake.</t>
+        
+        <t>
+[EDNOTE: The above text is not very clear and needs reviewing. Double check the working of "tls-unique"]</t><t>
 [EDNOTE: To describe POP in the DTLS context]</t>
       <t>In a constrained CoAP environment, endpoints can't afford to establish a DTLS connection for every EST transaction. Authenticating and negotiating DTLS keys requires resources on low-end endpoints and consumes valuable bandwidth. The DTLS connection SHOULD remain open for persistent EST connections. For example, an EST cacerts request that is followed by a simpleenroll request can use the same authenticated DTLS connection. Given that after a successful enrollment, it is more likely that a new EST transaction will take place after a significant amount of time, the DTLS connections SHOULD only be kept alive for EST messages that are relatively close to each other.
 </t>
@@ -383,7 +412,7 @@ Additions to the sub-registry "CoAP Resource Type", within the "CoRE Parameters"
   </list>
  
  </t><t>
-[EDNOTE: This section will be expanded to includes types needed that do not exist in COAP.] </t>
+[EDNOTE: This section will be expanded to includes types needed that do not exist in CoAP.] </t>
   </section>  <!-- IANA consideration -->
 
   <section anchor="sec" title="Security Considerations">
@@ -465,7 +494,7 @@ GET /.well-known/est/cacerts HTTP/1.1
 <figure align="left"><artwork><![CDATA[
 GET coaps://[192.0.2.1:8085]/est/crts
 ]]></artwork></figure>
-      <t>with COAP fields</t>
+      <t>with CoAP fields</t>
       <figure><artwork>
 <![CDATA[  Ver = 1
   T = 0 (CON)
@@ -507,7 +536,7 @@ GET coaps://[192.0.2.1:8085]/est/crts
 2.05 Content (Content-Format: application/pkcs7-mime)
    {payload}
 ]]></artwork></figure>
-        <t>with COAP fields </t>
+        <t>with CoAP fields </t>
           <figure><artwork>
 <![CDATA[  Ver = 1
   T = 2 (ACK)
@@ -533,27 +562,27 @@ GET coaps://[192.0.2.1:8085]/est/crts
         message. We might need a new Option for the WWW-Authenticate
         response.]</t>
 
-      <t>[EDNOTE: Include COAP message examples. ]</t>
+      <t>[EDNOTE: Include CoAP message examples. ]</t>
     </section>  <!-- enroll / reenroll -->
 
     <section title="csrattr">
-      <t>[EDNOTE: Include COAP message examples. ]</t>
+      <t>[EDNOTE: Include CoAP message examples. ]</t>
     </section>  <!-- csrattr -->
 
     <section title="enrollstatus">
-      <t>[EDNOTE: Include COAP message examples. ]</t>
+      <t>[EDNOTE: Include CoAP message examples. ]</t>
     </section>  <!-- enrollstatus -->
 
     <section title="voucher_status">
-      <t>[EDNOTE: Include COAP message examples. ]</t>
+      <t>[EDNOTE: Include CoAP message examples. ]</t>
     </section>  <!-- voucher_status -->
 
     <section title="requestvoucher">
-      <t>[EDNOTE: Include COAP message examples. ]</t>
+      <t>[EDNOTE: Include CoAP message examples. ]</t>
     </section>  <!-- requestvoucher -->
 
     <section title="requestlog">
-      <t>[EDNOTE: Include COAP message examples. ]</t>
+      <t>[EDNOTE: Include CoAP message examples. ]</t>
       <t>[EDNOTE: More examples can be added, for server-side key generation in CMS envelopes. ]</t>
     </section>  <!-- requestlog -->
   </section>  <!-- EST messages to EST-coaps -->

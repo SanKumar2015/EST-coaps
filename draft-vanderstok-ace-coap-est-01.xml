@@ -72,7 +72,7 @@
       </address>
     </author>
     <author fullname="Martin Furuhed" initials="M" surname="Furuhed">
-        <organization>Nexus Technology</organization>
+        <organization>Nexus Group</organization>
         <address>
             <email>martin.furuhed@nexusgroup.com</email>
         </address>
@@ -104,8 +104,8 @@
 
 <middle>
   <section anchor="intro" title="Introduction">
-    <t>IPv6 over Low-power Wireless Personal Area Networks (6LoWPANs) <xref target="RFC4944" /> on IEEE 802.15.4 <xref target="ieee802.15.4" /> wireless networks is becoming common in many industry application domains such as lighting controls. However commissioning of such networks suffers from a lack of standardized secure bootstrapping mechanisms for these networks.</t>
-    <t>Although IEEE 802.15.4 defines how security can be enabled between nodes within a single mesh network, it does not specify the provisioning and management of the keys. Therefore securing a 6LoWPAN network with devices from multiple manufacturers with different provisioning techniques is often tedious and time consuming.</t>
+    <t>IPv6 over Low-power Wireless Personal Area Networks (6LoWPANs) <xref target="RFC4944" /> on IEEE 802.15.4 <xref target="ieee802.15.4" /> wireless networks is becoming common in many industry application domains such as lighting controls. However, commissioning of such networks suffers from a lack of standardized secure bootstrapping mechanisms for these networks.</t>
+    <t>Although IEEE 802.15.4 defines how security can be enabled between nodes within a single mesh network, it does not specify the provisioning and management of the keys. Therefore, securing a 6LoWPAN network with devices from multiple manufacturers with different provisioning techniques is often tedious and time consuming.</t>
     <t>Bootstrapping of Remote Secure Infrastructures (BRSKI) <xref target="I-D.ietf-anima-bootstrapping-keyinfra"/> addresses the issue of bootstrapping networked devices in the context of Autonomic Networking Integrated Model and Approach (ANIMA). <xref target="I-D.ietf-6tisch-minimal-security"/> and <xref target="I-D.ietf-6tisch-dtsecurity-secure-join"/> also address secure bootstrapping in the 6tisch context targeted to low-resource devices. BRSKI has not been developed specifically for low-resource devices in constrained networks. Constrained networks use DTLS <xref target="RFC6347"/>, CoAP <xref target="RFC7252"/>, and UDP instead of TLS <xref target="RFC5246"/>, HTTP <xref target="RFC7230"/> and TCP. BRSKI relies on Enrollment over Secure Transport (EST) <xref target="RFC7030"/> for the provisioning of the operational domain certificates.
 </t><t> 
 EST-coaps provides a subset of EST functionality and extends EST with BRSKI functions. EST-coaps replaces the invocations of TLS and HTTP by DTLS and CoAP invocations thus enabling EST and BRSKI for CoAP-based low-resource devices.</t>
@@ -141,8 +141,8 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
         </list></t>
         <t> Only certificate-based client authentication is supported, which results in:
           <list>
-            <t>The EST-coaps client does not support HTTP Basic authentication (as described in Section 4.4.1 of <xref target="RFC7030"/>) </t>
-            <t>The EST-coaps client does not support authentication at the application layer (as described in Section 3.2.2 of <xref target="RFC7030"/>).</t>
+            <t>The EST-coaps client does not support HTTP Basic authentication (as described in Section 3.2.3 of <xref target="RFC7030"/>) </t>
+            <t>The EST-coaps client does not support authentication at the application layer (as described in Section 3.2.3 of <xref target="RFC7030"/>).</t>
           </list></t>
         <t>EST-coaps does not support full PKI request messages<xref target="RFC5272"/>.</t>
         <t>EST-coaps specifies the BRSKI extensions over CoAP as specified in section 5 of <xref target="I-D.ietf-anima-bootstrapping-keyinfra"/>.</t>
@@ -243,11 +243,11 @@ coaps://www.example.com/est/short-name
 
     <section title="Message Bindings">
       <t>This section describes BRSKI to CoAP message mappings.</t>
-      <t>All /crts, /sen, /sren, /att, /skg, /rv, /vs, and /es EST-coaps messages expect a response, so they are all COAP CON messages.</t>
+      <t>All /crts, /sen, /sren, /att, /skg, /rv, /vs, and /es EST-coaps messages expect a response, so they are all CoAP CON messages.</t>
       
-      <t>The Ver, TKL, Token, and Message ID values of the coap header are not influenced by EST.</t>
+      <t>The Ver, TKL, Token, and Message ID values of the CoAP header are not influenced by EST.</t>
 
-      <t>Coap options are used to convey Uri-Host, Uri-Path, Uri-Port, Content-Format and more in COAP. The CoAP Options are used to communicate the HTTP fields specified in the BRSKI REST messages. </t>
+      <t>CoAP options are used to convey Uri-Host, Uri-Path, Uri-Port, Content-Format and more in CoAP. The CoAP Options are used to communicate the HTTP fields specified in the BRSKI REST messages. </t>
 
       <t>BRSKI URLs are HTTPS based (https:// ), in CoAP these will be assumed to be transformed to coaps (coaps://)</t>
 
@@ -316,7 +316,7 @@ It is suggested that the EST-coaps communication between pledge and registrar, s
 
 
   <section title="Proxying">
-    <t>[EDNOTE: This section to be populated. It will address how proxying can take place by an entity that resides at the edge of the CoAP network, such as the Registrar, and can reach the BRSKI server residing in a traditional "TCP setting". It makes sense to mention the properties tat the proxy has to fulfill.]</t>
+    <t>[EDNOTE: This section to be populated. It will address how proxying can take place by an entity that resides at the edge of the CoAP network, such as the Registrar, and can reach the BRSKI server residing in a traditional "TCP setting". It makes sense to mention the properties that the proxy has to fulfill.]</t>
   </section>
 
   <section title="Parameters">
@@ -618,7 +618,7 @@ GET [192.0.2.1:8085]/est/crts     -->
               <--   (2:49/0/64) 2.05 Content
 ]]></artwork></figure>
 <t>
-For further detailing the coap headers of the first two blocks are written out.
+For further detailing the CoAP headers of the first two blocks are written out.
 </t><t>
 The header of the first GET looks like:
 </t>
@@ -647,30 +647,12 @@ The header of the first GET looks like:
 
     <t>The header of the first response looks like:
 </t>
-    <figure><artwork>
-<![CDATA[  
-  Ver = 1
-  T = 2 (means ACK)
-  Code = 0x45 (2.05 Content)
-  Options
-    Option1 (Content-Format)
-      Option Delta = 0xC   (option nr = 12)
-      Option Length = 0x2
-      Option Value = TBD1   (value defined in this draft)
-    Option2 (Block2)
-      Option Delta = 0xB    (option nr = 11+12=23)
-      Option Length = 0x1
-      Option Value = 0x1D   (szx=2, M=0, number 0)
-  Payload = h'123456789ABCDF'.. (64 bytes)
-]]></artwork></figure>
 
 <t> [EDNOTE: The contents of the payload do not need to be written as they are encoded with DTLS into something unreadable.]
-</t><t>
-[EDNOTE: I want to suppress the example with the http - coap conversion below]
+
 </t>
 
-<t>As another example, let's assume that the cacerts message will need to be broken up to three messages. The first Block2 will be
-</t> 
+ 
     <figure><artwork>
 <![CDATA[  Ver = 1
   T = 2 (ACK)

@@ -173,7 +173,7 @@ This section shows how EST-coaps fits into the profiles of low-resource devices 
 +------------------------------------------------+
 |    CoAP for message transfer and signaling     |
 +------------------------------------------------+
-|    Secure Transport Protocol (DTLS, ...)       |
+|    DTLS for transport security                 |
 +------------------------------------------------+
 |    UDP for transport                           |
 +------------------------------------------------+
@@ -195,7 +195,7 @@ This section shows how EST-coaps fits into the profiles of low-resource devices 
 
 <section anchor="discovery" title = "Discovery and URI">
 <t>
-EST-coaps is targeted to low-resource networks with small packets. Saving header space is important and the EST-coaps URI is smaller than the EST URI.
+EST-coaps is targeted to low-resource networks with small packets. Saving header space is important and the EST-coaps URI is shorter than the EST URI.
 </t>
 <t> The presence and location of (path to) the management data are discovered by sending a GET request to "/.well-known/core" including a resource type (RT) parameter with the value "core.est" <xref target="RFC6690"/>. Upon success, the return payload will contain the root resource of the EST resources. It is up to the implementation to choose its root resource, but it is recommended that the value "/est" is used, where possible. The example below shows the discovery of the presence and location of management data.
 </t>
@@ -208,9 +208,9 @@ EST-coaps is targeted to low-resource networks with small packets. Saving header
 ]]></artwork>
     </figure>
 
-    <t>The EST-coaps server URIs differ from the EST URI by replacing the scheme https by coaps and by specifying smaller resource path names: </t>
+    <t>The EST-coaps server URIs differ from the EST URI by replacing the scheme https by coaps and by specifying shorter resource path names: </t>
 <figure align="left"><artwork><![CDATA[
-coaps://www.example.com/est/small-name 
+coaps://www.example.com/est/short-name 
 ]]></artwork></figure>
     <t>Figure 5 in section 3.2.2 of <xref target="RFC7030"/> enumerates the operations and corresponding paths which are supported by EST. <xref target="est-uri"/> provides the mapping from the EST and BRSKI URI path to the EST-coaps URI path.</t>
 
@@ -437,7 +437,7 @@ Additions to the sub-registry "CoAP Resource Type", within the "CoRE Parameters"
   <section anchor="changes" title="Change Log">
     <t> -01:
          <list style="empty">
-           <t>Merging of draft-vanderstok-ace-coap-est-00 and draft-vanderstok-ace-coap-est-01</t>
+           <t>Merging of draft-vanderstok-ace-coap-est-00 and draft-pritikin-coap-bootstrap-01</t>
            <t> URI and discovery are modified </t>
            <t> More text about 6tisch bootstrap including EDHOC and OSCOAP </t>
            <t> mapping to DICE IoT profiles </t>
@@ -505,7 +505,7 @@ GET /.well-known/est/cacerts HTTP/1.1
      Accept: */*]]></artwork>
       </figure>
 
-      <t>The corresponding CoAP request is </t>
+      <t>The corresponding secure CoAP request is </t>
 <figure align="left"><artwork><![CDATA[
 GET coaps://[192.0.2.1:8085]/est/crts
 ]]></artwork></figure>

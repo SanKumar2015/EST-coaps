@@ -235,7 +235,8 @@ coaps://www.example.com/est/short-name
 </texttable>
 
 <t> /requestvoucher and /enrollstatus are needed between pledge and Registrar.</t>
-<t> When discovering the root path for the EST resources, the server MAY return the full resource paths and the used content types. This is useful when multiple content type are specified for EST-coaps server. For example, the following more complete response is possible.
+
+  <t> When discovering the root path for the EST resources, the server MAY return the full resource paths and the used content types. This is usefull when multiple content type are specified for est-coaps server. For example, the following more complete response is possible.
 </t>
 
 <figure><artwork align="left"><![CDATA[

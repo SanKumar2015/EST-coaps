@@ -647,12 +647,9 @@ The header of the first GET looks like:
 
     <t>The header of the first response looks like:
 </t>
-
+    
 <t> [EDNOTE: The contents of the payload do not need to be written as they are encoded with DTLS into something unreadable.]
-
 </t>
-
- 
     <figure><artwork>
 <![CDATA[  Ver = 1
   T = 2 (ACK)

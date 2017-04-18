@@ -127,11 +127,12 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
   The following terms are defined in the BRSKI protocol <xref target="I-D.ietf-anima-bootstrapping-keyinfra"/>: pledge, Join proxy, Join Registrar, and Manufacturer Authorized Signing Authorities (MASA).
 </t>
 
+
 </section>  <!-- Terminology -->
 
 
-
   </section>  <!-- Introduction -->
+
 
 
   <section anchor="scenario" title="EST operational differences">
@@ -212,6 +213,7 @@ EST-coaps is targeted to low-resource networks with small packets. Saving header
 ]]></artwork>
     </figure>
 
+
     <t>The EST-coaps server URIs differ from the EST URI by replacing the scheme https by coaps and by specifying shorter resource path names: </t>
 <figure align="left"><artwork><![CDATA[
 coaps://www.example.com/est/short-name 
@@ -235,7 +237,9 @@ coaps://www.example.com/est/short-name
 </texttable>
 
 <t> /requestvoucher and /enrollstatus are needed between pledge and Registrar.</t>
+  
 <t> When discovering the root path for the EST resources, the server MAY return the full resource paths and the used content types. This is useful when multiple content type are specified for EST-coaps server. For example, the following more complete response is possible.
+
 </t>
 
 <figure><artwork align="left"><![CDATA[
@@ -445,9 +449,10 @@ It is suggested that the EST-coaps communication between pledge and registrar, s
 Additions to the sub-registry "CoAP Resource Type", within the "CoRE Parameters" registry are needed for a new resource type. 
 <list style="symbols">
     <t>rt="ace.est" needs registration with IANA.</t>
-  </list>
- 
+  </list
+  
  </t>
+
   </section>  <!-- IANA consideration -->
 
   <section anchor="sec" title="Security Considerations">
@@ -536,6 +541,7 @@ GET coaps://[192.0.2.1:8085]/est/crts
 
 </t>
 <figure><artwork>
+
 <![CDATA[  Ver = 1
   T = 0 (CON)
   Code = 0x01 (0.01 is GET)
@@ -938,6 +944,7 @@ a4fa677130da60818175ca4ab2af1d15563624c51e13dfdcf381881b72327e2f4
     </section>  <!-- serverkeygen -->
 
 
+
     <section title="enrollstatus">
       <t>[EDNOTE: Include CoAP message examples. ]</t>
     </section>  <!-- enrollstatus -->
@@ -950,6 +957,7 @@ a4fa677130da60818175ca4ab2af1d15563624c51e13dfdcf381881b72327e2f4
       <t>[EDNOTE: Include CoAP message examples. ]</t>
     </section>  <!-- requestvoucher -->
 
+
   </section>  <!-- EST messages to EST-coaps -->
 
   <section anchor="blockexamples" title="EST-coaps Block message examples">
@@ -961,6 +969,7 @@ GET [192.0.2.1:8085]/est/crts     -->
               <--   (2:0/1/39) 2.05 Content
     GET URI (2:1/1/39)                           -->
               <--   (2:1/1/39) 2.05 Content
+
                       |
                       |
                       |
@@ -997,6 +1006,7 @@ The header of the first GET looks like:
 
     <t>The header of the first response looks like:
 </t>
+
  
     <figure><artwork>
 <![CDATA[  Ver = 1
@@ -1040,6 +1050,7 @@ c0c3020bb302063c20102020900a61e75193b7acc0d06092a6206734101
 ]]></artwork></figure>
 
     <t>The 40th and final Block2:
+
 </t>
     <figure><artwork>
 <![CDATA[  Ver = 1
@@ -1055,6 +1066,7 @@ c0c3020bb302063c20102020900a61e75193b7acc0d06092a6206734101
       Option Length = 0x2
       Option Value = 0x272 (block number = 39, M=0, SZX=2)
   Payload = 73a30d0c006343116f58403100
+
 
 ]]></artwork></figure>
 

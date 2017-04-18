@@ -1,0 +1,1602 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://dublincore.org/documents/2008/08/04/dc-html/">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="robots" content="index,nofollow" />
+    <meta name="creator" content="rfcmarkup version 1.96" />
+    <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+
+    <link rel="icon" href="" type="image/png" />
+    <link rel="shortcut icon" href="" type="image/png" />
+    <title>draft-vanderstok-ace-coap-est-02.txt - EST over secure CoAP (EST-coaps)</title>
+    
+    
+    <style type="text/css">
+	body {
+	    margin: 0px 8px;
+            font-size: 1em;
+	}
+        h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+	    font-weight: bold;
+            line-height: 0pt;
+            display: inline;
+            white-space: pre;
+            font-family: monospace;
+            font-size: 1em;
+	    font-weight: bold;
+        }
+        pre {
+            font-size: 1em;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+	.pre {
+	    white-space: pre;
+	    font-family: monospace;
+	}
+	.header{
+	    font-weight: bold;
+	}
+        .newpage {
+            page-break-before: always;
+        }
+        .invisible {
+            text-decoration: none;
+            color: white;
+        }
+        @media print {
+            body {
+                font-size: 10.5pt;
+            }
+            h1, h2, h3, h4, h5, h6 {
+                font-size: 10.5pt;
+            }
+        
+            a:link, a:visited {
+                color: inherit;
+                text-decoration: none;
+            }
+            .noprint {
+                display: none;
+            }
+        }
+	@media screen {
+	    .grey, .grey a:link, .grey a:visited {
+		color: #777;
+	    }
+            .docinfo {
+                background-color: #EEE;
+            }
+            .top {
+                border-top: 7px solid #EEE;
+            }
+            .bgwhite  { background-color: white; }
+            .bgred    { background-color: #F44; }
+            .bggrey   { background-color: #666; }
+            .bgbrown  { background-color: #840; }            
+            .bgorange { background-color: #FA0; }
+            .bgyellow { background-color: #EE0; }
+            .bgmagenta{ background-color: #F4F; }
+            .bgblue   { background-color: #66F; }
+            .bgcyan   { background-color: #4DD; }
+            .bggreen  { background-color: #4F4; }
+
+            .legend   { font-size: 90%; }
+            .cplate   { font-size: 70%; border: solid grey 1px; }
+	}
+    </style>
+    <!--[if IE]>
+    <style>
+    body {
+       font-size: 13px;
+       margin: 10px 10px;
+    }
+    </style>
+    <![endif]-->
+
+    <script type="text/javascript"><!--
+    function addHeaderTags() {
+	var spans = document.getElementsByTagName("span");
+	for (var i=0; i < spans.length; i++) {
+	    var elem = spans[i];
+	    if (elem) {
+		var level = elem.getAttribute("class");
+                if (level == "h1" || level == "h2" || level == "h3" || level == "h4" || level == "h5" || level == "h6") {
+                    elem.innerHTML = "<"+level+">"+elem.innerHTML+"</"+level+">";		
+                }
+	    }
+	}
+    }
+    var legend_html = "Colour legend:<br />      <table>         <tr><td>Unknown:</td>          <td><span class='cplate bgwhite'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Draft:</td>            <td><span class='cplate bgred'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Informational:</td>    <td><span class='cplate bgorange'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Experimental:</td>     <td><span class='cplate bgyellow'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Best Common Practice:</td><td><span class='cplate bgmagenta'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Proposed Standard:</td><td><span class='cplate bgblue'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Draft Standard:</td>   <td><span class='cplate bgcyan'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Standard:</td>         <td><span class='cplate bggreen'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Historic:</td>         <td><span class='cplate bggrey'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Obsolete:</td>         <td><span class='cplate bgbrown'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>     </table>";
+    function showElem(id) {
+        var elem = document.getElementById(id);
+        elem.innerHTML = eval(id+"_html");
+        elem.style.visibility='visible';
+    }
+    function hideElem(id) {
+        var elem = document.getElementById(id);
+        elem.style.visibility='hidden';        
+        elem.innerHTML = "";
+    }
+    // -->
+    </script>
+</head>
+<body onload="addHeaderTags()">
+   <div style="height: 13px;">
+      <div onmouseover="this.style.cursor='pointer';"
+         onclick="showElem('legend');"
+         onmouseout="hideElem('legend')"
+	 style="height: 6px; position: absolute;"
+         class="pre noprint docinfo "
+         title="Click for colour legend." >                                                                        </div>
+      <div id="legend"
+           class="docinfo noprint pre legend"
+           style="position:absolute; top: 4px; left: 4ex; visibility:hidden; background-color: white; padding: 4px 9px 5px 7px; border: solid #345 1px; "
+           onmouseover="showElem('legend');"
+           onmouseout="hideElem('legend');">
+      </div>
+   </div>
+
+<span class="pre noprint docinfo">                                                                        </span><br />
+<span class="pre noprint docinfo">                                                                        </span><br />
+<span class="pre noprint docinfo">                                                                        </span><br />
+<pre>
+ACE                                                             S. Kumar
+Internet-Draft                                 Philips Lighting Research
+Intended status: Standards Track                         P. van der Stok
+Expires: October 19, 2017                                     Consultant
+                                                           P. Kampanakis
+                                                           Cisco Systems
+                                                              M. Furuhed
+                                                             Nexus Group
+                                                                 S. Raza
+                                                               RISE SICS
+                                                          April 17, 2017
+
+
+                    <span class="h1">EST over secure CoAP (EST-coaps)</span>
+                    <span class="h1">draft-vanderstok-ace-coap-est-02</span>
+
+Abstract
+
+   Low-resource devices in a Low-power and Lossy Network (LLN) can
+   operate in a mesh network using the IPv6 over Low-power Wireless
+   Personal Area Networks (6LoWPAN) and IEEE 802.15.4 link-layer
+   standards.  Provisioning these devices in a secure manner with keys
+   (often called secure bootstrapping) used to encrypt and authenticate
+   messages is the subject of Bootstrapping of Remote Secure Key
+   Infrastructures (BRSKI) [<a href="#ref-I-D.ietf-anima-bootstrapping-keyinfra">I-D.ietf-anima-bootstrapping-keyinfra</a>] and
+   6tisch Secure Join [<a href="#ref-I-D.ietf-6tisch-dtsecurity-secure-join">I-D.ietf-6tisch-dtsecurity-secure-join</a>].
+   Enrollment over Secure Transport (EST) [<a href="./rfcmarkup.sh?rfc=7030" title='"Enrollment over Secure Transport"'>RFC7030</a>], based on TLS and
+   HTTP, is used in BRSKI.  Low-resource devices often use the
+   lightweight Constrained Application Protocol (CoAP) [<a href="./rfcmarkup.sh?rfc=7252" title='"The Constrained Application Protocol (CoAP)"'>RFC7252</a>] for
+   message exchanges.  This document defines how low-resource devices
+   are expected to use EST over secure CoAP (EST-coaps) for secure
+   bootstrapping and certificate enrollment. 6LoWPAN fragmentation
+   management and minor extensions to CoAP are needed to enable EST-
+   coaps.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of <a href="./rfcmarkup.sh?bcp=78">BCP 78</a> and <a href="./rfcmarkup.sh?bcp=79">BCP 79</a>.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at <a href="http://datatracker.ietf.org/drafts/current/">http://datatracker.ietf.org/drafts/current/</a>.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 19, 2017                [Page 1]</span>
+</pre><pre class='newpage'><a name="page-2" id="page-2" href="#page-2" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on October 19, 2017.
+
+Copyright Notice
+
+   Copyright (c) 2017 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to <a href="./rfcmarkup.sh?bcp=78">BCP 78</a> and the IETF Trust's Legal
+   Provisions Relating to IETF Documents
+   (<a href="http://trustee.ietf.org/license-info">http://trustee.ietf.org/license-info</a>) in effect on the date of
+   publication of this document.  Please review these documents
+   carefully, as they describe your rights and restrictions with respect
+   to this document.  Code Components extracted from this document must
+   include Simplified BSD License text as described in <a href="#section-4">Section 4</a>.e of
+   the Trust Legal Provisions and are provided without warranty as
+   described in the Simplified BSD License.
+
+Table of Contents
+
+   <a href="#section-1">1</a>.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   <a href="#page-3">3</a>
+     <a href="#section-1.1">1.1</a>.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   <a href="#page-4">4</a>
+   <a href="#section-2">2</a>.  EST operational differences . . . . . . . . . . . . . . . . .   <a href="#page-4">4</a>
+   <a href="#section-3">3</a>.  Conformance to <a href="./rfcmarkup.sh?rfc=7925">RFC7925</a> profiles . . . . . . . . . . . . . . .   <a href="#page-5">5</a>
+   <a href="#section-4">4</a>.  Protocol Design and Layering  . . . . . . . . . . . . . . . .   <a href="#page-6">6</a>
+     <a href="#section-4.1">4.1</a>.  Discovery and URI . . . . . . . . . . . . . . . . . . . .   <a href="#page-7">7</a>
+     <a href="#section-4.2">4.2</a>.  Payload format  . . . . . . . . . . . . . . . . . . . . .   <a href="#page-8">8</a>
+     <a href="#section-4.3">4.3</a>.  Message Bindings  . . . . . . . . . . . . . . . . . . . .   <a href="#page-9">9</a>
+     <a href="#section-4.4">4.4</a>.  CoAP response codes . . . . . . . . . . . . . . . . . . .   <a href="#page-9">9</a>
+     <a href="#section-4.5">4.5</a>.  Message fragmentation . . . . . . . . . . . . . . . . . .  <a href="#page-10">10</a>
+   <a href="#section-5">5</a>.  Transport Protocol  . . . . . . . . . . . . . . . . . . . . .  <a href="#page-11">11</a>
+     <a href="#section-5.1">5.1</a>.  DTLS  . . . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-11">11</a>
+     <a href="#section-5.2">5.2</a>.  6tisch approach . . . . . . . . . . . . . . . . . . . . .  <a href="#page-12">12</a>
+   <a href="#section-6">6</a>.  Proxying  . . . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-12">12</a>
+   <a href="#section-7">7</a>.  Parameters  . . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-13">13</a>
+   <a href="#section-8">8</a>.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  <a href="#page-13">13</a>
+   <a href="#section-9">9</a>.  Security Considerations . . . . . . . . . . . . . . . . . . .  <a href="#page-17">17</a>
+   <a href="#section-10">10</a>. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-17">17</a>
+   <a href="#section-11">11</a>. Change Log  . . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-17">17</a>
+   <a href="#section-12">12</a>. References  . . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-17">17</a>
+     <a href="#section-12.1">12.1</a>.  Normative References . . . . . . . . . . . . . . . . . .  <a href="#page-17">17</a>
+     <a href="#section-12.2">12.2</a>.  Informative References . . . . . . . . . . . . . . . . .  <a href="#page-19">19</a>
+   <a href="#appendix-A">Appendix A</a>.  EST messages to EST-coaps  . . . . . . . . . . . . .  <a href="#page-21">21</a>
+     <a href="#appendix-A.1">A.1</a>.  cacerts . . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-21">21</a>
+     <a href="#appendix-A.2">A.2</a>.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  <a href="#page-22">22</a>
+     <a href="#appendix-A.3">A.3</a>.  csrattr . . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-23">23</a>
+
+
+
+<span class="grey">Kumar, et al.           Expires October 19, 2017                [Page 2]</span>
+</pre><pre class='newpage'><a name="page-3" id="page-3" href="#page-3" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
+     <a href="#appendix-A.4">A.4</a>.  enrollstatus  . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-23">23</a>
+     <a href="#appendix-A.5">A.5</a>.  voucher_status  . . . . . . . . . . . . . . . . . . . . .  <a href="#page-23">23</a>
+     <a href="#appendix-A.6">A.6</a>.  requestvoucher  . . . . . . . . . . . . . . . . . . . . .  <a href="#page-23">23</a>
+     <a href="#appendix-A.7">A.7</a>.  requestlog  . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-23">23</a>
+   <a href="#appendix-B">Appendix B</a>.  EST-coaps Block message examples . . . . . . . . . .  <a href="#page-23">23</a>
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-26">26</a>
+
+<span class="h2"><a name="section-1">1</a>.  Introduction</span>
+
+   IPv6 over Low-power Wireless Personal Area Networks (6LoWPANs)
+   [<a href="./rfcmarkup.sh?rfc=4944" title='"Transmission of IPv6 Packets over IEEE 802.15.4 Networks"'>RFC4944</a>] on IEEE 802.15.4 [<a href="#ref-ieee802.15.4">ieee802.15.4</a>] wireless networks is
+   becoming common in many industry application domains such as lighting
+   controls.  However, commissioning of such networks suffers from a
+   lack of standardized secure bootstrapping mechanisms for these
+   networks.
+
+   Although IEEE 802.15.4 defines how security can be enabled between
+   nodes within a single mesh network, it does not specify the
+   provisioning and management of the keys.  Therefore, securing a
+   6LoWPAN network with devices from multiple manufacturers with
+   different provisioning techniques is often tedious and time
+   consuming.
+
+   Bootstrapping of Remote Secure Infrastructures (BRSKI)
+   [<a href="#ref-I-D.ietf-anima-bootstrapping-keyinfra">I-D.ietf-anima-bootstrapping-keyinfra</a>] addresses the issue of
+   bootstrapping networked devices in the context of Autonomic
+   Networking Integrated Model and Approach (ANIMA).
+   [<a href="#ref-I-D.ietf-6tisch-minimal-security">I-D.ietf-6tisch-minimal-security</a>] and
+   [<a href="#ref-I-D.ietf-6tisch-dtsecurity-secure-join">I-D.ietf-6tisch-dtsecurity-secure-join</a>] also address secure
+   bootstrapping in the 6tisch context targeted to low-resource devices.
+   BRSKI has not been developed specifically for low-resource devices in
+   constrained networks.  Constrained networks use DTLS [<a href="./rfcmarkup.sh?rfc=6347" title='"Datagram Transport Layer Security Version 1.2"'>RFC6347</a>], CoAP
+   [<a href="./rfcmarkup.sh?rfc=7252" title='"The Constrained Application Protocol (CoAP)"'>RFC7252</a>], and UDP instead of TLS [<a href="./rfcmarkup.sh?rfc=5246" title='"The Transport Layer Security (TLS) Protocol Version 1.2"'>RFC5246</a>], HTTP [<a href="./rfcmarkup.sh?rfc=7230" title='"Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing"'>RFC7230</a>] and TCP.
+   BRSKI relies on Enrollment over Secure Transport (EST) [<a href="./rfcmarkup.sh?rfc=7030" title='"Enrollment over Secure Transport"'>RFC7030</a>] for
+   the provisioning of the operational domain certificates.
+
+   EST-coaps provides a subset of EST functionality and extends EST with
+   BRSKI functions.  EST-coaps replaces the invocations of TLS and HTTP
+   by DTLS and CoAP invocations thus enabling EST and BRSKI for CoAP-
+   based low-resource devices.
+
+   Although EST-coaps paves the way for the utilization of EST for
+   constrained devices on constrained networks, some devices will not
+   have enough resources to handle the large payloads that come with
+   EST-coaps.  The specification of EST-coaps is intended to ensure that
+   bootstrapping works for less constrained devices that choose to limit
+   their communications stack to UDP/CoAP.  It is up to the network
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 19, 2017                [Page 3]</span>
+</pre><pre class='newpage'><a name="page-4" id="page-4" href="#page-4" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
+   designer to decide which devices execute the EST protocol and which
+   not.
+
+   EST-coaps is designed for use in professional control networks such
+   as Building Control.  The autonomic bootstrapping is interesting
+   because it reduces the manual intervention during the commissioning
+   of the network.  Typing in passwords is contrary to this wish.
+   Therefore, the HTTP Basic authentication of EST is not supported in
+   EST-coaps.
+
+   In the constrained devices context it is very unlikely that full PKI
+   request messages will be used.  For that reason, full PKI messages
+   are not supported in EST-coaps.
+
+   Because the relatively large EST messages cannot be readily
+   transported over constrained (6LoWPAN, LLN) wireless networks, this
+   document specifies the use of CoAP Block-Wise Transfer ("Block")
+   [<a href="./rfcmarkup.sh?rfc=7959" title='"Block-Wise Transfers in the Constrained Application Protocol (CoAP)"'>RFC7959</a>] to fragment EST messages at the application layer.
+
+   Support for Observe CoAP options [<a href="./rfcmarkup.sh?rfc=7641" title='"Observing Resources in the Constrained Application Protocol (CoAP)"'>RFC7641</a>] with BRSKI is not
+   supported in the current BRSKI/EST message flows and is thus out-of-
+   scope for this discussion.  Observe options could be used by the
+   server to notify clients about a change in the cacerts or csr
+   attributes (resources) and might be an area of future work.
+
+<span class="h3"><a name="section-1.1">1.1</a>.  Terminology</span>
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   document are to be interpreted as described in [<a href="./rfcmarkup.sh?rfc=2119" title='"Key words for use in RFCs to Indicate Requirement Levels"'>RFC2119</a>].
+
+   Many of the concepts in this document are taken over from [<a href="./rfcmarkup.sh?rfc=7030" title='"Enrollment over Secure Transport"'>RFC7030</a>].
+   Consequently, much text is directly traceable to [<a href="./rfcmarkup.sh?rfc=7030" title='"Enrollment over Secure Transport"'>RFC7030</a>].  The same
+   document structure is followed to point out the differences and
+   commonalities between EST and EST-coaps.
+
+   The following terms are defined in the BRSKI protocol
+   [<a href="#ref-I-D.ietf-anima-bootstrapping-keyinfra">I-D.ietf-anima-bootstrapping-keyinfra</a>]: pledge, Join proxy, Join
+   Registrar, and Manufacturer Authorized Signing Authorities (MASA).
+
+<span class="h2"><a name="section-2">2</a>.  EST operational differences</span>
+
+   Only the differences to EST with respect to operational scenarios are
+   described in this section.  EST-coaps server differs from EST server
+   as follows:
+
+   o  Replacement of TLS by DTLS and HTTP by CoAP, resulting in:
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 19, 2017                [Page 4]</span>
+</pre><pre class='newpage'><a name="page-5" id="page-5" href="#page-5" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
+      *  DTLS-secured CoAP sessions between EST-coaps client and EST-
+         coaps server.
+
+   o  Only certificate-based client authentication is supported, which
+      results in:
+
+      *  The EST-coaps client does not support HTTP Basic authentication
+         (as described in <a href="./rfcmarkup.sh?rfc=7030#section-3.2.3">Section&nbsp;3.2.3 of [RFC7030]</a>)
+
+      *  The EST-coaps client does not support authentication at the
+         application layer (as described in <a href="./rfcmarkup.sh?rfc=7030#section-3.2.3">Section&nbsp;3.2.3 of [RFC7030]</a>).
+
+   o  EST-coaps does not support full PKI request messages[RFC5272].
+
+   o  EST-coaps specifies the BRSKI extensions over CoAP as specified in
+      section 5 of [<a href="#ref-I-D.ietf-anima-bootstrapping-keyinfra">I-D.ietf-anima-bootstrapping-keyinfra</a>].
+
+<span class="h2"><a name="section-3">3</a>.  Conformance to <a href="./rfcmarkup.sh?rfc=7925">RFC7925</a> profiles</span>
+
+   This section shows how EST-coaps fits into the profiles of low-
+   resource devices as described in [<a href="./rfcmarkup.sh?rfc=7925" title='"Transport Layer Security (TLS) / Datagram Transport Layer Security (DTLS) Profiles for the Internet of Things"'>RFC7925</a>].  Within the bootstrap
+   context a Public Key Infrastructure (PKI) is used, where the client
+   is called "pledge", the Registration Authority (RA) is called Join
+   Registrar, which acts at the front-end for the Certificate Authority
+   (CA) and receives voucher feedback from as many Manufacturer
+   Authorized Signing Authorities (MASA) as there are manufacturers.  A
+   Join-Proxy is placed between client and RA to receive join requests
+   over a 1-hop unsecured channel and transmitted over the secure
+   network to the EST-server.  The EST-server of EST-coaps is placed
+   between proxy and RA or is part of RA.
+
+   EST-coaps conforms to the ACE DTLS profile
+   [<a href="#ref-I-D.gerdes-ace-dtls-authorize">I-D.gerdes-ace-dtls-authorize</a>].
+
+   EST-coaps transports Public keys and certificates.  Private keys can
+   be transported as response to a request to a server-side key
+   generation as described in <a href="./rfcmarkup.sh?rfc=7030#section-4.4">section&nbsp;4.4 of [RFC7030]</a>.  In the
+   bootstrapping context, EST-coaps transport is limited to the EST
+   certificate transport conformant to <a href="./rfcmarkup.sh?rfc=7925#section-4.4">section&nbsp;4.4 of [RFC7925]</a>.  For
+   BRSKI, outside the profiles of [<a href="./rfcmarkup.sh?rfc=7925" title='"Transport Layer Security (TLS) / Datagram Transport Layer Security (DTLS) Profiles for the Internet of Things"'>RFC7925</a>], EST-coaps transports
+   vouchers, which are YANG files specified in [<a href="#ref-I-D.ietf-anima-voucher">I-D.ietf-anima-voucher</a>].
+
+   The mandatory cipher suite for DTLS is
+   TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 defined in [<a href="./rfcmarkup.sh?rfc=7251" title='"AES- CCM Elliptic Curve Cryptography (ECC) Cipher Suites for TLS"'>RFC7251</a>] which is the
+   mandatory-to-implement cipher suite in CoAP.  Additionally the curve
+   secp256r1 MUST be supported [<a href="./rfcmarkup.sh?rfc=4492" title='"Elliptic Curve Cryptography (ECC) Cipher Suites for Transport Layer Security (TLS)"'>RFC4492</a>]; this curve is equivalent to
+   the NIST P-256 curve.  The hash algorithm is SHA-256.  DTLS
+   implementations MUST use the Supported Elliptic Curves and Supported
+
+
+
+<span class="grey">Kumar, et al.           Expires October 19, 2017                [Page 5]</span>
+</pre><pre class='newpage'><a name="page-6" id="page-6" href="#page-6" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
+   Point Formats Extensions [<a href="./rfcmarkup.sh?rfc=4492" title='"Elliptic Curve Cryptography (ECC) Cipher Suites for Transport Layer Security (TLS)"'>RFC4492</a>]; the uncompressed point format
+   MUST be supported; [<a href="./rfcmarkup.sh?rfc=6090" title='"Fundamental Elliptic Curve Cryptography Algorithms"'>RFC6090</a>] can be used as an implementation method.
+
+   The EST-coaps client MUST be configured with an explicit TA database
+   or at least an implicit TA database from its manufacturer.  The
+   authentication of the EST-coaps server by the EST-coaps client is
+   based on Certificate authentication in the DTLS handshake.
+
+   The authentication of the EST-coaps client is based on client
+   certificate in the DTLS handshake.  This can either be
+
+   o  DTLS with a previously issued client certificate (e.g., an
+      existing certificate issued by the EST CA); this could be a common
+      case for simple re-enrollment of clients;
+
+   o  DTLS with a previously installed certificate (e.g., manufacturer-
+      installed certificate or a certificate issued by some other
+      party);
+
+<span class="h2"><a name="section-4">4</a>.  Protocol Design and Layering</span>
+
+   EST-coaps uses CoAP to transfer EST messages, aided by Block-Wise
+   Transfer [<a href="./rfcmarkup.sh?rfc=7959" title='"Block-Wise Transfers in the Constrained Application Protocol (CoAP)"'>RFC7959</a>] to transport CoAP messages in blocks thus avoiding
+   (excessive) 6LoWPAN fragmentation of UDP datagrams.  The use of
+   "Block" for the transfer of larger EST messages is specified in
+   <a href="#section-4.5">Section 4.5</a>.  The Figure 1 below shows the layered EST-coaps
+   architecture.
+
+   +------------------------------------------------+
+   |    EST request/response messages               |
+   +------------------------------------------------+
+   |    CoAP for message transfer and signaling     |
+   +------------------------------------------------+
+   |    DTLS for transport security                 |
+   +------------------------------------------------+
+   |    UDP for transport                           |
+   +------------------------------------------------+
+
+                    Figure 1: EST-coaps protocol layers
+
+   The EST-coaps protocol design follows closely the EST design,
+   excluding some aspects that are not relevant for automatic
+   bootstrapping of constrained devices within a professional context.
+   The parts supported by EST-coaps are identified by their message
+   types:
+
+   o  Simple enroll and reenroll.
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 19, 2017                [Page 6]</span>
+</pre><pre class='newpage'><a name="page-7" id="page-7" href="#page-7" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
+   o  CA certificate retrieval.
+
+   o  CSR Attributes request messages.
+
+   o  Server-side key generation messages.
+
+<span class="h3"><a name="section-4.1">4.1</a>.  Discovery and URI</span>
+
+   EST-coaps is targeted to low-resource networks with small packets.
+   Saving header space is important and the EST-coaps URI is shorter
+   than the EST URI.
+
+   The presence and location of (path to) the management data are
+   discovered by sending a GET request to "/.well-known/core" including
+   a resource type (RT) parameter with the value "ace.est" [<a href="./rfcmarkup.sh?rfc=6690" title='"Constrained RESTful Environments (CoRE) Link Format"'>RFC6690</a>].
+   Upon success, the return payload will contain the root resource of
+   the EST resources.  It is up to the implementation to choose its root
+   resource, throughout this document the example root resource /est is
+   used.  The example below shows the discovery of the presence and
+   location of management data.
+
+
+     REQ: GET /.well-known/core?rt=ace.est
+
+     RES: 2.05 Content
+   &lt;/est&gt;; rt="ace.est"
+
+
+   The EST-coaps server URIs differ from the EST URI by replacing the
+   scheme https by coaps and by specifying shorter resource path names:
+
+   coaps://www.example.com/est/short-name
+
+   Figure 5 in <a href="./rfcmarkup.sh?rfc=7030#section-3.2.2">section&nbsp;3.2.2 of [RFC7030]</a> enumerates the operations and
+   corresponding paths which are supported by EST.  Table 1 provides the
+   mapping from the EST and BRSKI URI path to the EST-coaps URI path.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 19, 2017                [Page 7]</span>
+</pre><pre class='newpage'><a name="page-8" id="page-8" href="#page-8" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
+            +------------------+------------------+-----------+
+            | BRSKI            | EST              | EST-coaps |
+            +------------------+------------------+-----------+
+            |                  | /cacerts         | /crts     |
+            |                  | /simpleenroll    | /sen      |
+            |                  | /simplereenroll  | /sren     |
+            |                  | /csrattrs        | /att      |
+            |                  | /serverkeygen    | /skg      |
+            | /requestvoucher  |                  | /rv       |
+            | /voucherstatus   |                  | /vs       |
+            | /enrollstatus    |                  | /es       |
+            +------------------+------------------+-----------+
+
+                                  Table 1
+
+   /requestvoucher and /enrollstatus are needed between pledge and
+   Registrar.
+
+   When discovering the root path for the EST resources, the server MAY
+   return the full resource paths and the used content types.  This is
+   usefull when multiple content type are specified for est-coaps
+   server.  For example, the following more complete response is
+   possible.
+
+
+     REQ: GET /.well-known/core?rt=ace.est
+
+     RES: 2.05 Content
+   &lt;/est&gt;; rt="ace.est"
+   &lt;/est/crts&gt;; rt="ace.est";ct=TBD1
+   &lt;/est/sen&gt;; rt="ace.est";ct=TBD1 TBD4
+   &lt;/est/sren&gt;; rt="ace.est";ct=TBD1 TBD4
+   &lt;/est/att&gt;; rt="ace.est";ct=TBD4
+   &lt;/est/skg&gt;; rt="ace.est";ct=TBD1 TBD4 TBD2
+   &lt;/est/rv&gt;; rt="ace.est";ct=TBD?
+   &lt;/est/vs&gt;; rt="ace.est";ct=TBD??
+   &lt;/est/es&gt;; rt="ace.est";ct=TBD???
+
+
+   The return of the content-types allows the client to choose the most
+   appropriate one from multiple content types.
+
+<span class="h3"><a name="section-4.2">4.2</a>.  Payload format</span>
+
+   The content-format (media type equivalent) of the CoAP message
+   determines which EST message is transported in the CoAP payload.  The
+   media types specified in the HTTP Content-Type header(see <a href="#section-3.2.2">section</a>
+   <a href="#section-3.2.2">3.2.2</a> of [<a href="./rfcmarkup.sh?rfc=7030" title='"Enrollment over Secure Transport"'>RFC7030</a>]) are in EST-coaps specified by the Content-Format
+
+
+
+<span class="grey">Kumar, et al.           Expires October 19, 2017                [Page 8]</span>
+</pre><pre class='newpage'><a name="page-9" id="page-9" href="#page-9" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
+   Option (12) of CoAP.  The combination of URI path-suffix and content-
+   format used for coap MUST map to an allowed combination of path-
+   suffix and media type as defined for EST.  The required content-
+   formats for these request and response messages are defined in
+   <a href="#section-8">Section 8</a>.  The CoAP response codes are defined in <a href="#section-4.4">Section 4.4</a>.
+
+   EST-coaps is designed for use between low-resource devices using CoAP
+   and hence does not need to send base64-encoded data.  Simple binary
+   is more efficient (30% less payload compared to base64) and well
+   supported by CoAP.  Therefore, the content formats specification in
+   <a href="#section-8">Section 8</a> requires the use of binary for all EST-coaps CoAP payloads.
+
+<span class="h3"><a name="section-4.3">4.3</a>.  Message Bindings</span>
+
+   This section describes BRSKI to CoAP message mappings.
+
+   All /crts, /sen, /sren, /att, /skg, /rv, /vs, and /es EST-coaps
+   messages expect a response, so they are all CoAP CON messages.
+
+   The Ver, TKL, Token, and Message ID values of the CoAP header are not
+   influenced by EST.
+
+   CoAP options are used to convey Uri-Host, Uri-Path, Uri-Port,
+   Content-Format and more in CoAP.  The CoAP Options are used to
+   communicate the HTTP fields specified in the BRSKI REST messages.
+
+   BRSKI URLs are HTTPS based (https:// ), in CoAP these will be assumed
+   to be transformed to coaps (coaps://)
+
+   <a href="#appendix-A">Appendix A</a> includes some practical examples of EST messages
+   translated to CoAP.
+
+<span class="h3"><a name="section-4.4">4.4</a>.  CoAP response codes</span>
+
+   <a href="./rfcmarkup.sh?rfc=7252#section-5.9">Section&nbsp;5.9 of [RFC7252]</a> specifies the mapping of HTTP response codes
+   to CoAP response codes.  Every time the HTTP response code 200 is
+   specified in [<a href="./rfcmarkup.sh?rfc=7030" title='"Enrollment over Secure Transport"'>RFC7030</a>] in response to a GET request, in EST-coaps the
+   equivalent CoAP response code 2.05 MUST be used.  Response code HTTP
+   202 in EST is mapped to CoAP 2.06 as specified in
+   [<a href="#ref-I-D.hartke-core-pending">I-D.hartke-core-pending</a>].  All other HTTP 2xx response codes are not
+   used by EST.  For the following HTTP 4xx error codes that may occur:
+   400, 401, 403, 404, 405, 406, 412, 413, 415 ; the equivalent CoAP
+   response code for EST-coaps is 4.xx.  For the HTTP 5xx error codes:
+   500, 501, 502, 503, 504 the equivalent CoAP response code is 5.xx.
+
+   <a href="#appendix-A">Appendix A</a> includes some practical examples of HTTP response codes
+   from EST translated to CoAP.
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 19, 2017                [Page 9]</span>
+</pre><pre class='newpage'><a name="page-10" id="page-10" href="#page-10" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
+<span class="h3"><a name="section-4.5">4.5</a>.  Message fragmentation</span>
+
+   DTLS defines fragmentation only for the handshake part and not for
+   secure data exchange (DTLS records).  [<a href="./rfcmarkup.sh?rfc=6347" title='"Datagram Transport Layer Security Version 1.2"'>RFC6347</a>] states "Each DTLS
+   record MUST fit within a single datagram".  In order to avoid using
+   IP fragmentation, which is not supported by 6LoWPAN, invokers of the
+   DTLS record layer MUST size DTLS records so that they fit within any
+   Path MTU estimates obtained from the record layer.  In addition,
+   invokers residing on a 6LoWPAN over IEEE 802.15.4 network SHOULD
+   attempt to size CoAP messages such that each DTLS record will fit
+   within one or two IEEE 802.15.4 frames.
+
+   That is not always possible.  Even though ECC certificates are small
+   in size, they can vary greatly based on signature algorithms, key
+   sizes, and OID fields used.  For 256-bit curves, common ECDSA cert
+   sizes are 500-1000 bytes which could fluctuate further based on the
+   algorithms, OIDs, SANs and cert fields.  For 384-bit curves, ECDSA
+   certs increase in size and can sometimes reach 1.5KB.  Additionally,
+   there are times when the EST cacerts response from the server can
+   include multiple certs that amount to large payloads.  CoAP
+   [<a href="./rfcmarkup.sh?rfc=7252" title='"The Constrained Application Protocol (CoAP)"'>RFC7252</a>]'s <a href="#section-4.6">section 4.6</a> describes the possible payload sizes: "if
+   nothing is known about the size of the headers, good upper bounds are
+   1152 bytes for the message size and 1024 bytes for the payload size".
+   Also "If IPv4 support on unusual networks is a consideration,
+   implementations may want to limit themselves to more conservative
+   IPv4 datagram sizes such as 576 bytes; per [<a href="./rfcmarkup.sh?rfc=0791">RFC0791</a>], the absolute
+   minimum value of the IP MTU for IPv4 is as low as 68 bytes, which
+   would leave only 40 bytes minus security overhead for a UDP payload".
+   Thus, even with ECC certs, EST-coaps messages can still exceed sizes
+   in MTU of 1280 for IPv6 or 60-80 bytes for 6LoWPAN [<a href="./rfcmarkup.sh?rfc=4919" title='"IPv6 over Low-Power Wireless Personal Area Networks (6LoWPANs): Overview, Assumptions, Problem Statement, and Goals"'>RFC4919</a>] as
+   explained in <a href="./rfcmarkup.sh?rfc=7959#section-2">section&nbsp;2 of [RFC7959]</a>.  EST-coaps needs to be able to
+   fragment EST messages into multiple DTLS datagrams.  Fine-grained
+   fragmentation of EST messages is essential.
+
+   To perform fragmentation in CoAP, [<a href="./rfcmarkup.sh?rfc=7959" title='"Block-Wise Transfers in the Constrained Application Protocol (CoAP)"'>RFC7959</a>] specifies the "Block1"
+   option for fragmentation of the request payload and the "Block2"
+   option for fragmentation of the return payload of a CoAP flow.
+
+   The BLOCK draft defines SZX in the Block1 and block2 option fields.
+   These are used to convey the size of the blocks in the requests or
+   responses.
+
+   The CoAP client MAY specify the Block1 size and MAY also specify the
+   Block2 size.  The CoAP server MAY specify the Block2 size, but not
+   the Block1 size.  As explained in <a href="./rfcmarkup.sh?rfc=7959#section-1">Section&nbsp;1 of [RFC7959]</a>), blockwise
+   transfers SHOULD be used in Confirmable CoAP messages to avoid the
+   exacerbation of lost blocks.
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 19, 2017               [Page 10]</span>
+</pre><pre class='newpage'><a name="page-11" id="page-11" href="#page-11" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
+   The Size1 response MAY be parsed by the client as a size indication
+   of the Block2 resource in the server response or by the server as a
+   request for a size estimate by the client.  Similarly, Size2 option
+   defined in BLOCK should be parsed by the server as an indication of
+   the size of the resource carried in Block1 options and by the client
+   as a maximum size expected in the 4.13 (Request Entity Too Large)
+   response to a request.
+
+   Examples of fragmented messages are shown in <a href="#appendix-B">Appendix B</a>.
+
+<span class="h2"><a name="section-5">5</a>.  Transport Protocol</span>
+
+   EST-coaps depends on a secure transport mechanism over UDP that can
+   secure (confidentiality, authenticity) the CoAP messages exchanged.
+
+<span class="h3"><a name="section-5.1">5.1</a>.  DTLS</span>
+
+   DTLS is one such secure protocol.  Within BRSKI and EST when "TLS" is
+   referred to, it is understood that in EST-coaps, security is provided
+   using DTLS instead.  No other changes are necessary (all provisional
+   modes etc are the same as for TLS).
+
+   CoAP was designed to avoid fragmentation.  DTLS is used to secure
+   CoAP messages.  However, fragmentation is still possible at the DTLS
+   layer during the DTLS handshake when using ECC ciphersuites.  If
+   fragmentation is necessary, "DTLS provides a mechanism for
+   fragmenting a handshake message over a number of records, each of
+   which can be transmitted separately, thus avoiding IP fragmentation"
+   [<a href="./rfcmarkup.sh?rfc=6347" title='"Datagram Transport Layer Security Version 1.2"'>RFC6347</a>].
+
+   EST-coaps does not support full PKI Requests.  Consequently, the
+   fullcmc request of <a href="./rfcmarkup.sh?rfc=7030#section-4.3">section&nbsp;4.3 of [RFC7030]</a> and response MUST NOT be
+   supported by EST-coaps.
+
+   Channel-binding information for linking proof-of-identity with
+   message-based proof-of-possession is optional for EST-coaps.  Given
+   that CoAP and DTLS can provide proof of identity for EST-coaps
+   clients and server, simple PKI messages can be used conformant to
+   <a href="./rfcmarkup.sh?rfc=5272#section-3.1">section&nbsp;3.1 of [RFC5272]</a>.  EST-coaps supports the certificate types
+   and Trust Anchors (TA) that are specified for EST in <a href="./rfcmarkup.sh?rfc=7030#section-3">section&nbsp;3 of
+   [RFC7030]</a>.
+
+   When proof-of-possession is desired, a set of actions are required
+   regarding the use of tls-connect, described in <a href="./rfcmarkup.sh?rfc=7030#section-3.5">section&nbsp;3.5 in
+   [RFC7030]</a> -- Linking Identity and POP Information.  The tls-unique
+   information translates to the contents of the first "Finished"
+   message in the TLS handshake between server and client.  The client
+   is then supposed to add this "Finished" message as a
+
+
+
+<span class="grey">Kumar, et al.           Expires October 19, 2017               [Page 11]</span>
+</pre><pre class='newpage'><a name="page-12" id="page-12" href="#page-12" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
+   ChallengePassword to the PKCS#10 to prove that the client is indeed
+   in control of the private key at the time of the TLS session when
+   performing a /simpleenroll, for example.  In the case of EST-coaps,
+   the same operations can be performed during the DTLS handshake.
+
+   In a constrained CoAP environment, endpoints can't afford to
+   establish a DTLS connection for every EST transaction.
+   Authenticating and negotiating DTLS keys requires resources on low-
+   end endpoints and consumes valuable bandwidth.  The DTLS connection
+   SHOULD remain open for persistent EST connections.  For example, an
+   EST cacerts request that is followed by a simpleenroll request can
+   use the same authenticated DTLS connection.  Given that after a
+   successful enrollment, it is more likely that a new EST transaction
+   will take place after a significant amount of time, the DTLS
+   connections SHOULD only be kept alive for EST messages that are
+   relatively close to each other.
+
+<span class="h3"><a name="section-5.2">5.2</a>.  6tisch approach</span>
+
+   The 6tisch bootstrapping is targeted to the "imprinting" of the
+   "pledge" with layer 2 keys.  The content formats for the transport
+   are being defined and may be expressed in a YANG module.
+
+   Instead of using transport security, the 6tisch approach relies on
+   application security provided by OSCOAP
+   [<a href="#ref-I-D.ietf-core-object-security">I-D.ietf-core-object-security</a>] and EDHOC
+   [<a href="#ref-I-D.selander-ace-cose-ecdhe">I-D.selander-ace-cose-ecdhe</a>].
+
+   It is suggested that the EST-coaps communication between pledge and
+   registrar, specified in this document, can be freely exchanged with
+   the same communication specified in
+   [<a href="#ref-I-D.ietf-6tisch-dtsecurity-secure-join">I-D.ietf-6tisch-dtsecurity-secure-join</a>] and
+   [<a href="#ref-I-D.ietf-6tisch-minimal-security">I-D.ietf-6tisch-minimal-security</a>].
+
+   [EDNOTE: The evolution of this section depends on the directions
+   taken by 6tisch and anima and the possible commonality that will be
+   provided.]
+
+<span class="h2"><a name="section-6">6</a>.  Proxying</span>
+
+   [EDNOTE: This section to be populated.  It will address how proxying
+   can take place by an entity that resides at the edge of the CoAP
+   network, such as the Registrar, and can reach the BRSKI server
+   residing in a traditional "TCP setting".  It makes sense to mention
+   the properties that the proxy has to fulfill.]
+
+
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 19, 2017               [Page 12]</span>
+</pre><pre class='newpage'><a name="page-13" id="page-13" href="#page-13" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
+<span class="h2"><a name="section-7">7</a>.  Parameters</span>
+
+   [EDNOTE: This section to be populated.  It will address transmission
+   parameters for BRSKI described in sections <a href="#section-4.7">4.7</a> and <a href="#section-4.8">4.8</a> of the CoAP
+   draft.  BRSKI does not impose any unique parameters that affect the
+   CoAP parameters in Table 2 and 3 in the CoAP draft but the ones in
+   CoAP could be affecting BRSKI.  For example the processing delay of
+   CAs could be less then 2s, but in this case they should send a CoAP
+   ACK every 2s while processing.]
+
+<span class="h2"><a name="section-8">8</a>.  IANA Considerations</span>
+
+   Additions to the sub-registry "CoAP Content-Formats", within the
+   "CoRE Parameters" registry are needed for the below media types.
+   These can be registered either in the Expert Review range (0-255) or
+   IETF Review range (256-9999).
+
+   1.
+
+       *  application/pkcs7-mime
+
+       *  Type name: application
+
+       *  Subtype name: pkcs7-mime
+
+       *  smime-type: certs-only
+
+       *  ID: TBD1
+
+       *  Required parameters: None
+
+       *  Optional parameters: None
+
+       *  Encoding considerations: binary
+
+       *  Security considerations: As defined in this specification
+
+       *  Published specification: [<a href="./rfcmarkup.sh?rfc=5751" title='"Secure/Multipurpose Internet Mail Extensions (S/MIME) Version 3.2 Message Specification"'>RFC5751</a>]
+
+       *  Applications that use this media type: ANIMA Bootstrap (BRSKI)
+          and EST
+
+   2.
+
+       *  application/pkcs8
+
+       *  Type name: application
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 19, 2017               [Page 13]</span>
+</pre><pre class='newpage'><a name="page-14" id="page-14" href="#page-14" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
+       *  Subtype name: pkcs8
+
+       *  ID: TBD2
+
+       *  Required parameters: None
+
+       *  Optional parameters: None
+
+       *  Encoding considerations: binary
+
+       *  Security considerations: As defined in this specification
+
+       *  Published specification: [<a href="./rfcmarkup.sh?rfc=5958" title='"Asymmetric Key Packages"'>RFC5958</a>]
+
+       *  Applications that use this media type: ANIMA Bootstrap (BRSKI)
+          and EST
+
+   3.
+
+       *  application/csrattrs
+
+       *  Type name: application
+
+       *  Subtype name: csrattrs
+
+       *  ID: TBD3
+
+       *  Required parameters: None
+
+       *  Optional parameters: None
+
+       *  Encoding considerations: binary
+
+       *  Security considerations: As defined in this specification
+
+       *  Published specification: [<a href="./rfcmarkup.sh?rfc=7030" title='"Enrollment over Secure Transport"'>RFC7030</a>]
+
+       *  Applications that use this media type: ANIMA Bootstrap (BRSKI)
+          and EST
+
+   4.
+
+       *  application/pkcs10
+
+       *  Type name: application
+
+       *  Subtype name: pkcs10
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 19, 2017               [Page 14]</span>
+</pre><pre class='newpage'><a name="page-15" id="page-15" href="#page-15" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
+       *  ID: TBD4
+
+       *  Required parameters: None
+
+       *  Optional parameters: None
+
+       *  Encoding considerations: binary
+
+       *  Security considerations: As defined in this specification
+
+       *  Published specification: [<a href="./rfcmarkup.sh?rfc=5967" title='"The application/pkcs10 Media Type"'>RFC5967</a>]
+
+       *  Applications that use this media type: ANIMA bootstrap (BRSKI)
+          and EST
+
+       *
+
+          +  application/pkcs12
+
+          +  Type name: application
+
+          +  Subtype name: pkcs12
+
+          +  ID: TBD5
+
+          +  Required parameters: None
+
+          +  Optional parameters: None
+
+          +  Encoding considerations: binary
+
+          +  Security considerations: As defined in this specification
+
+          +  Published specification: IETF
+
+          +  Applications that use this media type: ANIMA bootstrap
+             (BRSKI) and EST
+
+       *
+
+          +  application/auditnonce
+
+          +  Type name: application
+
+          +  Subtype name: auditnonce
+
+          +  ID: TBD6
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 19, 2017               [Page 15]</span>
+</pre><pre class='newpage'><a name="page-16" id="page-16" href="#page-16" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
+          +  Required parameters: None
+
+          +  Optional parameters: None
+
+          +  Encoding considerations: binary
+
+          +  Security considerations: As defined in this specification
+
+          +  Published specification: BRSKI??
+
+          +  Applications that use this media type: ANIMA bootstrap
+             (BRSKI)
+
+       *
+
+          +  application/authorizationvoucher
+
+          +  Type name: application
+
+          +  Subtype name: authorizationvoucher
+
+          +  ID: TBD7
+
+          +  Required parameters: None
+
+          +  Optional parameters: None
+
+          +  Encoding considerations: binary
+
+          +  Security considerations: As defined in this specification
+
+          +  Published specification: BRSKI??
+
+          +  Applications that use this media type: ANIMA bootstrap
+             (BRSKI)
+
+   Additions to the sub-registry "CoAP Resource Type", within the "CoRE
+   Parameters" registry are needed for a new resource type.
+
+   o  rt="ace.est" needs registration with IANA.
+
+   [EDNOTE: This section will be expanded to include types needed that
+   do not exist in CoAP.]
+
+
+
+
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 19, 2017               [Page 16]</span>
+</pre><pre class='newpage'><a name="page-17" id="page-17" href="#page-17" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
+<span class="h2"><a name="section-9">9</a>.  Security Considerations</span>
+
+   [EDNOTE: This section to be populated.  This document describes an
+   existing protocol moved to CoAP and there should not be additional
+   security concerns added beyond the protocol's or CoAP's specifics
+   security considerations.  The security considerations mentioned in
+   EST applies also to EST-coaps.  Specifically for server-side key
+   generation, it introduces implications for the endpoints and their
+   private keys, which will be covered here. ]
+
+<span class="h2"><a name="section-10">10</a>.  Acknowledgements</span>
+
+   The authors are very grateful to Klaus Hartke for his detailed
+   explanations on the use of Block with DTLS.  The authors would like
+   to thank Esko Dijk and Michael Verschoor for the valuable discussions
+   that helped in shaping the solution.  They would also like to thank
+   Peter Panburana from Cisco for his feedback on technical details of
+   the solution.  Constructive comments were received from Eliot Lear
+   and Julien Vermillard.
+
+<span class="h2"><a name="section-11">11</a>.  Change Log</span>
+
+   -02:
+
+      binary instead of CBOR binary in mime types.
+
+      supported content types are discoverable.
+
+   -01:
+
+      Merging of <a href="./rfcmarkup.sh?draft=draft-vanderstok-ace-coap-est-00">draft-vanderstok-ace-coap-est-00</a> and <a href="./rfcmarkup.sh?draft=draft-pritikin-coap-bootstrap-01">draft-pritikin-</a>
+      <a href="./rfcmarkup.sh?draft=draft-pritikin-coap-bootstrap-01">coap-bootstrap-01</a>
+
+      URI and discovery are modified
+
+      More text about 6tisch bootstrap including EDHOC and OSCOAP
+
+      mapping to DICE IoT profiles
+
+      adapted to BRSKI progress
+
+<span class="h2"><a name="section-12">12</a>.  References</span>
+
+<span class="h3"><a name="section-12.1">12.1</a>.  Normative References</span>
+
+
+
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 19, 2017               [Page 17]</span>
+</pre><pre class='newpage'><a name="page-18" id="page-18" href="#page-18" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
+   [<a name="ref-I-D.hartke-core-pending" id="ref-I-D.hartke-core-pending">I-D.hartke-core-pending</a>]
+              Stok, P. and K. Hartke, "The 'Pending' Response Code for
+              the Constrained Application Protocol (CoAP)", <a href="./rfcmarkup.sh?draft=draft-hartke-core-pending-00">draft-</a>
+              <a href="./rfcmarkup.sh?draft=draft-hartke-core-pending-00">hartke-core-pending-00</a> (work in progress), February 2017.
+
+   [<a name="ref-I-D.ietf-anima-bootstrapping-keyinfra" id="ref-I-D.ietf-anima-bootstrapping-keyinfra">I-D.ietf-anima-bootstrapping-keyinfra</a>]
+              Pritikin, M., Richardson, M., Behringer, M., Bjarnason,
+              S., and K. Watsen, "Bootstrapping Remote Secure Key
+              Infrastructures (BRSKI)", <a href="./rfcmarkup.sh?draft=draft-ietf-anima-bootstrapping-keyinfra-05">draft-ietf-anima-bootstrapping-</a>
+              <a href="./rfcmarkup.sh?draft=draft-ietf-anima-bootstrapping-keyinfra-05">keyinfra-05</a> (work in progress), March 2017.
+
+   [<a name="ref-RFC2119" id="ref-RFC2119">RFC2119</a>]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", <a href="./rfcmarkup.sh?bcp=14">BCP 14</a>, <a href="./rfcmarkup.sh?rfc=2119">RFC 2119</a>,
+              DOI 10.17487/RFC2119, March 1997,
+              &lt;<a href="http://www.rfc-editor.org/info/rfc2119">http://www.rfc-editor.org/info/rfc2119</a>&gt;.
+
+   [<a name="ref-RFC5272" id="ref-RFC5272">RFC5272</a>]  Schaad, J. and M. Myers, "Certificate Management over CMS
+              (CMC)", <a href="./rfcmarkup.sh?rfc=5272">RFC 5272</a>, DOI 10.17487/RFC5272, June 2008,
+              &lt;<a href="http://www.rfc-editor.org/info/rfc5272">http://www.rfc-editor.org/info/rfc5272</a>&gt;.
+
+   [<a name="ref-RFC5751" id="ref-RFC5751">RFC5751</a>]  Ramsdell, B. and S. Turner, "Secure/Multipurpose Internet
+              Mail Extensions (S/MIME) Version 3.2 Message
+              Specification", <a href="./rfcmarkup.sh?rfc=5751">RFC 5751</a>, DOI 10.17487/RFC5751, January
+              2010, &lt;<a href="http://www.rfc-editor.org/info/rfc5751">http://www.rfc-editor.org/info/rfc5751</a>&gt;.
+
+   [<a name="ref-RFC5967" id="ref-RFC5967">RFC5967</a>]  Turner, S., "The application/pkcs10 Media Type", <a href="./rfcmarkup.sh?rfc=5967">RFC 5967</a>,
+              DOI 10.17487/RFC5967, August 2010,
+              &lt;<a href="http://www.rfc-editor.org/info/rfc5967">http://www.rfc-editor.org/info/rfc5967</a>&gt;.
+
+   [<a name="ref-RFC6347" id="ref-RFC6347">RFC6347</a>]  Rescorla, E. and N. Modadugu, "Datagram Transport Layer
+              Security Version 1.2", <a href="./rfcmarkup.sh?rfc=6347">RFC 6347</a>, DOI 10.17487/RFC6347,
+              January 2012, &lt;<a href="http://www.rfc-editor.org/info/rfc6347">http://www.rfc-editor.org/info/rfc6347</a>&gt;.
+
+   [<a name="ref-RFC6690" id="ref-RFC6690">RFC6690</a>]  Shelby, Z., "Constrained RESTful Environments (CoRE) Link
+              Format", <a href="./rfcmarkup.sh?rfc=6690">RFC 6690</a>, DOI 10.17487/RFC6690, August 2012,
+              &lt;<a href="http://www.rfc-editor.org/info/rfc6690">http://www.rfc-editor.org/info/rfc6690</a>&gt;.
+
+   [<a name="ref-RFC7030" id="ref-RFC7030">RFC7030</a>]  Pritikin, M., Ed., Yee, P., Ed., and D. Harkins, Ed.,
+              "Enrollment over Secure Transport", <a href="./rfcmarkup.sh?rfc=7030">RFC 7030</a>,
+              DOI 10.17487/RFC7030, October 2013,
+              &lt;<a href="http://www.rfc-editor.org/info/rfc7030">http://www.rfc-editor.org/info/rfc7030</a>&gt;.
+
+   [<a name="ref-RFC7252" id="ref-RFC7252">RFC7252</a>]  Shelby, Z., Hartke, K., and C. Bormann, "The Constrained
+              Application Protocol (CoAP)", <a href="./rfcmarkup.sh?rfc=7252">RFC 7252</a>,
+              DOI 10.17487/RFC7252, June 2014,
+              &lt;<a href="http://www.rfc-editor.org/info/rfc7252">http://www.rfc-editor.org/info/rfc7252</a>&gt;.
+
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 19, 2017               [Page 18]</span>
+</pre><pre class='newpage'><a name="page-19" id="page-19" href="#page-19" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
+   [<a name="ref-RFC7959" id="ref-RFC7959">RFC7959</a>]  Bormann, C. and Z. Shelby, Ed., "Block-Wise Transfers in
+              the Constrained Application Protocol (CoAP)", <a href="./rfcmarkup.sh?rfc=7959">RFC 7959</a>,
+              DOI 10.17487/RFC7959, August 2016,
+              &lt;<a href="http://www.rfc-editor.org/info/rfc7959">http://www.rfc-editor.org/info/rfc7959</a>&gt;.
+
+<span class="h3"><a name="section-12.2">12.2</a>.  Informative References</span>
+
+   [<a name="ref-I-D.gerdes-ace-dtls-authorize" id="ref-I-D.gerdes-ace-dtls-authorize">I-D.gerdes-ace-dtls-authorize</a>]
+              Gerdes, S., Bergmann, O., Bormann, C., Selander, G., and
+              L. Seitz, "Datagram Transport Layer Security (DTLS)
+              Profile for Authentication and Authorization for
+              Constrained Environments (ACE)", <a href="./rfcmarkup.sh?draft=draft-gerdes-ace-dtls-authorize-01">draft-gerdes-ace-dtls-</a>
+              <a href="./rfcmarkup.sh?draft=draft-gerdes-ace-dtls-authorize-01">authorize-01</a> (work in progress), March 2017.
+
+   [<a name="ref-I-D.ietf-6tisch-dtsecurity-secure-join" id="ref-I-D.ietf-6tisch-dtsecurity-secure-join">I-D.ietf-6tisch-dtsecurity-secure-join</a>]
+              Richardson, M., "6tisch Secure Join protocol", <a href="./rfcmarkup.sh?draft=draft-ietf-6tisch-dtsecurity-secure-join-01">draft-ietf-</a>
+              <a href="./rfcmarkup.sh?draft=draft-ietf-6tisch-dtsecurity-secure-join-01">6tisch-dtsecurity-secure-join-01</a> (work in progress),
+              February 2017.
+
+   [<a name="ref-I-D.ietf-6tisch-minimal-security" id="ref-I-D.ietf-6tisch-minimal-security">I-D.ietf-6tisch-minimal-security</a>]
+              Vucinic, M., Simon, J., Pister, K., and M. Richardson,
+              "Minimal Security Framework for 6TiSCH", <a href="./rfcmarkup.sh?draft=draft-ietf-6tisch-minimal-security-02">draft-ietf-</a>
+              <a href="./rfcmarkup.sh?draft=draft-ietf-6tisch-minimal-security-02">6tisch-minimal-security-02</a> (work in progress), March 2017.
+
+   [<a name="ref-I-D.ietf-anima-voucher" id="ref-I-D.ietf-anima-voucher">I-D.ietf-anima-voucher</a>]
+              Watsen, K., Richardson, M., Pritikin, M., and T. Eckert,
+              "Voucher Profile for Bootstrapping Protocols", <a href="./rfcmarkup.sh?draft=draft-ietf-anima-voucher-02">draft-ietf-</a>
+              <a href="./rfcmarkup.sh?draft=draft-ietf-anima-voucher-02">anima-voucher-02</a> (work in progress), March 2017.
+
+   [<a name="ref-I-D.ietf-core-object-security" id="ref-I-D.ietf-core-object-security">I-D.ietf-core-object-security</a>]
+              Selander, G., Mattsson, J., Palombini, F., and L. Seitz,
+              "Object Security of CoAP (OSCOAP)", <a href="./rfcmarkup.sh?draft=draft-ietf-core-object-security-02">draft-ietf-core-</a>
+              <a href="./rfcmarkup.sh?draft=draft-ietf-core-object-security-02">object-security-02</a> (work in progress), March 2017.
+
+   [<a name="ref-I-D.selander-ace-cose-ecdhe" id="ref-I-D.selander-ace-cose-ecdhe">I-D.selander-ace-cose-ecdhe</a>]
+              Selander, G., Mattsson, J., and F. Palombini, "Ephemeral
+              Diffie-Hellman Over COSE (EDHOC)", <a href="./rfcmarkup.sh?draft=draft-selander-ace-cose-ecdhe-05">draft-selander-ace-</a>
+              <a href="./rfcmarkup.sh?draft=draft-selander-ace-cose-ecdhe-05">cose-ecdhe-05</a> (work in progress), March 2017.
+
+   [<a name="ref-ieee802.15.4" id="ref-ieee802.15.4">ieee802.15.4</a>]
+              Institute of Electrical and Electronics Engineers, , "IEEE
+              Standard 802.15.4-2006", 2006.
+
+   [<a name="ref-RFC4492" id="ref-RFC4492">RFC4492</a>]  Blake-Wilson, S., Bolyard, N., Gupta, V., Hawk, C., and B.
+              Moeller, "Elliptic Curve Cryptography (ECC) Cipher Suites
+              for Transport Layer Security (TLS)", <a href="./rfcmarkup.sh?rfc=4492">RFC 4492</a>,
+              DOI 10.17487/RFC4492, May 2006,
+              &lt;<a href="http://www.rfc-editor.org/info/rfc4492">http://www.rfc-editor.org/info/rfc4492</a>&gt;.
+
+
+
+<span class="grey">Kumar, et al.           Expires October 19, 2017               [Page 19]</span>
+</pre><pre class='newpage'><a name="page-20" id="page-20" href="#page-20" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
+   [<a name="ref-RFC4919" id="ref-RFC4919">RFC4919</a>]  Kushalnagar, N., Montenegro, G., and C. Schumacher, "IPv6
+              over Low-Power Wireless Personal Area Networks (6LoWPANs):
+              Overview, Assumptions, Problem Statement, and Goals",
+              <a href="./rfcmarkup.sh?rfc=4919">RFC 4919</a>, DOI 10.17487/RFC4919, August 2007,
+              &lt;<a href="http://www.rfc-editor.org/info/rfc4919">http://www.rfc-editor.org/info/rfc4919</a>&gt;.
+
+   [<a name="ref-RFC4944" id="ref-RFC4944">RFC4944</a>]  Montenegro, G., Kushalnagar, N., Hui, J., and D. Culler,
+              "Transmission of IPv6 Packets over IEEE 802.15.4
+              Networks", <a href="./rfcmarkup.sh?rfc=4944">RFC 4944</a>, DOI 10.17487/RFC4944, September 2007,
+              &lt;<a href="http://www.rfc-editor.org/info/rfc4944">http://www.rfc-editor.org/info/rfc4944</a>&gt;.
+
+   [<a name="ref-RFC5246" id="ref-RFC5246">RFC5246</a>]  Dierks, T. and E. Rescorla, "The Transport Layer Security
+              (TLS) Protocol Version 1.2", <a href="./rfcmarkup.sh?rfc=5246">RFC 5246</a>,
+              DOI 10.17487/RFC5246, August 2008,
+              &lt;<a href="http://www.rfc-editor.org/info/rfc5246">http://www.rfc-editor.org/info/rfc5246</a>&gt;.
+
+   [<a name="ref-RFC5958" id="ref-RFC5958">RFC5958</a>]  Turner, S., "Asymmetric Key Packages", <a href="./rfcmarkup.sh?rfc=5958">RFC 5958</a>,
+              DOI 10.17487/RFC5958, August 2010,
+              &lt;<a href="http://www.rfc-editor.org/info/rfc5958">http://www.rfc-editor.org/info/rfc5958</a>&gt;.
+
+   [<a name="ref-RFC6090" id="ref-RFC6090">RFC6090</a>]  McGrew, D., Igoe, K., and M. Salter, "Fundamental Elliptic
+              Curve Cryptography Algorithms", <a href="./rfcmarkup.sh?rfc=6090">RFC 6090</a>,
+              DOI 10.17487/RFC6090, February 2011,
+              &lt;<a href="http://www.rfc-editor.org/info/rfc6090">http://www.rfc-editor.org/info/rfc6090</a>&gt;.
+
+   [<a name="ref-RFC7230" id="ref-RFC7230">RFC7230</a>]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
+              Protocol (HTTP/1.1): Message Syntax and Routing",
+              <a href="./rfcmarkup.sh?rfc=7230">RFC 7230</a>, DOI 10.17487/RFC7230, June 2014,
+              &lt;<a href="http://www.rfc-editor.org/info/rfc7230">http://www.rfc-editor.org/info/rfc7230</a>&gt;.
+
+   [<a name="ref-RFC7251" id="ref-RFC7251">RFC7251</a>]  McGrew, D., Bailey, D., Campagna, M., and R. Dugal, "AES-
+              CCM Elliptic Curve Cryptography (ECC) Cipher Suites for
+              TLS", <a href="./rfcmarkup.sh?rfc=7251">RFC 7251</a>, DOI 10.17487/RFC7251, June 2014,
+              &lt;<a href="http://www.rfc-editor.org/info/rfc7251">http://www.rfc-editor.org/info/rfc7251</a>&gt;.
+
+   [<a name="ref-RFC7641" id="ref-RFC7641">RFC7641</a>]  Hartke, K., "Observing Resources in the Constrained
+              Application Protocol (CoAP)", <a href="./rfcmarkup.sh?rfc=7641">RFC 7641</a>,
+              DOI 10.17487/RFC7641, September 2015,
+              &lt;<a href="http://www.rfc-editor.org/info/rfc7641">http://www.rfc-editor.org/info/rfc7641</a>&gt;.
+
+   [<a name="ref-RFC7925" id="ref-RFC7925">RFC7925</a>]  Tschofenig, H., Ed. and T. Fossati, "Transport Layer
+              Security (TLS) / Datagram Transport Layer Security (DTLS)
+              Profiles for the Internet of Things", <a href="./rfcmarkup.sh?rfc=7925">RFC 7925</a>,
+              DOI 10.17487/RFC7925, July 2016,
+              &lt;<a href="http://www.rfc-editor.org/info/rfc7925">http://www.rfc-editor.org/info/rfc7925</a>&gt;.
+
+
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 19, 2017               [Page 20]</span>
+</pre><pre class='newpage'><a name="page-21" id="page-21" href="#page-21" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
+<span class="h2"><a name="appendix-A">Appendix A</a>.  EST messages to EST-coaps</span>
+
+   [EDNOTE: This section to be expanded to ensure it covers all BRSKI
+   edge conditions.]
+
+<span class="h1"><a name="appendix-A.1">A.1</a>.  cacerts</span>
+
+   In EST, an HTTPS cacerts message can be
+
+   GET /.well-known/est/cacerts HTTP/1.1
+        User-Agent: curl/7.22.0 (i686-pc-linux-gnu) libcurl/7.22.0
+                    OpenSSL/1.0.1 zlib/1.2.3.4 libidn/1.23 librtmp/2.3
+        Host: 192.0.2.1:8085
+        Accept: */*
+
+   The corresponding secure CoAP request is
+
+   GET coaps://[192.0.2.1:8085]/est/crts
+
+   with CoAP fields
+
+     Ver = 1
+     T = 0 (CON)
+     Code = 0x01 (0.01 is GET)
+     Options
+      Option1 (Uri-Host)
+        Option Delta = 0x3  (option nr = 3)
+        Option Length = 0x9
+        Option Value = 192.0.2.1
+      Option2 (Uri-Port)
+        Option Delta = 0x4  (option nr = 4+3=7)
+        Option Length = 0x4
+        Option Value = 8085
+      Option3 (Uri-Path)
+        Option Delta = 0x4   (option nr = 7+4= 11)
+        Option Length = 0x9
+        Option Value = /est/crts
+     Payload = [Empty]
+
+   A 200 OK response with a cert in EST will then be
+
+
+
+
+
+
+
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 19, 2017               [Page 21]</span>
+</pre><pre class='newpage'><a name="page-22" id="page-22" href="#page-22" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
+     200 OK
+      Status: 200 OK
+      Content-Type: application/pkcs7-mime
+      Content-Transfer-Encoding: base64
+      Content-Length: 4246 [EDNOTE: this example overflows and would
+                            need fragmentation. Choose a better example.
+                            Regardless we might need an CoAP option for
+                            the content-length ie the CoAP payload?)
+
+      MIIMOQYJKoZIhvcNAQcCoIIMKjCCDCYCAQExADALBgkqhkiG9w0BBwGgggwMMIIC
+      +zCCAeOgAwIBAgIJAJpY3nUZO3qcMA0GCSqGSIb3DQEBBQUAMBsxGTAXBgNVBAMT
+      ...
+
+   The corresponding CoAP response is
+
+   2.05 Content (Content-Format: application/pkcs7-mime)
+      {payload}
+
+   with CoAP fields
+
+     Ver = 1
+     T = 2 (ACK)
+     Code = 0x45 (2.05 Content)
+     Options
+       Option1 (Content-Format)
+         Option Delta = 0xC  (option nr = 12)
+         Option Length = 0x2
+         Option Value = TBD1 (defined in this note)
+
+     Payload = h'123456789ABCDEF...'
+
+<span class="h1"><a name="appendix-A.2">A.2</a>.  enroll / reenroll</span>
+
+   [EDNOTE: username/password authentication can be described here but
+   is not a primary focus for BRSKI.  It is important for generic EST
+   exchanges but would an endpoint device with sufficient user interface
+   to allow username/password input from an end user be required to use
+   CoAP instead of a full HTTPS exchange?]
+
+   [EDNOTE: We might need a new Option for the Retry-After response
+   message.  We might need a new Option for the WWW-Authenticate
+   response.]
+
+   [EDNOTE: Include CoAP message examples. ]
+
+
+
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 19, 2017               [Page 22]</span>
+</pre><pre class='newpage'><a name="page-23" id="page-23" href="#page-23" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
+<span class="h1"><a name="appendix-A.3">A.3</a>.  csrattr</span>
+
+   [EDNOTE: Include CoAP message examples. ]
+
+<span class="h1"><a name="appendix-A.4">A.4</a>.  enrollstatus</span>
+
+   [EDNOTE: Include CoAP message examples. ]
+
+<span class="h1"><a name="appendix-A.5">A.5</a>.  voucher_status</span>
+
+   [EDNOTE: Include CoAP message examples. ]
+
+<span class="h1"><a name="appendix-A.6">A.6</a>.  requestvoucher</span>
+
+   [EDNOTE: Include CoAP message examples. ]
+
+<span class="h1"><a name="appendix-A.7">A.7</a>.  requestlog</span>
+
+   [EDNOTE: Include CoAP message examples. ]
+
+   [EDNOTE: More examples can be added, for server-side key generation
+   in CMS envelopes. ]
+
+<span class="h2"><a name="appendix-B">Appendix B</a>.  EST-coaps Block message examples</span>
+
+   This section provides a detailed example of the messages using DTLS
+   and BLOCK option Block2.  The minimum PMTU is 1280 bytes, which is
+   the example value assumed for the DTLS datagram size.  The example
+   block length is taken as 64 which gives an SZX value of 2.
+
+   The following is an example of a valid /cacerts exchange over DTLS. .
+   The content length of the cacerts response in <a href="#appendix-A.1">appendix A.1</a> of
+   [<a href="./rfcmarkup.sh?rfc=7030" title='"Enrollment over Secure Transport"'>RFC7030</a>] is 4246 bytes using base64.  This leads to a length of 3198
+   bytes in binary.  The CoAP message adds around 10 bytes, the DTLS
+   record 29 bytes.  To avoid IP fragmentation, the CoAP block option is
+   used and an MTU of 127 is assumed to stay within one IEEE 802.15.4
+   packet.  To stay below the MTU of 127, the payload is split in 50
+   packets with a payload of 64 bytes each.  The client sends an IPv6
+   packet containing the UDP datagram with the DTLS record that
+   encapsulates the CoAP Request 50 times.  The server returns an IPv6
+   packet containing the UDP datagram with the DTLS record that
+   encapsulates the CoAP response.  The CoAP request-response exchange
+   with block option is shown below.  Block option is shown in a
+   decomposed way indicating the kind of Block option (2 in this case
+   because used in the response) followed by a colon, and then the block
+   number (NUM), the more bit (M = 0 means last block), and block size
+   exponent (2**(SZX+4)) separated by slashes.  The Length 64 is used
+   with SZX= 2 to avoid IP fragmentation.  The CoAP Request is sent with
+
+
+
+<span class="grey">Kumar, et al.           Expires October 19, 2017               [Page 23]</span>
+</pre><pre class='newpage'><a name="page-24" id="page-24" href="#page-24" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
+   confirmable (CON) option and the content format of the Response is
+   /application/cacerts.
+
+   GET [192.0.2.1:8085]/est/crts     --&gt;
+                 &lt;--   (2:0/1/64) 2.05 Content
+       GET URI (2:1/1/64)                           --&gt;
+                 &lt;--   (2:1/1/64) 2.05 Content
+                         |
+                         |
+                         |
+        GET URI (2:49/1/64)                         --&gt;
+                 &lt;--   (2:49/0/64) 2.05 Content
+
+   For further detailing the CoAP headers of the first two blocks are
+   written out.
+
+   The header of the first GET looks like:
+
+
+     Ver = 1
+     T = 0 (CON)
+     Code = 0x01 (0.1 GET)
+     Options
+      Option1 (Uri-Host)
+        Option Delta = 0x3  (option nr = 3)
+        Option Length = 0x9
+        Option Value = 192.0.2.1
+      Option2 (Uri-Port)
+        Option Delta = 0x4   (option nr = 3+4=7)
+        Option Length = 0x4
+        Option Value = 8085
+      Option3 (Uri-Path)
+        Option Delta = 0x4    (option nr = 7+4=11)
+        Option Length = 0x9
+        Option Value = /est/crts
+     Payload = [Empty]
+
+
+   The header of the first response looks like:
+
+   [EDNOTE: The contents of the payload do not need to be written as
+   they are encoded with DTLS into something unreadable.]
+
+
+
+
+
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 19, 2017               [Page 24]</span>
+</pre><pre class='newpage'><a name="page-25" id="page-25" href="#page-25" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
+     Ver = 1
+     T = 2 (ACK)
+     Code = 0x45 (2.05 Content.)
+     Options
+       Option1 (Content-Format)
+         Option Delta = 0xC  (option 12)
+         Option Length = 0x2
+         Option Value = TBD1
+       Option2 (Block2)
+         Option Delta = 0xB  (option 23 = 12 + 11)
+         Option Length = 0x1
+         Option Value = 0x0A (block number = 0, M=1, SZX=2)
+     Payload = h'123456789ABCDEF...' (512 bytes)
+
+   The second Block2:
+
+     Ver = 1
+     T = 2 (means ACK)
+     Code = 0x45 (2.05 Content.)
+     Options
+       Option1 (Content-Format)
+         Option Delta = 0xC   (option 12)
+         Option Length = 0x2
+         Option Value = TBD1
+       Option2 (Block2)
+         Option Delta = 0xB  (option 23 = 12 + 11)
+         Option Length = 0x1
+         Option Value = 0x1D (block number = 1, M=1, SZX=2)
+     Payload = = 0x123456789ABCDEF... (512 bytes)
+
+   The 49th and final Block2:
+
+     Ver = 1
+     T = 2 (means ACK)
+     Code = 0x21
+     Options
+       Option1 (Content-Format)
+         Option Delta = 0xC   (option 12)
+         Option Length = 0x2
+         Option Value = TBD1
+       Option2 (Block2)
+         Option Delta = 0xB  (option 23 = 12 + 11)
+         Option Length = 0x2
+         Option Value = 0x312 (block number = 49, M=0, SZX=2)
+     Payload = = 0x123456789ABCDEF... (510 bytes)
+
+
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 19, 2017               [Page 25]</span>
+</pre><pre class='newpage'><a name="page-26" id="page-26" href="#page-26" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
+Authors' Addresses
+
+   Sandeep S. Kumar
+   Philips Lighting Research
+   High Tech Campus 7
+   Eindhoven  5656 AE
+   NL
+
+   Email: ietf@sandeep.de
+
+
+   Peter van der Stok
+   Consultant
+
+   Email: consultancy@vanderstok.org
+
+
+   Panos Kampanakis
+   Cisco Systems
+
+   Email: pkampana@cisco.com
+
+
+   Martin Furuhed
+   Nexus Group
+
+   Email: martin.furuhed@nexusgroup.com
+
+
+   Shahid Raza
+   RISE SICS
+   Isafjordsgatan 22
+   Kista, Stockholm  16440
+   SE
+
+   Email: shahid@sics.se
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Kumar, et al.           Expires October 19, 2017               [Page 26]
+
+</pre><br />
+<span class="noprint"><small><small>Html markup produced by rfcmarkup 1.96, available from
+<a href="http://tools.ietf.org/tools/rfcmarkup/">http://tools.ietf.org/tools/rfcmarkup/</a>
+</small></small></span>
+</body></html>

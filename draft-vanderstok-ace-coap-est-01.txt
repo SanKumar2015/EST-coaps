@@ -54,7 +54,8 @@ Status of This Memo
 
 
 Kumar, et al.           Expires September 8, 2017               [Page 1]
-
+
+
 Internet-Draft                  EST-coaps                     March 2017
 
 
@@ -110,7 +111,8 @@ Table of Contents
 
 
 Kumar, et al.           Expires September 8, 2017               [Page 2]
-
+
+
 Internet-Draft                  EST-coaps                     March 2017
 
 
@@ -166,7 +168,8 @@ Internet-Draft                  EST-coaps                     March 2017
 
 
 Kumar, et al.           Expires September 8, 2017               [Page 3]
-
+
+
 Internet-Draft                  EST-coaps                     March 2017
 
 
@@ -222,7 +225,8 @@ Internet-Draft                  EST-coaps                     March 2017
 
 
 Kumar, et al.           Expires September 8, 2017               [Page 4]
-
+
+
 Internet-Draft                  EST-coaps                     March 2017
 
 
@@ -278,7 +282,8 @@ Internet-Draft                  EST-coaps                     March 2017
 
 
 Kumar, et al.           Expires September 8, 2017               [Page 5]
-
+
+
 Internet-Draft                  EST-coaps                     March 2017
 
 
@@ -334,7 +339,8 @@ Internet-Draft                  EST-coaps                     March 2017
 
 
 Kumar, et al.           Expires September 8, 2017               [Page 6]
-
+
+
 Internet-Draft                  EST-coaps                     March 2017
 
 
@@ -390,7 +396,8 @@ Internet-Draft                  EST-coaps                     March 2017
 
 
 Kumar, et al.           Expires September 8, 2017               [Page 7]
-
+
+
 Internet-Draft                  EST-coaps                     March 2017
 
 
@@ -446,7 +453,8 @@ Internet-Draft                  EST-coaps                     March 2017
 
 
 Kumar, et al.           Expires September 8, 2017               [Page 8]
-
+
+
 Internet-Draft                  EST-coaps                     March 2017
 
 
@@ -502,7 +510,8 @@ Internet-Draft                  EST-coaps                     March 2017
 
 
 Kumar, et al.           Expires September 8, 2017               [Page 9]
-
+
+
 Internet-Draft                  EST-coaps                     March 2017
 
 
@@ -558,7 +567,8 @@ Internet-Draft                  EST-coaps                     March 2017
 
 
 Kumar, et al.           Expires September 8, 2017              [Page 10]
-
+
+
 Internet-Draft                  EST-coaps                     March 2017
 
 
@@ -614,7 +624,8 @@ Internet-Draft                  EST-coaps                     March 2017
 
 
 Kumar, et al.           Expires September 8, 2017              [Page 11]
-
+
+
 Internet-Draft                  EST-coaps                     March 2017
 
 
@@ -670,7 +681,8 @@ Internet-Draft                  EST-coaps                     March 2017
 
 
 Kumar, et al.           Expires September 8, 2017              [Page 12]
-
+
+
 Internet-Draft                  EST-coaps                     March 2017
 
 
@@ -726,7 +738,8 @@ Internet-Draft                  EST-coaps                     March 2017
 
 
 Kumar, et al.           Expires September 8, 2017              [Page 13]
-
+
+
 Internet-Draft                  EST-coaps                     March 2017
 
 
@@ -782,7 +795,8 @@ Internet-Draft                  EST-coaps                     March 2017
 
 
 Kumar, et al.           Expires September 8, 2017              [Page 14]
-
+
+
 Internet-Draft                  EST-coaps                     March 2017
 
 
@@ -838,7 +852,8 @@ Internet-Draft                  EST-coaps                     March 2017
 
 
 Kumar, et al.           Expires September 8, 2017              [Page 15]
-
+
+
 Internet-Draft                  EST-coaps                     March 2017
 
 
@@ -894,7 +909,8 @@ Internet-Draft                  EST-coaps                     March 2017
 
 
 Kumar, et al.           Expires September 8, 2017              [Page 16]
-
+
+
 Internet-Draft                  EST-coaps                     March 2017
 
 
@@ -950,7 +966,8 @@ Internet-Draft                  EST-coaps                     March 2017
 
 
 Kumar, et al.           Expires September 8, 2017              [Page 17]
-
+
+
 Internet-Draft                  EST-coaps                     March 2017
 
 
@@ -1006,7 +1023,8 @@ Internet-Draft                  EST-coaps                     March 2017
 
 
 Kumar, et al.           Expires September 8, 2017              [Page 18]
-
+
+
 Internet-Draft                  EST-coaps                     March 2017
 
 
@@ -1062,7 +1080,8 @@ Appendix A.  EST messages to EST-coaps
 
 
 Kumar, et al.           Expires September 8, 2017              [Page 19]
-
+
+
 Internet-Draft                  EST-coaps                     March 2017
 
 
@@ -1118,7 +1137,8 @@ A.1.  cacerts
 
 
 Kumar, et al.           Expires September 8, 2017              [Page 20]
-
+
+
 Internet-Draft                  EST-coaps                     March 2017
 
 
@@ -1174,7 +1194,8 @@ A.2.  enroll / reenroll
 
 
 Kumar, et al.           Expires September 8, 2017              [Page 21]
-
+
+
 Internet-Draft                  EST-coaps                     March 2017
 
 
@@ -1230,7 +1251,8 @@ Appendix B.  EST-coaps Block message examples
 
 
 Kumar, et al.           Expires September 8, 2017              [Page 22]
-
+
+
 Internet-Draft                  EST-coaps                     March 2017
 
 
@@ -1286,7 +1308,8 @@ Internet-Draft                  EST-coaps                     March 2017
 
 
 Kumar, et al.           Expires September 8, 2017              [Page 23]
-
+
+
 Internet-Draft                  EST-coaps                     March 2017
 
 
@@ -1342,7 +1365,8 @@ Internet-Draft                  EST-coaps                     March 2017
 
 
 Kumar, et al.           Expires September 8, 2017              [Page 24]
-
+
+
 Internet-Draft                  EST-coaps                     March 2017
 
 
@@ -1398,3 +1422,4 @@ Authors' Addresses
 
 
 Kumar, et al.           Expires September 8, 2017              [Page 25]
+

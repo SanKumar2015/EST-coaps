@@ -145,14 +145,14 @@
 ACE                                                             S. Kumar
 Internet-Draft                                 Philips Lighting Research
 Intended status: Standards Track                         P. van der Stok
-Expires: October 19, 2017                                     Consultant
+Expires: October 20, 2017                                     Consultant
                                                            P. Kampanakis
                                                            Cisco Systems
                                                               M. Furuhed
                                                              Nexus Group
                                                                  S. Raza
                                                                RISE SICS
-                                                          April 17, 2017
+                                                          April 18, 2017
 
 
                     <span class="h1">EST over secure CoAP (EST-coaps)</span>
@@ -193,7 +193,7 @@ Status of This Memo
 
 
 
-<span class="grey">Kumar, et al.           Expires October 19, 2017                [Page 1]</span>
+<span class="grey">Kumar, et al.           Expires October 20, 2017                [Page 1]</span>
 </pre><pre class='newpage'><a name="page-2" id="page-2" href="#page-2" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
@@ -201,7 +201,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 19, 2017.
+   This Internet-Draft will expire on October 20, 2017.
 
 Copyright Notice
 
@@ -236,30 +236,30 @@ Table of Contents
    <a href="#section-6">6</a>.  Proxying  . . . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-12">12</a>
    <a href="#section-7">7</a>.  Parameters  . . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-13">13</a>
    <a href="#section-8">8</a>.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  <a href="#page-13">13</a>
-   <a href="#section-9">9</a>.  Security Considerations . . . . . . . . . . . . . . . . . . .  <a href="#page-17">17</a>
+   <a href="#section-9">9</a>.  Security Considerations . . . . . . . . . . . . . . . . . . .  <a href="#page-16">16</a>
    <a href="#section-10">10</a>. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-17">17</a>
    <a href="#section-11">11</a>. Change Log  . . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-17">17</a>
    <a href="#section-12">12</a>. References  . . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-17">17</a>
      <a href="#section-12.1">12.1</a>.  Normative References . . . . . . . . . . . . . . . . . .  <a href="#page-17">17</a>
-     <a href="#section-12.2">12.2</a>.  Informative References . . . . . . . . . . . . . . . . .  <a href="#page-19">19</a>
-   <a href="#appendix-A">Appendix A</a>.  EST messages to EST-coaps  . . . . . . . . . . . . .  <a href="#page-21">21</a>
+     <a href="#section-12.2">12.2</a>.  Informative References . . . . . . . . . . . . . . . . .  <a href="#page-18">18</a>
+   <a href="#appendix-A">Appendix A</a>.  EST messages to EST-coaps  . . . . . . . . . . . . .  <a href="#page-20">20</a>
      <a href="#appendix-A.1">A.1</a>.  cacerts . . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-21">21</a>
-     <a href="#appendix-A.2">A.2</a>.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  <a href="#page-22">22</a>
-     <a href="#appendix-A.3">A.3</a>.  csrattr . . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-23">23</a>
+     <a href="#appendix-A.2">A.2</a>.  csrattrs  . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-23">23</a>
+     <a href="#appendix-A.3">A.3</a>.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  <a href="#page-24">24</a>
 
 
 
-<span class="grey">Kumar, et al.           Expires October 19, 2017                [Page 2]</span>
+<span class="grey">Kumar, et al.           Expires October 20, 2017                [Page 2]</span>
 </pre><pre class='newpage'><a name="page-3" id="page-3" href="#page-3" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
 
-     <a href="#appendix-A.4">A.4</a>.  enrollstatus  . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-23">23</a>
-     <a href="#appendix-A.5">A.5</a>.  voucher_status  . . . . . . . . . . . . . . . . . . . . .  <a href="#page-23">23</a>
-     <a href="#appendix-A.6">A.6</a>.  requestvoucher  . . . . . . . . . . . . . . . . . . . . .  <a href="#page-23">23</a>
-     <a href="#appendix-A.7">A.7</a>.  requestlog  . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-23">23</a>
-   <a href="#appendix-B">Appendix B</a>.  EST-coaps Block message examples . . . . . . . . . .  <a href="#page-23">23</a>
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-26">26</a>
+     <a href="#appendix-A.4">A.4</a>.  serverkeygen  . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-26">26</a>
+     <a href="#appendix-A.5">A.5</a>.  enrollstatus  . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-29">29</a>
+     <a href="#appendix-A.6">A.6</a>.  voucher_status  . . . . . . . . . . . . . . . . . . . . .  <a href="#page-29">29</a>
+     <a href="#appendix-A.7">A.7</a>.  requestvoucher  . . . . . . . . . . . . . . . . . . . . .  <a href="#page-30">30</a>
+   <a href="#appendix-B">Appendix B</a>.  EST-coaps Block message examples . . . . . . . . . .  <a href="#page-30">30</a>
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-32">32</a>
 
 <span class="h2"><a name="section-1">1</a>.  Introduction</span>
 
@@ -305,7 +305,7 @@ Table of Contents
 
 
 
-<span class="grey">Kumar, et al.           Expires October 19, 2017                [Page 3]</span>
+<span class="grey">Kumar, et al.           Expires October 20, 2017                [Page 3]</span>
 </pre><pre class='newpage'><a name="page-4" id="page-4" href="#page-4" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
@@ -361,7 +361,7 @@ Table of Contents
 
 
 
-<span class="grey">Kumar, et al.           Expires October 19, 2017                [Page 4]</span>
+<span class="grey">Kumar, et al.           Expires October 20, 2017                [Page 4]</span>
 </pre><pre class='newpage'><a name="page-5" id="page-5" href="#page-5" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
@@ -417,7 +417,7 @@ Table of Contents
 
 
 
-<span class="grey">Kumar, et al.           Expires October 19, 2017                [Page 5]</span>
+<span class="grey">Kumar, et al.           Expires October 20, 2017                [Page 5]</span>
 </pre><pre class='newpage'><a name="page-6" id="page-6" href="#page-6" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
@@ -473,7 +473,7 @@ Table of Contents
 
 
 
-<span class="grey">Kumar, et al.           Expires October 19, 2017                [Page 6]</span>
+<span class="grey">Kumar, et al.           Expires October 20, 2017                [Page 6]</span>
 </pre><pre class='newpage'><a name="page-7" id="page-7" href="#page-7" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
@@ -529,7 +529,7 @@ Table of Contents
 
 
 
-<span class="grey">Kumar, et al.           Expires October 19, 2017                [Page 7]</span>
+<span class="grey">Kumar, et al.           Expires October 20, 2017                [Page 7]</span>
 </pre><pre class='newpage'><a name="page-8" id="page-8" href="#page-8" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
@@ -554,9 +554,8 @@ Table of Contents
 
    When discovering the root path for the EST resources, the server MAY
    return the full resource paths and the used content types.  This is
-   usefull when multiple content type are specified for est-coaps
-   server.  For example, the following more complete response is
-   possible.
+   useful when multiple content type are specified for EST-coaps server.
+   For example, the following more complete response is possible.
 
 
      REQ: GET /.well-known/core?rt=ace.est
@@ -582,15 +581,15 @@ Table of Contents
    determines which EST message is transported in the CoAP payload.  The
    media types specified in the HTTP Content-Type header(see <a href="#section-3.2.2">section</a>
    <a href="#section-3.2.2">3.2.2</a> of [<a href="./rfcmarkup.sh?rfc=7030" title='"Enrollment over Secure Transport"'>RFC7030</a>]) are in EST-coaps specified by the Content-Format
+   Option (12) of CoAP.  The combination of URI path-suffix and content-
 
 
 
-<span class="grey">Kumar, et al.           Expires October 19, 2017                [Page 8]</span>
+<span class="grey">Kumar, et al.           Expires October 20, 2017                [Page 8]</span>
 </pre><pre class='newpage'><a name="page-9" id="page-9" href="#page-9" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
 
-   Option (12) of CoAP.  The combination of URI path-suffix and content-
    format used for coap MUST map to an allowed combination of path-
    suffix and media type as defined for EST.  The required content-
    formats for these request and response messages are defined in
@@ -641,7 +640,8 @@ Table of Contents
 
 
 
-<span class="grey">Kumar, et al.           Expires October 19, 2017                [Page 9]</span>
+
+<span class="grey">Kumar, et al.           Expires October 20, 2017                [Page 9]</span>
 </pre><pre class='newpage'><a name="page-10" id="page-10" href="#page-10" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
@@ -684,7 +684,7 @@ Table of Contents
    option for fragmentation of the request payload and the "Block2"
    option for fragmentation of the return payload of a CoAP flow.
 
-   The BLOCK draft defines SZX in the Block1 and block2 option fields.
+   The BLOCK draft defines SZX in the Block1 and Block2 option fields.
    These are used to convey the size of the blocks in the requests or
    responses.
 
@@ -697,7 +697,7 @@ Table of Contents
 
 
 
-<span class="grey">Kumar, et al.           Expires October 19, 2017               [Page 10]</span>
+<span class="grey">Kumar, et al.           Expires October 20, 2017               [Page 10]</span>
 </pre><pre class='newpage'><a name="page-11" id="page-11" href="#page-11" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
@@ -753,7 +753,7 @@ Table of Contents
 
 
 
-<span class="grey">Kumar, et al.           Expires October 19, 2017               [Page 11]</span>
+<span class="grey">Kumar, et al.           Expires October 20, 2017               [Page 11]</span>
 </pre><pre class='newpage'><a name="page-12" id="page-12" href="#page-12" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
@@ -809,7 +809,7 @@ Table of Contents
 
 
 
-<span class="grey">Kumar, et al.           Expires October 19, 2017               [Page 12]</span>
+<span class="grey">Kumar, et al.           Expires October 20, 2017               [Page 12]</span>
 </pre><pre class='newpage'><a name="page-13" id="page-13" href="#page-13" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
@@ -865,7 +865,7 @@ Table of Contents
 
 
 
-<span class="grey">Kumar, et al.           Expires October 19, 2017               [Page 13]</span>
+<span class="grey">Kumar, et al.           Expires October 20, 2017               [Page 13]</span>
 </pre><pre class='newpage'><a name="page-14" id="page-14" href="#page-14" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
@@ -921,7 +921,7 @@ Table of Contents
 
 
 
-<span class="grey">Kumar, et al.           Expires October 19, 2017               [Page 14]</span>
+<span class="grey">Kumar, et al.           Expires October 20, 2017               [Page 14]</span>
 </pre><pre class='newpage'><a name="page-15" id="page-15" href="#page-15" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
@@ -977,7 +977,7 @@ Table of Contents
 
 
 
-<span class="grey">Kumar, et al.           Expires October 19, 2017               [Page 15]</span>
+<span class="grey">Kumar, et al.           Expires October 20, 2017               [Page 15]</span>
 </pre><pre class='newpage'><a name="page-16" id="page-16" href="#page-16" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
@@ -1023,21 +1023,6 @@ Table of Contents
 
    o  rt="ace.est" needs registration with IANA.
 
-   [EDNOTE: This section will be expanded to include types needed that
-   do not exist in CoAP.]
-
-
-
-
-
-
-
-
-<span class="grey">Kumar, et al.           Expires October 19, 2017               [Page 16]</span>
-</pre><pre class='newpage'><a name="page-17" id="page-17" href="#page-17" class="invisible"> </a>
-<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
-
-
 <span class="h2"><a name="section-9">9</a>.  Security Considerations</span>
 
    [EDNOTE: This section to be populated.  This document describes an
@@ -1045,6 +1030,14 @@ Table of Contents
    security concerns added beyond the protocol's or CoAP's specifics
    security considerations.  The security considerations mentioned in
    EST applies also to EST-coaps.  Specifically for server-side key
+
+
+
+<span class="grey">Kumar, et al.           Expires October 20, 2017               [Page 16]</span>
+</pre><pre class='newpage'><a name="page-17" id="page-17" href="#page-17" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
    generation, it introduces implications for the endpoints and their
    private keys, which will be covered here. ]
 
@@ -1083,17 +1076,6 @@ Table of Contents
 
 <span class="h3"><a name="section-12.1">12.1</a>.  Normative References</span>
 
-
-
-
-
-
-
-<span class="grey">Kumar, et al.           Expires October 19, 2017               [Page 17]</span>
-</pre><pre class='newpage'><a name="page-18" id="page-18" href="#page-18" class="invisible"> </a>
-<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
-
-
    [<a name="ref-I-D.hartke-core-pending" id="ref-I-D.hartke-core-pending">I-D.hartke-core-pending</a>]
               Stok, P. and K. Hartke, "The 'Pending' Response Code for
               the Constrained Application Protocol (CoAP)", <a href="./rfcmarkup.sh?draft=draft-hartke-core-pending-00">draft-</a>
@@ -1104,6 +1086,13 @@ Table of Contents
               S., and K. Watsen, "Bootstrapping Remote Secure Key
               Infrastructures (BRSKI)", <a href="./rfcmarkup.sh?draft=draft-ietf-anima-bootstrapping-keyinfra-05">draft-ietf-anima-bootstrapping-</a>
               <a href="./rfcmarkup.sh?draft=draft-ietf-anima-bootstrapping-keyinfra-05">keyinfra-05</a> (work in progress), March 2017.
+
+
+
+<span class="grey">Kumar, et al.           Expires October 20, 2017               [Page 17]</span>
+</pre><pre class='newpage'><a name="page-18" id="page-18" href="#page-18" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
 
    [<a name="ref-RFC2119" id="ref-RFC2119">RFC2119</a>]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", <a href="./rfcmarkup.sh?bcp=14">BCP 14</a>, <a href="./rfcmarkup.sh?rfc=2119">RFC 2119</a>,
@@ -1141,21 +1130,25 @@ Table of Contents
               DOI 10.17487/RFC7252, June 2014,
               &lt;<a href="http://www.rfc-editor.org/info/rfc7252">http://www.rfc-editor.org/info/rfc7252</a>&gt;.
 
-
-
-
-
-<span class="grey">Kumar, et al.           Expires October 19, 2017               [Page 18]</span>
-</pre><pre class='newpage'><a name="page-19" id="page-19" href="#page-19" class="invisible"> </a>
-<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
-
-
    [<a name="ref-RFC7959" id="ref-RFC7959">RFC7959</a>]  Bormann, C. and Z. Shelby, Ed., "Block-Wise Transfers in
               the Constrained Application Protocol (CoAP)", <a href="./rfcmarkup.sh?rfc=7959">RFC 7959</a>,
               DOI 10.17487/RFC7959, August 2016,
               &lt;<a href="http://www.rfc-editor.org/info/rfc7959">http://www.rfc-editor.org/info/rfc7959</a>&gt;.
 
 <span class="h3"><a name="section-12.2">12.2</a>.  Informative References</span>
+
+
+
+
+
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 20, 2017               [Page 18]</span>
+</pre><pre class='newpage'><a name="page-19" id="page-19" href="#page-19" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
 
    [<a name="ref-I-D.gerdes-ace-dtls-authorize" id="ref-I-D.gerdes-ace-dtls-authorize">I-D.gerdes-ace-dtls-authorize</a>]
               Gerdes, S., Bergmann, O., Bormann, C., Selander, G., and
@@ -1199,18 +1192,19 @@ Table of Contents
               DOI 10.17487/RFC4492, May 2006,
               &lt;<a href="http://www.rfc-editor.org/info/rfc4492">http://www.rfc-editor.org/info/rfc4492</a>&gt;.
 
-
-
-<span class="grey">Kumar, et al.           Expires October 19, 2017               [Page 19]</span>
-</pre><pre class='newpage'><a name="page-20" id="page-20" href="#page-20" class="invisible"> </a>
-<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
-
-
    [<a name="ref-RFC4919" id="ref-RFC4919">RFC4919</a>]  Kushalnagar, N., Montenegro, G., and C. Schumacher, "IPv6
               over Low-Power Wireless Personal Area Networks (6LoWPANs):
               Overview, Assumptions, Problem Statement, and Goals",
               <a href="./rfcmarkup.sh?rfc=4919">RFC 4919</a>, DOI 10.17487/RFC4919, August 2007,
               &lt;<a href="http://www.rfc-editor.org/info/rfc4919">http://www.rfc-editor.org/info/rfc4919</a>&gt;.
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 20, 2017               [Page 19]</span>
+</pre><pre class='newpage'><a name="page-20" id="page-20" href="#page-20" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
 
    [<a name="ref-RFC4944" id="ref-RFC4944">RFC4944</a>]  Montenegro, G., Kushalnagar, N., Hui, J., and D. Culler,
               "Transmission of IPv6 Packets over IEEE 802.15.4
@@ -1252,36 +1246,31 @@ Table of Contents
               DOI 10.17487/RFC7925, July 2016,
               &lt;<a href="http://www.rfc-editor.org/info/rfc7925">http://www.rfc-editor.org/info/rfc7925</a>&gt;.
 
+<span class="h2"><a name="appendix-A">Appendix A</a>.  EST messages to EST-coaps</span>
+
+   This section takes all examples from <a href="#appendix-A">Appendix A</a> of [<a href="./rfcmarkup.sh?rfc=7030" title='"Enrollment over Secure Transport"'>RFC7030</a>], changes
+   the payload from Base64 to binary and replaces the http headers by
+   their CoAP equivalents.
 
 
 
 
 
-<span class="grey">Kumar, et al.           Expires October 19, 2017               [Page 20]</span>
+
+<span class="grey">Kumar, et al.           Expires October 20, 2017               [Page 20]</span>
 </pre><pre class='newpage'><a name="page-21" id="page-21" href="#page-21" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
 
-<span class="h2"><a name="appendix-A">Appendix A</a>.  EST messages to EST-coaps</span>
-
-   [EDNOTE: This section to be expanded to ensure it covers all BRSKI
-   edge conditions.]
-
 <span class="h1"><a name="appendix-A.1">A.1</a>.  cacerts</span>
 
-   In EST, an HTTPS cacerts message can be
-
-   GET /.well-known/est/cacerts HTTP/1.1
-        User-Agent: curl/7.22.0 (i686-pc-linux-gnu) libcurl/7.22.0
-                    OpenSSL/1.0.1 zlib/1.2.3.4 libidn/1.23 librtmp/2.3
-        Host: 192.0.2.1:8085
-        Accept: */*
-
-   The corresponding secure CoAP request is
+   In EST-coaps, a coaps cacerts message can be:
 
    GET coaps://[192.0.2.1:8085]/est/crts
 
-   with CoAP fields
+   The corresponding CoAP header fields are shown below.  The use of
+   block and DTLS are worked out in <a href="#appendix-B">Appendix B</a>.
+
 
      Ver = 1
      T = 0 (CON)
@@ -1301,101 +1290,485 @@ Table of Contents
         Option Value = /est/crts
      Payload = [Empty]
 
-   A 200 OK response with a cert in EST will then be
-
-
-
-
-
-
-
-
-
-
-
-<span class="grey">Kumar, et al.           Expires October 19, 2017               [Page 21]</span>
-</pre><pre class='newpage'><a name="page-22" id="page-22" href="#page-22" class="invisible"> </a>
-<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
-
-
-     200 OK
-      Status: 200 OK
-      Content-Type: application/pkcs7-mime
-      Content-Transfer-Encoding: base64
-      Content-Length: 4246 [EDNOTE: this example overflows and would
-                            need fragmentation. Choose a better example.
-                            Regardless we might need an CoAP option for
-                            the content-length ie the CoAP payload?)
-
-      MIIMOQYJKoZIhvcNAQcCoIIMKjCCDCYCAQExADALBgkqhkiG9w0BBwGgggwMMIIC
-      +zCCAeOgAwIBAgIJAJpY3nUZO3qcMA0GCSqGSIb3DQEBBQUAMBsxGTAXBgNVBAMT
-      ...
-
-   The corresponding CoAP response is
+   A 2.05 Content response with a cert in EST-coaps will then be:
 
    2.05 Content (Content-Format: application/pkcs7-mime)
       {payload}
 
    with CoAP fields
 
+  Ver = 1
+  T = 2 (ACK)
+  Code = 0x45 (2.05 Content)
+  Options
+    Option1 (Content-Format)
+      Option Delta = 0xC  (option nr = 12)
+      Option Length = 0x2
+      Option Value = TBD1 (defined in this document) [EDNOTE: application/cbor is defined in <a href="./rfcmarkup.sh?rfc=7049">rfc7049</a>]
+
+  Payload =
+
+30233906092a6206734107028c2a3023260201013100300b06092a6206734107018
+c0c3020bb302063c20102020900a61e75193b7acc0d06092a620673410105050030
+
+
+
+<span class="grey">Kumar, et al.           Expires October 20, 2017               [Page 21]</span>
+</pre><pre class='newpage'><a name="page-22" id="page-22" href="#page-22" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
+1b31193017060355040313106573744578616d706c654341204f774f301e170d313
+3303530393033353333315a170d3134303530393033353333315a301b3119301706
+0355040313106573744578616d706c654341204f774f302062300d06092a6206734
+10101050003204f0030204a022041003a923a2968bae4aae136ca4e2512c5200680
+358482ac39d6f640e4574e654ea35f48b1e054c5da3372872f7a1e429f4edf39584
+32efb2106591d3eb783c1034709f251fc86566bda2d541c792389eac4ec9e181f4b
+9f596e5ef2679cc321542b11337f90a44df3c85f1516561fa968a1914f265bc0b82
+76ebe3106a790d97d34c8c37c74fe1c30b396424664ac426284a9f6022e02693843
+6880adfcd95c98ca1dfc2e6d75319b85d0458de28a9d13fb16d620fff7541f6a25d
+7daf004355020301000130b040300f0603551d130101f10530030101fc1d0603551
+d0e04160414084d321ca0135e77217a486b686b334b00e0603551d0f0101f104030
+20106300d06092a62067341010505000320410023703b965746a0c2c978666d787a
+94f89b495a11f0d369b28936ec2475c0f0855c8e83f823f2b871a1d92282f323c45
+904ba008579216cf5223b8b1bc425a0677262047f7700240631c17f3035d1c3780b
+2385241cba1f4a6e98e6be6820306b3a786de5a557795d1893822347b5f825d34a7
+ad2876f8feba4d525b31066f6505796f71530003431a3e6bbfe788b4565029a7e20
+a51107677552586152d051e8eebf383e92288983421d5c5652a4870c3af74b9bdbe
+d6b462e2263d30f6d3020c330206bc20102020101300d06092a6206734101050500
+301b31193017060355040313106573744578616d706c654341204f774f301e170d3
+133303530393033353333325a170d3134303530393033353333325a301b31193017
+060355040313106573744578616d706c654341204e774f302062300d06092a62067
+3410101050003204f0030204a02204100ef6b677a3247c1fc03d2b9baf113e5e7e1
+1f49e0421120e6b8384160f2bf02630ef544d5fd0d5623b35713c79a7229283a790
+8751a634aa420a3e2a4b1f10519d046f02f5a5dd6d760c2a842356e067b7bd94338
+d1faa3b3ddd4813060a207b0a097067007e45b052b60fdbae4656e11562c4f5abb7
+b0cf87a79d221f1127313c53371ce1245d63db45a1203a23340ba08042c768d03b8
+076a028d3a51d87d2ef107bbd6f2305ce5e67668724002fb726df9c14476c37de0f
+55033f192a5ad21f9a2a71c20301000134b050300e0603551d0f0101f104030204c
+1d0603551d0e04160414112966e304761732fbfe6a2c823c301f0603551d2304183
+0165084d321ca0135e77217a486b686b334b00d06092a6206734101050500032041
+00b382ba3355a50e287bae15758b3beff63d34d3e357b90031495d018868e49589b
+9faf46a4ad49b1d35b06ef380106677440934663c2cc111c183655f4dc41c0b3401
+123d35387389db91f1e1b4131b16c291d35730b3f9b33c7475124851555fe5fc647
+e8fd029605367c7e01281bf6617110021b0d10847dce0e9f0ca6c764b6334784055
+172c3983d1e3a3a82301a54fcc9b0670c543a1c747164619101ff23b240b2a26394
+c1f7d38d0e2f4747928ece5c34627a075a8b3122011e9d9158055c28f020c330206
+bc20102020102300d06092a6206734101050500301b311930170603550403131065
+73744578616d706c654341204e774e301e170d3133303530393033353333325a170
+d3134303530393033353333325a301b31193017060355040313106573744578616d
+706c654341204f774e302062300d06092a620673410101050003204f0030204a022
+041003a923a2968bae4aae136ca4e2512c5200680358482ac39d6f640e4574e654e
+a35f48b1e054c5da3372872f7a1e429f4edf3958432efb2106591d3eb783c103470
+9f251fc86566bda2d541c792389eac4ec9e181f4b9f596e5ef2679cc321542b1133
+7f90a44df3c85f1516561fa968a1914f265bc0b8276ebe3106a790d97d34c8c37c7
+4fe1c30b396424664ac426284a9f6022e026938436880adfcd95c98ca1dfc2e6d75
+319b85d0458de28a9d13fb16d620fff7541f6a25d7daf004355020301000134b050
+300e0603551d0f0101f104030204c1d0603551d0e04160414084d321ca0135e7721
+7a486b686b334b01f0603551d230418301653112966e304761732fbfe6a2c823c30
+
+
+
+<span class="grey">Kumar, et al.           Expires October 20, 2017               [Page 22]</span>
+</pre><pre class='newpage'><a name="page-23" id="page-23" href="#page-23" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
+0d06092a6206734101050500032041002e106933a443070acf5594a3a584d08af7e
+06c295059370a06639eff9bd418d13bc25a298223164a6cf1856b11a81617282e4a
+410d82ef086839c6e235690322763065455351e4c596acc7c016b225dec094706c2
+a10608f403b10821984c7c152343b18a768c2ad30238dc45dd653ee6092b0d5cd4c
+2f7d236043269357f76d13f95fb5f00d0e19263c6833948e1ba612ce8197af650e2
+5d882c12f4b6b9b67252c608ef064aca3f9bc867d71172349d510bb7651cd438837
+73d927deb41c4673020bb302063c201020209009b9dda3324700d06092a62067341
+01050500301b31193017060355040313106573744578616d706c654341204e774e3
+01e170d3133303530393033353333325a170d3134303530393033353333325a301b
+31193017060355040313106573744578616d706c654341204e774e302062300d060
+92a620673410101050003204f0030204a02204100ef6b677a3247c1fc03d2b9baf1
+13e5e7e11f49e0421120e6b8384160f2bf02630ef544d5fd0d5623b35713c79a722
+9283a7908751a634aa420a3e2a4b1f10519d046f02f5a5dd6d760c2a842356e067b
+7bd94338d1faa3b3ddd4813060a207b0a097067007e45b052b60fdbae4656e11562
+c4f5abb7b0cf87a79d221f1127313c53371ce1245d63db45a1203a23340ba08042c
+768d03b8076a028d3a51d87d2ef107bbd6f2305ce5e67668724002fb726df9c1447
+6c37de0f55033f192a5ad21f9a2a71c20301000130b040300f0603551d130101f10
+530030101fc1d0603551d0e04160414112966e304761732fbfe6a2c823c300e0603
+551d0f0101f10403020106300d06092a620673410105050003204100423f06d4b76
+0f4b42744a279035571696f272a0060f1325a40898509601ad14004f652db6312a1
+475c4d7cd50f4b269035585d7856c5337765a66b38462d5bdaa7778aab24bbe2815
+e37722cd10e7166c50e75ab75a1271324460211991e7445a2960f47351a1a629253
+34119794b90e320bc730d6c1bee496e7ac125ce9a1eca595a3a4c54a865e6b623c9
+247bfd0a7c19b56077392555c955e233642bec643ae37c166c5e221d797aea3748f
+0391c8d692a5cf9bb71f6d0e37984d6fa673a30d0c006343116f58403100
+
+<span class="h1"><a name="appendix-A.2">A.2</a>.  csrattrs</span>
+
+   In the following valid /csrattrs exchange, the EST-coaps client
+   authenticates itself with a certificate issued by the connected CA.
+
+   The initial DTLS handhake is identical to the enrollment example.
+   The CoAP GET request looks like:
+
+   GET coaps://[192.0.2.1:8085]/est/att
+
+   with CoAP header fields
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 20, 2017               [Page 23]</span>
+</pre><pre class='newpage'><a name="page-24" id="page-24" href="#page-24" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
      Ver = 1
-     T = 2 (ACK)
-     Code = 0x45 (2.05 Content)
+     T = 0 (CON)
+     Code = 0x01 (0.01 is GET)
      Options
-       Option1 (Content-Format)
-         Option Delta = 0xC  (option nr = 12)
-         Option Length = 0x2
-         Option Value = TBD1 (defined in this note)
+      Option1 (Uri-Host)
+        Option Delta = 0x3  (option nr = 3)
+        Option Length = 0x9
+        Option Value = 192.0.2.1
+      Option2 (Uri-Port)
+        Option Delta = 0x4  (option nr = 4+3=7)
+        Option Length = 0x4
+        Option Value = 8085
+      Option3 (Uri-Path)
+        Option Delta = 0x4   (option nr = 7+4= 11)
+        Option Length = 0x8
+        Option Value = /est/att
+     Payload = [Empty]
 
-     Payload = h'123456789ABCDEF...'
+   A 2.05 Content response contains attributes which are relevant for
+   the authenticated client.  In this example, the EST-coaps server two
+   attributes that the client can ignore when they are unknown to him.:
 
-<span class="h1"><a name="appendix-A.2">A.2</a>.  enroll / reenroll</span>
+   2.05 Content (Content-Format: application/crsattrs)
+      {payload}
 
-   [EDNOTE: username/password authentication can be described here but
-   is not a primary focus for BRSKI.  It is important for generic EST
-   exchanges but would an endpoint device with sufficient user interface
-   to allow username/password input from an end user be required to use
-   CoAP instead of a full HTTPS exchange?]
+   with CoAP fields
+
+  Ver = 1
+  T = 2 (ACK)
+  Code = 0x45 (2.05 Content)
+  Options
+    Option1 (Content-Format)
+      Option Delta = 0xC  (option nr = 12)
+      Option Length = 0x2
+      Option Value = TBD3 (defined in this document) [EDNOTE: application/cbor is defined in <a href="./rfcmarkup.sh?rfc=7049">rfc7049</a>]
+
+  Payload =
+307c06072b060101010116302206038dc1311b131950617273652053455420617
+320322e3939392e31206461746106092a620673410907302c06038dc231250603
+8dc306038dc4131950617273652053455420617320322e3939392e32206461746
+106092b240303020801010b06096062016503040202
+
+<span class="h1"><a name="appendix-A.3">A.3</a>.  enroll / reenroll</span>
 
    [EDNOTE: We might need a new Option for the Retry-After response
    message.  We might need a new Option for the WWW-Authenticate
    response.]
 
-   [EDNOTE: Include CoAP message examples. ]
 
 
 
-
-
-
-
-<span class="grey">Kumar, et al.           Expires October 19, 2017               [Page 22]</span>
-</pre><pre class='newpage'><a name="page-23" id="page-23" href="#page-23" class="invisible"> </a>
+<span class="grey">Kumar, et al.           Expires October 20, 2017               [Page 24]</span>
+</pre><pre class='newpage'><a name="page-25" id="page-25" href="#page-25" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
 
-<span class="h1"><a name="appendix-A.3">A.3</a>.  csrattr</span>
+   During the Enroll/Reenroll exchange, the EST-coaps client uses ana
+   CSR (PKCS#10) request in the POST request payload.
+
+   POST coaps://[192.0.2.1:8085]/est/sen
+   (Content-Format: application/pkcs10)
+
+   with CoAP header fields
+
+     Ver = 1
+     T = 0 (CON)
+     Code = 0x02 (0.02 is POST)
+     Options
+      Option1 (Uri-Host)
+        Option Delta = 0x3  (option nr = 3)
+        Option Length = 0x9
+        Option Value = 192.0.2.1
+      Option2 (Uri-Port)
+        Option Delta = 0x4  (option nr = 4+3=7)
+        Option Length = 0x4
+        Option Value = 8085
+      Option3 (Uri-Path)
+        Option Delta = 0x4   (option nr = 7+4= 11)
+        Option Length = 0x8
+        Option Value = /est/sen
+      Option4 (Content-Format)
+         Option Delta = 0x1  (option nr = 11+1 = 12)
+         Option Length = 0x2
+         Option Value = TBD5 (defined in this document)
+
+     Payload =
+   30208530206d020100301f311d301b0603550403131464656d6f7374657034203
+   1333638313431333532302062300d06092a620673410101050003204f0030204a
+   022041005d9f4dffd3c5949f646a9584367778560950b355c35b8e34726dd3764
+   54231734795b4c09b9c6d75d408311307a81f7adef7f5d241f7d5be85620c5d44
+   38bbb4242cf215c167f2ccf36c364ea2618a62f0536576369d6304e6a96877224
+   7d86824f079faac7a6f694cfda5b84c42087dc062d462190c525813f210a036a7
+   37b4f30d8891f4b75559fb72752453146332d51c937557716ccec624f5125c3a4
+   447ad3115020048113fef54ad554ee88af09a2583aac9024075113db4990b1786
+   b871691e0f02030100018701f06092a620673410907311213102b72724369722f
+   372b45597535305434300d06092a620673410105050003204100441b40177a3a6
+   5501487735a8ad5d3827a4eaa867013920e2afcda87aa81733c7c0353be47e1bf
+   a7cda5176e7ccc6be22ae03498588d5f2de3b143f2b1a6175ec544e8e7625af6b
+   836fd4416894c2e55ea99c6606f69075d6d53475d410729aa6d806afbb9986caf
+   7b844b5b3e4545f19071865ada007060cad6db26a592d4a7bda7d586b68110962
+   17071103407553155cddc75481e272b5ed553a8593fb7e25100a6f7605085dab4
+   fc7e0731f0e7fe305703791362d5157e92e6b5c2e3edbcadb40
+
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 20, 2017               [Page 25]</span>
+</pre><pre class='newpage'><a name="page-26" id="page-26" href="#page-26" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
+   After verification of the certificate by the server, a 2.05 Content
+   response with the issued certificate will be:
+
+   2.05 Content (Content-Format: application/pkcs7-mime)
+      {payload}
+
+   with CoAP fields
+
+  Ver = 1
+  T = 2 (ACK)
+  Code = 0x45 (2.05 Content)
+  Options
+    Option1 (Content-Format)
+      Option Delta = 0xC  (option nr = 12)
+      Option Length = 0x2
+      Option Value = TBD1 (defined in this document) [EDNOTE: application/cbor is defined in <a href="./rfcmarkup.sh?rfc=7049">rfc7049</a>]
+
+  Payload =
+3020f806092a62067341070283293020e50201013100300b06092a62067341070
+1830b3020c730206fc20102020115300d06092a6206734101050500301b311930
+17060355040313106573744578616d706c654341204e774e301e170d313330353
+0393233313535335a170d3134303530393233313535335a301f311d301b060355
+0403131464656d6f73746570342031333638313431333532302062300d06092a6
+20673410101050003204f0030204a022041005d9f4dffd3c5949f646a95843677
+78560950b355c35b8e34726dd376454231734795b4c09b9c6d75d408311307a81
+f7adef7f5d241f7d5be85620c5d4438bbb4242cf215c167f2ccf36c364ea2618a
+62f0536576369d6304e6a968772247d86824f079faac7a6f694cfda5b84c42087
+dc062d462190c525813f210a036a737b4f30d8891f4b75559fb72752453146332
+d51c937557716ccec624f5125c3a4447ad3115020048113fef54ad554ee88af09
+a2583aac9024075113db4990b1786b871691e0f020301000134b050300e060355
+1d0f0101f104030204c1d0603551d0e04160414e81d0788aa2710304c5ecd4d1e
+065701f0603551d230418301653112966e304761732fbfe6a2c823c300d06092a
+6206734101050500032041002910d86f2ffeeb914c046816871de601567d291b4
+3fabee0f0e8ff81cea27302a7133e20e9d04029866a8963c7d14e26fbe8a0ab1b
+77fbb1214bbcdc906fbc381137ec1de685f79406c3e416b8d82f97174bc691637
+5a4e1c4bf744c7572b4b2c6bade9fb35da786392ee0d95e3970542565f3886ad6
+7746d1b12484bb02616e63302dc371dc6006e431fb7c457598dd204b367b0b3d3
+258760a303f1102db26327f929b7c5a60173e1799491b69150248756026b80553
+171e4733ad3d13c0103100
+
+<span class="h1"><a name="appendix-A.4">A.4</a>.  serverkeygen</span>
+
+   During this valid /serverkeygen exchange, the EST-coaps client
+   authenticates itself using the certificate provided by the connected
+   CA.
+
+   The initial DTLS handhake is identical to the enrollment example.
+   The CoAP GET request looks like:
+
+
+
+<span class="grey">Kumar, et al.           Expires October 20, 2017               [Page 26]</span>
+</pre><pre class='newpage'><a name="page-27" id="page-27" href="#page-27" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
+   POST coaps://[192.0.2.1:8085]/est/skg
+
+   with CoAP header fields
+
+  Ver = 1
+  T = 0 (CON)
+  Code = 0x02 (0.02 is POST)
+  Options
+   Option1 (Uri-Host)
+     Option Delta = 0x3  (option nr = 3)
+     Option Length = 0x9
+     Option Value = 192.0.2.1
+   Option2 (Uri-Port)
+     Option Delta = 0x4  (option nr = 4+3=7)
+     Option Length = 0x4
+     Option Value = 8085
+   Option3 (Uri-Path)
+     Option Delta = 0x4   (option nr = 7+4= 11)
+     Option Length = 0x8
+     Option Value = /est/skg
+   Option4 (Content-Format) [EDNOTE: the client incudes a CSR with a public
+                            key that the server should ignore, so we need a
+                            content-format here. ]
+      Option Delta = 0x  (option nr = )
+      Option Length = 0x2
+      Option Value = TBD5 (defined in this document)
+  Payload =
+302081302069020100305b313e303c060355040313357365727665724b6579476
+56e2072657120627920636c69656e7420696e2064656d6f207374657020313220
+3133363831343139353531193017060355040513105049443a576964676574205
+34e3a3130302062300d06092a620673410101050003204f0030204a02204100f4
+dfa6c03f7f2766b23776c333d2c0f9d1a7a6ee36d01499bbe6f075d1e38a57e98
+ecc197f51b75228454b7f19652332de5e52e4a974c6ae34e1df80b33f15f47d3b
+cbf76116bb0e4d3e04a9651218a476a13fc186c2a255e4065ff7c271cff104e47
+31fad53c22b21a1e5138bf9ad0187314ac39445949a48805392390e78c7659621
+6d3e61327a534f5ea7721d2b1343c7362b37da502717cfc2475653c7a3860c5f4
+0612a5db6d33794d755264b6327e3a3263b149628585b85e57e42f6b3277591b0
+2030100018701f06092a6206734109073112131064467341586d4a6e6a6f6b427
+4447672300d06092a620673410105050003204100472d11007e5a2b2c2023d47a
+6d71d046c307701d8ebc9e47272713378390b4ee321462a3dbe54579f5a514f6f
+4050af497f428189b63655d03a194ef729f101743e5d03fbc6ae1e84486d1300a
+f9288724381909188c851fa9a5059802eb64449f2a3c9e441353d136768da27ff
+4f277651d676a6a7e51931b08f56135a2230891fd184960e1313e7a1a9139ed19
+28196867079a456cd2266cb754a45151b7b1b939e381be333fea61580fe5d25bf
+4823dbd2d6a98445b46305c10637e202856611
+
+
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 20, 2017               [Page 27]</span>
+</pre><pre class='newpage'><a name="page-28" id="page-28" href="#page-28" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
+   Without the DecryptKeyIdentifier atttribute, the response has no
+   additional encryption beyond the DTLS one.  The EST-coaps serer
+   response is:
+
+   2.05 Content (Content-Format: application/pkcs8)
+      {payload}
+
+   The response contains first a preamble that can be ignored.  The EST-
+   coaps server can use the preamble to include additional explanations,
+   like ownership or support information
+
+  Ver = 1
+  T = 2 (ACK)
+  Code = 0x45 (2.05 Content)
+  Options
+    Option1 (Content-Format)
+      Option Delta = 0xC  (option nr = 12)
+      Option Length = 0x2
+      Option Value = TBD2 (defined in this document)
+
+  Payload =
+30213e020100300d06092a6206734101010500042128302124020100022041003
+c0bc2748f2003e3e8ea15f746f2a71e83f585412b92cf6f8e64de02e056153274
+dd01c95dd9cff3112aa141774ab655c3d56359c3b3df055294692ed848e7e30a1
+1bf14e47e0693d93017022b4cdb3e6d40325356152b213c8b535851e681a7074c
+0c6d2b60e7c32fc0336b28e743eba4e5921074d47195d3c05e43c527526e692d5
+45e562578d2d4b5f2191bff89d3eef0222764a2674637a1f99257216647df6704
+efec5adbf54dab24231844eb595875795000e673dd6862310a146ad7e31083010
+001022041004e6b3f78b7791d6377f33117c17844531c81111fb8000282816264
+915565bc7c3f3f643b537a2c69140a31c22550fa97e5132c61b74166b68626704
+260620333050f510096b6570f5880e7e1c15dc0ca6ce2b5f187e2325da14ab705
+ad004717f3b2f779127b5c535e0cee6a343b502722f2397a26126e0af606b5aa7
+f96313511c0b7eb26354f91b82269de62757e3def807a6afdf83ddcbb0614bb7c
+542e6975d6456554e7bd9988fbd1930cd44d0e01ee9182ca54539418653150254
+1ad1a2a11e5021040bfce554b642c29131e7d65455e83c5406d76771912f758f5
+ee3ee36af386f38ffa313c0f661880c5a2b0970485d36f528e7f77a2e55b4ad76
+1242d1c2f75939c8061217d31491d305d3e07d6161c43e26f7de4477b1811de92
+33dc75b426302104015bf48ac376f52887813461fc54635517bcb67293837053e
+8ce1a33da7a35565a75a370dc14555b5316cb55742380350774d769d151ff0456
+0214389a232a2258326163167504cfce44cd316f63bb8a52da53a4cb74fd87194
+c0844881f791f23b0813ea0921325edd14459d41c8a1593f04316388e40b35fef
+7d2a195a5930fa54774427ac821eee2c62790d2c17bd192af794c611011506557
+83d4efe22185cbd83368786f2b1e68a5a27067e321066f0217b4b6d7971a3c21a
+241366b7907187583b511102103369047e5cce0b65012200df5ec697b5827575c
+db6821ff299d6a69574b31ddf0fbe9245ea2f74396c24b3a7565067e41366423b
+5bdd2b2a78194094dbe333f493d159b8e07722f2280d48388db7f1c9f0633bb0e
+173de2c3aa1f200af535411c7090210401421e2ea217e37312dcc606f453a6634
+f3df4dc31a9e910614406412e70eec9247f10672a500947a64356c015a845a7d1
+
+
+
+<span class="grey">Kumar, et al.           Expires October 20, 2017               [Page 28]</span>
+</pre><pre class='newpage'><a name="page-29" id="page-29" href="#page-29" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
+50e2e3911a2b3b61070a73247166da10bb45474cc97d1ec2bc392524307f35118
+f917438f607f18181684376e13a39e07
+--estServerExampleBoundary
+Ver = 1
+  T = 2 (ACK)
+  Code = 0x45 (2.05 Content)
+  Options
+    Option1 (Content-Format)
+      Option Delta = 0xC  (option nr = 12)
+      Option Length = 0x2
+      Option Value = TBD1 (defined in this document) [EDNOTE: application/cbor is defined in <a href="./rfcmarkup.sh?rfc=7049">rfc7049</a>]
+  Payload=
+3020c506092a62067341070283363020f20201013100300b06092a62067341070
+183183020d430207cc20102020116300d06092a6206734101050500301b311930
+17060355040313106573744578616d706c654341204e774e301e170d313330353
+0393233323535365a170d3134303530393233323535365a302c312a3028060355
+0403132173657276657273696465206b65792067656e657261746564207265737
+06f6e7365302062300d06092a620673410101050003204f0030204a022041003c
+0bc2748f2003e3e8ea15f746f2a71e83f585412b92cf6f8e64de02e056153274d
+d01c95dd9cff3112aa141774ab655c3d56359c3b3df055294692ed848e7e30a11
+bf14e47e0693d93017022b4cdb3e6d40325356152b213c8b535851e681a7074c0
+c6d2b60e7c32fc0336b28e743eba4e5921074d47195d3c05e43c527526e692d54
+5e562578d2d4b5f2191bff89d3eef0222764a2674637a1f99257216647df6704e
+fec5adbf54dab24231844eb595875795000e673dd6862310a146ad7e310830100
+0134b050300e0603551d0f0101f104030204c1d0603551d0e04160414764b1bd5
+e69935626e476b195a1a8c1f0603551d230418301653112966e304761732fbfe6
+a2c823c300d06092a620673410105050003204100474e5100a9cdaaa813b30f48
+40340fb17e7d6d6063064a5a7f2162301c464b5a8176623dfb1a4a484e618de1c
+3c3c5927cf590f4541233ff3c251e772a9a3f2c5fc6e5ef2fe155e5e385deb846
+b36eb4c3c7ef713f2d137ae8be4c022715fd033a818d55250f4e6077718180755
+a4fa677130da60818175ca4ab2af1d15563624c51e13dfdcf381881b72327e2f4
+9b7467e631a27b5b5c7d542bd2edaf78c0ac294f3972278996bdf673a334ff74c
+84aa7d65726310252f6a4f41281ec10ca2243864e3c5743103100
+
+   This epilogue can also be ignored
+
+<span class="h1"><a name="appendix-A.5">A.5</a>.  enrollstatus</span>
 
    [EDNOTE: Include CoAP message examples. ]
 
-<span class="h1"><a name="appendix-A.4">A.4</a>.  enrollstatus</span>
+<span class="h1"><a name="appendix-A.6">A.6</a>.  voucher_status</span>
 
    [EDNOTE: Include CoAP message examples. ]
 
-<span class="h1"><a name="appendix-A.5">A.5</a>.  voucher_status</span>
+
+
+
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 20, 2017               [Page 29]</span>
+</pre><pre class='newpage'><a name="page-30" id="page-30" href="#page-30" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
+<span class="h1"><a name="appendix-A.7">A.7</a>.  requestvoucher</span>
 
    [EDNOTE: Include CoAP message examples. ]
-
-<span class="h1"><a name="appendix-A.6">A.6</a>.  requestvoucher</span>
-
-   [EDNOTE: Include CoAP message examples. ]
-
-<span class="h1"><a name="appendix-A.7">A.7</a>.  requestlog</span>
-
-   [EDNOTE: Include CoAP message examples. ]
-
-   [EDNOTE: More examples can be added, for server-side key generation
-   in CMS envelopes. ]
 
 <span class="h2"><a name="appendix-B">Appendix B</a>.  EST-coaps Block message examples</span>
 
@@ -1406,47 +1779,47 @@ Table of Contents
 
    The following is an example of a valid /cacerts exchange over DTLS. .
    The content length of the cacerts response in <a href="#appendix-A.1">appendix A.1</a> of
-   [<a href="./rfcmarkup.sh?rfc=7030" title='"Enrollment over Secure Transport"'>RFC7030</a>] is 4246 bytes using base64.  This leads to a length of 3198
+   [<a href="./rfcmarkup.sh?rfc=7030" title='"Enrollment over Secure Transport"'>RFC7030</a>] is 4246 bytes using base64.  This leads to a length of 2509
    bytes in binary.  The CoAP message adds around 10 bytes, the DTLS
    record 29 bytes.  To avoid IP fragmentation, the CoAP block option is
    used and an MTU of 127 is assumed to stay within one IEEE 802.15.4
-   packet.  To stay below the MTU of 127, the payload is split in 50
-   packets with a payload of 64 bytes each.  The client sends an IPv6
-   packet containing the UDP datagram with the DTLS record that
-   encapsulates the CoAP Request 50 times.  The server returns an IPv6
-   packet containing the UDP datagram with the DTLS record that
-   encapsulates the CoAP response.  The CoAP request-response exchange
-   with block option is shown below.  Block option is shown in a
-   decomposed way indicating the kind of Block option (2 in this case
-   because used in the response) followed by a colon, and then the block
-   number (NUM), the more bit (M = 0 means last block), and block size
-   exponent (2**(SZX+4)) separated by slashes.  The Length 64 is used
-   with SZX= 2 to avoid IP fragmentation.  The CoAP Request is sent with
-
-
-
-<span class="grey">Kumar, et al.           Expires October 19, 2017               [Page 23]</span>
-</pre><pre class='newpage'><a name="page-24" id="page-24" href="#page-24" class="invisible"> </a>
-<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
-
-
-   confirmable (CON) option and the content format of the Response is
-   /application/cacerts.
+   packet.  To stay below the MTU of 127, the payload is split in 39
+   packets with a payload of 64 bytes each, followed by a packet of 13
+   bytes.  The client sends an IPv6 packet containing the UDP datagram
+   with the DTLS record that encapsulates the CoAP Request 40 times.
+   The server returns an IPv6 packet containing the UDP datagram with
+   the DTLS record that encapsulates the CoAP response.  The CoAP
+   request-response exchange with block option is shown below.  Block
+   option is shown in a decomposed way indicating the kind of Block
+   option (2 in this case because used in the response) followed by a
+   colon, and then the block number (NUM), the more bit (M = 0 means
+   last block), and block size exponent (2**(SZX+4)) separated by
+   slashes.  The Length 64 is used with SZX= 2 to avoid IP
+   fragmentation.  The CoAP Request is sent with confirmable (CON)
+   option and the content format of the Response is /application/
+   cacerts.
 
    GET [192.0.2.1:8085]/est/crts     --&gt;
-                 &lt;--   (2:0/1/64) 2.05 Content
-       GET URI (2:1/1/64)                           --&gt;
-                 &lt;--   (2:1/1/64) 2.05 Content
+                 &lt;--   (2:0/1/39) 2.05 Content
+       GET URI (2:1/1/39)                           --&gt;
+                 &lt;--   (2:1/1/39) 2.05 Content
                          |
                          |
                          |
-        GET URI (2:49/1/64)                         --&gt;
-                 &lt;--   (2:49/0/64) 2.05 Content
+        GET URI (2:65/1/39)                         --&gt;
+                 &lt;--   (2:65/0/39) 2.05 Content
 
    For further detailing the CoAP headers of the first two blocks are
    written out.
 
    The header of the first GET looks like:
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 20, 2017               [Page 30]</span>
+</pre><pre class='newpage'><a name="page-31" id="page-31" href="#page-31" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
 
      Ver = 1
@@ -1467,24 +1840,7 @@ Table of Contents
         Option Value = /est/crts
      Payload = [Empty]
 
-
    The header of the first response looks like:
-
-   [EDNOTE: The contents of the payload do not need to be written as
-   they are encoded with DTLS into something unreadable.]
-
-
-
-
-
-
-
-
-
-<span class="grey">Kumar, et al.           Expires October 19, 2017               [Page 24]</span>
-</pre><pre class='newpage'><a name="page-25" id="page-25" href="#page-25" class="invisible"> </a>
-<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
-
 
      Ver = 1
      T = 2 (ACK)
@@ -1498,49 +1854,62 @@ Table of Contents
          Option Delta = 0xB  (option 23 = 12 + 11)
          Option Length = 0x1
          Option Value = 0x0A (block number = 0, M=1, SZX=2)
-     Payload = h'123456789ABCDEF...' (512 bytes)
+     Payload =
+   30233906092a6206734107028c2a3023260201013100300b06092a6206734107018
+   c0c3020bb302063c20102020900a61e75193b7acc0d06092a6206734101
 
    The second Block2:
 
-     Ver = 1
-     T = 2 (means ACK)
-     Code = 0x45 (2.05 Content.)
-     Options
-       Option1 (Content-Format)
-         Option Delta = 0xC   (option 12)
-         Option Length = 0x2
-         Option Value = TBD1
-       Option2 (Block2)
-         Option Delta = 0xB  (option 23 = 12 + 11)
-         Option Length = 0x1
-         Option Value = 0x1D (block number = 1, M=1, SZX=2)
-     Payload = = 0x123456789ABCDEF... (512 bytes)
-
-   The 49th and final Block2:
-
-     Ver = 1
-     T = 2 (means ACK)
-     Code = 0x21
-     Options
-       Option1 (Content-Format)
-         Option Delta = 0xC   (option 12)
-         Option Length = 0x2
-         Option Value = TBD1
-       Option2 (Block2)
-         Option Delta = 0xB  (option 23 = 12 + 11)
-         Option Length = 0x2
-         Option Value = 0x312 (block number = 49, M=0, SZX=2)
-     Payload = = 0x123456789ABCDEF... (510 bytes)
 
 
 
 
 
 
-<span class="grey">Kumar, et al.           Expires October 19, 2017               [Page 25]</span>
-</pre><pre class='newpage'><a name="page-26" id="page-26" href="#page-26" class="invisible"> </a>
+
+
+
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 20, 2017               [Page 31]</span>
+</pre><pre class='newpage'><a name="page-32" id="page-32" href="#page-32" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
+
+  Ver = 1
+  T = 2 (means ACK)
+  Code = 0x45 (2.05 Content.)
+  Options
+    Option1 (Content-Format)
+      Option Delta = 0xC   (option 12)
+      Option Length = 0x2
+      Option Value = TBD1   [EDNOTE: application/cbor is defined in <a href="./rfcmarkup.sh?rfc=7049">rfc7049</a>]
+    Option2 (Block2)
+      Option Delta = 0xB  (option 23 = 12 + 11)
+      Option Length = 0x1
+      Option Value = 0x1A (block number = 1, M=1, SZX=2)
+  Payload =
+05050030
+1b31193017060355040313106573744578616d706c654341204f774f301e170d313
+3303530393033353333315a170d3134303530393033353333315a
+
+   The 40th and final Block2:
+
+  Ver = 1
+  T = 2 (means ACK)
+  Code = 0x21
+  Options
+    Option1 (Content-Format)
+      Option Delta = 0xC   (option 12)
+      Option Length = 0x2
+      Option Value = TBD1 [EDNOTE: application/cbor is defined in <a href="./rfcmarkup.sh?rfc=7049">rfc7049</a>]
+    Option2 (Block2)
+      Option Delta = 0xB  (option 23 = 12 + 11)
+      Option Length = 0x2
+      Option Value = 0x272 (block number = 39, M=0, SZX=2)
+  Payload = 73a30d0c006343116f58403100
 
 Authors' Addresses
 
@@ -1557,6 +1926,12 @@ Authors' Addresses
    Consultant
 
    Email: consultancy@vanderstok.org
+
+
+
+<span class="grey">Kumar, et al.           Expires October 20, 2017               [Page 32]</span>
+</pre><pre class='newpage'><a name="page-33" id="page-33" href="#page-33" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
 
    Panos Kampanakis
@@ -1593,7 +1968,24 @@ Authors' Addresses
 
 
 
-Kumar, et al.           Expires October 19, 2017               [Page 26]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Kumar, et al.           Expires October 20, 2017               [Page 33]
 
 </pre><br />
 <span class="noprint"><small><small>Html markup produced by rfcmarkup 1.96, available from

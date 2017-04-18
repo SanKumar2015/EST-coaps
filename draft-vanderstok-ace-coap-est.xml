@@ -439,19 +439,14 @@ It is suggested that the EST-coaps communication between pledge and registrar, s
            <t>Published specification: BRSKI?? </t>
            <t>Applications that use this media type: ANIMA bootstrap (BRSKI)</t>
          </list></t>
-
       </list></t>
-
-
     </list>
-</t>
-   <t>
-Additions to the sub-registry "CoAP Resource Type", within the "CoRE Parameters" registry are needed for a new resource type. 
-<list style="symbols">
-    <t>rt="ace.est" needs registration with IANA.</t>
-  </list
-  
- </t>
+   </t>
+   <t>Additions to the sub-registry "CoAP Resource Type", within the "CoRE Parameters" registry are needed for a new resource type. 
+    <list style="symbols">
+      <t>rt="ace.est" needs registration with IANA.</t>
+    </list>
+   </t>
 
   </section>  <!-- IANA consideration -->
 
@@ -528,7 +523,7 @@ Additions to the sub-registry "CoAP Resource Type", within the "CoRE Parameters"
 
   <section anchor="messagebindings" title="EST messages to EST-coaps">
 <t>
-This section takes all examples from appendix A of <xref target="RFC7030"/>, changes the payload from BSD64 to binary and replaces the http headers by their coap equivalents. 
+This section takes all examples from Appendix A of <xref target="RFC7030"/>, changes the payload from Base64 to binary and replaces the http headers by their CoAP equivalents. 
 </t>
     <section title="cacerts">
       <t>In EST-coaps, a coaps cacerts message can be:
@@ -576,7 +571,7 @@ GET coaps://[192.0.2.1:8085]/est/crts
     Option1 (Content-Format)
       Option Delta = 0xC  (option nr = 12)
       Option Length = 0x2
-      Option Value = TBD1 (defined in this document)
+      Option Value = TBD1 (defined in this document) [EDNOTE: application/cbor is defined in rfc7049]
                 
   Payload =
 
@@ -660,7 +655,7 @@ e37722cd10e7166c50e75ab75a1271324460211991e7445a2960f47351a1a629253
 
     <section title="csrattrs">
       <t>In the following valid /csrattrs exchange, the EST-coaps client authenticates itself  with a certificate issued by the connected CA.</t>
-<t> The initial DTLS handhake is identical to the enrollment example. The CoAP GET request looks like:
+<t> The initial DTLS handhake is identical to the enrollment example. The CoAP GET request looks like: 
 </t> 
 <figure align="left"><artwork><![CDATA[
 GET coaps://[192.0.2.1:8085]/est/att
@@ -703,7 +698,7 @@ GET coaps://[192.0.2.1:8085]/est/att
     Option1 (Content-Format)
       Option Delta = 0xC  (option nr = 12)
       Option Length = 0x2
-      Option Value = TBD3 (defined in this document)
+      Option Value = TBD3 (defined in this document) [EDNOTE: application/cbor is defined in rfc7049]
                 
   Payload =
 307c06072b060101010116302206038dc1311b131950617273652053455420617
@@ -711,24 +706,20 @@ GET coaps://[192.0.2.1:8085]/est/att
 8dc306038dc4131950617273652053455420617320322e3939392e32206461746
 106092b240303020801010b06096062016503040202
 ]]></artwork></figure>
-
-
     </section>  <!-- csrattrs -->
 
     <section title="enroll / reenroll">
 
-      <t>[EDNote: We might need a new Option for the WWW-Authenticate
+      <t>[EDNOTE: We might need a new Option for the Retry-After response message. We might need a new Option for the WWW-Authenticate
         response.]</t>
 
-<t>During the Enroll/Reenroll exchange, the EST-coaps client uses an existing certificate in the POST request payload.</t>
+      <t>During the Enroll/Reenroll exchange, the EST-coaps client uses ana CSR (PKCS#10) request in the POST request payload.</t>
 <figure align="left"><artwork><![CDATA[
-POST coaps://[192.0.2.1:8085]/est/crts
+POST coaps://[192.0.2.1:8085]/est/sen
 (Content-Format: application/pkcs10)
-
 ]]></artwork></figure>
 
-      <t>with CoAP header fields
-</t>
+      <t>with CoAP header fields</t>
       <figure><artwork>
 <![CDATA[  Ver = 1
   T = 0 (CON)
@@ -786,7 +777,7 @@ fc7e0731f0e7fe305703791362d5157e92e6b5c2e3edbcadb40
     Option1 (Content-Format)
       Option Delta = 0xC  (option nr = 12)
       Option Length = 0x2
-      Option Value = TBD1 (defined in this document)
+      Option Value = TBD1 (defined in this document) [EDNOTE: application/cbor is defined in rfc7049]
                 
   Payload =
 3020f806092a62067341070283293020e50201013100300b06092a62067341070
@@ -839,6 +830,12 @@ POST coaps://[192.0.2.1:8085]/est/skg
      Option Delta = 0x4   (option nr = 7+4= 11)
      Option Length = 0x8
      Option Value = /est/skg
+   Option4 (Content-Format) [EDNOTE: the client incudes a CSR with a public 
+			    key that the server should ignore, so we need a 
+			    content-format here. ]
+      Option Delta = 0x  (option nr = )
+      Option Length = 0x2
+      Option Value = TBD5 (defined in this document)
   Payload =
 302081302069020100305b313e303c060355040313357365727665724b6579476
 56e2072657120627920636c69656e7420696e2064656d6f207374657020313220
@@ -914,7 +911,7 @@ Ver = 1
     Option1 (Content-Format)
       Option Delta = 0xC  (option nr = 12)
       Option Length = 0x2
-      Option Value = TBD1 (defined in this document)
+      Option Value = TBD1 (defined in this document) [EDNOTE: application/cbor is defined in rfc7049]
   Payload=
 3020c506092a62067341070283363020f20201013100300b06092a62067341070
 183183020d430207cc20102020116300d06092a6206734101050500301b311930
@@ -969,7 +966,6 @@ GET [192.0.2.1:8085]/est/crts     -->
               <--   (2:0/1/39) 2.05 Content
     GET URI (2:1/1/39)                           -->
               <--   (2:1/1/39) 2.05 Content
-
                       |
                       |
                       |
@@ -1000,14 +996,10 @@ The header of the first GET looks like:
      Option Length = 0x9
      Option Value = /est/crts
   Payload = [Empty]
-
 ]]></artwork>
           </figure>
 
-    <t>The header of the first response looks like:
-</t>
-
- 
+    <t>The header of the first response looks like:</t>
     <figure><artwork>
 <![CDATA[  Ver = 1
   T = 2 (ACK)
@@ -1024,7 +1016,6 @@ The header of the first GET looks like:
   Payload = 
 30233906092a6206734107028c2a3023260201013100300b06092a6206734107018
 c0c3020bb302063c20102020900a61e75193b7acc0d06092a6206734101
-
 ]]></artwork>
           </figure>
 
@@ -1037,8 +1028,8 @@ c0c3020bb302063c20102020900a61e75193b7acc0d06092a6206734101
   Options
     Option1 (Content-Format)
       Option Delta = 0xC   (option 12)
-      Option Length = 0x2
-      Option Value = TBD1
+      Option Length = 0x2 
+      Option Value = TBD1   [EDNOTE: application/cbor is defined in rfc7049]
     Option2 (Block2)
       Option Delta = 0xB  (option 23 = 12 + 11)
       Option Length = 0x1
@@ -1060,17 +1051,14 @@ c0c3020bb302063c20102020900a61e75193b7acc0d06092a6206734101
     Option1 (Content-Format)
       Option Delta = 0xC   (option 12)
       Option Length = 0x2
-      Option Value = TBD1
+      Option Value = TBD1 [EDNOTE: application/cbor is defined in rfc7049]
     Option2 (Block2)
       Option Delta = 0xB  (option 23 = 12 + 11)
       Option Length = 0x2
       Option Value = 0x272 (block number = 39, M=0, SZX=2)
   Payload = 73a30d0c006343116f58403100
-
-
 ]]></artwork></figure>
-
-      
+     
   </section> <!-- EST-coaps Block message examples -->
 </back>
 

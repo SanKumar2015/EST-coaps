@@ -29,6 +29,8 @@
 "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.selander-ace-cose-ecdhe.xml">
 <!ENTITY I-D.ietf-core-object-security SYSTEM
 "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-core-object-security.xml">
+<!ENTITY I-D.selander-ace-eals SYSTEM
+"http://xml.resource.org/public/rfc/bibxml3/reference.I-D.selander-ace-eals.xml">
 <!ENTITY I-D.ietf-anima-voucher SYSTEM
 "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-anima-voucher.xml">
 <!ENTITY I-D.hartke-core-pending SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.hartke-core-pending.xml">
@@ -332,7 +334,7 @@ The Size1 response MAY be parsed by the client as a size indication of the Block
 
     <section title = "6tisch approach">
       <t>The 6tisch bootstrapping is targeted to the "imprinting" of the "pledge" with layer 2 keys. The content formats for the transport are being defined and may be expressed in a YANG module.</t>
-<t>Instead of using transport security, the 6tisch approach relies on application security provided by OSCOAP <xref target=" I-D.ietf-core-object-security"/> and EDHOC <xref target="I-D.selander-ace-cose-ecdhe"/>.</t>
+<t>Instead of using transport security, the 6tisch approach relies on application security provided by OSCOAP <xref target=" I-D.ietf-core-object-security"/> and EDHOC <xref target="I-D.selander-ace-cose-ecdhe"/>. <xref target="I-D.selander-ace-eals"/> uses OSCAP to securely enroll certificates by using Certificate Management over CMS (CMC) (EST is profile of CMC). </t>
 <t>
 It is suggested that the EST-coaps communication between pledge and registrar, specified in this document, can be freely exchanged with the same communication specified in 
 <xref target="I-D.ietf-6tisch-dtsecurity-secure-join"/> and <xref target="I-D.ietf-6tisch-minimal-security"/>.
@@ -490,6 +492,7 @@ It is suggested that the EST-coaps communication between pledge and registrar, s
     &RFC7252;
     &RFC7959;
     &I-D.ietf-anima-bootstrapping-keyinfra;
+    &I-D.selander-ace-eals;
     &I-D.hartke-core-pending;
 
   </references>

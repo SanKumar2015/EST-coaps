@@ -571,7 +571,7 @@ GET coaps://[192.0.2.1:8085]/est/crts
     Option1 (Content-Format)
       Option Delta = 0xC  (option nr = 12)
       Option Length = 0x2
-      Option Value = TBD1 (defined in this document) [EDNOTE: application/cbor is defined in rfc7049]
+      Option Value = TBD1 (defined in this document) 
                 
   Payload =
 
@@ -698,7 +698,7 @@ GET coaps://[192.0.2.1:8085]/est/att
     Option1 (Content-Format)
       Option Delta = 0xC  (option nr = 12)
       Option Length = 0x2
-      Option Value = TBD3 (defined in this document) [EDNOTE: application/cbor is defined in rfc7049]
+      Option Value = TBD3 (defined in this document)
                 
   Payload =
 307c06072b060101010116302206038dc1311b131950617273652053455420617
@@ -777,7 +777,7 @@ fc7e0731f0e7fe305703791362d5157e92e6b5c2e3edbcadb40
     Option1 (Content-Format)
       Option Delta = 0xC  (option nr = 12)
       Option Length = 0x2
-      Option Value = TBD1 (defined in this document) [EDNOTE: application/cbor is defined in rfc7049]
+      Option Value = TBD1 (defined in this document)
                 
   Payload =
 3020f806092a62067341070283293020e50201013100300b06092a62067341070
@@ -911,7 +911,7 @@ Ver = 1
     Option1 (Content-Format)
       Option Delta = 0xC  (option nr = 12)
       Option Length = 0x2
-      Option Value = TBD1 (defined in this document) [EDNOTE: application/cbor is defined in rfc7049]
+      Option Value = TBD1 (defined in this document) 
   Payload=
 3020c506092a62067341070283363020f20201013100300b06092a62067341070
 183183020d430207cc20102020116300d06092a6206734101050500301b311930
@@ -1029,7 +1029,7 @@ c0c3020bb302063c20102020900a61e75193b7acc0d06092a6206734101
     Option1 (Content-Format)
       Option Delta = 0xC   (option 12)
       Option Length = 0x2 
-      Option Value = TBD1   [EDNOTE: application/cbor is defined in rfc7049]
+      Option Value = TBD1
     Option2 (Block2)
       Option Delta = 0xB  (option 23 = 12 + 11)
       Option Length = 0x1
@@ -1051,7 +1051,7 @@ c0c3020bb302063c20102020900a61e75193b7acc0d06092a6206734101
     Option1 (Content-Format)
       Option Delta = 0xC   (option 12)
       Option Length = 0x2
-      Option Value = TBD1 [EDNOTE: application/cbor is defined in rfc7049]
+      Option Value = TBD1 
     Option2 (Block2)
       Option Delta = 0xB  (option 23 = 12 + 11)
       Option Length = 0x2

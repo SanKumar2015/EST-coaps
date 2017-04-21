@@ -258,7 +258,7 @@ Table of Contents
      <a href="#appendix-A.5">A.5</a>.  enrollstatus  . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-30">30</a>
      <a href="#appendix-A.6">A.6</a>.  voucher_status  . . . . . . . . . . . . . . . . . . . . .  <a href="#page-30">30</a>
      <a href="#appendix-A.7">A.7</a>.  requestvoucher  . . . . . . . . . . . . . . . . . . . . .  <a href="#page-30">30</a>
-   <a href="#appendix-B">Appendix B</a>.  EST-coaps Block message examples . . . . . . . . . .  <a href="#page-30">30</a>
+   <a href="#appendix-B">Appendix B</a>.  EST-coaps Block message examples . . . . . . . . . .  <a href="#page-31">31</a>
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-33">33</a>
 
 <span class="h2"><a name="section-1">1</a>.  Introduction</span>
@@ -1542,44 +1542,45 @@ Table of Contents
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
 
-     Ver = 1
-     T = 0 (CON)
-     Code = 0x02 (0.02 is POST)
-     Options
-      Option1 (Uri-Host)
-        Option Delta = 0x3  (option nr = 3)
-        Option Length = 0x9
-        Option Value = 192.0.2.1
-      Option2 (Uri-Port)
-        Option Delta = 0x4  (option nr = 4+3=7)
-        Option Length = 0x4
-        Option Value = 8085
-      Option3 (Uri-Path)
-        Option Delta = 0x4   (option nr = 7+4= 11)
-        Option Length = 0x8
-        Option Value = /est/sen
-      Option4 (Content-Format)
-         Option Delta = 0x1  (option nr = 11+1 = 12)
-         Option Length = 0x2
-         Option Value = TBD5 (defined in this document)
+  Ver = 1
+  T = 0 (CON)
+  Code = 0x02 (0.02 is POST)
+  Options
+   Option1 (Uri-Host)
+     Option Delta = 0x3  (option nr = 3)
+     Option Length = 0x9
+     Option Value = 192.0.2.1
+   Option2 (Uri-Port)
+     Option Delta = 0x4  (option nr = 4+3=7)
+     Option Length = 0x4
+     Option Value = 8085
+   Option3 (Uri-Path)
+     Option Delta = 0x4   (option nr = 7+4= 11)
+     Option Length = 0x8
+     Option Value = /est/sen
+   Option4 (Content-Format)
+      Option Delta = 0x1  (option nr = 11+1 = 12)
+      Option Length = 0x2
+      Option Value = TBD5 (defined in this document)
 
-     Payload =
-   30208530206d020100301f311d301b0603550403131464656d6f7374657034203
-   1333638313431333532302062300d06092a620673410101050003204f0030204a
-   022041005d9f4dffd3c5949f646a9584367778560950b355c35b8e34726dd3764
-   54231734795b4c09b9c6d75d408311307a81f7adef7f5d241f7d5be85620c5d44
-   38bbb4242cf215c167f2ccf36c364ea2618a62f0536576369d6304e6a96877224
-   7d86824f079faac7a6f694cfda5b84c42087dc062d462190c525813f210a036a7
-   37b4f30d8891f4b75559fb72752453146332d51c937557716ccec624f5125c3a4
-   447ad3115020048113fef54ad554ee88af09a2583aac9024075113db4990b1786
-   b871691e0f02030100018701f06092a620673410907311213102b72724369722f
-   372b45597535305434300d06092a620673410105050003204100441b40177a3a6
-   5501487735a8ad5d3827a4eaa867013920e2afcda87aa81733c7c0353be47e1bf
-   a7cda5176e7ccc6be22ae03498588d5f2de3b143f2b1a6175ec544e8e7625af6b
-   836fd4416894c2e55ea99c6606f69075d6d53475d410729aa6d806afbb9986caf
-   7b844b5b3e4545f19071865ada007060cad6db26a592d4a7bda7d586b68110962
-   17071103407553155cddc75481e272b5ed553a8593fb7e25100a6f7605085dab4
-   fc7e0731f0e7fe305703791362d5157e92e6b5c2e3edbcadb40
+  Payload =
+[EDNOTE: If POP is used, make sure tls-unique in the CSR is a vlaid HMAC output. ]
+30208530206d020100301f311d301b0603550403131464656d6f7374657034203
+1333638313431333532302062300d06092a620673410101050003204f0030204a
+022041005d9f4dffd3c5949f646a9584367778560950b355c35b8e34726dd3764
+54231734795b4c09b9c6d75d408311307a81f7adef7f5d241f7d5be85620c5d44
+38bbb4242cf215c167f2ccf36c364ea2618a62f0536576369d6304e6a96877224
+7d86824f079faac7a6f694cfda5b84c42087dc062d462190c525813f210a036a7
+37b4f30d8891f4b75559fb72752453146332d51c937557716ccec624f5125c3a4
+447ad3115020048113fef54ad554ee88af09a2583aac9024075113db4990b1786
+b871691e0f02030100018701f06092a620673410907311213102b72724369722f
+372b45597535305434300d06092a620673410105050003204100441b40177a3a6
+5501487735a8ad5d3827a4eaa867013920e2afcda87aa81733c7c0353be47e1bf
+a7cda5176e7ccc6be22ae03498588d5f2de3b143f2b1a6175ec544e8e7625af6b
+836fd4416894c2e55ea99c6606f69075d6d53475d410729aa6d806afbb9986caf
+7b844b5b3e4545f19071865ada007060cad6db26a592d4a7bda7d586b68110962
+17071103407553155cddc75481e272b5ed553a8593fb7e25100a6f7605085dab4
+fc7e0731f0e7fe305703791362d5157e92e6b5c2e3edbcadb40
 
 
    After verification of the certificate by the server, a 2.05 Content
@@ -1589,7 +1590,6 @@ Table of Contents
       {payload}
 
    with CoAP fields
-
 
 
 
@@ -1677,6 +1677,7 @@ Table of Contents
       Option Length = 0x2
       Option Value = TBD5 (defined in this document)
   Payload =
+&lt;-- [EDNOTE: If POP is used, make sure tls-unique in the CSR is a vlaid HMAC output. ] --&gt;
 302081302069020100305b313e303c060355040313357365727665724b6579476
 56e2072657120627920636c69656e7420696e2064656d6f207374657020313220
 3133363831343139353531193017060355040513105049443a576964676574205
@@ -1700,8 +1701,7 @@ f9288724381909188c851fa9a5059802eb64449f2a3c9e441353d136768da27ff
    additional encryption beyond the DTLS one.  The EST-coaps serer
    response is:
 
-   2.05 Content (Content-Format: application/pkcs8)
-      {payload}
+
 
 
 
@@ -1709,6 +1709,9 @@ f9288724381909188c851fa9a5059802eb64449f2a3c9e441353d136768da27ff
 </pre><pre class='newpage'><a name="page-29" id="page-29" href="#page-29" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
+
+   2.05 Content (Content-Format: application/pkcs8)
+      {payload}
 
    The response contains first a preamble that can be ignored.  The EST-
    coaps server can use the preamble to include additional explanations,
@@ -1755,9 +1758,6 @@ f9288724381909188c851fa9a5059802eb64449f2a3c9e441353d136768da27ff
    f917438f607f18181684376e13a39e07
    --estServerExampleBoundary
    Ver = 1
-     T = 2 (ACK)
-     Code = 0x45 (2.05 Content)
-     Options
 
 
 
@@ -1766,6 +1766,9 @@ f9288724381909188c851fa9a5059802eb64449f2a3c9e441353d136768da27ff
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
 
+     T = 2 (ACK)
+     Code = 0x45 (2.05 Content)
+     Options
        Option1 (Content-Format)
          Option Delta = 0xC  (option nr = 12)
          Option Length = 0x2
@@ -1807,12 +1810,9 @@ f9288724381909188c851fa9a5059802eb64449f2a3c9e441353d136768da27ff
 
    [EDNOTE: Include CoAP message examples. ]
 
-<span class="h2"><a name="appendix-B">Appendix B</a>.  EST-coaps Block message examples</span>
 
-   This section provides a detailed example of the messages using DTLS
-   and BLOCK option Block2.  The minimum PMTU is 1280 bytes, which is
-   the example value assumed for the DTLS datagram size.  The example
-   block length is taken as 64 which gives an SZX value of 2.
+
+
 
 
 
@@ -1821,6 +1821,13 @@ f9288724381909188c851fa9a5059802eb64449f2a3c9e441353d136768da27ff
 </pre><pre class='newpage'><a name="page-31" id="page-31" href="#page-31" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
+
+<span class="h2"><a name="appendix-B">Appendix B</a>.  EST-coaps Block message examples</span>
+
+   This section provides a detailed example of the messages using DTLS
+   and BLOCK option Block2.  The minimum PMTU is 1280 bytes, which is
+   the example value assumed for the DTLS datagram size.  The example
+   block length is taken as 64 which gives an SZX value of 2.
 
    The following is an example of a valid /cacerts exchange over DTLS. .
    The content length of the cacerts response in <a href="#appendix-A.1">appendix A.1</a> of
@@ -1858,13 +1865,6 @@ f9288724381909188c851fa9a5059802eb64449f2a3c9e441353d136768da27ff
    written out.
 
    The header of the first GET looks like:
-
-
-
-
-
-
-
 
 
 

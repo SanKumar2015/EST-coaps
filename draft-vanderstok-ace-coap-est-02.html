@@ -145,14 +145,14 @@
 ACE                                                             S. Kumar
 Internet-Draft                                 Philips Lighting Research
 Intended status: Standards Track                         P. van der Stok
-Expires: October 21, 2017                                     Consultant
+Expires: October 23, 2017                                     Consultant
                                                            P. Kampanakis
                                                            Cisco Systems
                                                               M. Furuhed
                                                              Nexus Group
                                                                  S. Raza
                                                                RISE SICS
-                                                          April 19, 2017
+                                                          April 21, 2017
 
 
                     <span class="h1">EST over secure CoAP (EST-coaps)</span>
@@ -193,7 +193,7 @@ Status of This Memo
 
 
 
-<span class="grey">Kumar, et al.           Expires October 21, 2017                [Page 1]</span>
+<span class="grey">Kumar, et al.           Expires October 23, 2017                [Page 1]</span>
 </pre><pre class='newpage'><a name="page-2" id="page-2" href="#page-2" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
@@ -201,7 +201,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 21, 2017.
+   This Internet-Draft will expire on October 23, 2017.
 
 Copyright Notice
 
@@ -233,10 +233,10 @@ Table of Contents
    <a href="#section-5">5</a>.  Transport Protocol  . . . . . . . . . . . . . . . . . . . . .  <a href="#page-11">11</a>
      <a href="#section-5.1">5.1</a>.  DTLS  . . . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-11">11</a>
      <a href="#section-5.2">5.2</a>.  6tisch approach . . . . . . . . . . . . . . . . . . . . .  <a href="#page-12">12</a>
-   <a href="#section-6">6</a>.  Proxying  . . . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-12">12</a>
+   <a href="#section-6">6</a>.  Proxying  . . . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-13">13</a>
    <a href="#section-7">7</a>.  Parameters  . . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-13">13</a>
    <a href="#section-8">8</a>.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  <a href="#page-13">13</a>
-   <a href="#section-9">9</a>.  Security Considerations . . . . . . . . . . . . . . . . . . .  <a href="#page-16">16</a>
+   <a href="#section-9">9</a>.  Security Considerations . . . . . . . . . . . . . . . . . . .  <a href="#page-17">17</a>
    <a href="#section-10">10</a>. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-17">17</a>
    <a href="#section-11">11</a>. Change Log  . . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-17">17</a>
    <a href="#section-12">12</a>. References  . . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-17">17</a>
@@ -244,22 +244,22 @@ Table of Contents
      <a href="#section-12.2">12.2</a>.  Informative References . . . . . . . . . . . . . . . . .  <a href="#page-19">19</a>
    <a href="#appendix-A">Appendix A</a>.  EST messages to EST-coaps  . . . . . . . . . . . . .  <a href="#page-21">21</a>
      <a href="#appendix-A.1">A.1</a>.  cacerts . . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-21">21</a>
-     <a href="#appendix-A.2">A.2</a>.  csrattrs  . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-23">23</a>
-     <a href="#appendix-A.3">A.3</a>.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  <a href="#page-24">24</a>
+     <a href="#appendix-A.2">A.2</a>.  csrattrs  . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-24">24</a>
+     <a href="#appendix-A.3">A.3</a>.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  <a href="#page-25">25</a>
 
 
 
-<span class="grey">Kumar, et al.           Expires October 21, 2017                [Page 2]</span>
+<span class="grey">Kumar, et al.           Expires October 23, 2017                [Page 2]</span>
 </pre><pre class='newpage'><a name="page-3" id="page-3" href="#page-3" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
 
-     <a href="#appendix-A.4">A.4</a>.  serverkeygen  . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-26">26</a>
-     <a href="#appendix-A.5">A.5</a>.  enrollstatus  . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-29">29</a>
-     <a href="#appendix-A.6">A.6</a>.  voucher_status  . . . . . . . . . . . . . . . . . . . . .  <a href="#page-29">29</a>
+     <a href="#appendix-A.4">A.4</a>.  serverkeygen  . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-27">27</a>
+     <a href="#appendix-A.5">A.5</a>.  enrollstatus  . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-30">30</a>
+     <a href="#appendix-A.6">A.6</a>.  voucher_status  . . . . . . . . . . . . . . . . . . . . .  <a href="#page-30">30</a>
      <a href="#appendix-A.7">A.7</a>.  requestvoucher  . . . . . . . . . . . . . . . . . . . . .  <a href="#page-30">30</a>
    <a href="#appendix-B">Appendix B</a>.  EST-coaps Block message examples . . . . . . . . . .  <a href="#page-30">30</a>
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-32">32</a>
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-33">33</a>
 
 <span class="h2"><a name="section-1">1</a>.  Introduction</span>
 
@@ -305,7 +305,7 @@ Table of Contents
 
 
 
-<span class="grey">Kumar, et al.           Expires October 21, 2017                [Page 3]</span>
+<span class="grey">Kumar, et al.           Expires October 23, 2017                [Page 3]</span>
 </pre><pre class='newpage'><a name="page-4" id="page-4" href="#page-4" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
@@ -361,7 +361,7 @@ Table of Contents
 
 
 
-<span class="grey">Kumar, et al.           Expires October 21, 2017                [Page 4]</span>
+<span class="grey">Kumar, et al.           Expires October 23, 2017                [Page 4]</span>
 </pre><pre class='newpage'><a name="page-5" id="page-5" href="#page-5" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
@@ -417,7 +417,7 @@ Table of Contents
 
 
 
-<span class="grey">Kumar, et al.           Expires October 21, 2017                [Page 5]</span>
+<span class="grey">Kumar, et al.           Expires October 23, 2017                [Page 5]</span>
 </pre><pre class='newpage'><a name="page-6" id="page-6" href="#page-6" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
@@ -473,7 +473,7 @@ Table of Contents
 
 
 
-<span class="grey">Kumar, et al.           Expires October 21, 2017                [Page 6]</span>
+<span class="grey">Kumar, et al.           Expires October 23, 2017                [Page 6]</span>
 </pre><pre class='newpage'><a name="page-7" id="page-7" href="#page-7" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
@@ -529,7 +529,7 @@ Table of Contents
 
 
 
-<span class="grey">Kumar, et al.           Expires October 21, 2017                [Page 7]</span>
+<span class="grey">Kumar, et al.           Expires October 23, 2017                [Page 7]</span>
 </pre><pre class='newpage'><a name="page-8" id="page-8" href="#page-8" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
@@ -585,7 +585,7 @@ Table of Contents
 
 
 
-<span class="grey">Kumar, et al.           Expires October 21, 2017                [Page 8]</span>
+<span class="grey">Kumar, et al.           Expires October 23, 2017                [Page 8]</span>
 </pre><pre class='newpage'><a name="page-9" id="page-9" href="#page-9" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
@@ -641,7 +641,7 @@ Table of Contents
 
 
 
-<span class="grey">Kumar, et al.           Expires October 21, 2017                [Page 9]</span>
+<span class="grey">Kumar, et al.           Expires October 23, 2017                [Page 9]</span>
 </pre><pre class='newpage'><a name="page-10" id="page-10" href="#page-10" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
@@ -697,7 +697,7 @@ Table of Contents
 
 
 
-<span class="grey">Kumar, et al.           Expires October 21, 2017               [Page 10]</span>
+<span class="grey">Kumar, et al.           Expires October 23, 2017               [Page 10]</span>
 </pre><pre class='newpage'><a name="page-11" id="page-11" href="#page-11" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
@@ -736,32 +736,40 @@ Table of Contents
    fullcmc request of <a href="./rfcmarkup.sh?rfc=7030#section-4.3">section&nbsp;4.3 of [RFC7030]</a> and response MUST NOT be
    supported by EST-coaps.
 
-   Channel-binding information for linking proof-of-identity with
-   message-based proof-of-possession is optional for EST-coaps.  Given
-   that CoAP and DTLS can provide proof of identity for EST-coaps
+   Given that CoAP and DTLS can provide proof of identity for EST-coaps
    clients and server, simple PKI messages can be used conformant to
    <a href="./rfcmarkup.sh?rfc=5272#section-3.1">section&nbsp;3.1 of [RFC5272]</a>.  EST-coaps supports the certificate types
    and Trust Anchors (TA) that are specified for EST in <a href="./rfcmarkup.sh?rfc=7030#section-3">section&nbsp;3 of
    [RFC7030]</a>.
 
-   When proof-of-possession is desired, a set of actions are required
-   regarding the use of tls-connect, described in <a href="./rfcmarkup.sh?rfc=7030#section-3.5">section&nbsp;3.5 in
-   [RFC7030]</a> -- Linking Identity and POP Information.  The tls-unique
-   information translates to the contents of the first "Finished"
-   message in the TLS handshake between server and client.  The client
-   is then supposed to add this "Finished" message as a
+   Channel-binding information for linking proof-of-identity with
+   connection-based proof-of-possession is optional for EST-coaps.  When
+   proof-of-possession is desired, a set of actions are required
+   regarding the use of tls-unique, described in <a href="./rfcmarkup.sh?rfc=7030#section-3.5">section&nbsp;3.5 in
+   [RFC7030]</a>.  The tls-unique information translates to the contents of
+   the first "Finished" message in the TLS handshake between server and
+   client [<a href="./rfcmarkup.sh?rfc=5929" title='"Channel Bindings for TLS"'>RFC5929</a>].  The client is then supposed to add this "Finished"
+   message as a ChallengePassword to the PKCS#10 to prove that the
 
 
 
-<span class="grey">Kumar, et al.           Expires October 21, 2017               [Page 11]</span>
+<span class="grey">Kumar, et al.           Expires October 23, 2017               [Page 11]</span>
 </pre><pre class='newpage'><a name="page-12" id="page-12" href="#page-12" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
 
-   ChallengePassword to the PKCS#10 to prove that the client is indeed
-   in control of the private key at the time of the TLS session when
-   performing a /simpleenroll, for example.  In the case of EST-coaps,
-   the same operations can be performed during the DTLS handshake.
+   client is indeed in control of the private key at the time of the TLS
+   session when performing a /simpleenroll, for example.  In the case of
+   EST-coaps, the same operations can be performed during the DTLS
+   handshake.  In the event of handshake message fragmentation, the Hash
+   of the handshake messages used in the MAC calculation of the Finished
+   message
+
+   PRF(master_secret, finished_label, Hash(handshake_messages))
+      [0..verify_data_length-1];
+
+   MUST be computed as if each handshake message had been sent as a
+   single fragment [<a href="./rfcmarkup.sh?rfc=6347" title='"Datagram Transport Layer Security Version 1.2"'>RFC6347</a>].
 
    In a constrained CoAP environment, endpoints can't afford to
    establish a DTLS connection for every EST transaction.
@@ -798,6 +806,14 @@ Table of Contents
    taken by 6tisch and anima and the possible commonality that will be
    provided.]
 
+
+
+
+<span class="grey">Kumar, et al.           Expires October 23, 2017               [Page 12]</span>
+</pre><pre class='newpage'><a name="page-13" id="page-13" href="#page-13" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
 <span class="h2"><a name="section-6">6</a>.  Proxying</span>
 
    [EDNOTE: This section to be populated.  It will address how proxying
@@ -805,14 +821,6 @@ Table of Contents
    network, such as the Registrar, and can reach the BRSKI server
    residing in a traditional "TCP setting".  It makes sense to mention
    the properties that the proxy has to fulfill.]
-
-
-
-
-<span class="grey">Kumar, et al.           Expires October 21, 2017               [Page 12]</span>
-</pre><pre class='newpage'><a name="page-13" id="page-13" href="#page-13" class="invisible"> </a>
-<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
-
 
 <span class="h2"><a name="section-7">7</a>.  Parameters</span>
 
@@ -853,6 +861,15 @@ Table of Contents
 
        *  Published specification: [<a href="./rfcmarkup.sh?rfc=5751" title='"Secure/Multipurpose Internet Mail Extensions (S/MIME) Version 3.2 Message Specification"'>RFC5751</a>]
 
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 23, 2017               [Page 13]</span>
+</pre><pre class='newpage'><a name="page-14" id="page-14" href="#page-14" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
        *  Applications that use this media type: ANIMA Bootstrap (BRSKI)
           and EST
 
@@ -861,14 +878,6 @@ Table of Contents
        *  application/pkcs8
 
        *  Type name: application
-
-
-
-
-<span class="grey">Kumar, et al.           Expires October 21, 2017               [Page 13]</span>
-</pre><pre class='newpage'><a name="page-14" id="page-14" href="#page-14" class="invisible"> </a>
-<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
-
 
        *  Subtype name: pkcs8
 
@@ -910,6 +919,13 @@ Table of Contents
        *  Applications that use this media type: ANIMA Bootstrap (BRSKI)
           and EST
 
+
+
+<span class="grey">Kumar, et al.           Expires October 23, 2017               [Page 14]</span>
+</pre><pre class='newpage'><a name="page-15" id="page-15" href="#page-15" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
    4.
 
        *  application/pkcs10
@@ -917,14 +933,6 @@ Table of Contents
        *  Type name: application
 
        *  Subtype name: pkcs10
-
-
-
-
-<span class="grey">Kumar, et al.           Expires October 21, 2017               [Page 14]</span>
-</pre><pre class='newpage'><a name="page-15" id="page-15" href="#page-15" class="invisible"> </a>
-<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
-
 
        *  ID: TBD4
 
@@ -966,6 +974,14 @@ Table of Contents
 
        *
 
+
+
+
+<span class="grey">Kumar, et al.           Expires October 23, 2017               [Page 15]</span>
+</pre><pre class='newpage'><a name="page-16" id="page-16" href="#page-16" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
           +  application/auditnonce
 
           +  Type name: application
@@ -973,14 +989,6 @@ Table of Contents
           +  Subtype name: auditnonce
 
           +  ID: TBD6
-
-
-
-
-<span class="grey">Kumar, et al.           Expires October 21, 2017               [Page 15]</span>
-</pre><pre class='newpage'><a name="page-16" id="page-16" href="#page-16" class="invisible"> </a>
-<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
-
 
           +  Required parameters: None
 
@@ -1023,6 +1031,13 @@ Table of Contents
 
    o  rt="ace.est" needs registration with IANA.
 
+
+
+<span class="grey">Kumar, et al.           Expires October 23, 2017               [Page 16]</span>
+</pre><pre class='newpage'><a name="page-17" id="page-17" href="#page-17" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
 <span class="h2"><a name="section-9">9</a>.  Security Considerations</span>
 
    [EDNOTE: This section to be populated.  This document describes an
@@ -1030,14 +1045,6 @@ Table of Contents
    security concerns added beyond the protocol's or CoAP's specifics
    security considerations.  The security considerations mentioned in
    EST applies also to EST-coaps.  Specifically for server-side key
-
-
-
-<span class="grey">Kumar, et al.           Expires October 21, 2017               [Page 16]</span>
-</pre><pre class='newpage'><a name="page-17" id="page-17" href="#page-17" class="invisible"> </a>
-<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
-
-
    generation, it introduces implications for the endpoints and their
    private keys, which will be covered here. ]
 
@@ -1076,6 +1083,17 @@ Table of Contents
 
 <span class="h3"><a name="section-12.1">12.1</a>.  Normative References</span>
 
+
+
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 23, 2017               [Page 17]</span>
+</pre><pre class='newpage'><a name="page-18" id="page-18" href="#page-18" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
    [<a name="ref-I-D.hartke-core-pending" id="ref-I-D.hartke-core-pending">I-D.hartke-core-pending</a>]
               Stok, P. and K. Hartke, "The 'Pending' Response Code for
               the Constrained Application Protocol (CoAP)", <a href="./rfcmarkup.sh?draft=draft-hartke-core-pending-00">draft-</a>
@@ -1086,13 +1104,6 @@ Table of Contents
               S., and K. Watsen, "Bootstrapping Remote Secure Key
               Infrastructures (BRSKI)", <a href="./rfcmarkup.sh?draft=draft-ietf-anima-bootstrapping-keyinfra-05">draft-ietf-anima-bootstrapping-</a>
               <a href="./rfcmarkup.sh?draft=draft-ietf-anima-bootstrapping-keyinfra-05">keyinfra-05</a> (work in progress), March 2017.
-
-
-
-<span class="grey">Kumar, et al.           Expires October 21, 2017               [Page 17]</span>
-</pre><pre class='newpage'><a name="page-18" id="page-18" href="#page-18" class="invisible"> </a>
-<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
-
 
    [<a name="ref-I-D.selander-ace-eals" id="ref-I-D.selander-ace-eals">I-D.selander-ace-eals</a>]
               Selander, G., Raza, S., Vucinic, M., Furuhed, M., and M.
@@ -1130,6 +1141,15 @@ Table of Contents
               DOI 10.17487/RFC7030, October 2013,
               &lt;<a href="http://www.rfc-editor.org/info/rfc7030">http://www.rfc-editor.org/info/rfc7030</a>&gt;.
 
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 23, 2017               [Page 18]</span>
+</pre><pre class='newpage'><a name="page-19" id="page-19" href="#page-19" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
    [<a name="ref-RFC7252" id="ref-RFC7252">RFC7252</a>]  Shelby, Z., Hartke, K., and C. Bormann, "The Constrained
               Application Protocol (CoAP)", <a href="./rfcmarkup.sh?rfc=7252">RFC 7252</a>,
               DOI 10.17487/RFC7252, June 2014,
@@ -1139,16 +1159,6 @@ Table of Contents
               the Constrained Application Protocol (CoAP)", <a href="./rfcmarkup.sh?rfc=7959">RFC 7959</a>,
               DOI 10.17487/RFC7959, August 2016,
               &lt;<a href="http://www.rfc-editor.org/info/rfc7959">http://www.rfc-editor.org/info/rfc7959</a>&gt;.
-
-
-
-
-
-
-<span class="grey">Kumar, et al.           Expires October 21, 2017               [Page 18]</span>
-</pre><pre class='newpage'><a name="page-19" id="page-19" href="#page-19" class="invisible"> </a>
-<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
-
 
 <span class="h3"><a name="section-12.2">12.2</a>.  Informative References</span>
 
@@ -1188,23 +1198,19 @@ Table of Contents
               Institute of Electrical and Electronics Engineers, , "IEEE
               Standard 802.15.4-2006", 2006.
 
+
+
+
+<span class="grey">Kumar, et al.           Expires October 23, 2017               [Page 19]</span>
+</pre><pre class='newpage'><a name="page-20" id="page-20" href="#page-20" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
    [<a name="ref-RFC4492" id="ref-RFC4492">RFC4492</a>]  Blake-Wilson, S., Bolyard, N., Gupta, V., Hawk, C., and B.
               Moeller, "Elliptic Curve Cryptography (ECC) Cipher Suites
               for Transport Layer Security (TLS)", <a href="./rfcmarkup.sh?rfc=4492">RFC 4492</a>,
               DOI 10.17487/RFC4492, May 2006,
               &lt;<a href="http://www.rfc-editor.org/info/rfc4492">http://www.rfc-editor.org/info/rfc4492</a>&gt;.
-
-
-
-
-
-
-
-
-<span class="grey">Kumar, et al.           Expires October 21, 2017               [Page 19]</span>
-</pre><pre class='newpage'><a name="page-20" id="page-20" href="#page-20" class="invisible"> </a>
-<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
-
 
    [<a name="ref-RFC4919" id="ref-RFC4919">RFC4919</a>]  Kushalnagar, N., Montenegro, G., and C. Schumacher, "IPv6
               over Low-Power Wireless Personal Area Networks (6LoWPANs):
@@ -1221,6 +1227,10 @@ Table of Contents
               (TLS) Protocol Version 1.2", <a href="./rfcmarkup.sh?rfc=5246">RFC 5246</a>,
               DOI 10.17487/RFC5246, August 2008,
               &lt;<a href="http://www.rfc-editor.org/info/rfc5246">http://www.rfc-editor.org/info/rfc5246</a>&gt;.
+
+   [<a name="ref-RFC5929" id="ref-RFC5929">RFC5929</a>]  Altman, J., Williams, N., and L. Zhu, "Channel Bindings
+              for TLS", <a href="./rfcmarkup.sh?rfc=5929">RFC 5929</a>, DOI 10.17487/RFC5929, July 2010,
+              &lt;<a href="http://www.rfc-editor.org/info/rfc5929">http://www.rfc-editor.org/info/rfc5929</a>&gt;.
 
    [<a name="ref-RFC5958" id="ref-RFC5958">RFC5958</a>]  Turner, S., "Asymmetric Key Packages", <a href="./rfcmarkup.sh?rfc=5958">RFC 5958</a>,
               DOI 10.17487/RFC5958, August 2010,
@@ -1241,6 +1251,17 @@ Table of Contents
               TLS", <a href="./rfcmarkup.sh?rfc=7251">RFC 7251</a>, DOI 10.17487/RFC7251, June 2014,
               &lt;<a href="http://www.rfc-editor.org/info/rfc7251">http://www.rfc-editor.org/info/rfc7251</a>&gt;.
 
+
+
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 23, 2017               [Page 20]</span>
+</pre><pre class='newpage'><a name="page-21" id="page-21" href="#page-21" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
    [<a name="ref-RFC7641" id="ref-RFC7641">RFC7641</a>]  Hartke, K., "Observing Resources in the Constrained
               Application Protocol (CoAP)", <a href="./rfcmarkup.sh?rfc=7641">RFC 7641</a>,
               DOI 10.17487/RFC7641, September 2015,
@@ -1251,16 +1272,6 @@ Table of Contents
               Profiles for the Internet of Things", <a href="./rfcmarkup.sh?rfc=7925">RFC 7925</a>,
               DOI 10.17487/RFC7925, July 2016,
               &lt;<a href="http://www.rfc-editor.org/info/rfc7925">http://www.rfc-editor.org/info/rfc7925</a>&gt;.
-
-
-
-
-
-
-<span class="grey">Kumar, et al.           Expires October 21, 2017               [Page 20]</span>
-</pre><pre class='newpage'><a name="page-21" id="page-21" href="#page-21" class="invisible"> </a>
-<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
-
 
 <span class="h2"><a name="appendix-A">Appendix A</a>.  EST messages to EST-coaps</span>
 
@@ -1298,6 +1309,15 @@ Table of Contents
 
    A 2.05 Content response with a cert in EST-coaps will then be:
 
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 23, 2017               [Page 21]</span>
+</pre><pre class='newpage'><a name="page-22" id="page-22" href="#page-22" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
    2.05 Content (Content-Format: application/pkcs7-mime)
       {payload}
 
@@ -1310,14 +1330,6 @@ Table of Contents
        Option1 (Content-Format)
          Option Delta = 0xC  (option nr = 12)
          Option Length = 0x2
-
-
-
-<span class="grey">Kumar, et al.           Expires October 21, 2017               [Page 21]</span>
-</pre><pre class='newpage'><a name="page-22" id="page-22" href="#page-22" class="invisible"> </a>
-<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
-
-
          Option Value = TBD1 (defined in this document)
 
      Payload =
@@ -1354,6 +1366,14 @@ Table of Contents
    55033f192a5ad21f9a2a71c20301000134b050300e0603551d0f0101f104030204c
    1d0603551d0e04160414112966e304761732fbfe6a2c823c301f0603551d2304183
    0165084d321ca0135e77217a486b686b334b00d06092a6206734101050500032041
+
+
+
+<span class="grey">Kumar, et al.           Expires October 23, 2017               [Page 22]</span>
+</pre><pre class='newpage'><a name="page-23" id="page-23" href="#page-23" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
    00b382ba3355a50e287bae15758b3beff63d34d3e357b90031495d018868e49589b
    9faf46a4ad49b1d35b06ef380106677440934663c2cc111c183655f4dc41c0b3401
    123d35387389db91f1e1b4131b16c291d35730b3f9b33c7475124851555fe5fc647
@@ -1366,14 +1386,6 @@ Table of Contents
    706c654341204f774e302062300d06092a620673410101050003204f0030204a022
    041003a923a2968bae4aae136ca4e2512c5200680358482ac39d6f640e4574e654e
    a35f48b1e054c5da3372872f7a1e429f4edf3958432efb2106591d3eb783c103470
-
-
-
-<span class="grey">Kumar, et al.           Expires October 21, 2017               [Page 22]</span>
-</pre><pre class='newpage'><a name="page-23" id="page-23" href="#page-23" class="invisible"> </a>
-<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
-
-
    9f251fc86566bda2d541c792389eac4ec9e181f4b9f596e5ef2679cc321542b1133
    7f90a44df3c85f1516561fa968a1914f265bc0b8276ebe3106a790d97d34c8c37c7
    4fe1c30b396424664ac426284a9f6022e026938436880adfcd95c98ca1dfc2e6d75
@@ -1406,6 +1418,18 @@ Table of Contents
    247bfd0a7c19b56077392555c955e233642bec643ae37c166c5e221d797aea3748f
    0391c8d692a5cf9bb71f6d0e37984d6fa673a30d0c006343116f58403100
 
+
+
+
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 23, 2017               [Page 23]</span>
+</pre><pre class='newpage'><a name="page-24" id="page-24" href="#page-24" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
 <span class="h1"><a name="appendix-A.2">A.2</a>.  csrattrs</span>
 
    In the following valid /csrattrs exchange, the EST-coaps client
@@ -1417,18 +1441,6 @@ Table of Contents
    GET coaps://[192.0.2.1:8085]/est/att
 
    with CoAP header fields
-
-
-
-
-
-
-
-
-<span class="grey">Kumar, et al.           Expires October 21, 2017               [Page 23]</span>
-</pre><pre class='newpage'><a name="page-24" id="page-24" href="#page-24" class="invisible"> </a>
-<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
-
 
      Ver = 1
      T = 0 (CON)
@@ -1457,6 +1469,23 @@ Table of Contents
 
    with CoAP fields
 
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 23, 2017               [Page 24]</span>
+</pre><pre class='newpage'><a name="page-25" id="page-25" href="#page-25" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
      Ver = 1
      T = 2 (ACK)
      Code = 0x45 (2.05 Content)
@@ -1478,14 +1507,6 @@ Table of Contents
    message.  We might need a new Option for the WWW-Authenticate
    response.]
 
-
-
-
-<span class="grey">Kumar, et al.           Expires October 21, 2017               [Page 24]</span>
-</pre><pre class='newpage'><a name="page-25" id="page-25" href="#page-25" class="invisible"> </a>
-<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
-
-
    During the Enroll/Reenroll exchange, the EST-coaps client uses ana
    CSR (PKCS#10) request in the POST request payload.
 
@@ -1493,6 +1514,33 @@ Table of Contents
    (Content-Format: application/pkcs10)
 
    with CoAP header fields
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 23, 2017               [Page 25]</span>
+</pre><pre class='newpage'><a name="page-26" id="page-26" href="#page-26" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
 
      Ver = 1
      T = 0 (CON)
@@ -1534,14 +1582,6 @@ Table of Contents
    fc7e0731f0e7fe305703791362d5157e92e6b5c2e3edbcadb40
 
 
-
-
-
-<span class="grey">Kumar, et al.           Expires October 21, 2017               [Page 25]</span>
-</pre><pre class='newpage'><a name="page-26" id="page-26" href="#page-26" class="invisible"> </a>
-<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
-
-
    After verification of the certificate by the server, a 2.05 Content
    response with the issued certificate will be:
 
@@ -1549,6 +1589,14 @@ Table of Contents
       {payload}
 
    with CoAP fields
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 23, 2017               [Page 26]</span>
+</pre><pre class='newpage'><a name="page-27" id="page-27" href="#page-27" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
 
      Ver = 1
      T = 2 (ACK)
@@ -1591,16 +1639,20 @@ Table of Contents
    The initial DTLS handhake is identical to the enrollment example.
    The CoAP GET request looks like:
 
-
-
-<span class="grey">Kumar, et al.           Expires October 21, 2017               [Page 26]</span>
-</pre><pre class='newpage'><a name="page-27" id="page-27" href="#page-27" class="invisible"> </a>
-<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
-
-
    POST coaps://[192.0.2.1:8085]/est/skg
 
    with CoAP header fields
+
+
+
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 23, 2017               [Page 27]</span>
+</pre><pre class='newpage'><a name="page-28" id="page-28" href="#page-28" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
 
   Ver = 1
   T = 0 (CON)
@@ -1644,22 +1696,19 @@ f9288724381909188c851fa9a5059802eb64449f2a3c9e441353d136768da27ff
 28196867079a456cd2266cb754a45151b7b1b939e381be333fea61580fe5d25bf
 4823dbd2d6a98445b46305c10637e202856611
 
-
-
-
-
-
-<span class="grey">Kumar, et al.           Expires October 21, 2017               [Page 27]</span>
-</pre><pre class='newpage'><a name="page-28" id="page-28" href="#page-28" class="invisible"> </a>
-<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
-
-
    Without the DecryptKeyIdentifier atttribute, the response has no
    additional encryption beyond the DTLS one.  The EST-coaps serer
    response is:
 
    2.05 Content (Content-Format: application/pkcs8)
       {payload}
+
+
+
+<span class="grey">Kumar, et al.           Expires October 23, 2017               [Page 28]</span>
+</pre><pre class='newpage'><a name="page-29" id="page-29" href="#page-29" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
 
    The response contains first a preamble that can be ignored.  The EST-
    coaps server can use the preamble to include additional explanations,
@@ -1702,14 +1751,6 @@ f9288724381909188c851fa9a5059802eb64449f2a3c9e441353d136768da27ff
    5bdd2b2a78194094dbe333f493d159b8e07722f2280d48388db7f1c9f0633bb0e
    173de2c3aa1f200af535411c7090210401421e2ea217e37312dcc606f453a6634
    f3df4dc31a9e910614406412e70eec9247f10672a500947a64356c015a845a7d1
-
-
-
-<span class="grey">Kumar, et al.           Expires October 21, 2017               [Page 28]</span>
-</pre><pre class='newpage'><a name="page-29" id="page-29" href="#page-29" class="invisible"> </a>
-<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
-
-
    50e2e3911a2b3b61070a73247166da10bb45474cc97d1ec2bc392524307f35118
    f917438f607f18181684376e13a39e07
    --estServerExampleBoundary
@@ -1717,6 +1758,14 @@ f9288724381909188c851fa9a5059802eb64449f2a3c9e441353d136768da27ff
      T = 2 (ACK)
      Code = 0x45 (2.05 Content)
      Options
+
+
+
+<span class="grey">Kumar, et al.           Expires October 23, 2017               [Page 29]</span>
+</pre><pre class='newpage'><a name="page-30" id="page-30" href="#page-30" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
+
        Option1 (Content-Format)
          Option Delta = 0xC  (option nr = 12)
          Option Length = 0x2
@@ -1754,18 +1803,6 @@ f9288724381909188c851fa9a5059802eb64449f2a3c9e441353d136768da27ff
 
    [EDNOTE: Include CoAP message examples. ]
 
-
-
-
-
-
-
-
-<span class="grey">Kumar, et al.           Expires October 21, 2017               [Page 29]</span>
-</pre><pre class='newpage'><a name="page-30" id="page-30" href="#page-30" class="invisible"> </a>
-<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
-
-
 <span class="h1"><a name="appendix-A.7">A.7</a>.  requestvoucher</span>
 
    [EDNOTE: Include CoAP message examples. ]
@@ -1776,6 +1813,14 @@ f9288724381909188c851fa9a5059802eb64449f2a3c9e441353d136768da27ff
    and BLOCK option Block2.  The minimum PMTU is 1280 bytes, which is
    the example value assumed for the DTLS datagram size.  The example
    block length is taken as 64 which gives an SZX value of 2.
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 23, 2017               [Page 30]</span>
+</pre><pre class='newpage'><a name="page-31" id="page-31" href="#page-31" class="invisible"> </a>
+<span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
+
 
    The following is an example of a valid /cacerts exchange over DTLS. .
    The content length of the cacerts response in <a href="#appendix-A.1">appendix A.1</a> of
@@ -1817,8 +1862,19 @@ f9288724381909188c851fa9a5059802eb64449f2a3c9e441353d136768da27ff
 
 
 
-<span class="grey">Kumar, et al.           Expires October 21, 2017               [Page 30]</span>
-</pre><pre class='newpage'><a name="page-31" id="page-31" href="#page-31" class="invisible"> </a>
+
+
+
+
+
+
+
+
+
+
+
+<span class="grey">Kumar, et al.           Expires October 23, 2017               [Page 31]</span>
+</pre><pre class='newpage'><a name="page-32" id="page-32" href="#page-32" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
 
@@ -1873,8 +1929,8 @@ f9288724381909188c851fa9a5059802eb64449f2a3c9e441353d136768da27ff
 
 
 
-<span class="grey">Kumar, et al.           Expires October 21, 2017               [Page 31]</span>
-</pre><pre class='newpage'><a name="page-32" id="page-32" href="#page-32" class="invisible"> </a>
+<span class="grey">Kumar, et al.           Expires October 23, 2017               [Page 32]</span>
+</pre><pre class='newpage'><a name="page-33" id="page-33" href="#page-33" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
 
@@ -1929,8 +1985,8 @@ Authors' Addresses
 
 
 
-<span class="grey">Kumar, et al.           Expires October 21, 2017               [Page 32]</span>
-</pre><pre class='newpage'><a name="page-33" id="page-33" href="#page-33" class="invisible"> </a>
+<span class="grey">Kumar, et al.           Expires October 23, 2017               [Page 33]</span>
+</pre><pre class='newpage'><a name="page-34" id="page-34" href="#page-34" class="invisible"> </a>
 <span class="grey">Internet-Draft                  EST-coaps                     April 2017</span>
 
 
@@ -1985,7 +2041,7 @@ Authors' Addresses
 
 
 
-Kumar, et al.           Expires October 21, 2017               [Page 33]
+Kumar, et al.           Expires October 23, 2017               [Page 34]
 
 </pre><br />
 <span class="noprint"><small><small>Html markup produced by rfcmarkup 1.96, available from

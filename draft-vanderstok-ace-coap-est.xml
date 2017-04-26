@@ -23,6 +23,7 @@
 <!ENTITY RFC7641 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7641.xml">
 <!ENTITY RFC4919 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4919.xml">
 <!ENTITY RFC5929 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5929.xml">
+<!ENTITY RFC8075 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8075.xml">
 <!ENTITY I-D.ietf-anima-bootstrapping-keyinfra SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-anima-bootstrapping-keyinfra.xml">
 <!ENTITY I-D.ietf-6tisch-dtsecurity-secure-join SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-6tisch-dtsecurity-secure-join.xml">
 <!ENTITY I-D.ietf-6tisch-minimal-security SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-6tisch-minimal-security.xml">
@@ -352,7 +353,10 @@ It is suggested that the EST-coaps communication between pledge and registrar, s
 
 
   <section title="Proxying">
-    <t>[EDNOTE: This section to be populated. It will address how proxying can take place by an entity that resides at the edge of the CoAP network, such as the Registrar, and can reach the BRSKI server residing in a traditional "TCP setting". It makes sense to mention the properties that the proxy has to fulfill.]</t>
+    <t>In real-world deployments entities like the EST server, CA, or the BRSKI Registrar will not always reside within the COAP boundary. An EST server or CA can exist outside of the constrained network in a TCP enviroment. In such environments EST-coaps is used in the COAP boundary and TLS is used to carry the EST/BRSKI HTTP messages from upstream. Such scenarios require the use of edge entity between the COAP environment and the external TCP environment. <xref target="RFC8075"/> defines how a proxy translates between COAPs and HTTP. These translations include mappings from COAP to HTTP URIs, Media-Types and response codes. </t>
+    <t>The EST-coaps-to-TLS proxy SHOULD terminate EST-coaps downstream and initiate TLS connection upstream. Due to fragmentation of large messages that could be broken into blocks, an EST-coaps-to-TLS proxy SHOULD reassemble the BLOCKs before relaying the message upstream in the HTTP environment. </t>
+    <t>A proxy should be able to authenticate the client downstream and it should be authenticated by the EST or BRSK server or CA upstream. A trust relationship between the proxy and the TCP entities (EST, BRSKI servers) in order to be able to proxy these connections on behalf of various clients.</t>
+    <!--    <t>[EDNOTE: Add more details in this section. Address PoP in this scenario. ]</t> -->
   </section>
 
   <section title="Parameters">
@@ -523,6 +527,7 @@ Interpreters of ASN.1 structures should be aware of the use of invalid ASN.1 len
     &RFC7030;
     &RFC7252;
     &RFC7959;
+    &RFC8075;
     &I-D.ietf-anima-bootstrapping-keyinfra;
     &I-D.selander-ace-eals;
     &I-D.hartke-core-pending;

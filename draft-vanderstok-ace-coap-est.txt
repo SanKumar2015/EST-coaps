@@ -5,14 +5,14 @@
 ACE                                                             S. Kumar
 Internet-Draft                                 Philips Lighting Research
 Intended status: Standards Track                         P. van der Stok
-Expires: October 28, 2017                                     Consultant
+Expires: October 29, 2017                                     Consultant
                                                            P. Kampanakis
                                                            Cisco Systems
                                                               M. Furuhed
                                                              Nexus Group
                                                                  S. Raza
                                                                RISE SICS
-                                                          April 26, 2017
+                                                          April 27, 2017
 
 
                     EST over secure CoAP (EST-coaps)
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Kumar, et al.           Expires October 28, 2017                [Page 1]
+Kumar, et al.           Expires October 29, 2017                [Page 1]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -62,7 +62,7 @@ Internet-Draft                  EST-coaps                     April 2017
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 28, 2017.
+   This Internet-Draft will expire on October 29, 2017.
 
 Copyright Notice
 
@@ -110,7 +110,7 @@ Table of Contents
 
 
 
-Kumar, et al.           Expires October 28, 2017                [Page 2]
+Kumar, et al.           Expires October 29, 2017                [Page 2]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -167,7 +167,7 @@ Internet-Draft                  EST-coaps                     April 2017
 
 
 
-Kumar, et al.           Expires October 28, 2017                [Page 3]
+Kumar, et al.           Expires October 29, 2017                [Page 3]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -224,7 +224,7 @@ Internet-Draft                  EST-coaps                     April 2017
 
 
 
-Kumar, et al.           Expires October 28, 2017                [Page 4]
+Kumar, et al.           Expires October 29, 2017                [Page 4]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -281,7 +281,7 @@ Internet-Draft                  EST-coaps                     April 2017
 
 
 
-Kumar, et al.           Expires October 28, 2017                [Page 5]
+Kumar, et al.           Expires October 29, 2017                [Page 5]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -338,7 +338,7 @@ Internet-Draft                  EST-coaps                     April 2017
 
 
 
-Kumar, et al.           Expires October 28, 2017                [Page 6]
+Kumar, et al.           Expires October 29, 2017                [Page 6]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -395,7 +395,7 @@ Internet-Draft                  EST-coaps                     April 2017
 
 
 
-Kumar, et al.           Expires October 28, 2017                [Page 7]
+Kumar, et al.           Expires October 29, 2017                [Page 7]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -452,7 +452,7 @@ Internet-Draft                  EST-coaps                     April 2017
 
 
 
-Kumar, et al.           Expires October 28, 2017                [Page 8]
+Kumar, et al.           Expires October 29, 2017                [Page 8]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -509,7 +509,7 @@ Internet-Draft                  EST-coaps                     April 2017
 
 
 
-Kumar, et al.           Expires October 28, 2017                [Page 9]
+Kumar, et al.           Expires October 29, 2017                [Page 9]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -566,7 +566,7 @@ Internet-Draft                  EST-coaps                     April 2017
 
 
 
-Kumar, et al.           Expires October 28, 2017               [Page 10]
+Kumar, et al.           Expires October 29, 2017               [Page 10]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -618,22 +618,22 @@ Internet-Draft                  EST-coaps                     April 2017
    [RFC7030].  The tls-unique information translates to the contents of
    the first "Finished" message in the TLS handshake between server and
    client [RFC5929].  The client is then supposed to add this "Finished"
-   message as a ChallengePassword to the PKCS#10 to prove that the
-   client is indeed in control of the private key at the time of the TLS
+   message as a ChallengePassword in the attributes section of the
+   PKCS#10 Request Info to prove that the client is indeed in control of
 
 
 
-Kumar, et al.           Expires October 28, 2017               [Page 11]
+Kumar, et al.           Expires October 29, 2017               [Page 11]
 
 
 Internet-Draft                  EST-coaps                     April 2017
 
 
-   session when performing a /simpleenroll, for example.  In the case of
-   EST-coaps, the same operations can be performed during the DTLS
-   handshake.  In the event of handshake message fragmentation, the Hash
-   of the handshake messages used in the MAC calculation of the Finished
-   message
+   the private key at the time of the TLS session when performing a
+   /simpleenroll, for example.  In the case of EST-coaps, the same
+   operations can be performed during the DTLS handshake.  In the event
+   of handshake message fragmentation, the Hash of the handshake
+   messages used in the MAC calculation of the Finished message
 
    PRF(master_secret, finished_label, Hash(handshake_messages))
       [0..verify_data_length-1];
@@ -680,7 +680,7 @@ Internet-Draft                  EST-coaps                     April 2017
 
 
 
-Kumar, et al.           Expires October 28, 2017               [Page 12]
+Kumar, et al.           Expires October 29, 2017               [Page 12]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -737,7 +737,7 @@ Internet-Draft                  EST-coaps                     April 2017
 
 
 
-Kumar, et al.           Expires October 28, 2017               [Page 13]
+Kumar, et al.           Expires October 29, 2017               [Page 13]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -794,7 +794,7 @@ Internet-Draft                  EST-coaps                     April 2017
 
 
 
-Kumar, et al.           Expires October 28, 2017               [Page 14]
+Kumar, et al.           Expires October 29, 2017               [Page 14]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -851,7 +851,7 @@ Internet-Draft                  EST-coaps                     April 2017
 
 
 
-Kumar, et al.           Expires October 28, 2017               [Page 15]
+Kumar, et al.           Expires October 29, 2017               [Page 15]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -908,7 +908,7 @@ Internet-Draft                  EST-coaps                     April 2017
 
 
 
-Kumar, et al.           Expires October 28, 2017               [Page 16]
+Kumar, et al.           Expires October 29, 2017               [Page 16]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -965,7 +965,7 @@ Internet-Draft                  EST-coaps                     April 2017
 
 
 
-Kumar, et al.           Expires October 28, 2017               [Page 17]
+Kumar, et al.           Expires October 29, 2017               [Page 17]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -1022,7 +1022,7 @@ Internet-Draft                  EST-coaps                     April 2017
 
 
 
-Kumar, et al.           Expires October 28, 2017               [Page 18]
+Kumar, et al.           Expires October 29, 2017               [Page 18]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -1079,7 +1079,7 @@ Internet-Draft                  EST-coaps                     April 2017
 
 
 
-Kumar, et al.           Expires October 28, 2017               [Page 19]
+Kumar, et al.           Expires October 29, 2017               [Page 19]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -1136,7 +1136,7 @@ Internet-Draft                  EST-coaps                     April 2017
 
 
 
-Kumar, et al.           Expires October 28, 2017               [Page 20]
+Kumar, et al.           Expires October 29, 2017               [Page 20]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -1193,7 +1193,7 @@ Internet-Draft                  EST-coaps                     April 2017
 
 
 
-Kumar, et al.           Expires October 28, 2017               [Page 21]
+Kumar, et al.           Expires October 29, 2017               [Page 21]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -1250,7 +1250,7 @@ A.1.  cacerts
 
 
 
-Kumar, et al.           Expires October 28, 2017               [Page 22]
+Kumar, et al.           Expires October 29, 2017               [Page 22]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -1307,7 +1307,7 @@ Internet-Draft                  EST-coaps                     April 2017
 
 
 
-Kumar, et al.           Expires October 28, 2017               [Page 23]
+Kumar, et al.           Expires October 29, 2017               [Page 23]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -1364,7 +1364,7 @@ A.2.  csrattrs
 
 
 
-Kumar, et al.           Expires October 28, 2017               [Page 24]
+Kumar, et al.           Expires October 29, 2017               [Page 24]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -1421,7 +1421,7 @@ A.3.  enroll / reenroll
 
 
 
-Kumar, et al.           Expires October 28, 2017               [Page 25]
+Kumar, et al.           Expires October 29, 2017               [Page 25]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -1478,7 +1478,7 @@ Internet-Draft                  EST-coaps                     April 2017
 
 
 
-Kumar, et al.           Expires October 28, 2017               [Page 26]
+Kumar, et al.           Expires October 29, 2017               [Page 26]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -1535,7 +1535,7 @@ Internet-Draft                  EST-coaps                     April 2017
 
 
 
-Kumar, et al.           Expires October 28, 2017               [Page 27]
+Kumar, et al.           Expires October 29, 2017               [Page 27]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -1592,7 +1592,7 @@ A.4.  serverkeygen
 
 
 
-Kumar, et al.           Expires October 28, 2017               [Page 28]
+Kumar, et al.           Expires October 29, 2017               [Page 28]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -1649,7 +1649,7 @@ Internet-Draft                  EST-coaps                     April 2017
 
 
 
-Kumar, et al.           Expires October 28, 2017               [Page 29]
+Kumar, et al.           Expires October 29, 2017               [Page 29]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -1706,7 +1706,7 @@ Internet-Draft                  EST-coaps                     April 2017
 
 
 
-Kumar, et al.           Expires October 28, 2017               [Page 30]
+Kumar, et al.           Expires October 29, 2017               [Page 30]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -1763,7 +1763,7 @@ A.7.  requestvoucher
 
 
 
-Kumar, et al.           Expires October 28, 2017               [Page 31]
+Kumar, et al.           Expires October 29, 2017               [Page 31]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -1820,7 +1820,7 @@ Appendix B.  EST-coaps Block message examples
 
 
 
-Kumar, et al.           Expires October 28, 2017               [Page 32]
+Kumar, et al.           Expires October 29, 2017               [Page 32]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -1877,7 +1877,7 @@ Internet-Draft                  EST-coaps                     April 2017
 
 
 
-Kumar, et al.           Expires October 28, 2017               [Page 33]
+Kumar, et al.           Expires October 29, 2017               [Page 33]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -1934,7 +1934,7 @@ Authors' Addresses
 
 
 
-Kumar, et al.           Expires October 28, 2017               [Page 34]
+Kumar, et al.           Expires October 29, 2017               [Page 34]
 
 
 Internet-Draft                  EST-coaps                     April 2017
@@ -1991,5 +1991,5 @@ Internet-Draft                  EST-coaps                     April 2017
 
 
 
-Kumar, et al.           Expires October 28, 2017               [Page 35]
+Kumar, et al.           Expires October 29, 2017               [Page 35]
 

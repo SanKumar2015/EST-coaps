@@ -36,8 +36,6 @@
 <!ENTITY I-D.ietf-anima-voucher SYSTEM
 "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-anima-voucher.xml">
 <!ENTITY I-D.hartke-core-pending SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.hartke-core-pending.xml">
-<!ENTITY I-D.gerdes-ace-dtls-authorize SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.gerdes-ace-dtls-authorize.xml">
-
 ]>
 
 <?rfc strict="no" ?>
@@ -162,7 +160,6 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 <section anchor="profile7925" title="Conformance to RFC7925 profiles">
 <t>
 This section shows how EST-coaps fits into the profiles of low-resource devices as described in <xref target="RFC7925"/>. Within the bootstrap context a Public Key Infrastructure (PKI) is used, where the client is called "pledge", the Registration Authority (RA) is called Join Registrar, which acts at the front-end for the Certificate Authority (CA) and receives voucher feedback from as many Manufacturer Authorized Signing Authorities (MASA) as there are manufacturers. A Join-Proxy is placed between client and RA to receive join requests over a 1-hop unsecured channel and transmitted over the secure network to the EST-server. The EST-server of EST-coaps is placed between proxy and RA or is part of RA.</t>
-<t> EST-coaps conforms to the ACE DTLS profile <xref target="I-D.gerdes-ace-dtls-authorize"/>.</t>
 <t>EST-coaps transports Public keys and certificates. Private keys can be transported as response to a request to a server-side key generation as described in section 4.4 of <xref target="RFC7030"/>. In the bootstrapping context, EST-coaps transport is limited to the EST certificate transport conformant to section 4.4 of <xref target="RFC7925"/>. For BRSKI, outside the profiles of <xref target="RFC7925"/>, EST-coaps transports vouchers, which are YANG files specified in <xref target="I-D.ietf-anima-voucher"/>.</t>
 
 <t> The mandatory cipher suite for DTLS is TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 defined in <xref target="RFC7251"/> which is the mandatory-to-implement cipher suite in CoAP. Additionally the curve secp256r1 MUST be supported <xref target="RFC4492"/>; this curve is equivalent to the NIST P-256 curve. The hash algorithm is SHA-256. DTLS implementations MUST use the Supported Elliptic Curves and Supported Point Formats Extensions <xref target="RFC4492"/>; the uncompressed point format MUST be supported; <xref target="RFC6090"/> can be used as an implementation method.
@@ -324,9 +321,10 @@ The Size1 response MAY be parsed by the client as a size indication of the Block
     <section anchor="DTLS" title = "DTLS">
       <t> DTLS is one such secure protocol. Within BRSKI and EST when "TLS" is referred to, it is understood that in EST-coaps, security is provided using DTLS instead. No other changes are necessary (all provisional modes etc are the same as for TLS).</t>
       <t>CoAP was designed to avoid fragmentation. DTLS is used to secure CoAP messages. However, fragmentation is still possible at the DTLS layer during the DTLS handshake when using ECC ciphersuites. If fragmentation is necessary, "DTLS provides a mechanism for fragmenting a handshake message over a number of records, each of which can be transmitted separately, thus avoiding IP fragmentation" <xref target="RFC6347"/>.</t>
-      
-      <t>CoAP and DTLS can provide proof of identity for EST-coaps clients and server with simple PKI messages conformant to section 3.1 of <xref target="RFC5272"/>. EST-coaps supports the certificate types and Trust Anchors (TA) that are specified for EST in section 3 of <xref target="RFC7030"/>.</t>
-        <t>Channel-binding information for linking proof-of-identity with connection-based proof-of-possession is optional for EST-coaps. When proof-of-possession is desired, a set of actions are required regarding the use of tls-unique, described in section 3.5 in <xref target="RFC7030"/>. The tls-unique information translates to the contents of the first "Finished" message in the TLS handshake between server and client <xref target="RFC5929"/>. The client is then supposed to add this "Finished" message as a ChallengePassword to the PKCS#10 to prove that the client is indeed in control of the private key at the time of the TLS session when performing a /simpleenroll, for example. In the case of EST-coaps, the same operations can be performed during the DTLS handshake. In the event of handshake message fragmentation, the Hash of the handshake messages used in the MAC calculation of the Finished message 
+
+<t>It is RECOMMENDED to keep DTLS channels open when multiple messages need to be passed. A good example is the channel binding necessary for the Proof of Possesion (PoP) protocol described below.</t>
+<t>CoAP and DTLS can provide proof of identity for EST-coaps clients and server with simple PKI messages conformant to section 3.1 of <xref target="RFC5272"/>. EST-coaps supports the certificate types and Trust Anchors (TA) that are specified for EST in section 3 of <xref target="RFC7030"/>.</t>
+        <t>Channel-binding information for linking proof-of-identity with connection-based proof-of-possession is optional for EST-coaps. When proof-of-possession is desired, a set of actions are required regarding the use of tls-unique, described in section 3.5 in <xref target="RFC7030"/>. The tls-unique information translates to the contents of the first "Finished" message in the TLS handshake between server and client <xref target="RFC5929"/>. The client is then supposed to add this "Finished" message as a ChallengePassword in the attributes section of the PKCS#10 Request Info to prove that the client is indeed in control of the private key at the time of the TLS session when performing a /simpleenroll, for example. In the case of EST-coaps, the same operations can be performed during the DTLS handshake. In the event of handshake message fragmentation, the Hash of the handshake messages used in the MAC calculation of the Finished message 
 <figure align="left"><artwork><![CDATA[
 PRF(master_secret, finished_label, Hash(handshake_messages)) 
    [0..verify_data_length-1];
@@ -551,7 +549,6 @@ Interpreters of ASN.1 structures should be aware of the use of invalid ASN.1 len
     &I-D.selander-ace-cose-ecdhe;
     &I-D.ietf-core-object-security; 
     &I-D.ietf-anima-voucher;
-    &I-D.gerdes-ace-dtls-authorize;
     <reference anchor="ieee802.15.4">
       <front>
         <title>IEEE Standard 802.15.4-2006</title>

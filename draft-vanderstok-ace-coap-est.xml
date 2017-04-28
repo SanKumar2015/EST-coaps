@@ -351,10 +351,31 @@ It is suggested that the EST-coaps communication between pledge and registrar, s
 
 
   <section title="Proxying">
-    <t>In real-world deployments entities like the EST server, CA, or the BRSKI Registrar will not always reside within the COAP boundary. An EST server or CA can exist outside of the constrained network in a TCP enviroment. In such environments EST-coaps is used in the COAP boundary and TLS is used to carry the EST/BRSKI HTTP messages from upstream. Such scenarios require the use of edge entity between the COAP environment and the external TCP environment. <xref target="RFC8075"/> defines how a proxy translates between COAPs and HTTP. These translations include mappings from COAP to HTTP URIs, Media-Types and response codes. </t>
-    <t>The EST-coaps-to-TLS proxy SHOULD terminate EST-coaps downstream and initiate TLS connection upstream. Due to fragmentation of large messages that could be broken into blocks, an EST-coaps-to-TLS proxy SHOULD reassemble the BLOCKs before relaying the message upstream in the HTTP environment. </t>
-    <t>A proxy should be able to authenticate the client downstream and it should be authenticated by the EST or BRSK server or CA upstream. A trust relationship between the proxy and the TCP entities (EST, BRSKI servers) in order to be able to proxy these connections on behalf of various clients.</t>
-    <!--    <t>[EDNOTE: Add more details in this section. Address PoP in this scenario. ]</t> -->
+    <t>In real-world deployments entities like the EST server, CA, or the BRSKI Registrar will not always reside within the COAP boundary. An EST server or CA can exist outside of the constrained network in a non-constrained network that supports TCP. In such environments EST-coaps is used down stream to the pledge in the COAP boundary and TLS is carries the EST/BRSKI messages upstream. A proxy entity at the edge is required to operate between the COAP environment and the external TCP network. The EST-coaps-to-HTTP proxy SHOULD terminate EST-coaps downstream and initiate EST/BRSKI connectons over TLS upstream. 
+<figure align="left" title="EST-coaps-to-HTTP proxy at the COAP boundary."><artwork><![CDATA[
+					       Constrained Network
+					   .---------------------------.
+					   |.-------------------------.|
+					   ||		     .------. ||
+					   ||	    COAPS .->|Pledge| ||
+					   ||		  |  '------' || 
+					   ||	          |	      ||
+					   ||  COAPS .----'----.      ||
+		    			   ||  	 .-->|Registrar|      ||
+  .-----------.    HTTP    .-----------------.   |   '---------'      ||
+  | EST/BRSKI |<---------->|EST-coaps-to-HTTP|<--'  		      ||
+  |  Server   |  over TLS  |   Proxy	     |<---. 		      ||
+  '-----------'      	   '-----------------'     \    .----------.  ||
+					   ||  COAPS`-->|EST client|  ||
+					   ||  	        '----------'  ||
+					   |'-------------------------'|
+					   '---------------------------'
+]]></artwork></figure> </t>
+    <t><xref target="est-uri"/> contains the mapping between the EST-coaps and EST/BRSKI URIs and proxy SHOULD adhere to. Section 7 of <xref target="RFC8075"/> defines the mapping between EST-coaps and HTTP response code. how a proxy translates between COAPs and HTTP. <!-- [EDNOTE: Some of the issues from RFC8075 will be clarified here like Content-Types mappings and Discovery. ]--> .</t>
+    <t>Due to fragmentation of large messages that could be broken into blocks, an EST-coaps-to-HTTP proxy SHOULD reassemble the BLOCKs before relaying the message upstream in the HTTP environment. <!-- [EDNOTE: BLOCK fragments should be further explained here. Also reference RFC8075 ]--></t>
+    <t> [ EDNOTE: POP will be addressed here. ] </t>
+    <t>A proxy SHOULD authenticate the client downstream and it should be authenticated by the EST or BRSKI server or CA upstream. A trust relationship needs to be pre-established between the proxy and the TCP entities (EST, BRSKI servers) in order to be able to proxy these connections on behalf of various clients.</t>
+    <!-- [EDNOTE: Add more details in this section. ] -->
   </section>
 
   <section title="Parameters">

@@ -97,7 +97,7 @@ Table of Contents
    7.  Parameters  . . . . . . . . . . . . . . . . . . . . . . . . .  14
    8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  14
    9.  Security Considerations . . . . . . . . . . . . . . . . . . .  17
-   10. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  19
+   10. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  18
    11. Change Log  . . . . . . . . . . . . . . . . . . . . . . . . .  19
    12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  19
      12.1.  Normative References . . . . . . . . . . . . . . . . . .  19
@@ -233,15 +233,14 @@ Internet-Draft                  EST-coaps                     April 2017
       results in:
 
       *  The EST-coaps client does not support HTTP Basic authentication
-         (as described in Section 3.2.3 of [RFC7030])
+         (as described in Section 3.2.3 of [RFC7030]).
 
       *  The EST-coaps client does not support authentication at the
          application layer (as described in Section 3.2.3 of [RFC7030]).
 
-   o  EST-coaps does not support full PKI request messages[RFC5272].
+   o
 
-      *  Consequently, the fullcmc request of section 4.3 of [RFC7030]
-         and response MUST NOT be supported by EST-coaps.
+      *
 
    o  EST-coaps specifies the BRSKI extensions over CoAP as specified in
       section 5 of [I-D.ietf-anima-bootstrapping-keyinfra].
@@ -274,6 +273,7 @@ Internet-Draft                  EST-coaps                     April 2017
    secp256r1 MUST be supported [RFC4492]; this curve is equivalent to
    the NIST P-256 curve.  The hash algorithm is SHA-256.  DTLS
    implementations MUST use the Supported Elliptic Curves and Supported
+
 
 
 
@@ -594,7 +594,7 @@ Internet-Draft                  EST-coaps                     April 2017
 
    It is RECOMMENDED to keep DTLS channels open when multiple messages
    need to be passed.  A good example is the channel binding necessary
-   for the Proof of Possesion (PoP) protocol described below.
+   for the Proof of Possesion (PoP) described below.
 
    CoAP and DTLS can provide proof of identity for EST-coaps clients and
    server with simple PKI messages conformant to section 3.1 of
@@ -944,7 +944,7 @@ Internet-Draft                  EST-coaps                     April 2017
 9.  Security Considerations
 
    The security considerations of section 6 of [RFC7030] are only
-   partially valid.
+   partially valid for the purposes of this document.  As HTTP Basic
 
 
 
@@ -954,7 +954,8 @@ Kumar, et al.           Expires October 30, 2017               [Page 17]
 Internet-Draft                  EST-coaps                     April 2017
 
 
-   The considerations expressed for using passwords do not apply here.
+   Authentication is not supported, the considerations expressed for
+   using passwords do not apply.
 
    When a client uses the Implicit TA database for certificate
    validation, it only can use TLS-based client authentication.  It is
@@ -968,23 +969,17 @@ Internet-Draft                  EST-coaps                     April 2017
    receiving the Distribution of CA certificates response (Section 4.1.3
    of [RFC7030]) limits any vulnerability to the first TLS exchange.
 
-   In agreement with [RFC7030], TLS cipher suites that include
-   "_EXPORT_" and "_DES_" in their names MUST NOT be used.
+   In accordance with [RFC7030], TLS cipher suites that include
+   "_EXPORT_" and "_DES_" in their names MUST NOT be used.  More
+   information about recomendations of TLS and DTLS are included in
+   [RFC7525].
 
    As described in CMC, Section 6.7 of [RFC5272], "For keys that can be
    used as signature keys, signing the certification request with the
-   private key serves as a POP on that key pair".  The inclusion of
-   tlsunique within the certification request links the proof-of-
-   possession to the TLS proof-of-identity.  This implies but does not
-   prove that the authenticated client currently has access to the
-   private key.
-
-   The server-side key generation method allows keys to be transported
-   over the TLS connection to the client without any application-layer
-   protection.  The distribution of private key material is inherently
-   risky.  It is RECOMMENDED that EST servers not support this operation
-   by default.  It is RECOMMENDED that clients do not request this
-   service.
+   private key serves as a POP on that key pair".  The inclusion of tls-
+   unique in the certification request links the proof-of-possession to
+   the TLS proof-of-identity.  This implies but does not prove that the
+   authenticated client currently has access to the private key.
 
    The use of an encrypted CMS Server-Side Key Generation Response is
    RECOMMENDED when an Implicit Trust Anchor database is used.
@@ -992,16 +987,21 @@ Internet-Draft                  EST-coaps                     April 2017
    Regarding the CSR attributes that the CA may list for inclusion in an
    enrollment request, an adversary could exclude attributes that a
    server may want, include attributes that a server may not want, and
-   render meaningless other attributes that a server may want.
+   render meaningless other attributes that a server may want.  The CA
+   is expected to be able to enforce policies to recover from improper
+   CSR requests.
 
    Interpreters of ASN.1 structures should be aware of the use of
    invalid ASN.1 length fields and should take appropriate measures to
    guard against buffer overflows, stack overruns in particular, and
    malicious content in general.
 
+10.  Acknowledgements
 
-
-
+   The authors are very grateful to Klaus Hartke for his detailed
+   explanations on the use of Block with DTLS.  The authors would like
+   to thank Esko Dijk and Michael Verschoor for the valuable discussions
+   that helped in shaping the solution.  They would also like to thank
 
 
 
@@ -1010,12 +1010,6 @@ Kumar, et al.           Expires October 30, 2017               [Page 18]
 Internet-Draft                  EST-coaps                     April 2017
 
 
-10.  Acknowledgements
-
-   The authors are very grateful to Klaus Hartke for his detailed
-   explanations on the use of Block with DTLS.  The authors would like
-   to thank Esko Dijk and Michael Verschoor for the valuable discussions
-   that helped in shaping the solution.  They would also like to thank
    Peter Panburana from Cisco for his feedback on technical details of
    the solution.  Constructive comments were received from Eliot Lear
    and Julien Vermillard.
@@ -1030,7 +1024,11 @@ Internet-Draft                  EST-coaps                     April 2017
 
       DTLS POP text improved.
 
-      First version of Security considerations written.
+      First version of Security considerations section written.
+
+      First version of Proxying section written.
+
+      Various text improvements.
 
    -01:
 
@@ -1054,9 +1052,11 @@ Internet-Draft                  EST-coaps                     April 2017
               the Constrained Application Protocol (CoAP)", draft-
               hartke-core-pending-00 (work in progress), February 2017.
 
-
-
-
+   [I-D.ietf-anima-bootstrapping-keyinfra]
+              Pritikin, M., Richardson, M., Behringer, M., Bjarnason,
+              S., and K. Watsen, "Bootstrapping Remote Secure Key
+              Infrastructures (BRSKI)", draft-ietf-anima-bootstrapping-
+              keyinfra-05 (work in progress), March 2017.
 
 
 
@@ -1065,12 +1065,6 @@ Kumar, et al.           Expires October 30, 2017               [Page 19]
 
 Internet-Draft                  EST-coaps                     April 2017
 
-
-   [I-D.ietf-anima-bootstrapping-keyinfra]
-              Pritikin, M., Richardson, M., Behringer, M., Bjarnason,
-              S., and K. Watsen, "Bootstrapping Remote Secure Key
-              Infrastructures (BRSKI)", draft-ietf-anima-bootstrapping-
-              keyinfra-05 (work in progress), March 2017.
 
    [I-D.selander-ace-eals]
               Selander, G., Raza, S., Vucinic, M., Furuhed, M., and M.
@@ -1113,6 +1107,12 @@ Internet-Draft                  EST-coaps                     April 2017
               DOI 10.17487/RFC7252, June 2014,
               <http://www.rfc-editor.org/info/rfc7252>.
 
+   [RFC7959]  Bormann, C. and Z. Shelby, Ed., "Block-Wise Transfers in
+              the Constrained Application Protocol (CoAP)", RFC 7959,
+              DOI 10.17487/RFC7959, August 2016,
+              <http://www.rfc-editor.org/info/rfc7959>.
+
+
 
 
 
@@ -1121,11 +1121,6 @@ Kumar, et al.           Expires October 30, 2017               [Page 20]
 
 Internet-Draft                  EST-coaps                     April 2017
 
-
-   [RFC7959]  Bormann, C. and Z. Shelby, Ed., "Block-Wise Transfers in
-              the Constrained Application Protocol (CoAP)", RFC 7959,
-              DOI 10.17487/RFC7959, August 2016,
-              <http://www.rfc-editor.org/info/rfc7959>.
 
    [RFC8075]  Castellani, A., Loreto, S., Rahman, A., Fossati, T., and
               E. Dijk, "Guidelines for Mapping Implementations: HTTP to
@@ -1170,6 +1165,11 @@ Internet-Draft                  EST-coaps                     April 2017
               DOI 10.17487/RFC4492, May 2006,
               <http://www.rfc-editor.org/info/rfc4492>.
 
+   [RFC4919]  Kushalnagar, N., Montenegro, G., and C. Schumacher, "IPv6
+              over Low-Power Wireless Personal Area Networks (6LoWPANs):
+              Overview, Assumptions, Problem Statement, and Goals",
+              RFC 4919, DOI 10.17487/RFC4919, August 2007,
+              <http://www.rfc-editor.org/info/rfc4919>.
 
 
 
@@ -1177,12 +1177,6 @@ Kumar, et al.           Expires October 30, 2017               [Page 21]
 
 Internet-Draft                  EST-coaps                     April 2017
 
-
-   [RFC4919]  Kushalnagar, N., Montenegro, G., and C. Schumacher, "IPv6
-              over Low-Power Wireless Personal Area Networks (6LoWPANs):
-              Overview, Assumptions, Problem Statement, and Goals",
-              RFC 4919, DOI 10.17487/RFC4919, August 2007,
-              <http://www.rfc-editor.org/info/rfc4919>.
 
    [RFC4944]  Montenegro, G., Kushalnagar, N., Hui, J., and D. Culler,
               "Transmission of IPv6 Packets over IEEE 802.15.4
@@ -1216,6 +1210,12 @@ Internet-Draft                  EST-coaps                     April 2017
               CCM Elliptic Curve Cryptography (ECC) Cipher Suites for
               TLS", RFC 7251, DOI 10.17487/RFC7251, June 2014,
               <http://www.rfc-editor.org/info/rfc7251>.
+
+   [RFC7525]  Sheffer, Y., Holz, R., and P. Saint-Andre,
+              "Recommendations for Secure Use of Transport Layer
+              Security (TLS) and Datagram Transport Layer Security
+              (DTLS)", BCP 195, RFC 7525, DOI 10.17487/RFC7525, May
+              2015, <http://www.rfc-editor.org/info/rfc7525>.
 
    [RFC7641]  Hartke, K., "Observing Resources in the Constrained
               Application Protocol (CoAP)", RFC 7641,

@@ -12,7 +12,6 @@
 <!ENTITY RFC5967 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5967.xml">
 <!ENTITY RFC6090 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6090.xml">
 <!ENTITY RFC6347 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6347.xml">
-<!-- <!ENTITY RFC6838 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6838.xml"> -->
 <!ENTITY RFC6690 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6690.xml">
 <!ENTITY RFC7030 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7030.xml">
 <!ENTITY RFC7230 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7230.xml">
@@ -23,6 +22,8 @@
 <!ENTITY RFC7641 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7641.xml">
 <!ENTITY RFC4919 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4919.xml">
 <!ENTITY RFC5929 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5929.xml">
+<!ENTITY RFC8075 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8075.xml">
+<!ENTITY RFC7525 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7525.xml">
 <!ENTITY I-D.ietf-anima-bootstrapping-keyinfra SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-anima-bootstrapping-keyinfra.xml">
 <!ENTITY I-D.ietf-6tisch-dtsecurity-secure-join SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-6tisch-dtsecurity-secure-join.xml">
 <!ENTITY I-D.ietf-6tisch-minimal-security SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-6tisch-minimal-security.xml">
@@ -143,15 +144,16 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
         <list>
           <t>DTLS-secured CoAP sessions between EST-coaps client and EST-coaps server.</t>
         </list></t>
-        <t> Only certificate-based client authentication is supported, which results in:
+        <t>Only certificate-based client authentication is supported, which results in:
           <list>
-            <t>The EST-coaps client does not support HTTP Basic authentication (as described in Section 3.2.3 of <xref target="RFC7030"/>) </t>
+            <t>The EST-coaps client does not support HTTP Basic authentication (as described in Section 3.2.3 of <xref target="RFC7030"/>).</t>
             <t>The EST-coaps client does not support authentication at the application layer (as described in Section 3.2.3 of <xref target="RFC7030"/>).</t>
           </list></t>
-        <t>EST-coaps does not support full PKI request messages<xref target="RFC5272"/>.
-<list>
-        <t>Consequently, the fullcmc request of section 4.3 of <xref target="RFC7030"/> and response MUST NOT be supported by EST-coaps.</t>
-</list></t>
+        <t>EST-coaps does not support full PKI request messages<xref target="RFC5272"/>. 
+	<list>
+          <t>Consequently, the fullcmc request of section 4.3 of <xref target="RFC7030"/> and response MUST NOT be supported by EST-coaps]. </t>
+<t>[EDNOTE: Constrained endpoints that can't generate truly random numbers because of lack of an entropy source will need server-side key generation. Encrypting these keys is important. So using fullcmc messages are necessary over TLS. If fullcmc is something that will not work, then PKCS#12 encryption will work, but a passphrase needs to be established for those. ]</t>
+	</list></t>
         <t>EST-coaps specifies the BRSKI extensions over CoAP as specified in section 5 of <xref target="I-D.ietf-anima-bootstrapping-keyinfra"/>.</t>
       </list></t>
   </section>  <!-- Operational scenario overview -->
@@ -187,18 +189,12 @@ This section shows how EST-coaps fits into the profiles of low-resource devices 
 ]]></artwork></figure>
     <t>The EST-coaps protocol design follows closely the EST design, excluding some aspects that are not relevant for automatic bootstrapping of constrained devices within a professional context. The parts supported by EST-coaps are identified by their message types:
           <list style="symbols">
-            <t>Simple enroll and reenroll.</t>
-            <t>CA certificate retrieval.</t> <!-- Needed when BRSKI is not applicable to establish the domain trust anchor -->
+            <t>Simple enroll and reenroll, for CA to sign public client-identity key.</t>
+            <t>CA certificate retrieval, needed when BRSKI is not applicable to establish the domain trust anchor. </t>
             <t>CSR Attributes request messages.</t>
-            <t>Server-side key generation messages.</t>
+            <t>Server-side key generation messages, to provide a private client-identity key when the client is too restricted.</t>
           </list>
 </t>
-<!--
-    <t>In the response to a /serverkeygen request, an EST server uses the multipart/mixed HTTP content type. The response message consists of two parts: the private key data and the certificate data. The CoAP RFC does not specify the multipart/mixed content type; it is though defined in an old draft: draft-fossati-core-multipart-ct-01.
-    </t>
-    
-    <t>[EDNOTE: In EST-coaps, we need to define an equivalent CoAP content-format to match the HTTP multipart/mixed content type.</t>
--->
 
 <section anchor="discovery" title = "Discovery and URI">
 <t>
@@ -314,14 +310,14 @@ The Size1 response MAY be parsed by the client as a size indication of the Block
 
 
   <section anchor="transport" title = "Transport Protocol">
-    <!-- [EDNOTE: This section mostly talked about DTLS. Panos renamed it to Transport Protocol that addresses DTLS and could be later updated to address COSE concerns etc. ] -->
+    
     <t>EST-coaps depends on a secure transport mechanism over UDP that can secure (confidentiality, authenticity) the CoAP messages exchanged. </t>
     
     <section anchor="DTLS" title = "DTLS">
       <t> DTLS is one such secure protocol. Within BRSKI and EST when "TLS" is referred to, it is understood that in EST-coaps, security is provided using DTLS instead. No other changes are necessary (all provisional modes etc are the same as for TLS).</t>
       <t>CoAP was designed to avoid fragmentation. DTLS is used to secure CoAP messages. However, fragmentation is still possible at the DTLS layer during the DTLS handshake when using ECC ciphersuites. If fragmentation is necessary, "DTLS provides a mechanism for fragmenting a handshake message over a number of records, each of which can be transmitted separately, thus avoiding IP fragmentation" <xref target="RFC6347"/>.</t>
 
-<t>It is RECOMMENDED to keep DTLS channels open when multiple messages need to be passed. A good example is the channel binding necessary for the Proof of Possesion (PoP) protocol described below.</t>
+<t>It is RECOMMENDED to keep DTLS channels open when multiple messages need to be passed. A good example is the channel binding necessary for the Proof of Possesion (PoP) described below.</t>
 <t>CoAP and DTLS can provide proof of identity for EST-coaps clients and server with simple PKI messages conformant to section 3.1 of <xref target="RFC5272"/>. EST-coaps supports the certificate types and Trust Anchors (TA) that are specified for EST in section 3 of <xref target="RFC7030"/>.</t>
         <t>Channel-binding information for linking proof-of-identity with connection-based proof-of-possession is optional for EST-coaps. When proof-of-possession is desired, a set of actions are required regarding the use of tls-unique, described in section 3.5 in <xref target="RFC7030"/>. The tls-unique information translates to the contents of the first "Finished" message in the TLS handshake between server and client <xref target="RFC5929"/>. The client is then supposed to add this "Finished" message as a ChallengePassword in the attributes section of the PKCS#10 Request Info to prove that the client is indeed in control of the private key at the time of the TLS session when performing a /simpleenroll, for example. In the case of EST-coaps, the same operations can be performed during the DTLS handshake. In the event of handshake message fragmentation, the Hash of the handshake messages used in the MAC calculation of the Finished message 
 <figure align="left"><artwork><![CDATA[
@@ -350,7 +346,36 @@ It is suggested that the EST-coaps communication between pledge and registrar, s
 
 
   <section title="Proxying">
-    <t>[EDNOTE: This section to be populated. It will address how proxying can take place by an entity that resides at the edge of the CoAP network, such as the Registrar, and can reach the BRSKI server residing in a traditional "TCP setting". It makes sense to mention the properties that the proxy has to fulfill.]</t>
+    <t>In real-world deployments entities like the EST server, CA, or the BRSKI Registrar will not always reside within the COAP boundary. An EST server or CA can exist outside the constrained network in a non-constrained network that supports TLS/HTTP. In such environments EST-coaps is used by the pledge witin the COAP boundary and TLS is used to transport the EST/BRSKI messages outside the CoAP boundary. A proxy entity at the edge is required to operate between the COAP environment and the external HTTP network. The EST-coaps-to-HTTPS proxy SHOULD terminate EST-coaps downstream and initiate EST/BRSKI connectons over TLS upstream.
+</t> 
+<figure align="left" title="ESTcoaps-to-HTTPS proxy at the COAP boundary."><artwork><![CDATA[
+                                        Constrained Network
+                                    .---------------------------.
+                                    |.-------------------------.|
+                                    ||                .------. ||
+                                    ||       COAPS .->|Pledge| ||
+                                    ||             |  '------' || 
+                                    ||             |           ||
+                                    ||  COAPS .----'----.      ||
+                                    ||     .->|Registrar|      ||
+.-----------.  HTTP   .-----------------.  |  '---------'      ||
+| EST/BRSKI |<------->|ESTcoaps-to-HTTPS|<--                   ||
+|  Server   |over TLS |      Proxy      |<---.                 ||
+'-----------'         '-----------------'    \   .----------.  ||
+                                    || COAPS`--> |EST client|  ||
+                                    ||           '----------'  ||
+                                    |'-------------------------'|
+                                    '---------------------------'
+]]></artwork></figure>
+
+    <t><xref target="est-uri"/> contains the mapping between the EST-coaps and EST/BRSKI URIs and proxy SHOULD adhere to. Section 7 of <xref target="RFC8075"/> defines the mapping between EST-coaps and HTTP response code, that determines how a proxy translates COAP response codes from/to HTTP status codes. 
+</t>
+<t>[EDNOTE: Some of the issues from RFC8075 will be clarified here like Content-Types mappings and Discovery.</t>
+    <t>Due to fragmentation of large messages that could be broken into blocks, an EST-coaps-to-HTTP proxy SHOULD reassemble the BLOCKs before relaying the message upstream in the HTTP environment. </t>
+<t>[EDNOTE: BLOCK fragments should be further explained here. Also reference RFC8075 ]</t>
+    <t> [ EDNOTE: POP will be addressed here. ] </t>
+    <t>A proxy SHOULD authenticate the client downstream and it should be authenticated by the EST or BRSKI server or CA upstream. A trust relationship needs to be pre-established between the proxy and the TCP entities (EST, BRSKI servers) in order to be able to proxy these connections on behalf of various clients.</t>
+    <t> [TODO: Add more details about trust relations in this section. ] </t>
   </section>
 
   <section title="Parameters">
@@ -456,32 +481,14 @@ It is suggested that the EST-coaps communication between pledge and registrar, s
   </section>  <!-- IANA consideration -->
 
 <section anchor="sec" title="Security Considerations">
-
-<t> The security considerations of section 6 of <xref target="RFC7030"/> are only partially valid.
-</t><t> 
-The considerations expressed for using passwords do not apply here.
-</t><t>
-When a client uses the Implicit TA database for certificate
-validation, it only can use TLS-based client authentication. It is RECOMMENDED that such clients include "Linking Identity and POP Information" <xref target="DTLS"/> in requests (to prevent such requests from being forwarded to a real EST server by a man in the middle). It is RECOMMENDED that the Implicit Trust Anchor database used for EST server authentication be carefully managed to reduce the chance of a
-third-party CA with poor certification practices from being trusted.
-Disabling the Implicit Trust Anchor database after successfully
-receiving the Distribution of CA certificates response
-(Section 4.1.3 of <xref target="RFC7030"/>) limits any vulnerability to the first TLS exchange.
-</t><t>
-In agreement with <xref target="RFC7030"/>, TLS cipher suites that include "_EXPORT_" and "_DES_" in their names MUST NOT be used. 
-</t><t>
-As described in CMC, Section 6.7 of <xref target="RFC5272"/>, "For keys that can be used as signature keys, signing the certification request with the private key serves as a POP on that key pair". The inclusion of tlsunique within the certification request links the proof-of-possession
-to the TLS proof-of-identity. This implies but does not prove that the authenticated client currently has access to the
-private key.
-</t><t>
-The server-side key generation method allows keys to be transported over the TLS connection to the client without any application-layer protection. The distribution of private key material is inherently risky. It is RECOMMENDED that EST servers not support this operation by default. It is RECOMMENDED that clients do not request this service.
-</t><t> 
-The use of an encrypted CMS Server-Side Key Generation Response is RECOMMENDED when an Implicit Trust Anchor database is used.
-</t><t>
-Regarding the CSR attributes that the CA may list for inclusion in an enrollment request, an adversary could exclude attributes that a server may want, include attributes that a server may not want, and render meaningless other attributes that a server may want.
-</t><t>
-Interpreters of ASN.1 structures should be aware of the use of invalid ASN.1 length fields and should take appropriate measures to guard against buffer overflows, stack overruns in particular, and malicious content in general.
-</t>
+  <t>The security considerations of section 6 of <xref target="RFC7030"/> are only partially valid for the purposes of this document. As HTTP Basic Authentication is not supported, the considerations expressed for using passwords do not apply.</t>
+<t>Given that the client has only limited resources and may not be able to generate sufficiently random keys to encrypt its identity, it is possible that the client uses server generated private/pubic keys to encrypt its certificate. The transport of these keys is inherently risky. A full probability analysis MUST be done to establish whether server side key generation enhances or decreases the probability of identity stealing.</t>
+<t>[EDNote: how to protect the transport of these keys? fullcmc, PKCS#12 ?]</t>
+  <t>When a client uses the Implicit TA database for certificate validation, te client cannot verify that the implicit data base can act as an RA. It is RECOMMENDED that such clients include "Linking Identity and POP Information" <xref target="DTLS"/> in requests (to prevent such requests from being forwarded to a real EST server by a man in the middle). It is RECOMMENDED that the Implicit Trust Anchor database used for EST server authentication be carefully managed to reduce the chance of a third-party CA with poor certification practices from being trusted. Disabling the Implicit Trust Anchor database after successfully receiving the Distribution of CA certificates response (Section 4.1.3 of <xref target="RFC7030"/>) limits any vulnerability to the first DTLS exchange.</t>
+  <t>In accordance with <xref target="RFC7030"/>, TLS cipher suites that include "_EXPORT_" and "_DES_" in their names MUST NOT be used. More information about recomendations of TLS and DTLS are included in <xref target="RFC7525"/>.</t>
+  <t>As described in CMC, Section 6.7 of <xref target="RFC5272"/>, "For keys that can be used as signature keys, signing the certification request with the private key serves as a POP on that key pair". The inclusion of tls-unique in the certification request links the proof-of-possession to the TLS proof-of-identity. This implies but does not prove that the authenticated client currently has access to the private key.</t>
+  <t>Regarding the CSR attributes that the CA may list for inclusion in an enrollment request, an adversary could exclude attributes that a server may want, include attributes that a server may not want, and render meaningless other attributes that a server may want. The CA is expected to be able to enforce policies to recover from improper CSR requests. </t>
+  <t>Interpreters of ASN.1 structures should be aware of the use of invalid ASN.1 length fields and should take appropriate measures to guard against buffer overflows, stack overruns in particular, and malicious content in general.</t>
   </section>  <!-- Security considerations  -->
 
   <section anchor="ack" title="Acknowledgements">
@@ -494,7 +501,9 @@ Interpreters of ASN.1 structures should be aware of the use of invalid ASN.1 len
       <t> binary instead of CBOR binary in mime types. </t>
       <t> supported content types are discoverable. </t>
       <t> DTLS POP text improved. </t>
-      <t> First version of Security considerations written. </t>
+      <t> First version of Security considerations section written. </t>
+      <t> First version of Proxying section written. </t>
+      <t> Various text improvements. </t>
     </list>
     </t>
     <t> -01:
@@ -521,6 +530,7 @@ Interpreters of ASN.1 structures should be aware of the use of invalid ASN.1 len
     &RFC7030;
     &RFC7252;
     &RFC7959;
+    &RFC8075;
     &I-D.ietf-anima-bootstrapping-keyinfra;
     &I-D.selander-ace-eals;
     &I-D.hartke-core-pending;
@@ -532,13 +542,13 @@ Interpreters of ASN.1 structures should be aware of the use of invalid ASN.1 len
     &RFC5246;
     &RFC5958;
     &RFC6090;
-    <!-- &RFC6838; -->
     &RFC7230;
     &RFC7251;
     &RFC7641;
     &RFC7925;
     &RFC4919;
     &RFC5929;
+    &RFC7525;
     &I-D.ietf-6tisch-dtsecurity-secure-join;
     &I-D.ietf-6tisch-minimal-security;
     &I-D.selander-ace-cose-ecdhe;
@@ -996,7 +1006,7 @@ a4fa677130da60818175ca4ab2af1d15563624c51e13dfdcf381881b72327e2f4
 
   <section anchor="blockexamples" title="EST-coaps Block message examples">
     <t>This section provides a detailed example of the messages using DTLS and BLOCK option Block2. The minimum PMTU is 1280 bytes, which is the example value assumed for the DTLS datagram size. The example block length is taken as 64 which gives an SZX value of 2.</t>
-    <t>The following is an example of a valid /cacerts exchange over DTLS. <!-- During the initial DTLS handshake, the client can ignore the optional server-generated "certificate request" and can instead proceed with the CoAP GET request -->. The content length of the cacerts response in appendix A.1 of <xref target="RFC7030"/> is 4246 bytes using base64. This leads to a length of 2509 bytes in binary. The CoAP message adds around 10 bytes, the DTLS record 29 bytes. To avoid IP fragmentation, the CoAP block option is used and an MTU of 127 is assumed to stay within one IEEE 802.15.4 packet. To stay below the MTU of 127, the payload is split in 39 packets with a payload of 64 bytes each, followed by a packet of 13 bytes. The client sends an IPv6 packet containing the UDP datagram with the DTLS record that encapsulates the CoAP Request 40 times. The server returns an IPv6 packet containing the UDP datagram with the DTLS record that encapsulates the CoAP response. The CoAP request-response exchange with block option is shown below. Block option is shown in a decomposed way indicating the kind of Block option (2 in this case because used in the response) followed by a colon, and then the block number (NUM), the more bit (M = 0 means last block), and block size exponent (2**(SZX+4)) separated by slashes. The Length 64 is used with SZX= 2 to avoid IP fragmentation. The CoAP Request is sent with confirmable (CON) option and the content format of the Response is /application/cacerts.
+    <t>The following is an example of a valid /cacerts exchange over DTLS. The content length of the cacerts response in appendix A.1 of <xref target="RFC7030"/> is 4246 bytes using base64. This leads to a length of 2509 bytes in binary. The CoAP message adds around 10 bytes, the DTLS record 29 bytes. To avoid IP fragmentation, the CoAP block option is used and an MTU of 127 is assumed to stay within one IEEE 802.15.4 packet. To stay below the MTU of 127, the payload is split in 39 packets with a payload of 64 bytes each, followed by a packet of 13 bytes. The client sends an IPv6 packet containing the UDP datagram with the DTLS record that encapsulates the CoAP Request 40 times. The server returns an IPv6 packet containing the UDP datagram with the DTLS record that encapsulates the CoAP response. The CoAP request-response exchange with block option is shown below. Block option is shown in a decomposed way indicating the kind of Block option (2 in this case because used in the response) followed by a colon, and then the block number (NUM), the more bit (M = 0 means last block), and block size exponent (2**(SZX+4)) separated by slashes. The Length 64 is used with SZX= 2 to avoid IP fragmentation. The CoAP Request is sent with confirmable (CON) option and the content format of the Response is /application/cacerts.
 </t>
     <figure align="left"><artwork><![CDATA[
 GET [192.0.2.1:8085]/est/crts     -->

@@ -102,7 +102,6 @@
     <abstract>
       <t>Low-resource devices in a Low-power and Lossy Network (LLN) can operate in a mesh network using the IPv6 over Low-power Wireless Personal Area Networks (6LoWPAN) and IEEE 802.15.4 link-layer standards. Provisioning these devices in a secure manner with keys (often called secure bootstrapping) used to encrypt and authenticate messages is the subject of Bootstrapping of Remote Secure Key Infrastructures (BRSKI) <xref target="I-D.ietf-anima-bootstrapping-keyinfra"/> and 6tisch Secure Join <xref target="I-D.ietf-6tisch-dtsecurity-secure-join"/>. Enrollment over Secure Transport (EST) <xref target="RFC7030"/>, based on TLS and HTTP, is used in BRSKI. Low-resource devices often use the lightweight Constrained Application Protocol (CoAP) <xref target="RFC7252"/> for message exchanges. This document defines how low-resource devices are expected to use EST over secure CoAP (EST-coaps) for secure bootstrapping and certificate enrollment. 6LoWPAN fragmentation management and minor extensions to CoAP are needed to enable EST-coaps.</t>
     </abstract>
-
   </front>
 
 
@@ -114,7 +113,7 @@
     <t>EST-coaps provides a subset of EST functionality and extends EST with BRSKI functions. EST-coaps replaces the invocations of TLS and HTTP by DTLS and CoAP invocations thus enabling EST and BRSKI for CoAP-based low-resource devices.</t>
     <t>Although EST-coaps paves the way for the utilization of EST for constrained devices on constrained networks, some devices will not have enough resources to handle the large payloads that come with EST-coaps. The specification of EST-coaps is intended to ensure that bootstrapping works for less constrained devices that choose to limit their communications stack to UDP/CoAP. It is up to the network designer to decide which devices execute the EST protocol and which not.</t>
     <t>EST-coaps is designed for use in professional control networks such as Building Control. The autonomic bootstrapping is interesting because it reduces the manual intervention during the commissioning of the network. Typing in passwords is contrary to this wish. Therefore, the HTTP Basic authentication of EST is not supported in EST-coaps. </t>
-    <t>In the constrained devices context it is very unlikely that full PKI request messages will be used. For that reason, full PKI messages are not supported in EST-coaps.</t>
+    <t>In the constrained devices context it is very unlikely that full PKI request messages will be used. However, its use is supported to provide sufficient security for some use-cases.</t>
     <t>Because the relatively large EST messages cannot be readily transported over constrained (6LoWPAN, LLN) wireless networks, this document specifies the use of CoAP Block-Wise Transfer ("Block") <xref target="RFC7959"/> to fragment EST messages at the application layer.</t>
     <t>Support for Observe CoAP options <xref target="RFC7641"/> with BRSKI is not supported in the current BRSKI/EST message flows and is thus out-of-scope for this discussion. Observe options could be used by the server to notify clients about a change in the cacerts or csr attributes (resources) and might be an area of future work.</t>
     <section anchor="terminology" title="Terminology">
@@ -139,15 +138,14 @@
         <t>EST-coaps does not support full PKI request messages<xref target="RFC5272"/>. 
 	<list>
           <t>Consequently, the fullcmc request of section 4.3 of <xref target="RFC7030"/> and response MUST NOT be supported by EST-coaps]. </t>
-          <t>[EDNOTE: Constrained endpoints that can't generate truly random numbers because of lack of an entropy source will need server-side key generation. Encrypting these keys is important. So using fullcmc messages are necessary over TLS. If fullcmc is something that will not work, then PKCS#12 encryption will work, but a passphrase needs to be established for those. ]</t>
 	</list></t>
-        <t>EST-coaps specifies the BRSKI extensions over CoAP as specified in section 5 of <xref target="I-D.ietf-anima-bootstrapping-keyinfra"/>.</t>
+        <t>EST-coaps specifies the BRSKI extensions over CoAP as specified in sections 3.2, 3.4, 3.5, and 3.8.4 of <xref target="I-D.ietf-anima-bootstrapping-keyinfra"/>.</t>
       </list></t>
   </section>  <!-- Operational scenario overview -->
 
   <section anchor="profile7925" title="Conformance to RFC7925 profiles">
     <t>This section shows how EST-coaps fits into the profiles of low-resource devices as described in <xref target="RFC7925"/>. Within the bootstrap context a Public Key Infrastructure (PKI) is used, where the client is called "pledge", the Registration Authority (RA) is called Join Registrar, which acts at the front-end for the Certificate Authority (CA) and receives voucher feedback from as many Manufacturer Authorized Signing Authorities (MASA) as there are manufacturers. A Join-Proxy is placed between client and RA to receive join requests over a 1-hop unsecured channel and transmitted over the secure network to the EST-server. The EST-server of EST-coaps is placed between proxy and RA or is part of RA.</t>
-    <t>EST-coaps transports Public keys and certificates. Private keys can be transported as response to a request to a server-side key generation as described in section 4.4 of <xref target="RFC7030"/>. In the bootstrapping context, EST-coaps transport is limited to the EST certificate transport conformant to section 4.4 of <xref target="RFC7925"/>. For BRSKI, outside the profiles of <xref target="RFC7925"/>, EST-coaps transports vouchers, which are YANG files specified in <xref target="I-D.ietf-anima-voucher"/>.</t>
+    <t>EST-coaps can transport certificates private keys. Private keys can be transported as response to a request to a server-side key generation as described in section 4.4 of <xref target="RFC7030"/>. In the bootstrapping context, EST-coaps transport is limited to the EST certificate transport conformant to section 4.4 of <xref target="RFC7925"/>. For BRSKI, outside the profiles of <xref target="RFC7925"/>, EST-coaps transports vouchers, which are YANG files specified in <xref target="I-D.ietf-anima-voucher"/>.</t>
     <t> The mandatory cipher suite for DTLS is TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 defined in <xref target="RFC7251"/> which is the mandatory-to-implement cipher suite in CoAP. Additionally the curve secp256r1 MUST be supported <xref target="RFC4492"/>; this curve is equivalent to the NIST P-256 curve. The hash algorithm is SHA-256. DTLS implementations MUST use the Supported Elliptic Curves and Supported Point Formats Extensions <xref target="RFC4492"/>; the uncompressed point format MUST be supported; <xref target="RFC6090"/> can be used as an implementation method.</t>
     <t>The EST-coaps client MUST be configured with an explicit TA database or at least an implicit TA database from its manufacturer. The authentication of the EST-coaps server by the EST-coaps client is based on Certificate authentication in the DTLS handshake.</t>
       <t>The authentication of the EST-coaps client is based on client certificate in the DTLS handshake. This can either be
@@ -173,9 +171,9 @@
     <t>The EST-coaps protocol design follows closely the EST design, excluding some aspects that are not relevant for automatic bootstrapping of constrained devices within a professional context. The parts supported by EST-coaps are identified by their message types:
           <list style="symbols">
             <t>Simple enroll and reenroll, for CA to sign public client-identity key.</t>
-            <!-- <t>CA certificate retrieval, needed when BRSKI is not applicable to establish the domain trust anchor. </t> -->
-            <t>CSR Attributes request messages.</t>
-            <t>Server-side key generation messages, to provide a private client-identity key when the client is too restricted.</t>
+            <t>CA certificate retrieval, needed to receive the complete set of CA certificates. </t>
+            <t>CSR Attributes request messages, informs the pledge of the fields to include in generated CSR.</t>
+            <t>Server-side key generation messages, to provide a private client-identity key when the client is too restricted or because of lack of an entropy source. [Encrypting these keys is important. RFC7030 address how the private key can be encrypted with CMS using symmetric or asymmetric keys. PKCS#8 is also an unencrypted simple option.]</t>
           </list></t>
 
     <section anchor="discovery" title = "Discovery and URI">
@@ -205,7 +203,7 @@ coaps://www.example.com/est/short-name
   <c> </c> <c> /csrattrs </c>           <c> /att </c>
   <c> </c> <c> /serverkeygen </c>       <c> /skg </c>
   <c> /requestvoucher </c> <c> </c>     <c> /rv </c>
-  <c> /voucherstatus </c>  <c> </c>     <c> /vs </c>
+  <c> /voucher_status </c>  <c> </c>     <c> /vs </c>
   <c> /enrollstatus </c>   <c> </c>     <c> /es </c>
 </texttable>
 
@@ -221,9 +219,9 @@ coaps://www.example.com/est/short-name
 </est/sren>; rt="ace.est";ct=TBD1 TBD4
 </est/att>; rt="ace.est";ct=TBD4
 </est/skg>; rt="ace.est";ct=TBD1 TBD4 TBD2
-</est/rv>; rt="ace.est";ct=TBD?
-</est/vs>; rt="ace.est";ct=TBD??
-</est/es>; rt="ace.est";ct=TBD???
+</est/rv>; rt="ace.est";ct=TBD5 TBD6
+</est/vs>; rt="ace.est";ct=50 (application/json)
+</est/es>; rt="ace.est";ct=50 (application/json)
  
 ]]></artwork>
     </figure>
@@ -248,7 +246,7 @@ coaps://www.example.com/est/short-name
       <t>Section 5.9 of <xref target="RFC7252"/> specifies the mapping of HTTP response codes to CoAP response codes. Every time the HTTP response code 200 is specified in <xref target="RFC7030"/> in response to a GET request, in EST-coaps the equivalent CoAP response code 2.05 MUST be used. Response code HTTP 202 in EST is mapped to CoAP 2.06 as specified in
 <xref target="I-D.hartke-core-pending"/>.
 All other HTTP 2xx response codes are not used by EST. For the following HTTP 4xx error codes that may occur: 400, 401, 403, 404, 405, 406, 412, 413, 415 ; the equivalent CoAP response code for EST-coaps is 4.xx. For the HTTP 5xx error codes: 500, 501, 502, 503, 504 the equivalent CoAP response code is 5.xx.</t>
-      <t><xref target="messagebindings"/> includes some practical examples of HTTP response codes from EST translated to CoAP.</t>
+      <t> <xref target="messagebindings"/> includes some practical examples of EST messages translated to CoAP.</t>
     </section> <!-- CoAP response codes -->
 
     <section anchor="fragment" title="Message fragmentation">
@@ -376,22 +374,10 @@ MUST be computed as if each handshake message had been sent as a single fragment
            <t>Published specification: <xref target="RFC5967"/> </t>
            <t>Applications that use this media type: ANIMA bootstrap (BRSKI) and EST</t>
    <t><list style ="symbols">
-           <t>application/pkcs12</t>
+           <t>application/voucherrequest</t>
            <t>Type name: application</t>
-           <t>Subtype name: pkcs12</t>
+           <t>Subtype name: voucherrequest</t>
            <t> ID: TBD5 </t>
-           <t>Required parameters: None</t>
-           <t>Optional parameters: None </t>
-           <t>Encoding considerations: binary</t>
-           <t>Security considerations: As defined in this specification</t>
-           <t>Published specification: IETF </t>
-           <t>Applications that use this media type: ANIMA bootstrap (BRSKI) and EST</t>
-         </list></t>
-   <t><list style ="symbols">
-           <t>application/auditnonce</t>
-           <t>Type name: application</t>
-           <t>Subtype name: auditnonce</t>
-           <t> ID: TBD6 </t>
            <t>Required parameters: None</t>
            <t>Optional parameters: None </t>
            <t>Encoding considerations: binary</t>
@@ -400,10 +386,10 @@ MUST be computed as if each handshake message had been sent as a single fragment
            <t>Applications that use this media type: ANIMA bootstrap (BRSKI)</t>
          </list></t>
     <t><list style ="symbols">
-           <t>application/authorizationvoucher</t>
+           <t>application/voucher+cms</t>
            <t>Type name: application</t>
-           <t>Subtype name: authorizationvoucher</t>
-           <t> ID: TBD7 </t>
+           <t>Subtype name: voucher+cms</t>
+           <t> ID: TBD6 </t>
            <t>Required parameters: None</t>
            <t>Optional parameters: None </t>
            <t>Encoding considerations: binary</t>

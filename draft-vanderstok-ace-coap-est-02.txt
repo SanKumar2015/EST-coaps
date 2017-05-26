@@ -5,14 +5,14 @@
 ACE                                                             S. Kumar
 Internet-Draft                                 Philips Lighting Research
 Intended status: Standards Track                         P. van der Stok
-Expires: November 19, 2017                                    Consultant
+Expires: November 27, 2017                                    Consultant
                                                            P. Kampanakis
                                                            Cisco Systems
                                                               M. Furuhed
                                                              Nexus Group
                                                                  S. Raza
                                                                RISE SICS
-                                                            May 18, 2017
+                                                            May 26, 2017
 
 
                     EST over secure CoAP (EST-coaps)
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Kumar, et al.           Expires November 19, 2017               [Page 1]
+Kumar, et al.           Expires November 27, 2017               [Page 1]
 
 Internet-Draft                  EST-coaps                       May 2017
 
@@ -61,7 +61,7 @@ Internet-Draft                  EST-coaps                       May 2017
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 19, 2017.
+   This Internet-Draft will expire on November 27, 2017.
 
 Copyright Notice
 
@@ -98,18 +98,18 @@ Table of Contents
    8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  14
    9.  Security Considerations . . . . . . . . . . . . . . . . . . .  17
    10. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  18
-   11. Change Log  . . . . . . . . . . . . . . . . . . . . . . . . .  18
+   11. Change Log  . . . . . . . . . . . . . . . . . . . . . . . . .  19
    12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  19
      12.1.  Normative References . . . . . . . . . . . . . . . . . .  19
-     12.2.  Informative References . . . . . . . . . . . . . . . . .  20
-   Appendix A.  EST messages to EST-coaps  . . . . . . . . . . . . .  22
+     12.2.  Informative References . . . . . . . . . . . . . . . . .  21
+   Appendix A.  EST messages to EST-coaps  . . . . . . . . . . . . .  23
      A.1.  cacerts . . . . . . . . . . . . . . . . . . . . . . . . .  23
      A.2.  csrattrs  . . . . . . . . . . . . . . . . . . . . . . . .  25
      A.3.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  26
 
 
 
-Kumar, et al.           Expires November 19, 2017               [Page 2]
+Kumar, et al.           Expires November 27, 2017               [Page 2]
 
 Internet-Draft                  EST-coaps                       May 2017
 
@@ -165,7 +165,7 @@ Internet-Draft                  EST-coaps                       May 2017
 
 
 
-Kumar, et al.           Expires November 19, 2017               [Page 3]
+Kumar, et al.           Expires November 27, 2017               [Page 3]
 
 Internet-Draft                  EST-coaps                       May 2017
 
@@ -221,7 +221,7 @@ Internet-Draft                  EST-coaps                       May 2017
 
 
 
-Kumar, et al.           Expires November 19, 2017               [Page 4]
+Kumar, et al.           Expires November 27, 2017               [Page 4]
 
 Internet-Draft                  EST-coaps                       May 2017
 
@@ -277,7 +277,7 @@ Internet-Draft                  EST-coaps                       May 2017
 
 
 
-Kumar, et al.           Expires November 19, 2017               [Page 5]
+Kumar, et al.           Expires November 27, 2017               [Page 5]
 
 Internet-Draft                  EST-coaps                       May 2017
 
@@ -333,7 +333,7 @@ Internet-Draft                  EST-coaps                       May 2017
 
 
 
-Kumar, et al.           Expires November 19, 2017               [Page 6]
+Kumar, et al.           Expires November 27, 2017               [Page 6]
 
 Internet-Draft                  EST-coaps                       May 2017
 
@@ -389,7 +389,7 @@ Internet-Draft                  EST-coaps                       May 2017
 
 
 
-Kumar, et al.           Expires November 19, 2017               [Page 7]
+Kumar, et al.           Expires November 27, 2017               [Page 7]
 
 Internet-Draft                  EST-coaps                       May 2017
 
@@ -445,7 +445,7 @@ Internet-Draft                  EST-coaps                       May 2017
 
 
 
-Kumar, et al.           Expires November 19, 2017               [Page 8]
+Kumar, et al.           Expires November 27, 2017               [Page 8]
 
 Internet-Draft                  EST-coaps                       May 2017
 
@@ -501,7 +501,7 @@ Internet-Draft                  EST-coaps                       May 2017
 
 
 
-Kumar, et al.           Expires November 19, 2017               [Page 9]
+Kumar, et al.           Expires November 27, 2017               [Page 9]
 
 Internet-Draft                  EST-coaps                       May 2017
 
@@ -557,7 +557,7 @@ Internet-Draft                  EST-coaps                       May 2017
 
 
 
-Kumar, et al.           Expires November 19, 2017              [Page 10]
+Kumar, et al.           Expires November 27, 2017              [Page 10]
 
 Internet-Draft                  EST-coaps                       May 2017
 
@@ -613,7 +613,7 @@ Internet-Draft                  EST-coaps                       May 2017
 
 
 
-Kumar, et al.           Expires November 19, 2017              [Page 11]
+Kumar, et al.           Expires November 27, 2017              [Page 11]
 
 Internet-Draft                  EST-coaps                       May 2017
 
@@ -669,41 +669,45 @@ Internet-Draft                  EST-coaps                       May 2017
 
 
 
-Kumar, et al.           Expires November 19, 2017              [Page 12]
+Kumar, et al.           Expires November 27, 2017              [Page 12]
 
 Internet-Draft                  EST-coaps                       May 2017
 
 
 6.  Proxying
 
-   In real-world deployments entities like the EST server, CA, or the
-   BRSKI Registrar will not always reside within the COAP boundary.  An
-   EST server or CA can exist outside the constrained network in a non-
-   constrained network that supports TLS/HTTP.  In such environments
-   EST-coaps is used by the pledge witin the COAP boundary and TLS is
-   used to transport the EST/BRSKI messages outside the CoAP boundary.
-   A proxy entity at the edge is required to operate between the COAP
+   In real-world deployments entities like the EST server, CA or MASA
+   will not always reside within the COAP boundary.  The MASA or a CA
+   can exist outside the constrained network in a non-constrained
+   network that supports TLS/HTTP.  In such environments EST-coaps is
+   used by the pledge within the COAP boundary and TLS is used to
+   transport the EST/BRSKI messages outside the CoAP boundary.  A proxy
+   entity at the edge is required to operate between the COAP
    environment and the external HTTP network.  The EST-coaps-to-HTTPS
    proxy SHOULD terminate EST-coaps downstream and initiate EST/BRSKI
    connectons over TLS upstream.
 
-                                           Constrained Network
-                                       .---------------------------.
-                                       |.-------------------------.|
-                                       ||                .------. ||
-                                       ||       COAPS .->|Pledge| ||
-                                       ||             |  '------' ||
-                                       ||             |           ||
-                                       ||  COAPS .----'----.      ||
-                                       ||     .->|Registrar|      ||
-   .-----------.  HTTP   .-----------------.  |  '---------'      ||
-   | EST/BRSKI |<------->|ESTcoaps-to-HTTPS|<--                   ||
-   |  Server   |over TLS |      Proxy      |<---.                 ||
-   '-----------'         '-----------------'    \   .----------.  ||
-                                       || COAPS`--> |EST client|  ||
-                                       ||           '----------'  ||
-                                       |'-------------------------'|
-                                       '---------------------------'
+                                        Constrained Network
+                                    .---------------------------.
+                                    |.-------------------------.|
+                                    ||                         ||
+                                    ||           .----------.  ||
+                                    || COAPS .-->|EST Client|  ||
+   .------.  HTTP   .-----------------.      |   '----------'  ||
+   | EST  |<------->|ESTcoaps-to-HTTPS|<-----'                 ||
+   |Server|over TLS |      Proxy      |<-----.                 ||
+   '------'         '-----------------'      |   .-----------. ||
+                                    ||       '-->| Registrar | ||
+                                    || COAPS .-->|           | ||
+                                    ||       |   '-----------' ||
+                                    ||       |        ^        ||
+   .------.  HTTP   .-----------------.      |        |        ||
+   | MASA |<------->|ESTcoaps-to-HTTPS|<-----'   .----'---.    ||
+   |Server|over TLS |      Proxy      |          | Pledge |    ||
+   '------'         '-----------------'          '--------'    ||
+                                    ||                         ||
+                                    |'-------------------------'|
+                                    '---------------------------'
 
                ESTcoaps-to-HTTPS proxy at the COAP boundary.
 
@@ -719,16 +723,15 @@ Internet-Draft                  EST-coaps                       May 2017
    blocks, an EST-coaps-to-HTTP proxy SHOULD reassemble the BLOCKs
    before relaying the message upstream in the HTTP environment.
 
-   [EDNOTE: BLOCK fragments should be further explained here.  Also
-   reference RFC8075 ]
 
 
-
-
-Kumar, et al.           Expires November 19, 2017              [Page 13]
+Kumar, et al.           Expires November 27, 2017              [Page 13]
 
 Internet-Draft                  EST-coaps                       May 2017
 
+
+   [EDNOTE: BLOCK fragments should be further explained here.  Also
+   reference RFC8075 ]
 
    [ EDNOTE: POP will be addressed here. ]
 
@@ -775,16 +778,17 @@ Internet-Draft                  EST-coaps                       May 2017
 
        *  Encoding considerations: binary
 
-       *  Security considerations: As defined in this specification
-
-       *  Published specification: [RFC5751]
 
 
 
-Kumar, et al.           Expires November 19, 2017              [Page 14]
+Kumar, et al.           Expires November 27, 2017              [Page 14]
 
 Internet-Draft                  EST-coaps                       May 2017
 
+
+       *  Security considerations: As defined in this specification
+
+       *  Published specification: [RFC5751]
 
        *  Applications that use this media type: ANIMA Bootstrap (BRSKI)
           and EST
@@ -830,17 +834,18 @@ Internet-Draft                  EST-coaps                       May 2017
 
        *  Security considerations: As defined in this specification
 
+
+
+
+Kumar, et al.           Expires November 27, 2017              [Page 15]
+
+Internet-Draft                  EST-coaps                       May 2017
+
+
        *  Published specification: [RFC7030]
 
        *  Applications that use this media type: ANIMA Bootstrap (BRSKI)
           and EST
-
-
-
-Kumar, et al.           Expires November 19, 2017              [Page 15]
-
-Internet-Draft                  EST-coaps                       May 2017
-
 
    4.
 
@@ -885,18 +890,18 @@ Internet-Draft                  EST-coaps                       May 2017
 
           +  Published specification: BRSKI??
 
+
+
+
+Kumar, et al.           Expires November 27, 2017              [Page 16]
+
+Internet-Draft                  EST-coaps                       May 2017
+
+
           +  Applications that use this media type: ANIMA bootstrap
              (BRSKI)
 
        *
-
-
-
-
-Kumar, et al.           Expires November 19, 2017              [Page 16]
-
-Internet-Draft                  EST-coaps                       May 2017
-
 
           +  application/voucher+cms
 
@@ -940,20 +945,21 @@ Internet-Draft                  EST-coaps                       May 2017
    identity stealing.  [EDNOTE: how to protect the transport of these
    keys? fullcmc, PKCS#12 ?]
 
+
+
+
+
+Kumar, et al.           Expires November 27, 2017              [Page 17]
+
+Internet-Draft                  EST-coaps                       May 2017
+
+
    When a client uses the Implicit TA database for certificate
    validation, the client cannot verify that the implicit data base can
    act as an RA.  It is RECOMMENDED that such clients include "Linking
    Identity and POP Information" Section 5.1 in requests (to prevent
    such requests from being forwarded to a real EST server by a man in
    the middle).  It is RECOMMENDED that the Implicit Trust Anchor
-
-
-
-Kumar, et al.           Expires November 19, 2017              [Page 17]
-
-Internet-Draft                  EST-coaps                       May 2017
-
-
    database used for EST server authentication be carefully managed to
    reduce the chance of a third-party CA with poor certification
    practices from being trusted.  Disabling the Implicit Trust Anchor
@@ -995,6 +1001,15 @@ Internet-Draft                  EST-coaps                       May 2017
    the solution.  Constructive comments were received from Eliot Lear
    and Julien Vermillard.
 
+
+
+
+
+Kumar, et al.           Expires November 27, 2017              [Page 18]
+
+Internet-Draft                  EST-coaps                       May 2017
+
+
 11.  Change Log
 
    -02:
@@ -1002,13 +1017,6 @@ Internet-Draft                  EST-coaps                       May 2017
       binary instead of CBOR binary in mime types.
 
       supported content types are discoverable.
-
-
-
-Kumar, et al.           Expires November 19, 2017              [Page 18]
-
-Internet-Draft                  EST-coaps                       May 2017
-
 
       DTLS POP text improved.
 
@@ -1051,20 +1059,17 @@ Internet-Draft                  EST-coaps                       May 2017
               Richardson, "Enrollment with Application Layer Security",
               draft-selander-ace-eals-00 (work in progress), March 2017.
 
+
+
+Kumar, et al.           Expires November 27, 2017              [Page 19]
+
+Internet-Draft                  EST-coaps                       May 2017
+
+
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <http://www.rfc-editor.org/info/rfc2119>.
-
-
-
-
-
-
-Kumar, et al.           Expires November 19, 2017              [Page 19]
-
-Internet-Draft                  EST-coaps                       May 2017
-
 
    [RFC5272]  Schaad, J. and M. Myers, "Certificate Management over CMS
               (CMC)", RFC 5272, DOI 10.17487/RFC5272, June 2008,
@@ -1108,19 +1113,21 @@ Internet-Draft                  EST-coaps                       May 2017
               DOI 10.17487/RFC8075, February 2017,
               <http://www.rfc-editor.org/info/rfc8075>.
 
+
+
+
+
+Kumar, et al.           Expires November 27, 2017              [Page 20]
+
+Internet-Draft                  EST-coaps                       May 2017
+
+
 12.2.  Informative References
 
    [I-D.ietf-6tisch-dtsecurity-secure-join]
               Richardson, M., "6tisch Secure Join protocol", draft-ietf-
               6tisch-dtsecurity-secure-join-01 (work in progress),
               February 2017.
-
-
-
-Kumar, et al.           Expires November 19, 2017              [Page 20]
-
-Internet-Draft                  EST-coaps                       May 2017
-
 
    [I-D.ietf-6tisch-minimal-security]
               Vucinic, M., Simon, J., Pister, K., and M. Richardson,
@@ -1163,20 +1170,18 @@ Internet-Draft                  EST-coaps                       May 2017
               Networks", RFC 4944, DOI 10.17487/RFC4944, September 2007,
               <http://www.rfc-editor.org/info/rfc4944>.
 
+
+
+
+Kumar, et al.           Expires November 27, 2017              [Page 21]
+
+Internet-Draft                  EST-coaps                       May 2017
+
+
    [RFC5246]  Dierks, T. and E. Rescorla, "The Transport Layer Security
               (TLS) Protocol Version 1.2", RFC 5246,
               DOI 10.17487/RFC5246, August 2008,
               <http://www.rfc-editor.org/info/rfc5246>.
-
-
-
-
-
-
-Kumar, et al.           Expires November 19, 2017              [Page 21]
-
-Internet-Draft                  EST-coaps                       May 2017
-
 
    [RFC5929]  Altman, J., Williams, N., and L. Zhu, "Channel Bindings
               for TLS", RFC 5929, DOI 10.17487/RFC5929, July 2010,
@@ -1218,21 +1223,22 @@ Internet-Draft                  EST-coaps                       May 2017
               DOI 10.17487/RFC7925, July 2016,
               <http://www.rfc-editor.org/info/rfc7925>.
 
+
+
+
+
+
+
+Kumar, et al.           Expires November 27, 2017              [Page 22]
+
+Internet-Draft                  EST-coaps                       May 2017
+
+
 Appendix A.  EST messages to EST-coaps
 
    This section takes all examples from Appendix A of [RFC7030], changes
    the payload from Base64 to binary and replaces the http headers by
    their CoAP equivalents.
-
-
-
-
-
-
-Kumar, et al.           Expires November 19, 2017              [Page 22]
-
-Internet-Draft                  EST-coaps                       May 2017
-
 
 A.1.  cacerts
 
@@ -1277,19 +1283,18 @@ A.1.  cacerts
          Option Length = 0x2
          Option Value = TBD1 (defined in this document)
 
+
+
+Kumar, et al.           Expires November 27, 2017              [Page 23]
+
+Internet-Draft                  EST-coaps                       May 2017
+
+
      Payload =
 
    30233906092a6206734107028c2a3023260201013100300b06092a6206734107018
    c0c3020bb302063c20102020900a61e75193b7acc0d06092a620673410105050030
    1b31193017060355040313106573744578616d706c654341204f774f301e170d313
-
-
-
-Kumar, et al.           Expires November 19, 2017              [Page 23]
-
-Internet-Draft                  EST-coaps                       May 2017
-
-
    3303530393033353333315a170d3134303530393033353333315a301b3119301706
    0355040313106573744578616d706c654341204f774f302062300d06092a6206734
    10101050003204f0030204a022041003a923a2968bae4aae136ca4e2512c5200680
@@ -1333,19 +1338,19 @@ Internet-Draft                  EST-coaps                       May 2017
    a35f48b1e054c5da3372872f7a1e429f4edf3958432efb2106591d3eb783c103470
    9f251fc86566bda2d541c792389eac4ec9e181f4b9f596e5ef2679cc321542b1133
    7f90a44df3c85f1516561fa968a1914f265bc0b8276ebe3106a790d97d34c8c37c7
+
+
+
+Kumar, et al.           Expires November 27, 2017              [Page 24]
+
+Internet-Draft                  EST-coaps                       May 2017
+
+
    4fe1c30b396424664ac426284a9f6022e026938436880adfcd95c98ca1dfc2e6d75
    319b85d0458de28a9d13fb16d620fff7541f6a25d7daf004355020301000134b050
    300e0603551d0f0101f104030204c1d0603551d0e04160414084d321ca0135e7721
    7a486b686b334b01f0603551d230418301653112966e304761732fbfe6a2c823c30
    0d06092a6206734101050500032041002e106933a443070acf5594a3a584d08af7e
-
-
-
-Kumar, et al.           Expires November 19, 2017              [Page 24]
-
-Internet-Draft                  EST-coaps                       May 2017
-
-
    06c295059370a06639eff9bd418d13bc25a298223164a6cf1856b11a81617282e4a
    410d82ef086839c6e235690322763065455351e4c596acc7c016b225dec094706c2
    a10608f403b10821984c7c152343b18a768c2ad30238dc45dd653ee6092b0d5cd4c
@@ -1392,12 +1397,7 @@ A.2.  csrattrs
 
 
 
-
-
-
-
-
-Kumar, et al.           Expires November 19, 2017              [Page 25]
+Kumar, et al.           Expires November 27, 2017              [Page 25]
 
 Internet-Draft                  EST-coaps                       May 2017
 
@@ -1453,7 +1453,7 @@ A.3.  enroll / reenroll
 
 
 
-Kumar, et al.           Expires November 19, 2017              [Page 26]
+Kumar, et al.           Expires November 27, 2017              [Page 26]
 
 Internet-Draft                  EST-coaps                       May 2017
 
@@ -1509,7 +1509,7 @@ Internet-Draft                  EST-coaps                       May 2017
 
 
 
-Kumar, et al.           Expires November 19, 2017              [Page 27]
+Kumar, et al.           Expires November 27, 2017              [Page 27]
 
 Internet-Draft                  EST-coaps                       May 2017
 
@@ -1565,7 +1565,7 @@ Internet-Draft                  EST-coaps                       May 2017
 
 
 
-Kumar, et al.           Expires November 19, 2017              [Page 28]
+Kumar, et al.           Expires November 27, 2017              [Page 28]
 
 Internet-Draft                  EST-coaps                       May 2017
 
@@ -1621,7 +1621,7 @@ A.4.  serverkeygen
 
 
 
-Kumar, et al.           Expires November 19, 2017              [Page 29]
+Kumar, et al.           Expires November 27, 2017              [Page 29]
 
 Internet-Draft                  EST-coaps                       May 2017
 
@@ -1677,7 +1677,7 @@ Internet-Draft                  EST-coaps                       May 2017
 
 
 
-Kumar, et al.           Expires November 19, 2017              [Page 30]
+Kumar, et al.           Expires November 27, 2017              [Page 30]
 
 Internet-Draft                  EST-coaps                       May 2017
 
@@ -1733,7 +1733,7 @@ Internet-Draft                  EST-coaps                       May 2017
 
 
 
-Kumar, et al.           Expires November 19, 2017              [Page 31]
+Kumar, et al.           Expires November 27, 2017              [Page 31]
 
 Internet-Draft                  EST-coaps                       May 2017
 
@@ -1789,7 +1789,7 @@ Appendix B.  EST-coaps Block message examples
 
 
 
-Kumar, et al.           Expires November 19, 2017              [Page 32]
+Kumar, et al.           Expires November 27, 2017              [Page 32]
 
 Internet-Draft                  EST-coaps                       May 2017
 
@@ -1845,7 +1845,7 @@ Internet-Draft                  EST-coaps                       May 2017
 
 
 
-Kumar, et al.           Expires November 19, 2017              [Page 33]
+Kumar, et al.           Expires November 27, 2017              [Page 33]
 
 Internet-Draft                  EST-coaps                       May 2017
 
@@ -1901,7 +1901,7 @@ Internet-Draft                  EST-coaps                       May 2017
 
 
 
-Kumar, et al.           Expires November 19, 2017              [Page 34]
+Kumar, et al.           Expires November 27, 2017              [Page 34]
 
 Internet-Draft                  EST-coaps                       May 2017
 
@@ -1957,7 +1957,7 @@ Authors' Addresses
 
 
 
-Kumar, et al.           Expires November 19, 2017              [Page 35]
+Kumar, et al.           Expires November 27, 2017              [Page 35]
 
 Internet-Draft                  EST-coaps                       May 2017
 
@@ -2013,4 +2013,4 @@ Internet-Draft                  EST-coaps                       May 2017
 
 
 
-Kumar, et al.           Expires November 19, 2017              [Page 36]
+Kumar, et al.           Expires November 27, 2017              [Page 36]

@@ -287,26 +287,29 @@ MUST be computed as if each handshake message had been sent as a single fragment
   </section> <!-- Transport Protocol -->
 
   <section title="Proxying">
-    <t>In real-world deployments entities like the EST server, CA, or the BRSKI Registrar will not always reside within the COAP boundary. An EST server or CA can exist outside the constrained network in a non-constrained network that supports TLS/HTTP. In such environments EST-coaps is used by the pledge within the COAP boundary and TLS is used to transport the EST/BRSKI messages outside the CoAP boundary. A proxy entity at the edge is required to operate between the COAP environment and the external HTTP network. The EST-coaps-to-HTTPS proxy SHOULD terminate EST-coaps downstream and initiate EST/BRSKI connections over TLS upstream.
-    </t> 
+    <t>In real-world deployments entities like the EST server, CA or MASA will not always reside within the COAP boundary. The MASA or a CA can exist outside the constrained network in a non-constrained network that supports TLS/HTTP. In such environments EST-coaps is used by the pledge within the COAP boundary and TLS is used to transport the EST/BRSKI messages outside the CoAP boundary. A proxy entity at the edge is required to operate between the COAP environment and the external HTTP network. The EST-coaps-to-HTTPS proxy SHOULD terminate EST-coaps downstream and initiate EST/BRSKI connectons over TLS upstream.</t> 
 <figure align="left" title="ESTcoaps-to-HTTPS proxy at the COAP boundary."><artwork><![CDATA[
-                                        Constrained Network
-                                    .---------------------------.
-                                    |.-------------------------.|
-                                    ||                .------. ||
-                                    ||       COAPS .->|Pledge| ||
-                                    ||             |  '------' || 
-                                    ||             |           ||
-                                    ||  COAPS .----'----.      ||
-                                    ||     .->|Registrar|      ||
-.-----------.  HTTP   .-----------------.  |  '---------'      ||
-| EST/BRSKI |<------->|ESTcoaps-to-HTTPS|<--                   ||
-|  Server   |over TLS |      Proxy      |<---.                 ||
-'-----------'         '-----------------'    \   .----------.  ||
-                                    || COAPS`--> |EST client|  ||
-                                    ||           '----------'  ||
-                                    |'-------------------------'|
-                                    '---------------------------'
+                                     Constrained Network
+                                 .---------------------------.
+                                 |.-------------------------.|
+                                 ||                         ||
+                                 ||           .----------.  ||
+                                 || COAPS .-->|EST Client|  ||
+.------.  HTTP   .-----------------.      |   '----------'  ||
+| EST  |<------->|ESTcoaps-to-HTTPS|<-----'                 ||
+|Server|over TLS |      Proxy      |<-----.                 ||
+'------'         '-----------------'      |   .-----------. ||
+                                 ||       '-->| Registrar | ||
+                                 || COAPS .-->|           | ||
+                                 ||       |   '-----------' ||
+                                 ||       |        ^        ||
+.------.  HTTP   .-----------------.      |        |        ||
+| MASA |<------->|ESTcoaps-to-HTTPS|<-----'   .----'---.    ||
+|Server|over TLS |      Proxy      |          | Pledge |    ||
+'------'         '-----------------'          '--------'    ||
+                                 ||                         ||
+                                 |'-------------------------'|
+                                 '---------------------------'
 ]]></artwork></figure>
 
     <t><xref target="est-uri"/> contains the mapping between the EST-coaps and EST/BRSKI URIs and proxy SHOULD adhere to. Section 7 of <xref target="RFC8075"/> defines the mapping between EST-coaps and HTTP response code, that determines how a proxy translates COAP response codes from/to HTTP status codes.</t>

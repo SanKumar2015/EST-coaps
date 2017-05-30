@@ -100,7 +100,7 @@
     <workgroup>ACE</workgroup>
 
     <abstract>
-      <t>Low-resource devices in a Low-power and Lossy Network (LLN) can operate in a mesh network using the IPv6 over Low-power Wireless Personal Area Networks (6LoWPAN) and IEEE 802.15.4 link-layer standards. Provisioning these devices in a secure manner with keys (often called secure bootstrapping) used to encrypt and authenticate messages is the subject of Bootstrapping of Remote Secure Key Infrastructures (BRSKI) <xref target="I-D.ietf-anima-bootstrapping-keyinfra"/> and 6tisch Secure Join <xref target="I-D.ietf-6tisch-dtsecurity-secure-join"/>. Enrollment over Secure Transport (EST) <xref target="RFC7030"/>, based on TLS and HTTP, is used in BRSKI. Low-resource devices often use the lightweight Constrained Application Protocol (CoAP) <xref target="RFC7252"/> for message exchanges. This document defines how low-resource devices are expected to use EST over secure CoAP (EST-coaps) for secure bootstrapping and certificate enrollment. 6LoWPAN fragmentation management and extensions to CoAP registries are needed to enable EST-coaps.</t>
+      <t>Low-resource devices in a Low-power and Lossy Network (LLN) can operate in a mesh network using the IPv6 over Low-power Wireless Personal Area Networks (6LoWPAN) and IEEE 802.15.4 link-layer standards. Provisioning these devices in a secure manner with keys (often called secure bootstrapping) used to encrypt and authenticate messages, is the subject of Bootstrapping of Remote Secure Key Infrastructures (BRSKI) <xref target="I-D.ietf-anima-bootstrapping-keyinfra"/> and 6tisch Secure Join <xref target="I-D.ietf-6tisch-dtsecurity-secure-join"/>. Enrollment over Secure Transport (EST) <xref target="RFC7030"/>, based on TLS and HTTP, is used in BRSKI. Low-resource devices often use the lightweight Constrained Application Protocol (CoAP) <xref target="RFC7252"/> for message exchanges. This document defines how low-resource devices are expected to use EST over secure CoAP (EST-coaps) for secure bootstrapping and certificate enrollment. 6LoWPAN fragmentation management and extensions to CoAP registries are needed to enable EST-coaps.</t>
     </abstract>
   </front>
 
@@ -113,7 +113,7 @@
     <t>EST-coaps provides a subset of EST functionality and extends EST with BRSKI functions. EST-coaps replaces the invocations of TLS and HTTP by DTLS and CoAP invocations thus enabling EST and BRSKI for CoAP-based low-resource devices.</t>
     <t>Although EST-coaps paves the way for the utilization of EST for constrained devices on constrained networks, some devices will not have enough resources to handle the large payloads that come with EST-coaps. The specification of EST-coaps is intended to ensure that bootstrapping works for less constrained devices that choose to limit their communications stack to UDP/CoAP. It is up to the network designer to decide which devices execute the EST protocol and which not.</t>
     <t>EST-coaps is designed for use in professional control networks such as Building Control. The autonomic bootstrapping is interesting because it reduces the manual intervention during the commissioning of the network. Typing in passwords is contrary to this wish. Therefore, the HTTP Basic authentication of EST is not supported in EST-coaps. </t>
-    <t>In the constrained devices context it is very unlikely that full PKI request messages will be used. Therefore, full PKI request messages are not supported by EST-coaps.</t>
+    <t>In the constrained devices context, it is very unlikely that full PKI request messages will be used. Therefore, full PKI request messages are not supported by EST-coaps.</t>
     <t>Because the relatively large EST messages cannot be readily transported over constrained (6LoWPAN, LLN) wireless networks, this document specifies the use of CoAP Block-Wise Transfer ("Block") <xref target="RFC7959"/> to fragment EST messages at the application layer.</t>
     <t>Support for Observe CoAP options <xref target="RFC7641"/> with BRSKI is not supported in the current BRSKI/EST message flows and is thus out-of-scope for this discussion. Observe options could be used by the server to notify clients about a change in the cacerts or csr attributes (resources) and might be an area of future work.</t>
     <section anchor="terminology" title="Terminology">
@@ -208,7 +208,7 @@ coaps://www.example.com/est/short-name
 </texttable>
 
       <t> /requestvoucher and /enrollstatus are needed between pledge and Registrar.</t>
-      <t> When discovering the root path for the EST resources, the server MAY return the full resource paths and the used content types. This is useful when multiple content type are specified for EST-coaps server. For example, the following more complete response is possible.</t>
+      <t> When discovering the root path for the EST resources, the server MAY return the full resource paths and the used content types. This is useful when multiple content types are specified for EST-coaps server. For example, the following more complete response is possible.</t>
 <figure><artwork align="left"><![CDATA[
   REQ: GET /.well-known/core?rt=ace.est
 
@@ -229,7 +229,7 @@ coaps://www.example.com/est/short-name
     </section> <!-- discovery and URI -->
 
     <section anchor="format" title ="Payload format">
-      <t>The content-format (media type equivalent) of the CoAP message determines which EST message is transported in the CoAP payload. The media types specified in the HTTP Content-Type header(see section 3.2.2 of <xref target="RFC7030"/>) are in EST-coaps specified by the Content-Format Option (12) of CoAP. The combination of URI path-suffix and content-format used for coap MUST map to an allowed combination of path-suffix and media type as defined for EST. The required content-formats for these request and response messages are defined in <xref target="iana"/>. The CoAP response codes are defined in <xref target="error"/>.</t> 
+      <t>The content-format (media type equivalent) of the CoAP message determines which EST message is transported in the CoAP payload. The media types specified in the HTTP Content-Type header (see section 3.2.2 of <xref target="RFC7030"/>) are in EST-coaps specified by the Content-Format Option (12) of CoAP. The combination of URI path-suffix and content-format used for coap MUST map to an allowed combination of path-suffix and media type as defined for EST. The required content-formats for these request and response messages are defined in <xref target="iana"/>. The CoAP response codes are defined in <xref target="error"/>.</t> 
         <t>EST-coaps is designed for use between low-resource devices using CoAP and hence does not need to send base64-encoded data. Simple binary is more efficient (30% less payload compared to base64) and well supported by CoAP. Therefore, the content formats specification in <xref target="iana"/> requires the use of binary for all EST-coaps Content-Formats.</t>
     </section> <!-- Payload format -->
 
@@ -238,19 +238,19 @@ coaps://www.example.com/est/short-name
       <t>All /crts, /sen, /sren, /att, /skg, /rv, /vs, and /es EST-coaps messages expect a response, so they are all CoAP CON messages.</t>
       <t>The Ver, TKL, Token, and Message ID values of the CoAP header are not influenced by EST.</t>
       <t>CoAP options are used to convey Uri-Host, Uri-Path, Uri-Port, Content-Format and more in CoAP. The CoAP Options are used to communicate the HTTP fields specified in the BRSKI REST messages. </t>
-      <t>BRSKI URLs are HTTPS based (https:// ), in CoAP these will be assumed to be transformed to coaps (coaps://)</t>
+      <t>BRSKI URLs are HTTPS based (https://), in CoAP these will be assumed to be transformed to coaps (coaps://)</t>
       <t> <xref target="messagebindings"/> includes some practical examples of EST messages translated to CoAP.</t>
     </section> <!-- Message bindings -->
 
     <section anchor="error" title="CoAP response codes">
       <t>Section 5.9 of <xref target="RFC7252"/> specifies the mapping of HTTP response codes to CoAP response codes. Every time the HTTP response code 200 is specified in <xref target="RFC7030"/> in response to a GET request, in EST-coaps the equivalent CoAP response code 2.05 MUST be used. Response code HTTP 202 in EST is mapped to CoAP 2.06 as specified in
 <xref target="I-D.hartke-core-pending"/>.
-All other HTTP 2xx response codes are not used by EST. For the following HTTP 4xx error codes that may occur: 400, 401, 403, 404, 405, 406, 412, 413, 415 ; the equivalent CoAP response code for EST-coaps is 4.xx. For the HTTP 5xx error codes: 500, 501, 502, 503, 504 the equivalent CoAP response code is 5.xx.</t>
+All other HTTP 2xx response codes are not used by EST. For the following HTTP 4xx error codes that may occur: 400, 401, 403, 404, 405, 406, 412, 413, 415; the equivalent CoAP response code for EST-coaps is 4.xx. For the HTTP 5xx error codes: 500, 501, 502, 503, 504 the equivalent CoAP response code is 5.xx.</t>
       
     </section> <!-- CoAP response codes -->
 
     <section anchor="fragment" title="Message fragmentation">
-      <t>DTLS defines fragmentation only for the handshake part and not for secure data exchange (DTLS records). <xref target="RFC6347"/> states "Each DTLS record MUST fit within a single datagram". In order to avoid using IP fragmentation, which is not supported by 6LoWPAN, invokers of the DTLS record layer MUST size DTLS records so that they fit within any Path MTU estimates obtained from the record layer. In addition, invokers residing on a 6LoWPAN over IEEE 802.15.4 network SHOULD attempt to size CoAP messages such that each DTLS record will fit within one or two IEEE 802.15.4 frames.</t>
+      <t>DTLS defines fragmentation only for the handshake part and not for secure data exchange (DTLS records). <xref target="RFC6347"/> states "Each DTLS record MUST fit within a single datagram". To avoid using IP fragmentation, which is not supported by 6LoWPAN, invokers of the DTLS record layer MUST size DTLS records so that they fit within any Path MTU estimates obtained from the record layer. In addition, invokers residing on a 6LoWPAN over IEEE 802.15.4 network SHOULD attempt to size CoAP messages such that each DTLS record will fit within one or two IEEE 802.15.4 frames.</t>
       <t>That is not always possible. Even though ECC certificates are small in size, they can vary greatly based on signature algorithms, key sizes, and OID fields used. For 256-bit curves, common ECDSA cert sizes are 500-1000 bytes which could fluctuate further based on the algorithms, OIDs, SANs and cert fields. For 384-bit curves, ECDSA certs increase in size and can sometimes reach 1.5KB. Additionally, there are times when the EST cacerts response from the server can include multiple certs that amount to large payloads. CoAP <xref target="RFC7252"/>'s section 4.6 describes the possible payload sizes: "if nothing is known about the size of the headers, good upper bounds are 1152 bytes for the message size and 1024 bytes for the payload size". Also "If IPv4 support on unusual networks is a consideration, implementations may want to limit themselves to more conservative IPv4 datagram sizes such as 576 bytes; per [RFC0791], the absolute minimum value of the IP MTU for IPv4 is as low as 68 bytes, which would leave only 40 bytes minus security overhead for a UDP payload". Thus, even with ECC certs, EST-coaps messages can still exceed sizes in MTU of 1280 for IPv6 or 60-80 bytes for 6LoWPAN <xref target="RFC4919"/> as explained in section 2 of <xref target="RFC7959"/>. EST-coaps needs to be able to fragment EST messages into multiple DTLS datagrams. Fine-grained fragmentation of EST messages is essential.</t>
       <t>To perform fragmentation in CoAP, <xref target="RFC7959"/> specifies the "Block1" option for fragmentation of the request payload and the "Block2" option for fragmentation of the return payload of a CoAP flow. </t>     
       <t>The BLOCK draft defines SZX in the Block1 and Block2 option fields. These are used to convey the size of the blocks in the requests or responses.</t>
@@ -263,7 +263,7 @@ All other HTTP 2xx response codes are not used by EST. For the following HTTP 4x
   <section anchor="transport" title = "Transport Protocol">    
     <t>EST-coaps depends on a secure transport mechanism over UDP that can secure (confidentiality, authenticity) the CoAP messages exchanged. </t>
     <section anchor="DTLS" title = "DTLS">
-      <t> DTLS is one such secure protocol. Within BRSKI and EST when "TLS" is referred to, it is understood that in EST-coaps, security is provided using DTLS instead. No other changes are necessary (all provisional modes etc are the same as for TLS).</t>
+      <t> DTLS is one such secure protocol. Within BRSKI and EST when "TLS" is referred to, it is understood that in EST-coaps, security is provided using DTLS instead. No other changes are necessary (all provisional modes etc. are the same as for TLS).</t>
       <t>CoAP was designed to avoid fragmentation. DTLS is used to secure CoAP messages. However, fragmentation is still possible at the DTLS layer during the DTLS handshake when using ECC ciphersuites. If fragmentation is necessary, "DTLS provides a mechanism for fragmenting a handshake message over a number of records, each of which can be transmitted separately, thus avoiding IP fragmentation" <xref target="RFC6347"/>.</t>
       <t>It is RECOMMENDED to keep DTLS channels open when multiple messages need to be passed. A good example is the channel binding necessary for the Proof of Possession (PoP) described below.</t>
       <t>CoAP and DTLS can provide proof of identity for EST-coaps clients and server with simple PKI messages conformant to section 3.1 of <xref target="RFC5272"/>. EST-coaps supports the certificate types and Trust Anchors (TA) that are specified for EST in section 3 of <xref target="RFC7030"/>.</t>
@@ -286,43 +286,48 @@ MUST be computed as if each handshake message had been sent as a single fragment
     </section> <!-- 6tisch approach -->
   </section> <!-- Transport Protocol -->
 
-  <section title="Proxying">
-    <t>In real-world deployments entities like the EST server, CA or MASA will not always reside within the COAP boundary. The MASA or a CA can exist outside the constrained network in a non-constrained network that supports TLS/HTTP. In such environments EST-coaps is used by the pledge within the COAP boundary and TLS is used to transport the EST/BRSKI messages outside the CoAP boundary. A proxy entity at the edge is required to operate between the COAP environment and the external HTTP network. The EST-coaps-to-HTTPS proxy SHOULD terminate EST-coaps downstream and initiate EST/BRSKI connectons over TLS upstream.</t> 
+  <section anchor="proxy" title="Proxying">
+    <t>In real-world deployments, entities like the EST server, CA or MASA will not always reside within the COAP boundary. The MASA or a CA can exist outside the constrained network in a non-constrained network that supports TLS/HTTP. In such environments EST-coaps is used by the pledge within the COAP boundary and TLS is used to transport the EST/BRSKI messages outside the CoAP boundary. A proxy entity at the edge is required to operate between the COAP environment and the external HTTP network. The ESTcoaps-to-HTTPS proxy SHOULD terminate EST-coaps downstream and initiate EST/BRSKI connections over TLS upstream.</t> 
+<t>Two separate use-cases, shown in one figure below, are expected to be deployed in practice:
+<list style="symbols">
+<t>A proxy between Join proxy and EST-server (and ultimately the CA)</t>
+<t> A proxy between Registrar and MASA </t>
+</list>
+</t>
 <figure align="left" title="ESTcoaps-to-HTTPS proxy at the COAP boundary."><artwork><![CDATA[
                                      Constrained Network
                                  .---------------------------.
                                  |.-------------------------.|
                                  ||                         ||
-                                 ||           .----------.  ||
-                                 || COAPS .-->|EST Client|  ||
-.------.  HTTP   .-----------------.      |   '----------'  ||
-| EST  |<------->|ESTcoaps-to-HTTPS|<-----'                 ||
-|Server|over TLS |      Proxy      |<-----.                 ||
-'------'         '-----------------'      |   .-----------. ||
-                                 ||       '-->| Registrar | ||
-                                 || COAPS .-->|           | ||
-                                 ||       |   '-----------' ||
-                                 ||       |        ^        ||
-.------.  HTTP   .-----------------.      |        |        ||
-| MASA |<------->|ESTcoaps-to-HTTPS|<-----'   .----'---.    ||
-|Server|over TLS |      Proxy      |          | Pledge |    ||
-'------'         '-----------------'          '--------'    ||
+.------.  HTTP   .-----------------.  COAPS  .----------.   ||
+| MASA |<------->|ESTcoaps-to-HTTPS|<------->| Registrar|   ||
+|Server|over TLS |      Proxy      |         '----------'   ||
+'------'         '-----------------'              /|\       ||
+                                 ||                |        ||
+                                 ||           .--------.    ||
+                                 ||           | Pledge |    ||
+                                 ||           '--------'    ||
+                                 ||                |        ||
+                                 ||               \|/       ||
+.------.  HTTP   .-----------------.  COAPS   .-----------. ||
+| EST  |<------->|ESTcoaps-to-HTTPS|<-------->| Join proxy| ||
+|Server|over TLS |      Proxy      |          | EST Client| ||
+'------'         '-----------------'          '-----------' ||
                                  ||                         ||
                                  |'-------------------------'|
                                  '---------------------------'
 ]]></artwork></figure>
 
-    <t><xref target="est-uri"/> contains the mapping between the EST-coaps and EST/BRSKI URIs and proxy SHOULD adhere to. Section 7 of <xref target="RFC8075"/> defines the mapping between EST-coaps and HTTP response code, that determines how a proxy translates COAP response codes from/to HTTP status codes.</t>
-    <t>[EDNOTE: Some of the issues from RFC8075 will be clarified here like Content-Types mappings and Discovery.</t>
-    <t>Due to fragmentation of large messages that could be broken into blocks, an EST-coaps-to-HTTP proxy SHOULD reassemble the BLOCKs before relaying the message upstream in the HTTP environment. </t>
-    <t>[EDNOTE: BLOCK fragments should be further explained here. Also reference RFC8075 ]</t>
-    <t> [ EDNOTE: POP will be addressed here. ] </t>
-    <t>A proxy SHOULD authenticate the client downstream and it should be authenticated by the EST or BRSKI server or CA upstream. A trust relationship needs to be pre-established between the proxy and the TCP entities (EST, BRSKI servers) in order to be able to proxy these connections on behalf of various clients.</t>
+    <t><xref target="est-uri"/> contains the mapping between the EST-coaps and EST/BRSKI URIs the proxy SHOULD adhere to. Section 7 of <xref target="RFC8075"/> and <xref target="error"/> define the mapping between EST-coaps and HTTP response codes, that determines how a proxy translates COAP response codes from/to HTTP status codes. The mapping from Content-Type to media type is defined in <xref target="iana"/>. The conversion from binary to BSD64 needs to be done in the proxy. Conversion is possible because a TLS link exists between EST-coaps-to-HTTP proxy and HTTP MASA or EST server and a corresponding DTLS linked exists between EST-coaps-to-HTTP proxy and EST client or Registrar.</t>
+<t>Due to fragmentation of large messages into blocks, an EST-coaps-to-HTTP proxy SHOULD reassemble the BLOCKs before translating the binary content to BSD64, and consecutively relay the message upstream into the HTTP environment. </t>
+    <t>For the discovery of the EST server by the EST client in the coap environment, the EST-coaps-to-HTTP proxy MUST announce itself according to the rules of <xref target="discovery"/>. The available functions of the proxies MUST be announced with as many resource paths. The discovery of MASA and EST server in the http environment follow the rules specified in <xref target="I-D.ietf-anima-bootstrapping-keyinfra"/>.</t>
+    <t> [ EDNOTE: PoP will be addressed here. ] </t>
+    <t>A proxy SHOULD authenticate the client downstream and it should be authenticated by the EST or BRSKI server or CA upstream. A trust relationship needs to be pre-established between the proxy and the TCP entities (EST, BRSKI servers) to be able to proxy these connections on behalf of various clients.</t>
     <t> [EDNOTE: To add more details about trust relations in this section. ] </t>
   </section>
 
   <section title="Parameters">
-    <t>[EDNOTE: This section to be populated. It will address transmission parameters for BRSKI described in sections 4.7 and 4.8 of the CoAP draft. BRSKI does not impose any unique parameters that affect the CoAP parameters in Table 2 and 3 in the CoAP draft but the ones in CoAP could be affecting BRSKI. For example the processing delay of CAs could be less then 2s, but in this case they should send a CoAP ACK every 2s while processing.]</t>
+    <t>[EDNOTE: This section to be populated. It will address transmission parameters for BRSKI described in sections 4.7 and 4.8 of the CoAP draft. BRSKI does not impose any unique parameters that affect the CoAP parameters in Table 2 and 3 in the CoAP draft but the ones in CoAP could be affecting BRSKI. For example, the processing delay of CAs could be less then 2s, but in this case they should send a CoAP ACK every 2s while processing.]</t>
   </section>
 
   <section anchor="iana" title="IANA Considerations">
@@ -418,6 +423,18 @@ MUST be computed as if each handshake message had been sent as a single fragment
   </section>  <!-- IANA consideration -->
 
   <section anchor="sec" title="Security Considerations">
+
+<section anchor="sec-proxy" title="proxy considerations">
+<t>
+In the BRSKI bootstrap protocol, there is a direct TLS connection from pledge to EST-server. With the EST-coaps specification a direct DTLS connection from pledge to EST-server is possible thus avoiding the placement of a https/coaps proxy between pledge and http EST-server. Such a https/coaps proxy presents a security issue because the proxy needs to make a TLS connection with the EST-server and a DTLS connection with the pledge.</t>
+<t>
+It is RECOMMENDED that the EST-server and Registrar are located on the same host, thus avoiding security connections between Registrar and EST-server. It is also RECOMMENDED that the Registrar and the MASA are connected with a http TLS connection, identical to BRSKI protocol. The consequence is that the Registrar/EST-server host provides both a coaps and a https stack.</t>
+<t>
+The proxies proposed in <xref target="proxy"/> must be deployed with great care, and only when the recommended connections are impossible.
+</t>
+</section> <!-- proxy considerations -->
+
+<section anchor="sec-est" title="EST server considerations">
     <t>The security considerations of section 6 of <xref target="RFC7030"/> are only partially valid for the purposes of this document. As HTTP Basic Authentication is not supported, the considerations expressed for using passwords do not apply.</t>
     <t>Given that the client has only limited resources and may not be able to generate sufficiently random keys to encrypt its identity, it is possible that the client uses server generated private/public keys to encrypt its certificate. The transport of these keys is inherently risky. A full probability analysis MUST be done to establish whether server side key generation enhances or decreases the probability of identity stealing. </t>
     <t>When a client uses the Implicit TA database for certificate validation, the client cannot verify that the implicit data base can act as an RA. It is RECOMMENDED that such clients include "Linking Identity and POP Information" <xref target="DTLS"/> in requests (to prevent such requests from being forwarded to a real EST server by a man in the middle). It is RECOMMENDED that the Implicit Trust Anchor database used for EST server authentication be carefully managed to reduce the chance of a third-party CA with poor certification practices from being trusted. Disabling the Implicit Trust Anchor database after successfully receiving the Distribution of CA certificates response (Section 4.1.3 of <xref target="RFC7030"/>) limits any vulnerability to the first DTLS exchange.</t>
@@ -425,6 +442,7 @@ MUST be computed as if each handshake message had been sent as a single fragment
     <t>As described in CMC, Section 6.7 of <xref target="RFC5272"/>, "For keys that can be used as signature keys, signing the certification request with the private key serves as a POP on that key pair". The inclusion of tls-unique in the certification request links the proof-of-possession to the TLS proof-of-identity. This implies but does not prove that the authenticated client currently has access to the private key.</t>
     <t>Regarding the CSR attributes that the CA may list for inclusion in an enrollment request, an adversary could exclude attributes that a server may want, include attributes that a server may not want, and render meaningless other attributes that a server may want. The CA is expected to be able to enforce policies to recover from improper CSR requests. </t>
     <t>Interpreters of ASN.1 structures should be aware of the use of invalid ASN.1 length fields and should take appropriate measures to guard against buffer overflows, stack overruns in particular, and malicious content in general.</t>
+  </section> <!-- EST server considerations -->
   </section>  <!-- Security considerations  -->
 
   <section anchor="ack" title="Acknowledgements">

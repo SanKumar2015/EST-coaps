@@ -5,14 +5,14 @@
 ACE                                                             S. Kumar
 Internet-Draft                                 Philips Lighting Research
 Intended status: Standards Track                         P. van der Stok
-Expires: November 23, 2017                                    Consultant
+Expires: December 1, 2017                                     Consultant
                                                            P. Kampanakis
                                                            Cisco Systems
                                                               M. Furuhed
                                                              Nexus Group
                                                                  S. Raza
                                                                RISE SICS
-                                                            May 22, 2017
+                                                            May 30, 2017
 
 
                     EST over secure CoAP (EST-coaps)
@@ -25,7 +25,7 @@ Abstract
    Personal Area Networks (6LoWPAN) and IEEE 802.15.4 link-layer
    standards.  Provisioning these devices in a secure manner with keys
    (often called secure bootstrapping) used to encrypt and authenticate
-   messages is the subject of Bootstrapping of Remote Secure Key
+   messages, is the subject of Bootstrapping of Remote Secure Key
    Infrastructures (BRSKI) [I-D.ietf-anima-bootstrapping-keyinfra] and
    6tisch Secure Join [I-D.ietf-6tisch-dtsecurity-secure-join].
    Enrollment over Secure Transport (EST) [RFC7030], based on TLS and
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Kumar, et al.           Expires November 23, 2017               [Page 1]
+Kumar, et al.           Expires December 1, 2017                [Page 1]
 
 
 Internet-Draft                  EST-coaps                       May 2017
@@ -62,7 +62,7 @@ Internet-Draft                  EST-coaps                       May 2017
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 23, 2017.
+   This Internet-Draft will expire on December 1, 2017.
 
 Copyright Notice
 
@@ -98,32 +98,34 @@ Table of Contents
    7.  Parameters  . . . . . . . . . . . . . . . . . . . . . . . . .  14
    8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  14
      8.1.  Content-Format registry . . . . . . . . . . . . . . . . .  14
-     8.2.  Resource Type registry  . . . . . . . . . . . . . . . . .  17
-   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  17
-   10. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  18
+     8.2.  Resource Type registry  . . . . . . . . . . . . . . . . .  18
+   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  18
+     9.1.  proxy considerations  . . . . . . . . . . . . . . . . . .  18
+     9.2.  EST server considerations . . . . . . . . . . . . . . . .  18
+   10. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  19
    11. Change Log  . . . . . . . . . . . . . . . . . . . . . . . . .  19
-   12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  19
-     12.1.  Normative References . . . . . . . . . . . . . . . . . .  19
+   12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  20
+     12.1.  Normative References . . . . . . . . . . . . . . . . . .  20
      12.2.  Informative References . . . . . . . . . . . . . . . . .  21
-   Appendix A.  EST messages to EST-coaps  . . . . . . . . . . . . .  23
-     A.1.  cacerts . . . . . . . . . . . . . . . . . . . . . . . . .  23
 
 
 
-Kumar, et al.           Expires November 23, 2017               [Page 2]
+Kumar, et al.           Expires December 1, 2017                [Page 2]
 
 
 Internet-Draft                  EST-coaps                       May 2017
 
 
-     A.2.  csrattrs  . . . . . . . . . . . . . . . . . . . . . . . .  25
-     A.3.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  26
-     A.4.  serverkeygen  . . . . . . . . . . . . . . . . . . . . . .  29
-     A.5.  enrollstatus  . . . . . . . . . . . . . . . . . . . . . .  32
-     A.6.  voucher_status  . . . . . . . . . . . . . . . . . . . . .  32
-     A.7.  requestvoucher  . . . . . . . . . . . . . . . . . . . . .  32
-   Appendix B.  EST-coaps Block message examples . . . . . . . . . .  32
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  35
+   Appendix A.  EST messages to EST-coaps  . . . . . . . . . . . . .  23
+     A.1.  cacerts . . . . . . . . . . . . . . . . . . . . . . . . .  24
+     A.2.  csrattrs  . . . . . . . . . . . . . . . . . . . . . . . .  26
+     A.3.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  27
+     A.4.  serverkeygen  . . . . . . . . . . . . . . . . . . . . . .  30
+     A.5.  enrollstatus  . . . . . . . . . . . . . . . . . . . . . .  33
+     A.6.  voucher_status  . . . . . . . . . . . . . . . . . . . . .  33
+     A.7.  requestvoucher  . . . . . . . . . . . . . . . . . . . . .  33
+   Appendix B.  EST-coaps Block message examples . . . . . . . . . .  33
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  36
 
 1.  Introduction
 
@@ -162,17 +164,17 @@ Internet-Draft                  EST-coaps                       May 2017
    Although EST-coaps paves the way for the utilization of EST for
    constrained devices on constrained networks, some devices will not
    have enough resources to handle the large payloads that come with
-   EST-coaps.  The specification of EST-coaps is intended to ensure that
-   bootstrapping works for less constrained devices that choose to limit
 
 
 
-Kumar, et al.           Expires November 23, 2017               [Page 3]
+Kumar, et al.           Expires December 1, 2017                [Page 3]
 
 
 Internet-Draft                  EST-coaps                       May 2017
 
 
+   EST-coaps.  The specification of EST-coaps is intended to ensure that
+   bootstrapping works for less constrained devices that choose to limit
    their communications stack to UDP/CoAP.  It is up to the network
    designer to decide which devices execute the EST protocol and which
    not.
@@ -184,7 +186,7 @@ Internet-Draft                  EST-coaps                       May 2017
    Therefore, the HTTP Basic authentication of EST is not supported in
    EST-coaps.
 
-   In the constrained devices context it is very unlikely that full PKI
+   In the constrained devices context, it is very unlikely that full PKI
    request messages will be used.  Therefore, full PKI request messages
    are not supported by EST-coaps.
 
@@ -220,15 +222,15 @@ Internet-Draft                  EST-coaps                       May 2017
    described in this section.  EST-coaps server differs from EST server
    as follows:
 
-   o  Replacement of TLS by DTLS and HTTP by CoAP, resulting in:
 
 
-
-Kumar, et al.           Expires November 23, 2017               [Page 4]
+Kumar, et al.           Expires December 1, 2017                [Page 4]
 
 
 Internet-Draft                  EST-coaps                       May 2017
 
+
+   o  Replacement of TLS by DTLS and HTTP by CoAP, resulting in:
 
       *  DTLS-secured CoAP sessions between EST-coaps client and EST-
          coaps server.
@@ -276,17 +278,17 @@ Internet-Draft                  EST-coaps                       May 2017
    The mandatory cipher suite for DTLS is
    TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 defined in [RFC7251] which is the
    mandatory-to-implement cipher suite in CoAP.  Additionally, the curve
-   secp256r1 MUST be supported [RFC4492]; this curve is equivalent to
-   the NIST P-256 curve.  The hash algorithm is SHA-256.  DTLS
 
 
 
-Kumar, et al.           Expires November 23, 2017               [Page 5]
+Kumar, et al.           Expires December 1, 2017                [Page 5]
 
 
 Internet-Draft                  EST-coaps                       May 2017
 
 
+   secp256r1 MUST be supported [RFC4492]; this curve is equivalent to
+   the NIST P-256 curve.  The hash algorithm is SHA-256.  DTLS
    implementations MUST use the Supported Elliptic Curves and Supported
    Point Formats Extensions [RFC4492]; the uncompressed point format
    MUST be supported; [RFC6090] can be used as an implementation method.
@@ -336,9 +338,7 @@ Internet-Draft                  EST-coaps                       May 2017
 
 
 
-
-
-Kumar, et al.           Expires November 23, 2017               [Page 6]
+Kumar, et al.           Expires December 1, 2017                [Page 6]
 
 
 Internet-Draft                  EST-coaps                       May 2017
@@ -395,7 +395,7 @@ Internet-Draft                  EST-coaps                       May 2017
 
 
 
-Kumar, et al.           Expires November 23, 2017               [Page 7]
+Kumar, et al.           Expires December 1, 2017                [Page 7]
 
 
 Internet-Draft                  EST-coaps                       May 2017
@@ -421,8 +421,9 @@ Internet-Draft                  EST-coaps                       May 2017
 
    When discovering the root path for the EST resources, the server MAY
    return the full resource paths and the used content types.  This is
-   useful when multiple content type are specified for EST-coaps server.
-   For example, the following more complete response is possible.
+   useful when multiple content types are specified for EST-coaps
+   server.  For example, the following more complete response is
+   possible.
 
      REQ: GET /.well-known/core?rt=ace.est
 
@@ -445,19 +446,19 @@ Internet-Draft                  EST-coaps                       May 2017
 
    The content-format (media type equivalent) of the CoAP message
    determines which EST message is transported in the CoAP payload.  The
-   media types specified in the HTTP Content-Type header(see section
+   media types specified in the HTTP Content-Type header (see section
    3.2.2 of [RFC7030]) are in EST-coaps specified by the Content-Format
    Option (12) of CoAP.  The combination of URI path-suffix and content-
-   format used for coap MUST map to an allowed combination of path-
 
 
 
-Kumar, et al.           Expires November 23, 2017               [Page 8]
+Kumar, et al.           Expires December 1, 2017                [Page 8]
 
 
 Internet-Draft                  EST-coaps                       May 2017
 
 
+   format used for coap MUST map to an allowed combination of path-
    suffix and media type as defined for EST.  The required content-
    formats for these request and response messages are defined in
    Section 8.  The CoAP response codes are defined in Section 4.4.
@@ -483,7 +484,7 @@ Internet-Draft                  EST-coaps                       May 2017
    Content-Format and more in CoAP.  The CoAP Options are used to
    communicate the HTTP fields specified in the BRSKI REST messages.
 
-   BRSKI URLs are HTTPS based (https:// ), in CoAP these will be assumed
+   BRSKI URLs are HTTPS based (https://), in CoAP these will be assumed
    to be transformed to coaps (coaps://)
 
    Appendix A includes some practical examples of EST messages
@@ -498,7 +499,7 @@ Internet-Draft                  EST-coaps                       May 2017
    202 in EST is mapped to CoAP 2.06 as specified in
    [I-D.hartke-core-pending].  All other HTTP 2xx response codes are not
    used by EST.  For the following HTTP 4xx error codes that may occur:
-   400, 401, 403, 404, 405, 406, 412, 413, 415 ; the equivalent CoAP
+   400, 401, 403, 404, 405, 406, 412, 413, 415; the equivalent CoAP
    response code for EST-coaps is 4.xx.  For the HTTP 5xx error codes:
    500, 501, 502, 503, 504 the equivalent CoAP response code is 5.xx.
 
@@ -508,8 +509,7 @@ Internet-Draft                  EST-coaps                       May 2017
 
 
 
-
-Kumar, et al.           Expires November 23, 2017               [Page 9]
+Kumar, et al.           Expires December 1, 2017                [Page 9]
 
 
 Internet-Draft                  EST-coaps                       May 2017
@@ -519,8 +519,8 @@ Internet-Draft                  EST-coaps                       May 2017
 
    DTLS defines fragmentation only for the handshake part and not for
    secure data exchange (DTLS records).  [RFC6347] states "Each DTLS
-   record MUST fit within a single datagram".  In order to avoid using
-   IP fragmentation, which is not supported by 6LoWPAN, invokers of the
+   record MUST fit within a single datagram".  To avoid using IP
+   fragmentation, which is not supported by 6LoWPAN, invokers of the
    DTLS record layer MUST size DTLS records so that they fit within any
    Path MTU estimates obtained from the record layer.  In addition,
    invokers residing on a 6LoWPAN over IEEE 802.15.4 network SHOULD
@@ -566,7 +566,7 @@ Internet-Draft                  EST-coaps                       May 2017
 
 
 
-Kumar, et al.           Expires November 23, 2017              [Page 10]
+Kumar, et al.           Expires December 1, 2017               [Page 10]
 
 
 Internet-Draft                  EST-coaps                       May 2017
@@ -592,7 +592,7 @@ Internet-Draft                  EST-coaps                       May 2017
    DTLS is one such secure protocol.  Within BRSKI and EST when "TLS" is
    referred to, it is understood that in EST-coaps, security is provided
    using DTLS instead.  No other changes are necessary (all provisional
-   modes etc are the same as for TLS).
+   modes etc. are the same as for TLS).
 
    CoAP was designed to avoid fragmentation.  DTLS is used to secure
    CoAP messages.  However, fragmentation is still possible at the DTLS
@@ -623,7 +623,7 @@ Internet-Draft                  EST-coaps                       May 2017
 
 
 
-Kumar, et al.           Expires November 23, 2017              [Page 11]
+Kumar, et al.           Expires December 1, 2017               [Page 11]
 
 
 Internet-Draft                  EST-coaps                       May 2017
@@ -680,7 +680,7 @@ Internet-Draft                  EST-coaps                       May 2017
 
 
 
-Kumar, et al.           Expires November 23, 2017              [Page 12]
+Kumar, et al.           Expires December 1, 2017               [Page 12]
 
 
 Internet-Draft                  EST-coaps                       May 2017
@@ -688,67 +688,86 @@ Internet-Draft                  EST-coaps                       May 2017
 
 6.  Proxying
 
-   In real-world deployments entities like the EST server, CA, or the
-   BRSKI Registrar will not always reside within the COAP boundary.  An
-   EST server or CA can exist outside the constrained network in a non-
-   constrained network that supports TLS/HTTP.  In such environments
-   EST-coaps is used by the pledge within the COAP boundary and TLS is
-   used to transport the EST/BRSKI messages outside the CoAP boundary.
-   A proxy entity at the edge is required to operate between the COAP
-   environment and the external HTTP network.  The EST-coaps-to-HTTPS
+   In real-world deployments, entities like the EST server, CA or MASA
+   will not always reside within the COAP boundary.  The MASA or a CA
+   can exist outside the constrained network in a non-constrained
+   network that supports TLS/HTTP.  In such environments EST-coaps is
+   used by the pledge within the COAP boundary and TLS is used to
+   transport the EST/BRSKI messages outside the CoAP boundary.  A proxy
+   entity at the edge is required to operate between the COAP
+   environment and the external HTTP network.  The ESTcoaps-to-HTTPS
    proxy SHOULD terminate EST-coaps downstream and initiate EST/BRSKI
    connections over TLS upstream.
 
-                                           Constrained Network
-                                       .---------------------------.
-                                       |.-------------------------.|
-                                       ||                .------. ||
-                                       ||       COAPS .->|Pledge| ||
-                                       ||             |  '------' ||
-                                       ||             |           ||
-                                       ||  COAPS .----'----.      ||
-                                       ||     .->|Registrar|      ||
-   .-----------.  HTTP   .-----------------.  |  '---------'      ||
-   | EST/BRSKI |<------->|ESTcoaps-to-HTTPS|<--                   ||
-   |  Server   |over TLS |      Proxy      |<---.                 ||
-   '-----------'         '-----------------'    \   .----------.  ||
-                                       || COAPS`--> |EST client|  ||
-                                       ||           '----------'  ||
-                                       |'-------------------------'|
-                                       '---------------------------'
+   Two separate use-cases, shown in one figure below, are expected to be
+   deployed in practice:
+
+   o  A proxy between Join proxy and EST-server (and ultimately the CA)
+
+   o  A proxy between Registrar and MASA
+
+                                        Constrained Network
+                                    .---------------------------.
+                                    |.-------------------------.|
+                                    ||                         ||
+   .------.  HTTP   .-----------------.  COAPS  .----------.   ||
+   | MASA |<------->|ESTcoaps-to-HTTPS|<------->| Registrar|   ||
+   |Server|over TLS |      Proxy      |         '----------'   ||
+   '------'         '-----------------'              /|\       ||
+                                    ||                |        ||
+                                    ||           .--------.    ||
+                                    ||           | Pledge |    ||
+                                    ||           '--------'    ||
+                                    ||                |        ||
+                                    ||               \|/       ||
+   .------.  HTTP   .-----------------.  COAPS   .-----------. ||
+   | EST  |<------->|ESTcoaps-to-HTTPS|<-------->| Join proxy| ||
+   |Server|over TLS |      Proxy      |          | EST Client| ||
+   '------'         '-----------------'          '-----------' ||
+                                    ||                         ||
+                                    |'-------------------------'|
+                                    '---------------------------'
 
                ESTcoaps-to-HTTPS proxy at the COAP boundary.
 
    Table 1 contains the mapping between the EST-coaps and EST/BRSKI URIs
-   and proxy SHOULD adhere to.  Section 7 of [RFC8075] defines the
-   mapping between EST-coaps and HTTP response code, that determines how
-   a proxy translates COAP response codes from/to HTTP status codes.
-
-   [EDNOTE: Some of the issues from RFC8075 will be clarified here like
-   Content-Types mappings and Discovery.
-
-   Due to fragmentation of large messages that could be broken into
-   blocks, an EST-coaps-to-HTTP proxy SHOULD reassemble the BLOCKs
-   before relaying the message upstream in the HTTP environment.
-
-   [EDNOTE: BLOCK fragments should be further explained here.  Also
-   reference RFC8075 ]
+   the proxy SHOULD adhere to.  Section 7 of [RFC8075] and Section 4.4
+   define the mapping between EST-coaps and HTTP response codes, that
+   determines how a proxy translates COAP response codes from/to HTTP
 
 
 
-
-Kumar, et al.           Expires November 23, 2017              [Page 13]
+Kumar, et al.           Expires December 1, 2017               [Page 13]
 
 
 Internet-Draft                  EST-coaps                       May 2017
 
 
-   [ EDNOTE: POP will be addressed here. ]
+   status codes.  The mapping from Content-Type to media type is defined
+   in Section 8.  The conversion from binary to BSD64 needs to be done
+   in the proxy.  Conversion is possible because a TLS link exists
+   between EST-coaps-to-HTTP proxy and HTTP MASA or EST server and a
+   corresponding DTLS linked exists between EST-coaps-to-HTTP proxy and
+   EST client or Registrar.
+
+   Due to fragmentation of large messages into blocks, an EST-coaps-to-
+   HTTP proxy SHOULD reassemble the BLOCKs before translating the binary
+   content to BSD64, and consecutively relay the message upstream into
+   the HTTP environment.
+
+   For the discovery of the EST server by the EST client in the coap
+   environment, the EST-coaps-to-HTTP proxy MUST announce itself
+   according to the rules of Section 4.1.  The available functions of
+   the proxies MUST be announced with as many resource paths.  The
+   discovery of MASA and EST server in the http environment follow the
+   rules specified in [I-D.ietf-anima-bootstrapping-keyinfra].
+
+   [ EDNOTE: PoP will be addressed here. ]
 
    A proxy SHOULD authenticate the client downstream and it should be
    authenticated by the EST or BRSKI server or CA upstream.  A trust
    relationship needs to be pre-established between the proxy and the
-   TCP entities (EST, BRSKI servers) in order to be able to proxy these
+   TCP entities (EST, BRSKI servers) to be able to proxy these
    connections on behalf of various clients.
 
    [EDNOTE: To add more details about trust relations in this section. ]
@@ -759,7 +778,7 @@ Internet-Draft                  EST-coaps                       May 2017
    parameters for BRSKI described in sections 4.7 and 4.8 of the CoAP
    draft.  BRSKI does not impose any unique parameters that affect the
    CoAP parameters in Table 2 and 3 in the CoAP draft but the ones in
-   CoAP could be affecting BRSKI.  For example the processing delay of
+   CoAP could be affecting BRSKI.  For example, the processing delay of
    CAs could be less then 2s, but in this case they should send a CoAP
    ACK every 2s while processing.]
 
@@ -771,6 +790,15 @@ Internet-Draft                  EST-coaps                       May 2017
    "CoRE Parameters" registry are needed for the below media types.
    These can be registered either in the Expert Review range (0-255) or
    IETF Review range (256-9999).
+
+
+
+
+Kumar, et al.           Expires December 1, 2017               [Page 14]
+
+
+Internet-Draft                  EST-coaps                       May 2017
+
 
    1.
 
@@ -791,14 +819,6 @@ Internet-Draft                  EST-coaps                       May 2017
        *  Encoding considerations: binary
 
        *  Security considerations: As defined in this specification
-
-
-
-Kumar, et al.           Expires November 23, 2017              [Page 14]
-
-
-Internet-Draft                  EST-coaps                       May 2017
-
 
        *  Published specification: [RFC5751]
 
@@ -828,6 +848,15 @@ Internet-Draft                  EST-coaps                       May 2017
        *  Applications that use this media type: ANIMA Bootstrap (BRSKI)
           and EST
 
+
+
+
+Kumar, et al.           Expires December 1, 2017               [Page 15]
+
+
+Internet-Draft                  EST-coaps                       May 2017
+
+
    3.
 
        *  application/csrattrs
@@ -847,15 +876,6 @@ Internet-Draft                  EST-coaps                       May 2017
        *  Security considerations: As defined in this specification
 
        *  Published specification: [RFC7030]
-
-
-
-
-Kumar, et al.           Expires November 23, 2017              [Page 15]
-
-
-Internet-Draft                  EST-coaps                       May 2017
-
 
        *  Applications that use this media type: ANIMA Bootstrap (BRSKI)
           and EST
@@ -885,6 +905,15 @@ Internet-Draft                  EST-coaps                       May 2017
 
        *
 
+
+
+
+Kumar, et al.           Expires December 1, 2017               [Page 16]
+
+
+Internet-Draft                  EST-coaps                       May 2017
+
+
           +  application/voucherrequest
 
           +  Type name: application
@@ -905,14 +934,6 @@ Internet-Draft                  EST-coaps                       May 2017
 
           +  Applications that use this media type: ANIMA bootstrap
              (BRSKI)
-
-
-
-Kumar, et al.           Expires November 23, 2017              [Page 16]
-
-
-Internet-Draft                  EST-coaps                       May 2017
-
 
        *
 
@@ -937,6 +958,19 @@ Internet-Draft                  EST-coaps                       May 2017
           +  Applications that use this media type: ANIMA bootstrap
              (BRSKI)
 
+
+
+
+
+
+
+
+Kumar, et al.           Expires December 1, 2017               [Page 17]
+
+
+Internet-Draft                  EST-coaps                       May 2017
+
+
 8.2.  Resource Type registry
 
    Additions to the sub-registry "CoAP Resource Type", within the "CoRE
@@ -945,6 +979,28 @@ Internet-Draft                  EST-coaps                       May 2017
    o  rt="ace.est" needs registration with IANA.
 
 9.  Security Considerations
+
+9.1.  proxy considerations
+
+   In the BRSKI bootstrap protocol, there is a direct TLS connection
+   from pledge to EST-server.  With the EST-coaps specification a direct
+   DTLS connection from pledge to EST-server is possible thus avoiding
+   the placement of a https/coaps proxy between pledge and http EST-
+   server.  Such a https/coaps proxy presents a security issue because
+   the proxy needs to make a TLS connection with the EST-server and a
+   DTLS connection with the pledge.
+
+   It is RECOMMENDED that the EST-server and Registrar are located on
+   the same host, thus avoiding security connections between Registrar
+   and EST-server.  It is also RECOMMENDED that the Registrar and the
+   MASA are connected with a http TLS connection, identical to BRSKI
+   protocol.  The consequence is that the Registrar/EST-server host
+   provides both a coaps and a https stack.
+
+   The proxies proposed in Section 6 must be deployed with great care,
+   and only when the recommended connections are impossible.
+
+9.2.  EST server considerations
 
    The security considerations of section 6 of [RFC7030] are only
    partially valid for the purposes of this document.  As HTTP Basic
@@ -962,16 +1018,16 @@ Internet-Draft                  EST-coaps                       May 2017
    When a client uses the Implicit TA database for certificate
    validation, the client cannot verify that the implicit data base can
    act as an RA.  It is RECOMMENDED that such clients include "Linking
+   Identity and POP Information" Section 5.1 in requests (to prevent
 
 
 
-Kumar, et al.           Expires November 23, 2017              [Page 17]
+Kumar, et al.           Expires December 1, 2017               [Page 18]
 
 
 Internet-Draft                  EST-coaps                       May 2017
 
 
-   Identity and POP Information" Section 5.1 in requests (to prevent
    such requests from being forwarded to a real EST server by a man in
    the middle).  It is RECOMMENDED that the Implicit Trust Anchor
    database used for EST server authentication be carefully managed to
@@ -1015,24 +1071,19 @@ Internet-Draft                  EST-coaps                       May 2017
    the solution.  Constructive comments were received from Eliot Lear
    and Julien Vermillard.
 
-
-
-
-
-
-
-
-Kumar, et al.           Expires November 23, 2017              [Page 18]
-
-
-Internet-Draft                  EST-coaps                       May 2017
-
-
 11.  Change Log
 
    -02:
 
       binary instead of CBOR binary in mime types.
+
+
+
+Kumar, et al.           Expires December 1, 2017               [Page 19]
+
+
+Internet-Draft                  EST-coaps                       May 2017
+
 
       supported content types are discoverable.
 
@@ -1070,25 +1121,26 @@ Internet-Draft                  EST-coaps                       May 2017
               Pritikin, M., Richardson, M., Behringer, M., Bjarnason,
               S., and K. Watsen, "Bootstrapping Remote Secure Key
               Infrastructures (BRSKI)", draft-ietf-anima-bootstrapping-
-              keyinfra-05 (work in progress), March 2017.
+              keyinfra-06 (work in progress), May 2017.
 
    [I-D.selander-ace-eals]
               Selander, G., Raza, S., Vucinic, M., Furuhed, M., and M.
               Richardson, "Enrollment with Application Layer Security",
               draft-selander-ace-eals-00 (work in progress), March 2017.
 
-
-
-Kumar, et al.           Expires November 23, 2017              [Page 19]
-
-
-Internet-Draft                  EST-coaps                       May 2017
-
-
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <http://www.rfc-editor.org/info/rfc2119>.
+
+
+
+
+Kumar, et al.           Expires December 1, 2017               [Page 20]
+
+
+Internet-Draft                  EST-coaps                       May 2017
+
 
    [RFC5272]  Schaad, J. and M. Myers, "Certificate Management over CMS
               (CMC)", RFC 5272, DOI 10.17487/RFC5272, June 2008,
@@ -1132,22 +1184,20 @@ Internet-Draft                  EST-coaps                       May 2017
               DOI 10.17487/RFC8075, February 2017,
               <http://www.rfc-editor.org/info/rfc8075>.
 
-
-
-
-
-Kumar, et al.           Expires November 23, 2017              [Page 20]
-
-
-Internet-Draft                  EST-coaps                       May 2017
-
-
 12.2.  Informative References
 
    [I-D.ietf-6tisch-dtsecurity-secure-join]
               Richardson, M., "6tisch Secure Join protocol", draft-ietf-
               6tisch-dtsecurity-secure-join-01 (work in progress),
               February 2017.
+
+
+
+Kumar, et al.           Expires December 1, 2017               [Page 21]
+
+
+Internet-Draft                  EST-coaps                       May 2017
+
 
    [I-D.ietf-6tisch-minimal-security]
               Vucinic, M., Simon, J., Pister, K., and M. Richardson,
@@ -1190,19 +1240,21 @@ Internet-Draft                  EST-coaps                       May 2017
               Networks", RFC 4944, DOI 10.17487/RFC4944, September 2007,
               <http://www.rfc-editor.org/info/rfc4944>.
 
-
-
-
-Kumar, et al.           Expires November 23, 2017              [Page 21]
-
-
-Internet-Draft                  EST-coaps                       May 2017
-
-
    [RFC5246]  Dierks, T. and E. Rescorla, "The Transport Layer Security
               (TLS) Protocol Version 1.2", RFC 5246,
               DOI 10.17487/RFC5246, August 2008,
               <http://www.rfc-editor.org/info/rfc5246>.
+
+
+
+
+
+
+Kumar, et al.           Expires December 1, 2017               [Page 22]
+
+
+Internet-Draft                  EST-coaps                       May 2017
+
 
    [RFC5929]  Altman, J., Williams, N., and L. Zhu, "Channel Bindings
               for TLS", RFC 5929, DOI 10.17487/RFC5929, July 2010,
@@ -1244,23 +1296,22 @@ Internet-Draft                  EST-coaps                       May 2017
               DOI 10.17487/RFC7925, July 2016,
               <http://www.rfc-editor.org/info/rfc7925>.
 
-
-
-
-
-
-
-Kumar, et al.           Expires November 23, 2017              [Page 22]
-
-
-Internet-Draft                  EST-coaps                       May 2017
-
-
 Appendix A.  EST messages to EST-coaps
 
    This section takes all examples from Appendix A of [RFC7030], changes
    the payload from Base64 to binary and replaces the http headers by
    their CoAP equivalents.
+
+
+
+
+
+
+Kumar, et al.           Expires December 1, 2017               [Page 23]
+
+
+Internet-Draft                  EST-coaps                       May 2017
+
 
 A.1.  cacerts
 
@@ -1305,19 +1356,20 @@ A.1.  cacerts
          Option Length = 0x2
          Option Value = TBD1 (defined in this document)
 
-
-
-Kumar, et al.           Expires November 23, 2017              [Page 23]
-
-
-Internet-Draft                  EST-coaps                       May 2017
-
-
      Payload =
 
    30233906092a6206734107028c2a3023260201013100300b06092a6206734107018
    c0c3020bb302063c20102020900a61e75193b7acc0d06092a620673410105050030
    1b31193017060355040313106573744578616d706c654341204f774f301e170d313
+
+
+
+Kumar, et al.           Expires December 1, 2017               [Page 24]
+
+
+Internet-Draft                  EST-coaps                       May 2017
+
+
    3303530393033353333315a170d3134303530393033353333315a301b3119301706
    0355040313106573744578616d706c654341204f774f302062300d06092a6206734
    10101050003204f0030204a022041003a923a2968bae4aae136ca4e2512c5200680
@@ -1361,20 +1413,20 @@ Internet-Draft                  EST-coaps                       May 2017
    a35f48b1e054c5da3372872f7a1e429f4edf3958432efb2106591d3eb783c103470
    9f251fc86566bda2d541c792389eac4ec9e181f4b9f596e5ef2679cc321542b1133
    7f90a44df3c85f1516561fa968a1914f265bc0b8276ebe3106a790d97d34c8c37c7
-
-
-
-Kumar, et al.           Expires November 23, 2017              [Page 24]
-
-
-Internet-Draft                  EST-coaps                       May 2017
-
-
    4fe1c30b396424664ac426284a9f6022e026938436880adfcd95c98ca1dfc2e6d75
    319b85d0458de28a9d13fb16d620fff7541f6a25d7daf004355020301000134b050
    300e0603551d0f0101f104030204c1d0603551d0e04160414084d321ca0135e7721
    7a486b686b334b01f0603551d230418301653112966e304761732fbfe6a2c823c30
    0d06092a6206734101050500032041002e106933a443070acf5594a3a584d08af7e
+
+
+
+Kumar, et al.           Expires December 1, 2017               [Page 25]
+
+
+Internet-Draft                  EST-coaps                       May 2017
+
+
    06c295059370a06639eff9bd418d13bc25a298223164a6cf1856b11a81617282e4a
    410d82ef086839c6e235690322763065455351e4c596acc7c016b225dec094706c2
    a10608f403b10821984c7c152343b18a768c2ad30238dc45dd653ee6092b0d5cd4c
@@ -1421,7 +1473,12 @@ A.2.  csrattrs
 
 
 
-Kumar, et al.           Expires November 23, 2017              [Page 25]
+
+
+
+
+
+Kumar, et al.           Expires December 1, 2017               [Page 26]
 
 
 Internet-Draft                  EST-coaps                       May 2017
@@ -1478,7 +1535,7 @@ A.3.  enroll / reenroll
 
 
 
-Kumar, et al.           Expires November 23, 2017              [Page 26]
+Kumar, et al.           Expires December 1, 2017               [Page 27]
 
 
 Internet-Draft                  EST-coaps                       May 2017
@@ -1535,7 +1592,7 @@ Internet-Draft                  EST-coaps                       May 2017
 
 
 
-Kumar, et al.           Expires November 23, 2017              [Page 27]
+Kumar, et al.           Expires December 1, 2017               [Page 28]
 
 
 Internet-Draft                  EST-coaps                       May 2017
@@ -1592,7 +1649,7 @@ Internet-Draft                  EST-coaps                       May 2017
 
 
 
-Kumar, et al.           Expires November 23, 2017              [Page 28]
+Kumar, et al.           Expires December 1, 2017               [Page 29]
 
 
 Internet-Draft                  EST-coaps                       May 2017
@@ -1649,7 +1706,7 @@ A.4.  serverkeygen
 
 
 
-Kumar, et al.           Expires November 23, 2017              [Page 29]
+Kumar, et al.           Expires December 1, 2017               [Page 30]
 
 
 Internet-Draft                  EST-coaps                       May 2017
@@ -1706,7 +1763,7 @@ Internet-Draft                  EST-coaps                       May 2017
 
 
 
-Kumar, et al.           Expires November 23, 2017              [Page 30]
+Kumar, et al.           Expires December 1, 2017               [Page 31]
 
 
 Internet-Draft                  EST-coaps                       May 2017
@@ -1763,7 +1820,7 @@ Internet-Draft                  EST-coaps                       May 2017
 
 
 
-Kumar, et al.           Expires November 23, 2017              [Page 31]
+Kumar, et al.           Expires December 1, 2017               [Page 32]
 
 
 Internet-Draft                  EST-coaps                       May 2017
@@ -1820,7 +1877,7 @@ Appendix B.  EST-coaps Block message examples
 
 
 
-Kumar, et al.           Expires November 23, 2017              [Page 32]
+Kumar, et al.           Expires December 1, 2017               [Page 33]
 
 
 Internet-Draft                  EST-coaps                       May 2017
@@ -1877,7 +1934,7 @@ Internet-Draft                  EST-coaps                       May 2017
 
 
 
-Kumar, et al.           Expires November 23, 2017              [Page 33]
+Kumar, et al.           Expires December 1, 2017               [Page 34]
 
 
 Internet-Draft                  EST-coaps                       May 2017
@@ -1934,7 +1991,7 @@ Internet-Draft                  EST-coaps                       May 2017
 
 
 
-Kumar, et al.           Expires November 23, 2017              [Page 34]
+Kumar, et al.           Expires December 1, 2017               [Page 35]
 
 
 Internet-Draft                  EST-coaps                       May 2017
@@ -1991,7 +2048,7 @@ Authors' Addresses
 
 
 
-Kumar, et al.           Expires November 23, 2017              [Page 35]
+Kumar, et al.           Expires December 1, 2017               [Page 36]
 
 
 Internet-Draft                  EST-coaps                       May 2017
@@ -2048,5 +2105,5 @@ Internet-Draft                  EST-coaps                       May 2017
 
 
 
-Kumar, et al.           Expires November 23, 2017              [Page 36]
+Kumar, et al.           Expires December 1, 2017               [Page 37]
 

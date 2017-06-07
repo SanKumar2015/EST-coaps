@@ -302,12 +302,16 @@ MUST be computed as if each handshake message had been sent as a single fragment
 .------.  HTTP   .-----------------.  COAPS  .-----------.   ||
 | MASA |<------->|ESTcoaps-to-HTTPS|<------->| Registrar |   ||
 |Server|over TLS |      Proxy      |         '-----------'   ||
-'------'         '-----------------'                 /|\     ||
-                                 ||                   |      ||
-                                 || .----------.  .--------. ||
-                                 || |Join proxy|->| Pledge | ||
-                                 || '----------'  '--------' ||
-                                 ||                          ||
+'------'         '-----------------'              /|\        ||
+                                 ||         COAPS  |         ||
+                                 ||           .----'-----.   ||
+                                 ||           |Join proxy|   ||
+                                 ||           '----------'   ||
+                                 ||                /|\       ||
+                                 ||          COAPS  |        ||
+                                 ||             .---'----.   ||
+                                 ||             | Pledge |   ||
+                                 ||             '--------'   ||
 .------.  HTTP   .-----------------.  COAPS   .-----------.  ||
 | EST  |<------->|ESTcoaps-to-HTTPS|<-------->| EST Client|  ||
 |Server|over TLS |      Proxy      |          '-----------'  ||

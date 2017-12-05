@@ -169,7 +169,7 @@
             <t>Simple enroll and reenroll, for CA to sign public client-identity key.</t>
             <t>CA certificate retrieval, needed to receive the complete set of CA certificates. </t>
             <t>CSR Attributes request messages, informs the client of the fields to include in generated CSR.</t>
-            <t>Server-side key generation messages, to provide a private client-identity key when the client is too restricted or because of lack of an entropy source. [Encrypting these keys is important. RFC7030 specifies how the private key can be encrypted with CMS using symmetric or asymmetric keys.]</t>
+            <t>Server-side key generation messages, to provide a private client-identity key when the client is too restricted or because of lack of an entropy source. [EDNOTE: Encrypting these keys is important. RFC7030 specifies how the private key can be encrypted with CMS using symmetric or asymmetric keys. Mention how symmetric key can be derived for EST server side key generation from the TLS KEM draft.]</t>
           </list></t>
 
     <section anchor="format" title ="Payload format">
@@ -179,7 +179,7 @@
 
     <section title="Message Bindings">
       <t>This section describes th general EST CoAP message characteristics.</t>
-      <t> It is RECOMMENDED to use CoAP CON messages. This recommendation does not influence the communication efficiency because all EST-coaps messages expect a response.</t>
+      <t> <!-- EDNOTE: From Jim "Rephrase the use of CON" --> It is RECOMMENDED to use CoAP CON messages. This recommendation does not influence the communication efficiency because all EST-coaps messages expect a response.</t>
       <t>The Ver, TKL, Token, and Message ID values of the CoAP header are not influenced by EST.</t>
       <t>CoAP options are used to convey Uri-Host, Uri-Path, Uri-Port, Content-Format and more in CoAP. The CoAP Options are used to communicate the HTTP fields specified in the EST REST messages. </t>
       <t>EST URLs are HTTPS based (https://), in CoAP these will be assumed to be transformed to coaps (coaps://)</t>
@@ -190,8 +190,8 @@
       <t>Section 5.9 of <xref target="RFC7252"/> specifies the mapping of HTTP response codes to CoAP response codes. Every time the HTTP response code 200 is specified in <xref target="RFC7030"/> in response to a GET (POST) request, in EST-coaps the equivalent CoAP response code 2.05 (2.01) MUST be used. Response code HTTP 202 in EST is mapped to CoAP 3.05 as specified in
 <xref target="I-D.hartke-core-pending"/>.
 All other HTTP 2xx response codes are not used by EST. For the following HTTP 4xx error codes that may occur: 400, 401, 403, 404, 405, 406, 412, 413, 415; the equivalent CoAP response code for EST-coaps is 4.xx. For the HTTP 5xx error codes: 500, 501, 502, 503, 504 the equivalent CoAP response code is 5.xx.</t>
-      
-    </section> <!-- CoAP response codes -->
+	
+    </section> <!-- Message Bindings -->
 
     <section anchor="fragment" title="Message fragmentation">
       <t>DTLS defines fragmentation only for the handshake part and not for secure data exchange (DTLS records). <xref target="RFC6347"/> states "Each DTLS record MUST fit within a single datagram". To avoid using IP fragmentation, which is not supported by 6LoWPAN, invokers of the DTLS record layer MUST size DTLS records so that they fit within any Path MTU estimates obtained from the record layer. In addition, invokers residing on a 6LoWPAN over IEEE 802.15.4 network SHOULD attempt to size CoAP messages such that each DTLS record will fit within one or two IEEE 802.15.4 frames.</t>
@@ -275,6 +275,7 @@ MUST be computed as if each handshake message had been sent as a single fragment
 
   <section anchor="proxy" title="Proxying">
     <t>In real-world deployments, the EST server will not always reside within the COAP boundary. The EST-server can exist outside the constrained network in a non-constrained network that supports TLS/HTTP. In such environments EST-coaps is used by the client within the COAP boundary and TLS is used to transport the EST messages outside the CoAP boundary. A proxy entity at the edge is required to operate between the COAP environment and the external HTTP network. The ESTcoaps-to-HTTPS proxy SHOULD terminate EST-coaps downstream and initiate EST connections over TLS upstream.</t> 
+	<!-- EDNOTE: From Jim "The text should explain better how the http/coap proxy succeeds in having a unique tls connection and a unique dtls connection. This probably implies a RA connected (inserted into) the proxy. Cisco probably has some standard solutions there; and it would be essential to describe one approach (shortly) in the proxying section." -->
 <t>One possible use-case, shown in one figure below, is expected to be deployed in practice:
 <list style="symbols">
 <t>A proxy between any EST-client and EST-server</t>
@@ -605,15 +606,30 @@ e37722cd10e7166c50e75ab75a1271324460211991e7445a2960f47351a1a629253
 <figure align="left"><artwork><![CDATA[
 REQ:
 GET coaps://[192.0.2.1:8085]/est/att
-RET:
-2.05 Content (Content-Format: application/crsattrs)
-307c06072b060101010116302206038dc1311b131950617273652053455420617
-320322e3939392e31206461746106092a620673410907302c06038dc231250603
-8dc306038dc4131950617273652053455420617320322e3939392e32206461746
-106092b240303020801010b06096062016503040202
 ]]></artwork></figure>
+<!--      <t>with CoAP header fields
+</t>
+      <figure><artwork>
+<![CDATA[  Ver = 1
+  T = 0 (CON)
+  Code = 0x01 (0.01 is GET)
+  Options
+   Option1 (Uri-Host)
+     Option Delta = 0x3  (option nr = 3)
+     Option Length = 0x9
+     Option Value = 192.0.2.1
+   Option2 (Uri-Port)
+     Option Delta = 0x4  (option nr = 4+3=7)
+     Option Length = 0x4
+     Option Value = 8085
+   Option3 (Uri-Path)
+     Option Delta = 0x4   (option nr = 7+4= 11)
+     Option Length = 0x8
+     Option Value = /est/att
+  Payload = [Empty]
+]]></artwork></figure> -->
 
-	<t>A 2.05 Content response contains attributes which are relevant for the authenticated client. In this example, the EST-coaps server returns two attributes that the client can ignore when they are unknown to him.</t>
+      <t>A 2.05 Content response contains attributes which are relevant for the authenticated client. In this example, the EST-coaps server two attributes that the client can ignore when they are unknown to him.:</t>
     </section>  <!-- csrattrs -->
 
     <section title="enroll / reenroll">
@@ -622,7 +638,6 @@ RET:
 <t> After verification of the certificate by the server, a 2.05 Content response with the issued certificate will be returned.</t>
 
 <figure align="left"><artwork><![CDATA[
-REQ:
 POST coaps://[192.0.2.1:8085]/est/sen
 (Content-Format: application/pkcs10)
 30208530206d020100301f311d301b0603550403131464656d6f7374657034203
@@ -667,6 +682,34 @@ a2583aac9024075113db4990b1786b871691e0f020301000134b050300e060355
 171e4733ad3d13c0103100
 ]]></artwork></figure>
 
+<!--      <t>with CoAP header fields</t>
+      <figure><artwork>
+<![CDATA[  Ver = 1
+  T = 0 (CON)
+  Code = 0x02 (0.02 is POST)
+  Options
+   Option1 (Uri-Host)
+     Option Delta = 0x3  (option nr = 3)
+     Option Length = 0x9
+     Option Value = 192.0.2.1
+   Option2 (Uri-Port)
+     Option Delta = 0x4  (option nr = 4+3=7)
+     Option Length = 0x4
+     Option Value = 8085
+   Option3 (Uri-Path)
+     Option Delta = 0x4   (option nr = 7+4= 11)
+     Option Length = 0x8
+     Option Value = /est/sen
+   Option4 (Content-Format)
+      Option Delta = 0x1  (option nr = 11+1 = 12)
+      Option Length = 0x2
+      Option Value = TBD5 (defined in this document)
+
+  Payload =
+[EDNOTE: If POP is used, make sure tls-unique in the CSR is a
+ valid HMAC output. ] 
+302... -->
+
 	<t>[EDNOTE: If POP is used, make sure tls-unique in the CSR is a valid HMAC output. ]</t>
     </section>  <!-- enroll / reenroll -->
 
@@ -676,8 +719,9 @@ a2583aac9024075113db4990b1786b871691e0f020301000134b050300e060355
 	<t>[EDNote: If POP is used, make sure tls-unique in the CSR
  is a valid HMAC output. ]</t>
       <t> The initial DTLS handshake is identical to the enrollment example. The CoAP GET request looks like:</t> 
+	  <!-- EDNOTE: From Jim "Suggestion to have only one example with complete encrypted payload (the short one) and point out the different fields." -->
+
 <figure align="left"><artwork><![CDATA[
-REQ:
 POST coaps://[192.0.2.1:8085]/est/skg
 302081302069020100305b313e303c060355040313357365727665724b6579476
 56e2072657120627920636c69656e7420696e2064656d6f207374657020313220
@@ -751,8 +795,37 @@ b36eb4c3c7ef713f2d137ae8be4c022715fd033a818d55250f4e6077718180755
 a4fa677130da60818175ca4ab2af1d15563624c51e13dfdcf381881b72327e2f4
 9b7467e631a27b5b5c7d542bd2edaf78c0ac294f3972278996bdf673a334ff74c
 84aa7d65726310252f6a4f41281ec10ca2243864e3c5743103100
-]]></artwork></figure>
-	<t> Without the DecryptKeyIdentifier attribute, the response has no additional encryption beyond the DTLS one.</t>
+]]></artwork></figure> 
+<!--      <t>with CoAP header fields</t>
+      <figure><artwork>
+<![CDATA[  Ver = 1
+  T = 0 (CON)
+  Code = 0x02 (0.02 is POST)
+  Options
+   Option1 (Uri-Host)
+     Option Delta = 0x3  (option nr = 3)
+     Option Length = 0x9
+     Option Value = 192.0.2.1
+   Option2 (Uri-Port)
+     Option Delta = 0x4  (option nr = 4+3=7)
+     Option Length = 0x4
+     Option Value = 8085
+   Option3 (Uri-Path)
+     Option Delta = 0x4   (option nr = 7+4= 11)
+     Option Length = 0x8
+     Option Value = /est/skg
+   Option4 (Content-Format) 
+[EDNOTE: the client incudes a CSR with a public key  that the
+ server should ignore, so we need a content-format here. ]
+      Option Delta = 0x1  (option nr = 12)
+      Option Length = 0x2
+      Option Value = TBD5 (defined in this document)
+  Payload =
+[EDNote: If POP is used, make sure tls-unique in the CSR
+ is a valid HMAC output. ]
+302... -->
+
+	<t> Without the DecryptKeyIdentifier attribute, the response has no additional encryption beyond DTLS. [EDNOTE: Add comment about deriving symmetric keys by using the TLS KEM draft. ] </t>
 	<t>The response contains first a preamble that can be ignored. The EST-coaps server can use the preamble to include additional explanations, like ownership or support information </t>
     </section>  <!-- serverkeygen -->
 

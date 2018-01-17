@@ -5,7 +5,7 @@
 ACE                                                      P. van der Stok
 Internet-Draft                                                Consultant
 Intended status: Standards Track                           P. Kampanakis
-Expires: July 6, 2018                                      Cisco Systems
+Expires: July 21, 2018                                     Cisco Systems
                                                                 S. Kumar
                                                Philips Lighting Research
                                                            M. Richardson
@@ -14,7 +14,7 @@ Expires: July 6, 2018                                      Cisco Systems
                                                              Nexus Group
                                                                  S. Raza
                                                                RISE SICS
-                                                         January 2, 2018
+                                                        January 17, 2018
 
 
                     EST over secure CoAP (EST-coaps)
@@ -47,15 +47,14 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on July 6, 2018.
+   This Internet-Draft will expire on July 21, 2018.
 
 
 
 
 
-van der Stok, et al.      Expires July 6, 2018                  [Page 1]
-
-
+van der Stok, et al.      Expires July 21, 2018                 [Page 1]
+
 Internet-Draft                  EST-coaps                   January 2018
 
 
@@ -77,14 +76,15 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
-     1.1.  EST operational differences . . . . . . . . . . . . . . .   4
+     1.1.  EST operational differences . . . . . . . . . . . . . . .   3
      1.2.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   4
    2.  Conformance to RFC7925 profiles . . . . . . . . . . . . . . .   4
    3.  Protocol Design and Layering  . . . . . . . . . . . . . . . .   5
      3.1.  Payload format  . . . . . . . . . . . . . . . . . . . . .   6
      3.2.  Message Bindings  . . . . . . . . . . . . . . . . . . . .   6
-     3.3.  CoAP response codes . . . . . . . . . . . . . . . . . . .   7
+     3.3.  CoAP response codes . . . . . . . . . . . . . . . . . . .   6
      3.4.  Message fragmentation . . . . . . . . . . . . . . . . . .   7
+     3.5.  Deployment limits . . . . . . . . . . . . . . . . . . . .   8
    4.  Discovery and URI . . . . . . . . . . . . . . . . . . . . . .   8
    5.  DTLS Transport Protocol . . . . . . . . . . . . . . . . . . .  10
    6.  Proxying  . . . . . . . . . . . . . . . . . . . . . . . . . .  11
@@ -106,16 +106,15 @@ Table of Contents
      A.3.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  23
      A.4.  serverkeygen  . . . . . . . . . . . . . . . . . . . . . .  25
    Appendix B.  Encoding for server side key generation  . . . . . .  27
-   Appendix C.  EST-coaps Block message examples . . . . . . . . . .  27
 
 
 
-van der Stok, et al.      Expires July 6, 2018                  [Page 2]
-
-
+van der Stok, et al.      Expires July 21, 2018                 [Page 2]
+
 Internet-Draft                  EST-coaps                   January 2018
 
 
+   Appendix C.  EST-coaps Block message examples . . . . . . . . . .  27
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  29
 
 1.  Introduction
@@ -131,7 +130,7 @@ Internet-Draft                  EST-coaps                   January 2018
    smaller subset.
 
    IPv6 over Low-power Wireless Personal Area Networks (6LoWPANs)
-   [RFC4944] on IEEE 802.15.4 [ieee802.15.4] wireless networks is
+   [RFC4944] on IEEE 802.15.4 [ieee802.15.4] wireless networks are
    becoming common in many industry application domains such as lighting
    controls.  Although IEEE 802.15.4 defines how security can be enabled
    between nodes within a single mesh network, it does not specify the
@@ -149,29 +148,10 @@ Internet-Draft                  EST-coaps                   January 2018
    the invocations of TLS and HTTP by DTLS and CoAP invocations thus
    enabling EST for CoAP-based low-resource devices.
 
-   [EDNote: suggestion to suppress last 2 paragraphs]
-
-   Although EST-coaps paves the way for the utilization of EST for
-   constrained devices on constrained networks, some devices will not
-   have enough resources to handle the large payloads that come with
-   EST-coaps.  The specification of EST-coaps is intended to ensure that
-   EST works for networks of constrained devices that choose to limit
-   their communications stack to UDP/CoAP.  It is up to the network
-   designer to decide which devices execute the EST protocol and which
-   not.
-
    Because the relatively large EST messages cannot be readily
    transported over constrained (6LoWPAN, LLN) wireless networks, this
    document specifies the use of CoAP Block-Wise Transfer ("Block")
    [RFC7959] to fragment EST messages at the application layer.
-
-
-
-van der Stok, et al.      Expires July 6, 2018                  [Page 3]
-
-
-Internet-Draft                  EST-coaps                   January 2018
-
 
 1.1.  EST operational differences
 
@@ -180,6 +160,15 @@ Internet-Draft                  EST-coaps                   January 2018
    as follows:
 
    o  Replacement of TLS by DTLS and HTTP by CoAP, resulting in:
+
+
+
+
+
+van der Stok, et al.      Expires July 21, 2018                 [Page 3]
+
+Internet-Draft                  EST-coaps                   January 2018
+
 
       *  DTLS-secured CoAP sessions between EST-coaps client and EST-
          coaps server.
@@ -222,14 +211,6 @@ Internet-Draft                  EST-coaps                   January 2018
    Point Formats Extensions [RFC4492]; the uncompressed point format
    MUST be supported; [RFC6090] can be used as an implementation method.
 
-
-
-van der Stok, et al.      Expires July 6, 2018                  [Page 4]
-
-
-Internet-Draft                  EST-coaps                   January 2018
-
-
    The EST-coaps client MUST be configured with an explicit TA database
    or at least an implicit TA database from its manufacturer.  The
    authentication of the EST-coaps server by the EST-coaps client is
@@ -237,6 +218,13 @@ Internet-Draft                  EST-coaps                   January 2018
 
    The authentication of the EST-coaps client is based on client
    certificate in the DTLS handshake.  This can either be
+
+
+
+van der Stok, et al.      Expires July 21, 2018                 [Page 4]
+
+Internet-Draft                  EST-coaps                   January 2018
+
 
    o  DTLS with a previously issued client certificate (e.g., an
       existing certificate issued by the EST CA); this could be a common
@@ -279,14 +267,6 @@ Internet-Draft                  EST-coaps                   January 2018
    o  CSR Attributes request messages, informs the client of the fields
       to include in generated CSR.
 
-
-
-van der Stok, et al.      Expires July 6, 2018                  [Page 5]
-
-
-Internet-Draft                  EST-coaps                   January 2018
-
-
    o  Server-side key generation messages, to provide a private client-
       identity key when the client is too restricted or because of lack
       of an entropy source.  [EDNOTE: Encrypting these keys is
@@ -294,6 +274,13 @@ Internet-Draft                  EST-coaps                   January 2018
       with CMS using symmetric or asymmetric keys.  Mention how
       symmetric key can be derived for EST server side key generation
       from the TLS KEM draft.]
+
+
+
+van der Stok, et al.      Expires July 21, 2018                 [Page 5]
+
+Internet-Draft                  EST-coaps                   January 2018
+
 
 3.1.  Payload format
 
@@ -335,23 +322,22 @@ Internet-Draft                  EST-coaps                   January 2018
    Appendix A includes some practical examples of EST messages
    translated to CoAP.
 
-
-
-
-van der Stok, et al.      Expires July 6, 2018                  [Page 6]
-
-
-Internet-Draft                  EST-coaps                   January 2018
-
-
 3.3.  CoAP response codes
 
    Section 5.9 of [RFC7252] specifies the mapping of HTTP response codes
    to CoAP response codes.  Every time the HTTP response code 200 is
    specified in [RFC7030] in response to a GET (POST) request, in EST-
    coaps the equivalent CoAP response code 2.05 (2.01) MUST be used.
-   Response code HTTP 202 in EST is mapped to CoAP 3.05.  In
+   Response code HTTP 202 in EST is mapped to CoAP _.__.  In
    [I-D.hartke-core-pending] it is specified how multiple concurrently
+
+
+
+van der Stok, et al.      Expires July 21, 2018                 [Page 6]
+
+Internet-Draft                  EST-coaps                   January 2018
+
+
    open requests may be handled.  All other HTTP 2xx response codes are
    not used by EST.  For the following HTTP 4xx error codes that may
    occur: 400, 401, 403, 404, 405, 406, 412, 413, 415; the equivalent
@@ -364,7 +350,7 @@ Internet-Draft                  EST-coaps                   January 2018
    DTLS defines fragmentation only for the handshake part and not for
    secure data exchange (DTLS records).  [RFC6347] states that to avoid
    using IP fragmentation, which involves error-prone datagram
-   reconstitution, invokers of the DTLS record layer DHOULD size DTLS
+   reconstitution, invokers of the DTLS record layer SHOULD size DTLS
    records so that they fit within any Path MTU estimates obtained from
    the record layer.  In addition, invokers residing on a 6LoWPAN over
    IEEE 802.15.4 network SHOULD attempt to size CoAP messages such that
@@ -392,15 +378,6 @@ Internet-Draft                  EST-coaps                   January 2018
    messages into multiple DTLS datagrams.  Fine-grained fragmentation of
    EST messages is essential.
 
-
-
-
-van der Stok, et al.      Expires July 6, 2018                  [Page 7]
-
-
-Internet-Draft                  EST-coaps                   January 2018
-
-
    To perform fragmentation in CoAP, [RFC7959] specifies the "Block1"
    option for fragmentation of the request payload and the "Block2"
    option for fragmentation of the return payload of a CoAP flow.
@@ -408,6 +385,14 @@ Internet-Draft                  EST-coaps                   January 2018
    The BLOCK draft defines SZX in the Block1 and Block2 option fields.
    These are used to convey the size of the blocks in the requests or
    responses.
+
+
+
+
+van der Stok, et al.      Expires July 21, 2018                 [Page 7]
+
+Internet-Draft                  EST-coaps                   January 2018
+
 
    The CoAP client MAY specify the Block1 size and MAY also specify the
    Block2 size.  The CoAP server MAY specify the Block2 size, but not
@@ -424,6 +409,17 @@ Internet-Draft                  EST-coaps                   January 2018
    response to a request.
 
    Examples of fragmented messages are shown in Appendix C.
+
+3.5.  Deployment limits
+
+   Although EST-coaps paves the way for the utilization of EST for
+   constrained devices on constrained networks, some devices will not
+   have enough resources to handle the large payloads that come with
+   EST-coaps.  The specification of EST-coaps is intended to ensure that
+   EST works for networks of constrained devices that choose to limit
+   their communications stack to UDP/CoAP.  It is up to the network
+   designer to decide which devices execute the EST protocol and which
+   not.
 
 4.  Discovery and URI
 
@@ -449,12 +445,8 @@ Internet-Draft                  EST-coaps                   January 2018
 
 
 
-
-
-
-van der Stok, et al.      Expires July 6, 2018                  [Page 8]
-
-
+van der Stok, et al.      Expires July 21, 2018                 [Page 8]
+
 Internet-Draft                  EST-coaps                   January 2018
 
 
@@ -509,9 +501,8 @@ Internet-Draft                  EST-coaps                   January 2018
 
 
 
-van der Stok, et al.      Expires July 6, 2018                  [Page 9]
-
-
+van der Stok, et al.      Expires July 21, 2018                 [Page 9]
+
 Internet-Draft                  EST-coaps                   January 2018
 
 
@@ -566,9 +557,8 @@ Internet-Draft                  EST-coaps                   January 2018
 
 
 
-van der Stok, et al.      Expires July 6, 2018                 [Page 10]
-
-
+van der Stok, et al.      Expires July 21, 2018                [Page 10]
+
 Internet-Draft                  EST-coaps                   January 2018
 
 
@@ -623,9 +613,8 @@ Internet-Draft                  EST-coaps                   January 2018
 
 
 
-van der Stok, et al.      Expires July 6, 2018                 [Page 11]
-
-
+van der Stok, et al.      Expires July 21, 2018                [Page 11]
+
 Internet-Draft                  EST-coaps                   January 2018
 
 
@@ -680,9 +669,8 @@ Internet-Draft                  EST-coaps                   January 2018
 
 
 
-van der Stok, et al.      Expires July 6, 2018                 [Page 12]
-
-
+van der Stok, et al.      Expires July 21, 2018                [Page 12]
+
 Internet-Draft                  EST-coaps                   January 2018
 
 
@@ -737,9 +725,8 @@ Internet-Draft                  EST-coaps                   January 2018
 
 
 
-van der Stok, et al.      Expires July 6, 2018                 [Page 13]
-
-
+van der Stok, et al.      Expires July 21, 2018                [Page 13]
+
 Internet-Draft                  EST-coaps                   January 2018
 
 
@@ -794,9 +781,8 @@ Internet-Draft                  EST-coaps                   January 2018
 
 
 
-van der Stok, et al.      Expires July 6, 2018                 [Page 14]
-
-
+van der Stok, et al.      Expires July 21, 2018                [Page 14]
+
 Internet-Draft                  EST-coaps                   January 2018
 
 
@@ -851,9 +837,8 @@ Internet-Draft                  EST-coaps                   January 2018
 
 
 
-van der Stok, et al.      Expires July 6, 2018                 [Page 15]
-
-
+van der Stok, et al.      Expires July 21, 2018                [Page 15]
+
 Internet-Draft                  EST-coaps                   January 2018
 
 
@@ -908,9 +893,8 @@ Internet-Draft                  EST-coaps                   January 2018
 
 
 
-van der Stok, et al.      Expires July 6, 2018                 [Page 16]
-
-
+van der Stok, et al.      Expires July 21, 2018                [Page 16]
+
 Internet-Draft                  EST-coaps                   January 2018
 
 
@@ -965,9 +949,8 @@ Internet-Draft                  EST-coaps                   January 2018
 
 
 
-van der Stok, et al.      Expires July 6, 2018                 [Page 17]
-
-
+van der Stok, et al.      Expires July 21, 2018                [Page 17]
+
 Internet-Draft                  EST-coaps                   January 2018
 
 
@@ -1022,9 +1005,8 @@ Internet-Draft                  EST-coaps                   January 2018
 
 
 
-van der Stok, et al.      Expires July 6, 2018                 [Page 18]
-
-
+van der Stok, et al.      Expires July 21, 2018                [Page 18]
+
 Internet-Draft                  EST-coaps                   January 2018
 
 
@@ -1079,9 +1061,8 @@ Internet-Draft                  EST-coaps                   January 2018
 
 
 
-van der Stok, et al.      Expires July 6, 2018                 [Page 19]
-
-
+van der Stok, et al.      Expires July 21, 2018                [Page 19]
+
 Internet-Draft                  EST-coaps                   January 2018
 
 
@@ -1136,9 +1117,8 @@ A.1.  cacerts
 
 
 
-van der Stok, et al.      Expires July 6, 2018                 [Page 20]
-
-
+van der Stok, et al.      Expires July 21, 2018                [Page 20]
+
 Internet-Draft                  EST-coaps                   January 2018
 
 
@@ -1193,9 +1173,8 @@ Internet-Draft                  EST-coaps                   January 2018
 
 
 
-van der Stok, et al.      Expires July 6, 2018                 [Page 21]
-
-
+van der Stok, et al.      Expires July 21, 2018                [Page 21]
+
 Internet-Draft                  EST-coaps                   January 2018
 
 
@@ -1250,9 +1229,8 @@ Internet-Draft                  EST-coaps                   January 2018
 
 
 
-van der Stok, et al.      Expires July 6, 2018                 [Page 22]
-
-
+van der Stok, et al.      Expires July 21, 2018                [Page 22]
+
 Internet-Draft                  EST-coaps                   January 2018
 
 
@@ -1307,9 +1285,8 @@ A.3.  enroll / reenroll
 
 
 
-van der Stok, et al.      Expires July 6, 2018                 [Page 23]
-
-
+van der Stok, et al.      Expires July 21, 2018                [Page 23]
+
 Internet-Draft                  EST-coaps                   January 2018
 
 
@@ -1364,9 +1341,8 @@ Internet-Draft                  EST-coaps                   January 2018
 
 
 
-van der Stok, et al.      Expires July 6, 2018                 [Page 24]
-
-
+van der Stok, et al.      Expires July 21, 2018                [Page 24]
+
 Internet-Draft                  EST-coaps                   January 2018
 
 
@@ -1421,9 +1397,8 @@ A.4.  serverkeygen
 
 
 
-van der Stok, et al.      Expires July 6, 2018                 [Page 25]
-
-
+van der Stok, et al.      Expires July 21, 2018                [Page 25]
+
 Internet-Draft                  EST-coaps                   January 2018
 
 
@@ -1478,9 +1453,8 @@ Internet-Draft                  EST-coaps                   January 2018
 
 
 
-van der Stok, et al.      Expires July 6, 2018                 [Page 26]
-
-
+van der Stok, et al.      Expires July 21, 2018                [Page 26]
+
 Internet-Draft                  EST-coaps                   January 2018
 
 
@@ -1535,9 +1509,8 @@ Appendix C.  EST-coaps Block message examples
 
 
 
-van der Stok, et al.      Expires July 6, 2018                 [Page 27]
-
-
+van der Stok, et al.      Expires July 21, 2018                [Page 27]
+
 Internet-Draft                  EST-coaps                   January 2018
 
 
@@ -1592,9 +1565,8 @@ Internet-Draft                  EST-coaps                   January 2018
 
 
 
-van der Stok, et al.      Expires July 6, 2018                 [Page 28]
-
-
+van der Stok, et al.      Expires July 21, 2018                [Page 28]
+
 Internet-Draft                  EST-coaps                   January 2018
 
 
@@ -1649,9 +1621,8 @@ Authors' Addresses
 
 
 
-van der Stok, et al.      Expires July 6, 2018                 [Page 29]
-
-
+van der Stok, et al.      Expires July 21, 2018                [Page 29]
+
 Internet-Draft                  EST-coaps                   January 2018
 
 
@@ -1706,5 +1677,4 @@ Internet-Draft                  EST-coaps                   January 2018
 
 
 
-van der Stok, et al.      Expires July 6, 2018                 [Page 30]
-
+van der Stok, et al.      Expires July 21, 2018                [Page 30]

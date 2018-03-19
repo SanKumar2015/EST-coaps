@@ -232,8 +232,13 @@ All other HTTP 2xx response codes are not used by EST. For the following HTTP 4x
 ]]></artwork></figure>
       <t>The additional EST-coaps server URIs differ from the EST URI by replacing the scheme https by coaps and by specifying a shorter resource path names: </t>
 <figure align="left"><artwork><![CDATA[
-coaps://www.example.com/.well-known/est/<short-est-api> 
-OR
+coaps://www.example.com/.well-known/est/<short-est-api>.
+]]></artwork></figure>
+<t>
+The short resource path MUST be supported.
+</t><t>
+The longer resource path specified in <xref target="RFC7030"/> MAY be supported, with the exchange of https by coaps and using the short operation name: </t>
+<figure align="left"><artwork><![CDATA[
 coaps://www.example.com/.well-known/est/ArbitraryLabel/<short-est-api>
 ]]></artwork></figure>
 
@@ -407,7 +412,7 @@ The proxy proposed in <xref target="proxy"/> must be deployed with great care, a
   </section>  <!-- Security considerations  -->
 
   <section anchor="ack" title="Acknowledgements">
-    <t>The authors are very grateful to Klaus Hartke for his detailed explanations on the use of Block with DTLS. The authors would like to thank Esko Dijk and Michael Verschoor for the valuable discussions that helped in shaping the solution. They would also like to thank Peter Panburana from Cisco for his feedback on technical details of the solution. Constructive comments were received from Eliot Lear, Jim Schaad, Hannes Tschofenig, and Julien Vermillard.</t>
+    <t>The authors are very grateful to Klaus Hartke for his detailed explanations on the use of Block with DTLS. The authors would like to thank Esko Dijk and Michael Verschoor for the valuable discussions that helped in shaping the solution. They would also like to thank Peter Panburana from Cisco for his feedback on technical details of the solution. Constructive comments were received from Benjamin Kaduk, Eliot Lear, Jim Schaad, Hannes Tschofenig, and Julien Vermillard.</t>
   </section> <!-- Acknowledgements  -->
 
   <section anchor="changes" title="Change Log">

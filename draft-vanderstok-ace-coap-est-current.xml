@@ -28,7 +28,6 @@
 <!ENTITY I-D.ietf-anima-bootstrapping-keyinfra SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-anima-bootstrapping-keyinfra.xml">
 <!ENTITY I-D.ietf-6tisch-dtsecurity-secure-join SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-6tisch-dtsecurity-secure-join.xml">
 <!ENTITY I-D.ietf-6tisch-minimal-security SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-6tisch-minimal-security.xml">
-<!ENTITY I-D.hartke-core-pending SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.hartke-core-pending.xml">
 <!ENTITY I-D.rescorla-tls-dtls-connection-id SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.rescorla-tls-dtls-connection-id.xml">
 <!ENTITY I-D.fossati-core-multipart-ct SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.fossati-core-multipart-ct.xml">
 
@@ -197,11 +196,19 @@
     </section> <!-- Message bindings -->
 
     <section anchor="error" title="CoAP response codes">
-      <t>Section 5.9 of <xref target="RFC7252"/> specifies the mapping of HTTP response codes to CoAP response codes. Every time the HTTP response code 200 is specified in <xref target="RFC7030"/> in response to a GET (POST) request, in EST-coaps the equivalent CoAP response code 2.05 (2.01) MUST be used. Response code HTTP 202 in EST is mapped to CoAP _.__.
-In <xref target="I-D.hartke-core-pending"/> it is specified how multiple concurrently open requests may be handled.
+      <t>Section 5.9 of <xref target="RFC7252"/> specifies the mapping of HTTP response codes to CoAP response codes. Every time the HTTP response code 200 is specified in <xref target="RFC7030"/> in response to a GET (POST) request, in EST-coaps the equivalent CoAP response code 2.05 (2.01) MUST be used. Response code HTTP 202 has no equivalent in CoAP. 
+In <xref target="pending"/> it is specified how EST requests over CoAP handle delayed messages.
+</t><t>
 All other HTTP 2xx response codes are not used by EST. For the following HTTP 4xx error codes that may occur: 400, 401, 403, 404, 405, 406, 412, 413, 415; the equivalent CoAP response code for EST-coaps is 4.xx. For the HTTP 5xx error codes: 500, 501, 502, 503, 504 the equivalent CoAP response code is 5.xx.</t>
 	
     </section> <!-- Message Bindings -->
+
+<section anchor="pending" title="Delayed Results">
+<t>
+It is possble that certificates are not always directly available, and may even necessitate manual intervention to return the results. Therefore, each GET request MUST be accompanied by the observe option. When the result is directly available, the client receives the result and forgets about the observe as specified in <xref target="RFC7641"/>.
+When a POST response is delayed, the POST returns a 2.01 (Created) response code, having put a value in the Location option. After reception the client does a GET request with the observe option to the newly returned location. Once the delayed result is notified, the client forgets about the observe.
+</t>
+</section> <!-- Delayed Results -->
 
     <section anchor="fragment" title="Message fragmentation">
       <t>DTLS defines fragmentation only for the handshake part and not for secure data exchange (DTLS records). <xref target="RFC6347"/> states that to avoid using IP fragmentation, which involves error-prone datagram reconstitution, invokers of the DTLS record layer SHOULD size DTLS records so that they fit within any Path MTU estimates obtained from the record layer. In addition, invokers residing on a 6LoWPAN over IEEE 802.15.4 network SHOULD attempt to size CoAP messages such that each DTLS record will fit within one or two IEEE 802.15.4 frames.</t>
@@ -461,9 +468,8 @@ The proxy proposed in <xref target="proxy"/> must be deployed with great care, a
     &RFC7525;
     &I-D.ietf-anima-bootstrapping-keyinfra;
     &I-D.ietf-6tisch-dtsecurity-secure-join;
-    &I-D.ietf-6tisch-minimal-security; 
-    &I-D.hartke-core-pending;
-	&I-D.rescorla-tls-dtls-connection-id;
+    &I-D.ietf-6tisch-minimal-security;
+    &I-D.rescorla-tls-dtls-connection-id;
 	&I-D.fossati-core-multipart-ct;
     <reference anchor="ieee802.15.4">
       <front>
@@ -619,18 +625,22 @@ GET coaps://[2001:db8::2:1]:61616/est/att
      Option Delta = 0x3  (option nr = 3)
      Option Length = 0x9
      Option Value = 192.0.2.1
-   Option2 (Uri-Port)
-     Option Delta = 0x4  (option nr = 4+3=7)
+   Option2 (Observe)
+      Option Delta = 0xx  (option nr = 3+3=6)
+      Option length = 0x1 
+      Option Value = 1
+   Option3 (Uri-Port)
+     Option Delta = 0x4  (option nr = 6+1=7)
      Option Length = 0x4
      Option Value = 8085
-   Option3 (Uri-Path)
+   Option4 (Uri-Path)
      Option Delta = 0x4   (option nr = 7+4= 11)
      Option Length = 0x8
      Option Value = /est/att
   Payload = [Empty]
 ]]></artwork></figure> -->
 
-      <t>A 2.05 Content response contains attributes which are relevant for the authenticated client. In this example, the EST-coaps server two attributes that the client can ignore when they are unknown to him.:</t>
+      <t>A 2.05 Content response contains attributes which are relevant for the authenticated client. In this example, the EST-coaps server returns two attributes that the client can ignore when they are unknown to him.:</t>
     </section>  <!-- csrattrs -->
 
     <section title="enroll / reenroll">
@@ -640,7 +650,7 @@ GET coaps://[2001:db8::2:1]:61616/est/att
 
 <figure align="left"><artwork><![CDATA[
 POST [2001:db8::2:1]:61616/est/sen
-(Content-Format: application/pkcs10)
+(Content-Format: application/pkcs10) (observe)
 30208530206d020100301f311d301b0603550403131464656d6f7374657034203
 1333638313431333532302062300d06092a620673410101050003204f0030204a
 022041005d9f4dffd3c5949f646a9584367778560950b355c35b8e34726dd3764
@@ -797,6 +807,7 @@ a4fa677130da60818175ca4ab2af1d15563624c51e13dfdcf381881b72327e2f4
 9b7467e631a27b5b5c7d542bd2edaf78c0ac294f3972278996bdf673a334ff74c
 84aa7d65726310252f6a4f41281ec10ca2243864e3c5743103100
 ]]></artwork></figure> 
+<t> [Ednote, example where response is delayed] </t>
 <!--      <t>with CoAP header fields</t>
       <figure><artwork>
 <![CDATA[  Ver = 1

@@ -26,8 +26,6 @@
 <!ENTITY RFC8075 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8075.xml">
 <!ENTITY RFC7525 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7525.xml">
 <!ENTITY I-D.ietf-anima-bootstrapping-keyinfra SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-anima-bootstrapping-keyinfra.xml">
-<!ENTITY I-D.ietf-6tisch-dtsecurity-secure-join SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-6tisch-dtsecurity-secure-join.xml">
-<!ENTITY I-D.ietf-6tisch-minimal-security SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-6tisch-minimal-security.xml">
 <!ENTITY I-D.rescorla-tls-dtls-connection-id SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.rescorla-tls-dtls-connection-id.xml">
 <!ENTITY I-D.fossati-core-multipart-ct SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.fossati-core-multipart-ct.xml">
 
@@ -116,9 +114,9 @@
   <section anchor="intro" title="Introduction">
 	<t>Enrollment over Secure Transport (EST) <xref target="RFC7030"/> is used for authenticated/authorized endpoint certificate enrollment (and optionally key provisioning) through a Certificate Authority (CA) or Registration Authority (RA). This functionality is also needed for low resource devices.</t> 
 
-<t> "Classical" EST uses HTTPS and this specification defines a new transport for EST using CoAP. It also profiles the use of EST to a smaller subset.</t>
+<t> "Classical" EST uses HTTPS and this specification defines a new transport for EST using CoAP. It also profiles the use of EST to a smaller subset of authentication tools.</t>
 
-    <t>IPv6 over Low-power Wireless Personal Area Networks (6LoWPANs) <xref target="RFC4944" /> on IEEE 802.15.4 <xref target="ieee802.15.4" /> wireless networks are becoming common in many industry application domains such as lighting controls. Although IEEE 802.15.4 defines how security can be enabled between nodes within a single mesh network, it does not specify the provisioning and management of the keys. Therefore, securing a 6LoWPAN network with devices from multiple manufacturers with different provisioning techniques is often tedious and time consuming. An example use case is the application of Bootstrapping of Remote Secure Infrastructures (BRSKI) <xref target="I-D.ietf-anima-bootstrapping-keyinfra"/>. The low resource aspects are detailed for 6tisch in <xref target="I-D.ietf-6tisch-minimal-security"/> and <xref target="I-D.ietf-6tisch-dtsecurity-secure-join"/>. </t>
+    <t>IPv6 over Low-power Wireless Personal Area Networks (6LoWPANs) <xref target="RFC4944" /> on IEEE 802.15.4 <xref target="ieee802.15.4" /> wireless networks are becoming common in many industry application domains such as lighting controls. Although IEEE 802.15.4 defines how security can be enabled between nodes within a single mesh network, it does not specify the provisioning and management of the keys. Therefore, securing a 6LoWPAN network with devices from multiple manufacturers with different provisioning techniques is often tedious and time consuming. An example use case is the application of Bootstrapping of Remote Secure Infrastructures (BRSKI) <xref target="I-D.ietf-anima-bootstrapping-keyinfra"/> </t>
 	<t>Constrained networks use DTLS <xref target="RFC6347"/>, CoAP <xref target="RFC7252"/>, and UDP instead of TLS <xref target="RFC5246"/>, HTTP <xref target="RFC7230"/> and TCP. EST-coaps replaces the invocations of TLS and HTTP by DTLS and CoAP invocations thus enabling EST for CoAP-based low-resource devices.</t>
 
     <t>Because the relatively large EST messages cannot be readily transported over constrained (6LoWPAN, LLN) wireless networks, this document specifies the use of CoAP Block-Wise Transfer ("Block") <xref target="RFC7959"/> to fragment EST messages at the application layer.</t>
@@ -149,9 +147,11 @@
 
   <section anchor="profile7925" title="Conformance to RFC7925 profiles">
     <t>This section shows how EST-coaps fits into the profiles of low-resource devices as described in <xref target="RFC7925"/>.</t>
-    <t>EST-coaps can transport certificates and private keys. Private keys can be transported as response to a request to a server-side key generation as described in section 4.4 of <xref target="RFC7030"/>. [EDNOTE: Encrypting these keys is important. RFC7030 specifies how the private key can be encrypted with CMS using symmetric or asymmetric keys. Mention how symmetric key can be derived for EST server side key generation from the TLS KEM draft.]
-	[ EDNOTE: <xref target="I-D.fossati-core-multipart-ct"/> describes how multipart messages (as in the response to a server-side key generation) can be carries in COAP. Details to be discussed here. ] </t>
-    <t> The mandatory cipher suite for DTLS is TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 defined in <xref target="RFC7251"/> which is the mandatory-to-implement cipher suite in CoAP. Additionally, the curve secp256r1 MUST be supported <xref target="RFC4492"/>; this curve is equivalent to the NIST P-256 curve. The hash algorithm is SHA-256. DTLS implementations MUST use the Supported Elliptic Curves and Supported Point Formats Extensions <xref target="RFC4492"/>; the uncompressed point format MUST be supported; <xref target="RFC6090"/> can be used as an implementation method.</t>
+    <t>EST-coaps can transport certificates and private keys. Private keys can be transported as response to a request to a server-side key generation as described in section 4.4 of <xref target="RFC7030"/> and discussed in <xref target="serverkey"/>. </t> 
+    <t> The mandatory cipher suite for DTLS is TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 defined in <xref target="RFC7251"/> which is the mandatory-to-implement cipher suite in CoAP. Additionally, the curve secp256r1 MUST be supported <xref target="RFC4492"/>; this curve is equivalent to the NIST P-256 curve. The hash algorithm is SHA-256. DTLS 1.2 implementations MUST use the Supported Elliptic Curves and Supported Point Formats Extensions <xref target="RFC4492"/>; the uncompressed point format MUST be supported; <xref target="RFC6090"/> can be used as an implementation method.</t>
+<t>
+DTLS 1.3 implementations differ form DTLS 1.2 implementations because they do not support the uncompressed point format.
+</t>
     <t>The EST-coaps client MUST be configured with an explicit TA database or at least an implicit TA database from its manufacturer. The authentication of the EST-coaps server by the EST-coaps client is based on Certificate authentication in the DTLS handshake.</t>
       <t>The authentication of the EST-coaps client is based on client certificate in the DTLS handshake. This can either be
         <list style="symbols">
@@ -173,7 +173,7 @@
 |    UDP for transport                           |
 +------------------------------------------------+
 ]]></artwork></figure>
-    <t>The EST-coaps protocol design follows closely the EST design. The parts supported by EST-coaps are identified by their message types:
+    <t>The EST-coaps protocol design follows closely the EST design. The actions supported by EST-coaps are identified by their message types:
           <list style="symbols">
             <t>Simple enroll and reenroll, for CA to sign public client-identity key.</t>
             <t>CA certificate retrieval, needed to receive the complete set of CA certificates. </t>
@@ -186,11 +186,21 @@
         <t>EST-coaps is designed for use between low-resource devices using CoAP and hence does not need to send base64-encoded data. Simple binary is more efficient (30% less payload compared to base64) and well supported by CoAP. Therefore, the content formats specification in <xref target="iana"/> requires the use of binary for all EST-coaps Content-Formats.</t>
     </section> <!-- Payload format -->
 
+   <section anchor="serverkey" title="Server Key Generation">
+     <t>
+[EDNOTE: This section needs a short use-case motivation]</t>
+<t>
+[EDNOTE: Encrypting these keys is important. RFC7030 specifies how the private key can be encrypted with CMS using symmetric or asymmetric keys. Mention how symmetric key can be derived for EST server side key generation from the TLS KEM draft.]</t>
+<t>
+	[ EDNOTE: <xref target="I-D.fossati-core-multipart-ct"/> describes how multipart messages (as in the response to a server-side key generation) can be carries in COAP. Details to be discussed here. ] 
+    </t>
+   </section> <!-- Server Key Generation -->
+
     <section title="Message Bindings">
       <t>This section describes the general EST CoAP message characteristics.</t>
       <t> <!-- EDNOTE: From Jim "Rephrase the use of CON" --> It is RECOMMENDED to use CoAP CON messages. This recommendation does not influence the communication efficiency because all EST-coaps messages expect a response.</t>
       <t>The Ver, TKL, Token, and Message ID values of the CoAP header are not influenced by EST.</t>
-      <t>CoAP options are used to convey Uri-Host, Uri-Path, Uri-Port, Content-Format and more in CoAP. The CoAP Options are used to communicate the HTTP fields specified in the EST REST messages. </t>
+      <t>CoAP options are used to convey Uri-Host, Uri-Path, Uri-Port, Content-Format, and Location-Path in CoAP. The CoAP Options are used to communicate the HTTP fields specified in the EST REST messages. </t>
       <t>EST URLs are HTTPS based (https://), in CoAP these will be assumed to be transformed to coaps (coaps://)</t>
       <t> <xref target="messagebindings"/> includes some practical examples of EST messages translated to CoAP.</t>
     </section> <!-- Message bindings -->
@@ -205,8 +215,10 @@ All other HTTP 2xx response codes are not used by EST. For the following HTTP 4x
 
 <section anchor="pending" title="Delayed Results">
 <t>
-It is possble that certificates are not always directly available, and may even necessitate manual intervention to return the results. Therefore, each GET request MUST be accompanied by the observe option. When the result is directly available, the client receives the result and forgets about the observe as specified in <xref target="RFC7641"/>.
-When a POST response is delayed, the POST returns a 2.01 (Created) response code, having put a value in the Location option. After reception the client does a GET request with the observe option to the newly returned location. Once the delayed result is notified, the client forgets about the observe.
+It is possble that responses are not always directly available, and may even necessitate manual intervention to return the results. Delays of minutes to hours are possible. Therefore, each GET request MUST be accompanied by the observe option. When the result is directly available, the client receives the result and forgets about the observe as specified in section 3.6 of <xref target="RFC7641"/>.
+When a POST response is delayed, the POST returns a 2.01 (Created) response code, having put a value in the Location-Path option. After reception of 2.01 the client does a GET request with the observe option to the newly returned location. Once the delayed result is notified by the server, the client forgets about the observe.</t>
+<t>
+Next to the observe option the client must specify the Max-Age option that indicates the maximum waiting time in minutes.
 </t>
 </section> <!-- Delayed Results -->
 
@@ -237,16 +249,16 @@ When a POST response is delayed, the POST returns a 2.01 (Created) response code
 </est>; rt="ace.est"
   
 ]]></artwork></figure>
-      <t>The additional EST-coaps server URIs differ from the EST URI by replacing the scheme https by coaps and by specifying a shorter resource path names: </t>
+      <t>The individual EST-coaps server URIs differ from the EST URI by replacing the scheme https by coaps and by specifying shorter resource path names: </t>
 <figure align="left"><artwork><![CDATA[
-coaps://www.example.com/.well-known/est/<short-est-api>.
+coaps://www.example.com/.well-known/est/<short-est>.
 ]]></artwork></figure>
 <t>
 The short resource path MUST be supported.
 </t><t>
 The longer resource path specified in <xref target="RFC7030"/> MAY be supported, with the exchange of https by coaps and using the short operation name: </t>
 <figure align="left"><artwork><![CDATA[
-coaps://www.example.com/.well-known/est/ArbitraryLabel/<short-est-api>
+coaps://www.example.com/.well-known/est/ArbitraryLabel/<short-est>
 ]]></artwork></figure>
 
       <t>Figure 5 in section 3.2.2 of <xref target="RFC7030"/> enumerates the operations and corresponding paths which are supported by EST. <xref target="est-uri"/> provides the mapping from the EST URI path to the shorter EST-coaps URI path.</t>
@@ -262,7 +274,7 @@ coaps://www.example.com/.well-known/est/ArbitraryLabel/<short-est-api>
   
 </texttable>
 
-      <t> When discovering the root path for the EST resources, the server MAY return the full resource paths and the used content types. This is useful when multiple content types are specified for EST-coaps server. For example, the following more complete response is possible.</t>
+      <t> When discovering the root path for the EST resources, the server MAY return all available resource paths and the used content types. This is useful when multiple content types are specified for EST-coaps server. For example, the following more complete response is possible.</t>
 <figure><artwork align="left"><![CDATA[
   REQ: GET /.well-known/core?rt=ace.est
 
@@ -279,7 +291,7 @@ coaps://www.example.com/.well-known/est/ArbitraryLabel/<short-est-api>
     </section> <!-- discovery and URI -->
 
   <section anchor="DTLS" title = "DTLS Transport Protocol">    
-    <t>EST-coaps depends on a secure transport mechanism over UDP that can secure (confidentiality, authenticity) the CoAP messages exchanged. </t>
+    <t>EST-coaps depends on a secure transport mechanism over UDP that can secure (confidentiality, authenticity) the exchanged CoAP messages. </t>
       <t> DTLS is one such secure protocol. When "TLS" is referred to in the context of EST, it is understood that in EST-coaps, security is provided using DTLS instead. No other changes are necessary (all provisional modes etc. are the same as for TLS). <!-- DTLS handshakes use a retramsit times to handle packet loss in lossy environments. as explained in https://tools.ietf.org/html/rfc6347#section-3.2.1 --> </t>
       <t>CoAP was designed to avoid fragmentation. DTLS is used to secure CoAP messages. However, fragmentation is still possible at the DTLS layer during the DTLS handshake when using ECC ciphersuites. If fragmentation is necessary, "DTLS provides a mechanism for fragmenting a handshake message over a number of records, each of which can be transmitted separately, thus avoiding IP fragmentation" <xref target="RFC6347"/>.</t>
       <t>CoAP and DTLS can provide proof of identity for EST-coaps clients and server with simple PKI messages conformant to section 3.1 of <xref target="RFC5272"/>. EST-coaps supports the certificate types and Trust Anchors (TA) that are specified for EST in section 3 of <xref target="RFC7030"/>.</t>
@@ -291,38 +303,42 @@ PRF(master_secret, finished_label, Hash(handshake_messages))
 MUST be computed as if each handshake message had been sent as a single fragment <xref target="RFC6347"/>.</t>
 <!-- EDNOTE: Account for DTLS 1.3-->
       <t>In a constrained CoAP environment, endpoints can't afford to establish a DTLS connection for every EST transaction. Authenticating and negotiating DTLS keys requires resources on low-end endpoints and consumes valuable bandwidth. The DTLS connection SHOULD remain open for persistent EST connections. For example, an EST cacerts request that is followed by a simpleenroll request can use the same authenticated DTLS connection. Given that after a successful enrollment, it is more likely that a new EST transaction will take place after a significant amount of time, the DTLS connections SHOULD only be kept alive for EST messages that are relatively close to each other. In some cases, such as NAT rebinding, keeping the state of a connection is not possible when devices sleep for extended periods of time. In such ocassions, <xref target="I-D.rescorla-tls-dtls-connection-id"/> negotiates a connection ID that can eliminate the need for new handshake and its additional cost. </t>
-<t>Support for Observe CoAP options <xref target="RFC7641"/> is out-of-scope for this document. Observe options could be used by the server to notify clients about a change in the cacerts or csr attributes (resources) and might be an area of future work.</t>
+<t>Support for Observe CoAP options <xref target="RFC7641"/> is compulsory. The necessity of Observer for long delays (minutes - hours)is explained in <xref target="pending"/>. Observe options could also be used by the server to notify clients about a change in the cacerts or csr attributes (resources) and might be an area of future work.</t>
 
   </section> <!-- Transport protocol -->
 
-  <section anchor="proxy" title="Proxying">
-    <t>In real-world deployments, the EST server will not always reside within the CoAP boundary. The EST-server can exist outside the constrained network in a non-constrained network that supports TLS/HTTP. In such environments EST-coaps is used by the client within the CoAP boundary and TLS is used to transport the EST messages outside the CoAP boundary. A proxy entity at the edge is required to operate between the CoAP environment and the external HTTP network. The ESTcoaps-to-HTTPS proxy SHOULD terminate EST-coaps downstream and initiate EST connections over TLS upstream.</t> 
-	<!-- EDNOTE: From Jim "The text should explain better how the http/coap proxy succeeds in having a unique tls connection and a unique dtls connection. This probably implies a RA connected (inserted into) the proxy. Cisco probably has some standard solutions there; and it would be essential to describe one approach (shortly) in the proxying section." -->
+  <section anchor="proxy" title="HTTPS-CoAPS Registrar">
+    <t>[EDNOTE: terminology to be reviewed; because proxy was replaced by Registrar]</t>
+
+    <t>In real-world deployments, the EST server will not always reside within the CoAP boundary. The EST-server can exist outside the constrained network in a non-constrained network that supports TLS/HTTP. In such environments EST-coaps is used by the client within the CoAP boundary and TLS is used to transport the EST messages outside the CoAP boundary. A Registrar at the edge is required to operate between the CoAP environment and the external HTTP network. The ESTcoaps-to-HTTPS Registrar SHOULD terminate EST-coaps downstream and initiate EST connections over TLS upstream.</t> 
+	<t>
+ [EDNOTE: From Jim "The text should explain better how the http/coap registrar succeeds in having a unique tls connection and a unique dtls connection. Cisco probably has some standard solutions there; and it would be essential to describe one approach (shortly) in this section."]</t>
+
 <t>One possible use-case, shown in one figure below, is expected to be deployed in practice:
 <list style="symbols">
-<t>A proxy between any EST-client and EST-server</t>
+<t>A Registrar between any EST-client and EST-server</t>
 </list>
 </t>
-<figure align="left" title="ESTcoaps-to-HTTPS proxy at the CoAP boundary."><artwork><![CDATA[
+<figure align="left" title="ESTcoaps-to-HTTPS Registrar at the CoAP boundary."><artwork><![CDATA[
                                      Constrained Network
                   .---------.    .----------------------------.
-                  |   RA    |    |.--------------------------.|
+                  |   CA    |    |.--------------------------.|
                   '---------'    ||                          ||
                         |        ||                          ||
 .------.  HTTP   .-----------------.  CoAPS   .-----------.  ||
 | EST  |<------->|ESTcoaps-to-HTTPS|<-------->| EST Client|  ||
-|Server|over TLS |      Proxy      |          '-----------'  ||
+|Server|over TLS |   Registrar     |          '-----------'  ||
 '------'         '-----------------'                         ||
                                  ||                          ||
                                  |'--------------------------'|
                                  '----------------------------'
 ]]></artwork></figure>
 
-    <t><xref target="est-uri"/> contains the URI mapping between the EST-coaps and EST the proxy SHOULD adhere to. Section 7 of <xref target="RFC8075"/> and <xref target="error"/> define the mapping between EST-coaps and HTTP response codes, that determines how a proxy translates CoAP response codes from/to HTTP status codes. The mapping from Content-Type to media type is defined in <xref target="iana"/>. The conversion from binary to BSD64 needs to be done in the proxy. Conversion is possible because a TLS link exists between EST-coaps-to-HTTP proxy and EST server and a corresponding DTLS linked exists between EST-coaps-to-HTTP proxy and EST client.</t>
-	<t>Due to fragmentation of large messages into blocks, an EST-coaps-to-HTTP proxy SHOULD reassemble the BLOCKs before translating the binary content to BSD64, and consecutively relay the message upstream into the HTTP environment. </t>
-    <t>For the discovery of the EST server by the EST client in the coap environment, the EST-coaps-to-HTTP proxy MUST announce itself according to the rules of <xref target="discovery"/>. The available functions of the proxies MUST be announced with as many resource paths. The discovery of EST server in the http environment follow the rules specified in <xref target="RFC7030"/>.</t>
+    <t><xref target="est-uri"/> contains the URI mapping between the EST-coaps and EST the Registrar SHOULD adhere to. Section 7 of <xref target="RFC8075"/> and <xref target="error"/> define the mapping between EST-coaps and HTTP response codes, that determines how the Registrar translates CoAP response codes from/to HTTP status codes. The mapping from Content-Type to media type is defined in <xref target="iana"/>. The conversion from binary to BSD64 needs to be done in the Registrar. Conversion is possible because a TLS link exists between EST-coaps-to-HTTP Registrar and EST server and a corresponding DTLS linked exists between EST-coaps-to-HTTP Regitrar and EST client.</t>
+	<t>Due to fragmentation of large messages into blocks, an EST-coaps-to-HTTP Registrar SHOULD reassemble the BLOCKs before translating the binary content to BSD64, and consecutively relay the message upstream into the HTTP environment. </t>
+    <t>For the discovery of the EST server by the EST client in the coap environment, the EST-coaps-to-HTTP Registrar MUST announce itself according to the rules of <xref target="discovery"/>. The available actions of the  Registrars MUST be announced with as many resource paths. The discovery of EST server in the http environment follow the rules specified in <xref target="RFC7030"/>.</t>
     <t> [ EDNOTE: PoP will be addressed here. ] </t>
-    <t>A proxy SHOULD authenticate the client downstream and it should be authenticated by the EST server or CA upstream. The Registration Authority (RA) is necessary to (re-)create the secure connection from DTLS to TLS and vice versa. A trust relationship needs to be pre-established between the proxy and the EST servers to be able to proxy these connections on behalf of various clients.</t>
+    <t>The Registrar SHOULD authenticate the client downstream and it should be authenticated by the EST server or CA upstream. The Registration Authority (re-)creates the secure connection from DTLS to TLS and vice versa. A trust relationship needs to be pre-established between the Regsitrar and the EST servers to be able to proxy these connections on behalf of various clients.</t>
     <t> [EDNOTE: To add more details about trust relations in this section. ] </t>
   </section>
 
@@ -400,11 +416,11 @@ MUST be computed as if each handshake message had been sent as a single fragment
 
   <section anchor="sec" title="Security Considerations">
 
-<section anchor="sec-proxy" title="proxy considerations">
+<section anchor="sec-proxy" title="https-to-coaps Registrar considerations">
 <t>
-The proxy proposed in <xref target="proxy"/> must be deployed with great care, and only when the recommended connections are impossible.
+The Registrar proposed in <xref target="proxy"/> must be deployed with great care, and only when the recommended connections are impossible.
 </t>
-<t> [EDNOTE: To add more details about trust relations through proxies in this section. ] </t>
+<t> [EDNOTE: To add more details about trust relations through https-to-coaps Registrars in this section. ] </t>
 </section> <!-- proxy considerations -->
 
 <section anchor="sec-est" title="EST server considerations">
@@ -426,6 +442,9 @@ The proxy proposed in <xref target="proxy"/> must be deployed with great care, a
     <t> -01:
     <list style="empty">
       <t> editorials done</t>
+      <t> Redefinition of proxy to Registrar in section <xref target="proxy"/></t>
+      <t> provide "observe" option examples </t>
+      <t>inserted new server key generation section <xref target="serverkey"/> </t>
     </list>
     </t>
     <t> -00
@@ -467,8 +486,6 @@ The proxy proposed in <xref target="proxy"/> must be deployed with great care, a
     &RFC5929;
     &RFC7525;
     &I-D.ietf-anima-bootstrapping-keyinfra;
-    &I-D.ietf-6tisch-dtsecurity-secure-join;
-    &I-D.ietf-6tisch-minimal-security;
     &I-D.rescorla-tls-dtls-connection-id;
 	&I-D.fossati-core-multipart-ct;
     <reference anchor="ieee802.15.4">
@@ -496,19 +513,28 @@ GET coaps://[192.0.2.1:8085]/est/crts
 <![CDATA[  Ver = 1
   T = 0 (CON)
   Code = 0x01 (0.01 is GET)
+  Token = 0x9a (client generated)
   Options
    Option1 (Uri-Host)
      Option Delta = 0x3  (option nr = 3)
      Option Length = 0x9
      Option Value = 192.0.2.1
-   Option2 (Uri-Port)
-     Option Delta = 0x4  (option nr = 4+3=7)
+   Option2 (Observe)
+     Option Delta = 0x1  (option nr = 3+3=6)
+     Option Length = 0x1
+     Option Value = 0    (register)
+   Option3 (Uri-Port)
+     Option Delta = 0x1  (option nr = 6+1=7)
      Option Length = 0x4
      Option Value = 8085
-   Option3 (Uri-Path)
+   Option4 (Uri-Path)
      Option Delta = 0x4   (option nr = 7+4= 11)
      Option Length = 0x9
      Option Value = /est/crts
+   Option5 (Max-Age)
+     Option Delta = 0x3   (option nr = 11+3= 14)
+     Option Length = 0x1
+     Option Value = 0x1    (1 minute)
   Payload = [Empty]
 ]]></artwork></figure>
 
@@ -522,9 +548,14 @@ GET coaps://[192.0.2.1:8085]/est/crts
 <![CDATA[  Ver = 1
   T = 2 (ACK)
   Code = 0x45 (2.05 Content)
+  Token = 0x9a   (copied by server)
   Options
-    Option1 (Content-Format)
-      Option Delta = 0xC  (option nr = 12)
+   Option1 (Observe)
+     Option Delta = 0x6  (option nr =6)
+     Option Length = 0x1
+     Option Value = 12    ( 12 > 0)
+    Option2 (Content-Format)
+      Option Delta = 0xC  (option nr = 6+6 =12)
       Option Length = 0x2
       Option Value = TBD1 (defined in this document) 
                 
@@ -605,6 +636,8 @@ e37722cd10e7166c50e75ab75a1271324460211991e7445a2960f47351a1a629253
 247bfd0a7c19b56077392555c955e233642bec643ae37c166c5e221d797aea3748f
 0391c8d692a5cf9bb71f6d0e37984d6fa673a30d0c006343116f58403100
 ]]></artwork></figure>
+<t>
+After reception of the 2.05 response, the client can forget the observe.</t>
     </section>  <!-- cacerts -->
 
     <section title="csrattrs">
@@ -613,34 +646,10 @@ e37722cd10e7166c50e75ab75a1271324460211991e7445a2960f47351a1a629253
 <figure align="left"><artwork><![CDATA[
 REQ:
 GET coaps://[2001:db8::2:1]:61616/est/att
+(observe =0)(Max-Age =1)
 ]]></artwork></figure>
-<!--      <t>with CoAP header fields
-</t>
-      <figure><artwork>
-<![CDATA[  Ver = 1
-  T = 0 (CON)
-  Code = 0x01 (0.01 is GET)
-  Options
-   Option1 (Uri-Host)
-     Option Delta = 0x3  (option nr = 3)
-     Option Length = 0x9
-     Option Value = 192.0.2.1
-   Option2 (Observe)
-      Option Delta = 0xx  (option nr = 3+3=6)
-      Option length = 0x1 
-      Option Value = 1
-   Option3 (Uri-Port)
-     Option Delta = 0x4  (option nr = 6+1=7)
-     Option Length = 0x4
-     Option Value = 8085
-   Option4 (Uri-Path)
-     Option Delta = 0x4   (option nr = 7+4= 11)
-     Option Length = 0x8
-     Option Value = /est/att
-  Payload = [Empty]
-]]></artwork></figure> -->
 
-      <t>A 2.05 Content response contains attributes which are relevant for the authenticated client. In this example, the EST-coaps server returns two attributes that the client can ignore when they are unknown to him.:</t>
+      <t>A 2.05 Content response contains attributes which are relevant for the authenticated client. In this example, the EST-coaps server returns two attributes that the client can ignore when they are unknown to him.</t>
     </section>  <!-- csrattrs -->
 
     <section title="enroll / reenroll">
@@ -650,7 +659,8 @@ GET coaps://[2001:db8::2:1]:61616/est/att
 
 <figure align="left"><artwork><![CDATA[
 POST [2001:db8::2:1]:61616/est/sen
-(Content-Format: application/pkcs10) (observe)
+(token 0x45)
+(Content-Format: application/pkcs10)(observe 0)
 30208530206d020100301f311d301b0603550403131464656d6f7374657034203
 1333638313431333532302062300d06092a620673410101050003204f0030204a
 022041005d9f4dffd3c5949f646a9584367778560950b355c35b8e34726dd3764
@@ -669,6 +679,7 @@ a7cda5176e7ccc6be22ae03498588d5f2de3b143f2b1a6175ec544e8e7625af6b
 fc7e0731f0e7fe305703791362d5157e92e6b5c2e3edbcadb40
 
 RET:
+(token =0x45)(observe =12)
 2.05 Content (Content-Format: application/pkcs7-mime)
 3020f806092a62067341070283293020e50201013100300b06092a62067341070
 1830b3020c730206fc20102020115300d06092a6206734101050500301b311930
@@ -693,47 +704,51 @@ a2583aac9024075113db4990b1786b871691e0f020301000134b050300e060355
 171e4733ad3d13c0103100
 ]]></artwork></figure>
 
-<!--      <t>with CoAP header fields</t>
-      <figure><artwork>
-<![CDATA[  Ver = 1
-  T = 0 (CON)
-  Code = 0x02 (0.02 is POST)
-  Options
-   Option1 (Uri-Host)
-     Option Delta = 0x3  (option nr = 3)
-     Option Length = 0x9
-     Option Value = 192.0.2.1
-   Option2 (Uri-Port)
-     Option Delta = 0x4  (option nr = 4+3=7)
-     Option Length = 0x4
-     Option Value = 8085
-   Option3 (Uri-Path)
-     Option Delta = 0x4   (option nr = 7+4= 11)
-     Option Length = 0x8
-     Option Value = /est/sen
-   Option4 (Content-Format)
-      Option Delta = 0x1  (option nr = 11+1 = 12)
-      Option Length = 0x2
-      Option Value = TBD5 (defined in this document)
+<t> After reception of the 2.05 response the client can forget the observe registration</t>
+<t> The same example when delays occur (omitting the payloads in the examples) has a different behavior. The response to the POST is an empty payload with response code 2.03 (valid) that also returns the resource to query. The client issues a GET with an observe and a new token value, and waits for the notification after possibly receiving an empty payload first.</t>
+<figure align="left"><artwork><![CDATA[
+POST [2001:db8::2:1]:61616/est/sen
+(token 0x45)(observe = 0)
+(Content-Format: application/pkcs10)(Max-Age=120)
+[payload]
+RET:
+(token =0x45)(observe =12)(Location-Path=/est/1245)
+2.03 Valid
+[empty payload]
 
-  Payload =
-[EDNOTE: If POP is used, make sure tls-unique in the CSR is a
- valid HMAC output. ] 
-302... -->
+GET [2001:db8::2:1]:61616/est/1245
+(token 0x53)
+(observe =0)(Max-Age=120)
+
+RET:
+(token =0x53)(observe = 5)
+2.03 Valid
+[empty payload]
+
+RET:
+(token =0x53)(observe = 6)
+(Content-Format: application/pkcs10)
+2.05 Content
+[payload]
+
+]]></artwork></figure>
 
 	<t>[EDNOTE: If POP is used, make sure tls-unique in the CSR is a valid HMAC output. ]</t>
     </section>  <!-- enroll / reenroll -->
 
     <section title="serverkeygen">
       <t>During this valid /serverkeygen exchange, the EST-coaps client authenticates itself using the certificate provided by the connected CA.</t>
-	<t>[EDNOTE: the client incudes a CSR with a public key  that the server should ignore, so we need a content-format here. ]</t>
+	<t>[EDNOTE: the client includes a CSR with a public key  that the server should ignore, so we need a content-format here. ]</t>
 	<t>[EDNote: If POP is used, make sure tls-unique in the CSR
  is a valid HMAC output. ]</t>
       <t> The initial DTLS handshake is identical to the enrollment example. The CoAP GET request looks like:</t> 
-	  <!-- EDNOTE: From Jim "Suggestion to have only one example with complete encrypted payload (the short one) and point out the different fields." -->
+	  <t>[EDNOTE: Suggestion to have only one example with complete encrypted payload (the short one) and point out the different fields.</t>
 
 <figure align="left"><artwork><![CDATA[
 POST coaps://[192.0.2.1:8085]/est/skg
+(token 0xa5)(observe = 0)
+(Content-Format: application/pkcs10)(Max-Age=120)
+
 302081302069020100305b313e303c060355040313357365727665724b6579476
 56e2072657120627920636c69656e7420696e2064656d6f207374657020313220
 3133363831343139353531193017060355040513105049443a576964676574205
@@ -755,6 +770,8 @@ f9288724381909188c851fa9a5059802eb64449f2a3c9e441353d136768da27ff
 
 RET:
 2.05 Content (Content-Format: application/pkcs8)
+(observe = 5)(token=0xa5)
+
 30213e020100300d06092a6206734101010500042128302124020100022041003
 c0bc2748f2003e3e8ea15f746f2a71e83f585412b92cf6f8e64de02e056153274
 dd01c95dd9cff3112aa141774ab655c3d56359c3b3df055294692ed848e7e30a1
@@ -807,35 +824,6 @@ a4fa677130da60818175ca4ab2af1d15563624c51e13dfdcf381881b72327e2f4
 9b7467e631a27b5b5c7d542bd2edaf78c0ac294f3972278996bdf673a334ff74c
 84aa7d65726310252f6a4f41281ec10ca2243864e3c5743103100
 ]]></artwork></figure> 
-<t> [Ednote, example where response is delayed] </t>
-<!--      <t>with CoAP header fields</t>
-      <figure><artwork>
-<![CDATA[  Ver = 1
-  T = 0 (CON)
-  Code = 0x02 (0.02 is POST)
-  Options
-   Option1 (Uri-Host)
-     Option Delta = 0x3  (option nr = 3)
-     Option Length = 0x9
-     Option Value = 192.0.2.1
-   Option2 (Uri-Port)
-     Option Delta = 0x4  (option nr = 4+3=7)
-     Option Length = 0x4
-     Option Value = 8085
-   Option3 (Uri-Path)
-     Option Delta = 0x4   (option nr = 7+4= 11)
-     Option Length = 0x8
-     Option Value = /est/skg
-   Option4 (Content-Format) 
-[EDNOTE: the client incudes a CSR with a public key  that the
- server should ignore, so we need a content-format here. ]
-      Option Delta = 0x1  (option nr = 12)
-      Option Length = 0x2
-      Option Value = TBD5 (defined in this document)
-  Payload =
-[EDNote: If POP is used, make sure tls-unique in the CSR
- is a valid HMAC output. ]
-302... -->
 
 	<t> Without the DecryptKeyIdentifier attribute, the response has no additional encryption beyond DTLS. [EDNOTE: Add comment about deriving symmetric keys by using the TLS KEM draft. ] </t>
 	<t>The response contains first a preamble that can be ignored. The EST-coaps server can use the preamble to include additional explanations, like ownership or support information </t>
@@ -868,20 +856,29 @@ GET [192.0.2.1:8085]/est/crts     -->
 <![CDATA[  
   Ver = 1
   T = 0 (CON)
-  Code = 0x01 (0.1 GET) 
+  Code = 0x01 (0.1 GET)
+  Token = 0x9a    (client generated) 
   Options
    Option1 (Uri-Host)
      Option Delta = 0x3  (option nr = 3)
      Option Length = 0x9
      Option Value = 192.0.2.1
-   Option2 (Uri-Port)
+   Option2 (Observe)
+     Option Delta = 0x3  (option nr = 3+3=6)
+     Option Length = 0x1
+     Option Value = 0       (register)
+   Option3 (Uri-Port)
      Option Delta = 0x4   (option nr = 3+4=7)
      Option Length = 0x4
      Option Value = 8085
-   Option3 (Uri-Path)
+   Option4 (Uri-Path)
      Option Delta = 0x4    (option nr = 7+4=11)
      Option Length = 0x9
      Option Value = /est/crts
+   Option5 (Max-Age)
+     Option Delta = 0x3    (option nr = 11+3=14)
+     Option Length = 0x1
+     Option Value = 0x1    ( 1 minute)
   Payload = [Empty]
 ]]></artwork>
           </figure>
@@ -891,9 +888,14 @@ GET [192.0.2.1:8085]/est/crts     -->
 <![CDATA[  Ver = 1
   T = 2 (ACK)
   Code = 0x45 (2.05 Content.) 
+  Token = 0x9a     (copied by server)
   Options
-    Option1 (Content-Format)
-      Option Delta = 0xC  (option 12)
+    Option1 (Observe)
+      Option Delta = 0x6  (option nr=6)
+      Option Length = 0x1
+      Option Value = 12   (12 > 0)                  
+    Option2 (Content-Format)
+      Option Delta = 0xC  (option nr =6+6=12)
       Option Length = 0x2
       Option Value = TBD1                  
     Option2 (Block2)
@@ -910,12 +912,17 @@ c0c3020bb302063c20102020900a61e75193b7acc0d06092a6206734101
     <figure><artwork>
 <![CDATA[  Ver = 1
   T = 2 (means ACK)
-  Code = 0x45 (2.05 Content.)
+  Code = 0x45 (2.05 Content)
+  Token = 0x9a     (copied by server)
   Options
-    Option1 (Content-Format)
-      Option Delta = 0xC   (option 12)
-      Option Length = 0x2 
-      Option Value = TBD1
+    Option1 (Observe)
+      Option Delta = 0x6  (option nr=6)
+      Option Length = 0x1
+      Option Value = 16   (16 > 12)                  
+    Option2 (Content-Format)
+      Option Delta = 0xC  (option nr =6+6=12)
+      Option Length = 0x2
+      Option Value = TBD1                  
     Option2 (Block2)
       Option Delta = 0xB  (option 23 = 12 + 11)
       Option Length = 0x1
@@ -930,12 +937,17 @@ c0c3020bb302063c20102020900a61e75193b7acc0d06092a6206734101
     <figure><artwork>
 <![CDATA[  Ver = 1
   T = 2 (means ACK)
-  Code = 0x21
+  Code = 0x45      (2.05 Content)
+  Token = 0x9a     (copied by server)
   Options
-    Option1 (Content-Format)
-      Option Delta = 0xC   (option 12)
+    Option1 (Observe)
+      Option Delta = 0x6  (option nr=6)
+      Option Length = 0x1
+      Option Value = 55   (55 > 12)                  
+    Option2 (Content-Format)
+      Option Delta = 0xC  (option nr =6+6=12)
       Option Length = 0x2
-      Option Value = TBD1 
+      Option Value = TBD1                  
     Option2 (Block2)
       Option Delta = 0xB  (option 23 = 12 + 11)
       Option Length = 0x2

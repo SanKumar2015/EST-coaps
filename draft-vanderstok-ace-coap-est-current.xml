@@ -11,6 +11,7 @@
 <!ENTITY RFC5751 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5751.xml">
 <!ENTITY RFC5958 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5958.xml">
 <!ENTITY RFC5967 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5967.xml">
+<!ENTITY RFC6402 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6402.xml">
 <!ENTITY RFC6090 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6090.xml">
 <!ENTITY RFC6347 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6347.xml">
 <!ENTITY RFC6690 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6690.xml">
@@ -310,15 +311,12 @@ MUST be computed as if each handshake message had been sent as a single fragment
   <section anchor="proxy" title="HTTPS-CoAPS Registrar">
     <t>[EDNOTE: terminology to be reviewed; because proxy was replaced by Registrar]</t>
 
-    <t>In real-world deployments, the EST server will not always reside within the CoAP boundary. The EST-server can exist outside the constrained network in a non-constrained network that supports TLS/HTTP. In such environments EST-coaps is used by the client within the CoAP boundary and TLS is used to transport the EST messages outside the CoAP boundary. A Registrar at the edge is required to operate between the CoAP environment and the external HTTP network. The ESTcoaps-to-HTTPS Registrar SHOULD terminate EST-coaps downstream and initiate EST connections over TLS upstream.</t> 
-	<t>
- [EDNOTE: From Jim "The text should explain better how the http/coap registrar succeeds in having a unique tls connection and a unique dtls connection. Cisco probably has some standard solutions there; and it would be essential to describe one approach (shortly) in this section."]</t>
+    <t>In real-world deployments, the EST server will not always reside within the CoAP boundary. The EST-server can exist outside the constrained network in a non-constrained network that supports TLS/HTTP. In such environments EST-coaps is used by the client within the CoAP boundary and TLS is used to transport the EST messages outside the CoAP boundary. A Registrar at the edge is required to operate between the CoAP environment and the external HTTP network. The ESTcoaps-to-HTTPS Registrar MUST terminate EST-coaps downstream and initiate EST connections over TLS upstream.</t> 
+	<t>When enforcing Proof-of-Possetion (POP), a value needs to be used to prove that the private key corresponding to the public key is in the possession of and can be
+   used by an end-entity or client. In other words, the CSR the client is using needs to include information from the DTLS connection the client establishes with the server. 
+   In the presense of ESTcoaps-to-HTTPS Registrar, the EST-coaps client MUST be authenticated and authorized by the Registrar and the Registrar MUST be authenticated as an EST Registrar client to the EST server. Thus the POP information is lost between the EST-coaps client and the EST server. The EST server becomes aware of the presense of an EST Registrar from its TLS client certificate that includes id-kp-cmcRA <xref target="RFC6402"/> extended key usage extension. As explained in Section 3.7 of <xref target="RFC7030"/>, the EST server SHOULD apply an authorization policy consistent with an Registrar client. For example, it could be configured to accept POP linking information that does not match the current TLS session because the authenticated EST client Registrar has verified this information when acting as an EST server.</t> 
 
-<t>One possible use-case, shown in one figure below, is expected to be deployed in practice:
-<list style="symbols">
-<t>A Registrar between any EST-client and EST-server</t>
-</list>
-</t>
+   <t>One possible use-case, shown in one figure below, is expected to be deployed in practice:</t>
 <figure align="left" title="ESTcoaps-to-HTTPS Registrar at the CoAP boundary."><artwork><![CDATA[
                                      Constrained Network
                   .---------.    .----------------------------.
@@ -337,7 +335,7 @@ MUST be computed as if each handshake message had been sent as a single fragment
     <t><xref target="est-uri"/> contains the URI mapping between the EST-coaps and EST the Registrar SHOULD adhere to. Section 7 of <xref target="RFC8075"/> and <xref target="error"/> define the mapping between EST-coaps and HTTP response codes, that determines how the Registrar translates CoAP response codes from/to HTTP status codes. The mapping from Content-Type to media type is defined in <xref target="iana"/>. The conversion from binary to BSD64 needs to be done in the Registrar. Conversion is possible because a TLS link exists between EST-coaps-to-HTTP Registrar and EST server and a corresponding DTLS linked exists between EST-coaps-to-HTTP Regitrar and EST client.</t>
 	<t>Due to fragmentation of large messages into blocks, an EST-coaps-to-HTTP Registrar SHOULD reassemble the BLOCKs before translating the binary content to BSD64, and consecutively relay the message upstream into the HTTP environment. </t>
     <t>For the discovery of the EST server by the EST client in the coap environment, the EST-coaps-to-HTTP Registrar MUST announce itself according to the rules of <xref target="discovery"/>. The available actions of the  Registrars MUST be announced with as many resource paths. The discovery of EST server in the http environment follow the rules specified in <xref target="RFC7030"/>.</t>
-    <t> [ EDNOTE: PoP will be addressed here. ] </t>
+
     <t>The Registrar SHOULD authenticate the client downstream and it should be authenticated by the EST server or CA upstream. The Registration Authority (re-)creates the secure connection from DTLS to TLS and vice versa. A trust relationship needs to be pre-established between the Regsitrar and the EST servers to be able to proxy these connections on behalf of various clients.</t>
     <t> [EDNOTE: To add more details about trust relations in this section. ] </t>
   </section>
@@ -478,6 +476,7 @@ The Registrar proposed in <xref target="proxy"/> must be deployed with great car
     &RFC5246;
     &RFC5958;
     &RFC6090;
+	&RFC6402;
     &RFC7230;
     &RFC7251;
     &RFC7641;
@@ -739,8 +738,7 @@ RET:
     <section title="serverkeygen">
       <t>During this valid /serverkeygen exchange, the EST-coaps client authenticates itself using the certificate provided by the connected CA.</t>
 	<t>[EDNOTE: the client includes a CSR with a public key  that the server should ignore, so we need a content-format here. ]</t>
-	<t>[EDNote: If POP is used, make sure tls-unique in the CSR
- is a valid HMAC output. ]</t>
+	<t>[EDNote: If POP is used, make sure tls-unique in the CSR is a valid HMAC output. ]</t>
       <t> The initial DTLS handshake is identical to the enrollment example. The CoAP GET request looks like:</t> 
 	  <t>[EDNOTE: Suggestion to have only one example with complete encrypted payload (the short one) and point out the different fields.</t>
 
@@ -832,8 +830,23 @@ a4fa677130da60818175ca4ab2af1d15563624c51e13dfdcf381881b72327e2f4
   </section>  <!-- EST messages to EST-coaps -->
 
   <section anchor="multipart" title="Encoding for server side key generation">
-	<t>Sever side key generation for CoAP can be implemented efficiently using multipart encoding</t>
-<t>[EDNOTE: text to be written.]</t>
+    <t>Constrained devices sometimes do not have the necessary hardware to generate 
+    statistically random numbers for private keys and DTLS ephemeral keys.  
+    Past experience has shown that cheap endpoints sometimes generate numbers 
+    which could allow someone decrypt the communication or 
+    guess the private key and impersonate as the device. Studeis have shown 
+    the same keys generated by the same model devices deployed on-line. </t>
+    <t>Additionally, random number key generation is costly, thus energy draining. 
+    Even though the random numbers that constitutes the identity/cert do not 
+    get generated often, an endpoint may not want to spend time and energy 
+    generating keypairs, and just ask for one from the server. </t> 
+    <t>In these scenarios, server-side key generation can be used. The client 
+    asks for the server or proxy to generate the private key and the certificate 
+    which is transferred back to the client in the server-side key generation 
+    response. </t>
+    <t>Sever side key generation for CoAP can be implemented efficiently using multipart encoding</t>
+
+	<t>[EDNOTE: text to be written.]</t>
    </section> <!-- Encoding for server side key generation -->
 
   <section anchor="blockexamples" title="EST-coaps Block message examples">
@@ -954,8 +967,8 @@ c0c3020bb302063c20102020900a61e75193b7acc0d06092a6206734101
       Option Value = 0x272 (block number = 39, M=0, SZX=2)
   Payload = 73a30d0c006343116f58403100
 ]]></artwork></figure>
-     
   </section> <!-- EST-coaps Block message examples -->
+    
 </back>
 
 </rfc>

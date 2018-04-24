@@ -27,6 +27,7 @@
 <!ENTITY RFC8075 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8075.xml">
 <!ENTITY RFC7525 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7525.xml">
 <!ENTITY I-D.ietf-anima-bootstrapping-keyinfra SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-anima-bootstrapping-keyinfra.xml">
+<!ENTITY I-D.ietf-tls-tls13 SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-tls-tls13.xml">
 <!ENTITY I-D.rescorla-tls-dtls-connection-id SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.rescorla-tls-dtls-connection-id.xml">
 <!ENTITY I-D.fossati-core-multipart-ct SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.fossati-core-multipart-ct.xml">
 
@@ -149,10 +150,7 @@
   <section anchor="profile7925" title="Conformance to RFC7925 profiles">
     <t>This section shows how EST-coaps fits into the profiles of low-resource devices as described in <xref target="RFC7925"/>.</t>
     <t>EST-coaps can transport certificates and private keys. Private keys can be transported as response to a request to a server-side key generation as described in section 4.4 of <xref target="RFC7030"/> and discussed in <xref target="serverkey"/>. </t> 
-    <t> The mandatory cipher suite for DTLS is TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 defined in <xref target="RFC7251"/> which is the mandatory-to-implement cipher suite in CoAP. Additionally, the curve secp256r1 MUST be supported <xref target="RFC4492"/>; this curve is equivalent to the NIST P-256 curve. The hash algorithm is SHA-256. DTLS 1.2 implementations MUST use the Supported Elliptic Curves and Supported Point Formats Extensions <xref target="RFC4492"/>; the uncompressed point format MUST be supported; <xref target="RFC6090"/> can be used as an implementation method.</t>
-<t>
-DTLS 1.3 implementations differ form DTLS 1.2 implementations because they do not support the uncompressed point format.
-</t>
+    <t> The mandatory cipher suite for DTLS is TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 defined in <xref target="RFC7251"/> which is the mandatory-to-implement cipher suite in CoAP. Additionally, the curve secp256r1 MUST be supported <xref target="RFC4492"/>; this curve is equivalent to the NIST P-256 curve. [EDNOTE: RECOMMEND Curve25519 for efficiency? ] The hash algorithm SHOULD BE SHA-256. DTLS 1.2 implementations MUST use the Supported Elliptic Curves and Supported Point Formats Extensions <xref target="RFC4492"/>; the uncompressed point format MUST be supported; <xref target="RFC6090"/> can be used as an implementation method. DTLS 1.3 implementations differ form DTLS 1.2 because they do not support point format negotiation in favor of a single point format for each curve.</t>
     <t>The EST-coaps client MUST be configured with an explicit TA database or at least an implicit TA database from its manufacturer. The authentication of the EST-coaps server by the EST-coaps client is based on Certificate authentication in the DTLS handshake.</t>
       <t>The authentication of the EST-coaps client is based on client certificate in the DTLS handshake. This can either be
         <list style="symbols">
@@ -161,7 +159,7 @@ DTLS 1.3 implementations differ form DTLS 1.2 implementations because they do no
         </list></t>
   </section>  <!-- 7925 profile  -->
 
-  <section anchor="design" title="Protocol Design and Layering">
+  <section anchor="design" title="Protocol Design">
     <t>EST-coaps uses CoAP to transfer EST messages, aided by Block-Wise Transfer <xref target="RFC7959"/> to transport CoAP messages in blocks thus avoiding (excessive) 6LoWPAN fragmentation of UDP datagrams. The use of "Block" for the transfer of larger EST messages is specified in <xref target="fragment"/>. The <xref target="fig-est-coaps-layers"/> below shows the layered EST-coaps architecture.</t>
 <figure align="center" title="EST-coaps protocol layers" anchor="fig-est-coaps-layers"><artwork><![CDATA[
 +------------------------------------------------+
@@ -187,26 +185,6 @@ DTLS 1.3 implementations differ form DTLS 1.2 implementations because they do no
         <t>EST-coaps is designed for use between low-resource devices using CoAP and hence does not need to send base64-encoded data. Simple binary is more efficient (30% less payload compared to base64) and well supported by CoAP. Therefore, the content formats specification in <xref target="iana"/> requires the use of binary for all EST-coaps Content-Formats.</t>
     </section> <!-- Payload format -->
 
-   <section anchor="serverkey" title="Server Key Generation">
-
-<t>Constrained devices sometimes do not have the necessary hardware to generate 
-    statistically random numbers for private keys and DTLS ephemeral keys.  
-    Past experience has shown that cheap endpoints sometimes generate numbers 
-    which could allow someone to decrypt the communication or 
-    guess the private key and impersonate as the device. Studies have shown that
-    the same keys are generated by the same model devices deployed on-line. </t>
-    <t>Additionally, random number key generation is costly, thus energy draining. 
-    Even though the random numbers that constitute the identity/cert do not 
-    get generated often, an endpoint may not want to spend time and energy 
-    generating keypairs, and just ask for one from the server. </t> 
-    <t>In these scenarios, server-side key generation can be used. The client 
-    asks for the server or proxy to generate the private key and the certificate 
-    which is transferred back to the client in the server-side key generation 
-    response. </t>
-<t>[EDNOTE: Mention how symmetric key can be derived for EST server side key generation from the TLS KEM draft.
-    </t>
-   </section> <!-- Server Key Generation -->
-
     <section title="Message Bindings">
       <t>This section describes the general EST CoAP message characteristics.</t>
       <t> <!-- EDNOTE: From Jim "Rephrase the use of CON" --> It is RECOMMENDED to use CoAP CON messages. This recommendation does not influence the communication efficiency because all EST-coaps messages expect a response.</t>
@@ -217,21 +195,33 @@ DTLS 1.3 implementations differ form DTLS 1.2 implementations because they do no
     </section> <!-- Message bindings -->
 
     <section anchor="error" title="CoAP response codes">
-      <t>Section 5.9 of <xref target="RFC7252"/> specifies the mapping of HTTP response codes to CoAP response codes. Every time the HTTP response code 200 is specified in <xref target="RFC7030"/> in response to a GET (POST) request, in EST-coaps the equivalent CoAP response code 2.05 (2.01) MUST be used. Response code HTTP 202 has no equivalent in CoAP. 
-In <xref target="pending"/> it is specified how EST requests over CoAP handle delayed messages.
-</t><t>
-All other HTTP 2xx response codes are not used by EST. For the following HTTP 4xx error codes that may occur: 400, 401, 403, 404, 405, 406, 412, 413, 415; the equivalent CoAP response code for EST-coaps is 4.xx. For the HTTP 5xx error codes: 500, 501, 502, 503, 504 the equivalent CoAP response code is 5.xx.</t>
-	
-    </section> <!-- Message Bindings -->
+      <t>Section 5.9 of <xref target="RFC7252"/> specifies the mapping of HTTP response codes to CoAP response codes. Every time the HTTP response code 200 is specified in <xref target="RFC7030"/> in response to a GET (POST) request, in EST-coaps the equivalent CoAP response code 2.05 (2.01) MUST be used. Response code HTTP 202 has no equivalent in CoAP. In <xref target="pending"/> it is specified how EST requests over CoAP handle delayed messages.</t>
+      <t>All other HTTP 2xx response codes are not used by EST. For the following HTTP 4xx error codes that may occur: 400, 401, 403, 404, 405, 406, 412, 413, 415; the equivalent CoAP response code for EST-coaps is 4.xx. For the HTTP 5xx error codes: 500, 501, 502, 503, 504 the equivalent CoAP response code is 5.xx.</t>
+    </section> <!-- CoAP response codes -->
 
-<section anchor="pending" title="Delayed Results">
-<t>
-It is possble that responses are not always directly available, and may even necessitate manual intervention to return the results. Delays of minutes to hours are possible. Therefore, each GET request MUST be accompanied by the observe option. When the result is directly available, the client receives the result and forgets about the observe as specified in section 3.6 of <xref target="RFC7641"/>.
-When a POST response is delayed, the POST returns a 2.01 (Created) response code, having put a value in the Location-Path option. After reception of 2.01 the client does a GET request with the observe option to the newly returned location. Once the delayed result is notified by the server, the client forgets about the observe.</t>
-<t>
-Next to the observe option the client must specify the Max-Age option that indicates the maximum waiting time in minutes.
-</t>
-</section> <!-- Delayed Results -->
+    <section anchor="pending" title="Delayed Results">
+      <t>It is possble that responses are not always directly available, and may even necessitate manual intervention to return the results. Delays of minutes to hours are possible. Therefore, each GET request MUST be accompanied by the observe option. When the result is directly available, the client receives the result and forgets about the observe as specified in section 3.6 of <xref target="RFC7641"/>.
+      When a POST response is delayed, the POST returns a 2.01 (Created) response code, having put a value in the Location-Path option. After reception of 2.01 the client does a GET request with the observe option to the newly returned location. Once the delayed result is notified by the server, the client forgets about the observe.</t>
+      <t>Next to the observe option the client must specify the Max-Age option that indicates the maximum waiting time in minutes. </t>
+    </section> <!-- Delayed Results -->
+
+    <section anchor="serverkey" title="Server-side Key Generation">
+      <t>Constrained devices sometimes do not have the necessary hardware to generate 
+      statistically random numbers for private keys and DTLS ephemeral keys.  
+      Past experience has shown that cheap endpoints sometimes generate numbers 
+      which could allow someone to decrypt the communication or 
+      guess the private key and impersonate as the device. Studies have shown that
+      the same keys are generated by the same model devices deployed on-line. </t>
+      <t>Additionally, random number key generation is costly, thus energy draining. 
+      Even though the random numbers that constitute the identity/cert do not 
+      get generated often, an endpoint may not want to spend time and energy 
+      generating keypairs, and just ask for one from the server. </t> 
+      <t>In these scenarios, server-side key generation can be used. The client 
+      asks for the server or proxy to generate the private key and the certificate 
+      which is transferred back to the client in the server-side key generation 
+      response. </t>
+      <t>[EDNOTE: Mention how symmetric key can be derived for EST server side key generation from the TLS KEM draft.</t>
+    </section> <!-- Server-side Key Generation -->
 
     <section anchor="fragment" title="Message fragmentation">
       <t>DTLS defines fragmentation only for the handshake part and not for secure data exchange (DTLS records). <xref target="RFC6347"/> states that to avoid using IP fragmentation, which involves error-prone datagram reconstitution, invokers of the DTLS record layer SHOULD size DTLS records so that they fit within any Path MTU estimates obtained from the record layer. In addition, invokers residing on a 6LoWPAN over IEEE 802.15.4 network SHOULD attempt to size CoAP messages such that each DTLS record will fit within one or two IEEE 802.15.4 frames.</t>
@@ -243,13 +233,12 @@ Next to the observe option the client must specify the Max-Age option that indic
       <t>Examples of fragmented messages are shown in <xref target="blockexamples"/>.</t>
     </section> <!-- Message fragmentation -->    
 
-<section anchor="deploy-limit" title = "Deployment limits">
-     <t>Although EST-coaps paves the way for the utilization of EST for constrained devices on constrained networks, some devices will not have enough resources to handle the large payloads that come with EST-coaps. The specification of EST-coaps is intended to ensure that EST works for networks of constrained devices that choose to limit their communications stack to UDP/CoAP. It is up to the network designer to decide which devices execute the EST protocol and which do not.</t>
-  </section> <!-- Deployment limits  -->
+    <section anchor="deploy-limit" title = "Deployment limits">
+      <t>Although EST-coaps paves the way for the utilization of EST for constrained devices on constrained networks, some devices will not have enough resources to handle the large payloads that come with EST-coaps. The specification of EST-coaps is intended to ensure that EST works for networks of constrained devices that choose to limit their communications stack to UDP/CoAP. It is up to the network designer to decide which devices execute the EST protocol and which do not.</t>
+    </section> <!-- Deployment limits  -->
+  </section> <!-- protocol design-->
 
-  </section> <!-- protocol design and layering -->
-
-<section anchor="discovery" title = "Discovery and URI">
+  <section anchor="discovery" title = "Discovery and URI">
       <t>EST-coaps is targeted to low-resource networks with small packets. Saving header space is important and an additional EST-coaps URI is specified that is shorter than the EST URI.</t>
       <t>In the context of CoAP, the presence and location of (path to) the management data are discovered by sending a GET request to "/.well-known/core" including a resource type (RT) parameter with the value "ace.est" <xref target="RFC6690"/>. Upon success, the return payload will contain the root resource of the EST resources. It is up to the implementation to choose its root resource; throughout this document the example root resource /est is used. The example below shows the discovery of the presence and location of management data.</t>
 <figure><artwork align="left"><![CDATA[
@@ -262,15 +251,9 @@ Next to the observe option the client must specify the Max-Age option that indic
 ]]></artwork></figure>
       <t>The individual EST-coaps server URIs differ from the EST URI by replacing the scheme https by coaps and by specifying shorter resource path names: </t>
 <figure align="left"><artwork><![CDATA[
-coaps://www.example.com/.well-known/est/<short-est>.
+coaps://www.example.com/.well-known/est/ArbitraryLabel/<short-est>.
 ]]></artwork></figure>
-<t>
-The short resource path MUST be supported.
-</t><t>
-The longer resource path specified in <xref target="RFC7030"/> MAY be supported, with the exchange of https by coaps and using the short operation name: </t>
-<figure align="left"><artwork><![CDATA[
-coaps://www.example.com/.well-known/est/ArbitraryLabel/<short-est>
-]]></artwork></figure>
+      <t>The ArbitraryLabel Path-Segment SHOULD be of the shortest length possible.</t>
 
       <t>Figure 5 in section 3.2.2 of <xref target="RFC7030"/> enumerates the operations and corresponding paths which are supported by EST. <xref target="est-uri"/> provides the mapping from the EST URI path to the shorter EST-coaps URI path.</t>
 <texttable anchor="est-uri">
@@ -282,9 +265,8 @@ coaps://www.example.com/.well-known/est/ArbitraryLabel/<short-est>
    <c> /simplereenroll </c>     <c> /sren </c>
    <c> /csrattrs </c>           <c> /att </c>
    <c> /serverkeygen </c>       <c> /skg </c>
-  
 </texttable>
-
+      <t>The short resource URIs MUST be supported. The corresponding longer URIs specified in <xref target="RFC7030"/> MAY be supported. </t>
       <t> When discovering the root path for the EST resources, the server MAY return all available resource paths and the used content types. This is useful when multiple content types are specified for EST-coaps server. For example, the following more complete response is possible.</t>
 <figure><artwork align="left"><![CDATA[
   REQ: GET /.well-known/core?rt=ace.est
@@ -306,25 +288,29 @@ coaps://www.example.com/.well-known/est/ArbitraryLabel/<short-est>
       <t> DTLS is one such secure protocol. When "TLS" is referred to in the context of EST, it is understood that in EST-coaps, security is provided using DTLS instead. No other changes are necessary (all provisional modes etc. are the same as for TLS). <!-- DTLS handshakes use a retramsit times to handle packet loss in lossy environments. as explained in https://tools.ietf.org/html/rfc6347#section-3.2.1 --> </t>
       <t>CoAP was designed to avoid fragmentation. DTLS is used to secure CoAP messages. However, fragmentation is still possible at the DTLS layer during the DTLS handshake when using ECC ciphersuites. If fragmentation is necessary, "DTLS provides a mechanism for fragmenting a handshake message over a number of records, each of which can be transmitted separately, thus avoiding IP fragmentation" <xref target="RFC6347"/>.</t>
       <t>CoAP and DTLS can provide proof of identity for EST-coaps clients and server with simple PKI messages conformant to section 3.1 of <xref target="RFC5272"/>. EST-coaps supports the certificate types and Trust Anchors (TA) that are specified for EST in section 3 of <xref target="RFC7030"/>.</t>
-      <t>Channel-binding information for linking proof-of-identity with connection-based proof-of-possession is optional for EST-coaps. When proof-of-possession is desired, a set of actions are required regarding the use of tls-unique, described in section 3.5 in <xref target="RFC7030"/>. The tls-unique information translates to the contents of the first "Finished" message in the TLS handshake between server and client <xref target="RFC5929"/>. The client is then supposed to add this "Finished" message as a ChallengePassword in the attributes section of the PKCS#10 Request Info to prove that the client is indeed in control of the private key at the time of the TLS session when performing a /simpleenroll, for example. In the case of EST-coaps, the same operations can be performed during the DTLS handshake. In the event of handshake message fragmentation, the Hash of the handshake messages used in the MAC calculation of the Finished message 
+      <t>Channel-binding information for linking proof-of-identity with connection-based proof-of-possession is optional for EST-coaps. When proof-of-possession is desired, a set of actions are required regarding the use of tls-unique, described in section 3.5 in <xref target="RFC7030"/>. The tls-unique information translates to the contents of the first "Finished" message in the (D)TLS handshake between server and client <xref target="RFC5929"/>. The client is then supposed to add this "Finished" message as a ChallengePassword in the attributes section of the PKCS#10 Request Info to prove that the client is indeed in control of the private key at the time of the TLS session when performing a /simpleenroll, for example. In the case of EST-coaps, the same operations can be performed during the DTLS handshake. For DTLS 1.2, in the event of handshake message fragmentation, the Hash of the handshake messages used in the MAC calculation of the Finished message </t>
 <figure align="left"><artwork><![CDATA[
 PRF(master_secret, finished_label, Hash(handshake_messages)) 
    [0..verify_data_length-1];
 ]]></artwork></figure> 
-MUST be computed as if each handshake message had been sent as a single fragment <xref target="RFC6347"/>.</t>
-<!-- EDNOTE: Account for DTLS 1.3-->
+     <t>MUST be computed as if each handshake message had been sent as a single fragment <xref target="RFC6347"/>. Similarly for DTLS 1.3, the Finished message </t>
+<figure align="left"><artwork><![CDATA[
+HMAC(finished_key,
+    Transcript-Hash(Handshake Context,
+    Certificate*, CertificateVerify*))
+
+    * Only included if present.
+]]></artwork></figure> 
+   <t>MUST be computed as if each handshake message had been sent as a single fragment following the algorithm described in
+   4.4.4 of <xref target="I-D.ietf-tls-tls13"/>. </t>
       <t>In a constrained CoAP environment, endpoints can't afford to establish a DTLS connection for every EST transaction. Authenticating and negotiating DTLS keys requires resources on low-end endpoints and consumes valuable bandwidth. The DTLS connection SHOULD remain open for persistent EST connections. For example, an EST cacerts request that is followed by a simpleenroll request can use the same authenticated DTLS connection. Given that after a successful enrollment, it is more likely that a new EST transaction will take place after a significant amount of time, the DTLS connections SHOULD only be kept alive for EST messages that are relatively close to each other. In some cases, such as NAT rebinding, keeping the state of a connection is not possible when devices sleep for extended periods of time. In such ocassions, <xref target="I-D.rescorla-tls-dtls-connection-id"/> negotiates a connection ID that can eliminate the need for new handshake and its additional cost. </t>
 <t>Support for Observe CoAP options <xref target="RFC7641"/> is compulsory. The necessity of Observer for long delays (minutes - hours)is explained in <xref target="pending"/>. Observe options could also be used by the server to notify clients about a change in the cacerts or csr attributes (resources) and might be an area of future work.</t>
-
   </section> <!-- Transport protocol -->
 
   <section anchor="proxy" title="HTTPS-CoAPS Registrar">
-    
-
-    <t>In real-world deployments, the EST server will not always reside within the CoAP boundary. The EST-server can exist outside the constrained network in a non-constrained network that supports TLS/HTTP. In such environments EST-coaps is used by the client within the CoAP boundary and TLS is used to transport the EST messages outside the CoAP boundary. A Registrar at the edge is required to operate between the CoAP environment and the external HTTP network. The ESTcoaps-to-HTTPS Registrar MUST terminate EST-coaps downstream and initiate EST connections over TLS upstream.</t> 
-	<t>When enforcing Proof-of-Possetion (POP), a value needs to be used to prove that the private key corresponding to the public key is in the possession of and can be
-   used by an end-entity or client. In other words, the CSR the client is using needs to include information from the DTLS connection the client establishes with the server. 
-   In the presense of ESTcoaps-to-HTTPS Registrar, the EST-coaps client MUST be authenticated and authorized by the Registrar and the Registrar MUST be authenticated as an EST Registrar client to the EST server. Thus the POP information is lost between the EST-coaps client and the EST server. The EST server becomes aware of the presense of an EST Registrar from its TLS client certificate that includes id-kp-cmcRA <xref target="RFC6402"/> extended key usage extension. As explained in Section 3.7 of <xref target="RFC7030"/>, the EST server SHOULD apply an authorization policy consistent with an Registrar client. For example, it could be configured to accept POP linking information that does not match the current TLS session because the authenticated EST client Registrar has verified this information when acting as an EST server.</t> 
+    <t>In real-world deployments, the EST server will not always reside within the CoAP boundary. The EST-server can exist outside the constrained network in a non-constrained network that supports TLS/HTTP. In such environments EST-coaps is used by the client within the CoAP boundary and TLS is used to transport the EST messages outside the CoAP boundary. A Registrar at the edge is required to operate between the CoAP environment and the external HTTP network. The EST coaps-to-HTTPS Registrar MUST terminate EST-coaps and authenticate the client downstream and initiate EST connections over TLS upstream.</t>
+    <t>The Registrar SHOULD authenticate the client downstream and it should be authenticated by the EST server or CA upstream. The Registration Authority (re-)creates the secure connection from DTLS to TLS and vice versa. A trust relationship SHOULD be pre-established between the Registrar and the EST servers to be able to proxy these connections on behalf of various clients.</t>
+    <t>When enforcing Proof-of-Possetion (POP), a value needs to be used to prove that the private key corresponding to the public key is in the possession of and can be used by an end-entity or client. In other words, the CSR the client is using needs to include information from the DTLS connection the client establishes with the server. In EST, that information is the (D)TLS tls-unique value of the (D)TLS session. In the presense of ESTcoaps-to-HTTPS Registrar, the EST-coaps client MUST be authenticated and authorized by the Registrar and the Registrar MUST be authenticated as an EST Registrar client to the EST server. Thus the POP information is lost between the EST-coaps client and the EST server. The EST server becomes aware of the presense of an EST Registrar from its TLS client certificate that includes id-kp-cmcRA <xref target="RFC6402"/> extended key usage extension. As explained in Section 3.7 of <xref target="RFC7030"/>, the EST server SHOULD apply an authorization policy consistent with an Registrar client. For example, it could be configured to accept POP linking information that does not match the current TLS session because the authenticated EST client Registrar has verified this information when acting as an EST server.</t> 
 
    <t>One possible use-case, shown in one figure below, is expected to be deployed in practice:</t>
 <figure align="left" title="ESTcoaps-to-HTTPS Registrar at the CoAP boundary."><artwork><![CDATA[
@@ -343,11 +329,8 @@ MUST be computed as if each handshake message had been sent as a single fragment
 ]]></artwork></figure>
 
     <t><xref target="est-uri"/> contains the URI mapping between the EST-coaps and EST the Registrar SHOULD adhere to. Section 7 of <xref target="RFC8075"/> and <xref target="error"/> define the mapping between EST-coaps and HTTP response codes, that determines how the Registrar translates CoAP response codes from/to HTTP status codes. The mapping from Content-Type to media type is defined in <xref target="iana"/>. The conversion from binary to BSD64 needs to be done in the Registrar. Conversion is possible because a TLS link exists between EST-coaps-to-HTTP Registrar and EST server and a corresponding DTLS linked exists between EST-coaps-to-HTTP Regitrar and EST client.</t>
-	<t>Due to fragmentation of large messages into blocks, an EST-coaps-to-HTTP Registrar SHOULD reassemble the BLOCKs before translating the binary content to BSD64, and consecutively relay the message upstream into the HTTP environment. </t>
+	<t>Due to fragmentation of large messages into blocks, an EST-coaps-to-HTTP Registrar SHOULD reassemble the BLOCKs before translating the binary content to BSD64, and consecutively relay the message upstream. </t>
     <t>For the discovery of the EST server by the EST client in the coap environment, the EST-coaps-to-HTTP Registrar MUST announce itself according to the rules of <xref target="discovery"/>. The available actions of the  Registrars MUST be announced with as many resource paths. The discovery of EST server in the http environment follow the rules specified in <xref target="RFC7030"/>.</t>
-
-    <t>The Registrar SHOULD authenticate the client downstream and it should be authenticated by the EST server or CA upstream. The Registration Authority (re-)creates the secure connection from DTLS to TLS and vice versa. A trust relationship needs to be pre-established between the Regsitrar and the EST servers to be able to proxy these connections on behalf of various clients.</t>
-    <t> [EDNOTE: To add more details about trust relations in this section. ] </t>
   </section>
 
   <section title="Parameters">
@@ -424,11 +407,11 @@ MUST be computed as if each handshake message had been sent as a single fragment
 
   <section anchor="sec" title="Security Considerations">
 
-<section anchor="sec-proxy" title="https-to-coaps Registrar considerations">
+<section anchor="sec-proxy" title="HTTPS-CoAPS Registrar considerations">
 <t>
 The Registrar proposed in <xref target="proxy"/> must be deployed with great care, and only when the recommended connections are impossible.
 </t>
-<t> [EDNOTE: To add more details about trust relations through https-to-coaps Registrars in this section. ] </t>
+<t> [EDNOTE: To add more details about trust relations through HTTPS-CoAPS Registrars in this section. ] </t>
 </section> <!-- proxy considerations -->
 
 <section anchor="sec-est" title="EST server considerations">
@@ -477,6 +460,7 @@ The Registrar proposed in <xref target="proxy"/> must be deployed with great car
     &RFC7252;
     &RFC7959;
     &RFC8075;
+	&I-D.ietf-tls-tls13;
 
   </references>
   <references title="Informative References">

@@ -114,16 +114,32 @@
 
 <middle>
   <section anchor="intro" title="Introduction">
-	<t>Enrollment over Secure Transport (EST) <xref target="RFC7030"/> is used for authenticated/authorized endpoint certificate enrollment (and optionally key provisioning) through a Certificate Authority (CA) or Registration Authority (RA). This functionality is also needed for low resource devices.</t> 
+	<t>"Classical" Enrollment over Secure Transport (EST) [RFC7030] is used for
+   authenticated/authorized endpoint certificate enrollment (and
+   optionally key provisioning) through a Certificate Authority (CA) or
+   Registration Authority (RA).  It uses HTTPS. </t>
+   
+   <t>This specification defines a new transport for EST based on the 
+   Constrained Application Protocol (CoAP) since some Internet of Things (IoT) 
+   devices use CoAP instead of HTTP. This specification therefore utilizes DTLS 
+   <xref target="RFC6347"/>, CoAP <xref target="RFC7252"/>, and UDP instead of 
+   TLS <xref target="RFC5246"/>, HTTP <xref target="RFC7230"/> and TCP. </t>
+   
+   <t>It also profiles the use of EST to only support certificate-based client 
+   Authentication. HTTP Basic or Digest authentication (as described in 
+   Section 3.2.3 of <xref target="RFC7030"/> are not supported. </t>
 
-<t> "Classical" EST uses HTTPS and this specification defines a new transport for EST using CoAP. It also profiles the use of EST to a smaller subset of authentication tools.</t>
+   <!-- <t>IPv6 over Low-power Wireless Personal Area Networks (6LoWPANs) <xref target="RFC4944" /> on IEEE 802.15.4 <xref target="ieee802.15.4" /> wireless networks are becoming common in many industry application domains such as lighting controls. Although IEEE 802.15.4 defines how security can be enabled between nodes within a single mesh network, it does not specify the provisioning and management of the keys. Therefore, securing a 6LoWPAN network with devices from multiple manufacturers with different provisioning techniques is often tedious and time consuming. An example use case is the application of Bootstrapping of Remote Secure Infrastructures (BRSKI) <xref target="I-D.ietf-anima-bootstrapping-keyinfra"/> </t>
 
-    <t>IPv6 over Low-power Wireless Personal Area Networks (6LoWPANs) <xref target="RFC4944" /> on IEEE 802.15.4 <xref target="ieee802.15.4" /> wireless networks are becoming common in many industry application domains such as lighting controls. Although IEEE 802.15.4 defines how security can be enabled between nodes within a single mesh network, it does not specify the provisioning and management of the keys. Therefore, securing a 6LoWPAN network with devices from multiple manufacturers with different provisioning techniques is often tedious and time consuming. An example use case is the application of Bootstrapping of Remote Secure Infrastructures (BRSKI) <xref target="I-D.ietf-anima-bootstrapping-keyinfra"/> </t>
-	<t>Constrained networks use DTLS <xref target="RFC6347"/>, CoAP <xref target="RFC7252"/>, and UDP instead of TLS <xref target="RFC5246"/>, HTTP <xref target="RFC7230"/> and TCP. EST-coaps replaces the invocations of TLS and HTTP by DTLS and CoAP invocations thus enabling EST for CoAP-based low-resource devices.</t>
+   <t>Constrained networks use DTLS <xref target="RFC6347"/>, CoAP <xref target="RFC7252"/>, and UDP instead of TLS <xref target="RFC5246"/>, HTTP <xref target="RFC7230"/> and TCP. EST-coaps replaces the invocations of TLS and HTTP by DTLS and CoAP invocations thus enabling EST for CoAP-based low-resource devices.</t> 
 
-    <t>Because the relatively large EST messages cannot be readily transported over constrained (6LoWPAN, LLN) wireless networks, this document specifies the use of CoAP Block-Wise Transfer ("Block") <xref target="RFC7959"/> to fragment EST messages at the application layer.</t>
+    <t>Because the relatively large EST messages cannot be readily transported over constrained (6LoWPAN, LLN) wireless networks, this document specifies the use of CoAP Block-Wise Transfer ("Block") <xref target="RFC7959"/> to fragment EST messages at the application layer.</t> -->
+	
+	<t>EST messages may be relatively large and for this reason this
+    document re-uses CoAP Block-Wise Transfer <xref target="RFC7959"/> to 
+    offer a fragmentation mechanism of EST messages at the CoAP layer.</t>
 
-<section anchor="scenario" title="EST operational differences">
+<!-- <section anchor="scenario" title="EST operational differences">
     <t>Only the differences to EST with respect to operational scenarios are described in this section. EST-coaps server differs from EST server as follows:
       <list style="symbols">
         <t>Replacement of TLS by DTLS and HTTP by CoAP, resulting in:
@@ -136,17 +152,14 @@
             <t>The EST-coaps client does not support authentication at the application layer (as described in Section 3.2.3 of <xref target="RFC7030"/>).</t>
           </list></t>
      </list></t>
-  </section>  <!-- EST operational differences -->
-    
+  </section> --> <!-- EST operational differences -->
+  </section>  <!-- Introduction -->    
 
     <section anchor="terminology" title="Terminology">
       <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <xref target="RFC2119"/>.</t>
       <t>Many of the concepts in this document are taken over from <xref target="RFC7030"/>. Consequently, much text is directly traceable to <xref target="RFC7030"/>. The same document structure is followed to point out the differences and commonalities between EST and EST-coaps.</t>
     </section>  <!-- Terminology -->
-  </section>  <!-- Introduction -->
-
   
-
   <section anchor="profile7925" title="Conformance to RFC7925 profiles">
     <t>This section shows how EST-coaps fits into the profiles of low-resource devices as described in <xref target="RFC7925"/>.</t>
     <t>EST-coaps can transport certificates and private keys. Private keys can be transported as response to a request to a server-side key generation as described in section 4.4 of <xref target="RFC7030"/> and discussed in <xref target="serverkey"/>. </t> 
@@ -466,7 +479,7 @@ The Registrar proposed in <xref target="proxy"/> must be deployed with great car
   <references title="Informative References">
     &RFC0791;
     &RFC4492;
-    &RFC4944;
+    <!-- &RFC4944; -->
     &RFC5246;
     &RFC5958;
     &RFC6090;
@@ -478,17 +491,17 @@ The Registrar proposed in <xref target="proxy"/> must be deployed with great car
     &RFC4919;
     &RFC5929;
     &RFC7525;
-    &I-D.ietf-anima-bootstrapping-keyinfra;
+    <!-- &I-D.ietf-anima-bootstrapping-keyinfra; -->
     &I-D.rescorla-tls-dtls-connection-id;
 	&I-D.fossati-core-multipart-ct;
-    <reference anchor="ieee802.15.4">
+    <!-- <reference anchor="ieee802.15.4">
       <front>
         <title>IEEE Standard 802.15.4-2006</title>
         <author surname="Institute of Electrical and Electronics Engineers">
         </author>
         <date month="" year="2006" />
       </front>
-    </reference>
+    </reference> -->
   </references>
 
   <section anchor="messagebindings" title="EST messages to EST-coaps">

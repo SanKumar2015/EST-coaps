@@ -116,16 +116,32 @@
 
 <middle>
   <section anchor="intro" title="Introduction">
-	<t>Enrollment over Secure Transport (EST) <xref target="RFC7030"/> is used for authenticated/authorized endpoint certificate enrollment (and optionally key provisioning) through a Certificate Authority (CA) or Registration Authority (RA). This functionality is also needed for low resource devices.</t> 
+	<t>"Classical" Enrollment over Secure Transport (EST) [RFC7030] is used for
+   authenticated/authorized endpoint certificate enrollment (and
+   optionally key provisioning) through a Certificate Authority (CA) or
+   Registration Authority (RA).  It uses HTTPS. </t>
+   
+   <t>This specification defines a new transport for EST based on the 
+   Constrained Application Protocol (CoAP) since some Internet of Things (IoT) 
+   devices use CoAP instead of HTTP. This specification therefore utilizes DTLS 
+   <xref target="RFC6347"/>, CoAP <xref target="RFC7252"/>, and UDP instead of 
+   TLS <xref target="RFC5246"/>, HTTP <xref target="RFC7230"/> and TCP. </t>
+   
+   <t>It also profiles the use of EST to only support certificate-based client 
+   Authentication. HTTP Basic or Digest authentication (as described in 
+   Section 3.2.3 of <xref target="RFC7030"/> are not supported. </t>
 
-<t> "Classical" EST uses HTTPS and this specification defines a new transport for EST using CoAP. It also profiles the use of EST to a smaller subset of authentication tools.</t>
+   <!-- <t>IPv6 over Low-power Wireless Personal Area Networks (6LoWPANs) <xref target="RFC4944" /> on IEEE 802.15.4 <xref target="ieee802.15.4" /> wireless networks are becoming common in many industry application domains such as lighting controls. Although IEEE 802.15.4 defines how security can be enabled between nodes within a single mesh network, it does not specify the provisioning and management of the keys. Therefore, securing a 6LoWPAN network with devices from multiple manufacturers with different provisioning techniques is often tedious and time consuming. An example use case is the application of Bootstrapping of Remote Secure Infrastructures (BRSKI) <xref target="I-D.ietf-anima-bootstrapping-keyinfra"/> </t>
 
-    <t>IPv6 over Low-power Wireless Personal Area Networks (6LoWPANs) <xref target="RFC4944" /> on IEEE 802.15.4 <xref target="ieee802.15.4" /> wireless networks are becoming common in many industry application domains such as lighting controls. Although IEEE 802.15.4 defines how security can be enabled between nodes within a single mesh network, it does not specify the provisioning and management of the keys. Therefore, securing a 6LoWPAN network with devices from multiple manufacturers with different provisioning techniques is often tedious and time consuming. An example use case is the application of Bootstrapping of Remote Secure Infrastructures (BRSKI) <xref target="I-D.ietf-anima-bootstrapping-keyinfra"/> </t>
-	<t>Constrained networks use DTLS <xref target="RFC6347"/>, CoAP <xref target="RFC7252"/>, and UDP instead of TLS <xref target="RFC5246"/>, HTTP <xref target="RFC7230"/> and TCP. EST-coaps replaces the invocations of TLS and HTTP by DTLS and CoAP invocations thus enabling EST for CoAP-based low-resource devices.</t>
+   <t>Constrained networks use DTLS <xref target="RFC6347"/>, CoAP <xref target="RFC7252"/>, and UDP instead of TLS <xref target="RFC5246"/>, HTTP <xref target="RFC7230"/> and TCP. EST-coaps replaces the invocations of TLS and HTTP by DTLS and CoAP invocations thus enabling EST for CoAP-based low-resource devices.</t> 
 
-    <t>Because the relatively large EST messages cannot be readily transported over constrained (6LoWPAN, LLN) wireless networks, this document specifies the use of CoAP Block-Wise Transfer ("Block") <xref target="RFC7959"/> to fragment EST messages at the application layer.</t>
+    <t>Because the relatively large EST messages cannot be readily transported over constrained (6LoWPAN, LLN) wireless networks, this document specifies the use of CoAP Block-Wise Transfer ("Block") <xref target="RFC7959"/> to fragment EST messages at the application layer.</t> -->
+	
+	<t>EST messages may be relatively large and for this reason this
+    document re-uses CoAP Block-Wise Transfer <xref target="RFC7959"/> to 
+    offer a fragmentation mechanism of EST messages at the CoAP layer.</t>
 
-<section anchor="scenario" title="EST operational differences">
+<!-- <section anchor="scenario" title="EST operational differences">
     <t>Only the differences to EST with respect to operational scenarios are described in this section. EST-coaps server differs from EST server as follows:
       <list style="symbols">
         <t>Replacement of TLS by DTLS and HTTP by CoAP, resulting in:
@@ -138,21 +154,18 @@
             <t>The EST-coaps client does not support authentication at the application layer (as described in Section 3.2.3 of <xref target="RFC7030"/>).</t>
           </list></t>
      </list></t>
-  </section>  <!-- EST operational differences -->
-    
+  </section> --> <!-- EST operational differences -->
+  </section>  <!-- Introduction -->    
 
     <section anchor="terminology" title="Terminology">
       <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <xref target="RFC2119"/>.</t>
       <t>Many of the concepts in this document are taken over from <xref target="RFC7030"/>. Consequently, much text is directly traceable to <xref target="RFC7030"/>. The same document structure is followed to point out the differences and commonalities between EST and EST-coaps.</t>
     </section>  <!-- Terminology -->
-  </section>  <!-- Introduction -->
-
   
-
   <section anchor="profile7925" title="Conformance to RFC7925 profiles">
     <t>This section shows how EST-coaps fits into the profiles of low-resource devices as described in <xref target="RFC7925"/>.</t>
     <t>EST-coaps can transport certificates and private keys. Private keys can be transported as response to a request to a server-side key generation as described in section 4.4 of <xref target="RFC7030"/> and discussed in <xref target="serverkey"/>. </t> 
-    <t> The mandatory cipher suite for DTLS is TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 defined in <xref target="RFC7251"/> which is the mandatory-to-implement cipher suite in CoAP. Additionally, the curve secp256r1 MUST be supported <xref target="RFC4492"/>; this curve is equivalent to the NIST P-256 curve. [EDNOTE: RECOMMEND Curve25519 for efficiency? ] The hash algorithm SHOULD BE SHA-256. DTLS 1.2 implementations MUST use the Supported Elliptic Curves and Supported Point Formats Extensions <xref target="RFC4492"/>; the uncompressed point format MUST be supported; <xref target="RFC6090"/> can be used as an implementation method. DTLS 1.3 implementations differ from DTLS 1.2 because they do not support point format negotiation in favor of a single point format for each curve.</t>
+    <t> The mandatory cipher suite for DTLS is TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 defined in <xref target="RFC7251"/> which is the mandatory-to-implement cipher suite in CoAP. Additionally, the curve secp256r1 MUST be supported <xref target="RFC4492"/>; this curve is equivalent to the NIST P-256 curve. [EDNOTE: RECOMMEND Curve25519 for efficiency ]. The hash algorithm SHOULD BE SHA-256. DTLS 1.2 implementations MUST use the Supported Elliptic Curves and Supported Point Formats Extensions <xref target="RFC4492"/>; the uncompressed point format MUST be supported; <xref target="RFC6090"/> can be used as an implementation method. DTLS 1.3 implementations differ from DTLS 1.2 because they do not support point format negotiation in favor of a single point format for each curve.</t>
     <t>The EST-coaps client MUST be configured with an explicit TA database or at least an implicit TA database from its manufacturer. The authentication of the EST-coaps server by the EST-coaps client is based on Certificate authentication in the DTLS handshake.</t>
       <t>The authentication of the EST-coaps client is based on client certificate in the DTLS handshake. This can either be
         <list style="symbols">
@@ -189,7 +202,7 @@
 
     <section title="Message Bindings">
       <t>This section describes the general EST CoAP message characteristics.</t>
-      <t> <!-- EDNOTE: From Jim "Rephrase the use of CON" --> It is RECOMMENDED to use CoAP CON messages. This recommendation does not influence the communication efficiency because all EST-coaps messages expect a response.</t>
+      <t>It is RECOMMENDED the EST-coaps requests to be sent over CoAP confirmable messages. All EST-coaps messages expect a response from the server, thus the client MUST send the requests over confirmable CON COAP messages.</t>
       <t>The Ver, TKL, Token, and Message ID values of the CoAP header are not influenced by EST.</t>
       <t>CoAP options are used to convey Uri-Host, Uri-Path, Uri-Port, Content-Format, and Location-Path in CoAP. The CoAP Options are used to communicate the HTTP fields specified in the EST REST messages. </t>
       <t>EST URLs are HTTPS based (https://), in CoAP these will be assumed to be transformed to coaps (coaps://)</t>
@@ -371,7 +384,7 @@ HMAC(finished_key,
 <t>
 The Registrar proposed in <xref target="proxy"/> must be deployed with great care, and only when the recommended connections are impossible.
 </t>
-<t> [EDNOTE: To add more details about trust relations through HTTPS-CoAPS Registrars in this section. ] </t>
+<t> [EDNOTE: To add more details about trust relations through HTTPS-CoAPS Registrars in this section. And POP. And the possibility the registrar generates the key for serve-side key gen. ] </t>
 </section> <!-- proxy considerations -->
 
 <section anchor="sec-est" title="EST server considerations">
@@ -433,7 +446,7 @@ The Registrar proposed in <xref target="proxy"/> must be deployed with great car
   <references title="Informative References">
     &RFC0791;
     &RFC4492;
-    &RFC4944;
+    <!-- &RFC4944; -->
     &RFC5246;
     &RFC5273;
     &RFC5958;
@@ -447,17 +460,17 @@ The Registrar proposed in <xref target="proxy"/> must be deployed with great car
     &RFC4919;
     &RFC5929;
     &RFC7525;
-    &I-D.ietf-anima-bootstrapping-keyinfra;
+    <!-- &I-D.ietf-anima-bootstrapping-keyinfra; -->
     &I-D.rescorla-tls-dtls-connection-id;
 	&I-D.fossati-core-multipart-ct;
-    <reference anchor="ieee802.15.4">
+    <!-- <reference anchor="ieee802.15.4">
       <front>
         <title>IEEE Standard 802.15.4-2006</title>
         <author surname="Institute of Electrical and Electronics Engineers">
         </author>
         <date month="" year="2006" />
       </front>
-    </reference>
+    </reference> -->
   </references>
 
   <section anchor="messagebindings" title="EST messages to EST-coaps">
@@ -615,8 +628,10 @@ GET coaps://[2001:db8::2:1]:61616/est/att
     </section>  <!-- csrattrs -->
 
     <section title="enroll / reenroll">
+      
       <t>[EDNOTE: We might need a new Option for the Retry-After response message. We might need a new Option for the WWW-Authenticate response.]</t>
       <t>During the Enroll/Reenroll exchange, the EST-coaps client uses a CSR (Content-Format TBD7) request in the POST request payload.</t>
+
 <t> After verification of the certificate by the server, a 2.05 Content response with the issued certificate will be returned.</t>
 
 <figure align="left"><artwork><![CDATA[
@@ -788,16 +803,12 @@ a4fa677130da60818175ca4ab2af1d15563624c51e13dfdcf381881b72327e2f4
 
 	<t> Without the DecryptKeyIdentifier attribute, the response has no additional encryption beyond DTLS. [EDNOTE: Add comment about deriving symmetric keys by using the TLS KEM draft. ] </t>
 	<t>The response contains first a preamble that can be ignored. The EST-coaps server can use the preamble to include additional explanations, like ownership or support information </t>
+	
+    <t>Sever side key generation for CoAP can be implemented efficiently using multipart encoding</t>
+    <t>[EDNOTE: <xref target="I-D.fossati-core-multipart-ct"/> describes how multipart messages (as in the response to a server-side key generation) can be carries in COAP. Details to be discussed here.] </t>	
     </section>  <!-- serverkeygen -->
 
   </section>  <!-- EST messages to EST-coaps -->
-
-  <section anchor="multipart" title="Encoding for server side key generation">
-    
-    <t>Sever side key generation for CoAP can be implemented efficiently using multipart encoding</t>
-<t>[EDNOTE: <xref target="I-D.fossati-core-multipart-ct"/> describes how multipart messages (as in the response to a server-side key generation) can be carries in COAP. Details to be discussed here.] 
-	</t>
-   </section> <!-- Encoding for server side key generation -->
 
   <section anchor="blockexamples" title="EST-coaps Block message examples">
     <t>This section provides a detailed example of the messages using DTLS and BLOCK option Block2. The minimum PMTU is 1280 bytes, which is the example value assumed for the DTLS datagram size. The example block length is taken as 64 which gives an SZX value of 2.</t>

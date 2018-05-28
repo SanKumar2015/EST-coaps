@@ -7,6 +7,7 @@
 <!ENTITY RFC4492 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4492.xml">
 <!ENTITY RFC4944 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4944.xml">
 <!ENTITY RFC5246 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5246.xml">
+<!ENTITY RFC5273 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5273.xml">
 <!ENTITY RFC5272 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5272.xml">
 <!ENTITY RFC5751 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5751.xml">
 <!ENTITY RFC5958 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5958.xml">
@@ -17,6 +18,7 @@
 <!ENTITY RFC6690 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6690.xml">
 <!ENTITY RFC7030 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7030.xml">
 <!ENTITY RFC7230 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7230.xml">
+<!ENTITY RFC7231 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7231.xml">
 <!ENTITY RFC7251 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7251.xml">
 <!ENTITY RFC7252 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7252.xml">
 <!ENTITY RFC7925 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7925.xml">
@@ -279,11 +281,11 @@ coaps://www.example.com/.well-known/est/ArbitraryLabel/<short-est>.
 
   RES: 2.05 Content 
 </est>; rt="ace.est"
-</est/crts>;ct=TBD1
-</est/sen>;ct=TBD1 TBD4
-</est/sren>;ct=TBD1 TBD4
-</est/att>;ct=TBD4
-</est/skg>;ct=TBD1 TBD4 TBD2 
+</est/crts>;ct=TBD2
+</est/sen>;ct=TBD2 TBD7
+</est/sren>;ct=TBD2 TBD7
+</est/att>;ct=TBD6
+</est/skg>;ct=TBD1 TBD2 TBD5 TBD7 
 ]]></artwork>
     </figure>
       <t> The first line of the discovery response MUST be returned. The four consecutive lines MAY be returned. The return of the content-types in the last four lines allows the client to choose the most appropriate one from multiple content types.</t>
@@ -346,59 +348,24 @@ HMAC(finished_key,
   <section anchor="iana" title="IANA Considerations">
 
   <section anchor="content-formats" title="Content-Format registry">
-    <t>Additions to the sub-registry "CoAP Content-Formats", within the "CoRE Parameters" registry are needed for the below media types. These can be registered either in the Expert Review range (0-255) or IETF Review range (256-9999).
-    <list style="numbers">
-      <t><list style ="symbols">
-           <t>application/pkcs7-mime</t>
-           <t>Type name: application</t>
-           <t>Subtype name: pkcs7-mime</t>
-           <t> ID: TBD1 </t>
-           <t>Required parameters: None</t>
-           <t>Optional parameters: None </t>
-           <t>Encoding considerations: binary</t>
-           <t>Security considerations: As defined in this specification</t>
-           <t>Published specification: <xref target="RFC5751"/> </t>
-           <t>Applications that use this media type: EST</t>
-         </list></t>
-      <t><list style ="symbols">
-           <t>application/pkcs8</t>
-           <t>Type name: application</t>
-           <t>Subtype name: pkcs8</t>
-           <t>ID: TBD2 </t>
-           <t>Required parameters: None</t>
-           <t>Optional parameters: None </t>
-           <t>Encoding considerations: binary</t>
-           <t>Security considerations: As defined in this specification</t>
-           <t>Published specification: <xref target="RFC5958"/> </t>
-           <t>Applications that use this media type: EST</t>
-        </list></t>
-      <t><list style ="symbols">
-           <t>application/csrattrs</t>
-           <t>Type name: application</t>
-           <t>Subtype name: csrattrs</t>
-           <t> ID: TBD3 </t>
-           <t>Required parameters: None</t>
-           <t>Optional parameters: None </t>
-           <t>Encoding considerations: binary</t>
-           <t>Security considerations: As defined in this specification</t>
-           <t>Published specification: <xref target="RFC7030"/> </t>
-           <t>Applications that use this media type: EST</t>
-         </list></t>
-      <t><list style ="symbols">
-           <t>application/pkcs10</t>
-           <t>Type name: application</t>
-           <t>Subtype name: pkcs10</t>
-           <t> ID: TBD4 </t>
-           <t>Required parameters: None</t>
-           <t>Optional parameters: None </t>
-           <t>Encoding considerations: binary</t>
-           <t>Security considerations: As defined in this specification</t>
-           <t>Published specification: <xref target="RFC5967"/> </t>
-           <t>Applications that use this media type: EST</t>
-   
-      </list></t>
-    </list>
-   </t>
+    <t>Additions to the sub-registry "CoAP Content-Formats", within the "CoRE Parameters" registry are specified in <xref target="content-format"/>. These can be registered either in the Expert Review range (0-255) or IETF Review range (256-9999).</t>
+
+<texttable anchor="content-format">
+  <ttcol align="left" width="30%">Media type</ttcol>
+  <ttcol align="left" width="27%">mime type</ttcol>
+  <ttcol align="left" width="19%">Encoding</ttcol>
+  <ttcol align="left" width="9%">ID</ttcol>
+  <ttcol align="left" width="17%">Reference</ttcol>
+
+<c> application/pkcs7-mime </c> <c>"server-generated-key"</c>  <c>"identity"</c> <c>TBD1</c> <c> <xref target="RFC5751"/> <xref target="RFC7030"/> <xref target="RFC7231"/> </c>
+<c> application/pkcs7-mime </c> <c>"certs-only"</c>  <c>"identity"</c> <c>TBD2</c> <c> <xref target="RFC5751"/> <xref target="RFC7231"/> </c>
+<c> application/pkcs7-mime </c> <c>"CMC-request"</c>  <c>"identity"</c> <c>TBD3</c> <c> <xref target="RFC5751"/> <xref target="RFC5273"/> <xref target="RFC7231"/> </c>
+<c> application/pkcs7-mime </c> <c>"CMC-response"</c>  <c>"identity"</c> <c>TBD4</c> <c> <xref target="RFC5751"/> <xref target="RFC5273"/> <xref target="RFC7231"/> </c>
+<c> application/pkcs8 </c> <c> --- </c>  <c>"identity"</c> <c>TBD5</c> <c> <xref target="RFC5751"/> <xref target="RFC5958"/> <xref target="RFC7231"/> </c>
+<c> application/csrattrs </c> <c> --- </c>  <c>"identity"</c> <c>TBD6</c> <c> <xref target="RFC7030"/> <xref target="RFC7231"/> <xref target="RFC7231"/> </c>
+<c> application/pkcs10 </c> <c> --- </c>  <c>"identity"</c> <c>TBD7</c> <c> <xref target="RFC5751"/> <xref target="RFC5967"/> <xref target="RFC7231"/> </c>
+</texttable>
+
 </section> <!-- Content-Format registry -->
 
 <section anchor="resource-type" title="Resource Type registry">
@@ -481,10 +448,12 @@ The Registrar proposed in <xref target="proxy"/> must be deployed with great car
     &RFC4492;
     <!-- &RFC4944; -->
     &RFC5246;
+    &RFC5273;
     &RFC5958;
     &RFC6090;
-	&RFC6402;
+    &RFC6402;
     &RFC7230;
+    &RFC7231;
     &RFC7251;
     &RFC7641;
     &RFC7925;
@@ -546,7 +515,7 @@ GET coaps://[192.0.2.1:8085]/est/crts
 
       <t>A 2.05 Content response with a cert in EST-coaps will then be:</t>
 <figure align="left"><artwork><![CDATA[
-2.05 Content (Content-Format: application/pkcs7-mime)
+2.05 Content (Content-Format: TBD2)
    {payload}
 ]]></artwork></figure>
         <t>with CoAP fields </t>
@@ -563,7 +532,7 @@ GET coaps://[192.0.2.1:8085]/est/crts
     Option2 (Content-Format)
       Option Delta = 0xC  (option nr = 6+6 =12)
       Option Length = 0x2
-      Option Value = TBD1 (defined in this document) 
+      Option Value = TBD2 (defined in this document) 
                 
   Payload =
 30233906092a6206734107028c2a3023260201013100300b06092a6206734107018
@@ -652,21 +621,23 @@ After reception of the 2.05 response, the client can forget the observe.</t>
 <figure align="left"><artwork><![CDATA[
 REQ:
 GET coaps://[2001:db8::2:1]:61616/est/att
-(observe =0)(Max-Age =1)
+(Content-Format: TBD6)(observe =0)(Max-Age =1)
 ]]></artwork></figure>
 
       <t>A 2.05 Content response contains attributes which are relevant for the authenticated client. In this example, the EST-coaps server returns two attributes that the client can ignore when they are unknown to him.</t>
     </section>  <!-- csrattrs -->
 
     <section title="enroll / reenroll">
-      <t>[EDNOTE: We might need a new Option for the Retry-After response message. ]</t>
-      <t>During the Enroll/Reenroll exchange, the EST-coaps client uses a CSR (PKCS#10) request in the POST request payload.</t>
+      
+      <t>[EDNOTE: We might need a new Option for the Retry-After response message. We might need a new Option for the WWW-Authenticate response.]</t>
+      <t>During the Enroll/Reenroll exchange, the EST-coaps client uses a CSR (Content-Format TBD7) request in the POST request payload.</t>
+
 <t> After verification of the certificate by the server, a 2.05 Content response with the issued certificate will be returned.</t>
 
 <figure align="left"><artwork><![CDATA[
 POST [2001:db8::2:1]:61616/est/sen
 (token 0x45)
-(Content-Format: application/pkcs10)(observe 0)
+(Content-Format: TBD7)(observe 0)
 30208530206d020100301f311d301b0603550403131464656d6f7374657034203
 1333638313431333532302062300d06092a620673410101050003204f0030204a
 022041005d9f4dffd3c5949f646a9584367778560950b355c35b8e34726dd3764
@@ -685,8 +656,8 @@ a7cda5176e7ccc6be22ae03498588d5f2de3b143f2b1a6175ec544e8e7625af6b
 fc7e0731f0e7fe305703791362d5157e92e6b5c2e3edbcadb40
 
 RET:
-(token =0x45)(observe =12)
-2.05 Content (Content-Format: application/pkcs7-mime)
+(Content-Format: TBD2)(token =0x45)(observe =12)
+2.05 Content
 3020f806092a62067341070283293020e50201013100300b06092a62067341070
 1830b3020c730206fc20102020115300d06092a6206734101050500301b311930
 17060355040313106573744578616d706c654341204e774e301e170d313330353
@@ -715,7 +686,7 @@ a2583aac9024075113db4990b1786b871691e0f020301000134b050300e060355
 <figure align="left"><artwork><![CDATA[
 POST [2001:db8::2:1]:61616/est/sen
 (token 0x45)(observe = 0)
-(Content-Format: application/pkcs10)(Max-Age=120)
+(Content-Format: TBD7)(Max-Age=120)
 [payload]
 RET:
 (token =0x45)(observe =12)(Location-Path=/est/1245)
@@ -733,7 +704,7 @@ RET:
 
 RET:
 (token =0x53)(observe = 6)
-(Content-Format: application/pkcs10)
+(Content-Format: TBD2)
 2.05 Content
 [payload]
 
@@ -752,7 +723,7 @@ RET:
 <figure align="left"><artwork><![CDATA[
 POST coaps://[192.0.2.1:8085]/est/skg
 (token 0xa5)(observe = 0)
-(Content-Format: application/pkcs10)(Max-Age=120)
+(Content-Format: TBD7)(Max-Age=120)
 
 302081302069020100305b313e303c060355040313357365727665724b6579476
 56e2072657120627920636c69656e7420696e2064656d6f207374657020313220
@@ -774,7 +745,7 @@ f9288724381909188c851fa9a5059802eb64449f2a3c9e441353d136768da27ff
 4823dbd2d6a98445b46305c10637e202856611
 
 RET:
-2.05 Content (Content-Format: application/pkcs8)
+2.05 Content (Content-Format: TBD5)
 (observe = 5)(token=0xa5)
 
 30213e020100300d06092a6206734101010500042128302124020100022041003
@@ -900,7 +871,7 @@ GET [192.0.2.1:8085]/est/crts     -->
     Option2 (Content-Format)
       Option Delta = 0xC  (option nr =6+6=12)
       Option Length = 0x2
-      Option Value = TBD1                  
+      Option Value = TBD2                  
     Option2 (Block2)
       Option Delta = 0xB  (option 23 = 12 + 11)
       Option Length = 0x1
@@ -925,7 +896,7 @@ c0c3020bb302063c20102020900a61e75193b7acc0d06092a6206734101
     Option2 (Content-Format)
       Option Delta = 0xC  (option nr =6+6=12)
       Option Length = 0x2
-      Option Value = TBD1                  
+      Option Value = TBD2                 
     Option2 (Block2)
       Option Delta = 0xB  (option 23 = 12 + 11)
       Option Length = 0x1
@@ -950,7 +921,7 @@ c0c3020bb302063c20102020900a61e75193b7acc0d06092a6206734101
     Option2 (Content-Format)
       Option Delta = 0xC  (option nr =6+6=12)
       Option Length = 0x2
-      Option Value = TBD1                  
+      Option Value = TBD2                  
     Option2 (Block2)
       Option Delta = 0xB  (option 23 = 12 + 11)
       Option Length = 0x2

@@ -5,7 +5,7 @@
 ACE                                                      P. van der Stok
 Internet-Draft                                                Consultant
 Intended status: Standards Track                           P. Kampanakis
-Expires: November 8, 2018                                  Cisco Systems
+Expires: November 29, 2018                                 Cisco Systems
                                                                 S. Kumar
                                                Philips Lighting Research
                                                            M. Richardson
@@ -14,7 +14,7 @@ Expires: November 8, 2018                                  Cisco Systems
                                                              Nexus Group
                                                                  S. Raza
                                                                RISE SICS
-                                                             May 7, 2018
+                                                            May 28, 2018
 
 
                     EST over secure CoAP (EST-coaps)
@@ -47,13 +47,13 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 8, 2018.
+   This Internet-Draft will expire on November 29, 2018.
 
 
 
 
 
-van der Stok, et al.    Expires November 8, 2018                [Page 1]
+van der Stok, et al.    Expires November 29, 2018               [Page 1]
 
 Internet-Draft                  EST-coaps                       May 2018
 
@@ -93,23 +93,23 @@ Table of Contents
    7.  Parameters  . . . . . . . . . . . . . . . . . . . . . . . . .  14
    8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  14
      8.1.  Content-Format registry . . . . . . . . . . . . . . . . .  14
-     8.2.  Resource Type registry  . . . . . . . . . . . . . . . . .  16
-   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
-     9.1.  HTTPS-CoAPS Registrar considerations  . . . . . . . . . .  16
+     8.2.  Resource Type registry  . . . . . . . . . . . . . . . . .  15
+   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  15
+     9.1.  HTTPS-CoAPS Registrar considerations  . . . . . . . . . .  15
      9.2.  EST server considerations . . . . . . . . . . . . . . . .  16
    10. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  17
-   11. Change Log  . . . . . . . . . . . . . . . . . . . . . . . . .  18
-   12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  18
-     12.1.  Normative References . . . . . . . . . . . . . . . . . .  18
+   11. Change Log  . . . . . . . . . . . . . . . . . . . . . . . . .  17
+   12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
+     12.1.  Normative References . . . . . . . . . . . . . . . . . .  17
      12.2.  Informative References . . . . . . . . . . . . . . . . .  19
    Appendix A.  EST messages to EST-coaps  . . . . . . . . . . . . .  21
-     A.1.  cacerts . . . . . . . . . . . . . . . . . . . . . . . . .  22
-     A.2.  csrattrs  . . . . . . . . . . . . . . . . . . . . . . . .  25
+     A.1.  cacerts . . . . . . . . . . . . . . . . . . . . . . . . .  21
+     A.2.  csrattrs  . . . . . . . . . . . . . . . . . . . . . . . .  24
      A.3.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  25
 
 
 
-van der Stok, et al.    Expires November 8, 2018                [Page 2]
+van der Stok, et al.    Expires November 29, 2018               [Page 2]
 
 Internet-Draft                  EST-coaps                       May 2018
 
@@ -165,7 +165,7 @@ Internet-Draft                  EST-coaps                       May 2018
 
 
 
-van der Stok, et al.    Expires November 8, 2018                [Page 3]
+van der Stok, et al.    Expires November 29, 2018               [Page 3]
 
 Internet-Draft                  EST-coaps                       May 2018
 
@@ -221,7 +221,7 @@ Internet-Draft                  EST-coaps                       May 2018
 
 
 
-van der Stok, et al.    Expires November 8, 2018                [Page 4]
+van der Stok, et al.    Expires November 29, 2018               [Page 4]
 
 Internet-Draft                  EST-coaps                       May 2018
 
@@ -277,7 +277,7 @@ Internet-Draft                  EST-coaps                       May 2018
 
 
 
-van der Stok, et al.    Expires November 8, 2018                [Page 5]
+van der Stok, et al.    Expires November 29, 2018               [Page 5]
 
 Internet-Draft                  EST-coaps                       May 2018
 
@@ -333,7 +333,7 @@ Internet-Draft                  EST-coaps                       May 2018
 
 
 
-van der Stok, et al.    Expires November 8, 2018                [Page 6]
+van der Stok, et al.    Expires November 29, 2018               [Page 6]
 
 Internet-Draft                  EST-coaps                       May 2018
 
@@ -389,7 +389,7 @@ Internet-Draft                  EST-coaps                       May 2018
 
 
 
-van der Stok, et al.    Expires November 8, 2018                [Page 7]
+van der Stok, et al.    Expires November 29, 2018               [Page 7]
 
 Internet-Draft                  EST-coaps                       May 2018
 
@@ -445,7 +445,7 @@ Internet-Draft                  EST-coaps                       May 2018
 
 
 
-van der Stok, et al.    Expires November 8, 2018                [Page 8]
+van der Stok, et al.    Expires November 29, 2018               [Page 8]
 
 Internet-Draft                  EST-coaps                       May 2018
 
@@ -501,7 +501,7 @@ Internet-Draft                  EST-coaps                       May 2018
 
 
 
-van der Stok, et al.    Expires November 8, 2018                [Page 9]
+van der Stok, et al.    Expires November 29, 2018               [Page 9]
 
 Internet-Draft                  EST-coaps                       May 2018
 
@@ -538,11 +538,11 @@ Internet-Draft                  EST-coaps                       May 2018
 
      RES: 2.05 Content
    </est>; rt="ace.est"
-   </est/crts>;ct=TBD1
-   </est/sen>;ct=TBD1 TBD4
-   </est/sren>;ct=TBD1 TBD4
-   </est/att>;ct=TBD4
-   </est/skg>;ct=TBD1 TBD4 TBD2
+   </est/crts>;ct=TBD2
+   </est/sen>;ct=TBD2 TBD7
+   </est/sren>;ct=TBD2 TBD7
+   </est/att>;ct=TBD6
+   </est/skg>;ct=TBD1 TBD2 TBD5 TBD7
 
    The first line of the discovery response MUST be returned.  The four
    consecutive lines MAY be returned.  The return of the content-types
@@ -557,7 +557,7 @@ Internet-Draft                  EST-coaps                       May 2018
 
 
 
-van der Stok, et al.    Expires November 8, 2018               [Page 10]
+van der Stok, et al.    Expires November 29, 2018              [Page 10]
 
 Internet-Draft                  EST-coaps                       May 2018
 
@@ -613,7 +613,7 @@ Internet-Draft                  EST-coaps                       May 2018
 
 
 
-van der Stok, et al.    Expires November 8, 2018               [Page 11]
+van der Stok, et al.    Expires November 29, 2018              [Page 11]
 
 Internet-Draft                  EST-coaps                       May 2018
 
@@ -669,7 +669,7 @@ Internet-Draft                  EST-coaps                       May 2018
 
 
 
-van der Stok, et al.    Expires November 8, 2018               [Page 12]
+van der Stok, et al.    Expires November 29, 2018              [Page 12]
 
 Internet-Draft                  EST-coaps                       May 2018
 
@@ -725,7 +725,7 @@ Internet-Draft                  EST-coaps                       May 2018
 
 
 
-van der Stok, et al.    Expires November 8, 2018               [Page 13]
+van der Stok, et al.    Expires November 29, 2018              [Page 13]
 
 Internet-Draft                  EST-coaps                       May 2018
 
@@ -757,112 +757,61 @@ Internet-Draft                  EST-coaps                       May 2018
 8.1.  Content-Format registry
 
    Additions to the sub-registry "CoAP Content-Formats", within the
-   "CoRE Parameters" registry are needed for the below media types.
-   These can be registered either in the Expert Review range (0-255) or
-   IETF Review range (256-9999).
-
-   1.
-
-       *  application/pkcs7-mime
-
-       *  Type name: application
-
-       *  Subtype name: pkcs7-mime
-
-       *  ID: TBD1
-
-       *  Required parameters: None
-
-       *  Optional parameters: None
-
-       *  Encoding considerations: binary
-
-       *  Security considerations: As defined in this specification
+   "CoRE Parameters" registry are specified in Table 2.  These can be
+   registered either in the Expert Review range (0-255) or IETF Review
+   range (256-9999).
 
 
 
-van der Stok, et al.    Expires November 8, 2018               [Page 14]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+van der Stok, et al.    Expires November 29, 2018              [Page 14]
 
 Internet-Draft                  EST-coaps                       May 2018
 
 
-       *  Published specification: [RFC5751]
+   +-----------------+-----------------+------------+------+-----------+
+   | Media type      | mime type       | Encoding   | ID   | Reference |
+   +-----------------+-----------------+------------+------+-----------+
+   | application/pkc | "server-        | "identity" | TBD1 | [RFC5751] |
+   | s7-mime         | generated-key"  |            |      | [RFC7030] |
+   |                 |                 |            |      | [RFC7231] |
+   | application/pkc | "certs-only"    | "identity" | TBD2 | [RFC5751] |
+   | s7-mime         |                 |            |      | [RFC7231] |
+   | application/pkc | "CMC-request"   | "identity" | TBD3 | [RFC5751] |
+   | s7-mime         |                 |            |      | [RFC5273] |
+   |                 |                 |            |      | [RFC7231] |
+   | application/pkc | "CMC-response"  | "identity" | TBD4 | [RFC5751] |
+   | s7-mime         |                 |            |      | [RFC5273] |
+   |                 |                 |            |      | [RFC7231] |
+   | application/pkc | ---             | "identity" | TBD5 | [RFC5751] |
+   | s8              |                 |            |      | [RFC5958] |
+   |                 |                 |            |      | [RFC7231] |
+   | application/csr | ---             | "identity" | TBD6 | [RFC7030] |
+   | attrs           |                 |            |      | [RFC7231] |
+   |                 |                 |            |      | [RFC7231] |
+   | application/pkc | ---             | "identity" | TBD7 | [RFC5751] |
+   | s10             |                 |            |      | [RFC5967] |
+   |                 |                 |            |      | [RFC7231] |
+   +-----------------+-----------------+------------+------+-----------+
 
-       *  Applications that use this media type: EST
-
-   2.
-
-       *  application/pkcs8
-
-       *  Type name: application
-
-       *  Subtype name: pkcs8
-
-       *  ID: TBD2
-
-       *  Required parameters: None
-
-       *  Optional parameters: None
-
-       *  Encoding considerations: binary
-
-       *  Security considerations: As defined in this specification
-
-       *  Published specification: [RFC5958]
-
-       *  Applications that use this media type: EST
-
-   3.
-
-       *  application/csrattrs
-
-       *  Type name: application
-
-       *  Subtype name: csrattrs
-
-       *  ID: TBD3
-
-       *  Required parameters: None
-
-       *  Optional parameters: None
-
-       *  Encoding considerations: binary
-
-       *  Security considerations: As defined in this specification
-
-       *  Published specification: [RFC7030]
-
-       *  Applications that use this media type: EST
-
-
-
-
-van der Stok, et al.    Expires November 8, 2018               [Page 15]
-
-Internet-Draft                  EST-coaps                       May 2018
-
-
-   4.
-
-       *  application/pkcs10
-
-       *  Type name: application
-
-       *  Subtype name: pkcs10
-
-       *  ID: TBD4
-
-       *  Required parameters: None
-
-       *  Optional parameters: None
-
-       *  Encoding considerations: binary
-
-       *  Security considerations: As defined in this specification
-
-       *  Published specification: [RFC5967]
-
-       *  Applications that use this media type: EST
+                                  Table 2
 
 8.2.  Resource Type registry
 
@@ -881,6 +830,18 @@ Internet-Draft                  EST-coaps                       May 2018
    [EDNOTE: To add more details about trust relations through HTTPS-
    CoAPS Registrars in this section. ]
 
+
+
+
+
+
+
+
+van der Stok, et al.    Expires November 29, 2018              [Page 15]
+
+Internet-Draft                  EST-coaps                       May 2018
+
+
 9.2.  EST server considerations
 
    The security considerations of section 6 of [RFC7030] are only
@@ -890,14 +851,6 @@ Internet-Draft                  EST-coaps                       May 2018
 
    Given that the client has only limited resources and may not be able
    to generate sufficiently random keys to encrypt its identity, it is
-
-
-
-van der Stok, et al.    Expires November 8, 2018               [Page 16]
-
-Internet-Draft                  EST-coaps                       May 2018
-
-
    possible that the client uses server generated private/public keys to
    encrypt its certificate.  The transport of these keys is inherently
    risky.  A full probability analysis MUST be done to establish whether
@@ -936,6 +889,15 @@ Internet-Draft                  EST-coaps                       May 2018
    is expected to be able to enforce policies to recover from improper
    CSR requests.
 
+
+
+
+
+van der Stok, et al.    Expires November 29, 2018              [Page 16]
+
+Internet-Draft                  EST-coaps                       May 2018
+
+
    Interpreters of ASN.1 structures should be aware of the use of
    invalid ASN.1 length fields and should take appropriate measures to
    guard against buffer overflows, stack overruns in particular, and
@@ -946,14 +908,6 @@ Internet-Draft                  EST-coaps                       May 2018
    The authors are very grateful to Klaus Hartke for his detailed
    explanations on the use of Block with DTLS.  The authors would like
    to thank Esko Dijk and Michael Verschoor for the valuable discussions
-
-
-
-van der Stok, et al.    Expires November 8, 2018               [Page 17]
-
-Internet-Draft                  EST-coaps                       May 2018
-
-
    that helped in shaping the solution.  They would also like to thank
    Peter Panburana from Cisco for his feedback on technical details of
    the solution.  Constructive comments were received from Benjamin
@@ -989,6 +943,17 @@ Internet-Draft                  EST-coaps                       May 2018
 
 12.1.  Normative References
 
+
+
+
+
+
+
+van der Stok, et al.    Expires November 29, 2018              [Page 17]
+
+Internet-Draft                  EST-coaps                       May 2018
+
+
    [I-D.ietf-tls-tls13]
               Rescorla, E., "The Transport Layer Security (TLS) Protocol
               Version 1.3", draft-ietf-tls-tls13-28 (work in progress),
@@ -1002,13 +967,6 @@ Internet-Draft                  EST-coaps                       May 2018
    [RFC5272]  Schaad, J. and M. Myers, "Certificate Management over CMS
               (CMC)", RFC 5272, DOI 10.17487/RFC5272, June 2008,
               <https://www.rfc-editor.org/info/rfc5272>.
-
-
-
-van der Stok, et al.    Expires November 8, 2018               [Page 18]
-
-Internet-Draft                  EST-coaps                       May 2018
-
 
    [RFC5751]  Ramsdell, B. and S. Turner, "Secure/Multipurpose Internet
               Mail Extensions (S/MIME) Version 3.2 Message
@@ -1042,6 +1000,16 @@ Internet-Draft                  EST-coaps                       May 2018
               DOI 10.17487/RFC7959, August 2016,
               <https://www.rfc-editor.org/info/rfc7959>.
 
+
+
+
+
+
+van der Stok, et al.    Expires November 29, 2018              [Page 18]
+
+Internet-Draft                  EST-coaps                       May 2018
+
+
    [RFC8075]  Castellani, A., Loreto, S., Rahman, A., Fossati, T., and
               E. Dijk, "Guidelines for Mapping Implementations: HTTP to
               the Constrained Application Protocol (CoAP)", RFC 8075,
@@ -1054,17 +1022,6 @@ Internet-Draft                  EST-coaps                       May 2018
               Fossati, T., "Multipart Content-Format Encoding for CoAP",
               draft-fossati-core-multipart-ct-03 (work in progress),
               October 2013.
-
-
-
-
-
-
-
-van der Stok, et al.    Expires November 8, 2018               [Page 19]
-
-Internet-Draft                  EST-coaps                       May 2018
-
 
    [I-D.ietf-anima-bootstrapping-keyinfra]
               Pritikin, M., Richardson, M., Behringer, M., Bjarnason,
@@ -1098,6 +1055,17 @@ Internet-Draft                  EST-coaps                       May 2018
               RFC 4919, DOI 10.17487/RFC4919, August 2007,
               <https://www.rfc-editor.org/info/rfc4919>.
 
+
+
+
+
+
+
+van der Stok, et al.    Expires November 29, 2018              [Page 19]
+
+Internet-Draft                  EST-coaps                       May 2018
+
+
    [RFC4944]  Montenegro, G., Kushalnagar, N., Hui, J., and D. Culler,
               "Transmission of IPv6 Packets over IEEE 802.15.4
               Networks", RFC 4944, DOI 10.17487/RFC4944, September 2007,
@@ -1108,19 +1076,14 @@ Internet-Draft                  EST-coaps                       May 2018
               DOI 10.17487/RFC5246, August 2008,
               <https://www.rfc-editor.org/info/rfc5246>.
 
+   [RFC5273]  Schaad, J. and M. Myers, "Certificate Management over CMS
+              (CMC): Transport Protocols", RFC 5273,
+              DOI 10.17487/RFC5273, June 2008,
+              <https://www.rfc-editor.org/info/rfc5273>.
+
    [RFC5929]  Altman, J., Williams, N., and L. Zhu, "Channel Bindings
               for TLS", RFC 5929, DOI 10.17487/RFC5929, July 2010,
               <https://www.rfc-editor.org/info/rfc5929>.
-
-
-
-
-
-
-van der Stok, et al.    Expires November 8, 2018               [Page 20]
-
-Internet-Draft                  EST-coaps                       May 2018
-
 
    [RFC5958]  Turner, S., "Asymmetric Key Packages", RFC 5958,
               DOI 10.17487/RFC5958, August 2010,
@@ -1140,10 +1103,24 @@ Internet-Draft                  EST-coaps                       May 2018
               RFC 7230, DOI 10.17487/RFC7230, June 2014,
               <https://www.rfc-editor.org/info/rfc7230>.
 
+   [RFC7231]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
+              Protocol (HTTP/1.1): Semantics and Content", RFC 7231,
+              DOI 10.17487/RFC7231, June 2014,
+              <https://www.rfc-editor.org/info/rfc7231>.
+
    [RFC7251]  McGrew, D., Bailey, D., Campagna, M., and R. Dugal, "AES-
               CCM Elliptic Curve Cryptography (ECC) Cipher Suites for
               TLS", RFC 7251, DOI 10.17487/RFC7251, June 2014,
               <https://www.rfc-editor.org/info/rfc7251>.
+
+
+
+
+
+van der Stok, et al.    Expires November 29, 2018              [Page 20]
+
+Internet-Draft                  EST-coaps                       May 2018
+
 
    [RFC7525]  Sheffer, Y., Holz, R., and P. Saint-Andre,
               "Recommendations for Secure Use of Transport Layer
@@ -1171,13 +1148,6 @@ Appendix A.  EST messages to EST-coaps
    The corresponding CoAP headers are only shown in Appendix A.1.
    Creating CoAP headers are assumed to be generally known.
 
-
-
-van der Stok, et al.    Expires November 8, 2018               [Page 21]
-
-Internet-Draft                  EST-coaps                       May 2018
-
-
    [EDNOTE: The payloads of the examples need to be re-generated with
    appropriate tools and example certificates.]
 
@@ -1189,6 +1159,24 @@ A.1.  cacerts
 
    The corresponding CoAP header fields are shown below.  The use of
    block and DTLS are worked out in Appendix C.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+van der Stok, et al.    Expires November 29, 2018              [Page 21]
+
+Internet-Draft                  EST-coaps                       May 2018
+
 
      Ver = 1
      T = 0 (CON)
@@ -1219,21 +1207,13 @@ A.1.  cacerts
 
    A 2.05 Content response with a cert in EST-coaps will then be:
 
-   2.05 Content (Content-Format: application/pkcs7-mime)
+   2.05 Content (Content-Format: TBD2)
       {payload}
 
    with CoAP fields
 
      Ver = 1
      T = 2 (ACK)
-
-
-
-van der Stok, et al.    Expires November 8, 2018               [Page 22]
-
-Internet-Draft                  EST-coaps                       May 2018
-
-
      Code = 0x45 (2.05 Content)
      Token = 0x9a   (copied by server)
      Options
@@ -1244,7 +1224,15 @@ Internet-Draft                  EST-coaps                       May 2018
        Option2 (Content-Format)
          Option Delta = 0xC  (option nr = 6+6 =12)
          Option Length = 0x2
-         Option Value = TBD1 (defined in this document)
+         Option Value = TBD2 (defined in this document)
+
+
+
+
+van der Stok, et al.    Expires November 29, 2018              [Page 22]
+
+Internet-Draft                  EST-coaps                       May 2018
+
 
      Payload =
    30233906092a6206734107028c2a3023260201013100300b06092a6206734107018
@@ -1282,14 +1270,6 @@ Internet-Draft                  EST-coaps                       May 2018
    00b382ba3355a50e287bae15758b3beff63d34d3e357b90031495d018868e49589b
    9faf46a4ad49b1d35b06ef380106677440934663c2cc111c183655f4dc41c0b3401
    123d35387389db91f1e1b4131b16c291d35730b3f9b33c7475124851555fe5fc647
-
-
-
-van der Stok, et al.    Expires November 8, 2018               [Page 23]
-
-Internet-Draft                  EST-coaps                       May 2018
-
-
    e8fd029605367c7e01281bf6617110021b0d10847dce0e9f0ca6c764b6334784055
    172c3983d1e3a3a82301a54fcc9b0670c543a1c747164619101ff23b240b2a26394
    c1f7d38d0e2f4747928ece5c34627a075a8b3122011e9d9158055c28f020c330206
@@ -1302,6 +1282,14 @@ Internet-Draft                  EST-coaps                       May 2018
    9f251fc86566bda2d541c792389eac4ec9e181f4b9f596e5ef2679cc321542b1133
    7f90a44df3c85f1516561fa968a1914f265bc0b8276ebe3106a790d97d34c8c37c7
    4fe1c30b396424664ac426284a9f6022e026938436880adfcd95c98ca1dfc2e6d75
+
+
+
+van der Stok, et al.    Expires November 29, 2018              [Page 23]
+
+Internet-Draft                  EST-coaps                       May 2018
+
+
    319b85d0458de28a9d13fb16d620fff7541f6a25d7daf004355020301000134b050
    300e0603551d0f0101f104030204c1d0603551d0e04160414084d321ca0135e7721
    7a486b686b334b01f0603551d230418301653112966e304761732fbfe6a2c823c30
@@ -1334,18 +1322,6 @@ Internet-Draft                  EST-coaps                       May 2018
    After reception of the 2.05 response, the client can forget the
    observe.
 
-
-
-
-
-
-
-
-van der Stok, et al.    Expires November 8, 2018               [Page 24]
-
-Internet-Draft                  EST-coaps                       May 2018
-
-
 A.2.  csrattrs
 
    In the following valid /csrattrs exchange, the EST-coaps client
@@ -1356,12 +1332,19 @@ A.2.  csrattrs
 
    REQ:
    GET coaps://[2001:db8::2:1]:61616/est/att
-   (observe =0)(Max-Age =1)
+   (Content-Format: TBD6)(observe =0)(Max-Age =1)
 
    A 2.05 Content response contains attributes which are relevant for
    the authenticated client.  In this example, the EST-coaps server
    returns two attributes that the client can ignore when they are
    unknown to him.
+
+
+
+van der Stok, et al.    Expires November 29, 2018              [Page 24]
+
+Internet-Draft                  EST-coaps                       May 2018
+
 
 A.3.  enroll / reenroll
 
@@ -1370,7 +1353,7 @@ A.3.  enroll / reenroll
    response.]
 
    During the Enroll/Reenroll exchange, the EST-coaps client uses a CSR
-   (PKCS#10) request in the POST request payload.
+   (Content-Format TBD7) request in the POST request payload.
 
    After verification of the certificate by the server, a 2.05 Content
    response with the issued certificate will be returned.
@@ -1397,14 +1380,31 @@ A.3.  enroll / reenroll
 
 
 
-van der Stok, et al.    Expires November 8, 2018               [Page 25]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+van der Stok, et al.    Expires November 29, 2018              [Page 25]
 
 Internet-Draft                  EST-coaps                       May 2018
 
 
    POST [2001:db8::2:1]:61616/est/sen
    (token 0x45)
-   (Content-Format: application/pkcs10)(observe 0)
+   (Content-Format: TBD7)(observe 0)
    30208530206d020100301f311d301b0603550403131464656d6f7374657034203
    1333638313431333532302062300d06092a620673410101050003204f0030204a
    022041005d9f4dffd3c5949f646a9584367778560950b355c35b8e34726dd3764
@@ -1423,8 +1423,8 @@ Internet-Draft                  EST-coaps                       May 2018
    fc7e0731f0e7fe305703791362d5157e92e6b5c2e3edbcadb40
 
    RET:
-   (token =0x45)(observe =12)
-   2.05 Content (Content-Format: application/pkcs7-mime)
+   (Content-Format: TBD2)(token =0x45)(observe =12)
+   2.05 Content
    3020f806092a62067341070283293020e50201013100300b06092a62067341070
    1830b3020c730206fc20102020115300d06092a6206734101050500301b311930
    17060355040313106573744578616d706c654341204e774e301e170d313330353
@@ -1453,7 +1453,7 @@ Internet-Draft                  EST-coaps                       May 2018
 
 
 
-van der Stok, et al.    Expires November 8, 2018               [Page 26]
+van der Stok, et al.    Expires November 29, 2018              [Page 26]
 
 Internet-Draft                  EST-coaps                       May 2018
 
@@ -1467,7 +1467,7 @@ Internet-Draft                  EST-coaps                       May 2018
 
    POST [2001:db8::2:1]:61616/est/sen
    (token 0x45)(observe = 0)
-   (Content-Format: application/pkcs10)(Max-Age=120)
+   (Content-Format: TBD7)(Max-Age=120)
    [payload]
    RET:
    (token =0x45)(observe =12)(Location-Path=/est/1245)
@@ -1485,7 +1485,7 @@ Internet-Draft                  EST-coaps                       May 2018
 
    RET:
    (token =0x53)(observe = 6)
-   (Content-Format: application/pkcs10)
+   (Content-Format: TBD2)
    2.05 Content
    [payload]
 
@@ -1509,7 +1509,7 @@ A.4.  serverkeygen
 
 
 
-van der Stok, et al.    Expires November 8, 2018               [Page 27]
+van der Stok, et al.    Expires November 29, 2018              [Page 27]
 
 Internet-Draft                  EST-coaps                       May 2018
 
@@ -1522,7 +1522,7 @@ Internet-Draft                  EST-coaps                       May 2018
 
    POST coaps://[192.0.2.1:8085]/est/skg
    (token 0xa5)(observe = 0)
-   (Content-Format: application/pkcs10)(Max-Age=120)
+   (Content-Format: TBD7)(Max-Age=120)
 
    302081302069020100305b313e303c060355040313357365727665724b6579476
    56e2072657120627920636c69656e7420696e2064656d6f207374657020313220
@@ -1544,7 +1544,7 @@ Internet-Draft                  EST-coaps                       May 2018
    4823dbd2d6a98445b46305c10637e202856611
 
    RET:
-   2.05 Content (Content-Format: application/pkcs8)
+   2.05 Content (Content-Format: TBD5)
    (observe = 5)(token=0xa5)
 
    30213e020100300d06092a6206734101010500042128302124020100022041003
@@ -1565,7 +1565,7 @@ Internet-Draft                  EST-coaps                       May 2018
 
 
 
-van der Stok, et al.    Expires November 8, 2018               [Page 28]
+van der Stok, et al.    Expires November 29, 2018              [Page 28]
 
 Internet-Draft                  EST-coaps                       May 2018
 
@@ -1621,7 +1621,7 @@ Internet-Draft                  EST-coaps                       May 2018
 
 
 
-van der Stok, et al.    Expires November 8, 2018               [Page 29]
+van der Stok, et al.    Expires November 29, 2018              [Page 29]
 
 Internet-Draft                  EST-coaps                       May 2018
 
@@ -1677,7 +1677,7 @@ Appendix C.  EST-coaps Block message examples
 
 
 
-van der Stok, et al.    Expires November 8, 2018               [Page 30]
+van der Stok, et al.    Expires November 29, 2018              [Page 30]
 
 Internet-Draft                  EST-coaps                       May 2018
 
@@ -1733,7 +1733,7 @@ Internet-Draft                  EST-coaps                       May 2018
 
 
 
-van der Stok, et al.    Expires November 8, 2018               [Page 31]
+van der Stok, et al.    Expires November 29, 2018              [Page 31]
 
 Internet-Draft                  EST-coaps                       May 2018
 
@@ -1750,7 +1750,7 @@ Internet-Draft                  EST-coaps                       May 2018
        Option2 (Content-Format)
          Option Delta = 0xC  (option nr =6+6=12)
          Option Length = 0x2
-         Option Value = TBD1
+         Option Value = TBD2
        Option2 (Block2)
          Option Delta = 0xB  (option 23 = 12 + 11)
          Option Length = 0x1
@@ -1773,7 +1773,7 @@ Internet-Draft                  EST-coaps                       May 2018
        Option2 (Content-Format)
          Option Delta = 0xC  (option nr =6+6=12)
          Option Length = 0x2
-         Option Value = TBD1
+         Option Value = TBD2
        Option2 (Block2)
          Option Delta = 0xB  (option 23 = 12 + 11)
          Option Length = 0x1
@@ -1789,7 +1789,7 @@ Internet-Draft                  EST-coaps                       May 2018
 
 
 
-van der Stok, et al.    Expires November 8, 2018               [Page 32]
+van der Stok, et al.    Expires November 29, 2018              [Page 32]
 
 Internet-Draft                  EST-coaps                       May 2018
 
@@ -1806,7 +1806,7 @@ Internet-Draft                  EST-coaps                       May 2018
        Option2 (Content-Format)
          Option Delta = 0xC  (option nr =6+6=12)
          Option Length = 0x2
-         Option Value = TBD1
+         Option Value = TBD2
        Option2 (Block2)
          Option Delta = 0xB  (option 23 = 12 + 11)
          Option Length = 0x2
@@ -1845,7 +1845,7 @@ Authors' Addresses
 
 
 
-van der Stok, et al.    Expires November 8, 2018               [Page 33]
+van der Stok, et al.    Expires November 29, 2018              [Page 33]
 
 Internet-Draft                  EST-coaps                       May 2018
 
@@ -1901,4 +1901,4 @@ Internet-Draft                  EST-coaps                       May 2018
 
 
 
-van der Stok, et al.    Expires November 8, 2018               [Page 34]
+van der Stok, et al.    Expires November 29, 2018              [Page 34]

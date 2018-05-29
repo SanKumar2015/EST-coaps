@@ -258,7 +258,16 @@
       asks for the server or proxy to generate the private key and the certificate 
       which is transferred back to the client in the server-side key generation 
       response. </t>
-      <t>[EDNOTE: Mention how symmetric key can be derived for EST server side key generation from the TLS KEM draft.</t>
+      
+      <t>
+	<xref target="RFC5705" />Provides a mechanism to derive a symmetric key
+	from the TLS connection that can be used to encrypt the generated key pair.
+      </t>
+      <t>
+	<xref target="RFC7030" /> also provides two additional methods to
+	encrypt the generated key pair.
+      </t>
+	
     </section> <!-- Server-side Key Generation -->
 
     <section anchor="fragment" title="Message fragmentation">

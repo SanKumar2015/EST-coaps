@@ -9,6 +9,7 @@
 <!ENTITY RFC5246 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5246.xml">
 <!ENTITY RFC5273 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5273.xml">
 <!ENTITY RFC5272 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5272.xml">
+<!ENTITY RFC5705 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5705.xml">
 <!ENTITY RFC5751 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5751.xml">
 <!ENTITY RFC5958 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5958.xml">
 <!ENTITY RFC5967 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5967.xml">
@@ -43,7 +44,7 @@
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
 
-<rfc category="std" ipr="trust200902" docName="draft-ietf-ace-coap-est-current">
+<rfc category="std" ipr="trust200902" docName="draft-ietf-ace-coap-est-01">
   <front>
     <title abbrev="EST-coaps">EST over secure CoAP (EST-coaps)</title>
     <author fullname="Peter van der Stok" initials="P." surname="van der Stok">
@@ -449,6 +450,7 @@ The Registrar proposed in <xref target="proxy"/> must be deployed with great car
     <!-- &RFC4944; -->
     &RFC5246;
     &RFC5273;
+    &RFC5705;
     &RFC5958;
     &RFC6090;
     &RFC6402;

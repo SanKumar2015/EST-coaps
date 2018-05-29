@@ -1,6 +1,6 @@
-DRAFT:=draft-vanderstok-ace-coap-est
+DRAFT:=draft-ietf-ace-coap-est
 # Working file for all if the draft-vanderstok-ace-coap-est-current.xml
-VERSION:=$(shell ./getver ${DRAFT}-current.xml )
+VERSION:=$(shell ./getver ${DRAFT}.xml )
 
 ${DRAFT}-${VERSION}.txt: ${DRAFT}.txt
 	cp ${DRAFT}.txt ${DRAFT}-${VERSION}.txt

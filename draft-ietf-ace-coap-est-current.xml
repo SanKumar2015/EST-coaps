@@ -335,7 +335,7 @@ HMAC(finished_key,
 ]]></artwork></figure>
 
     <t><xref target="est-uri"/> contains the URI mapping between the EST-coaps and EST the Registrar SHOULD adhere to. Section 7 of <xref target="RFC8075"/> and <xref target="error"/> define the mapping between EST-coaps and HTTP response codes, that determines how the Registrar translates CoAP response codes from/to HTTP status codes. The mapping from Content-Type to media type is defined in <xref target="iana"/>. The conversion from binary to base64 encoding needs to be done in the Registrar. Conversion is possible because a TLS link exists between EST-coaps-to-HTTP Registrar and EST server and a corresponding DTLS linked exists between EST-coaps-to-HTTP Registrar and EST client.</t>
-	<t>Due to fragmentation of large messages into blocks, an EST-coaps-to-HTTP Registrar SHOULD reassemble the BLOCKs before translating the binary content to BSD64, and consecutively relay the message upstream. </t>
+	<t>Due to fragmentation of large messages into blocks, an EST-coaps-to-HTTP Registrar SHOULD reassemble the BLOCKs before translating the binary content to BSD64 [EDNOTE: Fix BSD? ] , and consecutively relay the message upstream. </t>
     <t>For the discovery of the EST server by the EST client in the coap environment, the EST-coaps-to-HTTP Registrar MUST announce itself according to the rules of <xref target="discovery"/>. The available actions of the  Registrars MUST be announced with as many resource paths. The discovery of EST server in the http environment follow the rules specified in <xref target="RFC7030"/>.</t>
   </section>
 
@@ -512,7 +512,7 @@ The Registrar proposed in <xref target="proxy"/> must be deployed with great car
     <section title="cacerts" anchor="cacerts">
       <t>In EST-coaps, a coaps cacerts IPv4 message can be:</t>
 <figure align="left"><artwork><![CDATA[
-GET coaps://[192.0.2.1:8085]/est/crts
+GET coaps://[192.0.2.1:8085]/est/crts [EDNOTE .well-known ?]
 ]]></artwork></figure>
       <t>The corresponding CoAP header fields are shown below. The use of block and DTLS are worked out in <xref target= "blockexamples"/>.</t>
 <figure><artwork>
@@ -536,7 +536,7 @@ GET coaps://[192.0.2.1:8085]/est/crts
    Option4 (Uri-Path)
      Option Delta = 0x4   (option nr = 7+4= 11)
      Option Length = 0x9
-     Option Value = /est/crts
+     Option Value = /est/crts [EDNOTE: .well-known ]
    Option5 (Max-Age)
      Option Delta = 0x3   (option nr = 11+3= 14)
      Option Length = 0x1
@@ -651,7 +651,7 @@ After reception of the 2.05 response, the client can forget the observe.</t>
       <t>The initial DTLS handshake is identical to the enrollment example. The IPv6 CoAP GET request looks like: </t>
 <figure align="left"><artwork><![CDATA[
 REQ:
-GET coaps://[2001:db8::2:1]:61616/est/att
+GET coaps://[2001:db8::2:1]:61616/est/att [EDNOTE: .well-known ]
 (observe =0)(Max-Age =1)
 ]]></artwork></figure>
 
@@ -664,7 +664,7 @@ GET coaps://[2001:db8::2:1]:61616/est/att
 <t> After verification of the certificate by the server, a 2.05 Content response with the issued certificate will be returned.</t>
 
 <figure align="left"><artwork><![CDATA[
-POST [2001:db8::2:1]:61616/est/sen
+POST [2001:db8::2:1]:61616/est/sen [EDNOTE .well-known/est/sen ? ]
 (token 0x45)
 (Content-Format: application/pkcs10)(observe 0)
 30208530206d020100301f311d301b0603550403131464656d6f7374657034203
@@ -713,7 +713,7 @@ a2583aac9024075113db4990b1786b871691e0f020301000134b050300e060355
 <t> After reception of the 2.05 response the client can forget the observe registration</t>
 <t> The same example when delays occur (omitting the payloads in the examples) has a different behavior. The response to the POST is an empty payload with response code 2.03 (valid) that also returns the resource to query. The client issues a GET with an observe and a new token value, and waits for the notification after possibly receiving an empty payload first.</t>
 <figure align="left"><artwork><![CDATA[
-POST [2001:db8::2:1]:61616/est/sen
+POST [2001:db8::2:1]:61616/est/sen [EDNOTE ./well-known/est/skg ?]
 (token 0x45)(observe = 0)
 (Content-Format: application/pkcs10)(Max-Age=120)
 [payload]
@@ -750,7 +750,7 @@ RET:
 	  <t>[EDNOTE: Suggestion to have only one example with complete encrypted payload (the short one) and point out the different fields.</t>
 
 <figure align="left"><artwork><![CDATA[
-POST coaps://[192.0.2.1:8085]/est/skg
+POST coaps://[192.0.2.1:8085]/est/skg [EDNOTE .well-known ?]
 (token 0xa5)(observe = 0)
 (Content-Format: application/pkcs10)(Max-Age=120)
 
@@ -843,7 +843,7 @@ a4fa677130da60818175ca4ab2af1d15563624c51e13dfdcf381881b72327e2f4
     <t>This section provides a detailed example of the messages using DTLS and BLOCK option Block2. The minimum PMTU is 1280 bytes, which is the example value assumed for the DTLS datagram size. The example block length is taken as 64 which gives an SZX value of 2.</t>
     <t>The following is an example of a valid /cacerts exchange over DTLS. The content length of the cacerts response in appendix A.1 of <xref target="RFC7030"/> is 4246 bytes using base64. This leads to a length of 2509 bytes in binary. The CoAP message adds around 10 bytes, the DTLS record 29 bytes. To avoid IP fragmentation, the CoAP block option is used and an MTU of 127 is assumed to stay within one IEEE 802.15.4 packet. To stay below the MTU of 127, the payload is split in 39 packets with a payload of 64 bytes each, followed by a packet of 13 bytes. The client sends an IPv6 packet containing the UDP datagram with the DTLS record that encapsulates the CoAP Request 40 times. The server returns an IPv6 packet containing the UDP datagram with the DTLS record that encapsulates the CoAP response. The CoAP request-response exchange with block option is shown below. Block option is shown in a decomposed way indicating the kind of Block option (2 in this case because used in the response) followed by a colon, and then the block number (NUM), the more bit (M = 0 means last block), and block size exponent (2**(SZX+4)) separated by slashes. The Length 64 is used with SZX= 2 to avoid IP fragmentation. The CoAP Request is sent with confirmable (CON) option and the content format of the Response is /application/cacerts.</t>
     <figure align="left"><artwork><![CDATA[
-GET [192.0.2.1:8085]/est/crts     -->
+GET [192.0.2.1:8085]/est/crts     -->  [EDNOTE .well-known ?]
               <--   (2:0/1/39) 2.05 Content
     GET URI (2:1/1/39)                           -->
               <--   (2:1/1/39) 2.05 Content
@@ -862,7 +862,7 @@ GET [192.0.2.1:8085]/est/crts     -->
   Code = 0x01 (0.1 GET)
   Token = 0x9a    (client generated) 
   Options
-   Option1 (Uri-Host)
+   Option1 (Uri-Host) [EDNOTE: IS the Host and the Uri-port necessary? ]
      Option Delta = 0x3  (option nr = 3)
      Option Length = 0x9
      Option Value = 192.0.2.1
@@ -877,7 +877,7 @@ GET [192.0.2.1:8085]/est/crts     -->
    Option4 (Uri-Path)
      Option Delta = 0x4    (option nr = 7+4=11)
      Option Length = 0x9
-     Option Value = /est/crts
+     Option Value = /est/crts [EDNOTE .well-known ?]
    Option5 (Max-Age)
      Option Delta = 0x3    (option nr = 11+3=14)
      Option Length = 0x1

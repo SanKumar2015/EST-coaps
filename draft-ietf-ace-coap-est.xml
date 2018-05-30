@@ -214,7 +214,7 @@
           <list style="symbols">
             <t>Simple enroll and reenroll, for CA to sign public client-identity key.</t>
             <t>CA certificate retrieval, needed to receive the complete set of CA certificates. </t>
-            <t>CSR Attributes request messages, informs the client of the fields to include in generated CSR.</t>
+            <t>Certificate Signing Request (CSR) Attributes request messages, informs the client of the fields to include in generated CSR.</t>
             <t>Server-side key generation messages, to provide a private client-identity key when the client is too restricted or because of lack of an entropy source. </t>
           </list></t>
 
@@ -426,7 +426,7 @@ The Registrar proposed in <xref target="proxy"/> must be deployed with great car
     <t>When a client uses the Implicit TA database for certificate validation, the client cannot verify that the implicit data base can act as an RA. It is RECOMMENDED that such clients include "Linking Identity and POP Information" <xref target="DTLS"/> in requests (to prevent such requests from being forwarded to a real EST server by a man in the middle). It is RECOMMENDED that the Implicit Trust Anchor database used for EST server authentication be carefully managed to reduce the chance of a third-party CA with poor certification practices from being trusted. Disabling the Implicit Trust Anchor database after successfully receiving the Distribution of CA certificates response (Section 4.1.3 of <xref target="RFC7030"/>) limits any vulnerability to the first DTLS exchange.</t>
     <t>In accordance with <xref target="RFC7030"/>, TLS cipher suites that include "_EXPORT_" and "_DES_" in their names MUST NOT be used. More information about recommendations of TLS and DTLS are included in <xref target="RFC7525"/>.</t>
     <t>As described in CMC, Section 6.7 of <xref target="RFC5272"/>, "For keys that can be used as signature keys, signing the certification request with the private key serves as a POP on that key pair". The inclusion of tls-unique in the certification request links the proof-of-possession to the TLS proof-of-identity. This implies but does not prove that the authenticated client currently has access to the private key.</t>
-    <t>Regarding the CSR attributes that the CA may list for inclusion in an enrollment request, an adversary could exclude attributes that a server may want, include attributes that a server may not want, and render meaningless other attributes that a server may want. The CA is expected to be able to enforce policies to recover from improper CSR requests. </t>
+    <t>Regarding the Certificate Signing Request (CSR) attributes that the CA may list for inclusion in an enrollment request, an adversary could exclude attributes that a server may want, include attributes that a server may not want, and render meaningless other attributes that a server may want. The CA is expected to be able to enforce policies to recover from improper CSR requests. </t>
     <t>Interpreters of ASN.1 structures should be aware of the use of invalid ASN.1 length fields and should take appropriate measures to guard against buffer overflows, stack overruns in particular, and malicious content in general.</t>
   </section> <!-- EST server considerations -->
   </section>  <!-- Security considerations  -->
@@ -541,9 +541,13 @@ GET coaps://192.0.2.1:8085/est/crts
      Option Value = 8085
    Option4 (Uri-Path)
      Option Delta = 0x4   (option nr = 7+4= 11)
-     Option Length = 0x9
-     Option Value = /est/crts 
-   Option5 (Max-Age)
+     Option Length = 0x5
+     Option Value = "est" 
+   Option5 (Uri-Path)
+     Option Delta = 0x0   (option nr = 11+0= 11)
+     Option Length = 0x6
+     Option Value = "crts"
+   Option6 (Max-Age)
      Option Delta = 0x3   (option nr = 11+3= 14)
      Option Length = 0x1
      Option Value = 0x1    (1 minute)
@@ -899,9 +903,13 @@ GET /192.0.2.1:8085/est/crts     -->
      Option Value = 8085
    Option4 (Uri-Path)
      Option Delta = 0x4    (option nr = 7+4=11)
-     Option Length = 0x9
-     Option Value = /est/crts 
-   Option5 (Max-Age)
+     Option Length = 0x5
+     Option Value = "est" 
+   Option5 (Uri-Path)
+     Option Delta = 0x0    (option nr = 11+0=11)
+     Option Length = 0x6
+     Option Value = "crts" 
+   Option6 (Max-Age)
      Option Delta = 0x3    (option nr = 11+3=14)
      Option Length = 0x1
      Option Value = 0x1    ( 1 minute)

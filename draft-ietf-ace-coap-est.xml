@@ -233,7 +233,7 @@
     </section> <!-- Message bindings -->
 
     <section anchor="error" title="CoAP response codes">
-      <t>Section 5.9 of <xref target="RFC7252"/> specifies the mapping of HTTP response codes to CoAP response codes. Every time the HTTP response code 200 is specified in <xref target="RFC7030"/> in response to a GET (POST) request, in EST-coaps the equivalent CoAP response code 2.05 (2.01) MUST be used. Response code HTTP 202 has no equivalent in CoAP. In <xref target="pending"/> it is specified how EST requests over CoAP handle delayed messages.</t>
+      <t>Section 5.9 of <xref target="RFC7252"/> specifies the mapping of HTTP response codes to CoAP response codes. Every time the HTTP response code 200 is specified in <xref target="RFC7030"/> in response to a GET request, in EST-coaps the equivalent CoAP response code 2.05 or 2.03 MUST be used. Similarly, 2.01, 2.02 or 2.04 MUST be used in response to POST EST requests. Response code HTTP 202 has no equivalent in CoAP. In <xref target="pending"/> it is specified how EST requests over CoAP handle delayed messages.</t>
       <t>All other HTTP 2xx response codes are not used by EST. For the following HTTP 4xx error codes that may occur: 400, 401, 403, 404, 405, 406, 412, 413, 415; the equivalent CoAP response code for EST-coaps is 4.xx. For the HTTP 5xx error codes: 500, 501, 502, 503, 504 the equivalent CoAP response code is 5.xx.</t>
     </section> <!-- CoAP response codes -->
 
@@ -738,7 +738,7 @@ fc7e0731f0e7fe305703791362d5157e92e6b5c2e3edbcadb40
 
 RET:
 (Content-Format: TBD2)(token =0x45)(observe =12)
-2.05 Content
+2.01 Created
 3020f806092a62067341070283293020e50201013100300b06092a62067341070
 1830b3020c730206fc20102020115300d06092a6206734101050500301b311930
 17060355040313106573744578616d706c654341204e774e301e170d313330353
@@ -762,8 +762,8 @@ a2583aac9024075113db4990b1786b871691e0f020301000134b050300e060355
 171e4733ad3d13c0103100
 ]]></artwork></figure>
 
-<t> After reception of the 2.05 response the client can forget the observe registration</t>
-<t> The same example when delays occur (omitting the payloads in the examples) has a different behavior. The response to the POST is an empty payload with response code 2.03 (valid) that also returns the resource to query. The client issues a GET with an observe and a new token value, and waits for the notification after possibly receiving an empty payload first.</t>
+<t> After reception of the 2.01 response the client can forget the observe registration</t>
+<t> The same example when delays occur (omitting the payloads in the examples) has a different behavior. The response to the POST is an empty payload with response code 2.01 (Created) that also returns the resource to query. The client issues a GET with an observe and a new token value, and waits for the notification after possibly receiving an empty payload first.</t>
 <figure align="left"><artwork><![CDATA[
 POST [2001:db8::2:1]:61616/est/sen 
 (token 0x45)(observe = 0)
@@ -771,7 +771,7 @@ POST [2001:db8::2:1]:61616/est/sen
 [payload]
 RET:
 (token =0x45)(observe =12)(Location-Path=/est/1245)
-2.03 Valid
+2.01 Created 
 [empty payload]
 
 GET [2001:db8::2:1]:61616/est/1245
@@ -780,13 +780,13 @@ GET [2001:db8::2:1]:61616/est/1245
 
 RET:
 (token =0x53)(observe = 5)
-2.03 Valid
+2.01 Created
 [empty payload]
 
 RET:
 (token =0x53)(observe = 6)
 (Content-Format: TBD2)
-2.05 Content
+2.04 Changed
 [payload]
 
 ]]></artwork></figure>
@@ -824,7 +824,7 @@ f9288724381909188c851fa9a5059802eb64449f2a3c9e441353d136768da27ff
 4823dbd2d6a98445b46305c10637e202856611'
 
 RET:
-2.05 Content (Content-Format: TBD5)
+2.01 Content (Content-Format: TBD5)
 (observe = 5)(token=0xa5)
 
 MULTIPART COAP:
@@ -942,7 +942,7 @@ GET /192.0.2.1:8085/est/crts     -->
     <figure><artwork>
 <![CDATA[  Ver = 1
   T = 2 (ACK)
-  Code = 0x45 (2.05 Content.) 
+  Code = 0x45 (2.05 Content) 
   Token = 0x9a     (copied by server)
   Options
     Option1 (Observe)

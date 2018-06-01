@@ -238,9 +238,8 @@
     </section> <!-- CoAP response codes -->
 
     <section anchor="pending" title="Delayed Results">
-      <t>It is possible that responses are not always directly available, and may even necessitate manual intervention to return the results. Delays of minutes to hours are possible. Therefore, each GET request MUST be accompanied by the observe option. When the result is directly available, the client receives the result and forgets about the observe as specified in section 3.6 of <xref target="RFC7641"/>.
-      When a POST response is delayed, the POST returns a 2.01 (Created) response code, having put a value in the Location-Path option. After reception of 2.01 the client does a GET request with the observe option to the newly returned location. Once the delayed result is notified by the server, the client forgets about the observe.</t>
-      <t>Next to the observe option the client must specify the Max-Age option that indicates the maximum waiting time in minutes. </t>
+      <t>It is possible that responses are not always directly available by the server, and may even require manual intervention to generate the certificate for the server response. Delays of minutes to hours are possible. Therefore, each GET request MUST be accompanied by the observe option. When the result is directly available, the client receives the result and forgets about the observe as specified in section 3.6 of <xref target="RFC7641"/>. When a POST response is delayed, the POST returns a 2.01 (Created) response code, having put a value in the Location-Path option. After reception of 2.01 the client does a GET request with the observe option to the newly returned location. Once the delayed result is notified by the server, the client forgets about the observe.</t>
+      <t>Next to the observe option the server MUST specify the Max-Age option that indicates the maximum waiting time in minutes.<!-- Fig 5 in RFC7641. --></t>
     </section> <!-- Delayed Results -->
 
     <section anchor="serverkey" title="Server-side Key Generation">
@@ -381,9 +380,10 @@ HMAC(finished_key,
                                  '----------------------------'
 ]]></artwork></figure>
 
-    <t><xref target="est-uri"/> contains the URI mapping between the EST-coaps and EST the Registrar SHOULD adhere to. Section 7 of <xref target="RFC8075"/> and <xref target="error"/> define the mapping between EST-coaps and HTTP response codes, that determines how the Registrar translates CoAP response codes from/to HTTP status codes. The mapping from Content-Type to media type is defined in <xref target="iana"/>. The conversion from binary to base64 encoding needs to be done in the Registrar. Conversion is possible because a TLS link exists between EST-coaps-to-HTTP Registrar and EST server and a corresponding DTLS linked exists between EST-coaps-to-HTTP Registrar and EST client.</t>
+    <t><xref target="est-uri"/> contains the URI mapping between the EST-coaps and EST the Registrar SHOULD adhere to. Section 7 of <xref target="RFC8075"/> and <xref target="error"/> define the mapping between EST-coaps and HTTP response codes, that determines how the Registrar translates CoAP response codes from/to HTTP status codes. The mapping from Content-Type to media type is defined in <xref target="iana"/>. The conversion from binary to base64 encoding needs to be done in the Registrar. Conversion is possible because a TLS link exists between EST-coaps-to-HTTP Registrar and EST server and a corresponding DTLS link exists between EST-coaps-to-HTTP Registrar and EST client.</t>
 	<t>Due to fragmentation of large messages into blocks, an EST-coaps-to-HTTP Registrar SHOULD reassemble the BLOCKs before translating the binary content to Base-64, and consecutively relay the message upstream. </t>
     <t>For the discovery of the EST server by the EST client in the coap environment, the EST-coaps-to-HTTP Registrar MUST announce itself according to the rules of <xref target="discovery"/>. The available actions of the  Registrars MUST be announced with as many resource paths. The discovery of EST server in the http environment follow the rules specified in <xref target="RFC7030"/>.</t>
+	<t>When server-side key generation is used, if the private key is protected using symmetric keys then the Registrar needs to encrypt the private key down to the client with one symmetric key and decrypt it from the server with another. If no private key encryption takes place the the Registrar will be able to see the key as it establishes a separate connection to the server. In the case of asymmetricly encrypted private key, the Registrar may not be able to decrypt it if the server encrypted it with a public key that corresponds to a private key that belongs to the client. </t>
   </section>
 
   <section title="Parameters">
@@ -424,12 +424,6 @@ HMAC(finished_key,
   </section>  <!-- IANA consideration -->
 
   <section anchor="sec" title="Security Considerations">
-
-    <section anchor="sec-proxy" title="HTTPS-CoAPS Registrar considerations">
-      <t>The Registrar proposed in <xref target="proxy"/> must be deployed with great care, and only when the recommended connections are impossible.</t>
-      <t>[EDNOTE: Panos to update. To add more details about trust relations through HTTPS-CoAPS Registrars in this section. And POP. And the possibility the registrar generates the key for serve-side key gen. ] </t>
-    </section> <!-- proxy considerations -->
-
     <section anchor="sec-est" title="EST server considerations">
       <t>The security considerations of Section 6 of <xref target="RFC7030"/> are only partially valid for the purposes of this document. As HTTP Basic Authentication is not supported, the considerations expressed for using passwords do not apply.</t>
       <t>Given that the client has only limited resources and may not be able to generate sufficiently random keys to encrypt its identity, it is possible that the client uses server generated private/public keys to encrypt its certificate. The transport of these keys is inherently risky. A full probability analysis MUST be done to establish whether server side key generation enhances or decreases the probability of identity stealing. </t>
@@ -439,6 +433,34 @@ HMAC(finished_key,
       <t>Regarding the Certificate Signing Request (CSR), an adversary could exclude attributes that a server may want, include attributes that a server may not want, and render meaningless other attributes that a server may want. The CA is expected to be able to enforce policies to recover from improper CSR requests. </t>
       <t>Interpreters of ASN.1 structures should be aware of the use of invalid ASN.1 length fields and should take appropriate measures to guard against buffer overflows, stack overruns in particular, and malicious content in general.</t>
     </section> <!-- EST server considerations -->
+	
+    <section anchor="sec-proxy" title="HTTPS-CoAPS Registrar considerations">
+      <t>The Registrar proposed in <xref target="proxy"/> must be deployed with care, 
+	    and only when the recommended connections are impossible. When POP is used the 
+	    Registrar terminating the TLS connection establishes a new one with the upstream 
+		CA. Thus, it is impossible for POP to be enforced throughout the EST transaction. 
+		The EST server could be configured to accept POP linking information that does 
+		not match the current TLS session because the authenticated EST Registrar client 
+		has verified this information  when acting as an EST server. 
+		The introduction of an EST-coaps-to-HTTP Registrar assumes the client can trust 
+		the registrar using its implicit or explicit TA database. It also assumes 
+		the Registrar has a trust relationship with the upstream EST server in order 
+		to act on behalf of the clients. 
+	  </t>
+	  <t>In a server-side key generation case, depending on the private key 
+	    encryption method, the Registrar may be able see the 
+		private key as it acts as a man-in-the-middle. Thus, the clients puts its 
+		trust on the Registrar not exposing the private key. </t>
+      <t>For some usecases, clients that leverage server-side key generation might prefer for 
+	    the enrolled keys to be generated by the Registrar if the CA does not support 
+		server-side key generation. In these cases the Registrar must support the 
+		random number generation using proper entropy. Since the client has no knowledge 
+		if the Registrar will be generating the keys and enrolling the certificates with the 
+		CA or if the CA will be responsible for generating the keys, the existance of a 
+		Registrar requires the client to put its trust on the registrar doing the right 
+		thing if it is generating they private keys. 
+	  </t>
+    </section> <!-- proxy considerations -->
   </section>  <!-- Security considerations  -->
 
   <section anchor="ack" title="Acknowledgements">
@@ -677,18 +699,19 @@ GET coaps://[2001:db8::2:1]:61616/est/att
     </section>  <!-- csrattrs -->
 
     <section title="enroll / reenroll">
-      
       <t>
-	During the Enroll/Reenroll exchange, the EST-coaps client uses a CSR
+	    During the Enroll/Reenroll exchange, the EST-coaps client uses a CSR
         (Content-Format TBD7) request in the POST request payload.
       </t>
-      <t>
-	As described in section <xref target="pending" />, if the CA is too busy to
-	act at this time, then it ACKs the GET (with no payload), and the
-	payload will be sent later on as part of the OBSERVE processing.
+	  
+      <t> 
+	    After verification of the CSR by the server, a 2.05 Content response 
+		with the issued certificate will be returned to the client. As described 
+		in section <xref target="pending" />, if the server is not able to 
+		provide a response, then it ACKs the GET (with no payload), and 
+		the payload will be sent later as part of the OBSERVE processing.
       </t>
-
-      <t> After verification of the certificate by the server, a 2.05 Content response with the issued certificate will be returned.</t>
+	  
   	  <t>[EDNOTE: In this example, if proof of posession (POP) is also used, make sure 
 	  ChallengePassword attribute in the CSR valid HMAC output. ]</t>
 

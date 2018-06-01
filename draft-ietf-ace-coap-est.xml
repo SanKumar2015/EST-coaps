@@ -18,6 +18,7 @@
 <!ENTITY RFC6347 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6347.xml">
 <!ENTITY RFC6690 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6690.xml">
 <!ENTITY RFC7030 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7030.xml">
+<!ENTITY RFC7049 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7049.xml">
 <!ENTITY RFC7230 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7230.xml">
 <!ENTITY RFC7231 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7231.xml">
 <!ENTITY RFC7251 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7251.xml">
@@ -408,7 +409,18 @@ HMAC(finished_key,
   <c>application/pkcs8</c>                                       <c>-</c> <c>TBD5</c> <c><xref target="RFC5751"/> <xref target="RFC5958"/></c>
   <c>application/csrattrs</c>                                    <c>-</c> <c>TBD6</c> <c><xref target="RFC7030"/> <xref target="RFC7231"/></c>
   <c>application/pkcs10</c>                                      <c>-</c> <c>TBD7</c> <c><xref target="RFC5751"/> <xref target="RFC5967"/></c>
+  <c></c>                                                        <c>-</c> <c>TBD8</c> <c><xref target="cborpair"/></c>
 </texttable>
+
+<section anchor="cborpair" title="Content Format TBD8">
+
+A representation with content format ID TBD8 is a <xref target="RFC7049">CBOR array</xref> of two items.
+The first item is a binary string that contains a representation with content format TBD5.
+The second item is a binary string that cntains a representation with content format TBD2.
+
+For example, in diagnostic CBOR notation: [h'0123456789abcdef',h'fedcba9876543210']
+
+</section>
 
 </section> <!-- Content-Format registry -->
 
@@ -499,6 +511,7 @@ HMAC(finished_key,
     &RFC6347;
     &RFC6690;  
     &RFC7030;
+    &RFC7049;
     &RFC7252;
     &RFC7959;
     &RFC8075;

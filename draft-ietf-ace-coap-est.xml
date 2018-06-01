@@ -395,20 +395,19 @@ HMAC(finished_key,
   <section anchor="content-formats" title="Content-Format registry">
     <t>Additions to the sub-registry "CoAP Content-Formats", within the "CoRE Parameters" registry are specified in <xref target="content-format"/>. These can be registered either in the Expert Review range (0-255) or IETF Review range (256-9999).</t>
 
-<texttable anchor="content-format">
-  <ttcol align="left" width="30%">Media type</ttcol>
-  <ttcol align="left" width="27%">mime type</ttcol>
-  <ttcol align="left" width="19%">Encoding</ttcol>
-  <ttcol align="left" width="9%">ID</ttcol>
-  <ttcol align="left" width="17%">Reference</ttcol>
+<texttable anchor="content-format" title="New CoAP Content-Formats">
+  <ttcol align="left">Media type</ttcol>
+  <ttcol align="left">Encoding</ttcol>
+  <ttcol align="right">ID</ttcol>
+  <ttcol align="left">Reference</ttcol>
 
-<c> application/pkcs7-mime </c> <c>"server-generated-key"</c>  <c>"identity"</c> <c>TBD1</c> <c> <xref target="RFC5751"/> <xref target="RFC7030"/> <xref target="RFC7231"/> </c>
-<c> application/pkcs7-mime </c> <c>"certs-only"</c>  <c>"identity"</c> <c>TBD2</c> <c> <xref target="RFC5751"/> <xref target="RFC7231"/> </c>
-<c> application/pkcs7-mime </c> <c>"CMC-request"</c>  <c>"identity"</c> <c>TBD3</c> <c> <xref target="RFC5751"/> <xref target="RFC5273"/> <xref target="RFC7231"/> </c>
-<c> application/pkcs7-mime </c> <c>"CMC-response"</c>  <c>"identity"</c> <c>TBD4</c> <c> <xref target="RFC5751"/> <xref target="RFC5273"/> <xref target="RFC7231"/> </c>
-<c> application/pkcs8 </c> <c> --- </c>  <c>"identity"</c> <c>TBD5</c> <c> <xref target="RFC5751"/> <xref target="RFC5958"/> <xref target="RFC7231"/> </c>
-<c> application/csrattrs </c> <c> --- </c>  <c>"identity"</c> <c>TBD6</c> <c> <xref target="RFC7030"/> <xref target="RFC7231"/> <xref target="RFC7231"/> </c>
-<c> application/pkcs10 </c> <c> --- </c>  <c>"identity"</c> <c>TBD7</c> <c> <xref target="RFC5751"/> <xref target="RFC5967"/> <xref target="RFC7231"/> </c>
+  <c>application/pkcs7-mime; smime-type=server-generated-key</c> <c>-</c> <c>TBD1</c> <c><xref target="RFC5751"/> <xref target="RFC7030"/></c>
+  <c>application/pkcs7-mime; smime-type=certs-only</c>           <c>-</c> <c>TBD2</c> <c><xref target="RFC5751"/></c>
+  <c>application/pkcs7-mime; smime-type=CMC-request</c>          <c>-</c> <c>TBD3</c> <c><xref target="RFC5751"/> <xref target="RFC5273"/></c>
+  <c>application/pkcs7-mime; smime-type=CMC-response</c>         <c>-</c> <c>TBD4</c> <c><xref target="RFC5751"/> <xref target="RFC5273"/></c>
+  <c>application/pkcs8</c>                                       <c>-</c> <c>TBD5</c> <c><xref target="RFC5751"/> <xref target="RFC5958"/></c>
+  <c>application/csrattrs</c>                                    <c>-</c> <c>TBD6</c> <c><xref target="RFC7030"/> <xref target="RFC7231"/></c>
+  <c>application/pkcs10</c>                                      <c>-</c> <c>TBD7</c> <c><xref target="RFC5751"/> <xref target="RFC5967"/></c>
 </texttable>
 
 </section> <!-- Content-Format registry -->

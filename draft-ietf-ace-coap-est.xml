@@ -415,8 +415,8 @@ HMAC(finished_key,
 <section anchor="cborpair" title="Content Format TBD8">
 
 A representation with content format ID TBD8 is a <xref target="RFC7049">CBOR array</xref> of two items.
-The first item is a binary string that contains a representation with content format TBD5.
-The second item is a binary string that cntains a representation with content format TBD2.
+The first item is a binary string that contains a representation with content format ID TBD5.
+The second item is a binary string that contains a representation with content format ID TBD2.
 
 For example, in diagnostic CBOR notation: [h'0123456789abcdef',h'fedcba9876543210']
 

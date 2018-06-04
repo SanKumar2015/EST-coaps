@@ -242,17 +242,34 @@
       </list></t>
 
     <section anchor="format" title ="Payload format">
-      <t>The content-format (media type equivalent) of the CoAP message determines which EST message is transported in the CoAP payload. The media types specified in the HTTP Content-Type header (see section 3.2.2 of <xref target="RFC7030"/>) are in EST-coaps specified by the Content-Format Option (12) of CoAP. The combination of URI path-suffix and content-format used for CoAP MUST map to an allowed combination of path-suffix and media type as defined for EST. The required content-formats for these request and response messages are defined in <xref target="iana"/>. The CoAP response codes are defined in <xref target="error"/>.</t> 
-        <t>EST-coaps is designed for use between low-resource devices using CoAP and hence does not need to send base64-encoded data. Simple binary is more efficient (30% less payload compared to base64) and well supported by CoAP. Therefore, the content formats specification in <xref target="iana"/> requires the use of binary for all EST-coaps Content-Formats.</t>
+      <t>The content-format (media type equivalent) of the CoAP message determines which 
+	  EST message is transported in the CoAP payload. The media types specified in the HTTP 
+	  Content-Type header (section 3.2.2 of <xref target="RFC7030"/>) are in EST-coaps 
+	  specified by the Content-Format Option (12) of CoAP. The combination of URI path  
+	  and content-format used for CoAP MUST map to an allowed combination of URI and 
+	  media type as defined for EST. The required content-formats for these request and 
+	  response messages are defined in <xref target="iana"/>. The CoAP response codes are 
+	  defined in <xref target="error"/>.</t> 
+        <t>EST-coaps is designed for use between low-resource devices and hence does not need 
+		to send base64-encoded data. Simple binary is more efficient (30% smaller payload) and 
+		well supported by CoAP. Therefore, the content formats specification in 
+		<xref target="iana"/> requires the use of binary for all EST-coaps Content-Formats.</t>
     </section> <!-- Payload format -->
 
     <section title="Message Bindings">
-      <t>This section describes the general EST CoAP message characteristics.</t>
-      <t>It is RECOMMENDED the EST-coaps requests to be sent over CoAP confirmable messages. All EST-coaps messages expect a response from the server, thus the client MUST send the requests over confirmable CON COAP messages.</t>
-      <t>The Ver, TKL, Token, and Message ID values of the CoAP header are not influenced by EST.</t>
-      <t>CoAP options are used to convey Uri-Host, Uri-Path, Uri-Port, Content-Format, and Location-Path in CoAP. The CoAP Options are used to communicate the HTTP fields specified in the EST REST messages. </t>
-      <t>EST URLs are HTTPS based (https://), in CoAP these will be assumed to be transformed to coaps (coaps://)</t>
-      <t> <xref target="messagebindings"/> includes some practical examples of EST messages translated to CoAP.</t>
+      <t>The general EST CoAP message characteristics are: 
+        <list style="symbols">
+          <t>All EST-coaps messages expect a response from the server, thus the client MUST send 
+		  the requests over confirmable CON COAP messages.</t>
+          <t>The Ver, TKL, Token, and Message ID values of the CoAP header are not affected by EST.</t>
+          <t>The CoAP options used are ri-Host, Uri-Path, Uri-Port, Content-Format, and Location-Path 
+		  in CoAP. These CoAP Options are used to communicate the HTTP fields specified in the EST 
+		  REST messages. </t>
+          <t>EST URLs are HTTPS based (https://), in CoAP these will be assumed to be transformed 
+		  to coaps (coaps://)</t>
+        </list></t>
+        <t><xref target="messagebindings"/> includes some practical examples of EST messages 
+		translated to CoAP.</t>
     </section> <!-- Message bindings -->
 
     <section anchor="error" title="CoAP response codes">

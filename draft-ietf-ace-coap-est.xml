@@ -431,7 +431,40 @@ HMAC(finished_key,
 
   <section anchor="iana" title="IANA Considerations">
 
-  <section anchor="content-formats" title="Content-Format registry">
+<section anchor="media-type" title="Media-Type Registry">
+
+<t>This section registers the 'application/multict' media type in the
+"Media Types" registry.  This media type is used to indicate that
+the payload is composed of multiple content formats.</t>
+
+<figure><artwork><![CDATA[
+Type name:  application
+Subtype name:  multict
+Required parameters:  none
+Optional parameters:  none
+Encoding considerations:  CBOR array of content-format.
+Security considerations:  See Security Considerations Section
+Interoperability considerations:  The format is designed to be
+  broadly interoperable.
+Published specification:  THIS RFC <xref target="cborpair"/>.
+Applications that use this media type:  ACE, ANIMA, 6tisch, 
+              and other low-resource EST applications.
+Additional information:
+  Magic number(s):  None
+  File extension(s):  .cbor
+  Macintosh file type code(s):  none
+Person & email address to contact for further information:  IETF
+  ACE WG
+Intended usage:  LIMITED
+Restrictions on usage:  NONE
+Author:  ACE WG
+Change controller:  IETF
+Provisional registration? (standards tree only):  NO
+]]></artwork></figure>
+
+</section> <!-- Media-Type Registry -->
+
+  <section anchor="content-formats" title="Content-Format Registry">
     <t>Additions to the sub-registry "CoAP Content-Formats", within the "CoRE Parameters" registry are specified in <xref target="content-format"/>. These can be registered either in the Expert Review range (0-255) or IETF Review range (256-9999).</t>
 
 <texttable anchor="content-format" title="New CoAP Content-Formats">
@@ -533,6 +566,7 @@ For example, a collection containing two representations, one with content forma
       <t>Broke down details for DTLS 1.3 </t>
       <t>New media type uses CBOR array for multiple content-format payloads</t>
       <t>provided new content format tables</t>
+      <t> new media format for IANA </t>
     </list>
     </t>
     <t> -00

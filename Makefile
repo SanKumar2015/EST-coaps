@@ -1,6 +1,7 @@
 DRAFT:=draft-ietf-ace-coap-est
 # Working file for all if the draft-vanderstok-ace-coap-est-current.xml
 VERSION:=$(shell ./getver ${DRAFT}.xml )
+IETFUSER=mcr+ietf@sandelman.ca
 
 ${DRAFT}-${VERSION}.txt: ${DRAFT}.txt
 	cp ${DRAFT}.txt ${DRAFT}-${VERSION}.txt

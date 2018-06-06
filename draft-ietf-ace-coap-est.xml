@@ -184,8 +184,8 @@
 	  
       [Q-EDNOTE: the NIST P-256 curve is a MUST- according
       to the terminology of RFC8247, and Curve25519 is a SHOULD+]. 
-	  <!-- The hash algorithm SHOULD BE SHA-256. --> 
-	</t>  
+      <!-- The hash algorithm SHOULD BE SHA-256. --> 
+    </t>  
 	  
 	<t> 
 	  DTLS1.2 implementations MUST use the Supported Elliptic Curves and Supported
@@ -635,7 +635,8 @@ For example, a collection containing two representations, one with content forma
   <section anchor="messagebindings" title="EST messages to EST-coaps">
     <t>This section takes all examples from Appendix A of <xref target="RFC7030"/>, changes the payload from Base64 to binary and replaces the http headers by their CoAP equivalents. </t>
 <t> The corresponding CoAP headers are only shown in <xref target="cacerts"/>. Creating CoAP headers are assumed to be generally known.</t>
-<t>Binary payload is a CBOR major type 2 (byte array), that is shown with a base16 CBOR diagnostic notation.</t>
+<t>Binary payload is a CBOR major type 2 (byte array), that is shown with a
+base16 (hexadecimal) CBOR diagnostic notation.</t>
 
 	<t>[EDNOTE: The payloads of the examples need to be re-generated with appropriate tools and example certificates.]</t>
 
@@ -809,8 +810,12 @@ GET coaps://[2001:db8::2:1]:61616/est/att
 		the payload will be sent later as part of the OBSERVE processing.
       </t>
 	  
-  	  <t>[EDNOTE: In this example, if proof of possession (POP) is also used, make sure 
-	  ChallengePassword attribute in the CSR valid HMAC output. ]</t>
+      <t>
+	[EDNOTE: When redoing this example, 
+	given that proof of possession (POP) is also used, make sure
+	it is obvious that the ChallengePassword attribute in the CSR 
+	is valid HMAC output. HMAC-REAL.]
+      </t>
 
 <figure align="left"><artwork><![CDATA[
 POST [2001:db8::2:1]:61616/est/sen 
@@ -893,7 +898,7 @@ RET:
       <t>During this valid /serverkeygen exchange, the EST-coaps client authenticates itself using the certificate provided by the connected CA.</t>
       	
       <t>The initial DTLS handshake is identical to the enrollment example. The CoAP GET request looks like:</t> 
-	  <t>[EDNOTE: in the CSR request below the ChallengePassword needs to look like a valid HMAC output if POP is used. Also, the client includes a CSR with a public key  that the server should ignore, so do we need a content-format here? </t>
+	  <t>[EDNOTE: same comment as HMAC-REAL above applies.]</t>
 	  <t>[EDNOTE: Suggestion to have only one example with complete encrypted payload (the short one) and point out the different fields. Update this example according to the agreed upon solution from <xref target="serverkey"/>. ] </t>
 
 <figure align="left"><artwork><![CDATA[

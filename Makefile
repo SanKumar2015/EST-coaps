@@ -19,3 +19,7 @@ version:
 clean:
 	rm -rf ${DRAFT}.txt ${DRAFT}-${VERSION}.txt
 
+submit: ${DRAFT}.xml
+	curl -S -F "user=${IETFUSER}" -F "xml=@${DRAFT}.xml" https://datatracker.ietf.org/api/submit
+
+

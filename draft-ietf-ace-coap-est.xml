@@ -490,8 +490,15 @@ A representation with content format ID TBD8 contains a collection of representa
 The collection is encoded as a <xref target="RFC7049">CBOR array</xref> with an even number of elements.
 The second, fourth, sixth, etc. element is a binary string containing a representation.
 The first, third, fifth, etc. element is an unsigned integer specifying the content format ID of the following representation.
-</t><t>
+</t>
+<t>
 For example, a collection containing two representations, one with content format ID TBD5 and one with content format ID TBD2, looks like this in diagnostic CBOR notation: [TBD5,h'0123456789abcdef',TBD2,h'fedcba9876543210']. An example is shown in <xref target="appskg"/>.
+</t>
+<t>
+  [EDNOTE: the intention is that this text is replaced by
+  draft-fossati-core-multipart-ct, which has yet to be adopted.
+  The above text is a copy of the critical text, in the event that the CORE WG
+  does not adopt the document]
 </t>
 
 </section>

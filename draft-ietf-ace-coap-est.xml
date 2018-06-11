@@ -556,7 +556,12 @@ For example, a collection containing two representations, one with content forma
   </section>  <!-- Security considerations  -->
 
   <section anchor="ack" title="Acknowledgements">
-    <t>The authors are very grateful to Klaus Hartke for his detailed explanations on the use of Block with DTLS and his support for the content-format specification. The authors would like to thank Esko Dijk and Michael Verschoor for the valuable discussions that helped in shaping the solution. They would also like to thank Peter Panburana from Cisco for his feedback on technical details of the solution. Constructive comments were received from Benjamin Kaduk, Eliot Lear, Jim Schaad, Hannes Tschofenig, and Julien Vermillard.</t>
+    <t>The authors are very grateful to Klaus Hartke for his detailed explanations on the use of 
+	Block with DTLS and his support for the content-format specification. The authors would like 
+	to thank Esko Dijk and Michael Verschoor for the valuable discussions that helped in shaping 
+	the solution. They would also like to thank Peter Panburana for his feedback on technical 
+	details of the solution. Constructive comments were received from Benjamin Kaduk, Eliot Lear, 
+	Jim Schaad, Hannes Tschofenig, Julien Vermillard, and John Manuel.</t>
   </section> <!-- Acknowledgements  -->
 
   <section anchor="changes" title="Change Log">

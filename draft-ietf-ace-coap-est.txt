@@ -18,7 +18,7 @@ Expires: December 14, 2018                                 Cisco Systems
 
 
                     EST over secure CoAP (EST-coaps)
-                       draft-ietf-ace-coap-est-01
+                       draft-ietf-ace-coap-est-02
 
 Abstract
 
@@ -173,13 +173,13 @@ Internet-Draft                  EST-coaps                      June 2018
    request to a server-side keygeneration as described in section 4.4 of
    [RFC7030] and discussed in Section 4.5 of this document.
 
-   The mandatory cipher suite for DTLS in EST-coaps is
-   TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 defined in [RFC7251] which is the
-   mandatory-to-implement cipher suite in CoAP.  Additionally, the curve
-   secp256r1 MUST be supported [RFC4492]; this curve is equivalent to
-   the NIST P-256 curve.  [Q-EDNOTE: the NIST P-256 curve is a MUST-
-   according to the terminology of RFC8247, and Curve25519 is a
-   SHOULD+].
+   As per [RFC7925] section 3.3 and section 4.4, the mandatory cipher
+   suite for DTLS in EST-coaps is TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8
+   defined in [RFC7251], and the the curve secp256r1 MUST be supported
+   [RFC4492]; this curve is equivalent to the NIST P-256 curve.  Crypto
+   agility is important, and the recommendations in [RFC7925] section
+   4.4 and any updates to RFC7925 concerning Curve25519 and other CFRG
+   curves also apply.
 
    DTLS1.2 implementations MUST use the Supported Elliptic Curves and
    Supported Point Formats Extensions [RFC4492].  Uncompressed point
@@ -320,16 +320,16 @@ Internet-Draft                  EST-coaps                      June 2018
 
 4.4.  Delayed Results
 
+   If the server is slow, it can respond with an ACK, and no content,
+   sending the content later, according to [RFC7252], section 5.2.2.  If
+   the response will be more than one packet (requring block mode), then
+   this does not work (?).  Instead, the server should respond with an
+   ACK, no content, and include an OBSERVE option.  The subquent OBSERVE
+   replies, can be sent with block mode.  [EDNOTE: XXX -- we need help
+   getting this right]
+
    It is possible that responses are not always directly available by
    the server, and may even require manual intervention to generate the
-   certificate for the server response.  Delays of minutes to hours are
-   possible.  Therefore, each GET request MUST be accompanied by the
-   observe option.  When the result is directly available, the client
-   receives the result and forgets about the observe as specified in
-   section 3.6 of [RFC7641].  When a POST response is delayed, the POST
-   returns a 2.01 (Created) response code, having put a value in the
-   Location-Path option.  After reception of 2.01 the client does a GET
-   request with the observe option to the newly returned location.  Once
 
 
 
@@ -338,6 +338,14 @@ van der Stok, et al.    Expires December 14, 2018               [Page 6]
 Internet-Draft                  EST-coaps                      June 2018
 
 
+   certificate for the server response.  Delays of minutes to hours are
+   possible.  Therefore, each GET request MUST be accompanied by the
+   observe option.  When the result is directly available, the client
+   receives the result and forgets about the observe as specified in
+   section 3.6 of [RFC7641].  When a POST response is delayed, the POST
+   returns a 2.01 (Created) response code, having put a value in the
+   Location-Path option.  After reception of 2.01 the client does a GET
+   request with the observe option to the newly returned location.  Once
    the delayed result is notified by the server, the client forgets
    about the observe.
 
@@ -378,14 +386,6 @@ Internet-Draft                  EST-coaps                      June 2018
    Section 9.2.1.  The certificate part exactly matches the response
    from a enrollment response.  The private key is placed inside of a
    CMS SignedData.  The SignedData is signed by the party that generated
-   the private key, which may or may not be the EST server or the EST
-   CA.  The SignedData is further protected by placing it inside of a
-   CMS EnvelopedData as explained in Section 4.4.2 of [RFC7030].
-
-
-
-
-
 
 
 
@@ -393,6 +393,10 @@ van der Stok, et al.    Expires December 14, 2018               [Page 7]
 
 Internet-Draft                  EST-coaps                      June 2018
 
+
+   the private key, which may or may not be the EST server or the EST
+   CA.  The SignedData is further protected by placing it inside of a
+   CMS EnvelopedData as explained in Section 4.4.2 of [RFC7030].
 
 4.6.  Message fragmentation
 
@@ -438,10 +442,6 @@ Internet-Draft                  EST-coaps                      June 2018
    The CoAP client MAY specify the Block1 size and MAY also specify the
    Block2 size.  The CoAP server MAY specify the Block2 size, but not
    the Block1 size.  As explained in Section 1 of [RFC7959]), blockwise
-   transfers SHOULD be used in Confirmable CoAP messages to avoid the
-   exacerbation of lost blocks.
-
-
 
 
 
@@ -449,6 +449,9 @@ van der Stok, et al.    Expires December 14, 2018               [Page 8]
 
 Internet-Draft                  EST-coaps                      June 2018
 
+
+   transfers SHOULD be used in Confirmable CoAP messages to avoid the
+   exacerbation of lost blocks.
 
    The Size1 response MAY be parsed by the client as a size indication
    of the Block2 resource in the server response or by the server as a
@@ -494,9 +497,6 @@ Internet-Draft                  EST-coaps                      June 2018
    The ArbitraryLabel Path-Segment SHOULD be of the shortest length
    possible.
 
-   Figure 5 in section 3.2.2 of [RFC7030] enumerates the operations and
-   corresponding paths which are supported by EST.  Table 1 provides the
-   mapping from the EST URI path to the shorter EST-coaps URI path.
 
 
 
@@ -505,6 +505,10 @@ van der Stok, et al.    Expires December 14, 2018               [Page 9]
 
 Internet-Draft                  EST-coaps                      June 2018
 
+
+   Figure 5 in section 3.2.2 of [RFC7030] enumerates the operations and
+   corresponding paths which are supported by EST.  Table 1 provides the
+   mapping from the EST URI path to the shorter EST-coaps URI path.
 
                      +------------------+-----------+
                      | EST              | EST-coaps |
@@ -549,11 +553,7 @@ Internet-Draft                  EST-coaps                      June 2018
 
    DTLS is one such secure protocol.  When "TLS" is referred to in the
    context of EST, it is understood that in EST-coaps, security is
-   provided using DTLS instead.  No other changes are necessary (all
-   provisional modes etc. are the same as for TLS).
 
-   CoAP was designed to avoid fragmentation.  DTLS is used to secure
-   CoAP messages.  However, fragmentation is still possible at the DTLS
 
 
 
@@ -562,6 +562,11 @@ van der Stok, et al.    Expires December 14, 2018              [Page 10]
 Internet-Draft                  EST-coaps                      June 2018
 
 
+   provided using DTLS instead.  No other changes are necessary (all
+   provisional modes etc. are the same as for TLS).
+
+   CoAP was designed to avoid fragmentation.  DTLS is used to secure
+   CoAP messages.  However, fragmentation is still possible at the DTLS
    layer during the DTLS handshake when using ECC ciphersuites.  If
    fragmentation is necessary, "DTLS provides a mechanism for
    fragmenting a handshake message over several records, each of which
@@ -606,11 +611,6 @@ Internet-Draft                  EST-coaps                      June 2018
    single fragment following the algorithm described in 4.4.4 of
    [I-D.ietf-tls-tls13].
 
-   In a constrained CoAP environment, endpoints can't afford to
-   establish a DTLS connection for every EST transaction.
-   Authenticating and negotiating DTLS keys requires resources on low-
-   end endpoints and consumes valuable bandwidth.  The DTLS connection
-
 
 
 van der Stok, et al.    Expires December 14, 2018              [Page 11]
@@ -618,6 +618,10 @@ van der Stok, et al.    Expires December 14, 2018              [Page 11]
 Internet-Draft                  EST-coaps                      June 2018
 
 
+   In a constrained CoAP environment, endpoints can't afford to
+   establish a DTLS connection for every EST transaction.
+   Authenticating and negotiating DTLS keys requires resources on low-
+   end endpoints and consumes valuable bandwidth.  The DTLS connection
    SHOULD remain open for persistent EST connections.  For example, an
    EST cacerts request that is followed by a simpleenroll request can
    use the same authenticated DTLS connection.  Given that after a
@@ -662,10 +666,6 @@ Internet-Draft                  EST-coaps                      June 2018
    used by an end-entity or client.  In other words, the CSR the client
    is using needs to include information from the DTLS connection the
    client establishes with the server.  In EST, that information is the
-   (D)TLS tls-unique value of the (D)TLS session.  In the presence of
-   ESTcoaps-to-HTTPS Registrar, the EST-coaps client MUST be
-   authenticated and authorized by the Registrar and the Registrar MUST
-   be authenticated as an EST Registrar client to the EST server.  Thus
 
 
 
@@ -674,6 +674,10 @@ van der Stok, et al.    Expires December 14, 2018              [Page 12]
 Internet-Draft                  EST-coaps                      June 2018
 
 
+   (D)TLS tls-unique value of the (D)TLS session.  In the presence of
+   ESTcoaps-to-HTTPS Registrar, the EST-coaps client MUST be
+   authenticated and authorized by the Registrar and the Registrar MUST
+   be authenticated as an EST Registrar client to the EST server.  Thus
    the POP information is lost between the EST-coaps client and the EST
    server.  The EST server becomes aware of the presence of an EST
    Registrar from its TLS client certificate that includes id-kp-cmcRA
@@ -718,10 +722,6 @@ Internet-Draft                  EST-coaps                      June 2018
    binary content to Base-64, and consecutively relay the message
    upstream.
 
-   For the discovery of the EST server by the EST client in the coap
-   environment, the EST-coaps-to-HTTP Registrar MUST announce itself
-   according to the rules of Section 5.  The available actions of the
-   Registrars MUST be announced with as many resource paths.  The
 
 
 
@@ -730,6 +730,10 @@ van der Stok, et al.    Expires December 14, 2018              [Page 13]
 Internet-Draft                  EST-coaps                      June 2018
 
 
+   For the discovery of the EST server by the EST client in the coap
+   environment, the EST-coaps-to-HTTP Registrar MUST announce itself
+   according to the rules of Section 5.  The available actions of the
+   Registrars MUST be announced with as many resource paths.  The
    discovery of EST server in the http environment follow the rules
    specified in [RFC7030].
 
@@ -746,12 +750,23 @@ Internet-Draft                  EST-coaps                      June 2018
 8.  Parameters
 
    [EDNOTE: This section to be populated.  It will address transmission
-   parameters described in sections 4.7 and 4.8 of the CoAP draft.  EST
-   does not impose any unique parameters that affect the CoAP parameters
-   in Table 2 and 3 in the CoAP draft but the ones in CoAP could be
-   affecting EST.  For example, the processing delay of CAs could be
-   less then 2s, but in this case they should send a CoAP ACK every 2s
-   while processing.]
+   parameters described in sections 4.7 and 4.8 of the CoAP document
+   (RFC7252).
+
+           ACK_TIMEOUT       | 2 seconds     |
+           ACK_RANDOM_FACTOR | 1.5           |
+           MAX_RETRANSMIT    | 4             |
+           NSTART            | 1             |
+           DEFAULT_LEISURE   | 5 seconds     |
+           PROBING_RATE      | 1 byte/second
+
+                  Figure 2: EST-COAP protocol parameters
+
+   EST does not impose any unique parameters that affect the CoAP
+   parameters in Table 2 and 3 in the CoAP draft but the ones in CoAP
+   could be affecting EST.  For example, the processing delay of CAs
+   could be less then 2s, but in this case they should send a CoAP ACK
+   every 2s while processing.]
 
 9.  IANA Considerations
 
@@ -760,21 +775,6 @@ Internet-Draft                  EST-coaps                      June 2018
    This section registers the 'application/multict' media type in the
    "Media Types" registry.  This media type is used to indicate that the
    payload is composed of multiple content formats.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -842,25 +842,26 @@ van der Stok, et al.    Expires December 14, 2018              [Page 15]
 Internet-Draft                  EST-coaps                      June 2018
 
 
-   +---------------------------------+----------+------+---------------+
-   | Media type                      | Encoding |   ID | Reference     |
-   +---------------------------------+----------+------+---------------+
-   | application/pkcs7-mime; smime-  | -        | TBD1 | [RFC5751]     |
-   | type=server-generated-key       |          |      | [RFC7030]     |
-   | application/pkcs7-mime; smime-  | -        | TBD2 | [RFC5751]     |
-   | type=certs-only                 |          |      |               |
-   | application/pkcs7-mime; smime-  | -        | TBD3 | [RFC5751]     |
-   | type=CMC-request                |          |      | [RFC5273]     |
-   | application/pkcs7-mime; smime-  | -        | TBD4 | [RFC5751]     |
-   | type=CMC-response               |          |      | [RFC5273]     |
-   | application/pkcs8               | -        | TBD5 | [RFC5751]     |
-   |                                 |          |      | [RFC5958]     |
-   | application/csrattrs            | -        | TBD6 | [RFC7030]     |
-   |                                 |          |      | [RFC7231]     |
-   | application/pkcs10              | -        | TBD7 | [RFC5751]     |
-   |                                 |          |      | [RFC5967]     |
-   | application/multict             | -        | TBD8 | Section 9.2.1 |
-   +---------------------------------+----------+------+---------------+
+   +-----------------------------------+----------+------+-------------+
+   | Media type                        | Encoding |   ID | Reference   |
+   +-----------------------------------+----------+------+-------------+
+   | application/pkcs7-mime; smime-    | -        | TBD1 | [RFC5751]   |
+   | type=server-generated-key         |          |      | [RFC7030]   |
+   | application/pkcs7-mime; smime-    | -        | TBD2 | [RFC5751]   |
+   | type=certs-only                   |          |      |             |
+   | application/pkcs7-mime; smime-    | -        | TBD3 | [RFC5751]   |
+   | type=CMC-request                  |          |      | [RFC5273]   |
+   | application/pkcs7-mime; smime-    | -        | TBD4 | [RFC5751]   |
+   | type=CMC-response                 |          |      | [RFC5273]   |
+   | application/pkcs8                 | -        | TBD5 | [RFC5751]   |
+   |                                   |          |      | [RFC5958]   |
+   | application/csrattrs              | -        | TBD6 | [RFC7030]   |
+   |                                   |          |      | [RFC7231]   |
+   | application/pkcs10                | -        | TBD7 | [RFC5751]   |
+   |                                   |          |      | [RFC5967]   |
+   | application/multict               | -        | TBD8 | Section 9.2 |
+   |                                   |          |      | .1          |
+   +-----------------------------------+----------+------+-------------+
 
                      Table 2: New CoAP Content-Formats
 
@@ -885,7 +886,6 @@ Internet-Draft                  EST-coaps                      June 2018
    [I-D.fossati-core-multipart-ct], which has yet to be adopted.  The
    above text is a copy of the critical text, in the event that the CORE
    WG does not adopt the document]
-
 
 
 
@@ -1047,9 +1047,9 @@ Internet-Draft                  EST-coaps                      June 2018
 13.1.  Normative References
 
    [I-D.fossati-core-multipart-ct]
-              Bormann, C., "Multipart Content-Format for CoAP", draft-
-              fossati-core-multipart-ct-05 (work in progress), June
-              2018.
+              Fossati, T., "Multipart Content-Format Encoding for CoAP",
+              draft-fossati-core-multipart-ct-03 (work in progress),
+              October 2013.
 
    [I-D.ietf-tls-tls13]
               Rescorla, E., "The Transport Layer Security (TLS) Protocol

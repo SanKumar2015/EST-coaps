@@ -456,7 +456,26 @@ HMAC(finished_key,
   </section>
 
   <section title="Parameters">
-    <t>[EDNOTE: This section to be populated. It will address transmission parameters described in sections 4.7 and 4.8 of the CoAP draft. EST does not impose any unique parameters that affect the CoAP parameters in Table 2 and 3 in the CoAP draft but the ones in CoAP could be affecting EST. For example, the processing delay of CAs could be less then 2s, but in this case they should send a CoAP ACK every 2s while processing.]</t>
+    <t>[EDNOTE: This section to be populated. It will address transmission
+    parameters described in sections 4.7 and 4.8 of the CoAP document
+    (RFC7252).
+    </t>
+<figure align="center" title="EST-COAP protocol parameters"
+	anchor="fig-est-coap-parameters"><artwork><![CDATA[
+	ACK_TIMEOUT       | 2 seconds     |
+	ACK_RANDOM_FACTOR | 1.5           |
+	MAX_RETRANSMIT    | 4             |
+	NSTART            | 1             |
+	DEFAULT_LEISURE   | 5 seconds     |
+	PROBING_RATE      | 1 byte/second
+	]]></artwork></figure>
+<t>
+    EST does
+    not impose any unique parameters that affect the CoAP parameters in Table
+    2 and 3 in the CoAP draft but the ones in CoAP could be affecting
+    EST. For example, the processing delay of CAs could be less then 2s, but
+    in this case they should send a CoAP ACK every 2s while processing.]
+</t>
   </section>
 
   <section anchor="iana" title="IANA Considerations">

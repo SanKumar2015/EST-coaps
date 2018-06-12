@@ -278,8 +278,38 @@
     </section> <!-- CoAP response codes -->
 
     <section anchor="pending" title="Delayed Results">
-      <t>It is possible that responses are not always directly available by the server, and may even require manual intervention to generate the certificate for the server response. Delays of minutes to hours are possible. Therefore, each GET request MUST be accompanied by the observe option. When the result is directly available, the client receives the result and forgets about the observe as specified in section 3.6 of <xref target="RFC7641"/>. When a POST response is delayed, the POST returns a 2.01 (Created) response code, having put a value in the Location-Path option. After reception of 2.01 the client does a GET request with the observe option to the newly returned location. Once the delayed result is notified by the server, the client forgets about the observe.</t>
-      <t>Next to the observe option the server MUST specify the Max-Age option that indicates the maximum waiting time in minutes.<!-- Fig 5 in RFC7641. --></t>
+      <t>
+	If the server is slow, it can respond with an ACK, and no content, sending
+	the content later, according to <xref target="RFC7252" />, section 5.2.2.   
+	If the response will
+	be more than one packet (requring block mode), then this does not
+	work (?).
+	Instead, the server should respond with an ACK, no content, and include an
+	OBSERVE option.  The subquent OBSERVE replies, can be sent with block
+	mode.
+	[EDNOTE: XXX -- we need help getting this right]
+      </t>
+      
+      <t>
+	It is possible that responses are not always directly available by
+	the server, and may even require manual intervention to generate the
+	certificate for the server response. Delays of minutes to hours are
+	possible. Therefore, each GET request MUST be accompanied by the
+	observe option. When the result is directly available, the client
+	receives the result and forgets about the observe as specified in
+	section 3.6 of <xref target="RFC7641"/>. When a POST response is
+	delayed, the POST returns a 2.01 (Created) response code, having put a
+	value in the Location-Path option. After reception of 2.01 the client
+	does a GET request with the observe option to the newly returned
+	location. Once the delayed result is notified by the server, the client
+	forgets about the observe.
+      </t>
+
+      <t>
+	Next to the observe option the server MUST specify the Max-Age option
+	that indicates the maximum waiting time in minutes.<!-- Fig 5 in
+	RFC7641. -->
+      </t> 
     </section> <!-- Delayed Results -->
 
     <section anchor="serverkey" title="Server-side Key Generation">

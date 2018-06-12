@@ -175,16 +175,15 @@
 	server-side keygeneration as described in section 4.4 of <xref target="RFC7030"/> 
 	and discussed in <xref target="serverkey"/> of this document. </t>
     
-    <t> 
-      The mandatory cipher suite for DTLS in EST-coaps is 
-      TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 defined in <xref target="RFC7251"/>
-      which is the mandatory-to-implement cipher suite in CoAP. Additionally,
-      the curve secp256r1 MUST be supported <xref target="RFC4492"/>; this
-      curve is equivalent to the NIST P-256 curve.
-	  
-      [Q-EDNOTE: the NIST P-256 curve is a MUST- according
-      to the terminology of RFC8247, and Curve25519 is a SHOULD+]. 
-      <!-- The hash algorithm SHOULD BE SHA-256. --> 
+    <t>
+      As per <xref target="RFC7925" /> section 3.3 and section 4.4, the
+      mandatory cipher suite for DTLS in EST-coaps is
+      TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 defined in <xref target="RFC7251"/>,
+      and the the curve secp256r1 MUST  
+      be supported <xref target="RFC4492"/>; this curve is equivalent to the
+      NIST P-256 curve.   Crypto agility is important, and the
+      recommendations in <xref target="RFC7925" /> section 4.4 and any
+      updates to RFC7925 concerning Curve25519 and other CFRG curves also applies.
     </t>  
 	  
 	<t> 

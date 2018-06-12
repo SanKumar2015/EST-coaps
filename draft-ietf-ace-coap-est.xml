@@ -278,30 +278,36 @@
 
     <section anchor="pending" title="Delayed Results">
       <t>
-	If the server is slow, it can respond with an ACK, and no content, sending
-	the content later, according to <xref target="RFC7252" />, section 5.2.2.   
-	If the response will
-	be more than one packet (requring block mode), then this does not
-	work (?).
-	Instead, the server should respond with an ACK, no content, and include an
-	OBSERVE option.  The subquent OBSERVE replies, can be sent with block
-	mode.
-	[EDNOTE: XXX -- we need help getting this right]
+	  If the server is slow, it can respond with an ACK, and no content, sending
+	  the content later, according to <xref target="RFC7252" />, section 5.2.2.   
+	  If the response will
+	  be more than one packet (requring block mode), then this does not
+	  work (?).
+	  Instead, the server should respond with an ACK, no content, and include an
+	  OBSERVE option.  The subquent OBSERVE replies, can be sent with block
+	  mode.
+	  [EDNOTE: XXX -- we need help getting this right]
       </t>
       
       <t>
-	It is possible that responses are not always directly available by
-	the server, and may even require manual intervention to generate the
-	certificate for the server response. Delays of minutes to hours are
-	possible. Therefore, each GET request MUST be accompanied by the
-	observe option. When the result is directly available, the client
-	receives the result and forgets about the observe as specified in
-	section 3.6 of <xref target="RFC7641"/>. When a POST response is
-	delayed, the POST returns a 2.01 (Created) response code, having put a
-	value in the Location-Path option. After reception of 2.01 the client
-	does a GET request with the observe option to the newly returned
-	location. Once the delayed result is notified by the server, the client
-	forgets about the observe.
+	  [EDNOTE: We need to update this. Observe is defined only for GETs. Delayed responses will 
+	  more likely be in response to POSTs. Also, in EST the server does not 
+	  keep track of the registered clients observing, it just sends an 
+      HTTP 202 with a Retry-After xxx time header field, so it would be tough 
+	  to implement in a RA scenario. We could use a 2.02 with Max-Age or a new 
+	  2.0x response with Max-Age to support that. ]
+	  It is possible that responses are not always directly available by
+	  the server, and may even require manual intervention to generate the
+	  certificate for the server response. Delays of minutes to hours are
+	  possible. Therefore, each GET request MUST be accompanied by the
+	  observe option. When the result is directly available, the client
+	  receives the result and forgets about the observe as specified in
+	  section 3.6 of <xref target="RFC7641"/>. When a POST response is
+	  delayed, the POST returns a 2.01 (Created) response code, having put a
+	  value in the Location-Path option. After reception of 2.01 the client
+	  does a GET request with the observe option to the newly returned
+	  location. Once the delayed result is notified by the server, the client
+	  forgets about the observe.
       </t>
 
       <t>

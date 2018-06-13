@@ -467,12 +467,12 @@ HMAC(finished_key,
     </t>
 <figure align="center" title="EST-COAP protocol parameters"
 	anchor="fig-est-coap-parameters"><artwork><![CDATA[
-	ACK_TIMEOUT       | 2 seconds     |
-	ACK_RANDOM_FACTOR | 1.5           |
-	MAX_RETRANSMIT    | 4             |
-	NSTART            | 1             |
-	DEFAULT_LEISURE   | 5 seconds     |
-	PROBING_RATE      | 1 byte/second
+     ACK_TIMEOUT       | 2 seconds     |
+     ACK_RANDOM_FACTOR | 1.5           |
+     MAX_RETRANSMIT    | 4             |
+     NSTART            | 1             |
+     DEFAULT_LEISURE   | 5 seconds     |
+     PROBING_RATE      | 1 byte/second |
 	]]></artwork></figure>
 <t>
     EST does
@@ -628,6 +628,7 @@ For example, a collection containing two representations, one with content forma
       <t>Editorials done.</t>
       <t>Redefinition of proxy to Registrar in <xref target="proxy"/>. Explained better the role of https-coaps Registrar, instead of "proxy"</t>
       <t>Provide "observe" option examples </t>
+      <t> extended block message example. </t>
       <t>inserted new server key generation text in <xref target="serverkey"/> and motivated server key generation.</t>
       <t>Broke down details for DTLS 1.3 </t>
       <t>New media type uses CBOR array for multiple content-format payloads</t>
@@ -1137,18 +1138,22 @@ a4fa677130da60818175ca4ab2af1d15563624c51e13dfdcf381881b72327e2f4
   </section>  <!-- EST messages to EST-coaps -->
 
   <section anchor="blockexamples" title="EST-coaps Block message examples">
+<t> Two examples are presented: (1) a cacerts exchange shows the use of Block2 and the block headers, and (2) a enroll exchange shows the block1 block2 size negotiation for request and response payloads.
+</t>
+
+ <section anchor="cacertsblock" title="cacerts block example">
     <t>This section provides a detailed example of the messages using DTLS and BLOCK option Block2. The minimum PMTU is 1280 bytes, which is the example value assumed for the DTLS datagram size. The example block length is taken as 64 which gives an SZX value of 2.</t>
     <t>The following is an example of a valid /cacerts exchange over DTLS. The content length of the cacerts response in appendix A.1 of <xref target="RFC7030"/> is 4246 bytes using base64. This leads to a length of 2509 bytes in binary. The CoAP message adds around 10 bytes, the DTLS record 29 bytes. To avoid IP fragmentation, the CoAP block option is used and an MTU of 127 is assumed to stay within one IEEE 802.15.4 packet. To stay below the MTU of 127, the payload is split in 39 packets with a payload of 64 bytes each, followed by a packet of 13 bytes. The client sends an IPv6 packet containing the UDP datagram with the DTLS record that encapsulates the CoAP Request 40 times. The server returns an IPv6 packet containing the UDP datagram with the DTLS record that encapsulates the CoAP response. The CoAP request-response exchange with block option is shown below. Block option is shown in a decomposed way indicating the kind of Block option (2 in this case because used in the response) followed by a colon, and then the block number (NUM), the more bit (M = 0 means last block), and block size exponent (2**(SZX+4)) separated by slashes. The Length 64 is used with SZX= 2 to avoid IP fragmentation. The CoAP Request is sent with confirmable (CON) option and the content format of the Response is /application/cacerts.</t>
     <figure align="left"><artwork><![CDATA[
 GET /192.0.2.1:8085/est/crts     -->  
-              <--   (2:0/1/39) 2.05 Content
+              <--   (2:0/1/64) 2.05 Content
     GET URI (2:1/1/39)                           -->
-              <--   (2:1/1/39) 2.05 Content
+              <--   (2:1/1/64) 2.05 Content
                       |
                       |
                       |
      GET URI (2:65/1/39)                         -->
-              <--   (2:65/0/39) 2.05 Content
+              <--   (2:39/0/64) 2.05 Content
 ]]></artwork></figure>
     <t>For further detailing the CoAP headers of the first two blocks are written out.</t>
     <t>The header of the first GET looks like:</t>
@@ -1258,6 +1263,35 @@ h'05050030
       Option Value = 0x272 (block number = 39, M=0, SZX=2)
   Payload = h'73a30d0c006343116f58403100'
 ]]></artwork></figure>
+
+    </section> <!-- cacerts block example -->
+
+    <section anchor="enrollblock" title="enroll block example">
+      <t>
+      In this example the block2 size of 256 bytes, required by the client, is tranferred to the server in the very first request message. The request/response consists of two parts: part1 constaining the CSR transferred to the server, and part2 contains the certificate transferred back to the client. The block size 256=(2**(SZX+4)) which gives SZX=4. The notation for block numbering is the same as in <xref target="cacertsblock"/>. It is assumed that CSR takes N1 blocks and Cert response takes N2 blocks. The header fields and the payload are omitted to show the block exchange. The type of payload is shown within curly brackets.
+      </t>
+<figure><artwork>
+<![CDATA[  
+
+POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
+     <-- (ACK) (1:0/1/256) (2.31 Continue)
+POST [2001:db8::2:1]:61616/est/sen (CON)(1:1/1/256) {CSR req} -->
+     <-- (ACK) (1:1/1/256) (2.31 Continue)
+
+
+POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/0/256) {CSR req} -->
+     <-- (ACK) (1:N1/0/256) (2:0/1/4) (2.04 Changed) (Cert resp}
+POST [2001:db8::2:1]:61616/est/sen (CON)(2:1/0/256)           -->
+     <-- (ACK) (2:1/1/256) (2.04 Changed) (Cert resp}
+
+POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/256)          -->
+     <-- (ACK) (2:N2/1/256) (2.04 Changed) (Cert resp}
+
+]]></artwork></figure>
+
+    </section> <!-- enroll block example -->
+
+
   </section> <!-- EST-coaps Block message examples -->
     
 </back>

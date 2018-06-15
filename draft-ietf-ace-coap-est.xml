@@ -278,28 +278,50 @@
 
     <section anchor="pending" title="Delayed Results">
       <t>
-	  If the server is slow, it can respond with an ACK, and no content, sending
+	  If the server is slow providing the response, she can respond with an empty ACK, sending
 	  the content later, according to <xref target="RFC7252" />, section 5.2.2.   
-	  If the response will
-	  be more than one packet (requring block mode), then this does not
-	  work (?).
-	  Instead, the server should respond with an ACK, no content, and include an
-	  OBSERVE option.  The subquent OBSERVE replies, can be sent with block
-	  mode.
-	  [EDNOTE: XXX -- we need help getting this right]
-      </t>
-      
+	  If the response will be more than one packet (requring block mode) then the 
+	  client needs to send an empty ACK with code 0.00 for the first block and 
+	  acknowledge the rest of the blocks accordingly. To demonstrate this situation 
+	  below we show a client sending an enrollment request that will use more than one 
+	  Block1 blocks to send the CSR to the server. The server on the other hand will need 
+	  more than one Block2 blocks to respond, but will need take some time to provide 
+	  the response. Thus the server will use a 0.00 ACK for the response which will be 
+	  provided when ready by using 2.04 messages and Block2 options. Readers should note that 
+	  the client asks for a decrease in the block size when acknowledging the first Block2. </t>
+	  <figure><artwork>
+<![CDATA[  
+CON | POST 1:0/1/256 (enroll request with CSR) --> 
+       <--   ACK | 2.31 1:0/1/256 
+CON | POST 1:1/1/256 (enroll request with CSR)
+       <--   ACK | 2.31 1:1/1/256 
+CON | POST 1:2/0/256 (enroll request with CSR)
+       <--   ACK (code 0.00, no payload, 
+	             to signal delay in the response. 
+				 When ready, the server transfers 
+				 the response in Block2 blocks.)
+CON | 2.04 1:2/0/256 & 2:0/1/128  (Certificate) --> 
+       <--   ACK (code 0.00, no payload)
+       <--   CON | POST 2:1/0/128
+ACK | 2.04 2:1/1/128  (Certificate) --> 
+       <--   CON | POST 2:2/0/128
+ACK | 2.04 2:2/0/128  (Certificate) --> 
+]]></artwork></figure>
+
       <t>
-	  [EDNOTE: We need to update this. Observe is defined only for GETs. Delayed responses will 
-	  more likely be in response to POSTs. Also, in EST the server does not 
-	  keep track of the registered clients observing, it just sends an 
-      HTTP 202 with a Retry-After xxx time header field, so it would be tough 
-	  to implement in a RA scenario. We could use a 2.02 with Max-Age or a new 
-	  2.0x response with Max-Age to support that. ]
+	  [EDNOTE: To update this. HTTP 202 Retry-After in EST 
+	  needs an equivalent mechanism in EST-coaps. 
+	  Observe seems like a candidate but after the HTTP 202 
+	  the client needs to do a new POST, not a GET, so Observe is not 
+	  the best option. We could use 2.04 or a new 2.0x with Max-Age 
+	  to convey the EST Retry-After. ]
 	  It is possible that responses are not always directly available by
 	  the server, and may even require manual intervention to generate the
 	  certificate for the server response. Delays of minutes to hours are
-	  possible. Therefore, each GET request MUST be accompanied by the
+	  possible. EST requires the use of an HTTP 202 message with a Retry-After 
+	  header by the server which signals to the client to attempt the 
+	  request in a certain amount of time. 
+	  In EST, each GET request MUST be accompanied by the
 	  observe option. When the result is directly available, the client
 	  receives the result and forgets about the observe as specified in
 	  section 3.6 of <xref target="RFC7641"/>. When a POST response is
@@ -1137,9 +1159,9 @@ a4fa677130da60818175ca4ab2af1d15563624c51e13dfdcf381881b72327e2f4
 
   </section>  <!-- EST messages to EST-coaps -->
 
-  <section anchor="blockexamples" title="EST-coaps Block message examples">
-<t> Two examples are presented: (1) a cacerts exchange shows the use of Block2 and the block headers, and (2) a enroll exchange shows the block1 block2 size negotiation for request and response payloads.
-</t>
+  <section anchor="blockexamples" title="EST-coaps Block message examples"> 
+    <t> Two examples are presented: (1) a cacerts exchange shows the use of Block2 and the block headers, and (2) a enroll exchange shows the Block1 and Block2 size negotiation for request and response payloads.
+	</t>
 
  <section anchor="cacertsblock" title="cacerts block example">
     <t>This section provides a detailed example of the messages using DTLS and BLOCK option Block2. The minimum PMTU is 1280 bytes, which is the example value assumed for the DTLS datagram size. The example block length is taken as 64 which gives an SZX value of 2.</t>
@@ -1147,13 +1169,13 @@ a4fa677130da60818175ca4ab2af1d15563624c51e13dfdcf381881b72327e2f4
     <figure align="left"><artwork><![CDATA[
 GET /192.0.2.1:8085/est/crts     -->  
               <--   (2:0/1/64) 2.05 Content
-    GET URI (2:1/1/39)                           -->
+GET /192.0.2.1:8085/est/crts (2:1/0/39)                           -->
               <--   (2:1/1/64) 2.05 Content
                       |
                       |
                       |
-     GET URI (2:65/1/39)                         -->
-              <--   (2:39/0/64) 2.05 Content
+GET /192.0.2.1:8085/est/crts (2:65/0/39)                         -->
+              <--   (2:66/0/64) 2.05 Content
 ]]></artwork></figure>
     <t>For further detailing the CoAP headers of the first two blocks are written out.</t>
     <t>The header of the first GET looks like:</t>
@@ -1277,15 +1299,18 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
      <-- (ACK) (1:0/1/256) (2.31 Continue)
 POST [2001:db8::2:1]:61616/est/sen (CON)(1:1/1/256) {CSR req} -->
      <-- (ACK) (1:1/1/256) (2.31 Continue)
-
-
+                   .
+                   . N1-1 Blocks
+                   .
 POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/0/256) {CSR req} -->
-     <-- (ACK) (1:N1/0/256) (2:0/1/4) (2.04 Changed) (Cert resp}
+     <-- (ACK) (1:N1/0/256) (2:0/1/256) (2.01 Created) (Cert resp}
 POST [2001:db8::2:1]:61616/est/sen (CON)(2:1/0/256)           -->
-     <-- (ACK) (2:1/1/256) (2.04 Changed) (Cert resp}
-
+     <-- (ACK) (2:1/1/256) (2.01 Created) (Cert resp}
+                   .
+                   . N2-1 Blocks
+                   .
 POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/256)          -->
-     <-- (ACK) (2:N2/1/256) (2.04 Changed) (Cert resp}
+     <-- (ACK) (2:N2/1/256) (2.01 Created) (Cert resp}
 
 ]]></artwork></figure>
 

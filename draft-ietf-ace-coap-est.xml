@@ -1165,7 +1165,7 @@ a4fa677130da60818175ca4ab2af1d15563624c51e13dfdcf381881b72327e2f4
 
  <section anchor="cacertsblock" title="cacerts block example">
     <t>This section provides a detailed example of the messages using DTLS and BLOCK option Block2. The minimum PMTU is 1280 bytes, which is the example value assumed for the DTLS datagram size. The example block length is taken as 64 which gives an SZX value of 2.</t>
-    <t>The following is an example of a valid /cacerts exchange over DTLS. The content length of the cacerts response in appendix A.1 of <xref target="RFC7030"/> is 4246 bytes using base64. This leads to a length of 2509 bytes in binary. The CoAP message adds around 10 bytes, the DTLS record 29 bytes. To avoid IP fragmentation, the CoAP block option is used and an MTU of 127 is assumed to stay within one IEEE 802.15.4 packet. To stay below the MTU of 127, the payload is split in 39 packets with a payload of 64 bytes each, followed by a packet of 13 bytes. The client sends an IPv6 packet containing the UDP datagram with the DTLS record that encapsulates the CoAP Request 40 times. The server returns an IPv6 packet containing the UDP datagram with the DTLS record that encapsulates the CoAP response. The CoAP request-response exchange with block option is shown below. Block option is shown in a decomposed way (block-option:NUM/M/size) indicating the kind of Block option (2 in this case because used in the response) followed by a colon, and then the block number (NUM), the more bit (M = 0 means last block), and block size with exponent (2**(SZX+4)) separated by slashes. The Length 64 is used with SZX= 2 to avoid IP fragmentation. The CoAP Request is sent with confirmable (CON) option and the content format of the Response is /application/cacerts.</t>
+    <t>The following is an example of a valid /cacerts exchange over DTLS. The content length of the cacerts response in appendix A.1 of <xref target="RFC7030"/> is 4246 bytes using base64. This leads to a length of 2509 bytes in binary. The CoAP message adds around 10 bytes, the DTLS record 29 bytes. To avoid IP fragmentation, the CoAP block option is used and an MTU of 127 is assumed to stay within one IEEE 802.15.4 packet. To stay below the MTU of 127, the payload is split in 39 packets with a payload of 64 bytes each, followed by a packet of 13 bytes. The client sends an IPv6 packet containing the UDP datagram with the DTLS record that encapsulates the CoAP Request 40 times. The server returns an IPv6 packet containing the UDP datagram with the DTLS record that encapsulates the CoAP response. The CoAP request-response exchange with block option is shown below. Block option is shown in a decomposed way indicating the kind of Block option (2 in this case because used in the response) followed by a colon, and then the block number (NUM), the more bit (M = 0 means last block), and block size exponent (2**(SZX+4)) separated by slashes. The Length 64 is used with SZX= 2 to avoid IP fragmentation. The CoAP Request is sent with confirmable (CON) option and the content format of the Response is /application/cacerts.</t>
     <figure align="left"><artwork><![CDATA[
 GET /192.0.2.1:8085/est/crts     -->  
               <--   (2:0/1/64) 2.05 Content
@@ -1174,10 +1174,10 @@ GET /192.0.2.1:8085/est/crts (2:1/0/39)                           -->
                       |
                       |
                       |
-GET /192.0.2.1:8085/est/crts (2:39/1/65)                         -->
-              <--   (2:39/0/13) 2.05 Content
+GET /192.0.2.1:8085/est/crts (2:65/0/39)                         -->
+              <--   (2:66/0/64) 2.05 Content
 ]]></artwork></figure>
-    <t>The server returned 39 + 1 blocks. For further detailing the CoAP headers of the first two blocks are written out.</t>
+    <t>For further detailing the CoAP headers of the first two blocks are written out.</t>
     <t>The header of the first GET looks like:</t>
 <figure><artwork>
 <![CDATA[  
@@ -1290,7 +1290,7 @@ h'05050030
 
     <section anchor="enrollblock" title="enroll block example">
       <t>
-      In this example the block2 size of 256 bytes, required by the client, is tranferred to the server in the very first request message. The request/response consists of two parts: part1 constaining the CSR transferred to the server, and part2 contains the certificate transferred back to the client. The block size 256=(2**(SZX+4)) which gives SZX=4. The notation for block numbering is the same as in <xref target="cacertsblock"/>. It is assumed that CSR takes N1+1 blocks and Cert response takes N2+1 blocks. The header fields and the payload are omitted to show the block exchange. The type of payload is shown within curly brackets.
+      In this example the block2 size of 256 bytes, required by the client, is tranferred to the server in the very first request message. The request/response consists of two parts: part1 constaining the CSR transferred to the server, and part2 contains the certificate transferred back to the client. The block size 256=(2**(SZX+4)) which gives SZX=4. The notation for block numbering is the same as in <xref target="cacertsblock"/>. It is assumed that CSR takes N1 blocks and Cert response takes N2 blocks. The header fields and the payload are omitted to show the block exchange. The type of payload is shown within curly brackets.
       </t>
 <figure><artwork>
 <![CDATA[  
@@ -1302,15 +1302,15 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(1:1/1/256) {CSR req} -->
                    .
                    . N1-1 Blocks
                    .
-POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/1/256){CSR req} -->
-     <-- (ACK) (1:N1/0/256) (2:0/1/256) (2.01 Created)(Cert resp}
-POST [2001:db8::2:1]:61616/est/sen (CON)(2:1/1/256)           -->
+POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/0/256) {CSR req} -->
+     <-- (ACK) (1:N1/0/256) (2:0/1/256) (2.01 Created) (Cert resp}
+POST [2001:db8::2:1]:61616/est/sen (CON)(2:1/0/256)           -->
      <-- (ACK) (2:1/1/256) (2.01 Created) (Cert resp}
                    .
                    . N2-1 Blocks
                    .
-POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/1/256)          -->
-     <-- (ACK) (2:N2/0/256) (2.01 Created) (Cert resp}
+POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/256)          -->
+     <-- (ACK) (2:N2/1/256) (2.01 Created) (Cert resp}
 
 ]]></artwork></figure>
 

@@ -252,8 +252,22 @@
         <t>EST-coaps is designed for use between low-resource devices and hence does not need 
 		to send base64-encoded data. Simple binary is more efficient (30% smaller payload) and 
 		well supported by CoAP. Therefore, the content formats specification in 
-		<xref target="iana"/> specifies that the binary payload is transported as a CBOR major type 2, a byte string, for all EST-coaps Content-Formats. In the examples of <xref target="messagebindings"/>, the base16 diagnostic notation is used for CBOR major type 2, where h'450aafbb' represents an example binary payload.</t>
-    </section> <!-- Payload format -->
+		<xref target="cborpair"/> specifies that the binary payload is transported as a CBOR major type 2, a byte string, for all EST-coaps Content-Formats. In the examples of <xref target="messagebindings"/>, the base16 diagnostic notation is used for CBOR major type 2, where h'450aafbb' represents an example binary payload.</t>
+
+<section anchor="cborpair" title="Content Format application/multipart-core">
+<t>
+A representation with content format ID TBD8 contains a collection of representations along with their respective content format. The content-format identifies the media-type application/multipart-core specified in <xref target="I-D.fossati-core-multipart-ct"/>.
+</t><t>
+The collection is encoded as a <xref target="RFC7049">CBOR array</xref> with an even number of elements.
+The second, fourth, sixth, etc. element is a binary string containing a representation.
+The first, third, fifth, etc. element is an unsigned integer specifying the content format ID of the following representation.
+</t>
+<t>
+For example, a collection containing two representations, one with content format ID TBD5 and one with content format ID TBD2, looks like this in diagnostic CBOR notation: [TBD5,h'0123456789abcdef',TBD2,h'fedcba9876543210']. An example is shown in <xref target="appskg"/>.
+</t>
+   </section>  <!--Content Format application/multipart-core -->
+
+   </section> <!-- Payload format -->
 
     <section title="Message Bindings">
       <t>The general EST CoAP message characteristics are: 
@@ -483,9 +497,8 @@ HMAC(finished_key,
   </section>
 
   <section title="Parameters">
-    <t>[EDNOTE: This section to be populated. It will address transmission
-    parameters described in sections 4.7 and 4.8 of the CoAP document
-    (RFC7252).
+    <t>THis section addresses transmission
+    parameters described in sections 4.7 and 4.8 of the CoAP document <xref target="RFC7252"/>.
     </t>
 <figure align="center" title="EST-COAP protocol parameters"
 	anchor="fig-est-coap-parameters"><artwork><![CDATA[
@@ -497,48 +510,28 @@ HMAC(finished_key,
      PROBING_RATE      | 1 byte/second |
 	]]></artwork></figure>
 <t>
-    EST does
+EST does
     not impose any unique parameters that affect the CoAP parameters in Table
     2 and 3 in the CoAP draft but the ones in CoAP could be affecting
     EST. For example, the processing delay of CAs could be less then 2s, but
-    in this case they should send a CoAP ACK every 2s while processing.]
+    in this case they should send a CoAP ACK every 2s while processing.
 </t>
+<t> The main recommendation, based on experiments using Nexus Certificate Manager with Californium for CoAP support, communicating with a ContikiOS and tinyDTLS based client, from RISE SICS, is to start with the default CoAP configuration parameters.</t> 
+
+<t>However, depending on the implementation scenario, resending and timeouts can also occur on other networking layers, governed by other configuration parameters.</t>
+
+<t>Some further comments about some specific parameters, mainly from Table 2 in <xref target="RFC7252"/>:
+<list style="symbols">
+<t>DEFAULT_LEISURE: This setting is only relevant in multicast scenarios, outside the scope of the EST-coaps draft.</t>
+<t> NSTART: Limit the number of simultaneous outstanding interactions that a client maintains to a given server. The default is one, hence is the risk of congestion or out-of-order messages already limited.</t>
+<t>PROBING_RATE: A parameter which specifies the rate of re-sending non-confirmable messages. The EST messages are defined to be sent as CoAP confirmable messages, hence the PROBING_RATE setting is not applicable.</t>
+</list>
+</t>
+<t>Finally, the Table 3 parameters are mainly derived from the more basic Table 2 parameters. If the CoAP implementation allows setting them directly, they might need to be updated if the table 2 parameters are changed.</t>
   </section>
 
   <section anchor="iana" title="IANA Considerations">
 
-<section anchor="media-type" title="Media-Type Registry">
-
-<t>This section registers the 'application/multict' media type in the
-"Media Types" registry.  This media type is used to indicate that
-the payload is composed of multiple content formats.</t>
-
-<figure><artwork><![CDATA[
-Type name:  application
-Subtype name:  multict
-Required parameters:  none
-Optional parameters:  none
-Encoding considerations:  CBOR array of content-format.
-Security considerations:  See Security Considerations Section
-Interoperability considerations:  The format is designed to be
-  broadly interoperable.
-Published specification:  THIS RFC <xref target="cborpair"/>.
-Applications that use this media type:  ACE, ANIMA, 6tisch, 
-              and other low-resource EST applications.
-Additional information:
-  Magic number(s):  None
-  File extension(s):  .cbor
-  Macintosh file type code(s):  none
-Person & email address to contact for further information:  IETF
-  ACE WG
-Intended usage:  LIMITED
-Restrictions on usage:  NONE
-Author:  ACE WG
-Change controller:  IETF
-Provisional registration? (standards tree only):  NO
-]]></artwork></figure>
-
-</section> <!-- Media-Type Registry -->
 
   <section anchor="content-formats" title="Content-Format Registry">
     <t>Additions to the sub-registry "CoAP Content-Formats", within the "CoRE Parameters" registry are specified in <xref target="content-format"/>. These can be registered either in the Expert Review range (0-255) or IETF Review range (256-9999).</t>
@@ -556,28 +549,8 @@ Provisional registration? (standards tree only):  NO
   <c>application/pkcs8</c>                                       <c>-</c> <c>TBD5</c> <c><xref target="RFC5751"/> <xref target="RFC5958"/></c>
   <c>application/csrattrs</c>                                    <c>-</c> <c>TBD6</c> <c><xref target="RFC7030"/> <xref target="RFC7231"/></c>
   <c>application/pkcs10</c>                                      <c>-</c> <c>TBD7</c> <c><xref target="RFC5751"/> <xref target="RFC5967"/></c>
-  <c>application/multict</c>                                                        <c>-</c> <c>TBD8</c> <c><xref target="cborpair"/> </c>
+  <c>application/multict</c>                                                        <c>-</c> <c>TBD8</c> <c> <xref target="I-D.fossati-core-multipart-ct"/></c>
 </texttable>
-
-<section anchor="cborpair" title="Content Format application/multict">
-<t>
-A representation with content format ID TBD8 contains a collection of representations along with their respective content format.
-</t><t>
-The collection is encoded as a <xref target="RFC7049">CBOR array</xref> with an even number of elements.
-The second, fourth, sixth, etc. element is a binary string containing a representation.
-The first, third, fifth, etc. element is an unsigned integer specifying the content format ID of the following representation.
-</t>
-<t>
-For example, a collection containing two representations, one with content format ID TBD5 and one with content format ID TBD2, looks like this in diagnostic CBOR notation: [TBD5,h'0123456789abcdef',TBD2,h'fedcba9876543210']. An example is shown in <xref target="appskg"/>.
-</t>
-<t>
-  [EDNOTE: the intention is that this text is replaced by
-  <xref target="I-D.fossati-core-multipart-ct"/>, which has yet to be adopted.
-  The above text is a copy of the critical text, in the event that the CORE WG
-  does not adopt the document]
-</t>
-
-</section>
 
 </section> <!-- Content-Format registry -->
 
@@ -641,10 +614,13 @@ For example, a collection containing two representations, one with content forma
   </section> <!-- Acknowledgements  -->
 
   <section anchor="changes" title="Change Log">
-    <!-- <t> -02:
+    <t> -02:
     <list style="empty">
+      <t>Added paremeter discussion in section 8</t>
+      <t>Concluded content-format specification using multipart-ct draft</t>
+      <t>examples updated </t>
     </list>
-    </t> -->
+    </t>
     <t> -01:
     <list style="empty">
       <t>Editorials done.</t>
@@ -1165,19 +1141,22 @@ a4fa677130da60818175ca4ab2af1d15563624c51e13dfdcf381881b72327e2f4
 
  <section anchor="cacertsblock" title="cacerts block example">
     <t>This section provides a detailed example of the messages using DTLS and BLOCK option Block2. The minimum PMTU is 1280 bytes, which is the example value assumed for the DTLS datagram size. The example block length is taken as 64 which gives an SZX value of 2.</t>
-    <t>The following is an example of a valid /cacerts exchange over DTLS. The content length of the cacerts response in appendix A.1 of <xref target="RFC7030"/> is 4246 bytes using base64. This leads to a length of 2509 bytes in binary. The CoAP message adds around 10 bytes, the DTLS record 29 bytes. To avoid IP fragmentation, the CoAP block option is used and an MTU of 127 is assumed to stay within one IEEE 802.15.4 packet. To stay below the MTU of 127, the payload is split in 39 packets with a payload of 64 bytes each, followed by a packet of 13 bytes. The client sends an IPv6 packet containing the UDP datagram with the DTLS record that encapsulates the CoAP Request 40 times. The server returns an IPv6 packet containing the UDP datagram with the DTLS record that encapsulates the CoAP response. The CoAP request-response exchange with block option is shown below. Block option is shown in a decomposed way indicating the kind of Block option (2 in this case because used in the response) followed by a colon, and then the block number (NUM), the more bit (M = 0 means last block), and block size exponent (2**(SZX+4)) separated by slashes. The Length 64 is used with SZX= 2 to avoid IP fragmentation. The CoAP Request is sent with confirmable (CON) option and the content format of the Response is /application/cacerts.</t>
+    <t>The following is an example of a valid /cacerts exchange over DTLS. The content length of the cacerts response in appendix A.1 of <xref target="RFC7030"/> is 4246 bytes using base64. This leads to a length of 2509 bytes in binary. The CoAP message adds around 10 bytes, the DTLS record 29 bytes. To avoid IP fragmentation, the CoAP block option is used and an MTU of 127 is assumed to stay within one IEEE 802.15.4 packet. To stay below the MTU of 127, the payload is split in 39 packets with a payload of 64 bytes each, followed by a packet of 13 bytes. The client sends an IPv6 packet containing the UDP datagram with the DTLS record that encapsulates the CoAP Request 40 times. The server returns an IPv6 packet containing the UDP datagram with the DTLS record that encapsulates the CoAP response. The CoAP request-response exchange with block option is shown below.  Block option is shown in a decomposed way (block-option:NUM/M/size) indicating the kind of Block option (2 in this case because used in the response) followed by a colon, and then the block number (NUM), the more bit (M = 0 in lock2 response means last block), and block size with exponent (2**(SZX+4)) separated by slashes.  The Length 64 is used with SZX= 2 to avoid IP fragmentation.  The CoAP Request is sent with confirmable (CON) option and the content format of the Response is /application/cacerts.
+</t>
     <figure align="left"><artwork><![CDATA[
-GET /192.0.2.1:8085/est/crts     -->  
-              <--   (2:0/1/64) 2.05 Content
-GET /192.0.2.1:8085/est/crts (2:1/0/39)                           -->
-              <--   (2:1/1/64) 2.05 Content
-                      |
-                      |
-                      |
-GET /192.0.2.1:8085/est/crts (2:65/0/39)                         -->
-              <--   (2:66/0/64) 2.05 Content
+   GET /192.0.2.1:8085/est/crts   (2:0/0/64)    -->
+                 <--   (2:0/1/64) 2.05 Content
+   GET /192.0.2.1:8085/est/crts   (2:1/0/64)    -->
+                 <--   (2:1/1/64) 2.05 Content
+                         |
+                         |
+                         |
+   GET /192.0.2.1:8085/est/crts    (2:39/0/64)  -->
+                 <--   (2:39/0/64) 2.05 Content
 ]]></artwork></figure>
-    <t>For further detailing the CoAP headers of the first two blocks are written out.</t>
+
+    <t>40 blocks have been sent with partially filled block NUM=39 as last block. </t>
+<t>For further detailing the CoAP headers, the first two blocks are written out.</t>
     <t>The header of the first GET looks like:</t>
 <figure><artwork>
 <![CDATA[  
@@ -1290,29 +1269,32 @@ h'05050030
 
     <section anchor="enrollblock" title="enroll block example">
       <t>
-      In this example the block2 size of 256 bytes, required by the client, is tranferred to the server in the very first request message. The request/response consists of two parts: part1 constaining the CSR transferred to the server, and part2 contains the certificate transferred back to the client. The block size 256=(2**(SZX+4)) which gives SZX=4. The notation for block numbering is the same as in <xref target="cacertsblock"/>. It is assumed that CSR takes N1 blocks and Cert response takes N2 blocks. The header fields and the payload are omitted to show the block exchange. The type of payload is shown within curly brackets.
+      In this example the requested block2 size of 256 bytes, required by the client, is transferred to the server in the very first request message.  The request/response consists of two parts: part1 containing the CSR transferred to the server, and part2 contains the certificate transferred back to the client.  The block size 256=(2**(SZX+4)) which gives SZX=4.  The notation for block numbering is the same as in <xref target="cacertsblock"/>.  It is assumed that CSR takes N1+1 blocks and Cert response takes N2+1 blocks.  The header fields and the payload are omitted to show the block exchange.  The type of payload is shown within curly brackets.
       </t>
 <figure><artwork>
 <![CDATA[  
 
 POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
-     <-- (ACK) (1:0/1/256) (2.31 Continue)
+       <-- (ACK) (1:0/1/256) (2.31 Continue)
 POST [2001:db8::2:1]:61616/est/sen (CON)(1:1/1/256) {CSR req} -->
-     <-- (ACK) (1:1/1/256) (2.31 Continue)
-                   .
-                   . N1-1 Blocks
-                   .
-POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/0/256) {CSR req} -->
-     <-- (ACK) (1:N1/0/256) (2:0/1/256) (2.01 Created) (Cert resp}
+       <-- (ACK) (1:1/1/256) (2.31 Continue)
+                      .
+                      . 
+                      .
+POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
+       <-- (ACK) (1:N1/0/256) (2:0/1/256) (2.04 Changed)(Cert resp}
 POST [2001:db8::2:1]:61616/est/sen (CON)(2:1/0/256)           -->
-     <-- (ACK) (2:1/1/256) (2.01 Created) (Cert resp}
-                   .
-                   . N2-1 Blocks
-                   .
+       <-- (ACK) (2:1/1/256) (2.04 Changed) (Cert resp}
+                      .
+                      . 
+                      .
 POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/256)          -->
-     <-- (ACK) (2:N2/1/256) (2.01 Created) (Cert resp}
+       <-- (ACK) (2:N2/0/256) (2.04 Changed) (Cert resp}
 
 ]]></artwork></figure>
+
+<t>N1+1 blocks have been transferred from client to server and N2+1 blocks have been transferred from server to client.</t>
+
 
     </section> <!-- enroll block example -->
 

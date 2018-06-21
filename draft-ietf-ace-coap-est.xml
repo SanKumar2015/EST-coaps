@@ -181,7 +181,7 @@
       be supported <xref target="RFC4492"/>; this curve is equivalent to the
       NIST P-256 curve.   Crypto agility is important, and the
       recommendations in <xref target="RFC7925" /> section 4.4 and any
-      updates to RFC7925 concerning Curve25519 and other CFRG curves also applies.
+      updates to RFC7925 concerning Curve25519 and other CFRG curves also apply.
     </t>  
 	  
 	<t> 

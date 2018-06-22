@@ -25,7 +25,6 @@
 <!ENTITY RFC7252 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7252.xml">
 <!ENTITY RFC7925 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7925.xml">
 <!ENTITY RFC7959 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7959.xml">
-<!ENTITY RFC7641 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7641.xml">
 <!ENTITY RFC4919 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4919.xml">
 <!ENTITY RFC5929 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5929.xml">
 <!ENTITY RFC8075 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8075.xml">
@@ -44,7 +43,7 @@
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
 
-<rfc category="std" ipr="trust200902" docName="draft-ietf-ace-coap-est-02">
+<rfc category="std" ipr="trust200902" docName="draft-ietf-ace-coap-est-03">
   <front>
     <title abbrev="EST-coaps">EST over secure CoAP (EST-coaps)</title>
     <author fullname="Peter van der Stok" initials="P." surname="van der Stok">
@@ -134,8 +133,7 @@
    <t>EST messages may be relatively large and for this reason this
    document also uses CoAP Block-Wise Transfer <xref target="RFC7959"/> to 
    offer a fragmentation mechanism of EST messages at the CoAP layer. 
-   COAP Observe options <xref target="RFC7641"/> are also used to convey 
-   delayed EST responses to clients. </t>
+   </t>
 
    <t>This specification also profiles the use of EST to only support 
    certificate-based client Authentication. HTTP Basic or Digest 
@@ -291,66 +289,51 @@ For example, a collection containing two representations, one with content forma
     </section> <!-- CoAP response codes -->
 
     <section anchor="pending" title="Delayed Results">
-      <t>
-	  If the server is slow providing the response, she can respond with an empty ACK, sending
-	  the content later, according to <xref target="RFC7252" />, section 5.2.2.   
-	  If the response will be more than one packet (requring block mode) then the 
-	  client needs to send an empty ACK with code 0.00 for the first block and 
-	  acknowledge the rest of the blocks accordingly. To demonstrate this situation 
-	  below we show a client sending an enrollment request that will use more than one 
-	  Block1 blocks to send the CSR to the server. The server on the other hand will need 
-	  more than one Block2 blocks to respond, but will need take some time to provide 
-	  the response. Thus the server will use a 0.00 ACK for the response which will be 
-	  provided when ready by using 2.04 messages and Block2 options. Readers should note that 
-	  the client asks for a decrease in the block size when acknowledging the first Block2. </t>
-	  <figure><artwork>
-<![CDATA[  
-CON | POST 1:0/1/256 (enroll request with CSR) --> 
-       <--   ACK | 2.31 1:0/1/256 
-CON | POST 1:1/1/256 (enroll request with CSR)
-       <--   ACK | 2.31 1:1/1/256 
-CON | POST 1:2/0/256 (enroll request with CSR)
-       <--   ACK (code 0.00, no payload, 
-	             to signal delay in the response. 
-				 When ready, the server transfers 
-				 the response in Block2 blocks.)
-CON | 2.04 1:2/0/256 & 2:0/1/128  (Certificate) --> 
-       <--   ACK (code 0.00, no payload)
-       <--   CON | POST 2:1/0/128
-ACK | 2.04 2:1/1/128  (Certificate) --> 
-       <--   CON | POST 2:2/0/128
-ACK | 2.04 2:2/0/128  (Certificate) --> 
+   
+      <t>According to section 5.2.2 of <xref target="RFC7252" />, a slow server can acknowledge the request and respond later with the requested resource representation. </t>
+	  <t>If the server is very slow providing the response (say minutes, possible when a manual intervention is wanted), the server SHOULD respond with an empty ACK containing response code 5.03 (Service unavailable) and a Max-Age option to indicate the time the client SHOULD wait to request the content later. </t> 
+<t> When the server can respond immediately, and multiple blocks need to be sent, <xref target="enrollblock"/> shows the corresponding exchange of blocks. </t>
+
+<t> In particular, when the server is not ready to return the certificate after an enrolment request, the server responds with response code 5.03 (Service Unavailable) including the Max-Age option. After a delay of Max-Age, the client SHOULD send the identical CSR to the server. As long as the server responds with response code 5.03 (Service Unavailable), the client can resend the enrolment request until the server responds with the certificate or the client abandons for other reasons. </t>
+
+<t>To demonstrate this situation, <xref target="fig-est-long-wait"/> shows a client sending an enrolment request that will use more than one 
+	  Block1 block to send the CSR to the server. The server on the other hand will need 
+	  more than one Block2 blocks to respond, but also needs to take some time to provide 
+	  the response. Consequently, the server will use a 5.03 ACK for the response. The client can be requested to wait multiple times for a period of Max-Age. Note that in the example below the server asks for a decrease in the block size when acknowledging the first Block2. </t>
+<t> <xref target="fig-est-multiple-block"/> can be compared with <xref target="fig-est-long-wait"/> to see the extra requests after a Max-Age wait.</t> 
+
+<figure title="EST-COAP enrolment with long wait"
+	anchor="fig-est-long-wait"><artwork>
+<![CDATA[   
+
+POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
+       <-- (ACK) (1:0/1/256) (2.31 Continue)
+POST [2001:db8::2:1]:61616/est/sen (CON)(1:1/1/256) {CSR req} -->
+       <-- (ACK) (1:1/1/256) (2.31 Continue)
+                      .
+                      .
+POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
+     <-- (ACK) (1:N1/0/256) (2:0/0/128) (5.03 Service Unavailable)
+                                                         (Max-Age)
+                      |
+                      |
+Client tries one or more times after Max-Age with identical payload
+                      | 
+                      |
+POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
+     <-- (ACK) (1:N1/0/256) (2:0/1/128) (2.04 Changed)(Cert resp}
+POST [2001:db8::2:1]:61616/est/sen (CON)(2:1/0/128)           -->
+     <-- (ACK) (2:1/1/128) (2.04 Changed) (Cert resp}
+                      .
+                      . 
+                      .
+POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
+       <-- (ACK) (2:N2/0/128) (2.04 Changed) (Cert resp}
+
 ]]></artwork></figure>
 
-      <t>
-	  [EDNOTE: To update this. HTTP 202 Retry-After in EST 
-	  needs an equivalent mechanism in EST-coaps. 
-	  Observe seems like a candidate but after the HTTP 202 
-	  the client needs to do a new POST, not a GET, so Observe is not 
-	  the best option. We could use 2.04 or a new 2.0x with Max-Age 
-	  to convey the EST Retry-After. ]
-	  It is possible that responses are not always directly available by
-	  the server, and may even require manual intervention to generate the
-	  certificate for the server response. Delays of minutes to hours are
-	  possible. EST requires the use of an HTTP 202 message with a Retry-After 
-	  header by the server which signals to the client to attempt the 
-	  request in a certain amount of time. 
-	  In EST, each GET request MUST be accompanied by the
-	  observe option. When the result is directly available, the client
-	  receives the result and forgets about the observe as specified in
-	  section 3.6 of <xref target="RFC7641"/>. When a POST response is
-	  delayed, the POST returns a 2.01 (Created) response code, having put a
-	  value in the Location-Path option. After reception of 2.01 the client
-	  does a GET request with the observe option to the newly returned
-	  location. Once the delayed result is notified by the server, the client
-	  forgets about the observe.
-      </t>
 
-      <t>
-	Next to the observe option the server MUST specify the Max-Age option
-	that indicates the maximum waiting time in minutes.<!-- Fig 5 in
-	RFC7641. -->
-      </t> 
+ 
     </section> <!-- Delayed Results -->
 
     <section anchor="serverkey" title="Server-side Key Generation">
@@ -466,7 +449,6 @@ HMAC(finished_key,
    <t>MUST be computed as if each handshake message had been sent as a single fragment following the algorithm described in
    4.4.4 of <xref target="I-D.ietf-tls-tls13"/>. </t>
       <t>In a constrained CoAP environment, endpoints can't afford to establish a DTLS connection for every EST transaction. Authenticating and negotiating DTLS keys requires resources on low-end endpoints and consumes valuable bandwidth. The DTLS connection SHOULD remain open for persistent EST connections. For example, an EST cacerts request that is followed by a simpleenroll request can use the same authenticated DTLS connection. Given that after a successful enrollment, it is more likely that a new EST transaction will take place after a significant amount of time, the DTLS connections SHOULD only be kept alive for EST messages that are relatively close to each other. In some cases, such as NAT rebinding, keeping the state of a connection is not possible when devices sleep for extended periods of time. In such occasions, <xref target="I-D.rescorla-tls-dtls-connection-id"/> negotiates a connection ID that can eliminate the need for new handshake and its additional cost. </t>
-<t>Support for Observe CoAP options <xref target="RFC7641"/> is compulsory. The necessity of Observer for long delays (minutes - hours)is explained in <xref target="pending"/>. Observe options could also be used by the server to notify clients about a change in the cacerts or csr attributes (resources) and might be an area of future work.</t>
   </section> <!-- Transport protocol -->
 
   <section anchor="proxy" title="HTTPS-CoAPS Registrar">
@@ -549,7 +531,7 @@ EST does
   <c>application/pkcs8</c>                                       <c>-</c> <c>TBD5</c> <c><xref target="RFC5751"/> <xref target="RFC5958"/></c>
   <c>application/csrattrs</c>                                    <c>-</c> <c>TBD6</c> <c><xref target="RFC7030"/> <xref target="RFC7231"/></c>
   <c>application/pkcs10</c>                                      <c>-</c> <c>TBD7</c> <c><xref target="RFC5751"/> <xref target="RFC5967"/></c>
-  <c>application/multict</c>                                                        <c>-</c> <c>TBD8</c> <c> <xref target="I-D.fossati-core-multipart-ct"/></c>
+  <c>application/multipart-core</c>                                                        <c>-</c> <c>TBD8</c> <c> <xref target="I-D.fossati-core-multipart-ct"/></c>
 </texttable>
 
 </section> <!-- Content-Format registry -->
@@ -614,9 +596,15 @@ EST does
   </section> <!-- Acknowledgements  -->
 
   <section anchor="changes" title="Change Log">
+    <t> -03:
+    <list style="empty">
+      <t>Removed observe and simplified long waits</t>
+      <t>Repaired content-format specification</t>
+    </list>
+    </t>
     <t> -02:
     <list style="empty">
-      <t>Added paremeter discussion in section 8</t>
+      <t>Added parameter discussion in section 8</t>
       <t>Concluded content-format specification using multipart-ct draft</t>
       <t>examples updated </t>
     </list>
@@ -674,7 +662,6 @@ EST does
     &RFC7230;
     &RFC7231;
     &RFC7251;
-    &RFC7641;
     &RFC7925;
     &RFC4919;
     &RFC5929;
@@ -718,23 +705,19 @@ GET coaps://192.0.2.1:8085/est/crts
      Option Delta = 0x3  (option nr = 3)
      Option Length = 0x9
      Option Value = 192.0.2.1
-   Option2 (Observe)
-     Option Delta = 0x1  (option nr = 3+3=6)
-     Option Length = 0x1
-     Option Value = 0    (register)
-   Option3 (Uri-Port)               [optional]
-     Option Delta = 0x1  (option nr = 6+1=7)
+   Option2 (Uri-Port)               [optional]
+     Option Delta = 0x4  (option nr = 3+4=7)
      Option Length = 0x4
      Option Value = 8085
-   Option4 (Uri-Path)
+   Option3 (Uri-Path)
      Option Delta = 0x4   (option nr = 7+4= 11)
      Option Length = 0x5
      Option Value = "est" 
-   Option5 (Uri-Path)
+   Option4 (Uri-Path)
      Option Delta = 0x0   (option nr = 11+0= 11)
      Option Length = 0x6
      Option Value = "crts"
-   Option6 (Max-Age)
+   Option5 (Max-Age)
      Option Delta = 0x3   (option nr = 11+3= 14)
      Option Length = 0x1
      Option Value = 0x1    (1 minute)
@@ -754,12 +737,8 @@ GET coaps://192.0.2.1:8085/est/crts
   Code = 0x45 (2.05 Content)
   Token = 0x9a   (copied by server)
   Options
-   Option1 (Observe)
-     Option Delta = 0x6  (option nr =6)
-     Option Length = 0x1
-     Option Value = 12    ( 12 > 0)
-    Option2 (Content-Format)
-      Option Delta = 0xC  (option nr = 6+6 =12)
+    Option1 (Content-Format)
+      Option Delta = 0xC  (option nr =12)
       Option Length = 0x2
       Option Value = TBD2 (defined in this document) 
                 
@@ -926,8 +905,6 @@ C5E221D797AEA3748F0391C8D692A5CF9BB71F6D0E37984D6FA673A30D0C00634
 3116F58403100
 ]]></artwork></figure>
 
-<t>
-After reception of the 2.05 response, the client can forget the observe.</t>
     </section>  <!-- cacerts -->
 
     <section title="csrattrs">
@@ -936,7 +913,7 @@ After reception of the 2.05 response, the client can forget the observe.</t>
 <figure align="left"><artwork><![CDATA[
 REQ:
 GET coaps://[2001:db8::2:1]:61616/est/att 
-(Content-Format: TBD6)(observe =0)(Max-Age =1)
+(Content-Format: TBD6)
 ]]></artwork></figure>
 
       <t>A 2.05 Content response contains attributes which are relevant for the authenticated client. In this example, the EST-coaps server returns two attributes that the client can ignore when they are unknown to him.</t>
@@ -952,8 +929,7 @@ GET coaps://[2001:db8::2:1]:61616/est/att
 	    After verification of the CSR by the server, a 2.05 Content response 
 		with the issued certificate will be returned to the client. As described 
 		in <xref target="pending" />, if the server is not able to 
-		provide a response, then it ACKs the GET (with no payload), and 
-		the payload will be sent later as part of the OBSERVE processing.
+		provide a response immediately, it sends an empty ACK with response code 5.03 (Service Unavailabel) and the Max-Age option. See <xref target="fig-est-long-wait"/> for an example exchange. 
       </t>
 	  
       <t>
@@ -966,7 +942,7 @@ GET coaps://[2001:db8::2:1]:61616/est/att
 <figure align="left"><artwork><![CDATA[
 POST [2001:db8::2:1]:61616/est/sen 
 (token 0x45)
-(Content-Format: TBD7)(observe 0)
+(Content-Format: TBD7)
 h'30208530206d020100301f311d301b0603550403131464656d6f7374657034203
 1333638313431333532302062300d06092a620673410101050003204f0030204a
 022041005d9f4dffd3c5949f646a9584367778560950b355c35b8e34726dd3764
@@ -985,7 +961,7 @@ a7cda5176e7ccc6be22ae03498588d5f2de3b143f2b1a6175ec544e8e7625af6b
 fc7e0731f0e7fe305703791362d5157e92e6b5c2e3edbcadb40'
 
 RET:
-(Content-Format: TBD2)(token =0x45)(observe =12)
+(Content-Format: TBD2)(token =0x45)
 2.01 Created
 h'3020f806092a62067341070283293020e50201013100300b06092a62067341070
 1830b3020c730206fc20102020115300d06092a6206734101050500301b311930
@@ -1010,34 +986,6 @@ a2583aac9024075113db4990b1786b871691e0f020301000134b050300e060355
 171e4733ad3d13c0103100'
 ]]></artwork></figure>
 
-<t> After reception of the 2.01 response the client can forget the observe registration</t>
-<t> The same example when delays occur (omitting the payloads in the examples) has a different behavior. The response to the POST is an empty payload with response code 2.01 (Created) that also returns the resource to query. The client issues a GET with an observe and a new token value, and waits for the notification after possibly receiving an empty payload first.</t>
-<figure align="left"><artwork><![CDATA[
-POST [2001:db8::2:1]:61616/est/sen 
-(token 0x45)(observe = 0)
-(Content-Format: TBD7)(Max-Age=120)
-[payload]
-RET:
-(token =0x45)(observe =12)(Location-Path=/est/1245)
-2.01 Created 
-[empty payload]
-
-GET [2001:db8::2:1]:61616/est/1245
-(token 0x53)
-(observe =0)(Max-Age=120)
-
-RET:
-(token =0x53)(observe = 5)
-2.01 Created
-[empty payload]
-
-RET:
-(token =0x53)(observe = 6)
-(Content-Format: TBD2)
-2.04 Changed
-[payload]
-
-]]></artwork></figure>
     </section>  <!-- enroll / reenroll -->
 
     <section anchor="appskg" title="serverkeygen">
@@ -1049,7 +997,7 @@ RET:
 
 <figure align="left"><artwork><![CDATA[
 POST coaps://192.0.2.1:8085/est/skg 
-(token 0xa5)(observe = 0)
+(token 0xa5)
 (Content-Format: TBD7)(Max-Age=120)
 
 h'302081302069020100305b313e303c060355040313357365727665724b6579476
@@ -1073,7 +1021,7 @@ f9288724381909188c851fa9a5059802eb64449f2a3c9e441353d136768da27ff
 
 RET:
 2.01 Content (Content-Format: TBD8)
-(observe = 5)(token=0xa5)
+(token=0xa5)
 
 [TBD5,
 h'30213e020100300d06092a6206734101010500042128302124020100022041003
@@ -1169,26 +1117,18 @@ a4fa677130da60818175ca4ab2af1d15563624c51e13dfdcf381881b72327e2f4
      Option Delta = 0x3  (option nr = 3)
      Option Length = 0x9
      Option Value = 192.0.2.1
-   Option2 (Observe)
-     Option Delta = 0x3  (option nr = 3+3=6)
-     Option Length = 0x1
-     Option Value = 0       (register)
-   Option3 (Uri-Port)            [optional]
+   Option2 (Uri-Port)            [optional]
      Option Delta = 0x4   (option nr = 3+4=7)
      Option Length = 0x4
      Option Value = 8085
-   Option4 (Uri-Path)
+   Option3 (Uri-Path)
      Option Delta = 0x4    (option nr = 7+4=11)
      Option Length = 0x5
      Option Value = "est" 
-   Option5 (Uri-Path)
+   Option4 (Uri-Path)
      Option Delta = 0x0    (option nr = 11+0=11)
      Option Length = 0x6
      Option Value = "crts" 
-   Option6 (Max-Age)
-     Option Delta = 0x3    (option nr = 11+3=14)
-     Option Length = 0x1
-     Option Value = 0x1    ( 1 minute)
   Payload = [Empty]
 ]]></artwork>
           </figure>
@@ -1200,12 +1140,8 @@ a4fa677130da60818175ca4ab2af1d15563624c51e13dfdcf381881b72327e2f4
   Code = 0x45 (2.05 Content) 
   Token = 0x9a     (copied by server)
   Options
-    Option1 (Observe)
-      Option Delta = 0x6  (option nr=6)
-      Option Length = 0x1
-      Option Value = 12   (12 > 0)                  
-    Option2 (Content-Format)
-      Option Delta = 0xC  (option nr =6+6=12)
+    Option1 (Content-Format)
+      Option Delta = 0xC  (option nr =12)
       Option Length = 0x2
       Option Value = TBD2                  
     Option2 (Block2)
@@ -1225,12 +1161,8 @@ c0c3020bb302063c20102020900a61e75193b7acc0d06092a6206734101'
   Code = 0x45 (2.05 Content)
   Token = 0x9a     (copied by server)
   Options
-    Option1 (Observe)
-      Option Delta = 0x6  (option nr=6)
-      Option Length = 0x1
-      Option Value = 16   (16 > 12)                  
-    Option2 (Content-Format)
-      Option Delta = 0xC  (option nr =6+6=12)
+    Option1 (Content-Format)
+      Option Delta = 0xC  (option nr =12)
       Option Length = 0x2
       Option Value = TBD2                 
     Option2 (Block2)
@@ -1250,12 +1182,8 @@ h'05050030
   Code = 0x45      (2.05 Content)
   Token = 0x9a     (copied by server)
   Options
-    Option1 (Observe)
-      Option Delta = 0x6  (option nr=6)
-      Option Length = 0x1
-      Option Value = 55   (55 > 12)                  
-    Option2 (Content-Format)
-      Option Delta = 0xC  (option nr =6+6=12)
+    Option1 (Content-Format)
+      Option Delta = 0xC  (option nr =12)
       Option Length = 0x2
       Option Value = TBD2                  
     Option2 (Block2)
@@ -1271,7 +1199,8 @@ h'05050030
       <t>
       In this example the requested block2 size of 256 bytes, required by the client, is transferred to the server in the very first request message.  The request/response consists of two parts: part1 containing the CSR transferred to the server, and part2 contains the certificate transferred back to the client.  The block size 256=(2**(SZX+4)) which gives SZX=4.  The notation for block numbering is the same as in <xref target="cacertsblock"/>.  It is assumed that CSR takes N1+1 blocks and Cert response takes N2+1 blocks.  The header fields and the payload are omitted to show the block exchange.  The type of payload is shown within curly brackets.
       </t>
-<figure><artwork>
+<figure title="EST-COAP enrolment with multiple blocks"
+	anchor="fig-est-multiple-block"><artwork>
 <![CDATA[  
 
 POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR req} -->

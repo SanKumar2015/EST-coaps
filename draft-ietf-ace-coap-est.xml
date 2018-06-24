@@ -177,7 +177,7 @@
       As per <xref target="RFC7925" /> section 3.3 and section 4.4, the
       mandatory cipher suite for DTLS in EST-coaps is
       TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 defined in <xref target="RFC7251"/>,
-      and the the curve secp256r1 MUST  
+      and the curve secp256r1 MUST  
       be supported <xref target="RFC4492"/>; this curve is equivalent to the
       NIST P-256 curve.   Crypto agility is important, and the
       recommendations in <xref target="RFC7925" /> section 4.4 and any
@@ -220,7 +220,7 @@
 +------------------------------------------------+
 |    EST request/response messages               |
 +------------------------------------------------+
-|    CoAP for message transfer and signaling     |
+|    CoAP for message transfer and signalling     |
 +------------------------------------------------+
 |    DTLS for transport security                 |
 +------------------------------------------------+
@@ -291,14 +291,47 @@ For example, a collection containing two representations, one with content forma
     <section anchor="pending" title="Delayed Results">
    
       <t>According to section 5.2.2 of <xref target="RFC7252" />, a slow server can acknowledge the request and respond later with the requested resource representation. </t>
+<t>In particular, A slow server can respond to a CSR request with an empty ACK with code 0.00, 
+before sending the certificate to the server. Consecutively, the server will need 
+	  more than one "Block2" blocks to respond and needs to take some time to provide 
+	  the response. The 
+	  client needs to send an empty ACK with code 0.00 for the first block and 
+	  acknowledge the rest of the blocks accordingly. This situation is shown in <xref target="fig-est-short-wait"/>
+	  where a client sends an enrollment request that uses more than one 
+	  "Block1" blocks. The server uses an empty 0.00 ACK to announce the response which will be 
+	  provided with 2.04 messages containing "Block2" options. The client asks for a decrease in the block size when acknowledging the first Block2. </t>
+	  <figure title="EST-COAP enrolment with short wait"
+	anchor="fig-est-short-wait"><artwork>
+<![CDATA[  
+POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
+       <-- (ACK) (1:0/1/256) (2.31 Continue)
+POST [2001:db8::2:1]:61616/est/sen (CON)(1:1/1/256) {CSR req} -->
+       <-- (ACK) (1:1/1/256) (2.31 Continue)
+                      .
+                      . 
+                      .
+POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
+       <-- (ACK) (1:N1/0/256) (0.00 empty ACK)
+                      |
+       ...... short delay before certificate is ready.......
+                      
+POST [2001:db8::2:1]:61616/est/sen (CON)(2:0/0/128)           -->
+       <-- (ACK) (2:0/1/128) (2.04 Changed) {Cert resp}
+                      .
+                      . 
+                      .
+POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
+       <-- (ACK) (2:N2/0/128) (2.04 Changed) {Cert resp}
+]]></artwork></figure>
+
 	  <t>If the server is very slow providing the response (say minutes, possible when a manual intervention is wanted), the server SHOULD respond with an empty ACK containing response code 5.03 (Service unavailable) and a Max-Age option to indicate the time the client SHOULD wait to request the content later. </t> 
 <t> When the server can respond immediately, and multiple blocks need to be sent, <xref target="enrollblock"/> shows the corresponding exchange of blocks. </t>
 
 <t> In particular, when the server is not ready to return the certificate after an enrolment request, the server responds with response code 5.03 (Service Unavailable) including the Max-Age option. After a delay of Max-Age, the client SHOULD send the identical CSR to the server. As long as the server responds with response code 5.03 (Service Unavailable), the client can resend the enrolment request until the server responds with the certificate or the client abandons for other reasons. </t>
 
 <t>To demonstrate this situation, <xref target="fig-est-long-wait"/> shows a client sending an enrolment request that will use more than one 
-	  Block1 block to send the CSR to the server. The server on the other hand will need 
-	  more than one Block2 blocks to respond, but also needs to take some time to provide 
+	  "Block1" block to send the CSR to the server. The server needs 
+	  more than one "Block2" blocks to respond, but also needs to take a long delay (minutes) to provide 
 	  the response. Consequently, the server will use a 5.03 ACK for the response. The client can be requested to wait multiple times for a period of Max-Age. Note that in the example below the server asks for a decrease in the block size when acknowledging the first Block2. </t>
 <t> <xref target="fig-est-multiple-block"/> can be compared with <xref target="fig-est-long-wait"/> to see the extra requests after a Max-Age wait.</t> 
 
@@ -321,14 +354,14 @@ Client tries one or more times after Max-Age with identical payload
                       | 
                       |
 POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
-     <-- (ACK) (1:N1/0/256) (2:0/1/128) (2.04 Changed)(Cert resp}
+     <-- (ACK) (1:N1/0/256) (2:0/1/128) (2.04 Changed){Cert resp}
 POST [2001:db8::2:1]:61616/est/sen (CON)(2:1/0/128)           -->
-     <-- (ACK) (2:1/1/128) (2.04 Changed) (Cert resp}
+     <-- (ACK) (2:1/1/128) (2.04 Changed) {Cert resp}
                       .
                       . 
                       .
 POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
-       <-- (ACK) (2:N2/0/128) (2.04 Changed) (Cert resp}
+       <-- (ACK) (2:N2/0/128) (2.04 Changed) {Cert resp}
 
 ]]></artwork></figure>
 
@@ -1211,14 +1244,14 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(1:1/1/256) {CSR req} -->
                       . 
                       .
 POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
-       <-- (ACK) (1:N1/0/256) (2:0/1/256) (2.04 Changed)(Cert resp}
+       <-- (ACK) (1:N1/0/256) (2:0/1/256) (2.04 Changed){Cert resp}
 POST [2001:db8::2:1]:61616/est/sen (CON)(2:1/0/256)           -->
-       <-- (ACK) (2:1/1/256) (2.04 Changed) (Cert resp}
+       <-- (ACK) (2:1/1/256) (2.04 Changed) {Cert resp}
                       .
                       . 
                       .
 POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/256)          -->
-       <-- (ACK) (2:N2/0/256) (2.04 Changed) (Cert resp}
+       <-- (ACK) (2:N2/0/256) (2.04 Changed) {Cert resp}
 
 ]]></artwork></figure>
 

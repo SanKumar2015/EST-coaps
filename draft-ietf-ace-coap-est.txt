@@ -5,7 +5,7 @@
 ACE                                                      P. van der Stok
 Internet-Draft                                                Consultant
 Intended status: Standards Track                           P. Kampanakis
-Expires: December 24, 2018                                 Cisco Systems
+Expires: December 26, 2018                                 Cisco Systems
                                                                 S. Kumar
                                                Philips Lighting Research
                                                            M. Richardson
@@ -14,7 +14,7 @@ Expires: December 24, 2018                                 Cisco Systems
                                                              Nexus Group
                                                                  S. Raza
                                                                RISE SICS
-                                                           June 22, 2018
+                                                           June 24, 2018
 
 
                     EST over secure CoAP (EST-coaps)
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 24, 2018.
+   This Internet-Draft will expire on December 26, 2018.
 
 
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-van der Stok, et al.    Expires December 24, 2018               [Page 1]
+van der Stok, et al.    Expires December 26, 2018               [Page 1]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -84,41 +84,41 @@ Table of Contents
      4.2.  Message Bindings  . . . . . . . . . . . . . . . . . . . .   6
      4.3.  CoAP response codes . . . . . . . . . . . . . . . . . . .   6
      4.4.  Delayed Results . . . . . . . . . . . . . . . . . . . . .   7
-     4.5.  Server-side Key Generation  . . . . . . . . . . . . . . .   8
-     4.6.  Message fragmentation . . . . . . . . . . . . . . . . . .   9
-     4.7.  Deployment limits . . . . . . . . . . . . . . . . . . . .  10
-   5.  Discovery and URI . . . . . . . . . . . . . . . . . . . . . .  10
-   6.  DTLS Transport Protocol . . . . . . . . . . . . . . . . . . .  12
-   7.  HTTPS-CoAPS Registrar . . . . . . . . . . . . . . . . . . . .  13
-   8.  Parameters  . . . . . . . . . . . . . . . . . . . . . . . . .  15
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  16
-     9.1.  Content-Format Registry . . . . . . . . . . . . . . . . .  16
-     9.2.  Resource Type registry  . . . . . . . . . . . . . . . . .  17
-   10. Security Considerations . . . . . . . . . . . . . . . . . . .  17
-     10.1.  EST server considerations  . . . . . . . . . . . . . . .  17
-     10.2.  HTTPS-CoAPS Registrar considerations . . . . . . . . . .  18
-   11. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  19
-   12. Change Log  . . . . . . . . . . . . . . . . . . . . . . . . .  19
-   13. References  . . . . . . . . . . . . . . . . . . . . . . . . .  20
-     13.1.  Normative References . . . . . . . . . . . . . . . . . .  20
-     13.2.  Informative References . . . . . . . . . . . . . . . . .  21
-   Appendix A.  EST messages to EST-coaps  . . . . . . . . . . . . .  23
-     A.1.  cacerts . . . . . . . . . . . . . . . . . . . . . . . . .  24
-     A.2.  csrattrs  . . . . . . . . . . . . . . . . . . . . . . . .  28
-     A.3.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  28
+     4.5.  Server-side Key Generation  . . . . . . . . . . . . . . .   9
+     4.6.  Message fragmentation . . . . . . . . . . . . . . . . . .  10
+     4.7.  Deployment limits . . . . . . . . . . . . . . . . . . . .  11
+   5.  Discovery and URI . . . . . . . . . . . . . . . . . . . . . .  11
+   6.  DTLS Transport Protocol . . . . . . . . . . . . . . . . . . .  13
+   7.  HTTPS-CoAPS Registrar . . . . . . . . . . . . . . . . . . . .  14
+   8.  Parameters  . . . . . . . . . . . . . . . . . . . . . . . . .  16
+   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  17
+     9.1.  Content-Format Registry . . . . . . . . . . . . . . . . .  17
+     9.2.  Resource Type registry  . . . . . . . . . . . . . . . . .  18
+   10. Security Considerations . . . . . . . . . . . . . . . . . . .  18
+     10.1.  EST server considerations  . . . . . . . . . . . . . . .  18
+     10.2.  HTTPS-CoAPS Registrar considerations . . . . . . . . . .  19
+   11. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  20
+   12. Change Log  . . . . . . . . . . . . . . . . . . . . . . . . .  20
+   13. References  . . . . . . . . . . . . . . . . . . . . . . . . .  21
+     13.1.  Normative References . . . . . . . . . . . . . . . . . .  21
+     13.2.  Informative References . . . . . . . . . . . . . . . . .  22
+   Appendix A.  EST messages to EST-coaps  . . . . . . . . . . . . .  24
+     A.1.  cacerts . . . . . . . . . . . . . . . . . . . . . . . . .  25
+     A.2.  csrattrs  . . . . . . . . . . . . . . . . . . . . . . . .  29
+     A.3.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  29
 
 
 
-van der Stok, et al.    Expires December 24, 2018               [Page 2]
+van der Stok, et al.    Expires December 26, 2018               [Page 2]
 
 Internet-Draft                  EST-coaps                      June 2018
 
 
-     A.4.  serverkeygen  . . . . . . . . . . . . . . . . . . . . . .  31
-   Appendix B.  EST-coaps Block message examples . . . . . . . . . .  33
-     B.1.  cacerts block example . . . . . . . . . . . . . . . . . .  33
-     B.2.  enroll block example  . . . . . . . . . . . . . . . . . .  36
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  37
+     A.4.  serverkeygen  . . . . . . . . . . . . . . . . . . . . . .  32
+   Appendix B.  EST-coaps Block message examples . . . . . . . . . .  34
+     B.1.  cacerts block example . . . . . . . . . . . . . . . . . .  34
+     B.2.  enroll block example  . . . . . . . . . . . . . . . . . .  37
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  38
 
 1.  Introduction
 
@@ -165,7 +165,7 @@ Internet-Draft                  EST-coaps                      June 2018
 
 
 
-van der Stok, et al.    Expires December 24, 2018               [Page 3]
+van der Stok, et al.    Expires December 26, 2018               [Page 3]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -175,7 +175,7 @@ Internet-Draft                  EST-coaps                      June 2018
 
    As per [RFC7925] section 3.3 and section 4.4, the mandatory cipher
    suite for DTLS in EST-coaps is TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8
-   defined in [RFC7251], and the the curve secp256r1 MUST be supported
+   defined in [RFC7251], and the curve secp256r1 MUST be supported
    [RFC4492]; this curve is equivalent to the NIST P-256 curve.  Crypto
    agility is important, and the recommendations in [RFC7925] section
    4.4 and any updates to RFC7925 concerning Curve25519 and other CFRG
@@ -221,7 +221,7 @@ Internet-Draft                  EST-coaps                      June 2018
 
 
 
-van der Stok, et al.    Expires December 24, 2018               [Page 4]
+van der Stok, et al.    Expires December 26, 2018               [Page 4]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -229,7 +229,7 @@ Internet-Draft                  EST-coaps                      June 2018
    +------------------------------------------------+
    |    EST request/response messages               |
    +------------------------------------------------+
-   |    CoAP for message transfer and signaling     |
+   |    CoAP for message transfer and signalling     |
    +------------------------------------------------+
    |    DTLS for transport security                 |
    +------------------------------------------------+
@@ -277,7 +277,7 @@ Internet-Draft                  EST-coaps                      June 2018
 
 
 
-van der Stok, et al.    Expires December 24, 2018               [Page 5]
+van der Stok, et al.    Expires December 26, 2018               [Page 5]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -333,7 +333,7 @@ Internet-Draft                  EST-coaps                      June 2018
 
 
 
-van der Stok, et al.    Expires December 24, 2018               [Page 6]
+van der Stok, et al.    Expires December 26, 2018               [Page 6]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -350,6 +350,50 @@ Internet-Draft                  EST-coaps                      June 2018
    acknowledge the request and respond later with the requested resource
    representation.
 
+   In particular, A slow server can respond to a CSR request with an
+   empty ACK with code 0.00, before sending the certificate to the
+   server.  Consecutively, the server will need more than one "Block2"
+   blocks to respond and needs to take some time to provide the
+   response.  The client needs to send an empty ACK with code 0.00 for
+   the first block and acknowledge the rest of the blocks accordingly.
+   This situation is shown in Figure 2 where a client sends an
+   enrollment request that uses more than one "Block1" blocks.  The
+   server uses an empty 0.00 ACK to announce the response which will be
+   provided with 2.04 messages containing "Block2" options.  The client
+   asks for a decrease in the block size when acknowledging the first
+   Block2.
+
+
+   POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
+          <-- (ACK) (1:0/1/256) (2.31 Continue)
+   POST [2001:db8::2:1]:61616/est/sen (CON)(1:1/1/256) {CSR req} -->
+          <-- (ACK) (1:1/1/256) (2.31 Continue)
+                         .
+                         .
+                         .
+   POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
+          <-- (ACK) (1:N1/0/256) (0.00 empty ACK)
+                         |
+          ...... short delay before certificate is ready.......
+
+   POST [2001:db8::2:1]:61616/est/sen (CON)(2:0/0/128)           -->
+          <-- (ACK) (2:0/1/128) (2.04 Changed) {Cert resp}
+                         .
+                         .
+                         .
+   POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
+          <-- (ACK) (2:N2/0/128) (2.04 Changed) {Cert resp}
+
+               Figure 2: EST-COAP enrolment with short wait
+
+
+
+
+van der Stok, et al.    Expires December 26, 2018               [Page 7]
+
+Internet-Draft                  EST-coaps                      June 2018
+
+
    If the server is very slow providing the response (say minutes,
    possible when a manual intervention is wanted), the server SHOULD
    respond with an empty ACK containing response code 5.03 (Service
@@ -362,23 +406,23 @@ Internet-Draft                  EST-coaps                      June 2018
    In particular, when the server is not ready to return the certificate
    after an enrolment request, the server responds with response code
    5.03 (Service Unavailable) including the Max-Age option.  After a
-   delay of Max-Age, the client HOULD send the identical CSR to the
+   delay of Max-Age, the client SHOULD send the identical CSR to the
    server.  As long as the server responds with response code 5.03
    (Service Unavailable), the client can resend the enrolment request
    until the server responds with the certificate or the client abandons
    for other reasons.
 
-   To demonstrate this situation, Figure 2 shows a client sending an
-   enrolment request that will use more than one Block1 block to send
-   the CSR to the server.  The server on the other hand will need more
-   than one Block2 blocks to respond, but also needs to take some time
-   to provide the response.  Consequently, the server will use a 5.03
-   ACK for the response.  The client can be requested to wait multiple
-   times for a period of Max-Age. Note that in the example below the
-   server asks for a decrease in the block size when acknowledging the
-   first Block2.
+   To demonstrate this situation, Figure 3 shows a client sending an
+   enrolment request that will use more than one "Block1" block to send
+   the CSR to the server.  The server needs more than one "Block2"
+   blocks to respond, but also needs to take a long delay (minutes) to
+   provide the response.  Consequently, the server will use a 5.03 ACK
+   for the response.  The client can be requested to wait multiple times
+   for a period of Max-Age. Note that in the example below the server
+   asks for a decrease in the block size when acknowledging the first
+   Block2.
 
-   Figure 4 can be compared with Figure 2 to see the extra requests
+   Figure 5 can be compared with Figure 3 to see the extra requests
    after a Max-Age wait.
 
 
@@ -389,36 +433,49 @@ Internet-Draft                  EST-coaps                      June 2018
 
 
 
-van der Stok, et al.    Expires December 24, 2018               [Page 7]
+
+
+
+
+
+
+
+
+
+
+
+
+van der Stok, et al.    Expires December 26, 2018               [Page 8]
 
 Internet-Draft                  EST-coaps                      June 2018
 
 
-POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
-       <-- (ACK) (1:0/1/256) (2.31 Continue)
-POST [2001:db8::2:1]:61616/est/sen (CON)(1:1/1/256) {CSR req} -->
-       <-- (ACK) (1:1/1/256) (2.31 Continue)
-                      .
-                      .
-POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
-     <-- (ACK) (1:N1/0/256) (2:0/0/128) (5.03 Service Unavailable)(Max-Age)
-                      |
-                      |
-Client tries one or more times after Max-Age with identical payload
-                      |
-                      |
-POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
-     <-- (ACK) (1:N1/0/256) (2:0/1/128) (2.04 Changed)(Cert resp}
-POST [2001:db8::2:1]:61616/est/sen (CON)(2:1/0/128)           -->
-     <-- (ACK) (2:1/1/128) (2.04 Changed) (Cert resp}
-                      .
-                      .
-                      .
-POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
-       <-- (ACK) (2:N2/0/128) (2.04 Changed) (Cert resp}
+   POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
+          <-- (ACK) (1:0/1/256) (2.31 Continue)
+   POST [2001:db8::2:1]:61616/est/sen (CON)(1:1/1/256) {CSR req} -->
+          <-- (ACK) (1:1/1/256) (2.31 Continue)
+                         .
+                         .
+   POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
+        <-- (ACK) (1:N1/0/256) (2:0/0/128) (5.03 Service Unavailable)
+                                                            (Max-Age)
+                         |
+                         |
+   Client tries one or more times after Max-Age with identical payload
+                         |
+                         |
+   POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
+        <-- (ACK) (1:N1/0/256) (2:0/1/128) (2.04 Changed){Cert resp}
+   POST [2001:db8::2:1]:61616/est/sen (CON)(2:1/0/128)           -->
+        <-- (ACK) (2:1/1/128) (2.04 Changed) {Cert resp}
+                         .
+                         .
+                         .
+   POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
+          <-- (ACK) (2:N2/0/128) (2.04 Changed) {Cert resp}
 
 
-                Figure 2: EST-COAP enrolment with long wait
+                Figure 3: EST-COAP enrolment with long wait
 
 4.5.  Server-side Key Generation
 
@@ -444,8 +501,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 
 
 
-
-van der Stok, et al.    Expires December 24, 2018               [Page 8]
+van der Stok, et al.    Expires December 26, 2018               [Page 9]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -501,7 +557,7 @@ Internet-Draft                  EST-coaps                      June 2018
 
 
 
-van der Stok, et al.    Expires December 24, 2018               [Page 9]
+van der Stok, et al.    Expires December 26, 2018              [Page 10]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -557,7 +613,7 @@ Internet-Draft                  EST-coaps                      June 2018
 
 
 
-van der Stok, et al.    Expires December 24, 2018              [Page 10]
+van der Stok, et al.    Expires December 26, 2018              [Page 11]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -613,7 +669,7 @@ Internet-Draft                  EST-coaps                      June 2018
 
 
 
-van der Stok, et al.    Expires December 24, 2018              [Page 11]
+van der Stok, et al.    Expires December 26, 2018              [Page 12]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -669,7 +725,7 @@ Internet-Draft                  EST-coaps                      June 2018
 
 
 
-van der Stok, et al.    Expires December 24, 2018              [Page 12]
+van der Stok, et al.    Expires December 26, 2018              [Page 13]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -725,7 +781,7 @@ Internet-Draft                  EST-coaps                      June 2018
 
 
 
-van der Stok, et al.    Expires December 24, 2018              [Page 13]
+van der Stok, et al.    Expires December 26, 2018              [Page 14]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -781,7 +837,7 @@ Internet-Draft                  EST-coaps                      June 2018
 
 
 
-van der Stok, et al.    Expires December 24, 2018              [Page 14]
+van der Stok, et al.    Expires December 26, 2018              [Page 15]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -824,7 +880,7 @@ Internet-Draft                  EST-coaps                      June 2018
         DEFAULT_LEISURE   | 5 seconds     |
         PROBING_RATE      | 1 byte/second |
 
-                  Figure 3: EST-COAP protocol parameters
+                  Figure 4: EST-COAP protocol parameters
 
    EST does not impose any unique parameters that affect the CoAP
    parameters in Table 2 and 3 in the CoAP draft but the ones in CoAP
@@ -837,7 +893,7 @@ Internet-Draft                  EST-coaps                      June 2018
 
 
 
-van der Stok, et al.    Expires December 24, 2018              [Page 15]
+van der Stok, et al.    Expires December 26, 2018              [Page 16]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -893,7 +949,7 @@ Internet-Draft                  EST-coaps                      June 2018
 
 
 
-van der Stok, et al.    Expires December 24, 2018              [Page 16]
+van der Stok, et al.    Expires December 26, 2018              [Page 17]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -949,7 +1005,7 @@ Internet-Draft                  EST-coaps                      June 2018
 
 
 
-van der Stok, et al.    Expires December 24, 2018              [Page 17]
+van der Stok, et al.    Expires December 26, 2018              [Page 18]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -1005,7 +1061,7 @@ Internet-Draft                  EST-coaps                      June 2018
 
 
 
-van der Stok, et al.    Expires December 24, 2018              [Page 18]
+van der Stok, et al.    Expires December 26, 2018              [Page 19]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -1061,7 +1117,7 @@ Internet-Draft                  EST-coaps                      June 2018
 
 
 
-van der Stok, et al.    Expires December 24, 2018              [Page 19]
+van der Stok, et al.    Expires December 26, 2018              [Page 20]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -1117,7 +1173,7 @@ Internet-Draft                  EST-coaps                      June 2018
 
 
 
-van der Stok, et al.    Expires December 24, 2018              [Page 20]
+van der Stok, et al.    Expires December 26, 2018              [Page 21]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -1173,7 +1229,7 @@ Internet-Draft                  EST-coaps                      June 2018
 
 
 
-van der Stok, et al.    Expires December 24, 2018              [Page 21]
+van der Stok, et al.    Expires December 26, 2018              [Page 22]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -1229,7 +1285,7 @@ Internet-Draft                  EST-coaps                      June 2018
 
 
 
-van der Stok, et al.    Expires December 24, 2018              [Page 22]
+van der Stok, et al.    Expires December 26, 2018              [Page 23]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -1285,7 +1341,7 @@ Appendix A.  EST messages to EST-coaps
 
 
 
-van der Stok, et al.    Expires December 24, 2018              [Page 23]
+van der Stok, et al.    Expires December 26, 2018              [Page 24]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -1341,7 +1397,7 @@ A.1.  cacerts
 
 
 
-van der Stok, et al.    Expires December 24, 2018              [Page 24]
+van der Stok, et al.    Expires December 26, 2018              [Page 25]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -1397,7 +1453,7 @@ Internet-Draft                  EST-coaps                      June 2018
 
 
 
-van der Stok, et al.    Expires December 24, 2018              [Page 25]
+van der Stok, et al.    Expires December 26, 2018              [Page 26]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -1453,7 +1509,7 @@ Internet-Draft                  EST-coaps                      June 2018
 
 
 
-van der Stok, et al.    Expires December 24, 2018              [Page 26]
+van der Stok, et al.    Expires December 26, 2018              [Page 27]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -1509,7 +1565,7 @@ Internet-Draft                  EST-coaps                      June 2018
 
 
 
-van der Stok, et al.    Expires December 24, 2018              [Page 27]
+van der Stok, et al.    Expires December 26, 2018              [Page 28]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -1565,7 +1621,7 @@ A.3.  enroll / reenroll
 
 
 
-van der Stok, et al.    Expires December 24, 2018              [Page 28]
+van der Stok, et al.    Expires December 26, 2018              [Page 29]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -1574,7 +1630,7 @@ Internet-Draft                  EST-coaps                      June 2018
    with the issued certificate will be returned to the client.  As
    described in Section 4.4, if the server is not able to provide a
    response immediately, it sends an empty ACK with response code 5.03
-   (Service Unavailabel) and the Max-Age option.  See Figure 2 for an
+   (Service Unavailabel) and the Max-Age option.  See Figure 3 for an
    example exchange.
 
    [EDNOTE: When redoing this example, given that proof of possession
@@ -1621,7 +1677,7 @@ Internet-Draft                  EST-coaps                      June 2018
 
 
 
-van der Stok, et al.    Expires December 24, 2018              [Page 29]
+van der Stok, et al.    Expires December 26, 2018              [Page 30]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -1677,7 +1733,7 @@ Internet-Draft                  EST-coaps                      June 2018
 
 
 
-van der Stok, et al.    Expires December 24, 2018              [Page 30]
+van der Stok, et al.    Expires December 26, 2018              [Page 31]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -1733,7 +1789,7 @@ A.4.  serverkeygen
 
 
 
-van der Stok, et al.    Expires December 24, 2018              [Page 31]
+van der Stok, et al.    Expires December 26, 2018              [Page 32]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -1789,7 +1845,7 @@ Internet-Draft                  EST-coaps                      June 2018
 
 
 
-van der Stok, et al.    Expires December 24, 2018              [Page 32]
+van der Stok, et al.    Expires December 26, 2018              [Page 33]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -1845,7 +1901,7 @@ B.1.  cacerts block example
 
 
 
-van der Stok, et al.    Expires December 24, 2018              [Page 33]
+van der Stok, et al.    Expires December 26, 2018              [Page 34]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -1901,7 +1957,7 @@ Internet-Draft                  EST-coaps                      June 2018
 
 
 
-van der Stok, et al.    Expires December 24, 2018              [Page 34]
+van der Stok, et al.    Expires December 26, 2018              [Page 35]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -1957,7 +2013,7 @@ Internet-Draft                  EST-coaps                      June 2018
 
 
 
-van der Stok, et al.    Expires December 24, 2018              [Page 35]
+van der Stok, et al.    Expires December 26, 2018              [Page 36]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -2013,7 +2069,7 @@ B.2.  enroll block example
 
 
 
-van der Stok, et al.    Expires December 24, 2018              [Page 36]
+van der Stok, et al.    Expires December 26, 2018              [Page 37]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -2026,17 +2082,17 @@ Internet-Draft                  EST-coaps                      June 2018
                          .
                          .
    POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
-          <-- (ACK) (1:N1/0/256) (2:0/1/256) (2.04 Changed)(Cert resp}
+          <-- (ACK) (1:N1/0/256) (2:0/1/256) (2.04 Changed){Cert resp}
    POST [2001:db8::2:1]:61616/est/sen (CON)(2:1/0/256)           -->
-          <-- (ACK) (2:1/1/256) (2.04 Changed) (Cert resp}
+          <-- (ACK) (2:1/1/256) (2.04 Changed) {Cert resp}
                          .
                          .
                          .
    POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/256)          -->
-          <-- (ACK) (2:N2/0/256) (2.04 Changed) (Cert resp}
+          <-- (ACK) (2:N2/0/256) (2.04 Changed) {Cert resp}
 
 
-             Figure 4: EST-COAP enrolment with multiple blocks
+             Figure 5: EST-COAP enrolment with multiple blocks
 
    N1+1 blocks have been transferred from client to server and N2+1
    blocks have been transferred from server to client.
@@ -2069,7 +2125,7 @@ Authors' Addresses
 
 
 
-van der Stok, et al.    Expires December 24, 2018              [Page 37]
+van der Stok, et al.    Expires December 26, 2018              [Page 38]
 
 Internet-Draft                  EST-coaps                      June 2018
 
@@ -2125,4 +2181,4 @@ Internet-Draft                  EST-coaps                      June 2018
 
 
 
-van der Stok, et al.    Expires December 24, 2018              [Page 38]
+van der Stok, et al.    Expires December 26, 2018              [Page 39]

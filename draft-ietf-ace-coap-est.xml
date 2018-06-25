@@ -290,16 +290,17 @@ For example, a collection containing two representations, one with content forma
 
     <section anchor="pending" title="Delayed Results">
    
+<t> Using the enroll request with CSR reponse, examples ae shown for a server without delay, a short delay and a long delay.</t>
+
+<t> When the server can respond immediately, and multiple blocks need to be sent, <xref target="enrollblock"/> shows the corresponding exchange of blocks. </t>
+
       <t>According to section 5.2.2 of <xref target="RFC7252" />, a slow server can acknowledge the request and respond later with the requested resource representation. </t>
 <t>In particular, A slow server can respond to a CSR request with an empty ACK with code 0.00, 
-before sending the certificate to the server. Consecutively, the server will need 
-	  more than one "Block2" blocks to respond and needs to take some time to provide 
-	  the response. The 
-	  client needs to send an empty ACK with code 0.00 for the first block and 
-	  acknowledge the rest of the blocks accordingly. This situation is shown in <xref target="fig-est-short-wait"/>
+before sending the certificate to the server after a short delay. Consecutively, the server will need 
+	  more than one "Block2" blocks to respond. This situation is shown in <xref target="fig-est-short-wait"/>
 	  where a client sends an enrollment request that uses more than one 
 	  "Block1" blocks. The server uses an empty 0.00 ACK to announce the response which will be 
-	  provided with 2.04 messages containing "Block2" options. The client asks for a decrease in the block size when acknowledging the first Block2. </t>
+	  provided later with 2.04 messages containing "Block2" options. Having received the first 128 bytes in the first "block2" block, the client asks for a block reduction to 128 bytes in all following "block2" blocks, starting with the second block (NUM=1).</t>
 	  <figure title="EST-COAP enrolment with short wait"
 	anchor="fig-est-short-wait"><artwork>
 <![CDATA[  
@@ -311,12 +312,14 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(1:1/1/256) {CSR req} -->
                       . 
                       .
 POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
-       <-- (ACK) (1:N1/0/256) (0.00 empty ACK)
+       <-- (0.00 empty ACK)
                       |
        ...... short delay before certificate is ready.......
-                      
-POST [2001:db8::2:1]:61616/est/sen (CON)(2:0/0/128)           -->
-       <-- (ACK) (2:0/1/128) (2.04 Changed) {Cert resp}
+                      |
+      <-- (CON) (1:N1/0/256)(2:0/1/256)(2.04 Changed) {Cert resp}
+          (ACK)                                              -->
+POST [2001:db8::2:1]:61616/est/sen (CON)(2:1/0/128)          -->
+       <-- (ACK) (2:1/1/128) (2.04 Changed) {Cert resp}
                       .
                       . 
                       .
@@ -325,8 +328,6 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 ]]></artwork></figure>
 
 	  <t>If the server is very slow providing the response (say minutes, possible when a manual intervention is wanted), the server SHOULD respond with an empty ACK containing response code 5.03 (Service unavailable) and a Max-Age option to indicate the time the client SHOULD wait to request the content later. </t> 
-<t> When the server can respond immediately, and multiple blocks need to be sent, <xref target="enrollblock"/> shows the corresponding exchange of blocks. </t>
-
 <t> In particular, when the server is not ready to return the certificate after an enrolment request, the server responds with response code 5.03 (Service Unavailable) including the Max-Age option. After a delay of Max-Age, the client SHOULD send the identical CSR to the server. As long as the server responds with response code 5.03 (Service Unavailable), the client can resend the enrolment request until the server responds with the certificate or the client abandons for other reasons. </t>
 
 <t>To demonstrate this situation, <xref target="fig-est-long-wait"/> shows a client sending an enrolment request that will use more than one 

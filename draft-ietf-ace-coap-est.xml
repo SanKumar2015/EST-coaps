@@ -288,21 +288,22 @@ For example, a collection containing two representations, one with content forma
       <t>All other HTTP 2xx response codes are not used by EST. For the following HTTP 4xx error codes that may occur: 400, 401, 403, 404, 405, 406, 412, 413, 415; the equivalent CoAP response code for EST-coaps is 4.xx. For the HTTP 5xx error codes: 500, 501, 502, 503, 504 the equivalent CoAP response code is 5.xx.</t>
     </section> <!-- CoAP response codes -->
 
-    <section anchor="pending" title="Delayed Results">
+    <section anchor="pending" title="Delayed Responses">
    
-<t> Using the enroll request with CSR reponse, examples ae shown for a server without delay, a short delay and a long delay.</t>
-
-<t> When the server can respond immediately, and multiple blocks need to be sent, <xref target="enrollblock"/> shows the corresponding exchange of blocks. </t>
-
-      <t>According to section 5.2.2 of <xref target="RFC7252" />, a slow server can acknowledge the request and respond later with the requested resource representation. </t>
-<t>In particular, A slow server can respond to a CSR request with an empty ACK with code 0.00, 
-before sending the certificate to the server after a short delay. Consecutively, the server will need 
-	  more than one "Block2" blocks to respond. This situation is shown in <xref target="fig-est-short-wait"/>
-	  where a client sends an enrollment request that uses more than one 
-	  "Block1" blocks. The server uses an empty 0.00 ACK to announce the response which will be 
-	  provided later with 2.04 messages containing "Block2" options. Having received the first 128 bytes in the first "block2" block, the client asks for a block reduction to 128 bytes in all following "block2" blocks, starting with the second block (NUM=1).</t>
-	  <figure title="EST-COAP enrolment with short wait"
-	anchor="fig-est-short-wait"><artwork>
+      <t><xref target="enrollblock"/> shows an example of a server response that comes immediately after a 
+      client request. The example shows the flows of blocks as the large messages require fragmentation. 
+      But server responses can sometimes be delayed. </t>
+	      
+      <t>According to section 5.2.2 of <xref target="RFC7252" />, a slow server can acknowledge the 
+      request and respond later with the requested resource representation. 
+      In particular, a slow server can respond to a enroll request with an empty ACK with code 0.00, 
+      before sending the certificate to the server after a short delay. Consecutively, the server will need 
+      more than one "Block2" blocks to respond if the certificate is large. This situation is shown in 
+      <xref target="fig-est-short-wait"/> where a client sends an enrollment request that uses more than one 
+      "Block1" blocks. The server uses an empty 0.00 ACK to announce the response which will be 
+      provided later with 2.04 messages containing "Block2" options. Having received the first 128 bytes in the first "block2" block, the client asks for a block reduction to 128 bytes in all following "block2" blocks, starting with the second block (NUM=1).</t>
+      <figure title="EST-COAP enrolment with short wait"
+      anchor="fig-est-short-wait"><artwork>
 <![CDATA[  
 POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
        <-- (ACK) (1:0/1/256) (2.31 Continue)
@@ -327,14 +328,18 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
        <-- (ACK) (2:N2/0/128) (2.04 Changed) {Cert resp}
 ]]></artwork></figure>
 
-	  <t>If the server is very slow providing the response (say minutes, possible when a manual intervention is wanted), the server SHOULD respond with an empty ACK containing response code 5.03 (Service unavailable) and a Max-Age option to indicate the time the client SHOULD wait to request the content later. </t> 
-<t> In particular, when the server is not ready to return the certificate after an enrolment request, the server responds with response code 5.03 (Service Unavailable) including the Max-Age option. After a delay of Max-Age, the client SHOULD send the identical CSR to the server. As long as the server responds with response code 5.03 (Service Unavailable), the client can resend the enrolment request until the server responds with the certificate or the client abandons for other reasons. </t>
-
-<t>To demonstrate this situation, <xref target="fig-est-long-wait"/> shows a client sending an enrolment request that will use more than one 
-	  "Block1" block to send the CSR to the server. The server needs 
-	  more than one "Block2" blocks to respond, but also needs to take a long delay (minutes) to provide 
-	  the response. Consequently, the server will use a 5.03 ACK for the response. The client can be requested to wait multiple times for a period of Max-Age. Note that in the example below the server asks for a decrease in the block size when acknowledging the first Block2. </t>
-<t> <xref target="fig-est-multiple-block"/> can be compared with <xref target="fig-est-long-wait"/> to see the extra requests after a Max-Age wait.</t> 
+      <t>If the server is very slow providing the response (say minutes, possible when a manual intervention is wanted), 
+      the server SHOULD respond with an ACK containing response code 5.03 (Service unavailable) and a Max-Age 
+      option to indicate the time the client SHOULD wait to request the content later. After a delay of Max-Age, 
+      the client SHOULD resend the identical CSR to the server. As long as the server responds with response code 5.03 
+      (Service Unavailable), the client can resend the enrolment request until the server responds with the certificate 
+      or the client abandons for other reasons. </t>
+      
+      <t>To demonstrate this situation, <xref target="fig-est-long-wait"/> shows a client sending an enrolment request that will use more than one 
+      "Block1" block to send the CSR to the server. The server needs 
+      more than one "Block2" blocks to respond, but also needs to take a long delay (minutes) to provide 
+      the response. Consequently, the server will use a 5.03 ACK for the response. The client can be requested to wait multiple times for a period of Max-Age. Note that in the example below the server asks for a decrease in the block size when acknowledging the first Block2. </t>
+      <t> <xref target="fig-est-multiple-block"/> can be compared with <xref target="fig-est-long-wait"/> to see the extra requests after a Max-Age wait.</t> 
 
 <figure title="EST-COAP enrolment with long wait"
 	anchor="fig-est-long-wait"><artwork>
@@ -365,10 +370,8 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
        <-- (ACK) (2:N2/0/128) (2.04 Changed) {Cert resp}
 
 ]]></artwork></figure>
-
-
  
-    </section> <!-- Delayed Results -->
+    </section> <!-- Delayed Responses -->
 
     <section anchor="serverkey" title="Server-side Key Generation">
       <t>Constrained devices sometimes do not have the necessary hardware to generate 

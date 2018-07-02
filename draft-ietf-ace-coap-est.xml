@@ -43,7 +43,7 @@
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
 
-<rfc category="std" ipr="trust200902" docName="draft-ietf-ace-coap-est-03">
+<rfc category="std" ipr="trust200902" docName="draft-ietf-ace-coap-est-04">
   <front>
     <title abbrev="EST-coaps">EST over secure CoAP (EST-coaps)</title>
     <author fullname="Peter van der Stok" initials="P." surname="van der Stok">
@@ -633,6 +633,11 @@ EST does
   </section> <!-- Acknowledgements  -->
 
   <section anchor="changes" title="Change Log">
+    <t> -04:
+    <list style="empty">
+      <t>Updated Delayed response section to reflect short and long delay options.</t>
+    </list>
+    </t>
     <t> -03:
     <list style="empty">
       <t>Removed observe and simplified long waits</t>

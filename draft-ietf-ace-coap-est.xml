@@ -43,7 +43,7 @@
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
 
-<rfc category="std" ipr="trust200902" docName="draft-ietf-ace-coap-est-04">
+<rfc category="std" ipr="trust200902" docName="draft-ietf-ace-coap-est-05">
   <front>
     <title abbrev="EST-coaps">EST over secure CoAP (EST-coaps)</title>
     <author fullname="Peter van der Stok" initials="P." surname="van der Stok">
@@ -568,7 +568,6 @@ EST does
   <c>application/pkcs8</c>                                       <c>-</c> <c>TBD5</c> <c><xref target="RFC5751"/> <xref target="RFC5958"/></c>
   <c>application/csrattrs</c>                                    <c>-</c> <c>TBD6</c> <c><xref target="RFC7030"/> <xref target="RFC7231"/></c>
   <c>application/pkcs10</c>                                      <c>-</c> <c>TBD7</c> <c><xref target="RFC5751"/> <xref target="RFC5967"/></c>
-  <c>application/multipart-core</c>                                                        <c>-</c> <c>TBD8</c> <c> <xref target="I-D.fossati-core-multipart-ct"/></c>
 </texttable>
 
 </section> <!-- Content-Format registry -->
@@ -635,7 +634,7 @@ EST does
   <section anchor="changes" title="Change Log">
     <t> -04:
     <list style="empty">
-      <t>Updated Delayed response section to reflect short and long delay options.</t>
+        <t> TBD8 removed from C-F registration, to be done CT draft</t>
     </list>
     </t>
     <t> -03:

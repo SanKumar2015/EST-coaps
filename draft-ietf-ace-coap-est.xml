@@ -43,7 +43,7 @@
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
 
-<rfc category="std" ipr="trust200902" docName="draft-ietf-ace-coap-est-05">
+<rfc category="std" ipr="trust200902" docName="draft-ietf-ace-coap-est-06">
   <front>
     <title abbrev="EST-coaps">EST over secure CoAP (EST-coaps)</title>
     <author fullname="Peter van der Stok" initials="P." surname="van der Stok">
@@ -237,6 +237,26 @@
         <t>Server-side key generation messages, to provide a private client-identity key 
 		when the client choses for an external entity to generate its private key. </t>
       </list></t>
+
+<section anchor="implementation" title="Required/optional Functions">
+<t>
+This specification contains a set of required-to-implement functions, optional functions, and not specified functions. The latter ones are deemed too expensive for low-resource devices in payload and calculation times.</t>
+
+<t> <xref target="est-implementation"/> specifies the compulsory or optional implementation of the est-coaps functions.</t>
+
+<texttable anchor="est-implementation">
+  <ttcol align="left">EST Functions</ttcol>
+  <ttcol align="left">EST-coaps implementation</ttcol>
+  
+   <c> /cacerts  </c>           <c> Compulsory </c>
+   <c> /simpleenroll </c>       <c> Compulsory </c>
+   <c> /simplereenroll </c>     <c> Compulsory </c>
+   <c> /fullcmc     </c>        <c> Not specified </c>
+   <c> /serverkeygen </c>       <c> Optional </c>
+   <c> /csrattrs </c>           <c> Optional </c>
+</texttable>
+
+</section>  <!-- Required/optional Functions  -->
 
     <section anchor="format" title ="Payload format">
       <t>The content-format (media type equivalent) of the CoAP message determines which 
@@ -449,17 +469,17 @@ coaps://www.example.com/.well-known/est/ArbitraryLabel/<short-est>.
    <c> /serverkeygen </c>       <c> /skg </c>
 </texttable>
       <t>The short resource URIs MUST be supported. The corresponding longer URIs specified in <xref target="RFC7030"/> MAY be supported. </t>
-      <t> When discovering the root path for the EST resources, the server MAY return all available resource paths and the used content types. This is useful when multiple content types are specified for EST-coaps server. The example below shows the discovery of the presence and location of management data.</t>
+      <t> When discovering the root path for the EST resources, the server MAY return all available resource paths and the used content types. This is useful when multiple content types are specified for EST-coaps server and optional functions are available. The example below shows the discovery of the presence and location of EST-coaps resources.</t>
 <figure><artwork align="left"><![CDATA[
-  REQ: GET /.well-known/core?rt=ace.est
+  REQ: GET /.well-known/core?rt=ace.est*
 
   RES: 2.05 Content 
 </est>; rt="ace.est"
-</est/crts>;ct=TBD2
-</est/sen>;ct=TBD2 TBD7
-</est/sren>;ct=TBD2 TBD7
-</est/att>;ct=TBD6
-</est/skg>;ct=TBD1 TBD7 TBD8 
+</est/crts>;rt="ace.est.crts";ct=TBD2
+</est/sen>;rt="ace.est.sen"ct=TBD2 TBD7
+</est/sren>;rt="ace.est.sren"ct=TBD2 TBD7
+</est/att>;rt="ace.est.att"ct=TBD6
+</est/skg>;rt="ace.est.skg"ct=TBD1 TBD7 TBD8 
 ]]></artwork>
     </figure>
       <t> The first line of the discovery response MUST be returned. The five consecutive lines MAY be returned. The return of the content-types in the last four lines allows the client to choose the most appropriate one from multiple content types.</t>
@@ -576,6 +596,11 @@ EST does
    <t>Additions to the sub-registry "CoAP Resource Type", within the "CoRE Parameters" registry are needed for a new resource type. 
     <list style="symbols">
       <t>rt="ace.est" needs registration with IANA.</t>
+      <t>rt="ace.est.crts" needs registration with IANA.</t>
+      <t>rt="ace.est.sen" needs registration with IANA.</t>
+      <t>rt="ace.est.sren" needs registration with IANA.</t>
+      <t>rt="ace.est.att" needs registration with IANA.</t>
+      <t>rt="ace.est.skg" needs registration with IANA.</t>
     </list>
    </t>
   </section> <!-- Resource Type registry -->

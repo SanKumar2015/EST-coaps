@@ -269,8 +269,12 @@ This specification contains a set of required-to-implement functions, optional f
 	  defined in <xref target="error"/>.</t> 
         <t>EST-coaps is designed for use between low-resource devices and hence does not need 
 		to send base64-encoded data. Simple binary is more efficient (30% smaller payload) and 
-		well supported by CoAP. Therefore, the content formats specification in 
-		<xref target="cborpair"/> specifies that the binary payload is transported as a CBOR major type 2, a byte string, for all EST-coaps Content-Formats. In the examples of <xref target="messagebindings"/>, the base16 diagnostic notation is used for CBOR major type 2, where h'450aafbb' represents an example binary payload.</t>
+		well supported by CoAP.</t>
+<t> 
+The payload for a given media type follows the ASN.1 structure of the media-type and is transported as straight binary coding instead of the base64-encoded. The binary is wrapped in a CBOR major type 2 using h'xxx' notation (to assure compatibility with multipart).</t>
+<t> EDNote: suggestion to remove CBOR wrapping for not multipart. </t>		
+<t>In the examples of <xref target="messagebindings"/>, the base16 diagnostic notation is used for CBOR major type 2, where h'450aafbb' represents an example binary payload.
+The content formats specification in <xref target="cborpair"/> specifies the payload structure when multiple media types are present in the payload. </t>
 
 <section anchor="cborpair" title="Content Format application/multipart-core">
 <t>
@@ -657,9 +661,20 @@ EST does
   </section> <!-- Acknowledgements  -->
 
   <section anchor="changes" title="Change Log">
+   <t> -06:
+    <list style="empty">
+        <t>added resource type values for IANA</t>
+        <t>added list of compulsory to implement and optional functions. </t>
+    </list>
+    </t>
+   <t> -05:
+    <list style="empty">
+        <t> repaired again</t>
+    </list>
+    </t>
     <t> -04:
     <list style="empty">
-        <t> TBD8 removed from C-F registration, to be done CT draft</t>
+        <t> TBD8 removed from C-F registration, to be done in CT draft</t>
     </list>
     </t>
     <t> -03:

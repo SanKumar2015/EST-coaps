@@ -285,7 +285,7 @@ The second, fourth, sixth, etc. element is a binary string containing a represen
 The first, third, fifth, etc. element is an unsigned integer specifying the content format ID of the following representation.
 </t>
 <t>
-For example, a collection containing two representations, one with content format ID TBD5 and one with content format ID TBD2, looks like this in diagnostic CBOR notation: [TBD5,h'0123456789abcdef',TBD2,h'fedcba9876543210']. An example is shown in <xref target="appskg"/>.
+For example, a collection containing two representations, one with content format ID 284 and one with content format ID 281, looks like this in diagnostic CBOR notation: [284,h'0123456789abcdef',281,h'fedcba9876543210']. An example is shown in <xref target="appskg"/>.
 </t>
    </section>  <!--Content Format application/multipart-core -->
 
@@ -479,11 +479,11 @@ coaps://www.example.com/.well-known/est/ArbitraryLabel/<short-est>.
 
   RES: 2.05 Content 
 </est>; rt="ace.est"
-</est/crts>;rt="ace.est.crts";ct=TBD2
-</est/sen>;rt="ace.est.sen"ct=TBD2 TBD7
-</est/sren>;rt="ace.est.sren"ct=TBD2 TBD7
-</est/att>;rt="ace.est.att"ct=TBD6
-</est/skg>;rt="ace.est.skg"ct=TBD1 TBD7 TBD8 
+</est/crts>;rt="ace.est.crts";ct=281
+</est/sen>;rt="ace.est.sen"ct=281 286
+</est/sren>;rt="ace.est.sren"ct=281 286
+</est/att>;rt="ace.est.att"ct=285
+</est/skg>;rt="ace.est.skg"ct=280 286 TBD8 
 ]]></artwork>
     </figure>
       <t> The first line of the discovery response MUST be returned. The five consecutive lines MAY be returned. The return of the content-types in the last four lines allows the client to choose the most appropriate one from multiple content types.</t>
@@ -577,7 +577,7 @@ EST does
 
 
   <section anchor="content-formats" title="Content-Format Registry">
-    <t>Additions to the sub-registry "CoAP Content-Formats", within the "CoRE Parameters" registry are specified in <xref target="content-format"/>. These can be registered either in the Expert Review range (0-255) or IETF Review range (256-9999).</t>
+    <t>Additions to the sub-registry "CoAP Content-Formats", within the "CoRE Parameters" registry are specified in <xref target="content-format"/>. These have been registered temporarily in the Expert Review range (0-255).</t>
 
 <texttable anchor="content-format" title="New CoAP Content-Formats">
   <ttcol align="left">Media type</ttcol>
@@ -585,13 +585,13 @@ EST does
   <ttcol align="right">ID</ttcol>
   <ttcol align="left">Reference</ttcol>
 
-  <c>application/pkcs7-mime; smime-type=server-generated-key</c> <c>-</c> <c>TBD1</c> <c><xref target="RFC5751"/> <xref target="RFC7030"/></c>
-  <c>application/pkcs7-mime; smime-type=certs-only</c>           <c>-</c> <c>TBD2</c> <c><xref target="RFC5751"/></c>
-  <c>application/pkcs7-mime; smime-type=CMC-request</c>          <c>-</c> <c>TBD3</c> <c><xref target="RFC5751"/> <xref target="RFC5273"/></c>
-  <c>application/pkcs7-mime; smime-type=CMC-response</c>         <c>-</c> <c>TBD4</c> <c><xref target="RFC5751"/> <xref target="RFC5273"/></c>
-  <c>application/pkcs8</c>                                       <c>-</c> <c>TBD5</c> <c><xref target="RFC5751"/> <xref target="RFC5958"/></c>
-  <c>application/csrattrs</c>                                    <c>-</c> <c>TBD6</c> <c><xref target="RFC7030"/> <xref target="RFC7231"/></c>
-  <c>application/pkcs10</c>                                      <c>-</c> <c>TBD7</c> <c><xref target="RFC5751"/> <xref target="RFC5967"/></c>
+  <c>application/pkcs7-mime; smime-type=server-generated-key</c> <c>-</c> <c>280</c> <c><xref target="RFC5751"/> <xref target="RFC7030"/></c>
+  <c>application/pkcs7-mime; smime-type=certs-only</c>           <c>-</c> <c>281</c> <c><xref target="RFC5751"/></c>
+  <c>application/pkcs7-mime; smime-type=CMC-request</c>          <c>-</c> <c>282</c> <c><xref target="RFC5751"/> <xref target="RFC5273"/></c>
+  <c>application/pkcs7-mime; smime-type=CMC-response</c>         <c>-</c> <c>283</c> <c><xref target="RFC5751"/> <xref target="RFC5273"/></c>
+  <c>application/pkcs8</c>                                       <c>-</c> <c>284</c> <c><xref target="RFC5751"/> <xref target="RFC5958"/></c>
+  <c>application/csrattrs</c>                                    <c>-</c> <c>285</c> <c><xref target="RFC7030"/> <xref target="RFC7231"/></c>
+  <c>application/pkcs10</c>                                      <c>-</c> <c>286</c> <c><xref target="RFC5751"/> <xref target="RFC5967"/></c>
 </texttable>
 
 </section> <!-- Content-Format registry -->
@@ -807,7 +807,7 @@ GET coaps://192.0.2.1:8085/est/crts
 
       <t>A 2.05 Content response with a cert in EST-coaps will then be:</t>
 <figure align="left"><artwork><![CDATA[
-2.05 Content (Content-Format: TBD2)
+2.05 Content (Content-Format: 281)
    {payload}
 ]]></artwork></figure>
         <t>with CoAP fields </t>
@@ -821,7 +821,7 @@ GET coaps://192.0.2.1:8085/est/crts
     Option1 (Content-Format)
       Option Delta = 0xC  (option nr =12)
       Option Length = 0x2
-      Option Value = TBD2 (defined in this document) 
+      Option Value = 281 (defined in this document) 
                 
   Payload =
 h'30233906092a6206734107028c2a3023260201013100300b06092a6206734107018
@@ -994,7 +994,7 @@ C5E221D797AEA3748F0391C8D692A5CF9BB71F6D0E37984D6FA673A30D0C00634
 <figure align="left"><artwork><![CDATA[
 REQ:
 GET coaps://[2001:db8::2:1]:61616/est/att 
-(Content-Format: TBD6)
+(Content-Format: 285)
 ]]></artwork></figure>
 
       <t>A 2.05 Content response contains attributes which are relevant for the authenticated client. In this example, the EST-coaps server returns two attributes that the client can ignore when they are unknown to him.</t>
@@ -1003,7 +1003,7 @@ GET coaps://[2001:db8::2:1]:61616/est/att
     <section title="enroll / reenroll">
       <t>
 	    During the Enroll/Reenroll exchange, the EST-coaps client uses a CSR
-        (Content-Format TBD7) request in the POST request payload.
+        (Content-Format 286) request in the POST request payload.
       </t>
 	  
       <t> 
@@ -1023,7 +1023,7 @@ GET coaps://[2001:db8::2:1]:61616/est/att
 <figure align="left"><artwork><![CDATA[
 POST [2001:db8::2:1]:61616/est/sen 
 (token 0x45)
-(Content-Format: TBD7)
+(Content-Format: 286)
 h'30208530206d020100301f311d301b0603550403131464656d6f7374657034203
 1333638313431333532302062300d06092a620673410101050003204f0030204a
 022041005d9f4dffd3c5949f646a9584367778560950b355c35b8e34726dd3764
@@ -1042,7 +1042,7 @@ a7cda5176e7ccc6be22ae03498588d5f2de3b143f2b1a6175ec544e8e7625af6b
 fc7e0731f0e7fe305703791362d5157e92e6b5c2e3edbcadb40'
 
 RET:
-(Content-Format: TBD2)(token =0x45)
+(Content-Format: 281)(token =0x45)
 2.01 Created
 h'3020f806092a62067341070283293020e50201013100300b06092a62067341070
 1830b3020c730206fc20102020115300d06092a6206734101050500301b311930
@@ -1079,7 +1079,7 @@ a2583aac9024075113db4990b1786b871691e0f020301000134b050300e060355
 <figure align="left"><artwork><![CDATA[
 POST coaps://192.0.2.1:8085/est/skg 
 (token 0xa5)
-(Content-Format: TBD7)(Max-Age=120)
+(Content-Format: 286)(Max-Age=120)
 
 h'302081302069020100305b313e303c060355040313357365727665724b6579476
 56e2072657120627920636c69656e7420696e2064656d6f207374657020313220
@@ -1104,7 +1104,7 @@ RET:
 2.01 Content (Content-Format: TBD8)
 (token=0xa5)
 
-[TBD5,
+[284,
 h'30213e020100300d06092a6206734101010500042128302124020100022041003
 c0bc2748f2003e3e8ea15f746f2a71e83f585412b92cf6f8e64de02e056153274
 dd01c95dd9cff3112aa141774ab655c3d56359c3b3df055294692ed848e7e30a1
@@ -1134,7 +1134,7 @@ db6821ff299d6a69574b31ddf0fbe9245ea2f74396c24b3a7565067e41366423b
 f3df4dc31a9e910614406412e70eec9247f10672a500947a64356c015a845a7d1
 50e2e3911a2b3b61070a73247166da10bb45474cc97d1ec2bc392524307f35118
 f917438f607f18181684376e13a39e07',
-TBD2,
+281,
 h'3020c506092a62067341070283363020f20201013100300b06092a62067341070
 183183020d430207cc20102020116300d06092a6206734101050500301b311930
 17060355040313106573744578616d706c654341204e774e301e170d313330353
@@ -1224,7 +1224,7 @@ a4fa677130da60818175ca4ab2af1d15563624c51e13dfdcf381881b72327e2f4
     Option1 (Content-Format)
       Option Delta = 0xC  (option nr =12)
       Option Length = 0x2
-      Option Value = TBD2                  
+      Option Value = 281                  
     Option2 (Block2)
       Option Delta = 0xB  (option 23 = 12 + 11)
       Option Length = 0x1
@@ -1245,7 +1245,7 @@ c0c3020bb302063c20102020900a61e75193b7acc0d06092a6206734101'
     Option1 (Content-Format)
       Option Delta = 0xC  (option nr =12)
       Option Length = 0x2
-      Option Value = TBD2                 
+      Option Value = 281                 
     Option2 (Block2)
       Option Delta = 0xB  (option 23 = 12 + 11)
       Option Length = 0x1
@@ -1266,7 +1266,7 @@ h'05050030
     Option1 (Content-Format)
       Option Delta = 0xC  (option nr =12)
       Option Length = 0x2
-      Option Value = TBD2                  
+      Option Value = 281                  
     Option2 (Block2)
       Option Delta = 0xB  (option 23 = 12 + 11)
       Option Length = 0x2

@@ -10,7 +10,6 @@
 <!ENTITY RFC5273 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5273.xml">
 <!ENTITY RFC5272 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5272.xml">
 <!ENTITY RFC5705 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5705.xml">
-<!ENTITY RFC5751 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5751.xml">
 <!ENTITY RFC5958 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5958.xml">
 <!ENTITY RFC5967 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5967.xml">
 <!ENTITY RFC6402 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6402.xml">
@@ -33,6 +32,7 @@
 <!ENTITY I-D.ietf-tls-tls13 SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-tls-tls13.xml">
 <!ENTITY I-D.rescorla-tls-dtls-connection-id SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.rescorla-tls-dtls-connection-id.xml">
 <!ENTITY I-D.fossati-core-multipart-ct SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.fossati-core-multipart-ct.xml">
+<!ENTITY I-D.ietf-lamps-rfc5751-bis SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-lamps-rfc5751-bis.xml">
 ]>
 
 <?rfc strict="no" ?>
@@ -585,13 +585,13 @@ EST does
   <ttcol align="right">ID</ttcol>
   <ttcol align="left">Reference</ttcol>
 
-  <c>application/pkcs7-mime; smime-type=server-generated-key</c> <c>-</c> <c>280</c> <c><xref target="RFC5751"/> <xref target="RFC7030"/></c>
-  <c>application/pkcs7-mime; smime-type=certs-only</c>           <c>-</c> <c>281</c> <c><xref target="RFC5751"/></c>
-  <c>application/pkcs7-mime; smime-type=CMC-request</c>          <c>-</c> <c>282</c> <c><xref target="RFC5751"/> <xref target="RFC5273"/></c>
-  <c>application/pkcs7-mime; smime-type=CMC-response</c>         <c>-</c> <c>283</c> <c><xref target="RFC5751"/> <xref target="RFC5273"/></c>
-  <c>application/pkcs8</c>                                       <c>-</c> <c>284</c> <c><xref target="RFC5751"/> <xref target="RFC5958"/></c>
+  <c>application/pkcs7-mime; smime-type=server-generated-key</c> <c>-</c> <c>280</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/> <xref target="RFC7030"/></c>
+  <c>application/pkcs7-mime; smime-type=certs-only</c>           <c>-</c> <c>281</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/></c>
+  <c>application/pkcs7-mime; smime-type=CMC-request</c>          <c>-</c> <c>282</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/> <xref target="RFC5273"/></c>
+  <c>application/pkcs7-mime; smime-type=CMC-response</c>         <c>-</c> <c>283</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/> <xref target="RFC5273"/></c>
+  <c>application/pkcs8</c>                                       <c>-</c> <c>284</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/> <xref target="RFC5958"/></c>
   <c>application/csrattrs</c>                                    <c>-</c> <c>285</c> <c><xref target="RFC7030"/> <xref target="RFC7231"/></c>
-  <c>application/pkcs10</c>                                      <c>-</c> <c>286</c> <c><xref target="RFC5751"/> <xref target="RFC5967"/></c>
+  <c>application/pkcs10</c>                                      <c>-</c> <c>286</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/> <xref target="RFC5967"/></c>
 </texttable>
 
 </section> <!-- Content-Format registry -->
@@ -717,7 +717,7 @@ EST does
   <references title="Normative References">
     &RFC2119;
     &RFC5272;
-    &RFC5751;
+    &I-D.ietf-lamps-rfc5751-bis;
     &RFC5967;
     &RFC6347;
     &RFC6690;  

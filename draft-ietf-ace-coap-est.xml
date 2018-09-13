@@ -118,6 +118,62 @@
 
 
 <middle>
+
+  <section anchor="changes" title="Change Log">
+   <t>EDNOTE: Remove this section before publication</t>
+   <t> -06:
+    <list style="empty">
+        <t>added resource type values for IANA</t>
+        <t>added list of compulsory to implement and optional functions. </t>
+		<t>Minor updates to the MTI EST Functions section.</t>
+		<t>Moved Change Log section higher.</t>
+    </list>
+   </t>
+   <t> -05:
+    <list style="empty">
+	    <t>repaired again</t>
+		<t>TBD8 removed from C-F registration, to be done in CT draft.</t>
+    </list>
+    </t>
+    <t> -04:
+    <list style="empty">
+        <t> Updated Delayed response section to reflect short and long delay
+      options.</t>
+    </list>
+    </t>
+    <t> -03:
+    <list style="empty">
+      <t>Removed observe and simplified long waits</t>
+      <t>Repaired content-format specification</t>
+    </list>
+    </t>
+    <t> -02:
+    <list style="empty">
+      <t>Added parameter discussion in section 8</t>
+      <t>Concluded content-format specification using multipart-ct draft</t>
+      <t>examples updated </t>
+    </list>
+    </t>
+    <t> -01:
+    <list style="empty">
+      <t>Editorials done.</t>
+      <t>Redefinition of proxy to Registrar in <xref target="proxy"/>. Explained better the role of https-coaps Registrar, instead of "proxy"</t>
+      <t>Provide "observe" option examples </t>
+      <t> extended block message example. </t>
+      <t>inserted new server key generation text in <xref target="serverkey"/> and motivated server key generation.</t>
+      <t>Broke down details for DTLS 1.3 </t>
+      <t>New media type uses CBOR array for multiple content-format payloads</t>
+      <t>provided new content format tables</t>
+      <t> new media format for IANA </t>
+    </list>
+    </t>
+    <t> -00
+    <list style="empty">
+      <t> copied from vanderstok-ace-coap-04</t>
+    </list>
+    </t>    
+  </section> <!-- Change Log -->
+
   <section anchor="intro" title="Introduction">
 	<t>"Classical" Enrollment over Secure Transport (EST) <xref target="RFC7030"/> 
 	is used for authenticated/authorized endpoint certificate enrollment (and 
@@ -220,7 +276,7 @@
 +------------------------------------------------+
 |    EST request/response messages               |
 +------------------------------------------------+
-|    CoAP for message transfer and signalling     |
+|    CoAP for message transfer and signalling    |
 +------------------------------------------------+
 |    DTLS for transport security                 |
 +------------------------------------------------+
@@ -238,19 +294,19 @@
 		when the client choses for an external entity to generate its private key. </t>
       </list></t>
 
-<section anchor="implementation" title="Required/optional Functions">
+<section anchor="implementation" title="Mandatory/optional EST Functions">
 <t>
 This specification contains a set of required-to-implement functions, optional functions, and not specified functions. The latter ones are deemed too expensive for low-resource devices in payload and calculation times.</t>
 
-<t> <xref target="est-implementation"/> specifies the compulsory or optional implementation of the est-coaps functions.</t>
+<t> <xref target="est-implementation"/> specifies the mandatory-to-implement or optional implementation of the est-coaps functions.</t>
 
 <texttable anchor="est-implementation">
   <ttcol align="left">EST Functions</ttcol>
   <ttcol align="left">EST-coaps implementation</ttcol>
   
-   <c> /cacerts  </c>           <c> Compulsory </c>
-   <c> /simpleenroll </c>       <c> Compulsory </c>
-   <c> /simplereenroll </c>     <c> Compulsory </c>
+   <c> /cacerts  </c>           <c> Mandatory </c>
+   <c> /simpleenroll </c>       <c> Mandatory </c>
+   <c> /simplereenroll </c>     <c> Mandatory </c>
    <c> /fullcmc     </c>        <c> Not specified </c>
    <c> /serverkeygen </c>       <c> Optional </c>
    <c> /csrattrs </c>           <c> Optional </c>
@@ -540,47 +596,41 @@ HMAC(finished_key,
   </section>
 
   <section title="Parameters">
-    <t>THis section addresses transmission
-    parameters described in sections 4.7 and 4.8 of the CoAP document <xref target="RFC7252"/>.
-    </t>
-<figure align="center" title="EST-COAP protocol parameters"
-	anchor="fig-est-coap-parameters"><artwork><![CDATA[
-     ACK_TIMEOUT       | 2 seconds     |
-     ACK_RANDOM_FACTOR | 1.5           |
-     MAX_RETRANSMIT    | 4             |
-     NSTART            | 1             |
-     DEFAULT_LEISURE   | 5 seconds     |
-     PROBING_RATE      | 1 byte/second |
-	]]></artwork></figure>
-<t>
-EST does
-    not impose any unique parameters that affect the CoAP parameters in Table
-    2 and 3 in the CoAP draft but the ones in CoAP could be affecting
-    EST. For example, the processing delay of CAs could be less then 2s, but
-    in this case they should send a CoAP ACK every 2s while processing.
-</t>
-<t> The main recommendation, based on experiments using Nexus Certificate Manager with Californium for CoAP support, communicating with a ContikiOS and tinyDTLS based client, from RISE SICS, is to start with the default CoAP configuration parameters.</t> 
-
-<t>However, depending on the implementation scenario, resending and timeouts can also occur on other networking layers, governed by other configuration parameters.</t>
-
-<t>Some further comments about some specific parameters, mainly from Table 2 in <xref target="RFC7252"/>:
-<list style="symbols">
-<t>DEFAULT_LEISURE: This setting is only relevant in multicast scenarios, outside the scope of the EST-coaps draft.</t>
-<t> NSTART: Limit the number of simultaneous outstanding interactions that a client maintains to a given server. The default is one, hence is the risk of congestion or out-of-order messages already limited.</t>
-<t>PROBING_RATE: A parameter which specifies the rate of re-sending non-confirmable messages. The EST messages are defined to be sent as CoAP confirmable messages, hence the PROBING_RATE setting is not applicable.</t>
-</list>
-</t>
-<t>Finally, the Table 3 parameters are mainly derived from the more basic Table 2 parameters. If the CoAP implementation allows setting them directly, they might need to be updated if the table 2 parameters are changed.</t>
+    <t>This section addresses transmission
+    parameters described in sections 4.7 and 4.8 of the CoAP document <xref target="RFC7252"/>. </t>
+    <figure align="center" title="EST-COAP protocol parameters" anchor="fig-est-coap-parameters"><artwork><![CDATA[
+         ACK_TIMEOUT       | 2 seconds     |
+         ACK_RANDOM_FACTOR | 1.5           |
+         MAX_RETRANSMIT    | 4             |
+         NSTART            | 1             |
+         DEFAULT_LEISURE   | 5 seconds     |
+         PROBING_RATE      | 1 byte/second |
+    ]]></artwork></figure>
+    <t> EST does
+        not impose any unique parameters that affect the CoAP parameters in Table
+        2 and 3 in the CoAP draft but the ones in CoAP could be affecting
+        EST. For example, the processing delay of CAs could be less then 2s, but
+        in this case they should send a CoAP ACK every 2s while processing.</t>
+    <t> The main recommendation, based on experiments using Nexus Certificate Manager with Californium for CoAP support, communicating with a ContikiOS and tinyDTLS based client, from RISE SICS, is to start with the default CoAP configuration parameters.</t> 
+    
+    <t>However, depending on the implementation scenario, resending and timeouts can also occur on other networking layers, governed by other configuration parameters.</t>
+    
+    <t>Some further comments about some specific parameters, mainly from Table 2 in <xref target="RFC7252"/>:
+    <list style="symbols">
+      <t>DEFAULT_LEISURE: This setting is only relevant in multicast scenarios, outside the scope of the EST-coaps draft.</t>
+      <t> NSTART: Limit the number of simultaneous outstanding interactions that a client maintains to a given server. The default is one, hence is the risk of congestion or out-of-order messages already limited.</t>
+      <t>PROBING_RATE: A parameter which specifies the rate of re-sending non-confirmable messages. The EST messages are defined to be sent as CoAP confirmable messages, hence the PROBING_RATE setting is not applicable.</t>
+    </list></t>
+    <t>Finally, the Table 3 parameters are mainly derived from the more basic Table 2 parameters. If the CoAP implementation allows setting them directly, they might need to be updated if the table 2 parameters are changed.</t>
   </section>
-
+    
   <section anchor="iana" title="IANA Considerations">
-
 
   <section anchor="content-formats" title="Content-Format Registry">
     <t>Additions to the sub-registry "CoAP Content-Formats", within the "CoRE Parameters" registry are specified in <xref target="content-format"/>. These have been registered temporarily in the Expert Review range (0-255).</t>
 
 <texttable anchor="content-format" title="New CoAP Content-Formats">
-  <ttcol align="left">Media type</ttcol>
+  <ttcol align="left">HTTP Media-Type</ttcol>
   <ttcol align="left">Encoding</ttcol>
   <ttcol align="right">ID</ttcol>
   <ttcol align="left">Reference</ttcol>
@@ -659,59 +709,6 @@ EST does
 	details of the solution. Constructive comments were received from Benjamin Kaduk, Eliot Lear, 
 	Jim Schaad, Hannes Tschofenig, Julien Vermillard, and John Manuel.</t>
   </section> <!-- Acknowledgements  -->
-
-  <section anchor="changes" title="Change Log">
-   <t> -06:
-    <list style="empty">
-        <t>added resource type values for IANA</t>
-        <t>added list of compulsory to implement and optional functions. </t>
-    </list>
-    </t>
-   <t> -05:
-    <list style="empty">
-	    <t>repaired again</t>
-		<t>TBD8 removed from C-F registration, to be done in CT draft.</t>
-    </list>
-    </t>
-    <t> -04:
-    <list style="empty">
-        <t> Updated Delayed response section to reflect short and long delay
-      options.</t>
-    </list>
-    </t>
-    <t> -03:
-    <list style="empty">
-      <t>Removed observe and simplified long waits</t>
-      <t>Repaired content-format specification</t>
-    </list>
-    </t>
-    <t> -02:
-    <list style="empty">
-      <t>Added parameter discussion in section 8</t>
-      <t>Concluded content-format specification using multipart-ct draft</t>
-      <t>examples updated </t>
-    </list>
-    </t>
-    <t> -01:
-    <list style="empty">
-      <t>Editorials done.</t>
-      <t>Redefinition of proxy to Registrar in <xref target="proxy"/>. Explained better the role of https-coaps Registrar, instead of "proxy"</t>
-      <t>Provide "observe" option examples </t>
-      <t> extended block message example. </t>
-      <t>inserted new server key generation text in <xref target="serverkey"/> and motivated server key generation.</t>
-      <t>Broke down details for DTLS 1.3 </t>
-      <t>New media type uses CBOR array for multiple content-format payloads</t>
-      <t>provided new content format tables</t>
-      <t> new media format for IANA </t>
-    </list>
-    </t>
-    <t> -00
-    <list style="empty">
-      <t> copied from vanderstok-ace-coap-04</t>
-    </list>
-    </t>
-    
-  </section> <!-- Change Log -->
 </middle>
 
 

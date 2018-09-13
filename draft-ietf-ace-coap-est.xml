@@ -576,10 +576,10 @@ HMAC(finished_key,
    <t>One possible use-case, shown in one figure below, is expected to be deployed in practice:</t>
 <figure align="left" title="ESTcoaps-to-HTTPS Registrar at the CoAP boundary."><artwork><![CDATA[
                                      Constrained Network
-                  .---------.    .----------------------------.
-                  |   CA    |    |.--------------------------.|
-                  '---------'    ||                          ||
-                        |        ||                          ||
+.------.                         .----------------------------.
+|  CA  |                         |.--------------------------.|
+'------'                         ||                          ||
+   |                             ||                          ||
 .------.  HTTP   .-----------------.  CoAPS   .-----------.  ||
 | EST  |<------->|ESTcoaps-to-HTTPS|<-------->| EST Client|  ||
 |Server|over TLS |   Registrar     |          '-----------'  ||

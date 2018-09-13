@@ -669,12 +669,14 @@ EST does
     </t>
    <t> -05:
     <list style="empty">
-        <t> repaired again</t>
+	    <t>repaired again</t>
+		<t>TBD8 removed from C-F registration, to be done in CT draft.</t>
     </list>
     </t>
     <t> -04:
     <list style="empty">
-        <t> TBD8 removed from C-F registration, to be done in CT draft</t>
+        <t> Updated Delayed response section to reflect short and long delay
+      options.</t>
     </list>
     </t>
     <t> -03:

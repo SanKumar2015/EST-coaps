@@ -326,24 +326,21 @@ This specification contains a set of required-to-implement functions, optional f
         <t>EST-coaps is designed for use between low-resource devices and hence does not need 
 		to send base64-encoded data. Simple binary is more efficient (30% smaller payload) and 
 		well supported by CoAP.</t>
-<t> 
-The payload for a given media type follows the ASN.1 structure of the media-type and is transported as straight binary coding instead of the base64-encoded. The binary is wrapped in a CBOR major type 2 using h'xxx' notation (to assure compatibility with multipart).</t>
-<t> EDNote: suggestion to remove CBOR wrapping for not multipart. </t>		
-<t>In the examples of <xref target="messagebindings"/>, the base16 diagnostic notation is used for CBOR major type 2, where h'450aafbb' represents an example binary payload.
-The content formats specification in <xref target="cborpair"/> specifies the payload structure when multiple media types are present in the payload. </t>
+      <t> 
+      The payload for a given media type follows the ASN.1 structure of the media-type and is transported as straight binary coding instead of the base64-encoded. The binary is wrapped in a CBOR major type 2 using h'xxx' notation (to assure compatibility with multipart).</t>
+      <t> EDNote: suggestion to remove CBOR wrapping for not multipart. </t>		
+      <t>In the examples of <xref target="messagebindings"/>, the base16 diagnostic notation is used for CBOR major type 2, where h'450aafbb' represents an example binary payload.
+      The content formats specification in <xref target="cborpair"/> specifies the payload structure when multiple media types are present in the payload. </t>
 
-<section anchor="cborpair" title="Content Format application/multipart-core">
-<t>
-A representation with content format ID TBD8 contains a collection of representations along with their respective content format. The content-format identifies the media-type application/multipart-core specified in <xref target="I-D.fossati-core-multipart-ct"/>.
-</t><t>
-The collection is encoded as a <xref target="RFC7049">CBOR array</xref> with an even number of elements.
-The second, fourth, sixth, etc. element is a binary string containing a representation.
-The first, third, fifth, etc. element is an unsigned integer specifying the content format ID of the following representation.
-</t>
-<t>
-For example, a collection containing two representations, one with content format ID 284 and one with content format ID 281, looks like this in diagnostic CBOR notation: [284,h'0123456789abcdef',281,h'fedcba9876543210']. An example is shown in <xref target="appskg"/>.
-</t>
-   </section>  <!--Content Format application/multipart-core -->
+      <section anchor="cborpair" title="Content Format application/multipart-core">
+        <t>
+        A representation with content format ID TBD8 contains a collection of representations along with their respective content format. The content-format identifies the media-type application/multipart-core specified in <xref target="I-D.fossati-core-multipart-ct"/>.
+        </t>
+		<t>The collection is encoded as a <xref target="RFC7049">CBOR array</xref> with an even number of elements.
+        The second, fourth, sixth, etc. element is a binary string containing a representation.
+        The first, third, fifth, etc. element is an unsigned integer specifying the content format ID of the following representation. </t>
+        <t>For example, a collection containing two representations in response to a server-side key generation, could include a private key in PKCS#8 with content format ID 284 and a certificate with content format ID 281, looks like this in diagnostic CBOR notation: [284,h'0123456789abcdef',281,h'fedcba9876543210']. The PKCS#8 key and the X.509 certificate representations will be ASN.1 encoded in binary format. An example is shown in <xref target="appskg"/>. </t>
+      </section>  <!--Content Format application/multipart-core -->
 
    </section> <!-- Payload format -->
 
@@ -590,7 +587,7 @@ HMAC(finished_key,
 ]]></artwork></figure>
 
     <t><xref target="est-uri"/> contains the URI mapping between the EST-coaps and EST the Registrar SHOULD adhere to. Section 7 of <xref target="RFC8075"/> and <xref target="error"/> define the mapping between EST-coaps and HTTP response codes, that determines how the Registrar translates CoAP response codes from/to HTTP status codes. The mapping from Content-Type to media type is defined in <xref target="iana"/>. The conversion from CBOR major type 2 to base64 encoding needs to be done in the Registrar. Conversion is possible because a TLS link exists between EST-coaps-to-HTTP Registrar and EST server and a corresponding DTLS link exists between EST-coaps-to-HTTP Registrar and EST client.</t>
-	<t>Due to fragmentation of large messages into blocks, an EST-coaps-to-HTTP Registrar SHOULD reassemble the BLOCKs before translating the binary content to Base-64, and consecutively relay the message upstream. </t>
+	<t>Due to fragmentation of large messages into blocks, an EST-coaps-to-HTTP Registrar MUST reassemble the BLOCKs before translating the binary content to Base-64, and consecutively relay the message upstream. </t>
     <t>For the discovery of the EST server by the EST client in the coap environment, the EST-coaps-to-HTTP Registrar MUST announce itself according to the rules of <xref target="discovery"/>. The available actions of the  Registrars MUST be announced with as many resource paths. The discovery of EST server in the http environment follow the rules specified in <xref target="RFC7030"/>.</t>
 	<t>When server-side key generation is used, if the private key is protected using symmetric keys then the Registrar needs to encrypt the private key down to the client with one symmetric key and decrypt it from the server with another. If no private key encryption takes place the Registrar will be able to see the key as it establishes a separate connection to the server. In the case of asymmetrically encrypted private key, the Registrar may not be able to decrypt it if the server encrypted it with a public key that corresponds to a private key that belongs to the client. </t>
   </section>

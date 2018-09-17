@@ -508,11 +508,18 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
       <t>EST-coaps is targeted to low-resource networks with small packets. Saving header space is important and an additional EST-coaps URI is specified that is shorter than the EST URI.</t>
       <t>In the context of CoAP, the presence and location of (path to) the management data are discovered by sending a GET request to "/.well-known/core" including a resource type (RT) parameter with the value "ace.est" <xref target="RFC6690"/>. Upon success, the return payload will contain the root resource of the EST resources. It is up to the implementation to choose its root resource; throughout this document the example root resource /est is used. </t>
 
-      <t>The individual EST-coaps server URIs differ from the EST URI by replacing the scheme https by coaps and by specifying shorter resource path names: </t>
+      <t>The individual EST-coaps well-known server URIs differ from the EST URI by replacing the scheme https by coaps and by specifying shorter resource path names: </t>
 <figure align="left"><artwork><![CDATA[
-coaps://www.example.com/.well-known/est/ArbitraryLabel/<short-est>.
+coaps://www.example.com/.well-known/est/<short-est> 
+coaps://www.example.com/.well-known/est/ArbitraryLabel/<short-est> 
 ]]></artwork></figure>
-      <t>The ArbitraryLabel Path-Segment SHOULD be of the shortest length possible.</t>
+      <t>The ArbitraryLabel Path-Segment, if used, SHOULD be of the shortest length possible.</t>
+
+	  <t>The optional additional EST-coaps server URIs, obtained through discovery of the EST root resource(s) as shown below, are of the form: </t>
+<figure align="left"><artwork><![CDATA[
+coaps://www.example.com/<est-root-resource>/<short-est>
+coaps://www.example.com/<est-root-resource>/ArbitraryLabel/<short-est>
+]]></artwork></figure>
 
       <t>Figure 5 in section 3.2.2 of <xref target="RFC7030"/> enumerates the operations and corresponding paths which are supported by EST. <xref target="est-uri"/> provides the mapping from the EST URI path to the shorter EST-coaps URI path.</t>
 <texttable anchor="est-uri">
@@ -526,7 +533,8 @@ coaps://www.example.com/.well-known/est/ArbitraryLabel/<short-est>.
    <c> /serverkeygen </c>       <c> /skg </c>
 </texttable>
       <t>The short resource URIs MUST be supported. The corresponding longer URIs specified in <xref target="RFC7030"/> MAY be supported. </t>
-      <t> When discovering the root path for the EST resources, the server MAY return all available resource paths and the used content types. This is useful when multiple content types are specified for EST-coaps server and optional functions are available. The example below shows the discovery of the presence and location of EST-coaps resources. Linefeeds are included only for readability.</t>
+      
+	  <t>When discovering the root path for the EST resources, the server MAY return all available resource paths and the used content types. This is useful when multiple content types are specified for EST-coaps server and optional functions are available. The example below shows the discovery of the presence and location of EST-coaps resources. Linefeeds are included only for readability.</t>
 <figure><artwork align="left"><![CDATA[
   REQ: GET /.well-known/core?rt=ace.est*
 

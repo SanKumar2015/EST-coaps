@@ -258,7 +258,7 @@
 	in the DTLS handshake. This can either be 
       <list style="symbols">
           <t>a previously issued client certificate (e.g., an existing certificate issued 
-		  by the EST CA); this could be a common case for simple re-enrollment of clients; </t>
+		  by the EST CA); this could be a common case for simple reenrollment of clients; </t>
         <t>a previously installed certificate (e.g., manufacturer-installed certificate 
 		or a certificate issued by some other party); the server is expected to trust 
 		the manufacturer's root CA certificate in this case.</t>
@@ -526,7 +526,7 @@ coaps://www.example.com/.well-known/est/ArbitraryLabel/<short-est>.
    <c> /serverkeygen </c>       <c> /skg </c>
 </texttable>
       <t>The short resource URIs MUST be supported. The corresponding longer URIs specified in <xref target="RFC7030"/> MAY be supported. </t>
-      <t> When discovering the root path for the EST resources, the server MAY return all available resource paths and the used content types. This is useful when multiple content types are specified for EST-coaps server and optional functions are available. The example below shows the discovery of the presence and location of EST-coaps resources.</t>
+      <t> When discovering the root path for the EST resources, the server MAY return all available resource paths and the used content types. This is useful when multiple content types are specified for EST-coaps server and optional functions are available. The example below shows the discovery of the presence and location of EST-coaps resources. Linefeeds are included only for readability.</t>
 <figure><artwork align="left"><![CDATA[
   REQ: GET /.well-known/core?rt=ace.est*
 
@@ -568,7 +568,7 @@ HMAC(finished_key,
   <section anchor="proxy" title="HTTPS-CoAPS Registrar">
     <t>In real-world deployments, the EST server will not always reside within the CoAP boundary. The EST-server can exist outside the constrained network in a non-constrained network that supports TLS/HTTP. In such environments EST-coaps is used by the client within the CoAP boundary and TLS is used to transport the EST messages outside the CoAP boundary. A Registrar at the edge is required to operate between the CoAP environment and the external HTTP network. The EST coaps-to-HTTPS Registrar MUST terminate EST-coaps and authenticate the client downstream and initiate EST connections over TLS upstream.</t>
     <t>The Registrar SHOULD authenticate the client downstream and it should be authenticated by the EST server or CA upstream. The Registration Authority (re-)creates the secure connection from DTLS to TLS and vice versa. A trust relationship SHOULD be pre-established between the Registrar and the EST servers to be able to proxy these connections on behalf of various clients.</t>
-    <t>When enforcing Proof-of-Possession (POP), the (D)TLS tls-unique value of the (D)TLS session needs to be used to prove that the private key corresponding to the public key is in the possession of and can be used by an end-entity or client. In other words, the CSR the client is using needs to include information from the DTLS connection the client establishes with the server. In EST, that information is the (D)TLS tls-unique value of the (D)TLS session. In the presence of ESTcoaps-to-HTTPS Registrar, the EST-coaps client MUST be authenticated and authorized by the Registrar and the Registrar MUST be authenticated as an EST Registrar client to the EST server. Thus the POP information is lost between the EST-coaps client and the EST server. The EST server becomes aware of the presence of an EST Registrar from its TLS client certificate that includes id-kp-cmcRA <xref target="RFC6402"/> extended key usage extension. As explained in Section 3.7 of <xref target="RFC7030"/>, the EST server SHOULD apply an authorization policy consistent with a Registrar client. For example, it could be configured to accept POP linking information that does not match the current TLS session because the authenticated EST client Registrar has verified this information when acting as an EST server.</t> 
+    <t>When enforcing Proof-of-Possession (POP) linking, the (D)TLS tls-unique value of the (D)TLS session needs to be used to prove that the private key corresponding to the public key is in the possession of and was used to establish the connection by an end-entity or client. To do that the CSR the client is using needs to include information from the DTLS connection the client establishes with the server. In EST, that information is the (D)TLS tls-unique value of the (D)TLS session. In the presence of ESTcoaps-to-HTTPS Registrar, the EST-coaps client MUST be authenticated and authorized by the Registrar and the Registrar MUST be authenticated as an EST Registrar client to the EST server. Thus the POP linking information is lost between the EST-coaps client and the EST server. The EST server becomes aware of the presence of an EST Registrar from its TLS client certificate that includes id-kp-cmcRA <xref target="RFC6402"/> extended key usage extension. As explained in Section 3.7 of <xref target="RFC7030"/>, the EST server SHOULD apply an authorization policy consistent with a Registrar client. For example, it could be configured to accept POP linking information that does not match the current TLS session because the authenticated EST client Registrar has verified this information when acting as an EST server.</t> 
 	<t>For some use cases, clients that leverage server-side key generation might prefer for 
 	  the enrolled keys to be generated by the Registrar if the CA does not support 
 	  server-side key generation. In these cases the Registrar MUST support the 
@@ -651,16 +651,26 @@ HMAC(finished_key,
 </section> <!-- Content-Format registry -->
 
 <section anchor="resource-type" title="Resource Type registry">
-   <t>Additions to the sub-registry "CoAP Resource Type", within the "CoRE Parameters" registry are needed for a new resource type. 
+   <t>This memo registers a new Resource Type (rt=) Link Target Attributes 
+   in the "Resource Type (rt=) Link Target Attribute Values"
+   subregistry under the "Constrained RESTful Environments (CoRE)
+   Parameters" registry.
     <list style="symbols">
-      <t>rt="ace.est" needs registration with IANA.</t>
-      <t>rt="ace.est.crts" needs registration with IANA.</t>
-      <t>rt="ace.est.sen" needs registration with IANA.</t>
-      <t>rt="ace.est.sren" needs registration with IANA.</t>
-      <t>rt="ace.est.att" needs registration with IANA.</t>
-      <t>rt="ace.est.skg" needs registration with IANA.</t>
+      <t>rt="ace.est". This EST resource is used to
+      query and return the supported EST resources of a CoAP server. </t>
+      <t>rt="ace.est.crts". This resource depicts the support 
+	  of EST get cacerts.</t>
+      <t>rt="ace.est.sen". This resource depicts the support 
+	  of EST simple enroll.</t>
+      <t>rt="ace.est.sren". This resource depicts the support 
+	  of EST simple reenroll.</t>
+      <t>rt="ace.est.att". This resource depicts the support 
+	  of EST CSR attributes.</t>
+      <t>rt="ace.est.skg". This resource depicts the support 
+	  of EST server-side key generation.</t>
     </list>
    </t>
+   <t></t>
   </section> <!-- Resource Type registry -->
 
   </section>  <!-- IANA consideration -->
@@ -678,9 +688,9 @@ HMAC(finished_key,
 	
     <section anchor="sec-proxy" title="HTTPS-CoAPS Registrar considerations">
       <t>The Registrar proposed in <xref target="proxy"/> must be deployed with care, 
-	    and only when the recommended connections are impossible. When POP is used the 
+	    and only when the recommended connections are impossible. When POP linking is used the 
 	    Registrar terminating the TLS connection establishes a new one with the upstream 
-		CA. Thus, it is impossible for POP to be enforced throughout the EST transaction. 
+		CA. Thus, it is impossible for POP linking to be enforced end-to-end for the EST transaction. 
 		The EST server could be configured to accept POP linking information that does 
 		not match the current TLS session because the authenticated EST Registrar client 
 		has verified this information  when acting as an EST server. 
@@ -1013,7 +1023,7 @@ GET coaps://[2001:db8::2:1]:61616/est/att
 	  
       <t>
 	[EDNOTE: When redoing this example, 
-	given that proof of possession (POP) is also used, make sure
+	given that POP linking is also used, make sure
 	it is obvious that the ChallengePassword attribute in the CSR 
 	is valid HMAC output. HMAC-REAL.]
       </t>

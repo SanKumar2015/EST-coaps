@@ -510,15 +510,15 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 
       <t>The individual EST-coaps well-known server URIs differ from the EST URI by replacing the scheme https by coaps and by specifying shorter resource path names: </t>
 <figure align="left"><artwork><![CDATA[
-coaps://www.example.com/.well-known/est/<short-est> 
-coaps://www.example.com/.well-known/est/ArbitraryLabel/<short-est> 
+coaps://www.example.com:<port>/.well-known/est/<short-est> 
+coaps://www.example.com:<port>/.well-known/est/ArbitraryLabel/<short-est> 
 ]]></artwork></figure>
       <t>The ArbitraryLabel Path-Segment, if used, SHOULD be of the shortest length possible.</t>
 
 	  <t>The optional additional EST-coaps server URIs, obtained through discovery of the EST root resource(s) as shown below, are of the form: </t>
 <figure align="left"><artwork><![CDATA[
-coaps://www.example.com/<est-root-resource>/<short-est>
-coaps://www.example.com/<est-root-resource>/ArbitraryLabel/<short-est>
+coaps://www.example.com:<port>/<est-root-resource>/<short-est>
+coaps://www.example.com:<port>/<est-root-resource>/ArbitraryLabel/<short-est>
 ]]></artwork></figure>
 
       <t>Figure 5 in section 3.2.2 of <xref target="RFC7030"/> enumerates the operations and corresponding paths which are supported by EST. <xref target="est-uri"/> provides the mapping from the EST URI path to the shorter EST-coaps URI path.</t>

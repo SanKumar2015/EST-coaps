@@ -5,7 +5,7 @@
 ACE                                                      P. van der Stok
 Internet-Draft                                                Consultant
 Intended status: Standards Track                           P. Kampanakis
-Expires: March 21, 2019                                    Cisco Systems
+Expires: March 28, 2019                                    Cisco Systems
                                                                 S. Kumar
                                                Philips Lighting Research
                                                            M. Richardson
@@ -14,7 +14,7 @@ Expires: March 21, 2019                                    Cisco Systems
                                                              Nexus Group
                                                                  S. Raza
                                                                RISE SICS
-                                                      September 17, 2018
+                                                      September 24, 2018
 
 
                     EST over secure CoAP (EST-coaps)
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on March 21, 2019.
+   This Internet-Draft will expire on March 28, 2019.
 
 
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-van der Stok, et al.     Expires March 21, 2019                 [Page 1]
+van der Stok, et al.     Expires March 28, 2019                 [Page 1]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -91,7 +91,7 @@ Table of Contents
      5.8.  Deployment limits . . . . . . . . . . . . . . . . . . . .  13
    6.  Discovery and URI . . . . . . . . . . . . . . . . . . . . . .  13
    7.  DTLS Transport Protocol . . . . . . . . . . . . . . . . . . .  15
-   8.  HTTPS-CoAPS Registrar . . . . . . . . . . . . . . . . . . . .  16
+   8.  HTTPS-CoAPS Registrar . . . . . . . . . . . . . . . . . . . .  17
    9.  Parameters  . . . . . . . . . . . . . . . . . . . . . . . . .  18
    10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  20
      10.1.  Content-Format Registry  . . . . . . . . . . . . . . . .  20
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-van der Stok, et al.     Expires March 21, 2019                 [Page 2]
+van der Stok, et al.     Expires March 28, 2019                 [Page 2]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -165,7 +165,7 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 21, 2019                 [Page 3]
+van der Stok, et al.     Expires March 28, 2019                 [Page 3]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -221,7 +221,7 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 21, 2019                 [Page 4]
+van der Stok, et al.     Expires March 28, 2019                 [Page 4]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -277,7 +277,7 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 21, 2019                 [Page 5]
+van der Stok, et al.     Expires March 28, 2019                 [Page 5]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -333,7 +333,7 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 21, 2019                 [Page 6]
+van der Stok, et al.     Expires March 28, 2019                 [Page 6]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -389,7 +389,7 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 21, 2019                 [Page 7]
+van der Stok, et al.     Expires March 28, 2019                 [Page 7]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -403,7 +403,7 @@ Internet-Draft                  EST-coaps                 September 2018
    A representation with content format ID TBD8 contains a collection of
    representations along with their respective content format.  The
    content-format identifies the media-type application/multipart-core
-   specified in [I-D.fossati-core-multipart-ct].
+   specified in [I-D.ietf-core-multipart-ct].
 
    The collection is encoded as a CBOR array [RFC7049] with an even
    number of elements.  The second, fourth, sixth, etc. element is a
@@ -445,7 +445,7 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 21, 2019                 [Page 8]
+van der Stok, et al.     Expires March 28, 2019                 [Page 8]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -501,7 +501,7 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 21, 2019                 [Page 9]
+van der Stok, et al.     Expires March 28, 2019                 [Page 9]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -557,7 +557,7 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 21, 2019                [Page 10]
+van der Stok, et al.     Expires March 28, 2019                [Page 10]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -599,6 +599,8 @@ Internet-Draft                  EST-coaps                 September 2018
    the device.  Studies have shown that the same keys are generated by
    the same model devices deployed on-line.
 
+   EDNote: Is there a reference for these studies?
+
    Additionally, random number key generation is costly, thus energy
    draining.  Even though the random numbers that constitute the
    identity/cert do not get generated often, an endpoint may not want to
@@ -607,16 +609,17 @@ Internet-Draft                  EST-coaps                 September 2018
 
    In these scenarios, server-side key generation can be used.  The
    client asks for the server or proxy to generate the private key and
-   the certificate which is transferred back to the client in the
-   server-side key generation response.
 
 
 
 
-van der Stok, et al.     Expires March 21, 2019                [Page 11]
+van der Stok, et al.     Expires March 28, 2019                [Page 11]
 
 Internet-Draft                  EST-coaps                 September 2018
 
+
+   the certificate which is transferred back to the client in the
+   server-side key generation response.
 
    [RFC7030] recommends for the private key returned by the server to be
    encrypted.  The specification provides two methods to encrypt the
@@ -629,7 +632,7 @@ Internet-Draft                  EST-coaps                 September 2018
 
    The sever-side key generation response is returned using a CBOR array
    Section 5.2.1.  The certificate part exactly matches the response
-   from a enrollment response.  The private key is placed inside of a
+   from an enrollment response.  The private key is placed inside of a
    CMS SignedData.  The SignedData is signed by the party that generated
    the private key, which may or may not be the EST server or the EST
    CA.  The SignedData is further protected by placing it inside of a
@@ -663,17 +666,16 @@ Internet-Draft                  EST-coaps                 September 2018
    value of the IP MTU for IPv4 is as low as 68 bytes, which would leave
    only 40 bytes minus security overhead for a UDP payload.  Thus, even
    with ECC certs, EST-coaps messages can still exceed sizes in MTU of
-   1280 for IPv6 or 60-80 bytes for 6LoWPAN [RFC4919] as explained in
-   section 2 of [RFC7959].  EST-coaps needs to be able to fragment EST
 
 
 
-
-van der Stok, et al.     Expires March 21, 2019                [Page 12]
+van der Stok, et al.     Expires March 28, 2019                [Page 12]
 
 Internet-Draft                  EST-coaps                 September 2018
 
 
+   1280 for IPv6 or 60-80 bytes for 6LoWPAN [RFC4919] as explained in
+   section 2 of [RFC7959].  EST-coaps needs to be able to fragment EST
    messages into multiple DTLS datagrams.  Fine-grained fragmentation of
    EST messages is essential.
 
@@ -720,16 +722,16 @@ Internet-Draft                  EST-coaps                 September 2018
 
    In the context of CoAP, the presence and location of (path to) the
    management data are discovered by sending a GET request to "/.well-
-   known/core" including a resource type (RT) parameter with the value
-   "ace.est" [RFC6690].  Upon success, the return payload will contain
 
 
 
-van der Stok, et al.     Expires March 21, 2019                [Page 13]
+van der Stok, et al.     Expires March 28, 2019                [Page 13]
 
 Internet-Draft                  EST-coaps                 September 2018
 
 
+   known/core" including a resource type (RT) parameter with the value
+   "ace.est" [RFC6690].  Upon success, the return payload will contain
    the root resource of the EST resources.  It is up to the
    implementation to choose its root resource; throughout this document
    the example root resource /est is used.
@@ -738,18 +740,18 @@ Internet-Draft                  EST-coaps                 September 2018
    URI by replacing the scheme https by coaps and by specifying shorter
    resource path names:
 
-   coaps://www.example.com/.well-known/est/<short-est>
-   coaps://www.example.com/.well-known/est/ArbitraryLabel/<short-est>
+coaps://www.example.com:<port>/.well-known/est/<short-est>
+coaps://www.example.com:<port>/.well-known/est/ArbitraryLabel/<short-est>
 
    The ArbitraryLabel Path-Segment, if used, SHOULD be of the shortest
-   length possible.
+   length possible (See sections 3.1 and 3.2.2 of [RFC7030].
 
    The optional additional EST-coaps server URIs, obtained through
    discovery of the EST root resource(s) as shown below, are of the
    form:
 
-  coaps://www.example.com/<est-root-resource>/<short-est>
-  coaps://www.example.com/<est-root-resource>/ArbitraryLabel/<short-est>
+coaps://www.example.com:<port>/<est-root-resource>/<short-est>
+coaps://www.example.com:<port>/<est-root-resource>/ArbitraryLabel/<short-est>
 
    Figure 5 in section 3.2.2 of [RFC7030] enumerates the operations and
    corresponding paths which are supported by EST.  Table 2 provides the
@@ -779,9 +781,7 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-
-
-van der Stok, et al.     Expires March 21, 2019                [Page 14]
+van der Stok, et al.     Expires March 28, 2019                [Page 14]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -800,6 +800,11 @@ Internet-Draft                  EST-coaps                 September 2018
    consecutive lines MAY be returned.  The return of the content-types
    in the last four lines allows the client to choose the most
    appropriate one from multiple content types.
+
+   Port numbers are not returned in the example.  Discoverable port
+   numbers SHOULD be returned in the <href> of the payload.
+
+   [EDNote: should we assign fixed port numbers for est-coaps?
 
 7.  DTLS Transport Protocol
 
@@ -829,19 +834,19 @@ Internet-Draft                  EST-coaps                 September 2018
    proof-of-possession is desired, a set of actions are required
    regarding the use of tls-unique, described in section 3.5 in
    [RFC7030].  The tls-unique information translates to the contents of
+
+
+
+van der Stok, et al.     Expires March 28, 2019                [Page 15]
+
+Internet-Draft                  EST-coaps                 September 2018
+
+
    the first "Finished" message in the (D)TLS handshake between server
    and client [RFC5929].  The client is then supposed to add this
    "Finished" message as a ChallengePassword in the attributes section
    of the PKCS#10 Request Info to prove that the client is indeed in
    control of the private key at the time of the TLS session when
-
-
-
-van der Stok, et al.     Expires March 21, 2019                [Page 15]
-
-Internet-Draft                  EST-coaps                 September 2018
-
-
    performing a /simpleenroll, for example.  In the case of EST-coaps,
    the same operations can be performed during the DTLS handshake.  For
    DTLS 1.2, in the event of handshake message fragmentation, the Hash
@@ -881,6 +886,18 @@ Internet-Draft                  EST-coaps                 September 2018
    [I-D.rescorla-tls-dtls-connection-id] negotiates a connection ID that
    can eliminate the need for new handshake and its additional cost.
 
+
+
+
+
+
+
+
+van der Stok, et al.     Expires March 28, 2019                [Page 16]
+
+Internet-Draft                  EST-coaps                 September 2018
+
+
 8.  HTTPS-CoAPS Registrar
 
    In real-world deployments, the EST server will not always reside
@@ -890,14 +907,6 @@ Internet-Draft                  EST-coaps                 September 2018
    the CoAP boundary and TLS is used to transport the EST messages
    outside the CoAP boundary.  A Registrar at the edge is required to
    operate between the CoAP environment and the external HTTP network.
-
-
-
-van der Stok, et al.     Expires March 21, 2019                [Page 16]
-
-Internet-Draft                  EST-coaps                 September 2018
-
-
    The EST coaps-to-HTTPS Registrar MUST terminate EST-coaps and
    authenticate the client downstream and initiate EST connections over
    TLS upstream.
@@ -938,21 +947,15 @@ Internet-Draft                  EST-coaps                 September 2018
    a new key which will be returned to the client along with the
    certificate from the CA.
 
-   One possible use-case, shown in one figure below, is expected to be
-   deployed in practice:
 
 
-
-
-
-
-
-
-
-van der Stok, et al.     Expires March 21, 2019                [Page 17]
+van der Stok, et al.     Expires March 28, 2019                [Page 17]
 
 Internet-Draft                  EST-coaps                 September 2018
 
+
+   One possible use-case, shown in one figure below, is expected to be
+   deployed in practice:
 
                                         Constrained Network
    .------.                         .----------------------------.
@@ -1002,10 +1005,7 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-
-
-
-van der Stok, et al.     Expires March 21, 2019                [Page 18]
+van der Stok, et al.     Expires March 28, 2019                [Page 18]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -1061,7 +1061,7 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 21, 2019                [Page 19]
+van der Stok, et al.     Expires March 28, 2019                [Page 19]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -1117,7 +1117,7 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 21, 2019                [Page 20]
+van der Stok, et al.     Expires March 28, 2019                [Page 20]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -1173,7 +1173,7 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 21, 2019                [Page 21]
+van der Stok, et al.     Expires March 28, 2019                [Page 21]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -1229,7 +1229,7 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 21, 2019                [Page 22]
+van der Stok, et al.     Expires March 28, 2019                [Page 22]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -1241,10 +1241,10 @@ Internet-Draft                  EST-coaps                 September 2018
 
 13.1.  Normative References
 
-   [I-D.fossati-core-multipart-ct]
-              Bormann, C., "Multipart Content-Format for CoAP", draft-
-              fossati-core-multipart-ct-05 (work in progress), June
-              2018.
+   [I-D.ietf-core-multipart-ct]
+              Fossati, T., Hartke, K., and C. Bormann, "Multipart
+              Content-Format for CoAP", draft-ietf-core-multipart-ct-02
+              (work in progress), August 2018.
 
    [I-D.ietf-lamps-rfc5751-bis]
               Schaad, J., Ramsdell, B., and S. Turner, "Secure/
@@ -1285,7 +1285,7 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 21, 2019                [Page 23]
+van der Stok, et al.     Expires March 28, 2019                [Page 23]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -1341,7 +1341,7 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 21, 2019                [Page 24]
+van der Stok, et al.     Expires March 28, 2019                [Page 24]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -1397,7 +1397,7 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 21, 2019                [Page 25]
+van der Stok, et al.     Expires March 28, 2019                [Page 25]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -1453,7 +1453,7 @@ A.1.  cacerts
 
 
 
-van der Stok, et al.     Expires March 21, 2019                [Page 26]
+van der Stok, et al.     Expires March 28, 2019                [Page 26]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -1509,7 +1509,7 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 21, 2019                [Page 27]
+van der Stok, et al.     Expires March 28, 2019                [Page 27]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -1565,7 +1565,7 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 21, 2019                [Page 28]
+van der Stok, et al.     Expires March 28, 2019                [Page 28]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -1621,7 +1621,7 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 21, 2019                [Page 29]
+van der Stok, et al.     Expires March 28, 2019                [Page 29]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -1677,7 +1677,7 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 21, 2019                [Page 30]
+van der Stok, et al.     Expires March 28, 2019                [Page 30]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -1733,7 +1733,7 @@ A.3.  enroll / reenroll
 
 
 
-van der Stok, et al.     Expires March 21, 2019                [Page 31]
+van der Stok, et al.     Expires March 28, 2019                [Page 31]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -1789,7 +1789,7 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 21, 2019                [Page 32]
+van der Stok, et al.     Expires March 28, 2019                [Page 32]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -1845,7 +1845,7 @@ A.4.  serverkeygen
 
 
 
-van der Stok, et al.     Expires March 21, 2019                [Page 33]
+van der Stok, et al.     Expires March 28, 2019                [Page 33]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -1901,7 +1901,7 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 21, 2019                [Page 34]
+van der Stok, et al.     Expires March 28, 2019                [Page 34]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -1957,7 +1957,7 @@ B.1.  cacerts block example
 
 
 
-van der Stok, et al.     Expires March 21, 2019                [Page 35]
+van der Stok, et al.     Expires March 28, 2019                [Page 35]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -2013,7 +2013,7 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 21, 2019                [Page 36]
+van der Stok, et al.     Expires March 28, 2019                [Page 36]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -2069,7 +2069,7 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 21, 2019                [Page 37]
+van der Stok, et al.     Expires March 28, 2019                [Page 37]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -2125,7 +2125,7 @@ B.2.  enroll block example
 
 
 
-van der Stok, et al.     Expires March 21, 2019                [Page 38]
+van der Stok, et al.     Expires March 28, 2019                [Page 38]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -2181,7 +2181,7 @@ Authors' Addresses
 
 
 
-van der Stok, et al.     Expires March 21, 2019                [Page 39]
+van der Stok, et al.     Expires March 28, 2019                [Page 39]
 
 Internet-Draft                  EST-coaps                 September 2018
 
@@ -2237,4 +2237,4 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 21, 2019                [Page 40]
+van der Stok, et al.     Expires March 28, 2019                [Page 40]

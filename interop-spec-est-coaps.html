@@ -6,7 +6,7 @@
 	<meta name="generator" content="LibreOffice 5.2.7.2 (Linux)"/>
 	<meta name="created" content="00:00:00"/>
 	<meta name="changedby" content="Michael Richardson"/>
-	<meta name="changed" content="2018-09-25T11:13:29.923818118"/>
+	<meta name="changed" content="2018-09-25T11:16:21.043199869"/>
 	<meta name="" content=""/>
 	<meta name="created" content="00:00:00">
 	<meta name="changedby" content="Michael Richardson">
@@ -22,15 +22,13 @@
 <p style="margin-top: 0.42cm; page-break-after: avoid"><font face="Albany, sans-serif"><font size="4" style="font-size: 14pt">Client
 and Server have established a DTLS connection</font></font></p>
 <p>In most test cases, the pre-test conditions are that a DTLS
-connection has been established. There are four aspects to this, and
-test case TD_ACE_ace_dtls1 through 4 provide details as to testing
-that should be done.</p>
-<p><br/>
-<br/>
-
-</p>
-<p>Prerequiste: device comes from manufacturing, has an IDevID.  
-</p>
+connection has been established. There are four possible combinations
+(Client has certificate, no-certificate, Server has certificate, no
+certificate), but the cases where the Client has no certificate turn
+out to be negative testing.  The case where the Server has no
+certificate is nonsense, so only one test case remains.</p>
+<p>Prerequiste: device comes from manufacturing, has an IDevID that
+can be validated by the server.</p>
 <h1><br/>
 <br/>
 

@@ -549,8 +549,8 @@ coaps://www.example.com:<port>/<est-root-resource>/ArbitraryLabel/<short-est>
 ]]></artwork>
     </figure>
       <t> The first line of the discovery response MUST be returned. The five consecutive lines MAY be returned. The return of the content-types in the last four lines allows the client to choose the most appropriate one from multiple content types.</t>
-<t>Port numbers are not returned in the example. Discoverable port numbers SHOULD be returned in the &lt;href&gt; of the payload.</t>
-<t> [EDNote: should we assign fixed port numbers for est-coaps? </t>
+<t>Port numbers, not returned in the example, are assumed to be the default numbers 5683 and 5684 for coap and coaps respectively (sections 12.6 and 12.7 of <xref target="RFC7252"/>. Discoverable port numbers MAY be returned in the &lt;href&gt; of the payload.</t>
+
     </section> <!-- discovery and URI -->
 
   <section anchor="DTLS" title = "DTLS Transport Protocol">    

@@ -1,1048 +1,2266 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
-  <head>
-    <meta charset='utf-8'>
-    <style>
-      table {
-        border-collapse: collapse;
-        font-family: Arial, Sans-Serif;
-        margin-bottom: 2em;
-      }
-      table th, table td {
-        min-width: 30px;
-        padding: 4px 0 4px 10px;
-      }
-    </style>
-  </head>
-  <body>
-    <table border='1' width='100%'>
-      <tr>
-        <th colspan='4'>Interoperability Test Description</th>
-      </tr>
-      <tr>
-        <th width='15%'>Identifier:</th>
-        <td colspan='3'>
-          TD_ACE_est-coaps_01
-        </td>
-      </tr>
-      <tr>
-        <th>Objective:</th>
-        <td colspan='3'>
-          Perform crts transaction without block
-        </td>
-      </tr>
-      <tr>
-        <th>Configuration:</th>
-        <td colspan='3'>
-          CoAP_CFG_est-coaps
-        </td>
-      </tr>
-      <tr>
-        <th>References:</th>
-        <td colspan='3'>
-          [est-coaps] 4, A.1
-        </td>
-      </tr>
-      <tr>
-        <th>Pre-test conditions:</th>
-        <td colspan='3'>
-		  <ul>
-		  <li>Client and Server have established a DTLS connection</li>
-          <li>Server holds a certificate to return to client</li>
-		  </ul>
-        </td>
-      </tr>
-      <tr>
-        <th>Test Sequence:</th>
-        <td width='10 %'>Step</td>
-        <td width='15 %'>Type</td>
-        <td>Description</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          1
-        </td>
-        <td>
-          Stimulus
-        </td>
-        <td>
-          Client is requested to send a GET request with:<ul><li>Type = 0 (CON)</li>
-          <li>Code = 1 (GET)</li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          2
-        </td>
-        <td>
-          Check
-        </td>
-        <td>
-          The request sent by the client contains:<ul><li>Type=0 and Code=1</li>
-          <li>Uri-Path option &quot;est and crts&quot;</li>
-		  <li>Token = XX </li>
-		  <li>Max-Age = 1 </li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          3
-        </td>
-        <td>
-          Check
-        </td>
-        <td>
-          Server sends response containing:<ul><li>Code = 2.05 (Content)</li>
-		  <li>Token = XX, set by client </li>
-          <li>Content-format option 281</li>
-          <li>Payload with certificate</li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          4
-        </td>
-        <td>
-          Verify
-        </td>
-        <td>
-          Client displays the correct certificate contents
-        </td>
-      </tr>
-    </table>
-	
-     <table border='1' width='100%'>
-      <tr>
-        <th colspan='4'>Interoperability Test Description</th>
-      </tr>
-      <tr>
-        <th width='15%'>Identifier:</th>
-        <td colspan='3'>
-          TD_ACE_est-coaps_02
-        </td>
-      </tr>
-      <tr>
-        <th>Objective:</th>
-        <td colspan='3'>
-          Perform crts transaction with block
-        </td>
-      </tr>
-      <tr>
-        <th>Configuration:</th>
-        <td colspan='3'>
-          CoAP_CFG_est-coaps
-        </td>
-      </tr>
-      <tr>
-        <th>References:</th>
-        <td colspan='3'>
-          [est-coaps] 4, A.1
-        </td>
-      </tr>
-      <tr>
-        <th>Pre-test conditions:</th>
-        <td colspan='3'>
-		  <ul>
-		  <li>Client and Server have established a DTLS connection</li>
-          <li>Server holds a certificate to return to client</li>
-		  </ul>
-        </td>
-      </tr>
-      <tr>
-        <th>Test Sequence:</th>
-        <td width='10 %'>Step</td>
-        <td width='15 %'>Type</td>
-        <td>Description</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          1
-        </td>
-        <td>
-          Stimulus
-        </td>
-        <td>
-          Client is requested to send a GET request with:<ul><li>Type = 0 (CON)</li>
-          <li>Code = 1 (GET)</li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          2
-        </td>
-        <td>
-          Check
-        </td>
-        <td>
-          The request sent by the client contains:<ul><li>Type=0 and Code=1</li>
-          <li>Uri-Path option &quot;est and crts&quot;</li>
-		  <li>Token = XX, set by client </li>
-		  <li>Max-Age = 1 </li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          3
-        </td>
-        <td>
-          Check
-        </td>
-        <td>
-          Server sends response containing:<ul><li>Code = 2.05 (Content)</li>
-		  <li>Token = XX </li>
-		  <li>block2 option with value of SZX determined by server
-          <li>Content-format option 281</li>
-          <li>Payload with certificate</li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          4
-        </td>
-        <td>
-          Verify
-        </td>
-        <td>
-          Client displays the correct certificate contents
-        </td>
-      </tr>
-    </table> 
-	
-    <table border='1' width='100%'>
-      <tr>
-        <th colspan='4'>Interoperability Test Description</th>
-      </tr>
-      <tr>
-        <th width='15%'>Identifier:</th>
-        <td colspan='3'>
-          TD_ACE_est-coaps_03
-        </td>
-      </tr>
-      <tr>
-        <th>Objective:</th>
-        <td colspan='3'>
-          Perform sen transaction without block or delay
-        </td>
-      </tr>
-      <tr>
-        <th>Configuration:</th>
-        <td colspan='3'>
-          CoAP_CFG_est-coaps
-        </td>
-      </tr>
-      <tr>
-        <th>References:</th>
-        <td colspan='3'>
-          [est-coaps] 4, A.3
-        </td>
-      </tr>
-      <tr>
-        <th>Pre-test conditions:</th>
-        <td colspan='3'>
-		  <ul>
-		  <li>Client and Server have established a DTLS connection.</li>
-		  <li>Client holds a distinguished name, a public key, and an optional set of attributes
-		          appropriately signed with private key.</li>
-          <li>Server holds a corresponding certificate to return to client</li>
-		  </ul>
-        </td>
-      </tr>
-      <tr>
-        <th>Test Sequence:</th>
-        <td width='10 %'>Step</td>
-        <td width='15 %'>Type</td>
-        <td>Description</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          1
-        </td>
-        <td>
-          Stimulus
-        </td>
-        <td>
-          Client is requested to send a GET request with:<ul><li>Type = 0 (CON)</li>
-          <li>Code = 1 (GET)</li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          2
-        </td>
-        <td>
-          Check
-        </td>
-        <td>
-          The request sent by the client contains:<ul><li>Type=0 and Code=1</li>
-          <li>Uri-Path option &quot;est and sen&quot;</li>
-		  <li>Token = XX , set by client</li>
-		  <li>Content-format option 286</li>
-		  <li>Max-Age = 1 </li>
-		  <li>payload is certification request of RFC 2986 </li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          3
-        </td>
-        <td>
-          Check
-        </td>
-        <td>
-          Server sends response containing:<ul><li>Code = 2.01 (Created)</li>
-		  <li>Token = XX </li>
-          <li>Content-format option 281</li>
-          <li>Payload with certificate</li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          4
-        </td>
-        <td>
-          Verify
-        </td>
-        <td>
-          Client displays the correct certificate contents
-        </td>
-      </tr>
-    </table>
-	
-	<table border='1' width='100%'>
-      <tr>
-        <th colspan='4'>Interoperability Test Description</th>
-      </tr>
-      <tr>
-        <th width='15%'>Identifier:</th>
-        <td colspan='3'>
-          TD_ACE_est-coaps_04
-        </td>
-      </tr>
-      <tr>
-        <th>Objective:</th>
-        <td colspan='3'>
-          Perform sen transaction with block and long delay
-        </td>
-      </tr>
-      <tr>
-        <th>Configuration:</th>
-        <td colspan='3'>
-          CoAP_CFG_est-coaps
-        </td>
-      </tr>
-      <tr>
-        <th>References:</th>
-        <td colspan='3'>
-          [est-coaps] 4, A.3
-        </td>
-      </tr>
-      <tr>
-        <th>Pre-test conditions:</th>
-        <td colspan='3'>
-		  <ul>
-		  <li>Client and Server have established a DTLS connection.</li>
-		  <li>Client holds a distinguished name, a public key, and an optional set of attributes
-		          appropriately signed with private key.</li>
-          <li>Server holds a corresponding certificate to return to client</li>
-		  </ul>
-        </td>
-      </tr>
-      <tr>
-        <th>Test Sequence:</th>
-        <td width='10 %'>Step</td>
-        <td width='15 %'>Type</td>
-        <td>Description</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          1
-        </td>
-        <td>
-          Stimulus
-        </td>
-        <td>
-          Client is requested to send a GET request with:<ul><li>Type = 0 (CON)</li>
-          <li>Code = 1 (GET)</li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          2
-        </td>
-        <td>
-          Check
-        </td>
-        <td>
-          The request sent by the client contains:<ul><li>Type=0 and Code=1</li>
-          <li>Uri-Path option &quot;est and sen&quot;</li>
-		  <li>Token = XX, set by client </li>
-		  <li>Content-format option 286</li>
-		  <li>Max-Age = 1 </li>
-		  <li>payload is certification request of RFC 2986 </li>
-		  <li> block1 option with SZX chosen by client </li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          3
-        </td>
-        <td>
-          Check
-        </td>
-        <td>
-          Server sends response containing:<ul><li>Code = 5.03 (Server unavailable)</li>
-		  <li>Token = XX </li>
-		  <li> Max-Age = 120</li>
-          <li>empty Payload </li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-		    <td>
-          4
-        </td>
-        <td>
-          Check
-        </td>
-        <td>
-		  After Max-Age time units(2 minutes), the request sent by the client contains:<ul>
-		  <li>Type=0 and Code=1</li>
-          <li>Uri-Path option &quot;est and sen&quot;</li>
-		  <li>Token = YY, set by client </li>
-		  <li>Content-format option 286</li>
-		  <li>Max-Age = 1 </li>
-		  <li>payload is certification request of RFC 2986 </li>
-		  <li> block1 option with SZX chosen by client </li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-		    <td>
-          5
-        </td>
-        <td>
-          Check
-        </td>
-        <td>
-          Server sends response containing:<ul><li>Code = 2.04 (Changed)</li>
-		  <li>Token = YY </li>
-		  <li> Content-format option 281 </li>
-		  <li> Block2 option with SZX filled in by server </li>
-          <li>Payload with requested certificate</li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          6
-        </td>
-        <td>
-          Verify
-        </td>
-        <td>
-          Client displays the correct certificate contents
-        </td>
-      </tr>
-    </table>
-		
-    <table border='1' width='100%'>
-      <tr>
-        <th colspan='4'>Interoperability Test Description</th>
-      </tr>
-      <tr>
-        <th width='15%'>Identifier:</th>
-        <td colspan='3'>
-          TD_ACE_est-coaps_05
-        </td>
-      </tr>
-      <tr>
-        <th>Objective:</th>
-        <td colspan='3'>
-          Perform sren transaction without block or delay
-        </td>
-      </tr>
-      <tr>
-        <th>Configuration:</th>
-        <td colspan='3'>
-          CoAP_CFG_est-coaps
-        </td>
-      </tr>
-      <tr>
-        <th>References:</th>
-        <td colspan='3'>
-          [est-coaps] 4, A.3
-        </td>
-      </tr>
-      <tr>
-        <th>Pre-test conditions:</th>
-        <td colspan='3'>
-		  <ul>
-		  <li>Client and Server have established a DTLS connection.</li>
-		  <li>Client holds a distinguished name, a public key, and an optional set of attributes
-		          appropriately signed with private key.</li>
-          <li>Server holds a corresponding certificate to return to client</li>
-		  </ul>
-        </td>
-      </tr>
-      <tr>
-        <th>Test Sequence:</th>
-        <td width='10 %'>Step</td>
-        <td width='15 %'>Type</td>
-        <td>Description</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          1
-        </td>
-        <td>
-          Stimulus
-        </td>
-        <td>
-          Client is requested to send a GET request with:<ul><li>Type = 0 (CON)</li>
-          <li>Code = 1 (GET)</li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          2
-        </td>
-        <td>
-          Check
-        </td>
-        <td>
-          The request sent by the client contains:<ul><li>Type=0 and Code=1</li>
-          <li>Uri-Path option &quot;est and sren&quot;</li>
-		  <li>Token = XX, set by client </li>
-		  <li>Content-format option 286</li>
-		  <li>Max-Age = 1 </li>
-		  <li>payload is certification request of RFC 2986 </li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          3
-        </td>
-        <td>
-          Check
-        </td>
-        <td>
-          Server sends response containing:<ul><li>Code = 2.01 (Created)</li>
-		  <li>Token = XX </li>
-          <li>Content-format option 281</li>
-          <li>Payload with certificate</li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          4
-        </td>
-        <td>
-          Verify
-        </td>
-        <td>
-          Client displays the correct certificate contents
-        </td>
-      </tr>
-    </table>
-	
-	<table border='1' width='100%'>
-      <tr>
-        <th colspan='4'>Interoperability Test Description</th>
-      </tr>
-      <tr>
-        <th width='15%'>Identifier:</th>
-        <td colspan='3'>
-          TD_ACE_est-coaps_06
-        </td>
-      </tr>
-      <tr>
-        <th>Objective:</th>
-        <td colspan='3'>
-          Perform sren transaction with block and long delay
-        </td>
-      </tr>
-      <tr>
-        <th>Configuration:</th>
-        <td colspan='3'>
-          CoAP_CFG_est-coaps
-        </td>
-      </tr>
-      <tr>
-        <th>References:</th>
-        <td colspan='3'>
-          [est-coaps] 4, A.3
-        </td>
-      </tr>
-      <tr>
-        <th>Pre-test conditions:</th>
-        <td colspan='3'>
-		  <ul>
-		  <li>Client and Server have established a DTLS connection.</li>
-		  <li>Client holds a distinguished name, a public key, and an optional set of attributes
-		          appropriately signed with private key.</li>
-          <li>Server holds a corresponding certificate to return to client</li>
-		  </ul>
-        </td>
-      </tr>
-      <tr>
-        <th>Test Sequence:</th>
-        <td width='10 %'>Step</td>
-        <td width='15 %'>Type</td>
-        <td>Description</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          1
-        </td>
-        <td>
-          Stimulus
-        </td>
-        <td>
-          Client is requested to send a GET request with:<ul><li>Type = 0 (CON)</li>
-          <li>Code = 1 (GET)</li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          2
-        </td>
-        <td>
-          Check
-        </td>
-        <td>
-          The request sent by the client contains:<ul><li>Type=0 and Code=1</li>
-          <li>Uri-Path option &quot;est and sren&quot;</li>
-		  <li>Token = XX, set by client </li>
-		  <li>Content-format option 286</li>
-		  <li>Max-Age = 1 </li>
-		  <li>payload is certification request of RFC 2986 </li>
-		  <li> block1 option with SZX chosen by client </li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          3
-        </td>
-        <td>
-          Check
-        </td>
-        <td>
-          Server sends response containing:<ul><li>Code = 5.03 (Server unavailable)</li>
-		  <li>Token = XX </li>
-		  <li> Max-Age = 120</li>
-          <li>empty Payload </li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-		    <td>
-          4
-        </td>
-        <td>
-          Check
-        </td>
-        <td>
-		  After Max-Age time units
-          The request sent by the client contains:<ul><li>Type=0 and Code=1</li>
-          <li>Uri-Path option &quot;est and sren&quot;</li>
-		  <li>Token = YY, set by client </li>
-		  <li>Content-format option 286</li>
-		  <li>Max-Age = 1 </li>
-		  <li>payload is certification request of RFC 2986 </li>
-		  <li> block1 option with SZX chosen by client </li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-		    <td>
-          5
-        </td>
-        <td>
-          Check
-        </td>
-        <td>
-          Server sends response containing:<ul><li>Code = 2.04 (Changed)</li>
-		  <li>Token = YY </li>
-		  <li> Content-format option 281 </li>
-		  <li> Block2 option with SZX filled in by server </li>
-          <li> Payload with requested certificate</li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          6
-        </td>
-        <td>
-          Verify
-        </td>
-        <td>
-          Client displays the correct certificate contents
-        </td>
-      </tr>
-    </table>
-	
-	<table border='1' width='100%'>
-      <tr>
-        <th colspan='4'>Interoperability Test Description</th>
-      </tr>
-	   <tr>
-        <th colspan='4'>Optional functionality</th>
-      </tr>
-	  <tr>
-        <th colspan='4'> USE number 287 for content-format application/multipart-core</th>
-      </tr>
-      <tr>
-        <th width='15%'>Identifier:</th>
-        <td colspan='3'>
-          TD_ACE_est-coaps_07
-        </td>
-      </tr>
-      <tr>
-        <th>Objective:</th>
-        <td colspan='3'>
-          Perform skg transaction without block
-        </td>
-      </tr>
-      <tr>
-        <th>Configuration:</th>
-        <td colspan='3'>
-          CoAP_CFG_est-coaps
-        </td>
-      </tr>
-      <tr>
-        <th>References:</th>
-        <td colspan='3'>
-          [est-coaps] 4, A.1
-        </td>
-      </tr>
-      <tr>
-        <th>Pre-test conditions:</th>
-        <td colspan='3'>
-		  <ul>
-		  <li>Client and Server have established a DTLS connection.</li>
-          <li>Server provides a random number generation service</li>
-		  </ul>
-        </td>
-      </tr>
-      <tr>
-        <th>Test Sequence:</th>
-        <td width='10 %'>Step</td>
-        <td width='15 %'>Type</td>
-        <td>Description</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          1
-        </td>
-        <td>
-          Stimulus
-        </td>
-        <td>
-          Client is requested to send a GET request with:<ul><li>Type = 0 (CON)</li>
-          <li>Code = 1 (GET)</li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          2
-        </td>
-        <td>
-          Check
-        </td>
-        <td>
-          The request sent by the client contains:<ul><li>Type=0 and Code=1</li>
-          <li>Uri-Path option &quot;est and skg&quot;</li>
-		  <li>Token = XX </li>
-		  <li>Content-format 286 </li>
-		  <li>Max-Age = 120 </li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          3
-        </td>
-        <td>
-          Check
-        </td>
-        <td>
-          Server sends response containing:<ul><li>Code = 2.01 (Content)</li>
-		  <li>Token = XX </li>
-          <li>Content-format option 287</li>
-          <li>Payload with preamble and key</li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          4
-        </td>
-        <td>
-          Verify
-        </td>
-        <td>
-          Client displays the correct key value
-        </td>
-      </tr>
-    </table>
-		
-	<table border='1' width='100%'>
-      <tr>
-        <th colspan='4'>Interoperability Test Description</th>
-      </tr>
-	   <tr>
-        <th colspan='4'>Optional functionality</th>
-      </tr>
-      <tr>
-        <th width='15%'>Identifier:</th>
-        <td colspan='3'>
-          TD_ACE_est-coaps_08
-        </td>
-      </tr>
-      <tr>
-        <th>Objective:</th>
-        <td colspan='3'>
-          Perform att transaction
-        </td>
-      </tr>
-      <tr>
-        <th>Configuration:</th>
-        <td colspan='3'>
-          CoAP_CFG_est-coaps
-        </td>
-      </tr>
-      <tr>
-        <th>References:</th>
-        <td colspan='3'>
-          [est-coaps] 4, A.1
-        </td>
-      </tr>
-      <tr>
-        <th>Pre-test conditions:</th>
-        <td colspan='3'>
-		  <ul>
-		  <li>Client and Server have established a DTLS connection.</li>
-          <li>Server contains appropriate certificate</li>
-		  </ul>
-        </td>
-      </tr>
-      <tr>
-        <th>Test Sequence:</th>
-        <td width='10 %'>Step</td>
-        <td width='15 %'>Type</td>
-        <td>Description</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          1
-        </td>
-        <td>
-          Stimulus
-        </td>
-        <td>
-          Client is requested to send a GET request with:<ul><li>Type = 0 (CON)</li>
-          <li>Code = 1 (GET)</li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          2
-        </td>
-        <td>
-          Check
-        </td>
-        <td>
-          The request sent by the client contains:<ul><li>Type=0 and Code=1</li>
-          <li>Uri-Path option &quot;est and att&quot;</li>
-		  <li>Token = XX, set by client </li>
-		  <li>Content-format 285  </li>
-		  <li> payload with attribute names </li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          3
-        </td>
-        <td>
-          Check
-        </td>
-        <td>
-          Server sends response containing:<ul><li>Code = 2.05 (Content)</li>
-		  <li>Token = XX </li>
-          <li>Content-format option 285</li>
-          <li>Payload with certificate attributes</li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          4
-        </td>
-        <td>
-          Verify
-        </td>
-        <td>
-          Client displays the correct attribute values
-        </td>
-      </tr>
-    </table>
-	
-	<table border='1' width='100%'>
-      <tr>
-        <th colspan='4'>Interoperability Test Description</th>
-      </tr>
-      <tr>
-        <th width='15%'>Identifier:</th>
-        <td colspan='3'>
-          TD_ACE_est-coaps_09
-        </td>
-      </tr>
-      <tr>
-        <th>Objective:</th>
-        <td colspan='3'>
-          Discover EST server with coap multicast
-        </td>
-      </tr>
-      <tr>
-        <th>Configuration:</th>
-        <td colspan='3'>
-          CoAP_CFG_est-coaps
-        </td>
-      </tr>
-      <tr>
-        <th>References:</th>
-        <td colspan='3'>
-          [est-coaps] 5
-        </td>
-      </tr>
-      <tr>
-        <th>Pre-test conditions:</th>
-        <td colspan='3'>
-		  Server enabled its interface for MC address "All CoAP Nodes" address FF0X::FD
-        </td>
-      </tr>
-      <tr>
-        <th>Test Sequence:</th>
-        <td width='10 %'>Step</td>
-        <td width='15 %'>Type</td>
-        <td>Description</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          1
-        </td>
-        <td>
-          Stimulus
-        </td>
-        <td>
-          Client is requested to send a MC GET request with:<ul><li>Type = 1 (NON)</li>
-          <li>Code = 1 (GET)</li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          2
-        </td>
-        <td>
-          Check
-        </td>
-        <td>
-          The request sent by the client contains:<ul><li>Type=1 and Code=1</li>
-          <li>Uri-Path option &quot;.well-known and core&quot;</li>
-		  <li>Token = XX, set by client </li>
-		  <li>URI-query=ace.est*
-		  <li>empty payload</li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          3
-        </td>
-        <td>
-          Check
-        </td>
-        <td>
-          Server sends response containing:<ul><li>Code = 2.05 (Content)</li>
-		  <li>Token = XX </li>
-          <li>Content-format=40</li>
-          <li>Payload with est resources</li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          4
-        </td>
-        <td>
-          Verify
-        </td>
-        <td>
-          Client displays at least </est>;rt="ace.est"
-		  possibly followed by list of sub resources
-        </td>
-      </tr>
-    </table>
-	
-  </body>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 5.2.7.2 (Linux)"/>
+	<meta name="created" content="00:00:00"/>
+	<meta name="changedby" content="Michael Richardson"/>
+	<meta name="changed" content="2018-09-25T11:39:57.918388743"/>
+	<meta name="" content=""/>
+	<meta name="created" content="00:00:00">
+	<meta name="changedby" content="Michael Richardson">
+	<meta name="changed" content="2018-09-25T11:16:21.043199869">
+	<meta name="created" content="00:00:00">
+	<meta name="changedby" content="Michael Richardson">
+	<meta name="changed" content="2018-09-18T15:22:36.393980861">
+</head>
+<body lang="en-CA" dir="ltr">
+<h1>Explanation of Test Description format</h1>
+<p><br/>
+<br/>
+
+</p>
+<p>DOCUMENT VERSION 20180925-1</p>
+<p><br/>
+<br/>
+
+</p>
+<p>Pre-conditions for test cases:</p>
+<p style="margin-top: 0.42cm; page-break-after: avoid"><font face="Albany, sans-serif"><font size="4" style="font-size: 14pt">Client
+and Server have established a DTLS connection</font></font></p>
+<p>In most test cases, the pre-test conditions are that a DTLS
+connection has been established. There are four possible combinations
+(Client has certificate, no-certificate, Server has certificate, no
+certificate), but the cases where the Client has no certificate turn
+out to be negative testing. The case where the Server has no
+certificate is nonsense, so only one test case remains.</p>
+<p>Prerequiste: device comes from manufacturing, has an IDevID that
+can be validated by the server.</p>
+<h1><br/>
+<br/>
+
+</h1>
+<p style="margin-bottom: 0cm"><br/>
+
+</p>
+<p style="margin-bottom: 0cm"><br/>
+
+</p>
+<table width="100%" cellpadding="2" cellspacing="0" style="page-break-before: always">
+	<col width="38*">
+	<col width="26*">
+	<col width="38*">
+	<col width="154*">
+	<tr>
+		<td colspan="4" width="100%" style="border: 1px double #808080; padding: 0.05cm">
+			<h1 align="center">EST-COAP interoperability Test Description</h1>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Identifier:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p><strike>TD_ACE_est-dtls_1</strike></p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p><strike>Objective:</strike></p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p><strike>Perform a connection setup with a Server Certificate
+			only</strike></p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p><strike><font size="2" style="font-size: 11pt">Configuration:</font></strike></p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p><strike>CoAP_CFG_est-coaps </strike>
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p><strike>References:</strike></p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p><strike>??TBD</strike></p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p><strike>Pre-test conditions:</strike></p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm"><strike>Validate connectivity
+				with ping/ping6</strike></p>
+				<li/>
+<p><strike>Server has a certificate configured as a DTLS
+				Server Certificate</strike></p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p><strike>Test Sequence:</strike></p>
+		</th>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p><strike>Step</strike></p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p><strike>Type</strike></p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p><strike>Description</strike></p>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p><strike>1 </strike>
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p><strike>Stimulus </strike>
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p><strike>Client is requested to send a GET request with:</strike></p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm"><strike>Type = 0 (CON) </strike>
+				</p>
+				<li/>
+<p><strike>Code = 1 (GET) </strike>
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p><strike>2 </strike>
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p><strike>Check </strike>
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p><strike>The request sent by the client contains:</strike></p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm"><strike>DTLS Hello, followed
+				by DTLS negotiation of ciphers</strike></p>
+				<li/>
+<p style="margin-bottom: 0cm"><strike>DTLS version 1.0,
+				negotiated is 1.2 or 1.3</strike></p>
+				<li/>
+<p style="margin-bottom: 0cm"><strike>Type=0 and Code=1 </strike>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><strike>Uri-Path option
+				&quot;/.well-known/core&quot;</strike></p>
+				<li/>
+<p style="margin-bottom: 0cm"><strike>Token = anything</strike></p>
+				<li/>
+<p><strike>Max-Age = 1</strike></p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p><strike>3 </strike>
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p><strike>Check </strike>
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p><strike>Server sends response containing:</strike></p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm"><strike>Code = 2.05 (Content)
+				</strike>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><strike>Token = XX, set by
+				client </strike>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><strike>Content-format </strike>
+				</p>
+				<li/>
+<p><strike>Payload with certificate </strike>
+				</p>
+				<li/>
+<p><strike>Client validated certificate is in trust sstore.</strike></p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p><strike>4 </strike>
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p><strike>Verify </strike>
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p><strike>Client receives a resource discovery payload</strike></p>
+		</td>
+	</tr>
+</table>
+<p style="margin-bottom: 0cm"><a name="__DdeLink__4_1022325396"></a><br/>
+
+</p>
+<table width="100%" cellpadding="2" cellspacing="0" style="page-break-before: always">
+	<col width="38*">
+	<col width="26*">
+	<col width="38*">
+	<col width="154*">
+	<tr>
+		<td colspan="4" width="100%" style="border: 1px double #808080; padding: 0.05cm">
+			<h1 align="center">EST-COAP interoperability Test Description</h1>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Identifier:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>TD_ACE_est-dtls_2</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Objective:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Perform a connection setup with a Client Certificate and Server
+			Certificate</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p><font size="2" style="font-size: 11pt">Configuration:</font></p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>CoAP_CFG_est-coaps 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>References:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>??TBD</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Pre-test conditions:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">Validate connectivity with
+				ping/ping6</p>
+				<li/>
+<p>Server has a certificate configured as a DTLS Server
+				Certificate</p>
+				<li/>
+<p>Client has a certificate configured as a DTLS Client
+				Certificate</p>
+				<ul>
+					<li/>
+<p style="margin-bottom: 0.2cm"><font size="2" style="font-size: 10pt">The
+					client certificate already signed by CA that is trusted on the
+					server, but does not need to be the same CA as being enrolled
+					into.</font></p>
+					<li/>
+<p><font size="2" style="font-size: 10pt">(self-signed
+					certificate can be tested, but is a negative test case)</font></p>
+				</ul>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Test Sequence:</p>
+		</th>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Step</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Type</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Description</p>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>1 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Stimulus 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Client is requested to send a GET request with:</p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">Type = 0 (CON) 
+				</p>
+				<li/>
+<p>Code = 1 (GET) 
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>2 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Check 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>The request sent by the client contains:</p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">DTLS Hello, followed by DTLS
+				negotiation of ciphers</p>
+				<li/>
+<p style="margin-bottom: 0cm">DTLS version 1.0, negotiated
+				is 1.2 or 1.3</p>
+				<li/>
+<p style="margin-bottom: 0cm">Type=0 and Code=1 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Uri-Path option
+				&quot;/.well-known/core&quot;</p>
+				<li/>
+<p style="margin-bottom: 0cm">Token = anything</p>
+				<li/>
+<p>Max-Age = 1</p>
+				<li/>
+<p>Server accepts Client Certificate, validates it.</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>3 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Check 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Server sends response containing:</p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">Code = 2.05 (Content) 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Token = XX, set by client 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Content-format 
+				</p>
+				<li/>
+<p>Payload with certificate 
+				</p>
+				<li/>
+<p>Client validated certificate is in trust store.</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>4 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Verify 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Client receives a resource discovery payload</p>
+		</td>
+	</tr>
+</table>
+<p style="margin-bottom: 0cm"><a name="__DdeLink__0_1022325396"></a><br/>
+
+</p>
+<table width="100%" cellpadding="2" cellspacing="0" style="page-break-before: always">
+	<col width="38*">
+	<col width="26*">
+	<col width="38*">
+	<col width="154*">
+	<tr>
+		<td colspan="4" width="100%" style="border: 1px double #808080; padding: 0.05cm">
+			<h1 align="center">EST-COAP interoperability Test Description</h1>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Identifier:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>TD_ACE_est-coaps_01 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Objective:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Perform cacerts retrieval without block (&quot;crts&quot;)</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p><font size="2" style="font-size: 11pt">Configuration:</font></p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>CoAP_CFG_est-coaps 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>References:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>[est-coaps] 4, A.1 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Pre-test conditions:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">Client and Server have
+				established a DTLS connection 
+				</p>
+				<li/>
+<p><a name="__DdeLink__6_1022325396"></a>Server holds has a
+				(list?) of trust anchor(s), but they must fit in UDP packet (may
+				be fragmented)</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Test Sequence:</p>
+		</th>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Step</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Type</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Description</p>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>1 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Stimulus 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Client is requested to send a GET request with:</p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">Type = 0 (CON) 
+				</p>
+				<li/>
+<p>Code = 1 (GET) 
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>2 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Check 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>The request sent by the client contains:</p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">Type=0 and Code=1 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Uri-Path option &quot;est&quot;
+				and &quot;crts&quot; (aka /est/crts)</p>
+				<li/>
+<p style="margin-bottom: 0cm">Token = XX 
+				</p>
+				<li/>
+<p>Max-Age = 1 
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>3 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Check 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Server sends response containing:</p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">Code = 2.05 (Content) 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Token = XX, set by client 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Content-format option 281 
+				</p>
+				<li/>
+<p>Payload with certificate 
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>4 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Verify 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Client displays the correct certificate contents 
+			</p>
+		</td>
+	</tr>
+</table>
+<p><br/>
+<br/>
+
+</p>
+<table width="100%" cellpadding="2" cellspacing="0" style="page-break-before: always">
+	<col width="38*">
+	<col width="26*">
+	<col width="38*">
+	<col width="154*">
+	<tr>
+		<td colspan="4" width="100%" style="border: 1px double #808080; padding: 0.05cm">
+			<h1 align="center">EST-COAP interoperability Test Description</h1>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Identifier:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>TD_ACE_est-coaps_02 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Objective:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Perform cacerts retrieval with block2 (crts)</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Configuration:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>CoAP_CFG_est-coaps 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>References:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>[est-coaps] 4, A.1 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Pre-test conditions:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">Client and Server have
+				established a DTLS connection 
+				</p>
+				<li/>
+<p>Server holds has a (list?) of trust anchor(s), but may
+				take more than one datagram so that block1 is used.</p>
+				<li/>
+<p>SZX = 64 bytes</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Test Sequence:</p>
+		</th>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Step</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Type</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Description</p>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>1 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Stimulus 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Client is requested to send a GET request with:</p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">Type = 0 (CON) 
+				</p>
+				<li/>
+<p>Code = 1 (GET) 
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>2 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Check 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>The request sent by the client contains:</p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">Type=0 and Code=1 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Uri-Path option &quot;est and
+				crts&quot; 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Token = XX, set by client 
+				</p>
+				<li/>
+<p>Max-Age = 1 
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>3 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Check 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Server sends response containing:</p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">Code = 2.05 (Content) 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Token = XX 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">block2 option with value of
+				SZX determined by server 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Content-format option 281 
+				</p>
+				<li/>
+<p>Payload with certificate 
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>4 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Verify 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Client displays the correct certificate contents 
+			</p>
+		</td>
+	</tr>
+</table>
+<table width="100%" cellpadding="2" cellspacing="0" style="page-break-before: always">
+	<col width="38*">
+	<col width="26*">
+	<col width="38*">
+	<col width="154*">
+	<tr>
+		<th colspan="4" width="100%" style="border: 1px double #808080; padding: 0.05cm">
+			<p>Interoperability Test Description</p>
+		</th>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Identifier:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>TD_ACE_est-coaps_03 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Objective:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Perform simple enrolment transaction without delay (&quot;sen&quot;)</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Configuration:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>CoAP_CFG_est-coaps 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>References:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>[est-coaps] 4, A.3 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Pre-test conditions:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">Client and Server have
+				established a DTLS connection. 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Client holds a distinguished
+				name, a public key, and an optional set of attributes
+				appropriately signed with private key. 
+				</p>
+				<li/>
+<p>Server willing to generate a corresponding certificate
+				to return to client</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Test Sequence:</p>
+		</th>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Step</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Type</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Description</p>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>1 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Stimulus 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Client is requested to send a GET request with:</p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">Type = 0 (CON) 
+				</p>
+				<li/>
+<p>Code = 1 (GET) 
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>2 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Check 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>The request sent by the client contains:</p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">Type=0 and Code=1 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Uri-Path option &quot;est and
+				sen&quot; 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Token = XX , set by client 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Content-format option 286 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Max-Age = 1 
+				</p>
+				<li/>
+<p>payload is certification request of RFC 2986 
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>3 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Check 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Server sends response containing:</p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">Code = 2.01 (Created) 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Token = XX 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Content-format option 281 
+				</p>
+				<li/>
+<p>Payload with certificate 
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>4 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Verify 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Client displays the correct certificate contents 
+			</p>
+		</td>
+	</tr>
+</table>
+<p><br/>
+<br/>
+
+</p>
+<table width="100%" cellpadding="2" cellspacing="0" style="page-break-before: always">
+	<col width="38*">
+	<col width="26*">
+	<col width="38*">
+	<col width="154*">
+	<tr>
+		<td colspan="4" width="100%" style="border: 1px double #808080; padding: 0.05cm">
+			<h1 align="center">EST-COAP interoperability Test Description</h1>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Identifier:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>TD_ACE_est-coaps_04 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Objective:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Perform enrolment (&quot;sen&quot;) transaction with long delay
+						</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Configuration:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>CoAP_CFG_est-coaps 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>References:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>[est-coaps] 4, A.3 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Pre-test conditions:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">Client and Server have
+				established a DTLS connection. 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Client holds a distinguished
+				name, a public key, and an optional set of attributes
+				appropriately signed with private key. 
+				</p>
+				<li/>
+<p>Server holds a corresponding certificate to return to
+				client 
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Test Sequence:</p>
+		</th>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Step</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Type</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Description</p>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>1 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Stimulus 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Client
+			is requested to send a GET request with:</font></p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Type
+				= 0 (CON) </font>
+				</p>
+				<li/>
+<p><font size="2" style="font-size: 10pt">Code = 1 (GET) </font>
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p><br/>
+
+			</p>
+		</td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p><font size="2" style="font-size: 10pt">2 </font>
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p><font size="2" style="font-size: 10pt">Check </font>
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">The
+			request sent by the client contains:</font></p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Type=0
+				and Code=1 </font>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Uri-Path
+				option &quot;est and sen&quot; </font>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Token
+				= XX, set by client </font>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Content-format
+				option 286 </font>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Max-Age
+				= 1 </font>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">payload
+				is certification request of RFC 2986 </font>
+				</p>
+				<li/>
+<p><font size="2" style="font-size: 10pt">block1 option
+				with SZX=2 chosen by client (64 bytes)</font></p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p><br/>
+
+			</p>
+		</td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p><font size="2" style="font-size: 10pt">3 </font>
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p><font size="2" style="font-size: 10pt">Check </font>
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Server
+			sends response containing:</font></p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Code
+				= 5.03 (Server unavailable) </font>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Token
+				= XX </font>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Max-Age
+				= 120 </font>
+				</p>
+				<li/>
+<p><font size="2" style="font-size: 10pt">empty Payload </font>
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p><br/>
+
+			</p>
+		</td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p><font size="2" style="font-size: 10pt">4 </font>
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p><font size="2" style="font-size: 10pt">Check </font>
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">After
+			Max-Age time units(2 minutes), the request sent by the client
+			contains:</font></p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Type=0
+				and Code=1 </font>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Uri-Path
+				option &quot;est and sen&quot; </font>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Token
+				= YY, set by client </font>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Content-format
+				option 286 </font>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Max-Age
+				= 1 </font>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">payload
+				is certification request of RFC 2986 </font>
+				</p>
+				<li/>
+<p><font size="2" style="font-size: 10pt">block1 option
+				with SZX chosen by client </font>
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p><br/>
+
+			</p>
+		</td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p><font size="2" style="font-size: 10pt">5 </font>
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p><font size="2" style="font-size: 10pt">Check </font>
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Server
+			sends response containing:</font></p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Code
+				= 2.04 (Changed) </font>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Token
+				= YY </font>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Content-format
+				option 281 </font>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Block2
+				option with SZX filled in by server </font>
+				</p>
+				<li/>
+<p><font size="2" style="font-size: 10pt">Payload with
+				requested certificate </font>
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p><br/>
+
+			</p>
+		</td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p><font size="2" style="font-size: 10pt">6 </font>
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p><font size="2" style="font-size: 10pt">Verify </font>
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p><font size="2" style="font-size: 10pt">Client displays the
+			correct certificate contents </font>
+			</p>
+		</td>
+	</tr>
+</table>
+<p><br/>
+<br/>
+
+</p>
+<table width="100%" cellpadding="2" cellspacing="0" style="page-break-before: always">
+	<col width="38*">
+	<col width="26*">
+	<col width="38*">
+	<col width="154*">
+	<tr>
+		<td colspan="4" width="100%" style="border: 1px double #808080; padding: 0.05cm">
+			<h1 align="center">EST-COAP interoperability Test Description</h1>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Identifier:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>TD_ACE_est-coaps_05 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Objective:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Perform simple re-enrol (&quot;sren&quot;) transaction without
+			delay 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Configuration:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>CoAP_CFG_est-coaps 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>References:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>[est-coaps] 4, A.3 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Pre-test conditions:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm"><a name="__DdeLink__8_1022325396"></a>
+				Client and Server have established a DTLS connection using
+				previously enroled client certificate</p>
+				<li/>
+<p style="margin-bottom: 0cm">Client holds a distinguished
+				name, a public key, and an optional set of attributes
+				appropriately signed with private key. 
+				</p>
+				<li/>
+<p>Server holds a corresponding certificate to return to
+				client 
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Test Sequence:</p>
+		</th>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Step</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Type</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Description</p>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>1 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Stimulus 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Client is requested to send a GET request with:</p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">Type = 0 (CON) 
+				</p>
+				<li/>
+<p>Code = 1 (GET) 
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>2 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Check 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>The request sent by the client contains:</p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">Type=0 and Code=1 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Uri-Path option &quot;est and
+				sren&quot; 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Token = XX, set by client 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Content-format option 286 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Max-Age = 1 
+				</p>
+				<li/>
+<p>payload is certification request of RFC 2986 
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>3 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Check 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Server sends response containing:</p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">Code = 2.01 (Created) 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Token = XX 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Content-format option 281 
+				</p>
+				<li/>
+<p>Payload with certificate 
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>4 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Verify 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Client displays the correct certificate contents 
+			</p>
+		</td>
+	</tr>
+</table>
+<p><br/>
+<br/>
+
+</p>
+<table width="100%" cellpadding="2" cellspacing="0" style="page-break-before: always">
+	<col width="38*">
+	<col width="26*">
+	<col width="38*">
+	<col width="154*">
+	<tr>
+		<td colspan="4" width="100%" style="border: 1px double #808080; padding: 0.05cm">
+			<h1 align="center">EST-COAP interoperability Test Description</h1>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Identifier:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>TD_ACE_est-coaps_06 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Objective:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Perform simple enrolment (&quot;sren&quot;) transaction with
+			long delay 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Configuration:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>CoAP_CFG_est-coaps 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>References:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>[est-coaps] 4, A.3 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Pre-test conditions:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">Client and Server have
+				established a DTLS connection using previously enroled client
+				certificate</p>
+				<li/>
+<p style="margin-bottom: 0cm">Client holds a distinguished
+				name, a public key, and an optional set of attributes
+				appropriately signed with private key. 
+				</p>
+				<li/>
+<p>Server holds a corresponding certificate to return to
+				client 
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Test Sequence:</p>
+		</th>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Step</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Type</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Description</p>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>1 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Stimulus 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Client
+			is requested to send a GET request with:</font></p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Type
+				= 0 (CON) </font>
+				</p>
+				<li/>
+<p><font size="2" style="font-size: 10pt">Code = 1 (GET) </font>
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>2 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Check 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">The
+			request sent by the client contains:</font></p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Type=0
+				and Code=1 </font>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Uri-Path
+				option &quot;est and sren&quot; </font>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Token
+				= XX, set by client </font>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Content-format
+				option 286 </font>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Max-Age
+				= 1 </font>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">payload
+				is certification request of RFC 2986 </font>
+				</p>
+				<li/>
+<p><font size="2" style="font-size: 10pt">block1 option
+				with SZX=2 chosen by client (64 bytes)</font></p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>3 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Check 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Server
+			sends response containing:</font></p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Code
+				= 5.03 (Server unavailable) </font>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Token
+				= XX </font>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Max-Age
+				= 120 </font>
+				</p>
+				<li/>
+<p><font size="2" style="font-size: 10pt">empty Payload </font>
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>4 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Check 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">After
+			Max-Age time units The request sent by the client contains:</font></p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Type=0
+				and Code=1 </font>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Uri-Path
+				option &quot;est and sren&quot; </font>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Token
+				= YY, set by client </font>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Content-format
+				option 286 </font>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Max-Age
+				= 1 </font>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">payload
+				is certification request of RFC 2986 </font>
+				</p>
+				<li/>
+<p><font size="2" style="font-size: 10pt">block1 option
+				with SZX chosen by client </font>
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>5 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Check 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Server
+			sends response containing:</font></p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Code
+				= 2.04 (Changed) </font>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Token
+				= YY </font>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Content-format
+				option 281 </font>
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm"><font size="2" style="font-size: 10pt">Block2
+				option with SZX filled in by server </font>
+				</p>
+				<li/>
+<p><font size="2" style="font-size: 10pt">Payload with
+				requested certificate </font>
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>6 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Verify 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p><font size="2" style="font-size: 10pt">Client displays the
+			correct certificate contents </font>
+			</p>
+		</td>
+	</tr>
+</table>
+<p><br/>
+<br/>
+
+</p>
+<table width="100%" cellpadding="2" cellspacing="0" style="page-break-before: always">
+	<col width="38*">
+	<col width="26*">
+	<col width="38*">
+	<col width="154*">
+	<tr>
+		<th colspan="4" width="100%" style="border: 1px double #808080; padding: 0.05cm">
+			<h1 align="center">EST-COAP interoperability Test Description</h1>
+			<p align="center">Optional functionality</p>
+		</th>
+	</tr>
+	<tr>
+		<th colspan="4" width="100%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>USE number 287 for content-format application/multipart-core</p>
+		</th>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Identifier:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>TD_ACE_est-coaps_07 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Objective:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Perform server generated key (&quot;skg&quot;) transaction
+			without block 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Configuration:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>CoAP_CFG_est-coaps 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>References:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>[est-coaps] 4, A.1 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Pre-test conditions:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">Client and Server have
+				established a DTLS connection. 
+				</p>
+				<li/>
+<p>Server provides a random number generation service 
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Test Sequence:</p>
+		</th>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Step</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Type</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Description</p>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>1 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Stimulus 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Client is requested to send a GET request with:</p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">Type = 0 (CON) 
+				</p>
+				<li/>
+<p>Code = 1 (GET) 
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>2 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Check 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>The request sent by the client contains:</p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">Type=0 and Code=1 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Uri-Path option &quot;est and
+				skg&quot; 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Token = XX 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Content-format 286 
+				</p>
+				<li/>
+<p>Max-Age = 120 
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>3 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Check 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Server sends response containing:</p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">Code = 2.01 (Content) 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Token = XX 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Content-format option 287 
+				</p>
+				<li/>
+<p>Payload with preamble and key</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>4 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Verify 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Client displays the correct key value 
+			</p>
+		</td>
+	</tr>
+</table>
+<p><br/>
+<br/>
+
+</p>
+<table width="100%" cellpadding="2" cellspacing="0" style="page-break-before: always">
+	<col width="38*">
+	<col width="26*">
+	<col width="38*">
+	<col width="154*">
+	<tr>
+		<th colspan="4" width="100%" style="border: 1px double #808080; padding: 0.05cm">
+			<h1 align="center">EST-COAP interoperability Test Description</h1>
+			<p align="center">Optional functionality</p>
+		</th>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Identifier:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>TD_ACE_est-coaps_08 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Objective:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Perform CSR attribute (&quot;att&quot;) transaction 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Configuration:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>CoAP_CFG_est-coaps 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>References:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>[est-coaps] 4, A.1 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Pre-test conditions:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">Client and Server have
+				established a DTLS connection. 
+				</p>
+				<li/>
+<p>Server has a list of desired attributes (including at
+				least subjectAltName...? extension? CN= values, notAfter date)</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Test Sequence:</p>
+		</th>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Step</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Type</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Description</p>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>1 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Stimulus 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Client is requested to send a GET request with:</p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">Type = 0 (CON) 
+				</p>
+				<li/>
+<p>Code = 1 (GET) 
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>2 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Check 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>The request sent by the client contains:</p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">Type=0 and Code=1 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Uri-Path option &quot;est and
+				att&quot; 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Token = XX, set by client 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Content-format 285 
+				</p>
+				<li/>
+<p>payload with attribute names 
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>3 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Check 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Server sends response containing:</p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">Code = 2.05 (Content) 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Token = XX 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Content-format option 285 
+				</p>
+				<li/>
+<p>Payload with certificate attributes 
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>4 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Verify 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Client displays the correct attribute values 
+			</p>
+		</td>
+	</tr>
+</table>
+<table width="100%" cellpadding="2" cellspacing="0" style="page-break-before: always">
+	<col width="38*">
+	<col width="26*">
+	<col width="38*">
+	<col width="154*">
+	<tr>
+		<th colspan="4" width="100%" style="border: 1px double #808080; padding: 0.05cm">
+			<h1 align="center">EST-COAP interoperability Test Description</h1>
+			<p align="center">Optional functionality</p>
+		</th>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Identifier:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>TD_ACE_est-coaps_09 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Objective:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Discover EST server with coap multicast (can not be done over
+			internet!)</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Configuration:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>CoAP_CFG_est-coaps 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>References:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>[est-coaps] 5 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Pre-test conditions:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Server enabled its interface for MC address &quot;All CoAP
+			Nodes&quot; address FF0X::FD 
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Test Sequence:</p>
+		</th>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Step</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Type</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Description</p>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>1 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Stimulus 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Client is requested to send a MC GET request with:</p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">Type = 1 (NON) 
+				</p>
+				<li/>
+<p>Code = 1 (GET) 
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>2 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Check 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>The request sent by the client contains:</p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">Type=1 and Code=1 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Uri-Path option &quot;.well-known
+				and core&quot; 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Token = XX, set by client 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">URI-query=ace.est* 
+				</p>
+				<li/>
+<p>empty payload 
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>3 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Check 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Server sends response containing:</p>
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">Code = 2.05 (Content) 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Token = XX 
+				</p>
+				<li/>
+<p style="margin-bottom: 0cm">Content-format=40 
+				</p>
+				<li/>
+<p>Payload with est resources 
+				</p>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
+		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>4 
+			</p>
+		</td>
+		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Verify 
+			</p>
+		</td>
+		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p>Client displays at least ;rt=&quot;ace.est&quot; possibly
+			followed by list of sub resources 
+			</p>
+		</td>
+	</tr>
+</table>
+<p><br/>
+<br/>
+
+</p>
+</body>
 </html>

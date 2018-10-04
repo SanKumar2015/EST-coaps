@@ -4,9 +4,9 @@
 <!ENTITY RFC2119 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
 <!ENTITY RFC2460 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2460.xml">
 <!ENTITY RFC4021 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4021.xml">
-<!ENTITY RFC4492 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4492.xml">
+<!ENTITY RFC8422 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8422.xml">
 <!ENTITY RFC4944 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4944.xml">
-<!ENTITY RFC5246 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5246.xml">
+<!-- <!ENTITY RFC5246 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5246.xml"> --> 
 <!ENTITY RFC5273 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5273.xml">
 <!ENTITY RFC5272 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5272.xml">
 <!ENTITY RFC5705 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5705.xml">
@@ -26,10 +26,10 @@
 <!ENTITY RFC7959 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7959.xml">
 <!ENTITY RFC4919 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4919.xml">
 <!ENTITY RFC5929 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5929.xml">
-<!ENTITY RFC8075 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8075.xml">
 <!ENTITY RFC7525 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7525.xml">
+<!ENTITY RFC8075 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8075.xml">
+<!ENTITY RFC8446 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8446.xml">
 <!ENTITY I-D.ietf-anima-bootstrapping-keyinfra SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-anima-bootstrapping-keyinfra.xml">
-<!ENTITY I-D.ietf-tls-tls13 SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-tls-tls13.xml">
 <!ENTITY I-D.rescorla-tls-dtls-connection-id SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.rescorla-tls-dtls-connection-id.xml">
 <!ENTITY I-D.ietf-core-multipart-ct SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-core-multipart-ct.xml">
 <!ENTITY I-D.ietf-lamps-rfc5751-bis SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-lamps-rfc5751-bis.xml">
@@ -125,6 +125,8 @@
     <list style="empty">
         <t>added resource type values for IANA</t>
         <t>added list of compulsory to implement and optional functions. </t>
+		<t>Fixed issues pointed out by the idnits tool.</t>
+		<t>Updated COAP response codes section with more mappings between EST HTTP codes and EST-coaps COAP codes.</t>
 		<t>Minor updates to the MTI EST Functions section.</t>
 		<t>Moved Change Log section higher.</t>
     </list>
@@ -184,7 +186,7 @@
    Application Protocol (CoAP) since some Internet of Things (IoT) devices 
    use CoAP instead of HTTP. Therefore, this specification utilizes DTLS 
    <xref target="RFC6347"/>, CoAP <xref target="RFC7252"/>, and UDP instead of 
-   TLS <xref target="RFC5246"/>, HTTP <xref target="RFC7230"/> and TCP. </t> 
+   TLS <xref target="RFC8446"/>, HTTP <xref target="RFC7230"/> and TCP. </t> 
    
    <t>EST messages may be relatively large and for this reason this
    document also uses CoAP Block-Wise Transfer <xref target="RFC7959"/> to 
@@ -234,7 +236,7 @@
       mandatory cipher suite for DTLS in EST-coaps is
       TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 defined in <xref target="RFC7251"/>,
       and the curve secp256r1 MUST  
-      be supported <xref target="RFC4492"/>; this curve is equivalent to the
+      be supported <xref target="RFC8422"/>; this curve is equivalent to the
       NIST P-256 curve.   Crypto agility is important, and the
       recommendations in <xref target="RFC7925" /> section 4.4 and any
       updates to RFC7925 concerning Curve25519 and other CFRG curves also apply.
@@ -242,7 +244,7 @@
 	  
 	<t> 
 	  DTLS1.2 implementations MUST use the Supported Elliptic Curves and Supported
-      Point Formats Extensions <xref target="RFC4492"/>. Uncompressed point
+      Point Formats Extensions <xref target="RFC8422"/>. Uncompressed point
       format MUST also be supported. <xref target="RFC6090"/> can be used as
 	  summary of the ECC algorithms. DTLS 1.3 implementations differ from DTLS 1.2
       because they do not support point format negotiation in favor of a single
@@ -361,8 +363,11 @@ This specification contains a set of required-to-implement functions, optional f
     </section> <!-- Message bindings -->
 
     <section anchor="error" title="CoAP response codes">
-      <t>Section 5.9 of <xref target="RFC7252"/> specifies the mapping of HTTP response codes to CoAP response codes. Every time the HTTP response code 200 is specified in <xref target="RFC7030"/> in response to a GET request, in EST-coaps the equivalent CoAP response code 2.05 or 2.03 MUST be used. Similarly, 2.01, 2.02 or 2.04 MUST be used in response to POST EST requests. Response code HTTP 202 has no equivalent in CoAP. In <xref target="pending"/> it is specified how EST requests over CoAP handle delayed messages.</t>
-      <t>All other HTTP 2xx response codes are not used by EST. For the following HTTP 4xx error codes that may occur: 400, 401, 403, 404, 405, 406, 412, 413, 415; the equivalent CoAP response code for EST-coaps is 4.xx. For the HTTP 5xx error codes: 500, 501, 502, 503, 504 the equivalent CoAP response code is 5.xx.</t>
+      <t>Section 5.9 of <xref target="RFC7252"/> specifies the mapping of HTTP response codes to CoAP response codes. Every time the HTTP response code 200 is specified in <xref target="RFC7030"/> in response to a GET request, in EST-coaps the equivalent CoAP response code 2.05 or 2.03 MUST be used. Similarly, 2.01, 2.02 or 2.04 MUST be used in response to POST EST requests. Response code HTTP 202 has no equivalent in CoAP. <xref target="pending"/> specifies how EST requests over CoAP handle delayed messages.</t>
+	  
+	  <t>Other HTTP response codes EST makes use of, are 204 and 404 when a resource is not available for the client. The equivalent 
+	  COAP error code to use in an EST-coaps response is 4.04. Additionally, EST's 401 error translates to 4.01 in EST-coaps. Other HTTP 
+	  error messages commonly used in EST are 400, 423 and 503. Their equivalent COAP errors are 4.00, 4.03 and 5.03 respectively. </t>
     </section> <!-- CoAP response codes -->
 
     <section anchor="pending" title="Delayed Responses">
@@ -511,15 +516,15 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 
       <t>The individual EST-coaps well-known server URIs differ from the EST URI by replacing the scheme https by coaps and by specifying shorter resource path names: </t>
 <figure align="left"><artwork><![CDATA[
-coaps://www.example.com:<port>/.well-known/est/<short-est> 
-coaps://www.example.com:<port>/.well-known/est/ArbitraryLabel/<short-est> 
+coaps://example.com:<port>/.well-known/est/<short-est> 
+coaps://example.com:<port>/.well-known/est/ArbitraryLabel/<short-est>
 ]]></artwork></figure>
       <t>The ArbitraryLabel Path-Segment, if used, SHOULD be of the shortest length possible (See sections 3.1 and 3.2.2 of <xref target="RFC7030"/>. </t>
 
 	  <t>The optional additional EST-coaps server URIs, obtained through discovery of the EST root resource(s) as shown below, are of the form: </t>
 <figure align="left"><artwork><![CDATA[
-coaps://www.example.com:<port>/<est-root-resource>/<short-est>
-coaps://www.example.com:<port>/<est-root-resource>/ArbitraryLabel/<short-est>
+coaps://example.com:<port>/<root-resource>/<short-est>
+coaps://example.com:<port>/<root-resource>/ArbitraryLabel/<short-est>
 ]]></artwork></figure>
 
       <t>Figure 5 in section 3.2.2 of <xref target="RFC7030"/> enumerates the operations and corresponding paths which are supported by EST. <xref target="est-uri"/> provides the mapping from the EST URI path to the shorter EST-coaps URI path.</t>
@@ -572,7 +577,7 @@ HMAC(finished_key,
     * Only included if present.
 ]]></artwork></figure> 
    <t>MUST be computed as if each handshake message had been sent as a single fragment following the algorithm described in
-   4.4.4 of <xref target="I-D.ietf-tls-tls13"/>. </t>
+   4.4.4 of <xref target="RFC8446"/>. </t>
       <t>In a constrained CoAP environment, endpoints can't afford to establish a DTLS connection for every EST transaction. Authenticating and negotiating DTLS keys requires resources on low-end endpoints and consumes valuable bandwidth. The DTLS connection SHOULD remain open for persistent EST connections. For example, an EST cacerts request that is followed by a simpleenroll request can use the same authenticated DTLS connection. Given that after a successful enrollment, it is more likely that a new EST transaction will take place after a significant amount of time, the DTLS connections SHOULD only be kept alive for EST messages that are relatively close to each other. In some cases, such as NAT rebinding, keeping the state of a connection is not possible when devices sleep for extended periods of time. In such occasions, <xref target="I-D.rescorla-tls-dtls-connection-id"/> negotiates a connection ID that can eliminate the need for new handshake and its additional cost. </t>
   </section> <!-- Transport protocol -->
 
@@ -745,15 +750,15 @@ HMAC(finished_key,
     &RFC7252;
     &RFC7959;
     &RFC8075;
-    &I-D.ietf-tls-tls13;
+	&RFC8446;
     &I-D.ietf-core-multipart-ct;
 
   </references>
   <references title="Informative References">
     &RFC0791;
-    &RFC4492;
+    &RFC8422;
     <!-- &RFC4944; -->
-    &RFC5246;
+    <!-- &RFC5246; --> 
     &RFC5273;
     &RFC5705;
     &RFC5958;

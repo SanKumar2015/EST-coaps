@@ -5,7 +5,7 @@
 ACE                                                      P. van der Stok
 Internet-Draft                                                Consultant
 Intended status: Standards Track                           P. Kampanakis
-Expires: March 29, 2019                                    Cisco Systems
+Expires: April 7, 2019                                     Cisco Systems
                                                                 S. Kumar
                                                Philips Lighting Research
                                                            M. Richardson
@@ -14,7 +14,7 @@ Expires: March 29, 2019                                    Cisco Systems
                                                              Nexus Group
                                                                  S. Raza
                                                                RISE SICS
-                                                      September 25, 2018
+                                                         October 4, 2018
 
 
                     EST over secure CoAP (EST-coaps)
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on March 29, 2019.
+   This Internet-Draft will expire on April 7, 2019.
 
 
 
@@ -53,9 +53,9 @@ Status of This Memo
 
 
 
-van der Stok, et al.     Expires March 29, 2019                 [Page 1]
+van der Stok, et al.      Expires April 7, 2019                 [Page 1]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
 Copyright Notice
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-van der Stok, et al.     Expires March 29, 2019                 [Page 2]
+van der Stok, et al.      Expires April 7, 2019                 [Page 2]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
      A.3.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  31
@@ -130,6 +130,11 @@ Internet-Draft                  EST-coaps                 September 2018
       added resource type values for IANA
 
       added list of compulsory to implement and optional functions.
+
+      Fixed issues pointed out by the idnits tool.
+
+      Updated COAP response codes section with more mappings between EST
+      HTTP codes and EST-coaps COAP codes.
 
       Minor updates to the MTI EST Functions section.
 
@@ -158,17 +163,16 @@ Internet-Draft                  EST-coaps                 September 2018
 
       Concluded content-format specification using multipart-ct draft
 
+
+
+van der Stok, et al.      Expires April 7, 2019                 [Page 3]
+
+Internet-Draft                  EST-coaps                   October 2018
+
+
       examples updated
 
    -01:
-
-
-
-
-van der Stok, et al.     Expires March 29, 2019                 [Page 3]
-
-Internet-Draft                  EST-coaps                 September 2018
-
 
       Editorials done.
 
@@ -206,7 +210,7 @@ Internet-Draft                  EST-coaps                 September 2018
    Constrained Application Protocol (CoAP) since some Internet of Things
    (IoT) devices use CoAP instead of HTTP.  Therefore, this
    specification utilizes DTLS [RFC6347], CoAP [RFC7252], and UDP
-   instead of TLS [RFC5246], HTTP [RFC7230] and TCP.
+   instead of TLS [RFC8446], HTTP [RFC7230] and TCP.
 
    EST messages may be relatively large and for this reason this
    document also uses CoAP Block-Wise Transfer [RFC7959] to offer a
@@ -214,17 +218,16 @@ Internet-Draft                  EST-coaps                 September 2018
 
    This specification also profiles the use of EST to only support
    certificate-based client Authentication.  HTTP Basic or Digest
+
+
+
+van der Stok, et al.      Expires April 7, 2019                 [Page 4]
+
+Internet-Draft                  EST-coaps                   October 2018
+
+
    authentication (as described in Section 3.2.3 of [RFC7030] are not
    supported.
-
-
-
-
-
-van der Stok, et al.     Expires March 29, 2019                 [Page 4]
-
-Internet-Draft                  EST-coaps                 September 2018
-
 
 3.  Terminology
 
@@ -251,13 +254,13 @@ Internet-Draft                  EST-coaps                 September 2018
    As per [RFC7925] section 3.3 and section 4.4, the mandatory cipher
    suite for DTLS in EST-coaps is TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8
    defined in [RFC7251], and the curve secp256r1 MUST be supported
-   [RFC4492]; this curve is equivalent to the NIST P-256 curve.  Crypto
+   [RFC8422]; this curve is equivalent to the NIST P-256 curve.  Crypto
    agility is important, and the recommendations in [RFC7925] section
    4.4 and any updates to RFC7925 concerning Curve25519 and other CFRG
    curves also apply.
 
    DTLS1.2 implementations MUST use the Supported Elliptic Curves and
-   Supported Point Formats Extensions [RFC4492].  Uncompressed point
+   Supported Point Formats Extensions [RFC8422].  Uncompressed point
    format MUST also be supported.  [RFC6090] can be used as summary of
    the ECC algorithms.  DTLS 1.3 implementations differ from DTLS 1.2
    because they do not support point format negotiation in favor of a
@@ -274,12 +277,9 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-
-
-
-van der Stok, et al.     Expires March 29, 2019                 [Page 5]
+van der Stok, et al.      Expires April 7, 2019                 [Page 5]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
    o  a previously issued client certificate (e.g., an existing
@@ -333,9 +333,9 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 29, 2019                 [Page 6]
+van der Stok, et al.      Expires April 7, 2019                 [Page 6]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
 5.1.  Mandatory/optional EST Functions
@@ -389,9 +389,9 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 29, 2019                 [Page 7]
+van der Stok, et al.      Expires April 7, 2019                 [Page 7]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
    payload.  The content formats specification in Section 5.2.1
@@ -445,9 +445,9 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 29, 2019                 [Page 8]
+van der Stok, et al.      Expires April 7, 2019                 [Page 8]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
 5.4.  CoAP response codes
@@ -457,14 +457,15 @@ Internet-Draft                  EST-coaps                 September 2018
    specified in [RFC7030] in response to a GET request, in EST-coaps the
    equivalent CoAP response code 2.05 or 2.03 MUST be used.  Similarly,
    2.01, 2.02 or 2.04 MUST be used in response to POST EST requests.
-   Response code HTTP 202 has no equivalent in CoAP.  In Section 5.5 it
-   is specified how EST requests over CoAP handle delayed messages.
+   Response code HTTP 202 has no equivalent in CoAP.  Section 5.5
+   specifies how EST requests over CoAP handle delayed messages.
 
-   All other HTTP 2xx response codes are not used by EST.  For the
-   following HTTP 4xx error codes that may occur: 400, 401, 403, 404,
-   405, 406, 412, 413, 415; the equivalent CoAP response code for EST-
-   coaps is 4.xx.  For the HTTP 5xx error codes: 500, 501, 502, 503, 504
-   the equivalent CoAP response code is 5.xx.
+   Other HTTP response codes EST makes use of, are 204 and 404 when a
+   resource is not available for the client.  The equivalent COAP error
+   code to use in an EST-coaps response is 4.04.  Additionally, EST's
+   401 error translates to 4.01 in EST-coaps.  Other HTTP error messages
+   commonly used in EST are 400, 423 and 503.  Their equivalent COAP
+   errors are 4.00, 4.03 and 5.03 respectively.
 
 5.5.  Delayed Responses
 
@@ -500,10 +501,9 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-
-van der Stok, et al.     Expires March 29, 2019                 [Page 9]
+van der Stok, et al.      Expires April 7, 2019                 [Page 9]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
    POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
@@ -557,9 +557,9 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 29, 2019                [Page 10]
+van der Stok, et al.      Expires April 7, 2019                [Page 10]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
    POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
@@ -613,9 +613,9 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 29, 2019                [Page 11]
+van der Stok, et al.      Expires April 7, 2019                [Page 11]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
    the certificate which is transferred back to the client in the
@@ -669,9 +669,9 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 29, 2019                [Page 12]
+van der Stok, et al.      Expires April 7, 2019                [Page 12]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
    1280 for IPv6 or 60-80 bytes for 6LoWPAN [RFC4919] as explained in
@@ -725,9 +725,9 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 29, 2019                [Page 13]
+van der Stok, et al.      Expires April 7, 2019                [Page 13]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
    known/core" including a resource type (RT) parameter with the value
@@ -740,8 +740,8 @@ Internet-Draft                  EST-coaps                 September 2018
    URI by replacing the scheme https by coaps and by specifying shorter
    resource path names:
 
-coaps://www.example.com:<port>/.well-known/est/<short-est>
-coaps://www.example.com:<port>/.well-known/est/ArbitraryLabel/<short-est>
+   coaps://example.com:<port>/.well-known/est/<short-est>
+   coaps://example.com:<port>/.well-known/est/ArbitraryLabel/<short-est>
 
    The ArbitraryLabel Path-Segment, if used, SHOULD be of the shortest
    length possible (See sections 3.1 and 3.2.2 of [RFC7030].
@@ -750,8 +750,8 @@ coaps://www.example.com:<port>/.well-known/est/ArbitraryLabel/<short-est>
    discovery of the EST root resource(s) as shown below, are of the
    form:
 
-coaps://www.example.com:<port>/<est-root-resource>/<short-est>
-coaps://www.example.com:<port>/<est-root-resource>/ArbitraryLabel/<short-est>
+   coaps://example.com:<port>/<root-resource>/<short-est>
+   coaps://example.com:<port>/<root-resource>/ArbitraryLabel/<short-est>
 
    Figure 5 in section 3.2.2 of [RFC7030] enumerates the operations and
    corresponding paths which are supported by EST.  Table 2 provides the
@@ -781,19 +781,19 @@ coaps://www.example.com:<port>/<est-root-resource>/ArbitraryLabel/<short-est>
 
 
 
-van der Stok, et al.     Expires March 29, 2019                [Page 14]
+van der Stok, et al.      Expires April 7, 2019                [Page 14]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
      REQ: GET /.well-known/core?rt=ace.est*
 
      RES: 2.05 Content
-   </est>; rt="ace.est"
-   </est/crts>;rt="ace.est.crts";ct=281
-   </est/sen>;rt="ace.est.sen"ct=281 286
-   </est/sren>;rt="ace.est.sren"ct=281 286
-   </est/att>;rt="ace.est.att"ct=285
+   </est>; rt="ace.est",
+   </est/crts>;rt="ace.est.crts";ct=281,
+   </est/sen>;rt="ace.est.sen"ct=281 286,
+   </est/sren>;rt="ace.est.sren"ct=281 286,
+   </est/att>;rt="ace.est.att"ct=285,
    </est/skg>;rt="ace.est.skg"ct=280 286 TBD8
 
    The first line of the discovery response MUST be returned.  The five
@@ -837,9 +837,9 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 29, 2019                [Page 15]
+van der Stok, et al.      Expires April 7, 2019                [Page 15]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
    the first "Finished" message in the (D)TLS handshake between server
@@ -868,7 +868,7 @@ Internet-Draft                  EST-coaps                 September 2018
 
    MUST be computed as if each handshake message had been sent as a
    single fragment following the algorithm described in 4.4.4 of
-   [I-D.ietf-tls-tls13].
+   [RFC8446].
 
    In a constrained CoAP environment, endpoints can't afford to
    establish a DTLS connection for every EST transaction.
@@ -893,9 +893,9 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 29, 2019                [Page 16]
+van der Stok, et al.      Expires April 7, 2019                [Page 16]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
 8.  HTTPS-CoAPS Registrar
@@ -949,9 +949,9 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 29, 2019                [Page 17]
+van der Stok, et al.      Expires April 7, 2019                [Page 17]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
    One possible use-case, shown in one figure below, is expected to be
@@ -1005,9 +1005,9 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 29, 2019                [Page 18]
+van der Stok, et al.      Expires April 7, 2019                [Page 18]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
             ACK_TIMEOUT       | 2 seconds     |
@@ -1061,9 +1061,9 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 29, 2019                [Page 19]
+van der Stok, et al.      Expires April 7, 2019                [Page 19]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
 10.  IANA Considerations
@@ -1117,9 +1117,9 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 29, 2019                [Page 20]
+van der Stok, et al.      Expires April 7, 2019                [Page 20]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
    o  rt="ace.est.att".  This resource depicts the support of EST CSR
@@ -1173,9 +1173,9 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 29, 2019                [Page 21]
+van der Stok, et al.      Expires April 7, 2019                [Page 21]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
    Regarding the Certificate Signing Request (CSR), an adversary could
@@ -1229,9 +1229,9 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 29, 2019                [Page 22]
+van der Stok, et al.      Expires April 7, 2019                [Page 22]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
    Constructive comments were received from Benjamin Kaduk, Eliot Lear,
@@ -1251,11 +1251,6 @@ Internet-Draft                  EST-coaps                 September 2018
               Multipurpose Internet Mail Extensions (S/MIME) Version 4.0
               Message Specification", draft-ietf-lamps-rfc5751-bis-12
               (work in progress), September 2018.
-
-   [I-D.ietf-tls-tls13]
-              Rescorla, E., "The Transport Layer Security (TLS) Protocol
-              Version 1.3", draft-ietf-tls-tls13-28 (work in progress),
-              March 2018.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1283,16 +1278,17 @@ Internet-Draft                  EST-coaps                 September 2018
               DOI 10.17487/RFC7030, October 2013,
               <https://www.rfc-editor.org/info/rfc7030>.
 
-
-
-van der Stok, et al.     Expires March 29, 2019                [Page 23]
-
-Internet-Draft                  EST-coaps                 September 2018
-
-
    [RFC7049]  Bormann, C. and P. Hoffman, "Concise Binary Object
               Representation (CBOR)", RFC 7049, DOI 10.17487/RFC7049,
               October 2013, <https://www.rfc-editor.org/info/rfc7049>.
+
+
+
+
+van der Stok, et al.      Expires April 7, 2019                [Page 23]
+
+Internet-Draft                  EST-coaps                   October 2018
+
 
    [RFC7252]  Shelby, Z., Hartke, K., and C. Bormann, "The Constrained
               Application Protocol (CoAP)", RFC 7252,
@@ -1310,6 +1306,10 @@ Internet-Draft                  EST-coaps                 September 2018
               DOI 10.17487/RFC8075, February 2017,
               <https://www.rfc-editor.org/info/rfc8075>.
 
+   [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
+              Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
+              <https://www.rfc-editor.org/info/rfc8446>.
+
 13.2.  Informative References
 
    [I-D.rescorla-tls-dtls-connection-id]
@@ -1322,29 +1322,11 @@ Internet-Draft                  EST-coaps                 September 2018
               DOI 10.17487/RFC0791, September 1981,
               <https://www.rfc-editor.org/info/rfc791>.
 
-   [RFC4492]  Blake-Wilson, S., Bolyard, N., Gupta, V., Hawk, C., and B.
-              Moeller, "Elliptic Curve Cryptography (ECC) Cipher Suites
-              for Transport Layer Security (TLS)", RFC 4492,
-              DOI 10.17487/RFC4492, May 2006,
-              <https://www.rfc-editor.org/info/rfc4492>.
-
    [RFC4919]  Kushalnagar, N., Montenegro, G., and C. Schumacher, "IPv6
               over Low-Power Wireless Personal Area Networks (6LoWPANs):
               Overview, Assumptions, Problem Statement, and Goals",
               RFC 4919, DOI 10.17487/RFC4919, August 2007,
               <https://www.rfc-editor.org/info/rfc4919>.
-
-   [RFC5246]  Dierks, T. and E. Rescorla, "The Transport Layer Security
-              (TLS) Protocol Version 1.2", RFC 5246,
-              DOI 10.17487/RFC5246, August 2008,
-              <https://www.rfc-editor.org/info/rfc5246>.
-
-
-
-van der Stok, et al.     Expires March 29, 2019                [Page 24]
-
-Internet-Draft                  EST-coaps                 September 2018
-
 
    [RFC5273]  Schaad, J. and M. Myers, "Certificate Management over CMS
               (CMC): Transport Protocols", RFC 5273,
@@ -1354,6 +1336,15 @@ Internet-Draft                  EST-coaps                 September 2018
    [RFC5705]  Rescorla, E., "Keying Material Exporters for Transport
               Layer Security (TLS)", RFC 5705, DOI 10.17487/RFC5705,
               March 2010, <https://www.rfc-editor.org/info/rfc5705>.
+
+
+
+
+
+van der Stok, et al.      Expires April 7, 2019                [Page 24]
+
+Internet-Draft                  EST-coaps                   October 2018
+
 
    [RFC5929]  Altman, J., Williams, N., and L. Zhu, "Channel Bindings
               for TLS", RFC 5929, DOI 10.17487/RFC5929, July 2010,
@@ -1393,20 +1384,29 @@ Internet-Draft                  EST-coaps                 September 2018
               (DTLS)", BCP 195, RFC 7525, DOI 10.17487/RFC7525, May
               2015, <https://www.rfc-editor.org/info/rfc7525>.
 
-
-
-
-
-van der Stok, et al.     Expires March 29, 2019                [Page 25]
-
-Internet-Draft                  EST-coaps                 September 2018
-
-
    [RFC7925]  Tschofenig, H., Ed. and T. Fossati, "Transport Layer
               Security (TLS) / Datagram Transport Layer Security (DTLS)
               Profiles for the Internet of Things", RFC 7925,
               DOI 10.17487/RFC7925, July 2016,
               <https://www.rfc-editor.org/info/rfc7925>.
+
+
+
+
+
+
+
+
+van der Stok, et al.      Expires April 7, 2019                [Page 25]
+
+Internet-Draft                  EST-coaps                   October 2018
+
+
+   [RFC8422]  Nir, Y., Josefsson, S., and M. Pegourie-Gonnard, "Elliptic
+              Curve Cryptography (ECC) Cipher Suites for Transport Layer
+              Security (TLS) Versions 1.2 and Earlier", RFC 8422,
+              DOI 10.17487/RFC8422, August 2018,
+              <https://www.rfc-editor.org/info/rfc8422>.
 
 Appendix A.  EST messages to EST-coaps
 
@@ -1453,9 +1453,9 @@ A.1.  cacerts
 
 
 
-van der Stok, et al.     Expires March 29, 2019                [Page 26]
+van der Stok, et al.      Expires April 7, 2019                [Page 26]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
      Ver = 1
@@ -1509,9 +1509,9 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 29, 2019                [Page 27]
+van der Stok, et al.      Expires April 7, 2019                [Page 27]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
    1b31193017060355040313106573744578616d706c654341204f774f301e170d313
@@ -1565,9 +1565,9 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 29, 2019                [Page 28]
+van der Stok, et al.      Expires April 7, 2019                [Page 28]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
    0d06092a6206734101050500032041002e106933a443070acf5594a3a584d08af7e
@@ -1621,9 +1621,9 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 29, 2019                [Page 29]
+van der Stok, et al.      Expires April 7, 2019                [Page 29]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
    F71530003431A3E6BBFE788B4565029A7E20A51107677552586152D051E8EEBF3
@@ -1677,9 +1677,9 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 29, 2019                [Page 30]
+van der Stok, et al.      Expires April 7, 2019                [Page 30]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
    F5ABB7B0CF87A79D221F1127313C53371CE1245D63DB45A1203A23340BA08042C
@@ -1733,9 +1733,9 @@ A.3.  enroll / reenroll
 
 
 
-van der Stok, et al.     Expires March 29, 2019                [Page 31]
+van der Stok, et al.      Expires April 7, 2019                [Page 31]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
    POST [2001:db8::2:1]:61616/est/sen
@@ -1789,9 +1789,9 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 29, 2019                [Page 32]
+van der Stok, et al.      Expires April 7, 2019                [Page 32]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
 A.4.  serverkeygen
@@ -1845,9 +1845,9 @@ A.4.  serverkeygen
 
 
 
-van der Stok, et al.     Expires March 29, 2019                [Page 33]
+van der Stok, et al.      Expires April 7, 2019                [Page 33]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
    0c6d2b60e7c32fc0336b28e743eba4e5921074d47195d3c05e43c527526e692d5
@@ -1901,9 +1901,9 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 29, 2019                [Page 34]
+van der Stok, et al.      Expires April 7, 2019                [Page 34]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
    Without the DecryptKeyIdentifier attribute, the response has no
@@ -1957,9 +1957,9 @@ B.1.  cacerts block example
 
 
 
-van der Stok, et al.     Expires March 29, 2019                [Page 35]
+van der Stok, et al.      Expires April 7, 2019                [Page 35]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
       GET /192.0.2.1:8085/est/crts   (2:0/0/64)    -->
@@ -2013,9 +2013,9 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 29, 2019                [Page 36]
+van der Stok, et al.      Expires April 7, 2019                [Page 36]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
      Ver = 1
@@ -2069,9 +2069,9 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 29, 2019                [Page 37]
+van der Stok, et al.      Expires April 7, 2019                [Page 37]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
      Ver = 1
@@ -2125,9 +2125,9 @@ B.2.  enroll block example
 
 
 
-van der Stok, et al.     Expires March 29, 2019                [Page 38]
+van der Stok, et al.      Expires April 7, 2019                [Page 38]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
    POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
@@ -2181,9 +2181,9 @@ Authors' Addresses
 
 
 
-van der Stok, et al.     Expires March 29, 2019                [Page 39]
+van der Stok, et al.      Expires April 7, 2019                [Page 39]
 
-Internet-Draft                  EST-coaps                 September 2018
+Internet-Draft                  EST-coaps                   October 2018
 
 
    Michael C. Richardson
@@ -2237,4 +2237,4 @@ Internet-Draft                  EST-coaps                 September 2018
 
 
 
-van der Stok, et al.     Expires March 29, 2019                [Page 40]
+van der Stok, et al.      Expires April 7, 2019                [Page 40]

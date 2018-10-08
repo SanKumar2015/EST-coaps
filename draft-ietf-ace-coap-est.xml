@@ -123,6 +123,7 @@
    <t>EDNOTE: Remove this section before publication</t>
    <t> -06:
     <list style="empty">
+        <t>clarified discovery section, by specifying that no discovery may be needed for /.well-known/est URI.</t>
         <t>added resource type values for IANA</t>
         <t>added list of compulsory to implement and optional functions. </t>
 		<t>Fixed issues pointed out by the idnits tool.</t>
@@ -302,7 +303,7 @@ This specification contains a set of required-to-implement functions, optional f
 
 <t> <xref target="est-implementation"/> specifies the mandatory-to-implement or optional implementation of the est-coaps functions.</t>
 
-<texttable anchor="est-implementation">
+<texttable anchor="est-implementation" title="list of EST -coaps fuctions">
   <ttcol align="left">EST Functions</ttcol>
   <ttcol align="left">EST-coaps implementation</ttcol>
   
@@ -511,16 +512,24 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
   </section> <!-- protocol design-->
 
   <section anchor="discovery" title = "Discovery and URI">
-      <t>EST-coaps is targeted to low-resource networks with small packets. Saving header space is important and an additional EST-coaps URI is specified that is shorter than the EST URI.</t>
-      <t>In the context of CoAP, the presence and location of (path to) the management data are discovered by sending a GET request to "/.well-known/core" including a resource type (RT) parameter with the value "ace.est" <xref target="RFC6690"/>. Upon success, the return payload will contain the root resource of the EST resources. It is up to the implementation to choose its root resource; throughout this document the example root resource /est is used. </t>
 
-      <t>The individual EST-coaps well-known server URIs differ from the EST URI by replacing the scheme https by coaps and by specifying shorter resource path names: </t>
+<t>EST-coaps is targeted to low-resource networks with small packets. Saving header space is important and a short EST-coaps URI (see <xref target="est-uri"/>) is specified that is shorter than the EST URI specified in <xref target="RFC7030"/>. The individual EST-coaps well-known server URIs differ from the EST URI by replacing the scheme https by coaps and by specifying shorter resource path names: </t>
+
 <figure align="left"><artwork><![CDATA[
 coaps://example.com:<port>/.well-known/est/<short-est> 
 coaps://example.com:<port>/.well-known/est/ArbitraryLabel/<short-est>
 ]]></artwork></figure>
-      <t>The ArbitraryLabel Path-Segment, if used, SHOULD be of the shortest length possible (See sections 3.1 and 3.2.2 of <xref target="RFC7030"/>. </t>
 
+      <t>The ArbitraryLabel Path-Segment, if used, SHOULD be of the shortest length possible (See sections 3.1 and 3.2.2 of <xref target="RFC7030"/>. Following <xref target="RFC7030"/> discovery is not needed when the client is preconfigured with the /.well-known/est server URI and the coaps port 5684.</t>
+      
+	  <t>The additional EST-coaps server URIs, obtained through discovery of the EST root resource(s) as shown below, are of the form: </t>
+
+<figure align="left"><artwork><![CDATA[
+coaps://example.com:<port>/<root-resource>/<short-est>
+coaps://example.com:<port>/<root-resource>/ArbitraryLabel/<short-est>
+]]></artwork></figure>
+
+      <t>In the context of CoAP, the presence and location of (path to) the management data are discovered by sending a GET request to "/.well-known/core" including a resource type (RT) parameter with the value "ace.est" <xref target="RFC6690"/>. Upon success, the return payload will contain the root resource of the EST resources. It is up to the implementation to choose its root resource; throughout this document the example root resource /est is used. </t>
 	  <t>The optional additional EST-coaps server URIs, obtained through discovery of the EST root resource(s) as shown below, are of the form: </t>
 <figure align="left"><artwork><![CDATA[
 coaps://example.com:<port>/<root-resource>/<short-est>
@@ -528,7 +537,7 @@ coaps://example.com:<port>/<root-resource>/ArbitraryLabel/<short-est>
 ]]></artwork></figure>
 
       <t>Figure 5 in section 3.2.2 of <xref target="RFC7030"/> enumerates the operations and corresponding paths which are supported by EST. <xref target="est-uri"/> provides the mapping from the EST URI path to the shorter EST-coaps URI path.</t>
-<texttable anchor="est-uri">
+<texttable anchor="est-uri" title="Short EST-coaps URI path">
   <ttcol align="left">EST</ttcol>
   <ttcol align="left">EST-coaps</ttcol>
   

@@ -21,7 +21,7 @@
 <br/>
 
 </p>
-<p>DOCUMENT VERSION 20180925-1</p>
+<p>DOCUMENT VERSION 20181023-2</p>
 <p><br/>
 <br/>
 
@@ -47,183 +47,54 @@ can be validated by the server.</p>
 <p style="margin-bottom: 0cm"><br/>
 
 </p>
-<table width="100%" cellpadding="2" cellspacing="0" style="page-break-before: always">
-	<col width="38*">
-	<col width="26*">
-	<col width="38*">
-	<col width="154*">
-	<tr>
-		<td colspan="4" width="100%" style="border: 1px double #808080; padding: 0.05cm">
-			<h1 align="center">EST-COAP interoperability Test Description</h1>
-		</td>
-	</tr>
-	<tr>
-		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
-			<p>Identifier:</p>
-		</th>
-		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
-			<p><strike>TD_ACE_est-dtls_1</strike></p>
-		</td>
-	</tr>
-	<tr>
-		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
-			<p><strike>Objective:</strike></p>
-		</th>
-		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
-			<p><strike>Perform a connection setup with a Server Certificate
-			only</strike></p>
-		</td>
-	</tr>
-	<tr>
-		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
-			<p><strike><font size="2" style="font-size: 11pt">Configuration:</font></strike></p>
-		</th>
-		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
-			<p><strike>CoAP_CFG_est-coaps </strike>
-			</p>
-		</td>
-	</tr>
-	<tr>
-		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
-			<p><strike>References:</strike></p>
-		</th>
-		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
-			<p><strike>??TBD</strike></p>
-		</td>
-	</tr>
-	<tr>
-		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
-			<p><strike>Pre-test conditions:</strike></p>
-		</th>
-		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
-			<ul>
-				<li/>
-<p style="margin-bottom: 0cm"><strike>Validate connectivity
-				with ping/ping6</strike></p>
-				<li/>
-<p><strike>Server has a certificate configured as a DTLS
-				Server Certificate</strike></p>
-			</ul>
-		</td>
-	</tr>
-	<tr>
-		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
-			<p><strike>Test Sequence:</strike></p>
-		</th>
-		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
-			<p><strike>Step</strike></p>
-		</td>
-		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
-			<p><strike>Type</strike></p>
-		</td>
-		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
-			<p><strike>Description</strike></p>
-		</td>
-	</tr>
-	<tr>
-		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
-		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
-			<p><strike>1 </strike>
-			</p>
-		</td>
-		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
-			<p><strike>Stimulus </strike>
-			</p>
-		</td>
-		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
-			<p><strike>Client is requested to send a GET request with:</strike></p>
-			<ul>
-				<li/>
-<p style="margin-bottom: 0cm"><strike>Type = 0 (CON) </strike>
-				</p>
-				<li/>
-<p><strike>Code = 1 (GET) </strike>
-				</p>
-			</ul>
-		</td>
-	</tr>
-	<tr>
-		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
-		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
-			<p><strike>2 </strike>
-			</p>
-		</td>
-		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
-			<p><strike>Check </strike>
-			</p>
-		</td>
-		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
-			<p><strike>The request sent by the client contains:</strike></p>
-			<ul>
-				<li/>
-<p style="margin-bottom: 0cm"><strike>DTLS Hello, followed
-				by DTLS negotiation of ciphers</strike></p>
-				<li/>
-<p style="margin-bottom: 0cm"><strike>DTLS version 1.0,
-				negotiated is 1.2 or 1.3</strike></p>
-				<li/>
-<p style="margin-bottom: 0cm"><strike>Type=0 and Code=1 </strike>
-				</p>
-				<li/>
-<p style="margin-bottom: 0cm"><strike>Uri-Path option
-				&quot;/.well-known/core&quot;</strike></p>
-				<li/>
-<p style="margin-bottom: 0cm"><strike>Token = anything</strike></p>
-				<li/>
-<p><strike>Max-Age = 1</strike></p>
-			</ul>
-		</td>
-	</tr>
-	<tr>
-		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
-		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
-			<p><strike>3 </strike>
-			</p>
-		</td>
-		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
-			<p><strike>Check </strike>
-			</p>
-		</td>
-		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
-			<p><strike>Server sends response containing:</strike></p>
-			<ul>
-				<li/>
-<p style="margin-bottom: 0cm"><strike>Code = 2.05 (Content)
-				</strike>
-				</p>
-				<li/>
-<p style="margin-bottom: 0cm"><strike>Token = XX, set by
-				client </strike>
-				</p>
-				<li/>
-<p style="margin-bottom: 0cm"><strike>Content-format </strike>
-				</p>
-				<li/>
-<p><strike>Payload with certificate </strike>
-				</p>
-				<li/>
-<p><strike>Client validated certificate is in trust sstore.</strike></p>
-			</ul>
-		</td>
-	</tr>
-	<tr>
-		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm"></td>
-		<td width="10%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
-			<p><strike>4 </strike>
-			</p>
-		</td>
-		<td width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
-			<p><strike>Verify </strike>
-			</p>
-		</td>
-		<td width="60%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
-			<p><strike>Client receives a resource discovery payload</strike></p>
-		</td>
-	</tr>
-</table>
-<p style="margin-bottom: 0cm"><a name="__DdeLink__4_1022325396"></a><br/>
 
-</p>
+<table width="100%" cellpadding="2" cellspacing="0" style="page-break-before: always">
+	<col width="38*">
+	<col width="26*">
+	<col width="38*">
+	<col width="154*">
+	<tr>
+		<td colspan="4" width="100%" style="border: 1px double #808080; padding: 0.05cm">
+			<h1 align="center">EST-COAP interoperability Test Description</h1>
+		</td>
+	</tr>
+	<tr>
+		<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Configuration:</p>
+		</th>
+		<th colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<p> CoAP_CFG_est-coaps</p>
+		</th>
+	</tr>
+	<th width="15%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0cm">
+			<p>Configuration conditions:</p>
+		</th>
+		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
+			<ul>
+				<li/>
+<p style="margin-bottom: 0cm">Client and Server each have a certificate</p>
+<li/>
+<p>The Client serves as constrained node, pledge, to be installed in the network</p>
+<li/>
+<p>The Server serves as EST server that supports enrolment of certificates.</p>
+                <li/>
+<p>The IdevID of the Client serves as base for the generation of the client certificate</p>
+			     <li/>
+<p>The client certificate is stored in the server trust anchor before</p>
+				<ul>
+					<li/>
+<p style="margin-bottom: 0.2cm"><font size="2" style="font-size: 10pt">The
+					client certificate already signed by CA that is trusted on the
+					server, but does not need to be the same CA as being enrolled
+					into.</font></p>
+					<li/>
+<p><font size="2" style="font-size: 10pt">(self-signed
+					certificate can be tested, but is a negative test case)</font></p>
+				</ul>
+			</ul>
+		</td>
+</table>
+
 <table width="100%" cellpadding="2" cellspacing="0" style="page-break-before: always">
 	<col width="38*">
 	<col width="26*">
@@ -239,7 +110,7 @@ can be validated by the server.</p>
 			<p>Identifier:</p>
 		</th>
 		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
-			<p>TD_ACE_est-dtls_2</p>
+			<p>TD_ACE_est-dtls_1</p>
 		</td>
 	</tr>
 	<tr>
@@ -247,7 +118,7 @@ can be validated by the server.</p>
 			<p>Objective:</p>
 		</th>
 		<td colspan="3" width="85%" style="border-top: none; border-bottom: 1px double #808080; border-left: 1px double #808080; border-right: 1px double #808080; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0.05cm; padding-right: 0.05cm">
-			<p>Perform a connection setup with a Client Certificate and Server
+			<p>Perform a DTLS connection setup between Client and Server
 			Certificate</p>
 		</td>
 	</tr>
@@ -283,16 +154,6 @@ can be validated by the server.</p>
 				<li/>
 <p>Client has a certificate configured as a DTLS Client
 				Certificate</p>
-				<ul>
-					<li/>
-<p style="margin-bottom: 0.2cm"><font size="2" style="font-size: 10pt">The
-					client certificate already signed by CA that is trusted on the
-					server, but does not need to be the same CA as being enrolled
-					into.</font></p>
-					<li/>
-<p><font size="2" style="font-size: 10pt">(self-signed
-					certificate can be tested, but is a negative test case)</font></p>
-				</ul>
 			</ul>
 		</td>
 	</tr>
@@ -647,7 +508,7 @@ can be validated by the server.</p>
 <p>Server holds has a (list?) of trust anchor(s), but may
 				take more than one datagram so that block1 is used.</p>
 				<li/>
-<p>SZX = 64 bytes</p>
+<p>SZX = 2 (64 bytes)</p>
 			</ul>
 		</td>
 	</tr>

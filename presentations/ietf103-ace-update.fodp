@@ -1,0 +1,1616 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<office:document xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:presentation="urn:oasis:names:tc:opendocument:xmlns:presentation:1.0" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0" xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0" xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0" xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:ooow="http://openoffice.org/2004/writer" xmlns:oooc="http://openoffice.org/2004/calc" xmlns:dom="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:smil="urn:oasis:names:tc:opendocument:xmlns:smil-compatible:1.0" xmlns:anim="urn:oasis:names:tc:opendocument:xmlns:animation:1.0" xmlns:rpt="http://openoffice.org/2005/report" xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:grddl="http://www.w3.org/2003/g/data-view#" xmlns:officeooo="http://openoffice.org/2009/office" xmlns:tableooo="http://openoffice.org/2009/table" xmlns:drawooo="http://openoffice.org/2010/draw" xmlns:calcext="urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0" xmlns:loext="urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0" xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0" xmlns:formx="urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0" xmlns:css3t="http://www.w3.org/TR/css3-text/" office:version="1.2" office:mimetype="application/vnd.oasis.opendocument.presentation">
+ <office:meta><meta:initial-creator>Michael Richardson</meta:initial-creator><meta:creation-date>2015-10-22T18:16:08</meta:creation-date><meta:generator>LibreOffice/5.2.7.2$Linux_X86_64 LibreOffice_project/20m0$Build-2</meta:generator><dc:date>2018-11-05T14:05:36.006940121</dc:date><meta:editing-duration>PT1H57M18S</meta:editing-duration><meta:editing-cycles>16</meta:editing-cycles><dc:creator>Michael Richardson</dc:creator><meta:document-statistic meta:object-count="75"/></office:meta>
+ <office:settings>
+  <config:config-item-set config:name="ooo:view-settings">
+   <config:config-item config:name="VisibleAreaTop" config:type="int">-331</config:config-item>
+   <config:config-item config:name="VisibleAreaLeft" config:type="int">-1774</config:config-item>
+   <config:config-item config:name="VisibleAreaWidth" config:type="int">31780</config:config-item>
+   <config:config-item config:name="VisibleAreaHeight" config:type="int">21798</config:config-item>
+   <config:config-item-map-indexed config:name="Views">
+    <config:config-item-map-entry>
+     <config:config-item config:name="ViewId" config:type="string">view1</config:config-item>
+     <config:config-item config:name="GridIsVisible" config:type="boolean">true</config:config-item>
+     <config:config-item config:name="GridIsFront" config:type="boolean">false</config:config-item>
+     <config:config-item config:name="IsSnapToGrid" config:type="boolean">true</config:config-item>
+     <config:config-item config:name="IsSnapToPageMargins" config:type="boolean">true</config:config-item>
+     <config:config-item config:name="IsSnapToSnapLines" config:type="boolean">false</config:config-item>
+     <config:config-item config:name="IsSnapToObjectFrame" config:type="boolean">true</config:config-item>
+     <config:config-item config:name="IsSnapToObjectPoints" config:type="boolean">false</config:config-item>
+     <config:config-item config:name="IsPlusHandlesAlwaysVisible" config:type="boolean">false</config:config-item>
+     <config:config-item config:name="IsFrameDragSingles" config:type="boolean">true</config:config-item>
+     <config:config-item config:name="EliminatePolyPointLimitAngle" config:type="int">1500</config:config-item>
+     <config:config-item config:name="IsEliminatePolyPoints" config:type="boolean">false</config:config-item>
+     <config:config-item config:name="VisibleLayers" config:type="base64Binary">//////////////////////////////////////////8=</config:config-item>
+     <config:config-item config:name="PrintableLayers" config:type="base64Binary">//////////////////////////////////////////8=</config:config-item>
+     <config:config-item config:name="LockedLayers" config:type="base64Binary"/>
+     <config:config-item config:name="NoAttribs" config:type="boolean">false</config:config-item>
+     <config:config-item config:name="NoColors" config:type="boolean">true</config:config-item>
+     <config:config-item config:name="RulerIsVisible" config:type="boolean">false</config:config-item>
+     <config:config-item config:name="PageKind" config:type="short">0</config:config-item>
+     <config:config-item config:name="SelectedPage" config:type="short">3</config:config-item>
+     <config:config-item config:name="IsLayerMode" config:type="boolean">false</config:config-item>
+     <config:config-item config:name="IsDoubleClickTextEdit" config:type="boolean">true</config:config-item>
+     <config:config-item config:name="IsClickChangeRotation" config:type="boolean">true</config:config-item>
+     <config:config-item config:name="SlidesPerRow" config:type="short">4</config:config-item>
+     <config:config-item config:name="EditMode" config:type="int">0</config:config-item>
+     <config:config-item config:name="VisibleAreaTop" config:type="int">-331</config:config-item>
+     <config:config-item config:name="VisibleAreaLeft" config:type="int">-1774</config:config-item>
+     <config:config-item config:name="VisibleAreaWidth" config:type="int">31781</config:config-item>
+     <config:config-item config:name="VisibleAreaHeight" config:type="int">21799</config:config-item>
+     <config:config-item config:name="GridCoarseWidth" config:type="int">2000</config:config-item>
+     <config:config-item config:name="GridCoarseHeight" config:type="int">2000</config:config-item>
+     <config:config-item config:name="GridFineWidth" config:type="int">200</config:config-item>
+     <config:config-item config:name="GridFineHeight" config:type="int">200</config:config-item>
+     <config:config-item config:name="GridSnapWidthXNumerator" config:type="int">200</config:config-item>
+     <config:config-item config:name="GridSnapWidthXDenominator" config:type="int">1</config:config-item>
+     <config:config-item config:name="GridSnapWidthYNumerator" config:type="int">200</config:config-item>
+     <config:config-item config:name="GridSnapWidthYDenominator" config:type="int">1</config:config-item>
+     <config:config-item config:name="IsAngleSnapEnabled" config:type="boolean">false</config:config-item>
+     <config:config-item config:name="SnapAngle" config:type="int">1500</config:config-item>
+     <config:config-item config:name="ZoomOnPage" config:type="boolean">true</config:config-item>
+    </config:config-item-map-entry>
+   </config:config-item-map-indexed>
+  </config:config-item-set>
+  <config:config-item-set config:name="ooo:configuration-settings">
+   <config:config-item config:name="ApplyUserData" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="BitmapTableURL" config:type="string">$(inst)/share/palette%3B$(user)/config/standard.sob</config:config-item>
+   <config:config-item config:name="CharacterCompressionType" config:type="short">0</config:config-item>
+   <config:config-item config:name="ColorTableURL" config:type="string">$(user)/config/standard.soc</config:config-item>
+   <config:config-item config:name="DashTableURL" config:type="string">$(inst)/share/palette%3B$(user)/config/standard.sod</config:config-item>
+   <config:config-item config:name="DefaultTabStop" config:type="int">1270</config:config-item>
+   <config:config-item config:name="EmbedFonts" config:type="boolean">false</config:config-item>
+   <config:config-item-map-indexed config:name="ForbiddenCharacters">
+    <config:config-item-map-entry>
+     <config:config-item config:name="Language" config:type="string">en</config:config-item>
+     <config:config-item config:name="Country" config:type="string">US</config:config-item>
+     <config:config-item config:name="Variant" config:type="string"/>
+     <config:config-item config:name="BeginLine" config:type="string"/>
+     <config:config-item config:name="EndLine" config:type="string"/>
+    </config:config-item-map-entry>
+    <config:config-item-map-entry>
+     <config:config-item config:name="Language" config:type="string">en</config:config-item>
+     <config:config-item config:name="Country" config:type="string">CA</config:config-item>
+     <config:config-item config:name="Variant" config:type="string"/>
+     <config:config-item config:name="BeginLine" config:type="string"/>
+     <config:config-item config:name="EndLine" config:type="string"/>
+    </config:config-item-map-entry>
+   </config:config-item-map-indexed>
+   <config:config-item config:name="GradientTableURL" config:type="string">$(inst)/share/palette%3B$(user)/config/standard.sog</config:config-item>
+   <config:config-item config:name="HandoutsHorizontal" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="HatchTableURL" config:type="string">$(inst)/share/palette%3B$(user)/config/standard.soh</config:config-item>
+   <config:config-item config:name="IsKernAsianPunctuation" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="IsPrintBooklet" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="IsPrintBookletBack" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="IsPrintBookletFront" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="IsPrintDate" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="IsPrintDrawing" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="IsPrintFitPage" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="IsPrintHandout" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="IsPrintHiddenPages" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="IsPrintNotes" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="IsPrintOutline" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="IsPrintPageName" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="IsPrintTilePage" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="IsPrintTime" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="LineEndTableURL" config:type="string">$(inst)/share/palette%3B$(user)/config/standard.soe</config:config-item>
+   <config:config-item config:name="LoadReadonly" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="PageNumberFormat" config:type="int">4</config:config-item>
+   <config:config-item config:name="ParagraphSummation" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="PrintQuality" config:type="int">0</config:config-item>
+   <config:config-item config:name="PrinterIndependentLayout" config:type="string">low-resolution</config:config-item>
+   <config:config-item config:name="PrinterName" config:type="string">Generic Printer</config:config-item>
+   <config:config-item config:name="PrinterSetup" config:type="base64Binary">kAH+/0dlbmVyaWMgUHJpbnRlcgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU0dFTlBSVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWAAMAtgAAAAAAAAAIAFZUAAAkbQAASm9iRGF0YSAxCnByaW50ZXI9R2VuZXJpYyBQcmludGVyCm9yaWVudGF0aW9uPVBvcnRyYWl0CmNvcGllcz0xCm1hcmdpbmRhanVzdG1lbnQ9MCwwLDAsMApjb2xvcmRlcHRoPTI0CnBzbGV2ZWw9MApwZGZkZXZpY2U9MApjb2xvcmRldmljZT0wClBQRENvbnRleERhdGEKRHVwbGV4Ok5vbmUAUGFnZVNpemU6TGV0dGVyAAASAENPTVBBVF9EVVBMRVhfTU9ERQoARFVQTEVYX09GRg==</config:config-item>
+   <config:config-item config:name="SaveVersionOnClose" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="SlidesPerHandout" config:type="short">6</config:config-item>
+   <config:config-item config:name="UpdateFromTemplate" config:type="boolean">true</config:config-item>
+  </config:config-item-set>
+ </office:settings>
+ <office:scripts>
+  <office:script script:language="ooo:Basic">
+   <ooo:libraries xmlns:ooo="http://openoffice.org/2004/office" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <ooo:library-embedded ooo:name="Standard"/>
+   </ooo:libraries>
+  </office:script>
+ </office:scripts>
+ <office:font-face-decls>
+  <style:font-face style:name="Liberation Sans" svg:font-family="&apos;Liberation Sans&apos;" style:font-family-generic="roman" style:font-pitch="variable"/>
+  <style:font-face style:name="Liberation Serif" svg:font-family="&apos;Liberation Serif&apos;" style:font-family-generic="roman" style:font-pitch="variable"/>
+  <style:font-face style:name="DejaVu Sans" svg:font-family="&apos;DejaVu Sans&apos;" style:font-family-generic="system" style:font-pitch="variable"/>
+  <style:font-face style:name="Droid Sans" svg:font-family="&apos;Droid Sans&apos;" style:font-family-generic="system" style:font-pitch="variable"/>
+  <style:font-face style:name="FreeSans" svg:font-family="FreeSans" style:font-family-generic="system" style:font-pitch="variable"/>
+ </office:font-face-decls>
+ <office:styles>
+  <draw:marker draw:name="Arrow" svg:viewBox="0 0 20 30" svg:d="M10 0l-10 30h20z"/>
+  <style:default-style style:family="graphic">
+   <style:graphic-properties svg:stroke-color="#808080" draw:fill-color="#cfe7f5" fo:wrap-option="no-wrap"/>
+   <style:paragraph-properties style:text-autospace="ideograph-alpha" style:punctuation-wrap="simple" style:line-break="strict" style:writing-mode="lr-tb" style:font-independent-line-spacing="false">
+    <style:tab-stops/>
+   </style:paragraph-properties>
+   <style:text-properties style:use-window-font-color="true" style:font-name="Liberation Serif" fo:font-size="24pt" fo:language="en" fo:country="US" style:font-name-asian="DejaVu Sans" style:font-size-asian="24pt" style:language-asian="zh" style:country-asian="CN" style:font-name-complex="DejaVu Sans" style:font-size-complex="24pt" style:language-complex="hi" style:country-complex="IN"/>
+  </style:default-style>
+  <style:style style:name="standard" style:family="graphic">
+   <style:graphic-properties draw:stroke="solid" svg:stroke-width="0cm" svg:stroke-color="#808080" draw:marker-start-width="0.2cm" draw:marker-start-center="false" draw:marker-end-width="0.2cm" draw:marker-end-center="false" draw:fill="solid" draw:fill-color="#cfe7f5" draw:textarea-horizontal-align="justify" fo:padding-top="0.125cm" fo:padding-bottom="0.125cm" fo:padding-left="0.25cm" fo:padding-right="0.25cm" draw:shadow="hidden" draw:shadow-offset-x="0.2cm" draw:shadow-offset-y="0.2cm" draw:shadow-color="#808080">
+    <text:list-style style:name="standard">
+     <text:list-level-style-bullet text:level="1" text:bullet-char="●">
+      <style:list-level-properties text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="2" text:bullet-char="●">
+      <style:list-level-properties text:space-before="0.6cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="3" text:bullet-char="●">
+      <style:list-level-properties text:space-before="1.2cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="4" text:bullet-char="●">
+      <style:list-level-properties text:space-before="1.8cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="5" text:bullet-char="●">
+      <style:list-level-properties text:space-before="2.4cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="6" text:bullet-char="●">
+      <style:list-level-properties text:space-before="3cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="7" text:bullet-char="●">
+      <style:list-level-properties text:space-before="3.6cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="8" text:bullet-char="●">
+      <style:list-level-properties text:space-before="4.2cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="9" text:bullet-char="●">
+      <style:list-level-properties text:space-before="4.8cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="10" text:bullet-char="●">
+      <style:list-level-properties text:space-before="5.4cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+    </text:list-style>
+   </style:graphic-properties>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:margin-top="0cm" fo:margin-bottom="0cm" fo:line-height="100%" fo:text-indent="0cm"/>
+   <style:text-properties style:use-window-font-color="true" style:text-outline="false" style:text-line-through-style="none" style:text-line-through-type="none" style:font-name="Liberation Sans" fo:font-family="&apos;Liberation Sans&apos;" style:font-family-generic="roman" style:font-pitch="variable" fo:font-size="18pt" fo:font-style="normal" fo:text-shadow="none" style:text-underline-style="none" fo:font-weight="normal" style:letter-kerning="true" style:font-name-asian="Droid Sans" style:font-family-asian="&apos;Droid Sans&apos;" style:font-family-generic-asian="system" style:font-pitch-asian="variable" style:font-size-asian="18pt" style:font-style-asian="normal" style:font-weight-asian="normal" style:font-name-complex="FreeSans" style:font-family-complex="FreeSans" style:font-family-generic-complex="system" style:font-pitch-complex="variable" style:font-size-complex="18pt" style:font-style-complex="normal" style:font-weight-complex="normal" style:text-emphasize="none" style:font-relief="none" style:text-overline-style="none" style:text-overline-color="font-color"/>
+  </style:style>
+  <style:style style:name="objectwitharrow" style:family="graphic" style:parent-style-name="standard">
+   <style:graphic-properties draw:stroke="solid" svg:stroke-width="0.15cm" svg:stroke-color="#000000" draw:marker-start="Arrow" draw:marker-start-width="0.7cm" draw:marker-start-center="true" draw:marker-end-width="0.3cm"/>
+  </style:style>
+  <style:style style:name="objectwithshadow" style:family="graphic" style:parent-style-name="standard">
+   <style:graphic-properties draw:shadow="visible" draw:shadow-offset-x="0.2cm" draw:shadow-offset-y="0.2cm" draw:shadow-color="#808080"/>
+  </style:style>
+  <style:style style:name="objectwithoutfill" style:family="graphic" style:parent-style-name="standard">
+   <style:graphic-properties svg:stroke-color="#000000" draw:fill="none"/>
+  </style:style>
+  <style:style style:name="Object_20_with_20_no_20_fill_20_and_20_no_20_line" style:display-name="Object with no fill and no line" style:family="graphic" style:parent-style-name="standard">
+   <style:graphic-properties draw:stroke="none" draw:fill="none"/>
+  </style:style>
+  <style:style style:name="text" style:family="graphic" style:parent-style-name="standard">
+   <style:graphic-properties draw:stroke="none" draw:fill="none"/>
+  </style:style>
+  <style:style style:name="textbody" style:family="graphic" style:parent-style-name="standard">
+   <style:graphic-properties draw:stroke="none" draw:fill="none"/>
+   <style:text-properties fo:font-size="16pt"/>
+  </style:style>
+  <style:style style:name="textbodyjustfied" style:family="graphic" style:parent-style-name="standard">
+   <style:graphic-properties draw:stroke="none" draw:fill="none"/>
+   <style:paragraph-properties fo:text-align="justify"/>
+  </style:style>
+  <style:style style:name="textbodyindent" style:family="graphic" style:parent-style-name="standard">
+   <style:graphic-properties draw:stroke="none" draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0.6cm"/>
+  </style:style>
+  <style:style style:name="title" style:family="graphic" style:parent-style-name="standard">
+   <style:graphic-properties draw:stroke="none" draw:fill="none"/>
+   <style:text-properties fo:font-size="44pt"/>
+  </style:style>
+  <style:style style:name="title1" style:family="graphic" style:parent-style-name="standard">
+   <style:graphic-properties draw:stroke="none" draw:fill="solid" draw:fill-color="#008080" draw:shadow="visible" draw:shadow-offset-x="0.2cm" draw:shadow-offset-y="0.2cm" draw:shadow-color="#808080"/>
+   <style:paragraph-properties fo:text-align="center"/>
+   <style:text-properties fo:font-size="24pt"/>
+  </style:style>
+  <style:style style:name="title2" style:family="graphic" style:parent-style-name="standard">
+   <style:graphic-properties svg:stroke-width="0.05cm" draw:fill-color="#ffcc99" draw:shadow="visible" draw:shadow-offset-x="0.2cm" draw:shadow-offset-y="0.2cm" draw:shadow-color="#808080"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0.2cm" fo:margin-top="0.1cm" fo:margin-bottom="0.1cm" fo:text-align="center" fo:text-indent="0cm"/>
+   <style:text-properties fo:font-size="36pt"/>
+  </style:style>
+  <style:style style:name="headline" style:family="graphic" style:parent-style-name="standard">
+   <style:graphic-properties draw:stroke="none" draw:fill="none"/>
+   <style:paragraph-properties fo:margin-top="0.42cm" fo:margin-bottom="0.21cm"/>
+   <style:text-properties fo:font-size="24pt"/>
+  </style:style>
+  <style:style style:name="headline1" style:family="graphic" style:parent-style-name="standard">
+   <style:graphic-properties draw:stroke="none" draw:fill="none"/>
+   <style:paragraph-properties fo:margin-top="0.42cm" fo:margin-bottom="0.21cm"/>
+   <style:text-properties fo:font-size="18pt" fo:font-weight="bold"/>
+  </style:style>
+  <style:style style:name="headline2" style:family="graphic" style:parent-style-name="standard">
+   <style:graphic-properties draw:stroke="none" draw:fill="none"/>
+   <style:paragraph-properties fo:margin-top="0.42cm" fo:margin-bottom="0.21cm"/>
+   <style:text-properties fo:font-size="14pt" fo:font-style="italic" fo:font-weight="bold"/>
+  </style:style>
+  <style:style style:name="measure" style:family="graphic" style:parent-style-name="standard">
+   <style:graphic-properties draw:stroke="solid" svg:stroke-color="#000000" draw:marker-start="Arrow" draw:marker-start-width="0.2cm" draw:marker-end="Arrow" draw:marker-end-width="0.2cm" draw:fill="none" draw:show-unit="true"/>
+   <style:text-properties fo:font-size="12pt"/>
+  </style:style>
+  <style:style style:name="Default-background" style:family="presentation">
+   <style:graphic-properties draw:stroke="none" draw:fill="none"/>
+   <style:text-properties style:letter-kerning="true"/>
+  </style:style>
+  <style:style style:name="Default-backgroundobjects" style:family="presentation">
+   <style:graphic-properties draw:textarea-horizontal-align="justify" draw:shadow="hidden" draw:shadow-offset-x="0.2cm" draw:shadow-offset-y="0.2cm" draw:shadow-color="#808080"/>
+   <style:text-properties style:letter-kerning="true"/>
+  </style:style>
+  <style:style style:name="Default-notes" style:family="presentation">
+   <style:graphic-properties draw:stroke="none" draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="0.6cm" fo:margin-right="0cm" fo:text-indent="-0.6cm"/>
+   <style:text-properties style:use-window-font-color="true" style:text-outline="false" style:text-line-through-style="none" style:text-line-through-type="none" style:font-name="Liberation Sans" fo:font-family="&apos;Liberation Sans&apos;" style:font-family-generic="roman" style:font-pitch="variable" fo:font-size="20pt" fo:font-style="normal" fo:text-shadow="none" style:text-underline-style="none" fo:font-weight="normal" style:letter-kerning="true" style:font-name-asian="Droid Sans" style:font-family-asian="&apos;Droid Sans&apos;" style:font-family-generic-asian="system" style:font-pitch-asian="variable" style:font-size-asian="20pt" style:font-style-asian="normal" style:font-weight-asian="normal" style:font-name-complex="FreeSans" style:font-family-complex="FreeSans" style:font-family-generic-complex="system" style:font-pitch-complex="variable" style:font-size-complex="20pt" style:font-style-complex="normal" style:font-weight-complex="normal" style:text-emphasize="none" style:font-relief="none" style:text-overline-style="none" style:text-overline-color="font-color"/>
+  </style:style>
+  <style:style style:name="Default-outline1" style:family="presentation">
+   <style:graphic-properties draw:stroke="none" draw:fill="none" draw:auto-grow-height="false" draw:fit-to-size="shrink-to-fit">
+    <text:list-style style:name="Default-outline1">
+     <text:list-level-style-bullet text:level="1" text:bullet-char="●">
+      <style:list-level-properties text:space-before="0.3cm" text:min-label-width="0.9cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="2" text:bullet-char="–">
+      <style:list-level-properties text:space-before="1.5cm" text:min-label-width="0.9cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="75%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="3" text:bullet-char="●">
+      <style:list-level-properties text:space-before="2.8cm" text:min-label-width="0.8cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="4" text:bullet-char="–">
+      <style:list-level-properties text:space-before="4.2cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="75%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="5" text:bullet-char="●">
+      <style:list-level-properties text:space-before="5.4cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="6" text:bullet-char="●">
+      <style:list-level-properties text:space-before="6.6cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="7" text:bullet-char="●">
+      <style:list-level-properties text:space-before="7.8cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="8" text:bullet-char="●">
+      <style:list-level-properties text:space-before="9cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="9" text:bullet-char="●">
+      <style:list-level-properties text:space-before="10.2cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="10" text:bullet-char="●">
+      <style:list-level-properties text:space-before="11.4cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+    </text:list-style>
+   </style:graphic-properties>
+   <style:paragraph-properties fo:margin-top="0cm" fo:margin-bottom="0.5cm"/>
+   <style:text-properties style:use-window-font-color="true" style:text-outline="false" style:text-line-through-style="none" style:text-line-through-type="none" style:font-name="Liberation Sans" fo:font-family="&apos;Liberation Sans&apos;" style:font-family-generic="roman" style:font-pitch="variable" fo:font-size="32pt" fo:font-style="normal" fo:text-shadow="none" style:text-underline-style="none" fo:font-weight="normal" style:letter-kerning="true" style:font-name-asian="Droid Sans" style:font-family-asian="&apos;Droid Sans&apos;" style:font-family-generic-asian="system" style:font-pitch-asian="variable" style:font-size-asian="32pt" style:font-style-asian="normal" style:font-weight-asian="normal" style:font-name-complex="FreeSans" style:font-family-complex="FreeSans" style:font-family-generic-complex="system" style:font-pitch-complex="variable" style:font-size-complex="32pt" style:font-style-complex="normal" style:font-weight-complex="normal" style:text-emphasize="none" style:font-relief="none" style:text-overline-style="none" style:text-overline-color="font-color"/>
+  </style:style>
+  <style:style style:name="Default-outline2" style:family="presentation" style:parent-style-name="Default-outline1">
+   <style:paragraph-properties fo:margin-top="0cm" fo:margin-bottom="0.4cm"/>
+   <style:text-properties fo:font-size="28pt" style:font-size-asian="28pt" style:font-size-complex="28pt"/>
+  </style:style>
+  <style:style style:name="Default-outline3" style:family="presentation" style:parent-style-name="Default-outline2">
+   <style:paragraph-properties fo:margin-top="0cm" fo:margin-bottom="0.3cm"/>
+   <style:text-properties fo:font-size="24pt" style:font-size-asian="24pt" style:font-size-complex="24pt"/>
+  </style:style>
+  <style:style style:name="Default-outline4" style:family="presentation" style:parent-style-name="Default-outline3">
+   <style:paragraph-properties fo:margin-top="0cm" fo:margin-bottom="0.2cm"/>
+   <style:text-properties fo:font-size="20pt" style:font-size-asian="20pt" style:font-size-complex="20pt"/>
+  </style:style>
+  <style:style style:name="Default-outline5" style:family="presentation" style:parent-style-name="Default-outline4">
+   <style:paragraph-properties fo:margin-top="0cm" fo:margin-bottom="0.1cm"/>
+   <style:text-properties fo:font-size="20pt" style:font-size-asian="20pt" style:font-size-complex="20pt"/>
+  </style:style>
+  <style:style style:name="Default-outline6" style:family="presentation" style:parent-style-name="Default-outline5">
+   <style:paragraph-properties fo:margin-top="0cm" fo:margin-bottom="0.1cm"/>
+   <style:text-properties fo:font-size="20pt" style:font-size-asian="20pt" style:font-size-complex="20pt"/>
+  </style:style>
+  <style:style style:name="Default-outline7" style:family="presentation" style:parent-style-name="Default-outline6">
+   <style:paragraph-properties fo:margin-top="0cm" fo:margin-bottom="0.1cm"/>
+   <style:text-properties fo:font-size="20pt" style:font-size-asian="20pt" style:font-size-complex="20pt"/>
+  </style:style>
+  <style:style style:name="Default-outline8" style:family="presentation" style:parent-style-name="Default-outline7">
+   <style:paragraph-properties fo:margin-top="0cm" fo:margin-bottom="0.1cm"/>
+   <style:text-properties fo:font-size="20pt" style:font-size-asian="20pt" style:font-size-complex="20pt"/>
+  </style:style>
+  <style:style style:name="Default-outline9" style:family="presentation" style:parent-style-name="Default-outline8">
+   <style:paragraph-properties fo:margin-top="0cm" fo:margin-bottom="0.1cm"/>
+   <style:text-properties fo:font-size="20pt" style:font-size-asian="20pt" style:font-size-complex="20pt"/>
+  </style:style>
+  <style:style style:name="Default-subtitle" style:family="presentation">
+   <style:graphic-properties draw:stroke="none" draw:fill="none" draw:textarea-vertical-align="middle">
+    <text:list-style style:name="Default-subtitle">
+     <text:list-level-style-bullet text:level="1" text:bullet-char="●">
+      <style:list-level-properties/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="2" text:bullet-char="●">
+      <style:list-level-properties text:space-before="0.6cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="3" text:bullet-char="●">
+      <style:list-level-properties text:space-before="1.2cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="4" text:bullet-char="●">
+      <style:list-level-properties text:space-before="1.8cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="5" text:bullet-char="●">
+      <style:list-level-properties text:space-before="2.4cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="6" text:bullet-char="●">
+      <style:list-level-properties text:space-before="3cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="7" text:bullet-char="●">
+      <style:list-level-properties text:space-before="3.6cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="8" text:bullet-char="●">
+      <style:list-level-properties text:space-before="4.2cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="9" text:bullet-char="●">
+      <style:list-level-properties text:space-before="4.8cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="10" text:bullet-char="●">
+      <style:list-level-properties text:space-before="5.4cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+    </text:list-style>
+   </style:graphic-properties>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="center" fo:text-indent="0cm"/>
+   <style:text-properties style:use-window-font-color="true" style:text-outline="false" style:text-line-through-style="none" style:text-line-through-type="none" style:font-name="Liberation Sans" fo:font-family="&apos;Liberation Sans&apos;" style:font-family-generic="roman" style:font-pitch="variable" fo:font-size="32pt" fo:font-style="normal" fo:text-shadow="none" style:text-underline-style="none" fo:font-weight="normal" style:letter-kerning="true" style:font-name-asian="Droid Sans" style:font-family-asian="&apos;Droid Sans&apos;" style:font-family-generic-asian="system" style:font-pitch-asian="variable" style:font-size-asian="32pt" style:font-style-asian="normal" style:font-weight-asian="normal" style:font-name-complex="FreeSans" style:font-family-complex="FreeSans" style:font-family-generic-complex="system" style:font-pitch-complex="variable" style:font-size-complex="32pt" style:font-style-complex="normal" style:font-weight-complex="normal" style:text-emphasize="none" style:font-relief="none" style:text-overline-style="none" style:text-overline-color="font-color"/>
+  </style:style>
+  <style:style style:name="Default-title" style:family="presentation">
+   <style:graphic-properties draw:stroke="none" draw:fill="none" draw:textarea-vertical-align="middle">
+    <text:list-style style:name="Default-title">
+     <text:list-level-style-bullet text:level="1" text:bullet-char="●">
+      <style:list-level-properties/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="2" text:bullet-char="●">
+      <style:list-level-properties text:space-before="0.6cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="3" text:bullet-char="●">
+      <style:list-level-properties text:space-before="1.2cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="4" text:bullet-char="●">
+      <style:list-level-properties text:space-before="1.8cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="5" text:bullet-char="●">
+      <style:list-level-properties text:space-before="2.4cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="6" text:bullet-char="●">
+      <style:list-level-properties text:space-before="3cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="7" text:bullet-char="●">
+      <style:list-level-properties text:space-before="3.6cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="8" text:bullet-char="●">
+      <style:list-level-properties text:space-before="4.2cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="9" text:bullet-char="●">
+      <style:list-level-properties text:space-before="4.8cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+     <text:list-level-style-bullet text:level="10" text:bullet-char="●">
+      <style:list-level-properties text:space-before="5.4cm" text:min-label-width="0.6cm"/>
+      <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+     </text:list-level-style-bullet>
+    </text:list-style>
+   </style:graphic-properties>
+   <style:paragraph-properties fo:text-align="center"/>
+   <style:text-properties style:use-window-font-color="true" style:text-outline="false" style:text-line-through-style="none" style:text-line-through-type="none" style:font-name="Liberation Sans" fo:font-family="&apos;Liberation Sans&apos;" style:font-family-generic="roman" style:font-pitch="variable" fo:font-size="44pt" fo:font-style="normal" fo:text-shadow="none" style:text-underline-style="none" fo:font-weight="normal" style:letter-kerning="true" style:font-name-asian="Droid Sans" style:font-family-asian="&apos;Droid Sans&apos;" style:font-family-generic-asian="system" style:font-pitch-asian="variable" style:font-size-asian="44pt" style:font-style-asian="normal" style:font-weight-asian="normal" style:font-name-complex="FreeSans" style:font-family-complex="FreeSans" style:font-family-generic-complex="system" style:font-pitch-complex="variable" style:font-size-complex="44pt" style:font-style-complex="normal" style:font-weight-complex="normal" style:text-emphasize="none" style:font-relief="none" style:text-overline-style="none" style:text-overline-color="font-color"/>
+  </style:style>
+  <style:presentation-page-layout style:name="AL0T26">
+   <presentation:placeholder presentation:object="handout" svg:x="2.058cm" svg:y="1.743cm" svg:width="10.556cm" svg:height="-0.233cm"/>
+   <presentation:placeholder presentation:object="handout" svg:x="15.414cm" svg:y="1.743cm" svg:width="10.556cm" svg:height="-0.233cm"/>
+   <presentation:placeholder presentation:object="handout" svg:x="2.058cm" svg:y="3.612cm" svg:width="10.556cm" svg:height="-0.233cm"/>
+   <presentation:placeholder presentation:object="handout" svg:x="15.414cm" svg:y="3.612cm" svg:width="10.556cm" svg:height="-0.233cm"/>
+   <presentation:placeholder presentation:object="handout" svg:x="2.058cm" svg:y="5.481cm" svg:width="10.556cm" svg:height="-0.233cm"/>
+   <presentation:placeholder presentation:object="handout" svg:x="15.414cm" svg:y="5.481cm" svg:width="10.556cm" svg:height="-0.233cm"/>
+  </style:presentation-page-layout>
+  <style:presentation-page-layout style:name="AL1T0">
+   <presentation:placeholder presentation:object="title" svg:x="2.058cm" svg:y="1.743cm" svg:width="23.912cm" svg:height="3.507cm"/>
+   <presentation:placeholder presentation:object="subtitle" svg:x="2.058cm" svg:y="5.838cm" svg:width="23.912cm" svg:height="13.23cm"/>
+  </style:presentation-page-layout>
+  <style:presentation-page-layout style:name="AL2T1">
+   <presentation:placeholder presentation:object="title" svg:x="2.058cm" svg:y="1.743cm" svg:width="23.912cm" svg:height="3.507cm"/>
+   <presentation:placeholder presentation:object="outline" svg:x="2.058cm" svg:y="5.838cm" svg:width="23.912cm" svg:height="13.23cm"/>
+  </style:presentation-page-layout>
+  <style:presentation-page-layout style:name="AL3T3">
+   <presentation:placeholder presentation:object="title" svg:x="2.058cm" svg:y="1.743cm" svg:width="23.912cm" svg:height="3.507cm"/>
+   <presentation:placeholder presentation:object="outline" svg:x="2.058cm" svg:y="5.838cm" svg:width="11.67cm" svg:height="13.23cm"/>
+   <presentation:placeholder presentation:object="outline" svg:x="14.311cm" svg:y="5.838cm" svg:width="-0.585cm" svg:height="13.23cm"/>
+  </style:presentation-page-layout>
+ </office:styles>
+ <office:automatic-styles>
+  <style:page-layout style:name="PM0">
+   <style:page-layout-properties fo:margin-top="0cm" fo:margin-bottom="0cm" fo:margin-left="0cm" fo:margin-right="0cm" fo:page-width="21.59cm" fo:page-height="27.94cm" style:print-orientation="portrait"/>
+  </style:page-layout>
+  <style:page-layout style:name="PM1">
+   <style:page-layout-properties fo:margin-top="0cm" fo:margin-bottom="0cm" fo:margin-left="0cm" fo:margin-right="0cm" fo:page-width="28cm" fo:page-height="21cm" style:print-orientation="landscape"/>
+  </style:page-layout>
+  <style:style style:name="dp1" style:family="drawing-page">
+   <style:drawing-page-properties draw:background-size="border" draw:fill="none"/>
+  </style:style>
+  <style:style style:name="dp2" style:family="drawing-page">
+   <style:drawing-page-properties presentation:display-header="true" presentation:display-footer="true" presentation:display-page-number="false" presentation:display-date-time="true"/>
+  </style:style>
+  <style:style style:name="dp3" style:family="drawing-page">
+   <style:drawing-page-properties presentation:background-visible="true" presentation:background-objects-visible="true" presentation:display-footer="true" presentation:display-page-number="true" presentation:display-date-time="true"/>
+  </style:style>
+  <style:style style:name="gr1" style:family="graphic" style:parent-style-name="standard">
+   <style:graphic-properties draw:stroke="none" draw:fill="none" draw:fill-color="#ffffff" draw:auto-grow-height="false" fo:min-height="1.397cm"/>
+  </style:style>
+  <style:style style:name="gr2" style:family="graphic" style:parent-style-name="standard">
+   <style:graphic-properties draw:stroke="none" draw:fill="none" draw:fill-color="#ffffff" draw:textarea-vertical-align="bottom" draw:auto-grow-height="false" fo:min-height="1.397cm"/>
+  </style:style>
+  <style:style style:name="gr3" style:family="graphic">
+   <style:graphic-properties style:protect="size"/>
+  </style:style>
+  <style:style style:name="gr4" style:family="graphic" style:parent-style-name="Object_20_with_20_no_20_fill_20_and_20_no_20_line">
+   <style:graphic-properties draw:textarea-vertical-align="middle" draw:color-mode="standard" draw:luminance="0%" draw:contrast="0%" draw:gamma="100%" draw:red="0%" draw:green="0%" draw:blue="0%" fo:clip="rect(0cm, 0cm, 0cm, 0cm)" draw:image-opacity="100%" style:mirror="none"/>
+  </style:style>
+  <style:style style:name="gr5" style:family="graphic" style:parent-style-name="standard">
+   <style:graphic-properties draw:textarea-horizontal-align="justify" draw:textarea-vertical-align="middle" draw:auto-grow-height="false" fo:min-height="2.604cm" fo:min-width="2.505cm" fo:wrap-option="no-wrap"/>
+  </style:style>
+  <style:style style:name="gr6" style:family="graphic" style:parent-style-name="objectwithoutfill">
+   <style:graphic-properties draw:marker-end="Arrow" draw:marker-end-width="0.3cm" draw:fill="none" draw:textarea-vertical-align="middle"/>
+  </style:style>
+  <style:style style:name="pr1" style:family="presentation" style:parent-style-name="Default-backgroundobjects">
+   <style:graphic-properties draw:stroke="none" draw:fill="none" draw:fill-color="#ffffff" draw:auto-grow-height="false" fo:min-height="1.449cm"/>
+  </style:style>
+  <style:style style:name="pr2" style:family="presentation" style:parent-style-name="Default-backgroundobjects">
+   <style:graphic-properties draw:stroke="none" draw:fill="none" draw:fill-color="#ffffff" draw:auto-grow-height="false" fo:min-height="1.397cm"/>
+  </style:style>
+  <style:style style:name="pr3" style:family="presentation" style:parent-style-name="Default-backgroundobjects">
+   <style:graphic-properties draw:stroke="none" draw:fill="none" draw:fill-color="#ffffff" draw:textarea-vertical-align="bottom" draw:auto-grow-height="false" fo:min-height="1.397cm"/>
+  </style:style>
+  <style:style style:name="pr4" style:family="presentation" style:parent-style-name="Default-title">
+   <style:graphic-properties fo:min-height="7.021cm"/>
+  </style:style>
+  <style:style style:name="pr5" style:family="presentation" style:parent-style-name="Default-subtitle">
+   <style:graphic-properties draw:fill-color="#ffffff" fo:min-height="10.387cm"/>
+  </style:style>
+  <style:style style:name="pr6" style:family="presentation" style:parent-style-name="Default-subtitle">
+   <style:graphic-properties draw:stroke="none" draw:fill="none" fo:min-height="0.937cm"/>
+  </style:style>
+  <style:style style:name="pr7" style:family="presentation" style:parent-style-name="Default-notes">
+   <style:graphic-properties draw:fill-color="#ffffff" fo:min-height="12.572cm"/>
+  </style:style>
+  <style:style style:name="pr8" style:family="presentation" style:parent-style-name="Default-title">
+   <style:graphic-properties fo:min-height="3.506cm"/>
+  </style:style>
+  <style:style style:name="pr9" style:family="presentation" style:parent-style-name="Default-outline1">
+   <style:graphic-properties fo:min-height="11.929cm"/>
+  </style:style>
+  <style:style style:name="pr10" style:family="presentation" style:parent-style-name="Default-title">
+   <style:graphic-properties draw:auto-grow-height="true" fo:min-height="3.506cm"/>
+  </style:style>
+  <style:style style:name="pr11" style:family="presentation" style:parent-style-name="Default-outline1">
+   <style:graphic-properties fo:min-height="5.559cm"/>
+  </style:style>
+  <style:style style:name="P1" style:family="paragraph">
+   <style:text-properties fo:font-size="14pt" style:font-size-asian="14pt" style:font-size-complex="14pt"/>
+  </style:style>
+  <style:style style:name="P2" style:family="paragraph">
+   <loext:graphic-properties draw:fill="none" draw:fill-color="#ffffff"/>
+   <style:text-properties fo:font-size="14pt" style:font-size-asian="14pt" style:font-size-complex="14pt"/>
+  </style:style>
+  <style:style style:name="P3" style:family="paragraph">
+   <style:paragraph-properties fo:text-align="end"/>
+   <style:text-properties fo:font-size="14pt" style:font-size-asian="14pt" style:font-size-complex="14pt"/>
+  </style:style>
+  <style:style style:name="P4" style:family="paragraph">
+   <loext:graphic-properties draw:fill="none" draw:fill-color="#ffffff"/>
+   <style:paragraph-properties fo:text-align="end"/>
+   <style:text-properties fo:font-size="14pt" style:font-size-asian="14pt" style:font-size-complex="14pt"/>
+  </style:style>
+  <style:style style:name="P5" style:family="paragraph">
+   <style:paragraph-properties fo:text-align="center"/>
+   <style:text-properties fo:font-size="14pt" style:font-size-asian="14pt" style:font-size-complex="14pt"/>
+  </style:style>
+  <style:style style:name="P6" style:family="paragraph">
+   <loext:graphic-properties draw:fill="none" draw:fill-color="#ffffff"/>
+   <style:paragraph-properties fo:text-align="center"/>
+   <style:text-properties fo:font-size="14pt" style:font-size-asian="14pt" style:font-size-complex="14pt"/>
+  </style:style>
+  <style:style style:name="P7" style:family="paragraph">
+   <style:text-properties fo:font-size="36pt" style:font-size-asian="36pt" style:font-size-complex="36pt"/>
+  </style:style>
+  <style:style style:name="P8" style:family="paragraph">
+   <style:paragraph-properties fo:text-align="center"/>
+  </style:style>
+  <style:style style:name="P9" style:family="paragraph">
+   <loext:graphic-properties draw:fill-color="#ffffff"/>
+   <style:paragraph-properties fo:text-align="center"/>
+   <style:text-properties fo:font-size="20pt" style:font-size-asian="20pt" style:font-size-complex="20pt"/>
+  </style:style>
+  <style:style style:name="P10" style:family="paragraph">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:text-align="center"/>
+  </style:style>
+  <style:style style:name="P11" style:family="paragraph">
+   <loext:graphic-properties draw:fill-color="#ffffff"/>
+  </style:style>
+  <style:style style:name="T1" style:family="text">
+   <style:text-properties fo:font-size="14pt" style:font-size-asian="14pt" style:font-size-complex="14pt"/>
+  </style:style>
+  <style:style style:name="T2" style:family="text">
+   <style:text-properties fo:font-size="66pt" style:font-size-asian="66pt" style:font-size-complex="66pt"/>
+  </style:style>
+  <style:style style:name="T3" style:family="text">
+   <style:text-properties fo:font-size="44pt" style:font-size-asian="44pt" style:font-size-complex="44pt"/>
+  </style:style>
+  <style:style style:name="T4" style:family="text">
+   <style:text-properties fo:font-size="24pt" style:font-size-asian="24pt" style:font-size-complex="24pt"/>
+  </style:style>
+  <style:style style:name="T5" style:family="text">
+   <style:text-properties fo:font-size="20pt" style:font-size-asian="20pt" style:font-size-complex="20pt"/>
+  </style:style>
+  <text:list-style style:name="L1">
+   <text:list-level-style-bullet text:level="1" text:bullet-char="●">
+    <style:list-level-properties text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="2" text:bullet-char="●">
+    <style:list-level-properties text:space-before="0.6cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="3" text:bullet-char="●">
+    <style:list-level-properties text:space-before="1.2cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="4" text:bullet-char="●">
+    <style:list-level-properties text:space-before="1.8cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="5" text:bullet-char="●">
+    <style:list-level-properties text:space-before="2.4cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="6" text:bullet-char="●">
+    <style:list-level-properties text:space-before="3cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="7" text:bullet-char="●">
+    <style:list-level-properties text:space-before="3.6cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="8" text:bullet-char="●">
+    <style:list-level-properties text:space-before="4.2cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="9" text:bullet-char="●">
+    <style:list-level-properties text:space-before="4.8cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="10" text:bullet-char="●">
+    <style:list-level-properties text:space-before="5.4cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+  </text:list-style>
+  <text:list-style style:name="L2">
+   <text:list-level-style-bullet text:level="1" text:bullet-char="●">
+    <style:list-level-properties text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="2" text:bullet-char="●">
+    <style:list-level-properties text:space-before="0.6cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="3" text:bullet-char="●">
+    <style:list-level-properties text:space-before="1.2cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="4" text:bullet-char="●">
+    <style:list-level-properties text:space-before="1.8cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="5" text:bullet-char="●">
+    <style:list-level-properties text:space-before="2.4cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="6" text:bullet-char="●">
+    <style:list-level-properties text:space-before="3cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="7" text:bullet-char="●">
+    <style:list-level-properties text:space-before="3.6cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="8" text:bullet-char="●">
+    <style:list-level-properties text:space-before="4.2cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="9" text:bullet-char="●">
+    <style:list-level-properties text:space-before="4.8cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="10" text:bullet-char="●">
+    <style:list-level-properties text:space-before="5.4cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+  </text:list-style>
+  <text:list-style style:name="L3">
+   <text:list-level-style-bullet text:level="1" text:bullet-char="●">
+    <style:list-level-properties/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="2" text:bullet-char="●">
+    <style:list-level-properties text:space-before="0.6cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="3" text:bullet-char="●">
+    <style:list-level-properties text:space-before="1.2cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="4" text:bullet-char="●">
+    <style:list-level-properties text:space-before="1.8cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="5" text:bullet-char="●">
+    <style:list-level-properties text:space-before="2.4cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="6" text:bullet-char="●">
+    <style:list-level-properties text:space-before="3cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="7" text:bullet-char="●">
+    <style:list-level-properties text:space-before="3.6cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="8" text:bullet-char="●">
+    <style:list-level-properties text:space-before="4.2cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="9" text:bullet-char="●">
+    <style:list-level-properties text:space-before="4.8cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="10" text:bullet-char="●">
+    <style:list-level-properties text:space-before="5.4cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+  </text:list-style>
+  <text:list-style style:name="L4">
+   <text:list-level-style-bullet text:level="1" text:bullet-char="●">
+    <style:list-level-properties text:space-before="0.3cm" text:min-label-width="0.9cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="2" text:bullet-char="–">
+    <style:list-level-properties text:space-before="1.5cm" text:min-label-width="0.9cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="75%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="3" text:bullet-char="●">
+    <style:list-level-properties text:space-before="2.8cm" text:min-label-width="0.8cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="4" text:bullet-char="–">
+    <style:list-level-properties text:space-before="4.2cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="75%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="5" text:bullet-char="●">
+    <style:list-level-properties text:space-before="5.4cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="6" text:bullet-char="●">
+    <style:list-level-properties text:space-before="6.6cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="7" text:bullet-char="●">
+    <style:list-level-properties text:space-before="7.8cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="8" text:bullet-char="●">
+    <style:list-level-properties text:space-before="9cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="9" text:bullet-char="●">
+    <style:list-level-properties text:space-before="10.2cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="10" text:bullet-char="●">
+    <style:list-level-properties text:space-before="11.4cm" text:min-label-width="0.6cm"/>
+    <style:text-properties fo:font-family="StarSymbol" style:use-window-font-color="true" fo:font-size="45%"/>
+   </text:list-level-style-bullet>
+  </text:list-style>
+ </office:automatic-styles>
+ <office:master-styles>
+  <draw:layer-set>
+   <draw:layer draw:name="layout"/>
+   <draw:layer draw:name="background"/>
+   <draw:layer draw:name="backgroundobjects"/>
+   <draw:layer draw:name="controls"/>
+   <draw:layer draw:name="measurelines"/>
+  </draw:layer-set>
+  <style:handout-master presentation:presentation-page-layout-name="AL0T26" style:page-layout-name="PM0" draw:style-name="dp2">
+   <draw:page-thumbnail draw:layer="backgroundobjects" svg:width="9.294cm" svg:height="6.97cm" svg:x="1cm" svg:y="2.435cm"/>
+   <draw:page-thumbnail draw:layer="backgroundobjects" svg:width="9.294cm" svg:height="6.97cm" svg:x="1cm" svg:y="10.483cm"/>
+   <draw:page-thumbnail draw:layer="backgroundobjects" svg:width="9.294cm" svg:height="6.97cm" svg:x="1cm" svg:y="18.531cm"/>
+   <draw:page-thumbnail draw:layer="backgroundobjects" svg:width="9.294cm" svg:height="6.97cm" svg:x="11.295cm" svg:y="2.435cm"/>
+   <draw:page-thumbnail draw:layer="backgroundobjects" svg:width="9.294cm" svg:height="6.97cm" svg:x="11.295cm" svg:y="10.483cm"/>
+   <draw:page-thumbnail draw:layer="backgroundobjects" svg:width="9.294cm" svg:height="6.97cm" svg:x="11.295cm" svg:y="18.531cm"/>
+   <draw:frame draw:style-name="gr1" draw:text-style-name="P2" draw:layer="backgroundobjects" svg:width="9.369cm" svg:height="1.396cm" svg:x="0cm" svg:y="0cm" presentation:class="header">
+    <draw:text-box>
+     <text:p text:style-name="P1"><text:span text:style-name="T1"><presentation:header/></text:span><text:span text:style-name="T1"><presentation:header/></text:span><text:span text:style-name="T1"><presentation:header/></text:span><text:span text:style-name="T1"><presentation:header/></text:span><text:span text:style-name="T1"><presentation:header/></text:span><text:span text:style-name="T1"><presentation:header/></text:span><text:span text:style-name="T1"><presentation:header/></text:span><text:span text:style-name="T1"><presentation:header/></text:span><text:span text:style-name="T1"><presentation:header/></text:span><text:span text:style-name="T1"><presentation:header/></text:span><text:span text:style-name="T1"><presentation:header/></text:span><text:span text:style-name="T1"><presentation:header/></text:span><presentation:header/></text:p>
+    </draw:text-box>
+   </draw:frame>
+   <draw:frame draw:style-name="gr1" draw:text-style-name="P4" draw:layer="backgroundobjects" svg:width="9.369cm" svg:height="1.396cm" svg:x="12.22cm" svg:y="0cm" presentation:class="date-time">
+    <draw:text-box>
+     <text:p text:style-name="P3"><text:span text:style-name="T1"><presentation:date-time/></text:span><text:span text:style-name="T1"><presentation:date-time/></text:span><text:span text:style-name="T1"><presentation:date-time/></text:span><text:span text:style-name="T1"><presentation:date-time/></text:span><text:span text:style-name="T1"><presentation:date-time/></text:span><text:span text:style-name="T1"><presentation:date-time/></text:span><text:span text:style-name="T1"><presentation:date-time/></text:span><text:span text:style-name="T1"><presentation:date-time/></text:span><text:span text:style-name="T1"><presentation:date-time/></text:span><text:span text:style-name="T1"><presentation:date-time/></text:span><text:span text:style-name="T1"><presentation:date-time/></text:span><text:span text:style-name="T1"><presentation:date-time/></text:span><presentation:date-time/></text:p>
+    </draw:text-box>
+   </draw:frame>
+   <draw:frame draw:style-name="gr2" draw:text-style-name="P2" draw:layer="backgroundobjects" svg:width="9.369cm" svg:height="1.396cm" svg:x="0cm" svg:y="26.543cm" presentation:class="footer">
+    <draw:text-box>
+     <text:p text:style-name="P1"><text:span text:style-name="T1"><presentation:footer/></text:span><text:span text:style-name="T1"><presentation:footer/></text:span><text:span text:style-name="T1"><presentation:footer/></text:span><text:span text:style-name="T1"><presentation:footer/></text:span><text:span text:style-name="T1"><presentation:footer/></text:span><text:span text:style-name="T1"><presentation:footer/></text:span><text:span text:style-name="T1"><presentation:footer/></text:span><text:span text:style-name="T1"><presentation:footer/></text:span><text:span text:style-name="T1"><presentation:footer/></text:span><text:span text:style-name="T1"><presentation:footer/></text:span><text:span text:style-name="T1"><presentation:footer/></text:span><text:span text:style-name="T1"><presentation:footer/></text:span><presentation:footer/></text:p>
+    </draw:text-box>
+   </draw:frame>
+   <draw:frame draw:style-name="gr2" draw:text-style-name="P4" draw:layer="backgroundobjects" svg:width="9.369cm" svg:height="1.396cm" svg:x="12.22cm" svg:y="26.543cm" presentation:class="page-number">
+    <draw:text-box>
+     <text:p text:style-name="P3"><text:span text:style-name="T1"><text:page-number>&lt;number&gt;</text:page-number></text:span><text:span text:style-name="T1"><text:page-number>&lt;number&gt;</text:page-number></text:span><text:span text:style-name="T1"><text:page-number>&lt;number&gt;</text:page-number></text:span><text:span text:style-name="T1"><text:page-number>&lt;number&gt;</text:page-number></text:span><text:span text:style-name="T1"><text:page-number>&lt;number&gt;</text:page-number></text:span><text:span text:style-name="T1"><text:page-number>&lt;number&gt;</text:page-number></text:span><text:span text:style-name="T1"><text:page-number>&lt;number&gt;</text:page-number></text:span><text:span text:style-name="T1"><text:page-number>&lt;number&gt;</text:page-number></text:span><text:span text:style-name="T1"><text:page-number>&lt;number&gt;</text:page-number></text:span><text:span text:style-name="T1"><text:page-number>&lt;number&gt;</text:page-number></text:span><text:span text:style-name="T1"><text:page-number>&lt;number&gt;</text:page-number></text:span><text:span text:style-name="T1"><text:page-number>&lt;number&gt;</text:page-number></text:span><text:page-number>&lt;number&gt;</text:page-number></text:p>
+    </draw:text-box>
+   </draw:frame>
+  </style:handout-master>
+  <style:master-page style:name="Default" style:page-layout-name="PM1" draw:style-name="dp1">
+   <office:forms form:automatic-focus="false" form:apply-design-mode="false"/>
+   <draw:frame presentation:style-name="Default-title" draw:layer="backgroundobjects" svg:width="25.199cm" svg:height="3.506cm" svg:x="1.4cm" svg:y="0.837cm" presentation:class="title" presentation:placeholder="true">
+    <draw:text-box/>
+   </draw:frame>
+   <draw:frame presentation:style-name="Default-outline1" draw:layer="backgroundobjects" svg:width="25.199cm" svg:height="12.179cm" svg:x="1.4cm" svg:y="4.914cm" presentation:class="outline" presentation:placeholder="true">
+    <draw:text-box/>
+   </draw:frame>
+   <draw:frame presentation:style-name="Default-outline1" draw:layer="backgroundobjects" svg:width="25.199cm" svg:height="12.179cm" svg:x="1.4cm" svg:y="4.914cm" presentation:class="outline" presentation:placeholder="true">
+    <draw:text-box/>
+   </draw:frame>
+   <draw:frame presentation:style-name="Default-outline1" draw:layer="backgroundobjects" svg:width="25.199cm" svg:height="12.179cm" svg:x="1.4cm" svg:y="4.914cm" presentation:class="outline" presentation:placeholder="true">
+    <draw:text-box/>
+   </draw:frame>
+   <draw:frame presentation:style-name="Default-outline1" draw:layer="backgroundobjects" svg:width="25.199cm" svg:height="12.179cm" svg:x="1.4cm" svg:y="4.914cm" presentation:class="outline" presentation:placeholder="true">
+    <draw:text-box/>
+   </draw:frame>
+   <draw:frame presentation:style-name="Default-outline1" draw:layer="backgroundobjects" svg:width="25.199cm" svg:height="12.179cm" svg:x="1.4cm" svg:y="4.914cm" presentation:class="outline" presentation:placeholder="true">
+    <draw:text-box/>
+   </draw:frame>
+   <draw:frame presentation:style-name="Default-outline1" draw:layer="backgroundobjects" svg:width="25.199cm" svg:height="12.179cm" svg:x="1.4cm" svg:y="4.914cm" presentation:class="outline" presentation:placeholder="true">
+    <draw:text-box/>
+   </draw:frame>
+   <draw:frame presentation:style-name="Default-outline1" draw:layer="backgroundobjects" svg:width="25.199cm" svg:height="12.179cm" svg:x="1.4cm" svg:y="4.914cm" presentation:class="outline" presentation:placeholder="true">
+    <draw:text-box/>
+   </draw:frame>
+   <draw:frame presentation:style-name="Default-outline1" draw:layer="backgroundobjects" svg:width="25.199cm" svg:height="12.179cm" svg:x="1.4cm" svg:y="4.914cm" presentation:class="outline" presentation:placeholder="true">
+    <draw:text-box/>
+   </draw:frame>
+   <draw:frame presentation:style-name="Default-outline1" draw:layer="backgroundobjects" svg:width="25.199cm" svg:height="12.179cm" svg:x="1.4cm" svg:y="4.914cm" presentation:class="outline" presentation:placeholder="true">
+    <draw:text-box/>
+   </draw:frame>
+   <draw:frame presentation:style-name="Default-outline1" draw:layer="backgroundobjects" svg:width="24.639cm" svg:height="12.18cm" svg:x="1.4cm" svg:y="4.914cm" presentation:class="outline" presentation:placeholder="true">
+    <draw:text-box/>
+   </draw:frame>
+   <draw:frame presentation:style-name="Default-outline1" draw:layer="backgroundobjects" svg:width="24.639cm" svg:height="12.18cm" svg:x="1.4cm" svg:y="4.914cm" presentation:class="outline" presentation:placeholder="true">
+    <draw:text-box/>
+   </draw:frame>
+   <draw:frame presentation:style-name="Default-outline1" draw:layer="backgroundobjects" svg:width="25.199cm" svg:height="12.18cm" svg:x="1.4cm" svg:y="4.914cm" presentation:class="outline" presentation:placeholder="true">
+    <draw:text-box/>
+   </draw:frame>
+   <draw:frame presentation:style-name="Default-outline1" draw:layer="backgroundobjects" svg:width="24.639cm" svg:height="12.18cm" svg:x="1.4cm" svg:y="4.914cm" presentation:class="outline" presentation:placeholder="true">
+    <draw:text-box/>
+   </draw:frame>
+   <draw:frame presentation:style-name="pr1" draw:text-style-name="P2" draw:layer="backgroundobjects" svg:width="6.523cm" svg:height="1.448cm" svg:x="1.4cm" svg:y="19.131cm" presentation:class="date-time">
+    <draw:text-box>
+     <text:p text:style-name="P1"><presentation:date-time/></text:p>
+    </draw:text-box>
+   </draw:frame>
+   <draw:frame presentation:style-name="pr1" draw:text-style-name="P6" draw:layer="backgroundobjects" svg:width="8.875cm" svg:height="1.448cm" svg:x="9.576cm" svg:y="19.131cm" presentation:class="footer">
+    <draw:text-box>
+     <text:p text:style-name="P5"><text:span text:style-name="T1"><presentation:footer/></text:span></text:p>
+    </draw:text-box>
+   </draw:frame>
+   <draw:frame presentation:style-name="pr1" draw:text-style-name="P4" draw:layer="backgroundobjects" svg:width="6.523cm" svg:height="1.448cm" svg:x="20.076cm" svg:y="19.131cm" presentation:class="page-number">
+    <draw:text-box>
+     <text:p text:style-name="P3"><text:span text:style-name="T1"><text:page-number>&lt;number&gt;</text:page-number></text:span></text:p>
+    </draw:text-box>
+   </draw:frame>
+   <presentation:notes style:page-layout-name="PM0">
+    <draw:page-thumbnail presentation:style-name="Default-title" draw:layer="backgroundobjects" svg:width="13.968cm" svg:height="10.476cm" svg:x="3.81cm" svg:y="2.123cm" presentation:class="page"/>
+    <draw:frame presentation:style-name="Default-notes" draw:layer="backgroundobjects" svg:width="17.271cm" svg:height="12.572cm" svg:x="2.159cm" svg:y="13.271cm" presentation:class="notes" presentation:placeholder="true">
+     <draw:text-box/>
+    </draw:frame>
+    <draw:frame presentation:style-name="Default-notes" draw:layer="backgroundobjects" svg:width="17.271cm" svg:height="12.572cm" svg:x="2.159cm" svg:y="13.271cm" presentation:class="notes" presentation:placeholder="true">
+     <draw:text-box/>
+    </draw:frame>
+    <draw:frame presentation:style-name="Default-notes" draw:layer="backgroundobjects" svg:width="17.271cm" svg:height="12.572cm" svg:x="2.159cm" svg:y="13.271cm" presentation:class="notes" presentation:placeholder="true">
+     <draw:text-box/>
+    </draw:frame>
+    <draw:frame presentation:style-name="Default-notes" draw:layer="backgroundobjects" svg:width="17.271cm" svg:height="12.572cm" svg:x="2.159cm" svg:y="13.271cm" presentation:class="notes" presentation:placeholder="true">
+     <draw:text-box/>
+    </draw:frame>
+    <draw:frame presentation:style-name="Default-notes" draw:layer="backgroundobjects" svg:width="17.271cm" svg:height="12.572cm" svg:x="2.159cm" svg:y="13.271cm" presentation:class="notes" presentation:placeholder="true">
+     <draw:text-box/>
+    </draw:frame>
+    <draw:frame presentation:style-name="Default-notes" draw:layer="backgroundobjects" svg:width="17.271cm" svg:height="12.572cm" svg:x="2.159cm" svg:y="13.271cm" presentation:class="notes" presentation:placeholder="true">
+     <draw:text-box/>
+    </draw:frame>
+    <draw:frame presentation:style-name="Default-notes" draw:layer="backgroundobjects" svg:width="17.271cm" svg:height="12.572cm" svg:x="2.159cm" svg:y="13.271cm" presentation:class="notes" presentation:placeholder="true">
+     <draw:text-box/>
+    </draw:frame>
+    <draw:frame presentation:style-name="Default-notes" draw:layer="backgroundobjects" svg:width="17.271cm" svg:height="12.572cm" svg:x="2.159cm" svg:y="13.271cm" presentation:class="notes" presentation:placeholder="true">
+     <draw:text-box/>
+    </draw:frame>
+    <draw:frame presentation:style-name="Default-notes" draw:layer="backgroundobjects" svg:width="17.271cm" svg:height="12.572cm" svg:x="2.159cm" svg:y="13.271cm" presentation:class="notes" presentation:placeholder="true">
+     <draw:text-box/>
+    </draw:frame>
+    <draw:frame presentation:style-name="Default-notes" draw:layer="backgroundobjects" svg:width="17.271cm" svg:height="12.572cm" svg:x="2.159cm" svg:y="13.271cm" presentation:class="notes" presentation:placeholder="true">
+     <draw:text-box/>
+    </draw:frame>
+    <draw:frame presentation:style-name="Default-notes" draw:layer="backgroundobjects" svg:width="17.271cm" svg:height="12.572cm" svg:x="2.159cm" svg:y="13.271cm" presentation:class="notes" presentation:placeholder="true">
+     <draw:text-box/>
+    </draw:frame>
+    <draw:frame presentation:style-name="Default-notes" draw:layer="backgroundobjects" svg:width="17.271cm" svg:height="12.572cm" svg:x="2.159cm" svg:y="13.271cm" presentation:class="notes" presentation:placeholder="true">
+     <draw:text-box/>
+    </draw:frame>
+    <draw:frame presentation:style-name="Default-notes" draw:layer="backgroundobjects" svg:width="17.271cm" svg:height="12.572cm" svg:x="2.159cm" svg:y="13.271cm" presentation:class="notes" presentation:placeholder="true">
+     <draw:text-box/>
+    </draw:frame>
+    <draw:frame presentation:style-name="pr2" draw:text-style-name="P2" draw:layer="backgroundobjects" svg:width="9.369cm" svg:height="1.396cm" svg:x="0cm" svg:y="0cm" presentation:class="header">
+     <draw:text-box>
+      <text:p text:style-name="P1"><text:span text:style-name="T1"><presentation:header/></text:span><text:span text:style-name="T1"><presentation:header/></text:span><text:span text:style-name="T1"><presentation:header/></text:span><text:span text:style-name="T1"><presentation:header/></text:span><text:span text:style-name="T1"><presentation:header/></text:span><text:span text:style-name="T1"><presentation:header/></text:span><text:span text:style-name="T1"><presentation:header/></text:span><text:span text:style-name="T1"><presentation:header/></text:span><text:span text:style-name="T1"><presentation:header/></text:span><text:span text:style-name="T1"><presentation:header/></text:span><text:span text:style-name="T1"><presentation:header/></text:span><text:span text:style-name="T1"><presentation:header/></text:span><presentation:header/></text:p>
+     </draw:text-box>
+    </draw:frame>
+    <draw:frame presentation:style-name="pr2" draw:text-style-name="P4" draw:layer="backgroundobjects" svg:width="9.369cm" svg:height="1.396cm" svg:x="12.22cm" svg:y="0cm" presentation:class="date-time">
+     <draw:text-box>
+      <text:p text:style-name="P3"><text:span text:style-name="T1"><presentation:date-time/></text:span><text:span text:style-name="T1"><presentation:date-time/></text:span><text:span text:style-name="T1"><presentation:date-time/></text:span><text:span text:style-name="T1"><presentation:date-time/></text:span><text:span text:style-name="T1"><presentation:date-time/></text:span><text:span text:style-name="T1"><presentation:date-time/></text:span><text:span text:style-name="T1"><presentation:date-time/></text:span><text:span text:style-name="T1"><presentation:date-time/></text:span><text:span text:style-name="T1"><presentation:date-time/></text:span><text:span text:style-name="T1"><presentation:date-time/></text:span><text:span text:style-name="T1"><presentation:date-time/></text:span><text:span text:style-name="T1"><presentation:date-time/></text:span><presentation:date-time/></text:p>
+     </draw:text-box>
+    </draw:frame>
+    <draw:frame presentation:style-name="pr3" draw:text-style-name="P2" draw:layer="backgroundobjects" svg:width="9.369cm" svg:height="1.396cm" svg:x="0cm" svg:y="26.543cm" presentation:class="footer">
+     <draw:text-box>
+      <text:p text:style-name="P1"><text:span text:style-name="T1"><presentation:footer/></text:span><text:span text:style-name="T1"><presentation:footer/></text:span><text:span text:style-name="T1"><presentation:footer/></text:span><text:span text:style-name="T1"><presentation:footer/></text:span><text:span text:style-name="T1"><presentation:footer/></text:span><text:span text:style-name="T1"><presentation:footer/></text:span><text:span text:style-name="T1"><presentation:footer/></text:span><text:span text:style-name="T1"><presentation:footer/></text:span><text:span text:style-name="T1"><presentation:footer/></text:span><text:span text:style-name="T1"><presentation:footer/></text:span><text:span text:style-name="T1"><presentation:footer/></text:span><text:span text:style-name="T1"><presentation:footer/></text:span><presentation:footer/></text:p>
+     </draw:text-box>
+    </draw:frame>
+    <draw:frame presentation:style-name="pr3" draw:text-style-name="P4" draw:layer="backgroundobjects" svg:width="9.369cm" svg:height="1.396cm" svg:x="12.22cm" svg:y="26.543cm" presentation:class="page-number">
+     <draw:text-box>
+      <text:p text:style-name="P3"><text:span text:style-name="T1"><text:page-number>&lt;number&gt;</text:page-number></text:span><text:span text:style-name="T1"><text:page-number>&lt;number&gt;</text:page-number></text:span><text:span text:style-name="T1"><text:page-number>&lt;number&gt;</text:page-number></text:span><text:span text:style-name="T1"><text:page-number>&lt;number&gt;</text:page-number></text:span><text:span text:style-name="T1"><text:page-number>&lt;number&gt;</text:page-number></text:span><text:span text:style-name="T1"><text:page-number>&lt;number&gt;</text:page-number></text:span><text:span text:style-name="T1"><text:page-number>&lt;number&gt;</text:page-number></text:span><text:span text:style-name="T1"><text:page-number>&lt;number&gt;</text:page-number></text:span><text:span text:style-name="T1"><text:page-number>&lt;number&gt;</text:page-number></text:span><text:span text:style-name="T1"><text:page-number>&lt;number&gt;</text:page-number></text:span><text:span text:style-name="T1"><text:page-number>&lt;number&gt;</text:page-number></text:span><text:span text:style-name="T1"><text:page-number>&lt;number&gt;</text:page-number></text:span><text:page-number>&lt;number&gt;</text:page-number></text:p>
+     </draw:text-box>
+    </draw:frame>
+   </presentation:notes>
+  </style:master-page>
+ </office:master-styles>
+ <office:body>
+  <office:presentation>
+   <draw:page draw:name="page1" draw:style-name="dp3" draw:master-page-name="Default" presentation:presentation-page-layout-name="AL1T0">
+    <office:forms form:automatic-focus="false" form:apply-design-mode="false"/>
+    <draw:frame presentation:style-name="pr4" draw:text-style-name="P7" draw:layer="layout" svg:width="27.017cm" svg:height="7.021cm" svg:x="0.4cm" svg:y="2.567cm" presentation:class="title" presentation:user-transformed="true">
+     <draw:text-box>
+      <text:p><text:span text:style-name="T2">ANIMA</text:span><text:span text:style-name="T2"><text:line-break/></text:span><text:span text:style-name="T3">Constrained Voucher</text:span><text:span text:style-name="T3"><text:line-break/></text:span><text:span text:style-name="T3">and BRSKI extensions to COAP-EST</text:span><text:span text:style-name="T4"><text:line-break/></text:span><text:span text:style-name="T4"/></text:p>
+     </draw:text-box>
+    </draw:frame>
+    <draw:frame presentation:style-name="pr5" draw:text-style-name="P9" draw:layer="layout" svg:width="24.639cm" svg:height="10.387cm" svg:x="1.4cm" svg:y="10.255cm" presentation:class="subtitle" presentation:user-transformed="true">
+     <draw:text-box>
+      <text:p text:style-name="P8"><text:span text:style-name="T5">Michael Richardson &lt;</text:span><text:span text:style-name="T5"><text:a xlink:href="mailto:mcr+ietf@sandelman.ca" xlink:type="simple">mcr+ietf@sandelman.ca</text:a></text:span><text:span text:style-name="T5">&gt;</text:span></text:p>
+      <text:p text:style-name="P8"><text:span text:style-name="T5"><text:s text:c="47"/></text:span><text:span text:style-name="T5">Peter van der Stok &lt;consultancy@vanderstok.org&gt;</text:span></text:p>
+      <text:p text:style-name="P8"><text:span text:style-name="T5">Panos Kampanakis &lt;</text:span><text:span text:style-name="T5"><text:a xlink:href="mailto:pkampana@cisco.com" xlink:type="simple">pkampana@cisco.com</text:a></text:span><text:span text:style-name="T5">&gt;</text:span></text:p>
+      <text:p text:style-name="P8"><text:span text:style-name="T5">Shahid Raza &lt;</text:span><text:span text:style-name="T5"><text:a xlink:href="mailto:shahid@sics.se" xlink:type="simple">shahid@sics.se</text:a></text:span><text:span text:style-name="T5">&gt;</text:span></text:p>
+      <text:p text:style-name="P8"><text:span text:style-name="T5"><text:a xlink:href="mailto:martin.furuhed@nexusgroup.com" xlink:type="simple">martin.furuhed@nexusgroup.com</text:a></text:span></text:p>
+      <text:p text:style-name="P8"><text:span text:style-name="T5"><text:s text:c="3"/></text:span><text:span text:style-name="T5">Sandeep S. Kumar &lt;</text:span><text:span text:style-name="T5"><text:a xlink:href="mailto:ietf@sandeep.de" xlink:type="simple">ietf@sandeep.de</text:a></text:span><text:span text:style-name="T5">&gt;</text:span></text:p>
+      <text:p text:style-name="P8"><text:span text:style-name="T5"/></text:p>
+      <text:p text:style-name="P8"><text:span text:style-name="T5"/></text:p>
+      <text:p text:style-name="P8"><text:span text:style-name="T5"><text:a xlink:href="https://www.sandelman.ca/SSW/ietf/meeting/ietf103/ietf103-ace-est-coap.pdf" xlink:type="simple">https://www.sandelman.ca/SSW/ietf/meeting/ietf103/ietf103-ace-est-coap.pdf</text:a></text:span></text:p>
+     </draw:text-box>
+    </draw:frame>
+    <draw:frame presentation:style-name="pr6" draw:text-style-name="P10" draw:layer="layout" svg:width="0.502cm" svg:height="0.937cm" svg:x="11.448cm" svg:y="19.999cm">
+     <draw:text-box>
+      <text:p/>
+     </draw:text-box>
+    </draw:frame>
+    <presentation:notes draw:style-name="dp2">
+     <draw:page-thumbnail draw:style-name="gr3" draw:layer="layout" svg:width="13.968cm" svg:height="10.476cm" svg:x="3.81cm" svg:y="2.123cm" draw:page-number="1" presentation:class="page"/>
+     <draw:frame presentation:style-name="pr7" draw:text-style-name="P11" draw:layer="layout" svg:width="17.271cm" svg:height="12.572cm" svg:x="2.159cm" svg:y="13.271cm" presentation:class="notes" presentation:placeholder="true" presentation:user-transformed="true">
+      <draw:text-box/>
+     </draw:frame>
+    </presentation:notes>
+   </draw:page>
+   <draw:page draw:name="page2" draw:style-name="dp3" draw:master-page-name="Default" presentation:presentation-page-layout-name="AL2T1">
+    <office:forms form:automatic-focus="false" form:apply-design-mode="false"/>
+    <draw:frame presentation:style-name="pr8" draw:layer="layout" svg:width="25.199cm" svg:height="3.506cm" svg:x="1.4cm" svg:y="0.837cm" presentation:class="title" presentation:user-transformed="true">
+     <draw:text-box>
+      <text:p>EST-COAP -06</text:p>
+     </draw:text-box>
+    </draw:frame>
+    <draw:frame presentation:style-name="pr9" draw:layer="layout" svg:width="25.199cm" svg:height="12.179cm" svg:x="1.4cm" svg:y="4.914cm" presentation:class="outline" presentation:user-transformed="true">
+     <draw:text-box>
+      <text:list text:style-name="L4">
+       <text:list-item>
+        <text:p>Moved change Log section to front.</text:p>
+       </text:list-item>
+       <text:list-item>
+        <text:p>clarified discovery section, by specifying that no discovery may <text:s/>be needed for /.well-known/est URI.<text:tab/></text:p>
+       </text:list-item>
+       <text:list-item>
+        <text:p>added resource type values for IANA<text:tab/></text:p>
+       </text:list-item>
+       <text:list-item>
+        <text:p>added list of compulsory to implement and optional functions.<text:tab/></text:p>
+       </text:list-item>
+       <text:list-item>
+        <text:p>Fixed issues pointed out by the idnits tool.<text:tab/></text:p>
+       </text:list-item>
+       <text:list-item>
+        <text:p>Updated COAP response codes section with more mappings between EST<text:tab/>and HTTP codes and EST-coaps COAP codes.<text:tab/></text:p>
+       </text:list-item>
+       <text:list-item>
+        <text:p>Minor updates to the MTI EST Functions section.<text:tab/></text:p>
+       </text:list-item>
+       <text:list-item>
+        <text:p>TBD8 removed from C-F registration, to be done in CT draft.<text:tab/></text:p>
+        <text:p><text:s/><text:tab/><text:tab/></text:p>
+       </text:list-item>
+      </text:list>
+     </draw:text-box>
+    </draw:frame>
+    <presentation:notes draw:style-name="dp2">
+     <draw:page-thumbnail draw:style-name="gr3" draw:layer="layout" svg:width="13.968cm" svg:height="10.476cm" svg:x="3.81cm" svg:y="2.123cm" draw:page-number="2" presentation:class="page"/>
+     <draw:frame presentation:style-name="pr7" draw:text-style-name="P11" draw:layer="layout" svg:width="17.271cm" svg:height="12.572cm" svg:x="2.159cm" svg:y="13.271cm" presentation:class="notes" presentation:placeholder="true" presentation:user-transformed="true">
+      <draw:text-box/>
+     </draw:frame>
+    </presentation:notes>
+   </draw:page>
+   <draw:page draw:name="page3" draw:style-name="dp3" draw:master-page-name="Default" presentation:presentation-page-layout-name="AL3T3">
+    <office:forms form:automatic-focus="false" form:apply-design-mode="false"/>
+    <draw:frame presentation:style-name="pr10" draw:layer="layout" svg:width="25.199cm" svg:height="3.506cm" svg:x="1.4cm" svg:y="0.837cm" presentation:class="title">
+     <draw:text-box>
+      <text:p>Interop testing</text:p>
+     </draw:text-box>
+    </draw:frame>
+    <draw:frame presentation:style-name="pr11" draw:layer="layout" svg:width="15.8cm" svg:height="14.486cm" svg:x="1.4cm" svg:y="4.914cm" presentation:class="outline" presentation:user-transformed="true">
+     <draw:text-box>
+      <text:list text:style-name="L4">
+       <text:list-item>
+        <text:p>Started Tuesday Oct. 9, 15:00 UTC</text:p>
+        <text:list>
+         <text:list-item>
+          <text:p>Visit https://appear.in/est-coaps</text:p>
+         </text:list-item>
+        </text:list>
+       </text:list-item>
+       <text:list-item>
+        <text:p>Participants have put EST Registrar (“server”) online at public IP</text:p>
+        <text:list>
+         <text:list-item>
+          <text:p>Client can usually operate behind NAT if needed. Some IPv6-only though.</text:p>
+         </text:list-item>
+        </text:list>
+       </text:list-item>
+       <text:list-item>
+        <text:p>Some systems require trust anchors configures, others do not.</text:p>
+        <text:list>
+         <text:list-item>
+          <text:p>Trust anchors have been distributed by email and via github tree.</text:p>
+         </text:list-item>
+        </text:list>
+       </text:list-item>
+       <text:list-item>
+        <text:p>Mailing list: <text:a xlink:href="https://lists.sandelman.ca/mailman/admindb/est-and-bootstrap-plugtesting" xlink:type="simple">https://lists.sandelman.ca/mailman/admindb/est-and-bootstrap-plugtesting</text:a></text:p>
+       </text:list-item>
+       <text:list-item>
+        <text:p>“Three” participating companies: 2 with client and server, one with server-only, one with client-only (a team!)</text:p>
+       </text:list-item>
+       <text:list-item>
+        <text:p>Initial meetings were very much “is this thing turned on”, and have continued weekly, including this week.</text:p>
+        <text:list>
+         <text:list-item>
+          <text:p><text:span text:style-name="T4">We have passed through “does DTLS even work” and we are now at the stage of “what’s wrong with this CSR?”</text:span></text:p>
+         </text:list-item>
+        </text:list>
+       </text:list-item>
+      </text:list>
+     </draw:text-box>
+    </draw:frame>
+    <draw:frame draw:style-name="gr4" draw:text-style-name="P8" draw:layer="layout" svg:width="2.212cm" svg:height="2.212cm" svg:x="18.6cm" svg:y="13.788cm">
+     <draw:image xlink:href="">
+      <office:binary-data>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+
+       CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8p
+       IC0tPgo8c3ZnCiAgIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4x
+       LyIKICAgeG1sbnM6Y2M9Imh0dHA6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL25zIyIKICAgeG1s
+       bnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIgog
+       ICB4bWxuczpzdmc9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogICB4bWxucz0iaHR0
+       cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgIHhtbG5zOnNvZGlwb2RpPSJodHRwOi8vc29k
+       aXBvZGkuc291cmNlZm9yZ2UubmV0L0RURC9zb2RpcG9kaS0wLmR0ZCIKICAgeG1sbnM6aW5r
+       c2NhcGU9Imh0dHA6Ly93d3cuaW5rc2NhcGUub3JnL25hbWVzcGFjZXMvaW5rc2NhcGUiCiAg
+       IGhlaWdodD0iMTI4IgogICB3aWR0aD0iMTI4IgogICBpZD0ic3ZnMiIKICAgc29kaXBvZGk6
+       dmVyc2lvbj0iMC4zMiIKICAgaW5rc2NhcGU6dmVyc2lvbj0iMC40NiIKICAgdmVyc2lvbj0i
+       MS4wIgogICBzb2RpcG9kaTpkb2NiYXNlPSJEOlxEb2N1bWVudHMgYW5kIFNldHRpbmdzXEpv
+       YW5uYVxNeSBEb2N1bWVudHNcTXkgUGljdHVyZXNcZ3JhcGhfdmVjdG9yXHRoaWNvbl9iYWJ5
+       IgogICBzb2RpcG9kaTpkb2NuYW1lPSJkdWNreTA1X29rLnN2ZyIKICAgaW5rc2NhcGU6b3V0
+       cHV0X2V4dGVuc2lvbj0ib3JnLmlua3NjYXBlLm91dHB1dC5zdmcuaW5rc2NhcGUiPgogIDxk
+       ZWZzCiAgICAgaWQ9ImRlZnM0Ij4KICAgIDxpbmtzY2FwZTpwZXJzcGVjdGl2ZQogICAgICAg
+       c29kaXBvZGk6dHlwZT0iaW5rc2NhcGU6cGVyc3AzZCIKICAgICAgIGlua3NjYXBlOnZwX3g9
+       IjAgOiAzMCA6IDEiCiAgICAgICBpbmtzY2FwZTp2cF95PSIwIDogMTAwMCA6IDAiCiAgICAg
+       ICBpbmtzY2FwZTp2cF96PSI2MCA6IDMwIDogMSIKICAgICAgIGlua3NjYXBlOnBlcnNwM2Qt
+       b3JpZ2luPSIzMCA6IDIwIDogMSIKICAgICAgIGlkPSJwZXJzcGVjdGl2ZTU1NjEiIC8+CiAg
+       PC9kZWZzPgogIDxzb2RpcG9kaTpuYW1lZHZpZXcKICAgICBpZD0iYmFzZSIKICAgICBwYWdl
+       Y29sb3I9IiNmZmZmZmYiCiAgICAgYm9yZGVyY29sb3I9IiM2NjY2NjYiCiAgICAgYm9yZGVy
+       b3BhY2l0eT0iMS4wIgogICAgIGlua3NjYXBlOnBhZ2VvcGFjaXR5PSIwLjAiCiAgICAgaW5r
+       c2NhcGU6cGFnZXNoYWRvdz0iMiIKICAgICBpbmtzY2FwZTpjeD0iNjQiCiAgICAgaW5rc2Nh
+       cGU6Y3k9IjUyLjkxNTM1MSIKICAgICBpbmtzY2FwZTp6b29tPSIxLjU4MjcwMzkiCiAgICAg
+       aW5rc2NhcGU6ZG9jdW1lbnQtdW5pdHM9InB4IgogICAgIGlua3NjYXBlOmN1cnJlbnQtbGF5
+       ZXI9ImxheWVyMiIKICAgICB3aWR0aD0iNjBweCIKICAgICBoZWlnaHQ9IjYwcHgiCiAgICAg
+       Ym9yZGVybGF5ZXI9InRydWUiCiAgICAgc2hvd2dyaWQ9InRydWUiCiAgICAgaW5rc2NhcGU6
+       d2luZG93LXdpZHRoPSIxMjgwIgogICAgIGlua3NjYXBlOndpbmRvdy1oZWlnaHQ9Ijc0NCIK
+       ICAgICBpbmtzY2FwZTp3aW5kb3cteD0iLTQiCiAgICAgaW5rc2NhcGU6d2luZG93LXk9Ii00
+       IgogICAgIG9iamVjdHRvbGVyYW5jZT0iMTAwMDAiCiAgICAgZ3VpZGV0b2xlcmFuY2U9IjIi
+       PgogICAgPGlua3NjYXBlOmdyaWQKICAgICAgIHR5cGU9Inh5Z3JpZCIKICAgICAgIGlkPSJn
+       cmlkNjA4NCIKICAgICAgIHZpc2libGU9InRydWUiCiAgICAgICBlbmFibGVkPSJ0cnVlIgog
+       ICAgICAgZW1wc3BhY2luZz0iNCIgLz4KICA8L3NvZGlwb2RpOm5hbWVkdmlldz4KICA8bWV0
+       YWRhdGEKICAgICBpZD0ibWV0YWRhdGE3Ij4KICAgIDxyZGY6UkRGPgogICAgICA8Y2M6V29y
+       awogICAgICAgICByZGY6YWJvdXQ9IiI+CiAgICAgICAgPGRjOmZvcm1hdD5pbWFnZS9zdmcr
+       eG1sPC9kYzpmb3JtYXQ+CiAgICAgICAgPGRjOnR5cGUKICAgICAgICAgICByZGY6cmVzb3Vy
+       Y2U9Imh0dHA6Ly9wdXJsLm9yZy9kYy9kY21pdHlwZS9TdGlsbEltYWdlIiAvPgogICAgICA8
+       L2NjOldvcms+CiAgICA8L3JkZjpSREY+CiAgPC9tZXRhZGF0YT4KICA8ZwogICAgIGlua3Nj
+       YXBlOmdyb3VwbW9kZT0ibGF5ZXIiCiAgICAgaW5rc2NhcGU6bGFiZWw9IldhcnN0d2EgMSIK
+       ICAgICBpZD0ibGF5ZXIxIgogICAgIHN0eWxlPSJkaXNwbGF5OmlubGluZSIgLz4KICA8Zwog
+       ICAgIGlua3NjYXBlOmdyb3VwbW9kZT0ibGF5ZXIiCiAgICAgaWQ9ImxheWVyMiIKICAgICBp
+       bmtzY2FwZTpsYWJlbD0ienp6IgogICAgIHN0eWxlPSJkaXNwbGF5OmlubGluZSI+CiAgICA8
+       cGF0aAogICAgICAgc3R5bGU9ImZpbGw6I2ZmMDAwMDtmaWxsLW9wYWNpdHk6MTtzdHJva2U6
+       IzAwMDAwMDtzdHJva2Utd2lkdGg6NDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1p
+       dGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3Ryb2tlLW9wYWNpdHk6MTtkaXNw
+       bGF5OmlubGluZSIKICAgICAgIGQ9Ik0gMTA2LjcwODY3LDI4LjAxMzc1NCBDIDEwMS44MTgx
+       NywyOC4wMTM3NTQgOTcuOTE3NjI0LDMxLjk4MTQwNiA5Ny45MTc2MjQsMzYuODcxOTA0IEwg
+       OTcuOTE3NjI0LDQ3LjI3MzUyMSBDIDk5Ljk4NTM1LDQ4LjI5NTExNiAxMDIuMzI4ODcsNDgu
+       ODg0MDk0IDEwNC43NjI1Niw0OC44ODQwOTQgQyAxMTMuNjI5MzQsNDguODg0MDk0IDEyMC44
+       MDExOCw0MS4zMTE0OTYgMTIwLjgwMTE4LDMxLjk3MzA3OSBDIDEyMC44MDExOCwzMC42MTEy
+       MjUgMTIwLjYyMDM4LDI5LjI4MjcyIDEyMC4zMzE0MywyOC4wMTM3NTQgTCAxMDYuNzA4Njcs
+       MjguMDEzNzU0IHoiCiAgICAgICBpZD0icGF0aDMyOTciIC8+CiAgICA8cGF0aAogICAgICAg
+       c3R5bGU9ImZpbGw6I2ZmZmYwZTtmaWxsLW9wYWNpdHk6MTtzdHJva2U6IzAwMDAwMDtzdHJv
+       a2Utd2lkdGg6NjtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6NDtz
+       dHJva2UtZGFzaGFycmF5Om5vbmU7c3Ryb2tlLW9wYWNpdHk6MSIKICAgICAgIGQ9Ik0gODAs
+       MTEuMjM2OTUyIEMgNjYuOTU3MjgzLDExLjIzNjk1MiA1Ni4zNzgyNjcsMjIuMTI0NjY4IDU2
+       LjM3ODI2NSwzNS41Mjk3NiBDIDU2LjM3ODI2NSw0My4yNjEzMiA1OS44ODc1MzEsNTAuMTM5
+       NzU5IDY1LjM3MDYzLDU0LjU4ODIwNiBDIDYyLjEyNjk5LDU0LjI1MDM3OSA1OC44MDg0ODIs
+       NTQuMDUxMzQ4IDU1LjQzODc2NCw1NC4wNTEzNDggQyA1MC41NzU4NTYsNTQuMDUxMzQ4IDQ1
+       LjgzMzUyNCw1NC41MDI0NzIgNDEuMjEyMDM3LDU1LjE5MjE3MSBDIDM3LjMyNzMyNSw0Ny4w
+       NjUzNCAyOC4yNzgxOSw0MC4wODU4MzkgMjAuODAyMzY5LDM3Ljk1MTg0OSBDIDEwLjY4MzQ3
+       Nyw0OS4xMTMxNDEgOC43MDQ0MTgzLDYwLjgwOTA1NyA4LjgwMDE3MjksNzEuMjM1MzY4IEMg
+       OC45MTE1MDQ3LDgzLjM1NzgxIDEyLjQxODcxNiw5Mi43OTU3NjIgMTcuMzg4OTgsMTAwLjA4
+       Njg5IEMgMjguOTA0ODEsMTA2LjU2MDQ0IDQyLjc0MTMzNiwxMTAuMzU0MjkgNTcuNTg2MTk1
+       LDExMC4zNTQyOSBDIDcwLjA2Njc3MSwxMTAuMzU0MjkgODEuODA5NjU3LDEwNy42Njg2NyA5
+       Mi4wNzkyOTcsMTAyLjk3MjUgQyA5OC42NDYzMDEsOTUuMDgzNjY3IDEwMi42MTUxMyw4NC45
+       OTAzMSAxMDIuNjE1MTMsNzMuOTgyMTg4IEMgMTAyLjYxNTEzLDY2LjEyNDQ0OCAxMDAuNTk2
+       NDMsNTguNzUyMDU1IDk3LjA0NTIzLDUyLjMwNjU2MSBDIDEwMS4xMTE4Miw0Ny45NDM4NTYg
+       MTAzLjYyMTc0LDQyLjA0Mzg4NiAxMDMuNjIxNzQsMzUuNTI5NzYgQyAxMDMuNjIxNzQsMjIu
+       MTI0NjY4IDkzLjA0MjcxNCwxMS4yMzY5NTMgODAsMTEuMjM2OTUyIHoiCiAgICAgICBpZD0i
+       cGF0aDIyNzgiCiAgICAgICBzb2RpcG9kaTpub2RldHlwZXM9ImNzY3NjY3Njc2NzY3NjIiAv
+       PgogICAgPHBhdGgKICAgICAgIHNvZGlwb2RpOnR5cGU9ImFyYyIKICAgICAgIHN0eWxlPSJm
+       aWxsOiMwNTA1MDU7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRo
+       OjI7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRh
+       c2hhcnJheTpub25lO3N0cm9rZS1vcGFjaXR5OjEiCiAgICAgICBpZD0icGF0aDMzMDciCiAg
+       ICAgICBzb2RpcG9kaTpjeD0iNDAuNjYzMTMyIgogICAgICAgc29kaXBvZGk6Y3k9IjE0LjY0
+       MTkxIgogICAgICAgc29kaXBvZGk6cng9IjIuNDY2ODQzNiIKICAgICAgIHNvZGlwb2RpOnJ5
+       PSIyLjU0NjQxOTEiCiAgICAgICBkPSJNIDQzLjEyOTk3NSwxNC42NDE5MSBBIDIuNDY2ODQz
+       NiwyLjU0NjQxOTEgMCAxIDEgMzguMTk2Mjg4LDE0LjY0MTkxIEEgMi40NjY4NDM2LDIuNTQ2
+       NDE5MSAwIDEgMSA0My4xMjk5NzUsMTQuNjQxOTEgeiIKICAgICAgIHRyYW5zZm9ybT0ibWF0
+       cml4KDEuNjIyNTQ0NCwwLDAsMS41MDQ3MzI5LDE5Ljk2MDQ1Miw2LjgzNDkzOTkpIiAvPgog
+       IDwvZz4KPC9zdmc+Cg==
+      </office:binary-data>
+      <text:p/>
+     </draw:image>
+    </draw:frame>
+    <draw:frame draw:style-name="gr4" draw:text-style-name="P8" draw:layer="layout" svg:width="2cm" svg:height="2cm" svg:x="24.4cm" svg:y="4cm">
+     <draw:image xlink:href="">
+      <office:binary-data>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+
+       CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8p
+       IC0tPgo8c3ZnCiAgIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4x
+       LyIKICAgeG1sbnM6Y2M9Imh0dHA6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL25zIyIKICAgeG1s
+       bnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIgog
+       ICB4bWxuczpzdmc9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogICB4bWxucz0iaHR0
+       cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgIHhtbG5zOnNvZGlwb2RpPSJodHRwOi8vc29k
+       aXBvZGkuc291cmNlZm9yZ2UubmV0L0RURC9zb2RpcG9kaS0wLmR0ZCIKICAgeG1sbnM6aW5r
+       c2NhcGU9Imh0dHA6Ly93d3cuaW5rc2NhcGUub3JnL25hbWVzcGFjZXMvaW5rc2NhcGUiCiAg
+       IGhlaWdodD0iMTI4IgogICB3aWR0aD0iMTI4IgogICBpZD0ic3ZnMiIKICAgc29kaXBvZGk6
+       dmVyc2lvbj0iMC4zMiIKICAgaW5rc2NhcGU6dmVyc2lvbj0iMC40NiIKICAgdmVyc2lvbj0i
+       MS4wIgogICBzb2RpcG9kaTpkb2NiYXNlPSJEOlxEb2N1bWVudHMgYW5kIFNldHRpbmdzXEpv
+       YW5uYVxNeSBEb2N1bWVudHNcTXkgUGljdHVyZXNcZ3JhcGhfdmVjdG9yXHRoaWNvbl9iYWJ5
+       IgogICBzb2RpcG9kaTpkb2NuYW1lPSJkdWNreTA1X29rLnN2ZyIKICAgaW5rc2NhcGU6b3V0
+       cHV0X2V4dGVuc2lvbj0ib3JnLmlua3NjYXBlLm91dHB1dC5zdmcuaW5rc2NhcGUiPgogIDxk
+       ZWZzCiAgICAgaWQ9ImRlZnM0Ij4KICAgIDxpbmtzY2FwZTpwZXJzcGVjdGl2ZQogICAgICAg
+       c29kaXBvZGk6dHlwZT0iaW5rc2NhcGU6cGVyc3AzZCIKICAgICAgIGlua3NjYXBlOnZwX3g9
+       IjAgOiAzMCA6IDEiCiAgICAgICBpbmtzY2FwZTp2cF95PSIwIDogMTAwMCA6IDAiCiAgICAg
+       ICBpbmtzY2FwZTp2cF96PSI2MCA6IDMwIDogMSIKICAgICAgIGlua3NjYXBlOnBlcnNwM2Qt
+       b3JpZ2luPSIzMCA6IDIwIDogMSIKICAgICAgIGlkPSJwZXJzcGVjdGl2ZTU1NjEiIC8+CiAg
+       PC9kZWZzPgogIDxzb2RpcG9kaTpuYW1lZHZpZXcKICAgICBpZD0iYmFzZSIKICAgICBwYWdl
+       Y29sb3I9IiNmZmZmZmYiCiAgICAgYm9yZGVyY29sb3I9IiM2NjY2NjYiCiAgICAgYm9yZGVy
+       b3BhY2l0eT0iMS4wIgogICAgIGlua3NjYXBlOnBhZ2VvcGFjaXR5PSIwLjAiCiAgICAgaW5r
+       c2NhcGU6cGFnZXNoYWRvdz0iMiIKICAgICBpbmtzY2FwZTpjeD0iNjQiCiAgICAgaW5rc2Nh
+       cGU6Y3k9IjUyLjkxNTM1MSIKICAgICBpbmtzY2FwZTp6b29tPSIxLjU4MjcwMzkiCiAgICAg
+       aW5rc2NhcGU6ZG9jdW1lbnQtdW5pdHM9InB4IgogICAgIGlua3NjYXBlOmN1cnJlbnQtbGF5
+       ZXI9ImxheWVyMiIKICAgICB3aWR0aD0iNjBweCIKICAgICBoZWlnaHQ9IjYwcHgiCiAgICAg
+       Ym9yZGVybGF5ZXI9InRydWUiCiAgICAgc2hvd2dyaWQ9InRydWUiCiAgICAgaW5rc2NhcGU6
+       d2luZG93LXdpZHRoPSIxMjgwIgogICAgIGlua3NjYXBlOndpbmRvdy1oZWlnaHQ9Ijc0NCIK
+       ICAgICBpbmtzY2FwZTp3aW5kb3cteD0iLTQiCiAgICAgaW5rc2NhcGU6d2luZG93LXk9Ii00
+       IgogICAgIG9iamVjdHRvbGVyYW5jZT0iMTAwMDAiCiAgICAgZ3VpZGV0b2xlcmFuY2U9IjIi
+       PgogICAgPGlua3NjYXBlOmdyaWQKICAgICAgIHR5cGU9Inh5Z3JpZCIKICAgICAgIGlkPSJn
+       cmlkNjA4NCIKICAgICAgIHZpc2libGU9InRydWUiCiAgICAgICBlbmFibGVkPSJ0cnVlIgog
+       ICAgICAgZW1wc3BhY2luZz0iNCIgLz4KICA8L3NvZGlwb2RpOm5hbWVkdmlldz4KICA8bWV0
+       YWRhdGEKICAgICBpZD0ibWV0YWRhdGE3Ij4KICAgIDxyZGY6UkRGPgogICAgICA8Y2M6V29y
+       awogICAgICAgICByZGY6YWJvdXQ9IiI+CiAgICAgICAgPGRjOmZvcm1hdD5pbWFnZS9zdmcr
+       eG1sPC9kYzpmb3JtYXQ+CiAgICAgICAgPGRjOnR5cGUKICAgICAgICAgICByZGY6cmVzb3Vy
+       Y2U9Imh0dHA6Ly9wdXJsLm9yZy9kYy9kY21pdHlwZS9TdGlsbEltYWdlIiAvPgogICAgICA8
+       L2NjOldvcms+CiAgICA8L3JkZjpSREY+CiAgPC9tZXRhZGF0YT4KICA8ZwogICAgIGlua3Nj
+       YXBlOmdyb3VwbW9kZT0ibGF5ZXIiCiAgICAgaW5rc2NhcGU6bGFiZWw9IldhcnN0d2EgMSIK
+       ICAgICBpZD0ibGF5ZXIxIgogICAgIHN0eWxlPSJkaXNwbGF5OmlubGluZSIgLz4KICA8Zwog
+       ICAgIGlua3NjYXBlOmdyb3VwbW9kZT0ibGF5ZXIiCiAgICAgaWQ9ImxheWVyMiIKICAgICBp
+       bmtzY2FwZTpsYWJlbD0ienp6IgogICAgIHN0eWxlPSJkaXNwbGF5OmlubGluZSI+CiAgICA8
+       cGF0aAogICAgICAgc3R5bGU9ImZpbGw6I2ZmMDAwMDtmaWxsLW9wYWNpdHk6MTtzdHJva2U6
+       IzAwMDAwMDtzdHJva2Utd2lkdGg6NDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1p
+       dGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3Ryb2tlLW9wYWNpdHk6MTtkaXNw
+       bGF5OmlubGluZSIKICAgICAgIGQ9Ik0gMTA2LjcwODY3LDI4LjAxMzc1NCBDIDEwMS44MTgx
+       NywyOC4wMTM3NTQgOTcuOTE3NjI0LDMxLjk4MTQwNiA5Ny45MTc2MjQsMzYuODcxOTA0IEwg
+       OTcuOTE3NjI0LDQ3LjI3MzUyMSBDIDk5Ljk4NTM1LDQ4LjI5NTExNiAxMDIuMzI4ODcsNDgu
+       ODg0MDk0IDEwNC43NjI1Niw0OC44ODQwOTQgQyAxMTMuNjI5MzQsNDguODg0MDk0IDEyMC44
+       MDExOCw0MS4zMTE0OTYgMTIwLjgwMTE4LDMxLjk3MzA3OSBDIDEyMC44MDExOCwzMC42MTEy
+       MjUgMTIwLjYyMDM4LDI5LjI4MjcyIDEyMC4zMzE0MywyOC4wMTM3NTQgTCAxMDYuNzA4Njcs
+       MjguMDEzNzU0IHoiCiAgICAgICBpZD0icGF0aDMyOTciIC8+CiAgICA8cGF0aAogICAgICAg
+       c3R5bGU9ImZpbGw6I2ZmZmYwZTtmaWxsLW9wYWNpdHk6MTtzdHJva2U6IzAwMDAwMDtzdHJv
+       a2Utd2lkdGg6NjtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6NDtz
+       dHJva2UtZGFzaGFycmF5Om5vbmU7c3Ryb2tlLW9wYWNpdHk6MSIKICAgICAgIGQ9Ik0gODAs
+       MTEuMjM2OTUyIEMgNjYuOTU3MjgzLDExLjIzNjk1MiA1Ni4zNzgyNjcsMjIuMTI0NjY4IDU2
+       LjM3ODI2NSwzNS41Mjk3NiBDIDU2LjM3ODI2NSw0My4yNjEzMiA1OS44ODc1MzEsNTAuMTM5
+       NzU5IDY1LjM3MDYzLDU0LjU4ODIwNiBDIDYyLjEyNjk5LDU0LjI1MDM3OSA1OC44MDg0ODIs
+       NTQuMDUxMzQ4IDU1LjQzODc2NCw1NC4wNTEzNDggQyA1MC41NzU4NTYsNTQuMDUxMzQ4IDQ1
+       LjgzMzUyNCw1NC41MDI0NzIgNDEuMjEyMDM3LDU1LjE5MjE3MSBDIDM3LjMyNzMyNSw0Ny4w
+       NjUzNCAyOC4yNzgxOSw0MC4wODU4MzkgMjAuODAyMzY5LDM3Ljk1MTg0OSBDIDEwLjY4MzQ3
+       Nyw0OS4xMTMxNDEgOC43MDQ0MTgzLDYwLjgwOTA1NyA4LjgwMDE3MjksNzEuMjM1MzY4IEMg
+       OC45MTE1MDQ3LDgzLjM1NzgxIDEyLjQxODcxNiw5Mi43OTU3NjIgMTcuMzg4OTgsMTAwLjA4
+       Njg5IEMgMjguOTA0ODEsMTA2LjU2MDQ0IDQyLjc0MTMzNiwxMTAuMzU0MjkgNTcuNTg2MTk1
+       LDExMC4zNTQyOSBDIDcwLjA2Njc3MSwxMTAuMzU0MjkgODEuODA5NjU3LDEwNy42Njg2NyA5
+       Mi4wNzkyOTcsMTAyLjk3MjUgQyA5OC42NDYzMDEsOTUuMDgzNjY3IDEwMi42MTUxMyw4NC45
+       OTAzMSAxMDIuNjE1MTMsNzMuOTgyMTg4IEMgMTAyLjYxNTEzLDY2LjEyNDQ0OCAxMDAuNTk2
+       NDMsNTguNzUyMDU1IDk3LjA0NTIzLDUyLjMwNjU2MSBDIDEwMS4xMTE4Miw0Ny45NDM4NTYg
+       MTAzLjYyMTc0LDQyLjA0Mzg4NiAxMDMuNjIxNzQsMzUuNTI5NzYgQyAxMDMuNjIxNzQsMjIu
+       MTI0NjY4IDkzLjA0MjcxNCwxMS4yMzY5NTMgODAsMTEuMjM2OTUyIHoiCiAgICAgICBpZD0i
+       cGF0aDIyNzgiCiAgICAgICBzb2RpcG9kaTpub2RldHlwZXM9ImNzY3NjY3Njc2NzY3NjIiAv
+       PgogICAgPHBhdGgKICAgICAgIHNvZGlwb2RpOnR5cGU9ImFyYyIKICAgICAgIHN0eWxlPSJm
+       aWxsOiMwNTA1MDU7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRo
+       OjI7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRh
+       c2hhcnJheTpub25lO3N0cm9rZS1vcGFjaXR5OjEiCiAgICAgICBpZD0icGF0aDMzMDciCiAg
+       ICAgICBzb2RpcG9kaTpjeD0iNDAuNjYzMTMyIgogICAgICAgc29kaXBvZGk6Y3k9IjE0LjY0
+       MTkxIgogICAgICAgc29kaXBvZGk6cng9IjIuNDY2ODQzNiIKICAgICAgIHNvZGlwb2RpOnJ5
+       PSIyLjU0NjQxOTEiCiAgICAgICBkPSJNIDQzLjEyOTk3NSwxNC42NDE5MSBBIDIuNDY2ODQz
+       NiwyLjU0NjQxOTEgMCAxIDEgMzguMTk2Mjg4LDE0LjY0MTkxIEEgMi40NjY4NDM2LDIuNTQ2
+       NDE5MSAwIDEgMSA0My4xMjk5NzUsMTQuNjQxOTEgeiIKICAgICAgIHRyYW5zZm9ybT0ibWF0
+       cml4KDEuNjIyNTQ0NCwwLDAsMS41MDQ3MzI5LDE5Ljk2MDQ1Miw2LjgzNDkzOTkpIiAvPgog
+       IDwvZz4KPC9zdmc+Cg==
+      </office:binary-data>
+      <text:p/>
+     </draw:image>
+    </draw:frame>
+    <draw:frame draw:style-name="gr4" draw:text-style-name="P8" draw:layer="layout" svg:width="2.212cm" svg:height="2.212cm" svg:x="18.788cm" svg:y="6.2cm">
+     <draw:image xlink:href="">
+      <office:binary-data>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+
+       CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8p
+       IC0tPgo8c3ZnCiAgIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4x
+       LyIKICAgeG1sbnM6Y2M9Imh0dHA6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL25zIyIKICAgeG1s
+       bnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIgog
+       ICB4bWxuczpzdmc9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogICB4bWxucz0iaHR0
+       cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgIHhtbG5zOnNvZGlwb2RpPSJodHRwOi8vc29k
+       aXBvZGkuc291cmNlZm9yZ2UubmV0L0RURC9zb2RpcG9kaS0wLmR0ZCIKICAgeG1sbnM6aW5r
+       c2NhcGU9Imh0dHA6Ly93d3cuaW5rc2NhcGUub3JnL25hbWVzcGFjZXMvaW5rc2NhcGUiCiAg
+       IGhlaWdodD0iMTI4IgogICB3aWR0aD0iMTI4IgogICBpZD0ic3ZnMiIKICAgc29kaXBvZGk6
+       dmVyc2lvbj0iMC4zMiIKICAgaW5rc2NhcGU6dmVyc2lvbj0iMC40NiIKICAgdmVyc2lvbj0i
+       MS4wIgogICBzb2RpcG9kaTpkb2NiYXNlPSJEOlxEb2N1bWVudHMgYW5kIFNldHRpbmdzXEpv
+       YW5uYVxNeSBEb2N1bWVudHNcTXkgUGljdHVyZXNcZ3JhcGhfdmVjdG9yXHRoaWNvbl9iYWJ5
+       IgogICBzb2RpcG9kaTpkb2NuYW1lPSJkdWNreTA1X29rLnN2ZyIKICAgaW5rc2NhcGU6b3V0
+       cHV0X2V4dGVuc2lvbj0ib3JnLmlua3NjYXBlLm91dHB1dC5zdmcuaW5rc2NhcGUiPgogIDxk
+       ZWZzCiAgICAgaWQ9ImRlZnM0Ij4KICAgIDxpbmtzY2FwZTpwZXJzcGVjdGl2ZQogICAgICAg
+       c29kaXBvZGk6dHlwZT0iaW5rc2NhcGU6cGVyc3AzZCIKICAgICAgIGlua3NjYXBlOnZwX3g9
+       IjAgOiAzMCA6IDEiCiAgICAgICBpbmtzY2FwZTp2cF95PSIwIDogMTAwMCA6IDAiCiAgICAg
+       ICBpbmtzY2FwZTp2cF96PSI2MCA6IDMwIDogMSIKICAgICAgIGlua3NjYXBlOnBlcnNwM2Qt
+       b3JpZ2luPSIzMCA6IDIwIDogMSIKICAgICAgIGlkPSJwZXJzcGVjdGl2ZTU1NjEiIC8+CiAg
+       PC9kZWZzPgogIDxzb2RpcG9kaTpuYW1lZHZpZXcKICAgICBpZD0iYmFzZSIKICAgICBwYWdl
+       Y29sb3I9IiNmZmZmZmYiCiAgICAgYm9yZGVyY29sb3I9IiM2NjY2NjYiCiAgICAgYm9yZGVy
+       b3BhY2l0eT0iMS4wIgogICAgIGlua3NjYXBlOnBhZ2VvcGFjaXR5PSIwLjAiCiAgICAgaW5r
+       c2NhcGU6cGFnZXNoYWRvdz0iMiIKICAgICBpbmtzY2FwZTpjeD0iNjQiCiAgICAgaW5rc2Nh
+       cGU6Y3k9IjUyLjkxNTM1MSIKICAgICBpbmtzY2FwZTp6b29tPSIxLjU4MjcwMzkiCiAgICAg
+       aW5rc2NhcGU6ZG9jdW1lbnQtdW5pdHM9InB4IgogICAgIGlua3NjYXBlOmN1cnJlbnQtbGF5
+       ZXI9ImxheWVyMiIKICAgICB3aWR0aD0iNjBweCIKICAgICBoZWlnaHQ9IjYwcHgiCiAgICAg
+       Ym9yZGVybGF5ZXI9InRydWUiCiAgICAgc2hvd2dyaWQ9InRydWUiCiAgICAgaW5rc2NhcGU6
+       d2luZG93LXdpZHRoPSIxMjgwIgogICAgIGlua3NjYXBlOndpbmRvdy1oZWlnaHQ9Ijc0NCIK
+       ICAgICBpbmtzY2FwZTp3aW5kb3cteD0iLTQiCiAgICAgaW5rc2NhcGU6d2luZG93LXk9Ii00
+       IgogICAgIG9iamVjdHRvbGVyYW5jZT0iMTAwMDAiCiAgICAgZ3VpZGV0b2xlcmFuY2U9IjIi
+       PgogICAgPGlua3NjYXBlOmdyaWQKICAgICAgIHR5cGU9Inh5Z3JpZCIKICAgICAgIGlkPSJn
+       cmlkNjA4NCIKICAgICAgIHZpc2libGU9InRydWUiCiAgICAgICBlbmFibGVkPSJ0cnVlIgog
+       ICAgICAgZW1wc3BhY2luZz0iNCIgLz4KICA8L3NvZGlwb2RpOm5hbWVkdmlldz4KICA8bWV0
+       YWRhdGEKICAgICBpZD0ibWV0YWRhdGE3Ij4KICAgIDxyZGY6UkRGPgogICAgICA8Y2M6V29y
+       awogICAgICAgICByZGY6YWJvdXQ9IiI+CiAgICAgICAgPGRjOmZvcm1hdD5pbWFnZS9zdmcr
+       eG1sPC9kYzpmb3JtYXQ+CiAgICAgICAgPGRjOnR5cGUKICAgICAgICAgICByZGY6cmVzb3Vy
+       Y2U9Imh0dHA6Ly9wdXJsLm9yZy9kYy9kY21pdHlwZS9TdGlsbEltYWdlIiAvPgogICAgICA8
+       L2NjOldvcms+CiAgICA8L3JkZjpSREY+CiAgPC9tZXRhZGF0YT4KICA8ZwogICAgIGlua3Nj
+       YXBlOmdyb3VwbW9kZT0ibGF5ZXIiCiAgICAgaW5rc2NhcGU6bGFiZWw9IldhcnN0d2EgMSIK
+       ICAgICBpZD0ibGF5ZXIxIgogICAgIHN0eWxlPSJkaXNwbGF5OmlubGluZSIgLz4KICA8Zwog
+       ICAgIGlua3NjYXBlOmdyb3VwbW9kZT0ibGF5ZXIiCiAgICAgaWQ9ImxheWVyMiIKICAgICBp
+       bmtzY2FwZTpsYWJlbD0ienp6IgogICAgIHN0eWxlPSJkaXNwbGF5OmlubGluZSI+CiAgICA8
+       cGF0aAogICAgICAgc3R5bGU9ImZpbGw6I2ZmMDAwMDtmaWxsLW9wYWNpdHk6MTtzdHJva2U6
+       IzAwMDAwMDtzdHJva2Utd2lkdGg6NDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1p
+       dGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3Ryb2tlLW9wYWNpdHk6MTtkaXNw
+       bGF5OmlubGluZSIKICAgICAgIGQ9Ik0gMTA2LjcwODY3LDI4LjAxMzc1NCBDIDEwMS44MTgx
+       NywyOC4wMTM3NTQgOTcuOTE3NjI0LDMxLjk4MTQwNiA5Ny45MTc2MjQsMzYuODcxOTA0IEwg
+       OTcuOTE3NjI0LDQ3LjI3MzUyMSBDIDk5Ljk4NTM1LDQ4LjI5NTExNiAxMDIuMzI4ODcsNDgu
+       ODg0MDk0IDEwNC43NjI1Niw0OC44ODQwOTQgQyAxMTMuNjI5MzQsNDguODg0MDk0IDEyMC44
+       MDExOCw0MS4zMTE0OTYgMTIwLjgwMTE4LDMxLjk3MzA3OSBDIDEyMC44MDExOCwzMC42MTEy
+       MjUgMTIwLjYyMDM4LDI5LjI4MjcyIDEyMC4zMzE0MywyOC4wMTM3NTQgTCAxMDYuNzA4Njcs
+       MjguMDEzNzU0IHoiCiAgICAgICBpZD0icGF0aDMyOTciIC8+CiAgICA8cGF0aAogICAgICAg
+       c3R5bGU9ImZpbGw6I2ZmZmYwZTtmaWxsLW9wYWNpdHk6MTtzdHJva2U6IzAwMDAwMDtzdHJv
+       a2Utd2lkdGg6NjtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6NDtz
+       dHJva2UtZGFzaGFycmF5Om5vbmU7c3Ryb2tlLW9wYWNpdHk6MSIKICAgICAgIGQ9Ik0gODAs
+       MTEuMjM2OTUyIEMgNjYuOTU3MjgzLDExLjIzNjk1MiA1Ni4zNzgyNjcsMjIuMTI0NjY4IDU2
+       LjM3ODI2NSwzNS41Mjk3NiBDIDU2LjM3ODI2NSw0My4yNjEzMiA1OS44ODc1MzEsNTAuMTM5
+       NzU5IDY1LjM3MDYzLDU0LjU4ODIwNiBDIDYyLjEyNjk5LDU0LjI1MDM3OSA1OC44MDg0ODIs
+       NTQuMDUxMzQ4IDU1LjQzODc2NCw1NC4wNTEzNDggQyA1MC41NzU4NTYsNTQuMDUxMzQ4IDQ1
+       LjgzMzUyNCw1NC41MDI0NzIgNDEuMjEyMDM3LDU1LjE5MjE3MSBDIDM3LjMyNzMyNSw0Ny4w
+       NjUzNCAyOC4yNzgxOSw0MC4wODU4MzkgMjAuODAyMzY5LDM3Ljk1MTg0OSBDIDEwLjY4MzQ3
+       Nyw0OS4xMTMxNDEgOC43MDQ0MTgzLDYwLjgwOTA1NyA4LjgwMDE3MjksNzEuMjM1MzY4IEMg
+       OC45MTE1MDQ3LDgzLjM1NzgxIDEyLjQxODcxNiw5Mi43OTU3NjIgMTcuMzg4OTgsMTAwLjA4
+       Njg5IEMgMjguOTA0ODEsMTA2LjU2MDQ0IDQyLjc0MTMzNiwxMTAuMzU0MjkgNTcuNTg2MTk1
+       LDExMC4zNTQyOSBDIDcwLjA2Njc3MSwxMTAuMzU0MjkgODEuODA5NjU3LDEwNy42Njg2NyA5
+       Mi4wNzkyOTcsMTAyLjk3MjUgQyA5OC42NDYzMDEsOTUuMDgzNjY3IDEwMi42MTUxMyw4NC45
+       OTAzMSAxMDIuNjE1MTMsNzMuOTgyMTg4IEMgMTAyLjYxNTEzLDY2LjEyNDQ0OCAxMDAuNTk2
+       NDMsNTguNzUyMDU1IDk3LjA0NTIzLDUyLjMwNjU2MSBDIDEwMS4xMTE4Miw0Ny45NDM4NTYg
+       MTAzLjYyMTc0LDQyLjA0Mzg4NiAxMDMuNjIxNzQsMzUuNTI5NzYgQyAxMDMuNjIxNzQsMjIu
+       MTI0NjY4IDkzLjA0MjcxNCwxMS4yMzY5NTMgODAsMTEuMjM2OTUyIHoiCiAgICAgICBpZD0i
+       cGF0aDIyNzgiCiAgICAgICBzb2RpcG9kaTpub2RldHlwZXM9ImNzY3NjY3Njc2NzY3NjIiAv
+       PgogICAgPHBhdGgKICAgICAgIHNvZGlwb2RpOnR5cGU9ImFyYyIKICAgICAgIHN0eWxlPSJm
+       aWxsOiMwNTA1MDU7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRo
+       OjI7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRh
+       c2hhcnJheTpub25lO3N0cm9rZS1vcGFjaXR5OjEiCiAgICAgICBpZD0icGF0aDMzMDciCiAg
+       ICAgICBzb2RpcG9kaTpjeD0iNDAuNjYzMTMyIgogICAgICAgc29kaXBvZGk6Y3k9IjE0LjY0
+       MTkxIgogICAgICAgc29kaXBvZGk6cng9IjIuNDY2ODQzNiIKICAgICAgIHNvZGlwb2RpOnJ5
+       PSIyLjU0NjQxOTEiCiAgICAgICBkPSJNIDQzLjEyOTk3NSwxNC42NDE5MSBBIDIuNDY2ODQz
+       NiwyLjU0NjQxOTEgMCAxIDEgMzguMTk2Mjg4LDE0LjY0MTkxIEEgMi40NjY4NDM2LDIuNTQ2
+       NDE5MSAwIDEgMSA0My4xMjk5NzUsMTQuNjQxOTEgeiIKICAgICAgIHRyYW5zZm9ybT0ibWF0
+       cml4KDEuNjIyNTQ0NCwwLDAsMS41MDQ3MzI5LDE5Ljk2MDQ1Miw2LjgzNDkzOTkpIiAvPgog
+       IDwvZz4KPC9zdmc+Cg==
+      </office:binary-data>
+      <text:p/>
+     </draw:image>
+    </draw:frame>
+    <draw:frame draw:style-name="gr4" draw:text-style-name="P8" draw:layer="layout" svg:width="2.013cm" svg:height="2.013cm" svg:x="20.987cm" svg:y="3.6cm">
+     <draw:image xlink:href="">
+      <office:binary-data>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+
+       CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8p
+       IC0tPgoKPHN2ZwogICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEu
+       MS8iCiAgIHhtbG5zOmNjPSJodHRwOi8vY3JlYXRpdmVjb21tb25zLm9yZy9ucyMiCiAgIHht
+       bG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIK
+       ICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM9Imh0
+       dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogICB4bWxuczpzb2RpcG9kaT0iaHR0cDovL3Nv
+       ZGlwb2RpLnNvdXJjZWZvcmdlLm5ldC9EVEQvc29kaXBvZGktMC5kdGQiCiAgIHhtbG5zOmlu
+       a3NjYXBlPSJodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy9uYW1lc3BhY2VzL2lua3NjYXBlIgog
+       ICBpZD0ic3ZnMzE0MSIKICAgdmVyc2lvbj0iMS4xIgogICBpbmtzY2FwZTp2ZXJzaW9uPSIw
+       LjQ4LjEgIgogICB3aWR0aD0iNzY3LjUiCiAgIGhlaWdodD0iNzY3LjUiCiAgIHhtbDpzcGFj
+       ZT0icHJlc2VydmUiCiAgIHNvZGlwb2RpOmRvY25hbWU9ImltbWlncmF0aW9uMi5wZGYiPjxt
+       ZXRhZGF0YQogICAgIGlkPSJtZXRhZGF0YTMxNDciPjxyZGY6UkRGPjxjYzpXb3JrCiAgICAg
+       ICAgIHJkZjphYm91dD0iIj48ZGM6Zm9ybWF0PmltYWdlL3N2Zyt4bWw8L2RjOmZvcm1hdD48
+       ZGM6dHlwZQogICAgICAgICAgIHJkZjpyZXNvdXJjZT0iaHR0cDovL3B1cmwub3JnL2RjL2Rj
+       bWl0eXBlL1N0aWxsSW1hZ2UiIC8+PGRjOnRpdGxlPjwvZGM6dGl0bGU+PC9jYzpXb3JrPjwv
+       cmRmOlJERj48L21ldGFkYXRhPjxkZWZzCiAgICAgaWQ9ImRlZnMzMTQ1IiAvPjxzb2RpcG9k
+       aTpuYW1lZHZpZXcKICAgICBwYWdlY29sb3I9IiNmZmZmZmYiCiAgICAgYm9yZGVyY29sb3I9
+       IiM2NjY2NjYiCiAgICAgYm9yZGVyb3BhY2l0eT0iMSIKICAgICBvYmplY3R0b2xlcmFuY2U9
+       IjEwIgogICAgIGdyaWR0b2xlcmFuY2U9IjEwIgogICAgIGd1aWRldG9sZXJhbmNlPSIxMCIK
+       ICAgICBpbmtzY2FwZTpwYWdlb3BhY2l0eT0iMCIKICAgICBpbmtzY2FwZTpwYWdlc2hhZG93
+       PSIyIgogICAgIGlua3NjYXBlOndpbmRvdy13aWR0aD0iNjQwIgogICAgIGlua3NjYXBlOndp
+       bmRvdy1oZWlnaHQ9IjQ4MCIKICAgICBpZD0ibmFtZWR2aWV3MzE0MyIKICAgICBzaG93Z3Jp
+       ZD0iZmFsc2UiCiAgICAgaW5rc2NhcGU6em9vbT0iMC4zNzkxNTMwOSIKICAgICBpbmtzY2Fw
+       ZTpjeD0iMzgzLjc1IgogICAgIGlua3NjYXBlOmN5PSIzODMuNzUiCiAgICAgaW5rc2NhcGU6
+       d2luZG93LXg9IjUxMCIKICAgICBpbmtzY2FwZTp3aW5kb3cteT0iMTE0IgogICAgIGlua3Nj
+       YXBlOndpbmRvdy1tYXhpbWl6ZWQ9IjAiCiAgICAgaW5rc2NhcGU6Y3VycmVudC1sYXllcj0i
+       ZzMxNDkiIC8+PGcKICAgICBpZD0iZzMxNDkiCiAgICAgaW5rc2NhcGU6Z3JvdXBtb2RlPSJs
+       YXllciIKICAgICBpbmtzY2FwZTpsYWJlbD0iaW1taWdyYXRpb24yIgogICAgIHRyYW5zZm9y
+       bT0ibWF0cml4KDEuMjUsMCwwLC0xLjI1LDAsNzY3LjUpIj48ZwogICAgICAgaWQ9ImczMTUx
+       IgogICAgICAgdHJhbnNmb3JtPSJzY2FsZSgwLjI0LDAuMjQpIj48cGF0aAogICAgICAgICBk
+       PSJtIDM0Ni4yNSwyNDgxLjI1IGMgLTE3MS44OTUsLTAuMDQgLTI2OC43MTA5LC04OS4wOCAt
+       MjY5LC0yNzEgbCAwLC0xODc2IGMgMC4yODkxLC0xNjkuNzAzIDg3LjMzMiwtMjU4LjgwODYg
+       MjU5LC0yNTkgbCAxODg0LDAgYyAxNzEuOTUsMC4xOTE0IDI1OS4xMyw4NC44NTkgMjU5LDI1
+       OSBsIDAsMTg3NiBjIDAuMTMsMTc3LjQ4IC04Ny4wNSwyNzAuOTYgLTI2NSwyNzEgMCwwIC0x
+       ODY4LjI2MiwwLjU2IC0xODY4LDAiCiAgICAgICAgIHN0eWxlPSJmaWxsOiMwMDAwMDA7Zmls
+       bC1vcGFjaXR5OjE7ZmlsbC1ydWxlOm5vbnplcm87c3Ryb2tlOm5vbmUiCiAgICAgICAgIGlk
+       PSJwYXRoMzE1MyIgLz48cGF0aAogICAgICAgICBkPSJtIDM0Ni4yNSwyNDgxLjI1IGMgLTE3
+       MS44OTUsLTAuMDQgLTI2OC43MTA5LC04OS4wOCAtMjY5LC0yNzEgbCAwLC0xODc2IGMgMC4y
+       ODkxLC0xNjkuNzAzIDg3LjMzMiwtMjU4LjgwODYgMjU5LC0yNTkgbCAxODg0LDAgYyAxNzEu
+       OTUsMC4xOTE0IDI1OS4xMyw4NC44NTkgMjU5LDI1OSBsIDAsMTg3NiBjIDAuMTMsMTc3LjQ4
+       IC04Ny4wNSwyNzAuOTYgLTI2NSwyNzEgMCwwIC0xODY4LjI2MiwwLjU2IC0xODY4LDAgeiIK
+       ICAgICAgICAgc3R5bGU9ImZpbGw6bm9uZTtzdHJva2U6I2ZmZmZmZjtzdHJva2Utb3BhY2l0
+       eToxO3N0cm9rZS13aWR0aDoxNC4yO3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVq
+       b2luOm1pdGVyO3N0cm9rZS1taXRlcmxpbWl0OjEwO3N0cm9rZS1kYXNoYXJyYXk6bm9uZSIK
+       ICAgICAgICAgaWQ9InBhdGgzMTU1IiAvPjxwYXRoCiAgICAgICAgIGQ9Im0gNTQ5LjI1LDE5
+       NzEuMjUgMjg3LDAgYyAzOS40MzQsLTAuMDQgNzEuMDg2LC0yNS45MyA3MSwtNjIgbCAwLC0y
+       OTggYyAwLjA4NiwtNDMuNzIgLTE1LjczLC02OS4zNiAtNjUsLTY5IGwgLTI0LDAgMCwtMTEy
+       IGMgMC4xMjUsLTM3LjU0IC0yOS41NDMsLTYyLjU0IC01OCwtNDIgbCAtMjExLDE2NiAwLDQx
+       NyIKICAgICAgICAgc3R5bGU9ImZpbGw6I2ZmZmZmZjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1
+       bGU6bm9uemVybztzdHJva2U6bm9uZSIKICAgICAgICAgaWQ9InBhdGgzMTU3IiAvPjxwYXRo
+       CiAgICAgICAgIGQ9Im0gMTIzNi4yNSwxMjgyLjI1IDAsLTQzOCA0ODAsNjM2IC00ODYsMCBj
+       IC02My4yNywwLjA0IC0xMDQuMTEsLTI3LjU1IC0xNDIsLTc0IGwgLTE1NiwtMjA5IC0yMjIs
+       MTc3IGMgLTEwMi45OTYsNzUuOTYgLTIxOC42MjUsLTcxLjY5IC0xMTksLTE0OSBsIDI5Miwt
+       MjMwIGMgNjEuNzU4LC00NS4wNjIgMTExLjc1OCwtMjUuMjczIDEzOSwyIGwgMjE0LDI4NSIK
+       ICAgICAgICAgc3R5bGU9ImZpbGw6I2ZmZmZmZjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6
+       bm9uemVybztzdHJva2U6bm9uZSIKICAgICAgICAgaWQ9InBhdGgzMTU5IiAvPjxwYXRoCiAg
+       ICAgICAgIGQ9Im0gMTIxMS4yNSwyMDUyLjI1IDUyNSwwIDAsLTE0NyAtNDI0LDAgLTEwMSwx
+       NDciCiAgICAgICAgIHN0eWxlPSJmaWxsOiNmZmZmZmY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1y
+       dWxlOm5vbnplcm87c3Ryb2tlOm5vbmUiCiAgICAgICAgIGlkPSJwYXRoMzE2MSIgLz48cGF0
+       aAogICAgICAgICBkPSJtIDE3MzcuMjUsMTg1OS4yNSAtNDIxLDAgLTg1LC0xMDcgMTAwLDAg
+       YyAtMC40MywtMTE4LjE4IDkyLjU3LC0yMDEuMjEgMjAxLC0yMDEgMTA0LjY4LC0wLjIxIDIw
+       NS40Miw4Mi44MiAyMDUsMjA1IGwgMCwxMDMiCiAgICAgICAgIHN0eWxlPSJmaWxsOiNmZmZm
+       ZmY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOm5vbnplcm87c3Ryb2tlOm5vbmUiCiAgICAg
+       ICAgIGlkPSJwYXRoMzE2MyIgLz48cGF0aAogICAgICAgICBkPSJtIDE4MzYuMjUsMTQ3OC4y
+       NSBjIDU1Ljg3LC0wLjEyIDEzNi44MiwtMjguNjYgMTM3LC0xNTEgbCAwLC04MzUgLTczNiww
+       IDAsMjI2IDUzNiwwIDAsMTA0IC00MjUsMCA0ODgsNjU2IgogICAgICAgICBzdHlsZT0iZmls
+       bDojZmZmZmZmO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25l
+       IgogICAgICAgICBpZD0icGF0aDMxNjUiIC8+PHBhdGgKICAgICAgICAgZD0ibSA2MjguMjUs
+       MTkyNy4yNSAyMTAsMCBjIDExLjc1NCwwLjA0IDI3LjU3LC03Ljk1IDI4LC0yNCBsIDAsLTI5
+       NSBjIC0wLjQzLC0xNC40NCAtMTAuMzEyLC0yNC40MyAtMjQsLTI0IGwgLTI0LDAgMCwxNzEg
+       YyAwLjEyNSwxOC4yNyAtMy44MzIsMzguMjUgLTMwLDU4IGwgLTE2MCwxMTQiCiAgICAgICAg
+       IHN0eWxlPSJmaWxsOiMwMDAwMDA7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOm5vbnplcm87
+       c3Ryb2tlOm5vbmUiCiAgICAgICAgIGlkPSJwYXRoMzE2NyIgLz48L2c+PC9nPjwvc3ZnPg==
+      </office:binary-data>
+      <text:p/>
+     </draw:image>
+    </draw:frame>
+    <draw:frame draw:style-name="gr4" draw:text-style-name="P8" draw:layer="layout" svg:width="2.013cm" svg:height="2.013cm" svg:x="25cm" svg:y="9.587cm">
+     <draw:image xlink:href="">
+      <office:binary-data>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+
+       CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8p
+       IC0tPgoKPHN2ZwogICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEu
+       MS8iCiAgIHhtbG5zOmNjPSJodHRwOi8vY3JlYXRpdmVjb21tb25zLm9yZy9ucyMiCiAgIHht
+       bG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIK
+       ICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM9Imh0
+       dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogICB4bWxuczpzb2RpcG9kaT0iaHR0cDovL3Nv
+       ZGlwb2RpLnNvdXJjZWZvcmdlLm5ldC9EVEQvc29kaXBvZGktMC5kdGQiCiAgIHhtbG5zOmlu
+       a3NjYXBlPSJodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy9uYW1lc3BhY2VzL2lua3NjYXBlIgog
+       ICBpZD0ic3ZnMzE0MSIKICAgdmVyc2lvbj0iMS4xIgogICBpbmtzY2FwZTp2ZXJzaW9uPSIw
+       LjQ4LjEgIgogICB3aWR0aD0iNzY3LjUiCiAgIGhlaWdodD0iNzY3LjUiCiAgIHhtbDpzcGFj
+       ZT0icHJlc2VydmUiCiAgIHNvZGlwb2RpOmRvY25hbWU9ImltbWlncmF0aW9uMi5wZGYiPjxt
+       ZXRhZGF0YQogICAgIGlkPSJtZXRhZGF0YTMxNDciPjxyZGY6UkRGPjxjYzpXb3JrCiAgICAg
+       ICAgIHJkZjphYm91dD0iIj48ZGM6Zm9ybWF0PmltYWdlL3N2Zyt4bWw8L2RjOmZvcm1hdD48
+       ZGM6dHlwZQogICAgICAgICAgIHJkZjpyZXNvdXJjZT0iaHR0cDovL3B1cmwub3JnL2RjL2Rj
+       bWl0eXBlL1N0aWxsSW1hZ2UiIC8+PGRjOnRpdGxlPjwvZGM6dGl0bGU+PC9jYzpXb3JrPjwv
+       cmRmOlJERj48L21ldGFkYXRhPjxkZWZzCiAgICAgaWQ9ImRlZnMzMTQ1IiAvPjxzb2RpcG9k
+       aTpuYW1lZHZpZXcKICAgICBwYWdlY29sb3I9IiNmZmZmZmYiCiAgICAgYm9yZGVyY29sb3I9
+       IiM2NjY2NjYiCiAgICAgYm9yZGVyb3BhY2l0eT0iMSIKICAgICBvYmplY3R0b2xlcmFuY2U9
+       IjEwIgogICAgIGdyaWR0b2xlcmFuY2U9IjEwIgogICAgIGd1aWRldG9sZXJhbmNlPSIxMCIK
+       ICAgICBpbmtzY2FwZTpwYWdlb3BhY2l0eT0iMCIKICAgICBpbmtzY2FwZTpwYWdlc2hhZG93
+       PSIyIgogICAgIGlua3NjYXBlOndpbmRvdy13aWR0aD0iNjQwIgogICAgIGlua3NjYXBlOndp
+       bmRvdy1oZWlnaHQ9IjQ4MCIKICAgICBpZD0ibmFtZWR2aWV3MzE0MyIKICAgICBzaG93Z3Jp
+       ZD0iZmFsc2UiCiAgICAgaW5rc2NhcGU6em9vbT0iMC4zNzkxNTMwOSIKICAgICBpbmtzY2Fw
+       ZTpjeD0iMzgzLjc1IgogICAgIGlua3NjYXBlOmN5PSIzODMuNzUiCiAgICAgaW5rc2NhcGU6
+       d2luZG93LXg9IjUxMCIKICAgICBpbmtzY2FwZTp3aW5kb3cteT0iMTE0IgogICAgIGlua3Nj
+       YXBlOndpbmRvdy1tYXhpbWl6ZWQ9IjAiCiAgICAgaW5rc2NhcGU6Y3VycmVudC1sYXllcj0i
+       ZzMxNDkiIC8+PGcKICAgICBpZD0iZzMxNDkiCiAgICAgaW5rc2NhcGU6Z3JvdXBtb2RlPSJs
+       YXllciIKICAgICBpbmtzY2FwZTpsYWJlbD0iaW1taWdyYXRpb24yIgogICAgIHRyYW5zZm9y
+       bT0ibWF0cml4KDEuMjUsMCwwLC0xLjI1LDAsNzY3LjUpIj48ZwogICAgICAgaWQ9ImczMTUx
+       IgogICAgICAgdHJhbnNmb3JtPSJzY2FsZSgwLjI0LDAuMjQpIj48cGF0aAogICAgICAgICBk
+       PSJtIDM0Ni4yNSwyNDgxLjI1IGMgLTE3MS44OTUsLTAuMDQgLTI2OC43MTA5LC04OS4wOCAt
+       MjY5LC0yNzEgbCAwLC0xODc2IGMgMC4yODkxLC0xNjkuNzAzIDg3LjMzMiwtMjU4LjgwODYg
+       MjU5LC0yNTkgbCAxODg0LDAgYyAxNzEuOTUsMC4xOTE0IDI1OS4xMyw4NC44NTkgMjU5LDI1
+       OSBsIDAsMTg3NiBjIDAuMTMsMTc3LjQ4IC04Ny4wNSwyNzAuOTYgLTI2NSwyNzEgMCwwIC0x
+       ODY4LjI2MiwwLjU2IC0xODY4LDAiCiAgICAgICAgIHN0eWxlPSJmaWxsOiMwMDAwMDA7Zmls
+       bC1vcGFjaXR5OjE7ZmlsbC1ydWxlOm5vbnplcm87c3Ryb2tlOm5vbmUiCiAgICAgICAgIGlk
+       PSJwYXRoMzE1MyIgLz48cGF0aAogICAgICAgICBkPSJtIDM0Ni4yNSwyNDgxLjI1IGMgLTE3
+       MS44OTUsLTAuMDQgLTI2OC43MTA5LC04OS4wOCAtMjY5LC0yNzEgbCAwLC0xODc2IGMgMC4y
+       ODkxLC0xNjkuNzAzIDg3LjMzMiwtMjU4LjgwODYgMjU5LC0yNTkgbCAxODg0LDAgYyAxNzEu
+       OTUsMC4xOTE0IDI1OS4xMyw4NC44NTkgMjU5LDI1OSBsIDAsMTg3NiBjIDAuMTMsMTc3LjQ4
+       IC04Ny4wNSwyNzAuOTYgLTI2NSwyNzEgMCwwIC0xODY4LjI2MiwwLjU2IC0xODY4LDAgeiIK
+       ICAgICAgICAgc3R5bGU9ImZpbGw6bm9uZTtzdHJva2U6I2ZmZmZmZjtzdHJva2Utb3BhY2l0
+       eToxO3N0cm9rZS13aWR0aDoxNC4yO3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVq
+       b2luOm1pdGVyO3N0cm9rZS1taXRlcmxpbWl0OjEwO3N0cm9rZS1kYXNoYXJyYXk6bm9uZSIK
+       ICAgICAgICAgaWQ9InBhdGgzMTU1IiAvPjxwYXRoCiAgICAgICAgIGQ9Im0gNTQ5LjI1LDE5
+       NzEuMjUgMjg3LDAgYyAzOS40MzQsLTAuMDQgNzEuMDg2LC0yNS45MyA3MSwtNjIgbCAwLC0y
+       OTggYyAwLjA4NiwtNDMuNzIgLTE1LjczLC02OS4zNiAtNjUsLTY5IGwgLTI0LDAgMCwtMTEy
+       IGMgMC4xMjUsLTM3LjU0IC0yOS41NDMsLTYyLjU0IC01OCwtNDIgbCAtMjExLDE2NiAwLDQx
+       NyIKICAgICAgICAgc3R5bGU9ImZpbGw6I2ZmZmZmZjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1
+       bGU6bm9uemVybztzdHJva2U6bm9uZSIKICAgICAgICAgaWQ9InBhdGgzMTU3IiAvPjxwYXRo
+       CiAgICAgICAgIGQ9Im0gMTIzNi4yNSwxMjgyLjI1IDAsLTQzOCA0ODAsNjM2IC00ODYsMCBj
+       IC02My4yNywwLjA0IC0xMDQuMTEsLTI3LjU1IC0xNDIsLTc0IGwgLTE1NiwtMjA5IC0yMjIs
+       MTc3IGMgLTEwMi45OTYsNzUuOTYgLTIxOC42MjUsLTcxLjY5IC0xMTksLTE0OSBsIDI5Miwt
+       MjMwIGMgNjEuNzU4LC00NS4wNjIgMTExLjc1OCwtMjUuMjczIDEzOSwyIGwgMjE0LDI4NSIK
+       ICAgICAgICAgc3R5bGU9ImZpbGw6I2ZmZmZmZjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6
+       bm9uemVybztzdHJva2U6bm9uZSIKICAgICAgICAgaWQ9InBhdGgzMTU5IiAvPjxwYXRoCiAg
+       ICAgICAgIGQ9Im0gMTIxMS4yNSwyMDUyLjI1IDUyNSwwIDAsLTE0NyAtNDI0LDAgLTEwMSwx
+       NDciCiAgICAgICAgIHN0eWxlPSJmaWxsOiNmZmZmZmY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1y
+       dWxlOm5vbnplcm87c3Ryb2tlOm5vbmUiCiAgICAgICAgIGlkPSJwYXRoMzE2MSIgLz48cGF0
+       aAogICAgICAgICBkPSJtIDE3MzcuMjUsMTg1OS4yNSAtNDIxLDAgLTg1LC0xMDcgMTAwLDAg
+       YyAtMC40MywtMTE4LjE4IDkyLjU3LC0yMDEuMjEgMjAxLC0yMDEgMTA0LjY4LC0wLjIxIDIw
+       NS40Miw4Mi44MiAyMDUsMjA1IGwgMCwxMDMiCiAgICAgICAgIHN0eWxlPSJmaWxsOiNmZmZm
+       ZmY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOm5vbnplcm87c3Ryb2tlOm5vbmUiCiAgICAg
+       ICAgIGlkPSJwYXRoMzE2MyIgLz48cGF0aAogICAgICAgICBkPSJtIDE4MzYuMjUsMTQ3OC4y
+       NSBjIDU1Ljg3LC0wLjEyIDEzNi44MiwtMjguNjYgMTM3LC0xNTEgbCAwLC04MzUgLTczNiww
+       IDAsMjI2IDUzNiwwIDAsMTA0IC00MjUsMCA0ODgsNjU2IgogICAgICAgICBzdHlsZT0iZmls
+       bDojZmZmZmZmO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25l
+       IgogICAgICAgICBpZD0icGF0aDMxNjUiIC8+PHBhdGgKICAgICAgICAgZD0ibSA2MjguMjUs
+       MTkyNy4yNSAyMTAsMCBjIDExLjc1NCwwLjA0IDI3LjU3LC03Ljk1IDI4LC0yNCBsIDAsLTI5
+       NSBjIC0wLjQzLC0xNC40NCAtMTAuMzEyLC0yNC40MyAtMjQsLTI0IGwgLTI0LDAgMCwxNzEg
+       YyAwLjEyNSwxOC4yNyAtMy44MzIsMzguMjUgLTMwLDU4IGwgLTE2MCwxMTQiCiAgICAgICAg
+       IHN0eWxlPSJmaWxsOiMwMDAwMDA7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOm5vbnplcm87
+       c3Ryb2tlOm5vbmUiCiAgICAgICAgIGlkPSJwYXRoMzE2NyIgLz48L2c+PC9nPjwvc3ZnPg==
+      </office:binary-data>
+      <text:p/>
+     </draw:image>
+    </draw:frame>
+    <draw:frame draw:style-name="gr4" draw:text-style-name="P8" draw:layer="layout" svg:width="2.013cm" svg:height="2.013cm" svg:x="22.187cm" svg:y="14.6cm">
+     <draw:image xlink:href="">
+      <office:binary-data>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+
+       CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8p
+       IC0tPgoKPHN2ZwogICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEu
+       MS8iCiAgIHhtbG5zOmNjPSJodHRwOi8vY3JlYXRpdmVjb21tb25zLm9yZy9ucyMiCiAgIHht
+       bG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIK
+       ICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM9Imh0
+       dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogICB4bWxuczpzb2RpcG9kaT0iaHR0cDovL3Nv
+       ZGlwb2RpLnNvdXJjZWZvcmdlLm5ldC9EVEQvc29kaXBvZGktMC5kdGQiCiAgIHhtbG5zOmlu
+       a3NjYXBlPSJodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy9uYW1lc3BhY2VzL2lua3NjYXBlIgog
+       ICBpZD0ic3ZnMzE0MSIKICAgdmVyc2lvbj0iMS4xIgogICBpbmtzY2FwZTp2ZXJzaW9uPSIw
+       LjQ4LjEgIgogICB3aWR0aD0iNzY3LjUiCiAgIGhlaWdodD0iNzY3LjUiCiAgIHhtbDpzcGFj
+       ZT0icHJlc2VydmUiCiAgIHNvZGlwb2RpOmRvY25hbWU9ImltbWlncmF0aW9uMi5wZGYiPjxt
+       ZXRhZGF0YQogICAgIGlkPSJtZXRhZGF0YTMxNDciPjxyZGY6UkRGPjxjYzpXb3JrCiAgICAg
+       ICAgIHJkZjphYm91dD0iIj48ZGM6Zm9ybWF0PmltYWdlL3N2Zyt4bWw8L2RjOmZvcm1hdD48
+       ZGM6dHlwZQogICAgICAgICAgIHJkZjpyZXNvdXJjZT0iaHR0cDovL3B1cmwub3JnL2RjL2Rj
+       bWl0eXBlL1N0aWxsSW1hZ2UiIC8+PGRjOnRpdGxlPjwvZGM6dGl0bGU+PC9jYzpXb3JrPjwv
+       cmRmOlJERj48L21ldGFkYXRhPjxkZWZzCiAgICAgaWQ9ImRlZnMzMTQ1IiAvPjxzb2RpcG9k
+       aTpuYW1lZHZpZXcKICAgICBwYWdlY29sb3I9IiNmZmZmZmYiCiAgICAgYm9yZGVyY29sb3I9
+       IiM2NjY2NjYiCiAgICAgYm9yZGVyb3BhY2l0eT0iMSIKICAgICBvYmplY3R0b2xlcmFuY2U9
+       IjEwIgogICAgIGdyaWR0b2xlcmFuY2U9IjEwIgogICAgIGd1aWRldG9sZXJhbmNlPSIxMCIK
+       ICAgICBpbmtzY2FwZTpwYWdlb3BhY2l0eT0iMCIKICAgICBpbmtzY2FwZTpwYWdlc2hhZG93
+       PSIyIgogICAgIGlua3NjYXBlOndpbmRvdy13aWR0aD0iNjQwIgogICAgIGlua3NjYXBlOndp
+       bmRvdy1oZWlnaHQ9IjQ4MCIKICAgICBpZD0ibmFtZWR2aWV3MzE0MyIKICAgICBzaG93Z3Jp
+       ZD0iZmFsc2UiCiAgICAgaW5rc2NhcGU6em9vbT0iMC4zNzkxNTMwOSIKICAgICBpbmtzY2Fw
+       ZTpjeD0iMzgzLjc1IgogICAgIGlua3NjYXBlOmN5PSIzODMuNzUiCiAgICAgaW5rc2NhcGU6
+       d2luZG93LXg9IjUxMCIKICAgICBpbmtzY2FwZTp3aW5kb3cteT0iMTE0IgogICAgIGlua3Nj
+       YXBlOndpbmRvdy1tYXhpbWl6ZWQ9IjAiCiAgICAgaW5rc2NhcGU6Y3VycmVudC1sYXllcj0i
+       ZzMxNDkiIC8+PGcKICAgICBpZD0iZzMxNDkiCiAgICAgaW5rc2NhcGU6Z3JvdXBtb2RlPSJs
+       YXllciIKICAgICBpbmtzY2FwZTpsYWJlbD0iaW1taWdyYXRpb24yIgogICAgIHRyYW5zZm9y
+       bT0ibWF0cml4KDEuMjUsMCwwLC0xLjI1LDAsNzY3LjUpIj48ZwogICAgICAgaWQ9ImczMTUx
+       IgogICAgICAgdHJhbnNmb3JtPSJzY2FsZSgwLjI0LDAuMjQpIj48cGF0aAogICAgICAgICBk
+       PSJtIDM0Ni4yNSwyNDgxLjI1IGMgLTE3MS44OTUsLTAuMDQgLTI2OC43MTA5LC04OS4wOCAt
+       MjY5LC0yNzEgbCAwLC0xODc2IGMgMC4yODkxLC0xNjkuNzAzIDg3LjMzMiwtMjU4LjgwODYg
+       MjU5LC0yNTkgbCAxODg0LDAgYyAxNzEuOTUsMC4xOTE0IDI1OS4xMyw4NC44NTkgMjU5LDI1
+       OSBsIDAsMTg3NiBjIDAuMTMsMTc3LjQ4IC04Ny4wNSwyNzAuOTYgLTI2NSwyNzEgMCwwIC0x
+       ODY4LjI2MiwwLjU2IC0xODY4LDAiCiAgICAgICAgIHN0eWxlPSJmaWxsOiMwMDAwMDA7Zmls
+       bC1vcGFjaXR5OjE7ZmlsbC1ydWxlOm5vbnplcm87c3Ryb2tlOm5vbmUiCiAgICAgICAgIGlk
+       PSJwYXRoMzE1MyIgLz48cGF0aAogICAgICAgICBkPSJtIDM0Ni4yNSwyNDgxLjI1IGMgLTE3
+       MS44OTUsLTAuMDQgLTI2OC43MTA5LC04OS4wOCAtMjY5LC0yNzEgbCAwLC0xODc2IGMgMC4y
+       ODkxLC0xNjkuNzAzIDg3LjMzMiwtMjU4LjgwODYgMjU5LC0yNTkgbCAxODg0LDAgYyAxNzEu
+       OTUsMC4xOTE0IDI1OS4xMyw4NC44NTkgMjU5LDI1OSBsIDAsMTg3NiBjIDAuMTMsMTc3LjQ4
+       IC04Ny4wNSwyNzAuOTYgLTI2NSwyNzEgMCwwIC0xODY4LjI2MiwwLjU2IC0xODY4LDAgeiIK
+       ICAgICAgICAgc3R5bGU9ImZpbGw6bm9uZTtzdHJva2U6I2ZmZmZmZjtzdHJva2Utb3BhY2l0
+       eToxO3N0cm9rZS13aWR0aDoxNC4yO3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVq
+       b2luOm1pdGVyO3N0cm9rZS1taXRlcmxpbWl0OjEwO3N0cm9rZS1kYXNoYXJyYXk6bm9uZSIK
+       ICAgICAgICAgaWQ9InBhdGgzMTU1IiAvPjxwYXRoCiAgICAgICAgIGQ9Im0gNTQ5LjI1LDE5
+       NzEuMjUgMjg3LDAgYyAzOS40MzQsLTAuMDQgNzEuMDg2LC0yNS45MyA3MSwtNjIgbCAwLC0y
+       OTggYyAwLjA4NiwtNDMuNzIgLTE1LjczLC02OS4zNiAtNjUsLTY5IGwgLTI0LDAgMCwtMTEy
+       IGMgMC4xMjUsLTM3LjU0IC0yOS41NDMsLTYyLjU0IC01OCwtNDIgbCAtMjExLDE2NiAwLDQx
+       NyIKICAgICAgICAgc3R5bGU9ImZpbGw6I2ZmZmZmZjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1
+       bGU6bm9uemVybztzdHJva2U6bm9uZSIKICAgICAgICAgaWQ9InBhdGgzMTU3IiAvPjxwYXRo
+       CiAgICAgICAgIGQ9Im0gMTIzNi4yNSwxMjgyLjI1IDAsLTQzOCA0ODAsNjM2IC00ODYsMCBj
+       IC02My4yNywwLjA0IC0xMDQuMTEsLTI3LjU1IC0xNDIsLTc0IGwgLTE1NiwtMjA5IC0yMjIs
+       MTc3IGMgLTEwMi45OTYsNzUuOTYgLTIxOC42MjUsLTcxLjY5IC0xMTksLTE0OSBsIDI5Miwt
+       MjMwIGMgNjEuNzU4LC00NS4wNjIgMTExLjc1OCwtMjUuMjczIDEzOSwyIGwgMjE0LDI4NSIK
+       ICAgICAgICAgc3R5bGU9ImZpbGw6I2ZmZmZmZjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6
+       bm9uemVybztzdHJva2U6bm9uZSIKICAgICAgICAgaWQ9InBhdGgzMTU5IiAvPjxwYXRoCiAg
+       ICAgICAgIGQ9Im0gMTIxMS4yNSwyMDUyLjI1IDUyNSwwIDAsLTE0NyAtNDI0LDAgLTEwMSwx
+       NDciCiAgICAgICAgIHN0eWxlPSJmaWxsOiNmZmZmZmY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1y
+       dWxlOm5vbnplcm87c3Ryb2tlOm5vbmUiCiAgICAgICAgIGlkPSJwYXRoMzE2MSIgLz48cGF0
+       aAogICAgICAgICBkPSJtIDE3MzcuMjUsMTg1OS4yNSAtNDIxLDAgLTg1LC0xMDcgMTAwLDAg
+       YyAtMC40MywtMTE4LjE4IDkyLjU3LC0yMDEuMjEgMjAxLC0yMDEgMTA0LjY4LC0wLjIxIDIw
+       NS40Miw4Mi44MiAyMDUsMjA1IGwgMCwxMDMiCiAgICAgICAgIHN0eWxlPSJmaWxsOiNmZmZm
+       ZmY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOm5vbnplcm87c3Ryb2tlOm5vbmUiCiAgICAg
+       ICAgIGlkPSJwYXRoMzE2MyIgLz48cGF0aAogICAgICAgICBkPSJtIDE4MzYuMjUsMTQ3OC4y
+       NSBjIDU1Ljg3LC0wLjEyIDEzNi44MiwtMjguNjYgMTM3LC0xNTEgbCAwLC04MzUgLTczNiww
+       IDAsMjI2IDUzNiwwIDAsMTA0IC00MjUsMCA0ODgsNjU2IgogICAgICAgICBzdHlsZT0iZmls
+       bDojZmZmZmZmO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25l
+       IgogICAgICAgICBpZD0icGF0aDMxNjUiIC8+PHBhdGgKICAgICAgICAgZD0ibSA2MjguMjUs
+       MTkyNy4yNSAyMTAsMCBjIDExLjc1NCwwLjA0IDI3LjU3LC03Ljk1IDI4LC0yNCBsIDAsLTI5
+       NSBjIC0wLjQzLC0xNC40NCAtMTAuMzEyLC0yNC40MyAtMjQsLTI0IGwgLTI0LDAgMCwxNzEg
+       YyAwLjEyNSwxOC4yNyAtMy44MzIsMzguMjUgLTMwLDU4IGwgLTE2MCwxMTQiCiAgICAgICAg
+       IHN0eWxlPSJmaWxsOiMwMDAwMDA7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOm5vbnplcm87
+       c3Ryb2tlOm5vbmUiCiAgICAgICAgIGlkPSJwYXRoMzE2NyIgLz48L2c+PC9nPjwvc3ZnPg==
+      </office:binary-data>
+      <text:p/>
+     </draw:image>
+    </draw:frame>
+    <draw:custom-shape draw:style-name="gr5" draw:text-style-name="P8" draw:layer="layout" svg:width="4.6cm" svg:height="4.4cm" svg:x="19.4cm" svg:y="8.8cm">
+     <text:p text:style-name="P8">Internet</text:p>
+     <draw:enhanced-geometry svg:viewBox="0 0 21600 21600" draw:text-areas="3000 3320 17110 17330" draw:type="non-primitive" draw:enhanced-path="M 1930 7160 C 1530 4490 3400 1970 5270 1970 5860 1950 6470 2210 6970 2600 7450 1390 8340 650 9340 650 10004 690 10710 1050 11210 1700 11570 630 12330 0 13150 0 13840 0 14470 460 14870 1160 15330 440 16020 0 16740 0 17910 0 18900 1130 19110 2710 20240 3150 21060 4580 21060 6220 21060 6720 21000 7200 20830 7660 21310 8460 21600 9450 21600 10460 21600 12750 20310 14680 18650 15010 18650 17200 17370 18920 15770 18920 15220 18920 14700 18710 14240 18310 13820 20240 12490 21600 11000 21600 9890 21600 8840 20790 8210 19510 7620 20000 7930 20290 6240 20290 4850 20290 3570 19280 2900 17640 1300 17600 480 16300 480 14660 480 13900 690 13210 1070 12640 380 12160 0 11210 0 10120 0 8590 840 7330 1930 7160 Z N M 1930 7160 C 1950 7410 2040 7690 2090 7920 F N M 6970 2600 C 7200 2790 7480 3050 7670 3310 F N M 11210 1700 C 11130 1910 11080 2160 11030 2400 F N M 14870 1160 C 14720 1400 14640 1720 14540 2010 F N M 19110 2710 C 19130 2890 19230 3290 19190 3380 F N M 20830 7660 C 20660 8170 20430 8620 20110 8990 F N M 18660 15010 C 18740 14200 18280 12200 17000 11450 F N M 14240 18310 C 14320 17980 14350 17680 14370 17360 F N M 8220 19510 C 8060 19250 7960 18950 7860 18640 F N M 2900 17640 C 3090 17600 3280 17540 3460 17450 F N M 1070 12640 C 1400 12900 1780 13130 2330 13040 F N"/>
+    </draw:custom-shape>
+    <draw:line draw:style-name="gr6" draw:text-style-name="P10" draw:layer="layout" svg:x1="20.6cm" svg:y1="7.8cm" svg:x2="24.8cm" svg:y2="10.2cm">
+     <text:p/>
+    </draw:line>
+    <draw:line draw:style-name="gr6" draw:text-style-name="P10" draw:layer="layout" svg:x1="24.8cm" svg:y1="6cm" svg:x2="22.6cm" svg:y2="14.6cm">
+     <text:p/>
+    </draw:line>
+    <draw:line draw:style-name="gr6" draw:text-style-name="P10" draw:layer="layout" svg:x1="20.2cm" svg:y1="13.4cm" svg:x2="22.6cm" svg:y2="6cm">
+     <text:p/>
+    </draw:line>
+    <draw:line draw:style-name="gr6" draw:text-style-name="P10" draw:layer="layout" svg:x1="20.2cm" svg:y1="8.2cm" svg:x2="22.4cm" svg:y2="14.6cm">
+     <text:p/>
+    </draw:line>
+    <draw:line draw:style-name="gr6" draw:text-style-name="P10" draw:layer="layout" svg:x1="20.6cm" svg:y1="13.788cm" svg:x2="24.8cm" svg:y2="11cm">
+     <text:p/>
+    </draw:line>
+    <draw:line draw:style-name="gr6" draw:text-style-name="P10" draw:layer="layout" svg:x1="24.784cm" svg:y1="6cm" svg:x2="25cm" svg:y2="9.587cm">
+     <text:p/>
+    </draw:line>
+    <presentation:notes draw:style-name="dp2">
+     <draw:page-thumbnail draw:style-name="gr3" draw:layer="layout" svg:width="13.968cm" svg:height="10.476cm" svg:x="3.81cm" svg:y="2.123cm" draw:page-number="3" presentation:class="page"/>
+     <draw:frame presentation:style-name="pr7" draw:text-style-name="P11" draw:layer="layout" svg:width="17.271cm" svg:height="12.572cm" svg:x="2.159cm" svg:y="13.271cm" presentation:class="notes" presentation:placeholder="true" presentation:user-transformed="true">
+      <draw:text-box/>
+     </draw:frame>
+    </presentation:notes>
+   </draw:page>
+   <draw:page draw:name="page4" draw:style-name="dp3" draw:master-page-name="Default" presentation:presentation-page-layout-name="AL2T1">
+    <office:forms form:automatic-focus="false" form:apply-design-mode="false"/>
+    <draw:frame presentation:style-name="pr8" draw:layer="layout" svg:width="25.199cm" svg:height="3.506cm" svg:x="1.4cm" svg:y="0.837cm" presentation:class="title" presentation:user-transformed="true">
+     <draw:text-box>
+      <text:p>Open Issues</text:p>
+     </draw:text-box>
+    </draw:frame>
+    <draw:frame presentation:style-name="pr9" draw:layer="layout" svg:width="25.199cm" svg:height="12.179cm" svg:x="1.4cm" svg:y="4.914cm" presentation:class="outline" presentation:user-transformed="true">
+     <draw:text-box>
+      <text:list text:style-name="L4">
+       <text:list-item>
+        <text:p>We think that there are none, but that seems too ridiculous.</text:p>
+       </text:list-item>
+       <text:list-item>
+        <text:p>It is clear that EST-CoAP is a building block for other specific protocols.</text:p>
+        <text:list>
+         <text:list-item>
+          <text:p>The choice of how the EST channel is secured is dependent upon target use case. <text:s/></text:p>
+          <text:list>
+           <text:list-item>
+            <text:p>Trying to get away without detailing use cases, because it is a rathole.</text:p>
+           </text:list-item>
+          </text:list>
+         </text:list-item>
+         <text:list-item>
+          <text:p>Case for renewal of existing certificates would seem to be well defined, except for draft-nir-saag-star considerations!</text:p>
+         </text:list-item>
+        </text:list>
+       </text:list-item>
+       <text:list-item>
+        <text:p>Ready for WGLC!</text:p>
+       </text:list-item>
+      </text:list>
+     </draw:text-box>
+    </draw:frame>
+    <presentation:notes draw:style-name="dp2">
+     <draw:page-thumbnail draw:style-name="gr3" draw:layer="layout" svg:width="13.968cm" svg:height="10.476cm" svg:x="3.81cm" svg:y="2.123cm" draw:page-number="4" presentation:class="page"/>
+     <draw:frame presentation:style-name="pr7" draw:text-style-name="P11" draw:layer="layout" svg:width="17.271cm" svg:height="12.572cm" svg:x="2.159cm" svg:y="13.271cm" presentation:class="notes" presentation:placeholder="true" presentation:user-transformed="true">
+      <draw:text-box/>
+     </draw:frame>
+    </presentation:notes>
+   </draw:page>
+   <presentation:settings presentation:mouse-visible="false"/>
+  </office:presentation>
+ </office:body>
+</office:document>

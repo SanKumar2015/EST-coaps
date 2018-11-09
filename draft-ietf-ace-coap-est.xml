@@ -58,7 +58,7 @@
         <email>pkampana@cisco.com</email>
       </address>
     </author>
-<author initials="S.S." surname="Kumar" fullname="Sandeep S. Kumar">
+    <!-- <author initials="S.S." surname="Kumar" fullname="Sandeep S. Kumar">
       <organization>Philips Lighting Research</organization>
       <address>
         <postal>
@@ -70,7 +70,7 @@
         </postal>
         <email>ietf@sandeep.de</email>
       </address>
-    </author>
+    </author> -->
     <author fullname="Michael C. Richardson" initials="M."
             surname="Richardson">
          <organization abbrev="SSW">Sandelman Software Works
@@ -80,12 +80,12 @@
         <uri>http://www.sandelman.ca/</uri>
       </address>
     </author>
-    <author fullname="Martin Furuhed" initials="M" surname="Furuhed">
+    <!-- <author fullname="Martin Furuhed" initials="M" surname="Furuhed">
         <organization>Nexus Group</organization>
         <address>
             <email>martin.furuhed@nexusgroup.com</email>
         </address>
-    </author>
+    </author> -->
     <author fullname="Shahid Raza" initials="S" surname="Raza">
         <organization>RISE SICS </organization>
         <address>
@@ -121,6 +121,11 @@
 
   <section anchor="changes" title="Change Log">
    <t>EDNOTE: Remove this section before publication</t>
+   <t> -07:
+    <list style="empty">
+        <t>Updated authors.</t>
+    </list>
+   </t>
    <t> -06:
     <list style="empty">
         <t>clarified discovery section, by specifying that no discovery may be needed for /.well-known/est URI.</t>
@@ -736,6 +741,9 @@ HMAC(finished_key,
   </section>  <!-- Security considerations  -->
 
   <section anchor="ack" title="Acknowledgements">
+    <t>We would like to thank Martin Furuhed for his contributions and implementation and testing  
+	of this draft. Special thanks should also go to Sandeep Kumar for his valuable contributions 
+	especially in kickstarting this specification. </t>
     <t>The authors are very grateful to Klaus Hartke for his detailed explanations on the use of 
 	Block with DTLS and his support for the content-format specification. The authors would like 
 	to thank Esko Dijk and Michael Verschoor for the valuable discussions that helped in shaping 

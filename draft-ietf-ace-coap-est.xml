@@ -124,6 +124,7 @@
    <t> -07:
     <list style="empty">
         <t>Updated authors.</t>
+		<t>Added COAP RST as a MAY for an equivalent to an HTTP 204 message.</t>
     </list>
    </t>
    <t> -06:
@@ -371,7 +372,7 @@ This specification contains a set of required-to-implement functions, optional f
     <section anchor="error" title="CoAP response codes">
       <t>Section 5.9 of <xref target="RFC7252"/> specifies the mapping of HTTP response codes to CoAP response codes. Every time the HTTP response code 200 is specified in <xref target="RFC7030"/> in response to a GET request, in EST-coaps the equivalent CoAP response code 2.05 or 2.03 MUST be used. Similarly, 2.01, 2.02 or 2.04 MUST be used in response to POST EST requests. Response code HTTP 202 has no equivalent in CoAP. <xref target="pending"/> specifies how EST requests over CoAP handle delayed messages.</t>
 	  
-	  <t>Other HTTP response codes EST makes use of, are 204 and 404 when a resource is not available for the client. The equivalent COAP error code to use in an EST-coaps response is 4.04. A COAP RST message MAY be returned insted of a 4.04 when there is no content for the server to send (HTTP 204).  Additionally, EST's 401 error translates to 4.01 in EST-coaps. Other HTTP error messages commonly used in EST are 400, 423 and 503. Their equivalent COAP errors are 4.00, 4.03 and 5.03 respectively. </t>
+	  <t>Other HTTP response codes EST makes use of, are 204 and 404 when a resource is not available for the client. The equivalent COAP error code to use in an EST-coaps response is 4.04. A COAP RST message with an empty payload MAY be returned insted of a 4.04 when there is no content for the server to send (HTTP 204).  Additionally, EST's 401 error translates to 4.01 in EST-coaps. Other HTTP error messages commonly used in EST are 400, 423 and 503. Their equivalent COAP errors are 4.00, 4.03 and 5.03 respectively. </t>
     </section> <!-- CoAP response codes -->
 
     <section anchor="pending" title="Delayed Responses">

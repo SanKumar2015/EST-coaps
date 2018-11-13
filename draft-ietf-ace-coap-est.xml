@@ -372,7 +372,7 @@ This specification contains a set of required-to-implement functions, optional f
     <section anchor="error" title="CoAP response codes">
       <t>Section 5.9 of <xref target="RFC7252"/> specifies the mapping of HTTP response codes to CoAP response codes. Every time the HTTP response code 200 is specified in <xref target="RFC7030"/> in response to a GET request, in EST-coaps the equivalent CoAP response code 2.05 or 2.03 MUST be used. Similarly, 2.01, 2.02 or 2.04 MUST be used in response to POST EST requests. Response code HTTP 202 has no equivalent in CoAP. <xref target="pending"/> specifies how EST requests over CoAP handle delayed messages.</t>
 	  
-	  <t>Other HTTP response codes EST makes use of, are 204 and 404 when a resource is not available for the client. The equivalent COAP error code to use in an EST-coaps response is 4.04. A COAP RST message with an empty payload MAY be returned insted of a 4.04 when there is no content for the server to send (HTTP 204).  Additionally, EST's 401 error translates to 4.01 in EST-coaps. Other HTTP error messages commonly used in EST are 400, 423 and 503. Their equivalent COAP errors are 4.00, 4.03 and 5.03 respectively. </t>
+	  <t>Other HTTP response codes EST makes use of, are 204 and 404 when a resource is not available for the client. The equivalent COAP error code to use in an EST-coaps response is 4.04. A COAP RST message with an empty payload MAY be returned instead of a 4.04 when there is no content for the server to send (HTTP 204).  Additionally, EST's 401 error translates to 4.01 in EST-coaps. Other HTTP error messages commonly used in EST are 400, 423 and 503. Their equivalent COAP errors are 4.00, 4.03 and 5.03 respectively. </t>
     </section> <!-- CoAP response codes -->
 
     <section anchor="pending" title="Delayed Responses">
@@ -560,10 +560,10 @@ coaps://example.com:<port>/<root-resource>/ArbitraryLabel/<short-est>
   RES: 2.05 Content 
 </est>; rt="ace.est", 
 </est/crts>;rt="ace.est.crts";ct=281, 
-</est/sen>;rt="ace.est.sen"ct=281 286, 
-</est/sren>;rt="ace.est.sren"ct=281 286, 
-</est/att>;rt="ace.est.att"ct=285, 
-</est/skg>;rt="ace.est.skg"ct=280 286 TBD8
+</est/sen>;rt="ace.est.sen";ct=281 286, 
+</est/sren>;rt="ace.est.sren";ct=281 286, 
+</est/att>;rt="ace.est.att";ct=285, 
+</est/skg>;rt="ace.est.skg";ct=280 286 TBD8
 ]]></artwork>
     </figure>
       <t> The first line of the discovery response MUST be returned. The five consecutive lines MAY be returned. The return of the content-types in the last four lines allows the client to choose the most appropriate one from multiple content types.</t>
@@ -739,16 +739,20 @@ HMAC(finished_key,
     </section> <!-- proxy considerations -->
   </section>  <!-- Security considerations  -->
 
+<section anchor="contrib" title="Contributors">
+<t>Martin Furuhed originally contributed to the est-coaps work by co-authoring the draft selander-ace-eals. The work for that draft was merged with the work described in this document. Sandeep Kumar kick-started this specification and was instrumental in drawing attention to the importance of the subject. </t>
+</section>   <!-- Contributors -->
+
   <section anchor="ack" title="Acknowledgements">
-    <t>We would like to thank Martin Furuhed for his contributions and implementation and testing  
-	of this draft. Special thanks should also go to Sandeep Kumar for his valuable contributions 
-	especially in kickstarting this specification. </t>
+    
     <t>The authors are very grateful to Klaus Hartke for his detailed explanations on the use of 
 	Block with DTLS and his support for the content-format specification. The authors would like 
 	to thank Esko Dijk and Michael Verschoor for the valuable discussions that helped in shaping 
 	the solution. They would also like to thank Peter Panburana for his feedback on technical 
 	details of the solution. Constructive comments were received from Benjamin Kaduk, Eliot Lear, 
 	Jim Schaad, Hannes Tschofenig, Julien Vermillard, and John Manuel.</t>
+<t> Interop tests were done by Oliver Pfaff, Thomas Werner,Oskar Camezind, Bjorn Elmers, Joel Hoglund, and Jim Schaad.
+</t>
   </section> <!-- Acknowledgements  -->
 </middle>
 

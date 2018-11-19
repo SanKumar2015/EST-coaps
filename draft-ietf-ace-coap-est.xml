@@ -352,8 +352,15 @@ This specification contains a set of required-to-implement functions, optional f
         <t>For example, a collection containing two representations in response to a server-side key generation, could include a private key in PKCS#8 with content format ID 284 (0x011C) and a certificate with content format ID 281 (0x0119), looks like this in diagnostic CBOR notation: [284,h'0123456789abcdef',281,h'fedcba9876543210']. The serialization of such CBOR content would be </t>
         <figure title="Multipart /skg response serialization"><artwork>
         <![CDATA[ 
-          0x84 0x19 0x01 0x1C 0x58 0x43 .... 0x19 0x01 0x19 0x59 0x01 0xED ... 
+   84                  # array(4)
+   19 011C             # unsigned(284)
+   48                  # bytes(8)
+      0123456789ABCDEF # "\x01#Eg\x89\xAB\xCD\xEF"
+   19 0119             # unsigned(281)
+   48                  # bytes(8)
+      FEDCBA9876543210 # "\xFE\xDC\xBA\x98vT2\x10"
          ]]></artwork></figure>
+
 		<t> The PKCS#8 key and the X.509 certificate representations will be ASN.1 encoded in binary format. An example is shown in <xref target="appskg"/>. </t>
       </section>  <!--Content Format application/multipart-core -->
 
@@ -597,7 +604,8 @@ HMAC(finished_key,
 ]]></artwork></figure> 
    <t>MUST be computed as if each handshake message had been sent as a single fragment following the algorithm described in
    4.4.4 of <xref target="RFC8446"/>. </t>
-      <t>In a constrained CoAP environment, endpoints can't afford to establish a DTLS connection for every EST transaction. Authenticating and negotiating DTLS keys requires resources on low-end endpoints and consumes valuable bandwidth. The DTLS connection SHOULD remain open for persistent EST connections. For example, an EST cacerts request that is followed by a simpleenroll request can use the same authenticated DTLS connection. EST requires the client to use its implicit trust anchor to authenticate the server in the first DTLS connection. After receiving the new trust anchor from the server (cacerts), the client MUST use its newly received explicit trust anchor onwards. While in a persistent DTLS connection, the client SHOULD immediately start using the new trust anchor after receiving the cacerts response and tear down the DTLS connection if the server certificate cannot be validated with the new trust anchor. Alternatively, a client MAY chose to keep the already authenticated by the implicit trust anchor connection open by assuming the the identity of the server is to be trusted even in the first authentication. The explicit trust anchor SHOULD be used starting from the next DTLS connection. </t>
+      <t>In a constrained CoAP environment, endpoints can't afford to establish a DTLS connection for every EST transaction. Authenticating and negotiating DTLS keys requires resources on low-end endpoints and consumes valuable bandwidth. The DTLS connection SHOULD remain open for persistent EST connections. For example, an EST cacerts request that is followed by a simpleenroll request can use the same authenticated DTLS connection. However, some additional rules do apply.</t>
+<t>EST requires the client to use its implicit trust anchor to authenticate the server in the first DTLS connection. After receiving the new trust anchor from the server (cacerts), the client MUST use its newly received explicit trust anchor onwards. In a persistent DTLS connection, the client SHOULD immediately start using the new trust anchor after receiving the cacerts response. If the server certificate cannot be validated with the new trust anchor, the DTLS connection must be torn down. Alternatively, a client MAY choose to keep the connection, already authenticated by the implicit trust anchor, open by assuming that the identity of the server is to be trusted from the first authentication onwards. The explicit trust anchor SHOULD be used starting from the next DTLS connection. </t>
       <t>Given that after a successful enrollment, it is more likely that a new EST transaction will take place after a significant amount of time, the DTLS connections SHOULD only be kept alive for EST messages that are relatively close to each other. In some cases, such as NAT rebinding, keeping the state of a connection is not possible when devices sleep for extended periods of time. In such occasions, <xref target="I-D.rescorla-tls-dtls-connection-id"/> negotiates a connection ID that can eliminate the need for new handshake and its additional cost. </t>
   </section> <!-- Transport protocol -->
 
@@ -1132,7 +1140,7 @@ POST coaps://192.0.2.1:8085/est/skg
 (token 0xa5)
 (Content-Format: 286)(Max-Age=120)
 
-[EDNOT This should be an CSR ] 
+[EDNOTE This should be an CSR ] 
 h'302081302069020100305b313e303c060355040313357365727665724b6579476
 56e2072657120627920636c69656e7420696e2064656d6f207374657020313220
 3133363831343139353531193017060355040513105049443a576964676574205

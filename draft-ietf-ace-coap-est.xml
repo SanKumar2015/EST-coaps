@@ -754,12 +754,11 @@ HMAC(finished_key,
     </section> <!-- proxy considerations -->
   </section>  <!-- Security considerations  -->
 
-<section anchor="contrib" title="Contributors">
-<t>Martin Furuhed originally contributed to the est-coaps work by co-authoring the draft selander-ace-eals. The work for that draft was merged with the work described in this document. Sandeep Kumar kick-started this specification and was instrumental in drawing attention to the importance of the subject. </t>
-</section>   <!-- Contributors -->
+  <section anchor="contrib" title="Contributors">
+    <t>Martin Furuhed originally contributed to the est-coaps work by co-authoring the draft selander-ace-eals. The work for that draft was merged with the work described in this document. Sandeep Kumar kick-started this specification and was instrumental in drawing attention to the importance of the subject. </t>
+  </section>   <!-- Contributors -->
 
   <section anchor="ack" title="Acknowledgements">
-    
     <t>The authors are very grateful to Klaus Hartke for his detailed explanations on the use of 
 	Block with DTLS and his support for the content-format specification. The authors would like 
 	to thank Esko Dijk and Michael Verschoor for the valuable discussions that helped in shaping 
@@ -820,8 +819,8 @@ HMAC(finished_key,
 
   <section anchor="messagebindings" title="EST messages to EST-coaps">
     <t>This section takes all examples from Appendix A of <xref target="RFC7030"/>, changes the payload from Base64 to binary and replaces the http headers by their CoAP equivalents. </t>
-<t> The corresponding CoAP headers are only shown in <xref target="cacerts"/>. Creating CoAP headers are assumed to be generally known.</t>
-<t>Binary payload is a CBOR major type 2 (byte array), that is shown with a
+    <t> The corresponding CoAP headers are only shown in <xref target="cacerts"/>. Creating CoAP headers are assumed to be generally known.</t>
+    <t>Binary payload is a CBOR major type 2 (byte array), that is shown with a
 base16 (hexadecimal) CBOR diagnostic notation.</t>
 
 	<t>[EDNOTE: The payloads of the examples need to be re-generated with appropriate tools and example certificates.]</t>

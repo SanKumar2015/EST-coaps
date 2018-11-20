@@ -5,12 +5,12 @@
 ACE                                                      P. van der Stok
 Internet-Draft                                                Consultant
 Intended status: Standards Track                           P. Kampanakis
-Expires: May 23, 2019                                      Cisco Systems
+Expires: May 24, 2019                                      Cisco Systems
                                                            M. Richardson
                                                                      SSW
                                                                  S. Raza
                                                                RISE SICS
-                                                       November 19, 2018
+                                                       November 20, 2018
 
 
                     EST over secure CoAP (EST-coaps)
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on May 23, 2019.
+   This Internet-Draft will expire on May 24, 2019.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-van der Stok, et al.      Expires May 23, 2019                  [Page 1]
+van der Stok, et al.      Expires May 24, 2019                  [Page 1]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-van der Stok, et al.      Expires May 23, 2019                  [Page 2]
+van der Stok, et al.      Expires May 24, 2019                  [Page 2]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -127,7 +127,7 @@ Internet-Draft                  EST-coaps                  November 2018
       Added serialization example of the /skg CBOR response.
 
       Added text regarding expired IDevIDs and persistent DTLS
-      connection that will start using te Explicit TA Database in the
+      connection that will start using the Explicit TA Database in the
       new DTLS connection.
 
       Nits and fixes
@@ -165,7 +165,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                  [Page 3]
+van der Stok, et al.      Expires May 24, 2019                  [Page 3]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -221,7 +221,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                  [Page 4]
+van der Stok, et al.      Expires May 24, 2019                  [Page 4]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -277,7 +277,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                  [Page 5]
+van der Stok, et al.      Expires May 24, 2019                  [Page 5]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -301,10 +301,10 @@ Internet-Draft                  EST-coaps                  November 2018
       IDevID certificate (an IEEE 802.1AR [ieee802.1ar] or a certificate
       issued by some other party); the server is expected to trust the
       root CA certificate in this case.  IDevID's are expected to have a
-      very long life, as long as the device, and sometimes could expire.
-      In such ocassions the server MAY want to authenticate a client
-      certificate against its trust store although the certificate is
-      expired.
+      very long life, as long as the device, but under some conditions
+      could expire.  In the latter case, the server MAY want to
+      authenticate a client certificate against its trust store although
+      the certificate is expired.
 
 5.  Protocol Design
 
@@ -333,7 +333,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                  [Page 6]
+van der Stok, et al.      Expires May 24, 2019                  [Page 6]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -372,7 +372,7 @@ Internet-Draft                  EST-coaps                  November 2018
               | /csrattrs        | Optional                 |
               +------------------+--------------------------+
 
-                   Table 1: list of EST -coaps fuctions
+                   Table 1: list of EST -coaps functions
 
 5.2.  Payload format
 
@@ -389,7 +389,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                  [Page 7]
+van der Stok, et al.      Expires May 24, 2019                  [Page 7]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -445,7 +445,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                  [Page 8]
+van der Stok, et al.      Expires May 24, 2019                  [Page 8]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -501,7 +501,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                  [Page 9]
+van der Stok, et al.      Expires May 24, 2019                  [Page 9]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -557,7 +557,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                 [Page 10]
+van der Stok, et al.      Expires May 24, 2019                 [Page 10]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -613,7 +613,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                 [Page 11]
+van der Stok, et al.      Expires May 24, 2019                 [Page 11]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -669,7 +669,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                 [Page 12]
+van der Stok, et al.      Expires May 24, 2019                 [Page 12]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -725,7 +725,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                 [Page 13]
+van der Stok, et al.      Expires May 24, 2019                 [Page 13]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -781,7 +781,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                 [Page 14]
+van der Stok, et al.      Expires May 24, 2019                 [Page 14]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -837,7 +837,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                 [Page 15]
+van der Stok, et al.      Expires May 24, 2019                 [Page 15]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -893,7 +893,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                 [Page 16]
+van der Stok, et al.      Expires May 24, 2019                 [Page 16]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -949,7 +949,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                 [Page 17]
+van der Stok, et al.      Expires May 24, 2019                 [Page 17]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -1005,7 +1005,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                 [Page 18]
+van der Stok, et al.      Expires May 24, 2019                 [Page 18]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -1061,7 +1061,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                 [Page 19]
+van der Stok, et al.      Expires May 24, 2019                 [Page 19]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -1117,7 +1117,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                 [Page 20]
+van der Stok, et al.      Expires May 24, 2019                 [Page 20]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -1173,7 +1173,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                 [Page 21]
+van der Stok, et al.      Expires May 24, 2019                 [Page 21]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -1215,7 +1215,7 @@ Internet-Draft                  EST-coaps                  November 2018
    identity of the server is to be trusted.  In that case then the
    Explicit TA MUST be used starting from the next DTLS connection.
 
-   In cases where the IDevID used to authenticate the client is expired
+   In cases where the IDevID used to authenticate the client, is expired
    the server MAY still authenticate the client because IDevIDs are
    expected to live as long as the device itself (Section 4).  In such
    occasions, checking the certificate revocation status or authorizing
@@ -1229,7 +1229,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                 [Page 22]
+van der Stok, et al.      Expires May 24, 2019                 [Page 22]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -1285,7 +1285,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                 [Page 23]
+van der Stok, et al.      Expires May 24, 2019                 [Page 23]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -1341,7 +1341,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                 [Page 24]
+van der Stok, et al.      Expires May 24, 2019                 [Page 24]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -1397,7 +1397,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                 [Page 25]
+van der Stok, et al.      Expires May 24, 2019                 [Page 25]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -1453,7 +1453,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                 [Page 26]
+van der Stok, et al.      Expires May 24, 2019                 [Page 26]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -1509,7 +1509,7 @@ A.1.  cacerts
 
 
 
-van der Stok, et al.      Expires May 23, 2019                 [Page 27]
+van der Stok, et al.      Expires May 24, 2019                 [Page 27]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -1565,7 +1565,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                 [Page 28]
+van der Stok, et al.      Expires May 24, 2019                 [Page 28]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -1621,7 +1621,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                 [Page 29]
+van der Stok, et al.      Expires May 24, 2019                 [Page 29]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -1677,7 +1677,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                 [Page 30]
+van der Stok, et al.      Expires May 24, 2019                 [Page 30]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -1733,7 +1733,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                 [Page 31]
+van der Stok, et al.      Expires May 24, 2019                 [Page 31]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -1784,12 +1784,12 @@ A.3.  enroll / reenroll
    with the issued certificate will be returned to the client.  As
    described in Section 5.5, if the server is not able to provide a
    response immediately, it sends an empty ACK with response code 5.03
-   (Service Unavailabel) and the Max-Age option.  See Figure 3 for an
+   (Service Unavailable) and the Max-Age option.  See Figure 3 for an
    example exchange.
 
 
 
-van der Stok, et al.      Expires May 23, 2019                 [Page 32]
+van der Stok, et al.      Expires May 24, 2019                 [Page 32]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -1845,7 +1845,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                 [Page 33]
+van der Stok, et al.      Expires May 24, 2019                 [Page 33]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -1901,7 +1901,7 @@ A.4.  serverkeygen
 
 
 
-van der Stok, et al.      Expires May 23, 2019                 [Page 34]
+van der Stok, et al.      Expires May 24, 2019                 [Page 34]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -1957,7 +1957,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                 [Page 35]
+van der Stok, et al.      Expires May 24, 2019                 [Page 35]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -2013,7 +2013,7 @@ B.1.  cacerts block example
 
 
 
-van der Stok, et al.      Expires May 23, 2019                 [Page 36]
+van der Stok, et al.      Expires May 24, 2019                 [Page 36]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -2069,7 +2069,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                 [Page 37]
+van der Stok, et al.      Expires May 24, 2019                 [Page 37]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -2125,7 +2125,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                 [Page 38]
+van der Stok, et al.      Expires May 24, 2019                 [Page 38]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -2181,7 +2181,7 @@ B.2.  enroll block example
 
 
 
-van der Stok, et al.      Expires May 23, 2019                 [Page 39]
+van der Stok, et al.      Expires May 24, 2019                 [Page 39]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -2237,7 +2237,7 @@ Authors' Addresses
 
 
 
-van der Stok, et al.      Expires May 23, 2019                 [Page 40]
+van der Stok, et al.      Expires May 24, 2019                 [Page 40]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -2293,4 +2293,4 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 23, 2019                 [Page 41]
+van der Stok, et al.      Expires May 24, 2019                 [Page 41]

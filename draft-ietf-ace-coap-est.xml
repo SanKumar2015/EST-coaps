@@ -30,6 +30,7 @@
 <!ENTITY RFC8075 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8075.xml">
 <!ENTITY RFC8446 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8446.xml">
 <!ENTITY I-D.ietf-anima-bootstrapping-keyinfra SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-anima-bootstrapping-keyinfra.xml">
+<!ENTITY I-D.ietf-tls-dtls13 SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-tls-dtls13.xml">
 <!ENTITY I-D.rescorla-tls-dtls-connection-id SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.rescorla-tls-dtls-connection-id.xml">
 <!ENTITY I-D.ietf-core-multipart-ct SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-core-multipart-ct.xml">
 <!ENTITY I-D.ietf-lamps-rfc5751-bis SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-lamps-rfc5751-bis.xml">
@@ -110,7 +111,7 @@
       <t>Enrollment over Secure Transport (EST) is used as a certificate provisioning 
 	  protocol over HTTPS. Low-resource devices often use the lightweight Constrained 
 	  Application Protocol (CoAP) for message exchanges. This document defines how to 
-	  transport EST payloads over secure CoAP (EST-coaps), which allows low-resource 
+	  transport EST payloads over secure CoAP (EST-coaps), which allows  
 	  constrained devices to use existing EST functionality for provisioning certificates. 
 	  <!-- Example low-resource use cases for EST are: secure bootstrapping and certificate enrollment. --> </t>
     </abstract>
@@ -198,15 +199,15 @@
    <xref target="RFC6347"/>, CoAP <xref target="RFC7252"/>, and UDP instead of 
    TLS <xref target="RFC8446"/>, HTTP <xref target="RFC7230"/> and TCP. </t> 
    
-   <t>EST messages may be relatively large and for this reason this
-   document also uses CoAP Block-Wise Transfer <xref target="RFC7959"/> to 
+   <t>EST responses can be relatively large and for this reason this
+   specification also uses CoAP Block-Wise Transfer <xref target="RFC7959"/> to 
    offer a fragmentation mechanism of EST messages at the CoAP layer. 
    </t>
 
-   <t>This specification also profiles the use of EST to only support 
-   certificate-based client Authentication. HTTP Basic or Digest 
-   authentication (as described in Section 3.2.3 of <xref target="RFC7030"/> 
-   are not supported. </t>
+   <t>This document also profiles the use of EST to only support 
+   certificate-based client authentication. HTTP Basic or Digest 
+   authentication (as described in Section 3.2.3 of 
+   <xref target="RFC7030"/> are not supported. </t>
 
    <!-- <t>IPv6 over Low-power Wireless Personal Area Networks (6LoWPANs) <xref target="RFC4944" /> on IEEE 802.15.4 <xref target="ieee802.15.4" /> wireless networks are becoming common in many industry application domains such as lighting controls. Although IEEE 802.15.4 defines how security can be enabled between nodes within a single mesh network, it does not specify the provisioning and management of the keys. Therefore, securing a 6LoWPAN network with devices from multiple manufacturers with different provisioning techniques is often tedious and time consuming. An example use case is the application of Bootstrapping of Remote Secure Infrastructures (BRSKI) <xref target="I-D.ietf-anima-bootstrapping-keyinfra"/> </t> --> 
 
@@ -233,50 +234,55 @@
   
   <section anchor="profile7925" title="Conformance to RFC7925 profiles">
     <t>This section shows how EST-coaps fits into the profiles of low-resource 
-	devices described in <xref target="RFC7925"/>.</t>
-	
-    <t>EST-coaps can transport certificates and private keys. Certificates 
-	are responses to (re-)enrollment requests or request for a trusted certificate 
-	list. Private keys can be transported as responses to a request to a 
-	server-side keygeneration as described in section 4.4 of <xref target="RFC7030"/> 
-	and discussed in <xref target="serverkey"/> of this document. </t>
+	devices described in <xref target="RFC7925"/>.
+	EST-coaps can transport certificates and private keys. Certificates 
+	are responses to (re-)enrollment requests or requests for a trusted certificate 
+	list. Private keys can be transported as responses to a  
+	server-side key generation request as described in section 4.4 of 
+	<xref target="RFC7030"/> snd discussed in <xref target="serverkey"/> 
+	of this document. </t>
     
     <t>
-      As per <xref target="RFC7925" /> section 3.3 and section 4.4, the
-      mandatory cipher suite for DTLS in EST-coaps is
-      TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 defined in <xref target="RFC7251"/>,
-      and the curve secp256r1 MUST  
-      be supported <xref target="RFC8422"/>; this curve is equivalent to the
-      NIST P-256 curve.   Crypto agility is important, and the
-      recommendations in <xref target="RFC7925" /> section 4.4 and any
-      updates to RFC7925 concerning Curve25519 and other CFRG curves also apply.
+    As per Sections 3.3 and 4.4 of <xref target="RFC7925" />, the
+    mandatory cipher suite for DTLS in EST-coaps is
+    TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 <xref target="RFC7251"/>. 
+    Curve secp256r1 MUST  
+    be supported <xref target="RFC8422"/>; this curve is equivalent to the
+    NIST P-256 curve. Crypto agility is important, and the
+    recommendations in <xref target="RFC7925" /> section 4.4 and any
+    updates to RFC7925 concerning Curve25519 and other CFRG curves also apply.
     </t>  
 	  
 	<t> 
-	  DTLS1.2 implementations MUST use the Supported Elliptic Curves and Supported
-      Point Formats Extensions <xref target="RFC8422"/>. Uncompressed point
-      format MUST also be supported. <xref target="RFC6090"/> can be used as
-	  summary of the ECC algorithms. DTLS 1.3 implementations differ from DTLS 1.2
-      because they do not support point format negotiation in favor of a single
-      point format for each curve and thus support for DTLS 1.3 does not mandate 
-	  point formation extensions and negotiation. 
+	DTLS1.2 implementations MUST use the Supported Elliptic Curves and Supported
+    Point Formats Extensions <xref target="RFC8422"/>. Uncompressed point
+    format MUST also be supported. <xref target="RFC6090"/> can be used as
+	summary of the ECC algorithms. DTLS 1.3 
+	<xref target="I-D.ietf-tls-dtls13"/>
+	implementations differ from DTLS 1.2
+    because they do not support point format negotiation in favor of a single
+    point format for each curve and thus support for DTLS 1.3 does not mandate 
+	point formation extensions and negotiation. 
     </t>
     
-    <t>The EST-coaps client MUST be configured with at least an implicit TA database 
-	from its manufacturer. The authentication of the EST-coaps server by the EST-coaps 
-	client is based on certificate authentication in the DTLS handshake.</t>
+    <t>The authentication of the EST-coaps server by the EST-coaps 
+	client is based on certificate authentication in the DTLS handshake. 
+	The EST-coaps client MUST be configured with at least an Implicit TA database 
+	from its manufacturer which will allow for the authenticating the server the 
+	first time before updating its trust anchor (Explicit TA) <xref target="RFC7030"/>.</t>
 	
     <t>The authentication of the EST-coaps client is based on a client certificate 
 	in the DTLS handshake. This can either be 
       <list style="symbols">
         <t>a previously issued client certificate (e.g., an existing certificate issued 
-		by the EST CA); this could be a common case for simple reenrollment of clients; </t>
-        <t>a previously installed certificate (e.g., manufacturer-installed IDevID certificate 
-        (an IEEE 802.1AR <xref target="ieee802.1ar"/> or a certificate issued by some other party); the server 
+		by the EST CA); this could be a common case for simple reenrollment of clients. </t>
+        <t>a previously installed certificate (e.g., manufacturer-installed IDevID 
+		(IEEE 802.1AR <xref target="ieee802.1ar"/> certificate 
+        or a certificate issued by some other party); the server 
         is expected to trust the root CA certificate in this case. IDevID's are expected to have 
         a very long life, as long as the device, and sometimes could expire. In such ocassions 
         the server MAY want to authenticate a client certificate against its trust store 
-		although the certificate is expired. </t>
+		although the certificate is expired (<xref target="sec"/>). </t>
     </list></t>
   </section>  <!-- 7925 profile  -->
 
@@ -284,7 +290,7 @@
     <t>EST-coaps uses CoAP to transfer EST messages, aided by Block-Wise Transfer 
 	<xref target="RFC7959"/> to transport CoAP messages in blocks thus avoiding (excessive) 
 	fragmentation of UDP datagrams. The use of "Block" for the transfer of larger 
-	EST messages is specified in <xref target="fragment"/>. The 
+	EST messages is specified in <xref target="fragment"/>. 
 	<xref target="fig-est-coaps-layers"/> below shows the layered EST-coaps 
 	architecture.</t>
 <figure align="center" title="EST-coaps protocol layers" anchor="fig-est-coaps-layers"><artwork><![CDATA[
@@ -315,7 +321,7 @@ This specification contains a set of required-to-implement functions, optional f
 
 <t> <xref target="est-implementation"/> specifies the mandatory-to-implement or optional implementation of the est-coaps functions.</t>
 
-<texttable anchor="est-implementation" title="list of EST -coaps fuctions">
+<texttable anchor="est-implementation" title="List of EST-coaps fuctions">
   <ttcol align="left">EST Functions</ttcol>
   <ttcol align="left">EST-coaps implementation</ttcol>
   
@@ -784,6 +790,7 @@ HMAC(finished_key,
     &I-D.ietf-lamps-rfc5751-bis;
     &RFC5967;
     &RFC6347;
+	&I-D.ietf-tls-dtls13;
     &RFC6690;  
     &RFC7030;
     &RFC7049;

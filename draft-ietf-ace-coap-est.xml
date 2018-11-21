@@ -776,8 +776,8 @@ HMAC(finished_key,
 	to thank Esko Dijk and Michael Verschoor for the valuable discussions that helped in shaping 
 	the solution. They would also like to thank Peter Panburana for his feedback on technical 
 	details of the solution. Constructive comments were received from Benjamin Kaduk, Eliot Lear, 
-	Jim Schaad, Hannes Tschofenig, Julien Vermillard, and John Manuel.</t>
-<t> Interop tests were done by Oliver Pfaff, Thomas Werner,Oskar Camezind, Bjorn Elmers, Joel Hoglund, and Jim Schaad.
+	Jim Schaad, Hannes Tschofenig, Julien Vermillard, John Manuel and Oliver Pfaff.</t>
+<t> Interop tests were done by Oliver Pfaff, Thomas Werner,Oskar Camezind, Bjorn Elmers and Joel Hoglund. 
 </t>
   </section> <!-- Acknowledgements  -->
 </middle>

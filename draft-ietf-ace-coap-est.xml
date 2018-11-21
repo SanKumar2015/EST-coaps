@@ -844,7 +844,7 @@ HMAC(finished_key,
     <t>Binary payload is a CBOR major type 2 (byte array), that is shown with a
 base16 (hexadecimal) CBOR diagnostic notation.</t>
 
-	<t>[EDNOTE: The payloads of the examples need to be re-generated with appropriate tools and example certificates.]</t>
+	<t>[EDNOTE: For Michael. The payloads of the examples need to be re-generated with appropriate tools and example certificates.]</t>
 
 	<section title="cacerts" anchor="cacerts">
 	  <t>These examples assume that the resource discovery, returned a
@@ -1093,10 +1093,11 @@ GET coaps://[2001:db8::2:1]:61616/est/att
       </t>
 	  
       <t>
-	[EDNOTE: When redoing this example, 
+	[EDNOTE: For Michael. When redoing this example, 
 	given that POP linking is also used, make sure
 	it is obvious that the ChallengePassword attribute in the CSR 
-	is valid HMAC output. HMAC-REAL.]
+	is valid HMAC output. OpenSSL can be used to generate the CSR. 
+	HMAC-REAL.]
       </t>
 
 <figure align="left"><artwork><![CDATA[
@@ -1152,15 +1153,17 @@ a2583aac9024075113db4990b1786b871691e0f020301000134b050300e060355
       <t>During this valid /serverkeygen exchange, the EST-coaps client authenticates itself using the certificate provided by the connected CA.</t>
       	
       <t>The initial DTLS handshake is identical to the enrollment example. The CoAP GET request looks like:</t> 
-	  <t>[EDNOTE: same comment as HMAC-REAL above applies.]</t>
-	  <t>[EDNOTE: Suggestion to have only one example with complete encrypted payload (the short one) and point out the different fields. Update this example according to the agreed upon solution from <xref target="serverkey"/>. ] </t>
+	  
+	  <t>[EDNOTE: For Michael. Maybe ask interop team for an server-side keygen example. 
+	  Suggestion to have only one example with complete encrypted payload (the short one) and point out the different fields. 
+	  Update this example according to the agreed upon solution from <xref target="serverkey"/>. ] </t>
 
 <figure align="left"><artwork><![CDATA[
 POST coaps://192.0.2.1:8085/est/skg 
 (token 0xa5)
 (Content-Format: 286)(Max-Age=120)
 
-[EDNOTE This should be an CSR ] 
+[EDNOTE For Michael. This should be a CSR Same comment as HMAC-REAL above applies.] 
 h'302081302069020100305b313e303c060355040313357365727665724b6579476
 56e2072657120627920636c69656e7420696e2064656d6f207374657020313220
 3133363831343139353531193017060355040513105049443a576964676574205

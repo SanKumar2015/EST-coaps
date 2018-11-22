@@ -129,6 +129,7 @@
 		<t>Added serialization example of the /skg CBOR response. </t>
 		<t>Added text regarding expired IDevIDs and persistent DTLS connection that will start using the Explicit TA Database in the new DTLS connection.</t>
 		<t>Nits and fixes</t>
+           <t>Removed CBOR envelop for binary data</t>
     </list>
    </t>
    <t> -06:
@@ -145,7 +146,7 @@
    <t> -05:
     <list style="empty">
 	    <t>repaired again</t>
-		<t>TBD8 removed from C-F registration, to be done in CT draft.</t>
+		<t>TBD8 = 62 removed from C-F registration, to be done in CT draft.</t>
     </list>
     </t>
     <t> -04:
@@ -348,13 +349,13 @@ This specification contains a set of required-to-implement functions, optional f
 		to send base64-encoded data. Simple binary is more efficient (30% smaller payload) and 
 		well supported by CoAP.</t>
       <t> 
-      The payload for a given media type follows the ASN.1 structure of the media-type and is transported as straight binary coding instead of the base64-encoded. The binary is wrapped in a CBOR major type 2 using h'xxx' notation (to assure compatibility with multipart).</t>
+      The payload for a given media type follows the ASN.1 structure of the media-type and is transported as straight binary coding instead of the base64-encoded.</t>
       <t>In the examples of <xref target="messagebindings"/>, the base16 diagnostic notation is used for CBOR major type 2, where h'450aafbb' represents an example binary payload.
       The content formats specification in <xref target="cborpair"/> specifies the payload structure when multiple media types are present in the payload. </t>
 
       <section anchor="cborpair" title="Content Format application/multipart-core">
         <t>
-        A representation with content format ID TBD8 contains a collection of representations along with their respective content format. The content-format identifies the media-type application/multipart-core specified in <xref target="I-D.ietf-core-multipart-ct"/>.
+        A representation with content format ID 62 contains a collection of representations along with their respective content format. The content-format identifies the media-type application/multipart-core specified in <xref target="I-D.ietf-core-multipart-ct"/>.
         </t>
 		<t>The collection is encoded as a <xref target="RFC7049">CBOR array</xref> with an even number of elements.
         The second, fourth, sixth, etc. element is a binary string containing a representation.
@@ -586,7 +587,7 @@ coaps://example.com:<port>/<root-resource>/ArbitraryLabel/<short-est>
 </est/sen>;rt="ace.est.sen";ct=281 286, 
 </est/sren>;rt="ace.est.sren";ct=281 286, 
 </est/att>;rt="ace.est.att";ct=285, 
-</est/skg>;rt="ace.est.skg";ct=280 286 TBD8
+</est/skg>;rt="ace.est.skg";ct=280 286 62
 ]]></artwork>
     </figure>
       <t> The first line of the discovery response MUST be returned. The five consecutive lines MAY be returned. The return of the content-types in the last four lines allows the client to choose the most appropriate one from multiple content types.</t>
@@ -1115,7 +1116,7 @@ f9288724381909188c851fa9a5059802eb64449f2a3c9e441353d136768da27ff
 4823dbd2d6a98445b46305c10637e202856611
 
 RET:
-2.01 Content (Content-Format: TBD8)
+2.01 Content (Content-Format: 62)
 (token=0xa5)
 
 [284,

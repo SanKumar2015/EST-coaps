@@ -28,6 +28,7 @@
 <!ENTITY RFC5929 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5929.xml">
 <!ENTITY RFC7525 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7525.xml">
 <!ENTITY RFC8075 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8075.xml">
+<!ENTITY RFC8174 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml">
 <!ENTITY RFC8446 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8446.xml">
 <!ENTITY I-D.ietf-anima-bootstrapping-keyinfra SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-anima-bootstrapping-keyinfra.xml">
 <!ENTITY I-D.ietf-tls-dtls13 SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-tls-dtls13.xml">
@@ -129,7 +130,10 @@
 		<t>Added serialization example of the /skg CBOR response. </t>
 		<t>Added text regarding expired IDevIDs and persistent DTLS connection that will start using the Explicit TA Database in the new DTLS connection.</t>
 		<t>Nits and fixes</t>
-           <t>Removed CBOR envelop for binary data</t>
+        <t>Removed CBOR envelop for binary data</t>
+		<t>Replaced TBD8 with 62. </t>
+		<t>Added RFC8174 reference and text. </t>
+		<t>Clarified MTI for server-side key generation and Content-Formats. </t>
     </list>
    </t>
    <t> -06:
@@ -229,7 +233,12 @@
   </section>  <!-- Introduction -->    
 
   <section anchor="terminology" title="Terminology">
-    <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <xref target="RFC2119"/>.</t>
+    <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
+    NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
+    "MAY", and "OPTIONAL" in this document are to be interpreted as
+    described in BCP 14 <xref target="RFC2119"/> <xref target="RFC8174"/> 
+	when, and only when, they appear in all capitals, as shown here.</t>
+	
     <t>Many of the concepts in this document are taken over from <xref target="RFC7030"/>. Consequently, much text is directly traceable to <xref target="RFC7030"/>. The same document structure is followed to point out the differences and commonalities between EST and EST-coaps.</t>
   </section>  <!-- Terminology -->
   
@@ -346,21 +355,20 @@ This specification contains a set of required-to-implement functions, optional f
 	  response messages are defined in <xref target="iana"/>. The CoAP response codes are 
 	  defined in <xref target="error"/>.</t> 
         <t>EST-coaps is designed for use between low-resource devices and hence does not need 
-		to send base64-encoded data. Simple binary is more efficient (30% smaller payload) and 
+		to send Base64-encoded data. Simple binary is more efficient (30% smaller payload) and 
 		well supported by CoAP.</t>
       <t> 
-      The payload for a given media type follows the ASN.1 structure of the media-type and is transported as straight binary coding instead of the base64-encoded.</t>
+      The payload for a given media type follows the ASN.1 structure of the media-type and is transported as straight binary coding instead of the Base64-encoded.</t>
       <t>In the examples of <xref target="messagebindings"/>, the base16 diagnostic notation is used for CBOR major type 2, where h'450aafbb' represents an example binary payload.
       The content formats specification in <xref target="cborpair"/> specifies the payload structure when multiple media types are present in the payload. </t>
 
       <section anchor="cborpair" title="Content Format application/multipart-core">
         <t>
-        A representation with content format ID 62 contains a collection of representations along with their respective content format. The content-format identifies the media-type application/multipart-core specified in <xref target="I-D.ietf-core-multipart-ct"/>.
-        </t>
+        A representation with content format ID 62 contains a collection of representations along with their respective content format. The content-format identifies the media-type application/multipart-core specified in <xref target="I-D.ietf-core-multipart-ct"/>. </t>
+		
 		<t>The collection is encoded as a <xref target="RFC7049">CBOR array</xref> with an even number of elements.
         The second, fourth, sixth, etc. element is a binary string containing a representation.
-        The first, third, fifth, etc. element is an unsigned integer specifying the content format ID of the following representation. </t>
-        <t>For example, a collection containing two representations in response to a server-side key generation, could include a private key in PKCS#8 with content format ID 284 (0x011C) and a certificate with content format ID 281 (0x0119), looks like this in diagnostic CBOR notation: [284,h'0123456789abcdef',281,h'fedcba9876543210']. The serialization of such CBOR content would be </t>
+        The first, third, fifth, etc. element is an unsigned integer specifying the content format ID of the following representation. For example, a collection containing two representations in response to a server-side key generation, could include a private key in PKCS#8 with content format ID 284 (0x011C) and a certificate with content format ID 281 (0x0119). Such a collection would look like [284,h'0123456789abcdef',281,h'fedcba9876543210'] in diagnostic CBOR notation. The serialization of such CBOR content would be </t>
         <figure title="Multipart /skg response serialization"><artwork>
         <![CDATA[ 
    84                  # array(4)
@@ -372,7 +380,7 @@ This specification contains a set of required-to-implement functions, optional f
       FEDCBA9876543210 # "\xFE\xDC\xBA\x98vT2\x10"
          ]]></artwork></figure>
 
-		<t> The PKCS#8 key and the X.509 certificate representations will be ASN.1 encoded in binary format. An example is shown in <xref target="appskg"/>. </t>
+		<t>The PKCS#8 key and X.509 certificate representations are ASN.1 encoded in binary format. An example is shown in <xref target="appskg"/>. </t>
       </section>  <!--Content Format application/multipart-core -->
 
    </section> <!-- Payload format -->
@@ -499,7 +507,11 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
       <t>In these scenarios, server-side key generation can be used. The client 
       asks for the server or proxy to generate the private key and the certificate 
       which is transferred back to the client in the server-side key generation 
-      response. </t>
+      response. In all respects, the server SHOULD treat the CSR as it would any
+      enroll or re-enroll CSR; the only distinction here is that the server
+      MUST ignore the public key values and signature in the CSR. These
+      are included in the request only to allow re-use of existing
+      codebases for generating and parsing such requests.</t>
       
       <t>
 	    <xref target="RFC7030" /> recommends for the private key returned by the server 
@@ -519,7 +531,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 		of a CMS EnvelopedData as explained in Section 4.4.2 of <xref target="RFC7030" />. <!-- The EnvelopedData is
    returned in the response as an "application/pkcs7-mime" part with an
    smime-type parameter of "server-generated-key" and a Content-
-   Transfer-Encoding of "base64". --> 
+   Transfer-Encoding of "Base64". --> 
 	  </t>
 	
     </section> <!-- Server-side Key Generation -->
@@ -646,8 +658,8 @@ HMAC(finished_key,
                                  '----------------------------'
 ]]></artwork></figure>
 
-    <t><xref target="est-uri"/> contains the URI mapping between the EST-coaps and EST the Registrar SHOULD adhere to. Section 7 of <xref target="RFC8075"/> and <xref target="error"/> define the mapping between EST-coaps and HTTP response codes, that determines how the Registrar translates CoAP response codes from/to HTTP status codes. The mapping from Content-Type to media type is defined in <xref target="iana"/>. The conversion from CBOR major type 2 to base64 encoding needs to be done in the Registrar. Conversion is possible because a TLS link exists between EST-coaps-to-HTTP Registrar and EST server and a corresponding DTLS link exists between EST-coaps-to-HTTP Registrar and EST client.</t>
-	<t>Due to fragmentation of large messages into blocks, an EST-coaps-to-HTTP Registrar MUST reassemble the BLOCKs before translating the binary content to Base-64, and consecutively relay the message upstream. </t>
+    <t><xref target="est-uri"/> contains the URI mapping between the EST-coaps and EST the Registrar SHOULD adhere to. Section 7 of <xref target="RFC8075"/> and <xref target="error"/> define the mapping between EST-coaps and HTTP response codes, that determines how the Registrar translates CoAP response codes from/to HTTP status codes. The mapping from Content-Type to media type is defined in <xref target="iana"/>. The conversion from CBOR major type 2 to Base64 encoding needs to be done in the Registrar. Conversion is possible because a TLS link exists between EST-coaps-to-HTTP Registrar and EST server and a corresponding DTLS link exists between EST-coaps-to-HTTP Registrar and EST client.</t>
+	<t>Due to fragmentation of large messages into blocks, an EST-coaps-to-HTTP Registrar MUST reassemble the BLOCKs before translating the binary content to Base64, and consecutively relay the message upstream. </t>
     <t>For the discovery of the EST server by the EST client in the coap environment, the EST-coaps-to-HTTP Registrar MUST announce itself according to the rules of <xref target="discovery"/>. The available actions of the  Registrars MUST be announced with as many resource paths. The discovery of EST server in the http environment follow the rules specified in <xref target="RFC7030"/>.</t>
 	<!-- Next paragraph should be removed because e2e encryption is possible. No need for the registrar to decrypt -->
 	<!-- <t>When server-side key generation is used, if the private key is protected using symmetric keys then the Registrar needs to encrypt the private key down to the client with one symmetric key and decrypt it from the server with another. If no private key encryption takes place the Registrar will be able to see the key as it establishes a separate connection to the server. In the case of asymmetrically encrypted private key, the Registrar may not be able to decrypt it if the server encrypted it with a public key that corresponds to a private key that belongs to the client. </t> -->
@@ -685,7 +697,9 @@ HMAC(finished_key,
   <section anchor="iana" title="IANA Considerations">
 
   <section anchor="content-formats" title="Content-Format Registry">
-    <t>Additions to the sub-registry "CoAP Content-Formats", within the "CoRE Parameters" registry are specified in <xref target="content-format"/>. These have been registered temporarily in the Expert Review range (0-255).</t>
+    <t>Additions to the sub-registry "CoAP Content-Formats", within the "CoRE Parameters" 
+	registry <xref target="COREparams"/> are specified in <xref target="content-format"/>. 
+	These have been registered temporarily in the Expert Review range (0-255).</t>
 
 <texttable anchor="content-format" title="New CoAP Content-Formats">
   <ttcol align="left">HTTP Media-Type</ttcol>
@@ -695,8 +709,8 @@ HMAC(finished_key,
 
   <c>application/pkcs7-mime; smime-type=server-generated-key</c> <c>-</c> <c>280</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/> <xref target="RFC7030"/></c>
   <c>application/pkcs7-mime; smime-type=certs-only</c>           <c>-</c> <c>281</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/></c>
-  <c>application/pkcs7-mime; smime-type=CMC-request</c>          <c>-</c> <c>282</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/> <xref target="RFC5273"/></c>
-  <c>application/pkcs7-mime; smime-type=CMC-response</c>         <c>-</c> <c>283</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/> <xref target="RFC5273"/></c>
+  <!--<c>application/pkcs7-mime; smime-type=CMC-request</c>          <c>-</c> <c>282</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/> <xref target="RFC5273"/></c>
+  <c>application/pkcs7-mime; smime-type=CMC-response</c>         <c>-</c> <c>283</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/> <xref target="RFC5273"/></c> -->
   <c>application/pkcs8</c>                                       <c>-</c> <c>284</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/> <xref target="RFC5958"/></c>
   <c>application/csrattrs</c>                                    <c>-</c> <c>285</c> <c><xref target="RFC7030"/> <xref target="RFC7231"/></c>
   <c>application/pkcs10</c>                                      <c>-</c> <c>286</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/> <xref target="RFC5967"/></c>
@@ -797,7 +811,7 @@ HMAC(finished_key,
     &RFC7252;
     &RFC7959;
     &RFC8075;
-	&RFC8446;
+    &RFC8174;
     &I-D.ietf-core-multipart-ct;
 
   </references>
@@ -806,7 +820,7 @@ HMAC(finished_key,
     &RFC8422;
     <!-- &RFC4944; -->
     <!-- &RFC5246; --> 
-    &RFC5273;
+    <!-- &RFC5273; -->
     &RFC5705;
     &RFC5958;
     &RFC6090;
@@ -818,6 +832,7 @@ HMAC(finished_key,
     &RFC4919;
     &RFC5929;
     &RFC7525;
+	&RFC8446;
     <!-- &I-D.ietf-anima-bootstrapping-keyinfra; -->
     &I-D.rescorla-tls-dtls-connection-id;
     <reference anchor="ieee802.15.4">
@@ -853,6 +868,13 @@ HMAC(finished_key,
         <date month="August" year="2016" />
       </front>
 	  <seriesInfo name="USENIX Security Symposium 2016" value="ISBN 978-1-931971-32-4"/>
+    </reference>
+    <reference anchor="COREparams" target="https://www.iana.org/assignments/core-parameters/core-parameters.xhtml">
+      <front>
+        <title>Constrained RESTful Environments (CoRE) Parameters</title>
+        <author surname="IANA"/>
+        <date/>
+      </front>
     </reference>
   </references>
 
@@ -1185,7 +1207,7 @@ a4fa677130da60818175ca4ab2af1d15563624c51e13dfdcf381881b72327e2f4
 
  <section anchor="cacertsblock" title="cacerts block example">
     <t>This section provides a detailed example of the messages using DTLS and BLOCK option Block2. The minimum PMTU is 1280 bytes, which is the example value assumed for the DTLS datagram size. The example block length is taken as 64 which gives an SZX value of 2.</t>
-    <t>The following is an example of a valid /cacerts exchange over DTLS. The content length of the cacerts response in appendix A.1 of <xref target="RFC7030"/> is 4246 bytes using base64. This leads to a length of 2509 bytes in binary. The CoAP message adds around 10 bytes, the DTLS record 29 bytes. To avoid IP fragmentation, the CoAP block option is used and an MTU of 127 is assumed to stay within one IEEE 802.15.4 packet. To stay below the MTU of 127, the payload is split in 39 packets with a payload of 64 bytes each, followed by a packet of 13 bytes. The client sends an IPv6 packet containing the UDP datagram with the DTLS record that encapsulates the CoAP Request 40 times. The server returns an IPv6 packet containing the UDP datagram with the DTLS record that encapsulates the CoAP response. The CoAP request-response exchange with block option is shown below.  Block option is shown in a decomposed way (block-option:NUM/M/size) indicating the kind of Block option (2 in this case because used in the response) followed by a colon, and then the block number (NUM), the more bit (M = 0 in lock2 response means last block), and block size with exponent (2**(SZX+4)) separated by slashes.  The Length 64 is used with SZX= 2 to avoid IP fragmentation.  The CoAP Request is sent with confirmable (CON) option and the content format of the Response is /application/cacerts.
+    <t>The following is an example of a valid /cacerts exchange over DTLS. The content length of the cacerts response in appendix A.1 of <xref target="RFC7030"/> is 4246 bytes using Base64. This leads to a length of 2509 bytes in binary. The CoAP message adds around 10 bytes, the DTLS record 29 bytes. To avoid IP fragmentation, the CoAP block option is used and an MTU of 127 is assumed to stay within one IEEE 802.15.4 packet. To stay below the MTU of 127, the payload is split in 39 packets with a payload of 64 bytes each, followed by a packet of 13 bytes. The client sends an IPv6 packet containing the UDP datagram with the DTLS record that encapsulates the CoAP Request 40 times. The server returns an IPv6 packet containing the UDP datagram with the DTLS record that encapsulates the CoAP response. The CoAP request-response exchange with block option is shown below.  Block option is shown in a decomposed way (block-option:NUM/M/size) indicating the kind of Block option (2 in this case because used in the response) followed by a colon, and then the block number (NUM), the more bit (M = 0 in lock2 response means last block), and block size with exponent (2**(SZX+4)) separated by slashes.  The Length 64 is used with SZX= 2 to avoid IP fragmentation.  The CoAP Request is sent with confirmable (CON) option and the content format of the Response is /application/cacerts.
 </t>
     <figure align="left"><artwork><![CDATA[
    GET /192.0.2.1:8085/est/crts   (2:0/0/64)    -->

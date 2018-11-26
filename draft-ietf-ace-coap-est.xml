@@ -350,25 +350,33 @@ This specification contains a set of required-to-implement functions, optional f
 	  EST message is transported in the CoAP payload. The media types specified in the HTTP 
 	  Content-Type header (section 3.2.2 of <xref target="RFC7030"/>) are in EST-coaps 
 	  specified by the Content-Format Option (12) of CoAP. The combination of URI path  
-	  and content-format used for CoAP MUST map to an allowed combination of URI and 
-	  media type as defined for EST. The required content-formats for these requests and 
+	  and content-format in EST-coaps MUST map to an allowed combination of URI and 
+	  media type in EST. The required content-formats for these requests and 
 	  response messages are defined in <xref target="iana"/>. The CoAP response codes are 
 	  defined in <xref target="error"/>.</t> 
-        <t>EST-coaps is designed for use between low-resource devices and hence does not need 
-		to send Base64-encoded data. Simple binary is more efficient (30% smaller payload) and 
-		well supported by CoAP.</t>
-      <t> 
-      The payload for a given media type follows the ASN.1 structure of the media-type and is transported as straight binary coding instead of the Base64-encoded.</t>
-      <t>In the examples of <xref target="messagebindings"/>, the base16 diagnostic notation is used for CBOR major type 2, where h'450aafbb' represents an example binary payload.
-      The content formats specification in <xref target="cborpair"/> specifies the payload structure when multiple media types are present in the payload. </t>
+      <t>EST-coaps is designed for use between low-resource devices and hence does not need 
+	  to send Base64-encoded data. Simple binary is more efficient (30% smaller payload) and 
+	  well supported by CoAP. Thus, the payload for a given media type follows the ASN.1 
+	  structure of the content-format and is transported as straight binary.</t>
+      <t><!-- In the examples of <xref target="messagebindings"/>, the base16 diagnostic notation is used for CBOR major type 2, where h'450aafbb' represents an example binary payload. -->
+      <xref target="cborpair"/> specifies the payload structure when multiple media types 
+	  are present in the payload.</t>
 
       <section anchor="cborpair" title="Content Format application/multipart-core">
         <t>
-        A representation with content format ID 62 contains a collection of representations along with their respective content format. The content-format identifies the media-type application/multipart-core specified in <xref target="I-D.ietf-core-multipart-ct"/>. </t>
+        A representation with content format ID 62 contains a collection of representations 
+		along with their respective content format. The content-format identifies the 
+		media-type application/multipart-core specified in <xref target="I-D.ietf-core-multipart-ct"/>. </t>
 		
-		<t>The collection is encoded as a <xref target="RFC7049">CBOR array</xref> with an even number of elements.
-        The second, fourth, sixth, etc. element is a binary string containing a representation.
-        The first, third, fifth, etc. element is an unsigned integer specifying the content format ID of the following representation. For example, a collection containing two representations in response to a server-side key generation, could include a private key in PKCS#8 with content format ID 284 (0x011C) and a certificate with content format ID 281 (0x0119). Such a collection would look like [284,h'0123456789abcdef',281,h'fedcba9876543210'] in diagnostic CBOR notation. The serialization of such CBOR content would be </t>
+		<t>The collection is encoded as a <xref target="RFC7049">CBOR array</xref> with 
+		an even number of elements. The second, fourth, sixth, etc. element is a binary 
+		string containing a representation. The first, third, fifth, etc. element is an 
+		unsigned integer specifying the content format ID of the following representation. 
+		For example, a collection containing two representations in response to a server-side 
+		key generation request, could include a private key in PKCS#8 with content format 
+		ID 284 (0x011C) and a certificate with content format ID 281 (0x0119). Such a 
+		collection would look like [284,h'0123456789abcdef', 281,h'fedcba9876543210'] 
+		in diagnostic CBOR notation. The serialization of such CBOR content would be </t>
         <figure title="Multipart /skg response serialization"><artwork>
         <![CDATA[ 
    84                  # array(4)
@@ -380,7 +388,8 @@ This specification contains a set of required-to-implement functions, optional f
       FEDCBA9876543210 # "\xFE\xDC\xBA\x98vT2\x10"
          ]]></artwork></figure>
 
-		<t>The PKCS#8 key and X.509 certificate representations are ASN.1 encoded in binary format. An example is shown in <xref target="appskg"/>. </t>
+		<t>The PKCS#8 key and X.509 certificate representations are ASN.1 encoded 
+		in binary format. An example is shown in <xref target="appskg"/>. </t>
       </section>  <!--Content Format application/multipart-core -->
 
    </section> <!-- Payload format -->
@@ -391,10 +400,10 @@ This specification contains a set of required-to-implement functions, optional f
           <t>All EST-coaps messages expect a response from the server, thus the client MUST send 
 		  the requests over confirmable CON COAP messages.</t>
           <t>The Ver, TKL, Token, and Message ID values of the CoAP header are not affected by EST.</t>
-          <t>The CoAP options used are Uri-Host, Uri-Path, Uri-Port, Content-Format, and Location-Path 
-		  in CoAP. These CoAP Options are used to communicate the HTTP fields specified in the EST 
+          <t>The CoAP options used are Uri-Host, Uri-Path, Uri-Port, Content-Format, and Location-Path. 
+		  These CoAP Options are used to communicate the HTTP fields specified in the EST 
 		  REST messages. </t>
-          <t>EST URLs are HTTPS based (https://), in CoAP these will be assumed to be transformed 
+          <t>EST URLs are HTTPS based (https://), in CoAP these are assumed to be translated 
 		  to coaps (coaps://)</t>
         </list></t>
         <t><xref target="messagebindings"/> includes some practical examples of EST messages 
@@ -402,9 +411,21 @@ This specification contains a set of required-to-implement functions, optional f
     </section> <!-- Message bindings -->
 
     <section anchor="error" title="CoAP response codes">
-      <t>Section 5.9 of <xref target="RFC7252"/> specifies the mapping of HTTP response codes to CoAP response codes. Every time the HTTP response code 200 is specified in <xref target="RFC7030"/> in response to a GET request, in EST-coaps the equivalent CoAP response code 2.05 or 2.03 MUST be used. Similarly, 2.01, 2.02 or 2.04 MUST be used in response to HTTP POST EST requests. Response code HTTP 202 Retry-After that existed in EST has no equivalent in CoAP. <xref target="pending"/> specifies how EST requests over CoAP handle delayed messages.</t>
+      <t>Section 5.9 of <xref target="RFC7252"/> specifies the mapping of HTTP response 
+	  codes to CoAP response codes. Every time the HTTP response code 200 is specified in 
+	  <xref target="RFC7030"/> in response to a GET request (/cacerts, /csrattrs), in 
+	  EST-coaps the equivalent CoAP response code 2.05 or 2.03 MUST be used. 
+	  Similarly, 2.01, 2.02 or 2.04 MUST be used in response to HTTP POST EST requests 
+	  (/simpleenroll, /simplereenroll, /serverkeygen ). Response code HTTP 202 
+	  Retry-After that existed in EST has no equivalent in CoAP. 
+	  <xref target="pending"/> specifies how EST requests over CoAP handle delayed messages.</t>
 	  
-	  <t>Other HTTP response codes EST makes use of, are 204 and 404 when a resource is not available for the client. The equivalent COAP error code to use in an EST-coaps response is 4.04. A COAP RST message with an empty payload MAY be returned instead of a 4.04 when there is no content for the server to send (HTTP 204).  Additionally, EST's HTTP 401 error translates to 4.01 in EST-coaps. Other HTTP error messages commonly used in EST are 400, 423 and 503. Their equivalent COAP errors are 4.00, 4.03 and 5.03 respectively. </t>
+	  <t>EST makes use of HTTP 204 and 404 responses when a resource is not available 
+	  for the client. The equivalent COAP error code to use in an EST-coaps response is 4.04. 
+	  A COAP RST message with an empty payload MAY be returned instead of a 4.04 when 
+	  there is no content for the server to send (HTTP 204). Additionally, EST's HTTP 
+	  401 error translates to 4.01 in EST-coaps. Other EST HTTP error messages are 400, 
+	  423 and 503. Their equivalent COAP errors are 4.00, 4.03 and 5.03 respectively. </t>
     </section> <!-- CoAP response codes -->
 
     <section anchor="pending" title="Delayed Responses">

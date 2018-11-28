@@ -5,12 +5,12 @@
 ACE                                                      P. van der Stok
 Internet-Draft                                                Consultant
 Intended status: Standards Track                           P. Kampanakis
-Expires: May 26, 2019                                      Cisco Systems
+Expires: May 31, 2019                                      Cisco Systems
                                                            M. Richardson
                                                                      SSW
                                                                  S. Raza
                                                                RISE SICS
-                                                       November 22, 2018
+                                                       November 27, 2018
 
 
                     EST over secure CoAP (EST-coaps)
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on May 26, 2019.
+   This Internet-Draft will expire on May 31, 2019.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-van der Stok, et al.      Expires May 26, 2019                  [Page 1]
+van der Stok, et al.      Expires May 31, 2019                  [Page 1]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -68,48 +68,48 @@ Internet-Draft                  EST-coaps                  November 2018
 Table of Contents
 
    1.  Change Log  . . . . . . . . . . . . . . . . . . . . . . . . .   3
-   2.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   4
+   2.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   5
    3.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   5
    4.  Conformance to RFC7925 profiles . . . . . . . . . . . . . . .   5
    5.  Protocol Design . . . . . . . . . . . . . . . . . . . . . . .   6
      5.1.  Mandatory/optional EST Functions  . . . . . . . . . . . .   7
-     5.2.  Payload format  . . . . . . . . . . . . . . . . . . . . .   7
+     5.2.  Payload format  . . . . . . . . . . . . . . . . . . . . .   8
        5.2.1.  Content Format application/multipart-core . . . . . .   8
      5.3.  Message Bindings  . . . . . . . . . . . . . . . . . . . .   9
      5.4.  CoAP response codes . . . . . . . . . . . . . . . . . . .   9
-     5.5.  Delayed Responses . . . . . . . . . . . . . . . . . . . .   9
+     5.5.  Delayed Responses . . . . . . . . . . . . . . . . . . . .  10
      5.6.  Server-side Key Generation  . . . . . . . . . . . . . . .  12
-     5.7.  Message fragmentation . . . . . . . . . . . . . . . . . .  12
-     5.8.  Deployment limits . . . . . . . . . . . . . . . . . . . .  14
-   6.  Discovery and URI . . . . . . . . . . . . . . . . . . . . . .  14
-   7.  DTLS Transport Protocol . . . . . . . . . . . . . . . . . . .  16
-   8.  HTTPS-CoAPS Registrar . . . . . . . . . . . . . . . . . . . .  17
-   9.  Parameters  . . . . . . . . . . . . . . . . . . . . . . . . .  19
-   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  20
-     10.1.  Content-Format Registry  . . . . . . . . . . . . . . . .  20
-     10.2.  Resource Type registry . . . . . . . . . . . . . . . . .  21
-   11. Security Considerations . . . . . . . . . . . . . . . . . . .  22
-     11.1.  EST server considerations  . . . . . . . . . . . . . . .  22
-     11.2.  HTTPS-CoAPS Registrar considerations . . . . . . . . . .  23
-   12. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  24
-   13. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  24
-   14. References  . . . . . . . . . . . . . . . . . . . . . . . . .  24
-     14.1.  Normative References . . . . . . . . . . . . . . . . . .  24
-     14.2.  Informative References . . . . . . . . . . . . . . . . .  26
-   Appendix A.  EST messages to EST-coaps  . . . . . . . . . . . . .  28
-     A.1.  cacerts . . . . . . . . . . . . . . . . . . . . . . . . .  28
-     A.2.  csrattrs  . . . . . . . . . . . . . . . . . . . . . . . .  31
-     A.3.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  31
-     A.4.  serverkeygen  . . . . . . . . . . . . . . . . . . . . . .  34
-   Appendix B.  EST-coaps Block message examples . . . . . . . . . .  36
-     B.1.  cacerts block example . . . . . . . . . . . . . . . . . .  36
-     B.2.  enroll block example  . . . . . . . . . . . . . . . . . .  39
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  40
+     5.7.  Message fragmentation . . . . . . . . . . . . . . . . . .  13
+     5.8.  Deployment limits . . . . . . . . . . . . . . . . . . . .  15
+   6.  Discovery and URI . . . . . . . . . . . . . . . . . . . . . .  15
+   7.  DTLS Transport Protocol . . . . . . . . . . . . . . . . . . .  17
+   8.  HTTPS-CoAPS Registrar . . . . . . . . . . . . . . . . . . . .  18
+   9.  Parameters  . . . . . . . . . . . . . . . . . . . . . . . . .  20
+   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  22
+     10.1.  Content-Format Registry  . . . . . . . . . . . . . . . .  22
+     10.2.  Resource Type registry . . . . . . . . . . . . . . . . .  22
+   11. Security Considerations . . . . . . . . . . . . . . . . . . .  23
+     11.1.  EST server considerations  . . . . . . . . . . . . . . .  23
+     11.2.  HTTPS-CoAPS Registrar considerations . . . . . . . . . .  24
+   12. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  25
+   13. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  25
+   14. References  . . . . . . . . . . . . . . . . . . . . . . . . .  25
+     14.1.  Normative References . . . . . . . . . . . . . . . . . .  25
+     14.2.  Informative References . . . . . . . . . . . . . . . . .  27
+   Appendix A.  EST messages to EST-coaps  . . . . . . . . . . . . .  29
+     A.1.  cacerts . . . . . . . . . . . . . . . . . . . . . . . . .  29
+     A.2.  csrattrs  . . . . . . . . . . . . . . . . . . . . . . . .  32
+     A.3.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  32
+     A.4.  serverkeygen  . . . . . . . . . . . . . . . . . . . . . .  35
+   Appendix B.  EST-coaps Block message examples . . . . . . . . . .  37
+     B.1.  cacerts block example . . . . . . . . . . . . . . . . . .  37
+     B.2.  enroll block example  . . . . . . . . . . . . . . . . . .  40
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  41
 
 
 
 
-van der Stok, et al.      Expires May 26, 2019                  [Page 2]
+van der Stok, et al.      Expires May 31, 2019                  [Page 2]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -134,6 +134,14 @@ Internet-Draft                  EST-coaps                  November 2018
 
       Removed CBOR envelop for binary data
 
+      Replaced TBD8 with 62.
+
+      Added RFC8174 reference and text.
+
+      Clarified MTI for server-side key generation and Content-Formats.
+      Defined the /skg MTI (PKCS#8) and the cases where CMS encryption
+      will be used.
+
    -06:
 
       clarified discovery section, by specifying that no discovery may
@@ -154,6 +162,14 @@ Internet-Draft                  EST-coaps                  November 2018
 
    -05:
 
+
+
+
+van der Stok, et al.      Expires May 31, 2019                  [Page 3]
+
+Internet-Draft                  EST-coaps                  November 2018
+
+
       repaired again
 
       TBD8 = 62 removed from C-F registration, to be done in CT draft.
@@ -162,13 +178,6 @@ Internet-Draft                  EST-coaps                  November 2018
 
       Updated Delayed response section to reflect short and long delay
       options.
-
-
-
-van der Stok, et al.      Expires May 26, 2019                  [Page 3]
-
-Internet-Draft                  EST-coaps                  November 2018
-
 
    -03:
 
@@ -209,6 +218,14 @@ Internet-Draft                  EST-coaps                  November 2018
 
    -00
 
+
+
+
+van der Stok, et al.      Expires May 31, 2019                  [Page 4]
+
+Internet-Draft                  EST-coaps                  November 2018
+
+
       copied from vanderstok-ace-coap-04
 
 2.  Introduction
@@ -217,14 +234,6 @@ Internet-Draft                  EST-coaps                  November 2018
    for authenticated/authorized endpoint certificate enrollment (and
    optionally key provisioning) through a Certificate Authority (CA) or
    Registration Authority (RA).  EST messages run over HTTPS.
-
-
-
-
-van der Stok, et al.      Expires May 26, 2019                  [Page 4]
-
-Internet-Draft                  EST-coaps                  November 2018
-
 
    This document defines a new transport for EST based on the
    Constrained Application Protocol (CoAP) since some Internet of Things
@@ -244,8 +253,10 @@ Internet-Draft                  EST-coaps                  November 2018
 3.  Terminology
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-   document are to be interpreted as described in [RFC2119].
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in BCP
+   14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
 
    Many of the concepts in this document are taken over from [RFC7030].
    Consequently, much text is directly traceable to [RFC7030].  The same
@@ -262,6 +273,15 @@ Internet-Draft                  EST-coaps                  November 2018
    generation request as described in section 4.4 of [RFC7030] snd
    discussed in Section 5.6 of this document.
 
+
+
+
+
+van der Stok, et al.      Expires May 31, 2019                  [Page 5]
+
+Internet-Draft                  EST-coaps                  November 2018
+
+
    As per Sections 3.3 and 4.4 of [RFC7925], the mandatory cipher suite
    for DTLS in EST-coaps is TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8
    [RFC7251].  Curve secp256r1 MUST be supported [RFC8422]; this curve
@@ -274,14 +294,6 @@ Internet-Draft                  EST-coaps                  November 2018
    format MUST also be supported.  [RFC6090] can be used as summary of
    the ECC algorithms.  DTLS 1.3 [I-D.ietf-tls-dtls13] implementations
    differ from DTLS 1.2 because they do not support point format
-
-
-
-van der Stok, et al.      Expires May 26, 2019                  [Page 5]
-
-Internet-Draft                  EST-coaps                  November 2018
-
-
    negotiation in favor of a single point format for each curve and thus
    support for DTLS 1.3 does not mandate point formation extensions and
    negotiation.
@@ -317,6 +329,15 @@ Internet-Draft                  EST-coaps                  November 2018
    the transfer of larger EST messages is specified in Section 5.7.
    Figure 1 below shows the layered EST-coaps architecture.
 
+
+
+
+
+van der Stok, et al.      Expires May 31, 2019                  [Page 6]
+
+Internet-Draft                  EST-coaps                  November 2018
+
+
    +------------------------------------------------+
    |    EST request/response messages               |
    +------------------------------------------------+
@@ -328,15 +349,6 @@ Internet-Draft                  EST-coaps                  November 2018
    +------------------------------------------------+
 
                     Figure 1: EST-coaps protocol layers
-
-
-
-
-
-van der Stok, et al.      Expires May 26, 2019                  [Page 6]
-
-Internet-Draft                  EST-coaps                  November 2018
-
 
    The EST-coaps protocol design follows closely the EST design.  The
    actions supported by EST-coaps are identified by their message types:
@@ -364,6 +376,24 @@ Internet-Draft                  EST-coaps                  November 2018
    Table 1 specifies the mandatory-to-implement or optional
    implementation of the est-coaps functions.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+van der Stok, et al.      Expires May 31, 2019                  [Page 7]
+
+Internet-Draft                  EST-coaps                  November 2018
+
+
               +------------------+--------------------------+
               | EST Functions    | EST-coaps implementation |
               +------------------+--------------------------+
@@ -383,33 +413,20 @@ Internet-Draft                  EST-coaps                  November 2018
    determines which EST message is transported in the CoAP payload.  The
    media types specified in the HTTP Content-Type header (section 3.2.2
    of [RFC7030]) are in EST-coaps specified by the Content-Format Option
-   (12) of CoAP.  The combination of URI path and content-format used
-   for CoAP MUST map to an allowed combination of URI and media type as
-   defined for EST.  The required content-formats for these requests and
-
-
-
-van der Stok, et al.      Expires May 26, 2019                  [Page 7]
-
-Internet-Draft                  EST-coaps                  November 2018
-
-
-   response messages are defined in Section 10.  The CoAP response codes
-   are defined in Section 5.4.
+   (12) of CoAP.  The combination of URI path and content-format in EST-
+   coaps MUST map to an allowed combination of URI and media type in
+   EST.  The required content-formats for these requests and response
+   messages are defined in Section 10.  The CoAP response codes are
+   defined in Section 5.4.
 
    EST-coaps is designed for use between low-resource devices and hence
-   does not need to send base64-encoded data.  Simple binary is more
-   efficient (30% smaller payload) and well supported by CoAP.
+   does not need to send Base64-encoded data.  Simple binary is more
+   efficient (30% smaller payload) and well supported by CoAP.  Thus,
+   the payload for a given media type follows the ASN.1 structure of the
+   media-type and is transported as straight binary.
 
-   The payload for a given media type follows the ASN.1 structure of the
-   media-type and is transported as straight binary coding instead of
-   the base64-encoded.
-
-   In the examples of Appendix A, the base16 diagnostic notation is used
-   for CBOR major type 2, where h'450aafbb' represents an example binary
-   payload.  The content formats specification in Section 5.2.1
-   specifies the payload structure when multiple media types are present
-   in the payload.
+   Section 5.2.1 specifies the payload structure when multiple media
+   types are present in the payload.
 
 5.2.1.  Content Format application/multipart-core
 
@@ -422,14 +439,21 @@ Internet-Draft                  EST-coaps                  November 2018
    number of elements.  The second, fourth, sixth, etc. element is a
    binary string containing a representation.  The first, third, fifth,
    etc. element is an unsigned integer specifying the content format ID
-   of the following representation.
+   of the following representation.  For example, a collection
+   containing two representations in response to a server-side key
+   generation request, could include a private key in PKCS#8 [RFC5958]
 
-   For example, a collection containing two representations in response
-   to a server-side key generation, could include a private key in
-   PKCS#8 with content format ID 284 (0x011C) and a certificate with
-   content format ID 281 (0x0119), looks like this in diagnostic CBOR
-   notation: [284,h'0123456789abcdef',281,h'fedcba9876543210'].  The
-   serialization of such CBOR content would be
+
+
+van der Stok, et al.      Expires May 31, 2019                  [Page 8]
+
+Internet-Draft                  EST-coaps                  November 2018
+
+
+   with content format ID 284 (0x011C) and a certificate with content
+   format ID 281 (0x0119).  Such a collection would look like
+   [284,h'0123456789abcdef', 281,h'fedcba9876543210'] in diagnostic CBOR
+   notation.  The serialization of such CBOR content would be
 
 
       84                  # array(4)
@@ -442,16 +466,11 @@ Internet-Draft                  EST-coaps                  November 2018
 
                    Multipart /skg response serialization
 
+   The PKCS#8 key and X.509 certificate representations are ASN.1
+   encoded in binary format.  An example is shown in Appendix A.4.
 
-
-
-van der Stok, et al.      Expires May 26, 2019                  [Page 8]
-
-Internet-Draft                  EST-coaps                  November 2018
-
-
-   The PKCS#8 key and the X.509 certificate representations will be
-   ASN.1 encoded in binary format.  An example is shown in Appendix A.4.
+   In cases where the private key is further encrypted with CMS (as
+   explained in Section 5.6) the content format ID is 280 (0x0118).
 
 5.3.  Message Bindings
 
@@ -464,11 +483,11 @@ Internet-Draft                  EST-coaps                  November 2018
       not affected by EST.
 
    o  The CoAP options used are Uri-Host, Uri-Path, Uri-Port, Content-
-      Format, and Location-Path in CoAP.  These CoAP Options are used to
+      Format, and Location-Path.  These CoAP Options are used to
       communicate the HTTP fields specified in the EST REST messages.
 
-   o  EST URLs are HTTPS based (https://), in CoAP these will be assumed
-      to be transformed to coaps (coaps://)
+   o  EST URLs are HTTPS based (https://), in CoAP these are assumed to
+      be translated to coaps (coaps://)
 
    Appendix A includes some practical examples of EST messages
    translated to CoAP.
@@ -477,35 +496,35 @@ Internet-Draft                  EST-coaps                  November 2018
 
    Section 5.9 of [RFC7252] specifies the mapping of HTTP response codes
    to CoAP response codes.  Every time the HTTP response code 200 is
-   specified in [RFC7030] in response to a GET request, in EST-coaps the
-   equivalent CoAP response code 2.05 or 2.03 MUST be used.  Similarly,
-   2.01, 2.02 or 2.04 MUST be used in response to HTTP POST EST
-   requests.  Response code HTTP 202 Retry-After that existed in EST has
-   no equivalent in CoAP.  Section 5.5 specifies how EST requests over
-   CoAP handle delayed messages.
+   specified in [RFC7030] in response to a GET request (/cacerts,
+   /csrattrs), in EST-coaps the equivalent CoAP response code 2.05 or
 
-   Other HTTP response codes EST makes use of, are 204 and 404 when a
-   resource is not available for the client.  The equivalent COAP error
-   code to use in an EST-coaps response is 4.04.  A COAP RST message
-   with an empty payload MAY be returned instead of a 4.04 when there is
-   no content for the server to send (HTTP 204).  Additionally, EST's
-   HTTP 401 error translates to 4.01 in EST-coaps.  Other HTTP error
-   messages commonly used in EST are 400, 423 and 503.  Their equivalent
-   COAP errors are 4.00, 4.03 and 5.03 respectively.
+
+
+van der Stok, et al.      Expires May 31, 2019                  [Page 9]
+
+Internet-Draft                  EST-coaps                  November 2018
+
+
+   2.03 MUST be used.  Similarly, 2.01, 2.02 or 2.04 MUST be used in
+   response to HTTP POST EST requests (/simpleenroll, /simplereenroll,
+   /serverkeygen ).  Response code HTTP 202 Retry-After that existed in
+   EST has no equivalent in CoAP.  Section 5.5 specifies how EST
+   requests over CoAP handle delayed messages.
+
+   EST makes use of HTTP 204 and 404 responses when a resource is not
+   available for the client.  The equivalent COAP error code to use in
+   an EST-coaps response is 4.04.  A COAP RST message with an empty
+   payload MAY be returned instead of a 4.04 when there is no content
+   for the server to send (HTTP 204).  Additionally, EST's HTTP 401
+   error translates to 4.01 in EST-coaps.  Other EST HTTP error messages
+   are 400, 423 and 503.  Their equivalent COAP errors are 4.00, 4.03
+   and 5.03 respectively.
 
 5.5.  Delayed Responses
 
    Appendix B.2 shows an example of a server response that comes
    immediately after a client request.  The example shows the flows of
-
-
-
-
-van der Stok, et al.      Expires May 26, 2019                  [Page 9]
-
-Internet-Draft                  EST-coaps                  November 2018
-
-
    blocks as the large messages require fragmentation.  But server
    responses can sometimes be delayed.
 
@@ -522,6 +541,25 @@ Internet-Draft                  EST-coaps                  November 2018
    options.  Having received the first 128 bytes in the first "block2"
    block, the client asks for a block reduction to 128 bytes in all
    following "block2" blocks, starting with the second block (NUM=1).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+van der Stok, et al.      Expires May 31, 2019                 [Page 10]
+
+Internet-Draft                  EST-coaps                  November 2018
 
 
    POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
@@ -554,14 +592,6 @@ Internet-Draft                  EST-coaps                  November 2018
    unavailable) and a Max-Age option to indicate the time the client
    SHOULD wait to request the content later.  After a delay of Max-Age,
    the client SHOULD resend the identical CSR to the server.  As long as
-
-
-
-van der Stok, et al.      Expires May 26, 2019                 [Page 10]
-
-Internet-Draft                  EST-coaps                  November 2018
-
-
    the server responds with response code 5.03 (Service Unavailable),
    the client can resend the enrolment request until the server responds
    with the certificate or the client abandons for other reasons.
@@ -576,9 +606,16 @@ Internet-Draft                  EST-coaps                  November 2018
    asks for a decrease in the block size when acknowledging the first
    Block2.
 
-   Figure 5 can be compared with Figure 3 to see the extra requests
+   Figure 6 can be compared with Figure 3 to see the extra requests
    after a Max-Age wait.
 
+
+
+
+
+van der Stok, et al.      Expires May 31, 2019                 [Page 11]
+
+Internet-Draft                  EST-coaps                  November 2018
 
 
    POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
@@ -608,25 +645,14 @@ Internet-Draft                  EST-coaps                  November 2018
 
                 Figure 3: EST-COAP enrolment with long wait
 
-
-
-
-
-
-van der Stok, et al.      Expires May 26, 2019                 [Page 11]
-
-Internet-Draft                  EST-coaps                  November 2018
-
-
 5.6.  Server-side Key Generation
 
    Constrained devices sometimes do not have the necessary hardware to
    generate statistically random numbers for private keys and DTLS
-   ephemeral keys.  Past experience has shown that low-resource
+   ephemeral keys.  Past experience has also shown that low-resource
    endpoints sometimes generate numbers which could allow someone to
    decrypt the communication or guess the private key and impersonate as
-   the device.  Studies have shown that the same keys are generated by
-   the same model devices deployed on-line [PsQs][RSAorig].
+   the device [PsQs] [RSAorig].
 
    Additionally, random number key generation is costly, thus energy
    draining.  Even though the random numbers that constitute the
@@ -637,24 +663,58 @@ Internet-Draft                  EST-coaps                  November 2018
    In these scenarios, server-side key generation can be used.  The
    client asks for the server or proxy to generate the private key and
    the certificate which is transferred back to the client in the
-   server-side key generation response.
+   server-side key generation response.  In all respects, the server
+   SHOULD treat the CSR as it would any enroll or re-enroll CSR; the
+   only distinction here is that the server MUST ignore the public key
 
-   [RFC7030] recommends for the private key returned by the server to be
-   encrypted.  The specification provides two methods to encrypt the
+
+
+van der Stok, et al.      Expires May 31, 2019                 [Page 12]
+
+Internet-Draft                  EST-coaps                  November 2018
+
+
+   values and signature in the CSR.  These are included in the request
+   only to allow re-use of existing codebases for generating and parsing
+   such requests.
+
+   [RFC7030] recommends the private key returned by the server to be
+   encrypted.  This specification provides two methods to encrypt the
    generated key, symmetric and asymmetric.  The methods are signalled
    by the client by using the relevant attributes (SMIMECapabilities and
    DecryptKeyIdentifier or AsymmetricDecryptKeyIdentifier) in the CSR
-   request.  In the symmetric key case, the key can be established out-
-   of-band or alternatively derived by the established TLS connection as
-   described in [RFC5705].
+   request.  The symmetric key or the asymmetric keypair establishment
+   method is out of scope of this specification.
 
    The sever-side key generation response is returned using a CBOR array
    Section 5.2.1.  The certificate part exactly matches the response
-   from an enrollment response.  The private key is placed inside of a
-   CMS SignedData.  The SignedData is signed by the party that generated
-   the private key, which may or may not be the EST server or the EST
-   CA.  The SignedData is further protected by placing it inside of a
-   CMS EnvelopedData as explained in Section 4.4.2 of [RFC7030].
+   from an enrollment response.  The private key can be in unprotected
+   PKCS#8 [RFC5958] format or protected inside of CMS SignedData.  The
+   SignedData is signed by the party that generated the private key,
+   which may or may not be the EST server or the EST CA.  The SignedData
+   is further protected by placing it inside of a CMS EnvelopedData as
+   explained in Section 4.4.2 of [RFC7030].  In summary, the symmetricly
+   encrypted key is included in the encryptedKey attribute in a
+   KEKRecipientInfo structure.  In the case where the asymmetric
+   encryption key is suitable for transport key operations the generated
+   private key is encrypted with a symmetric key which is encrypted by
+   using the client defined (in the CSR) asymmetric public key and is
+   carried in an encryptedKey attribute in a KeyTransRecipientInfo.
+   Finally, if the asymmetric encryption key is suitable for key
+   agreement, the generated private key is encrypted with a symmetric
+   key which is encrypted by using the client defined (in the CSR)
+   asymmetric public key and is carried in an recipientEncryptedKeys
+   attribute in a KeyAgreeRecipientInfo.
+
+   [RFC7030] recommends the use of additional encryption of the returned
+   private key.  For the context of this specification, clients and
+   servers that choose to support server-side key generation MUST
+   support unprotected (PKCS#8) private keys.  Symmetric or asymmetric
+   encryption of the private key (CMS EnvelopedData) SHOULD be supported
+   for deployments where end-to-end encryption needs to be provided
+   between the client and a server.  Such cases could include
+   architectures where an entity between the client and the CA
+   terminates the DTLS connection (Registrar in Figure 4).
 
 5.7.  Message fragmentation
 
@@ -662,18 +722,17 @@ Internet-Draft                  EST-coaps                  November 2018
    secure data exchange (DTLS records).  [RFC6347] states that to avoid
    using IP fragmentation, which involves error-prone datagram
    reconstitution, invokers of the DTLS record layer SHOULD size DTLS
-   records so that they fit within any Path MTU estimates obtained from
-   the record layer.  In addition, invokers residing on a 6LoWPAN over
-   IEEE 802.15.4 [ieee802.15.4] network SHOULD attempt to size CoAP
 
 
 
-
-van der Stok, et al.      Expires May 26, 2019                 [Page 12]
+van der Stok, et al.      Expires May 31, 2019                 [Page 13]
 
 Internet-Draft                  EST-coaps                  November 2018
 
 
+   records so that they fit within any Path MTU estimates obtained from
+   the record layer.  In addition, invokers residing on a 6LoWPAN over
+   IEEE 802.15.4 [ieee802.15.4] network SHOULD attempt to size CoAP
    messages such that each DTLS record will fit within one or two IEEE
    802.15.4 frames.
 
@@ -718,17 +777,19 @@ Internet-Draft                  EST-coaps                  November 2018
    request for a size estimate by the client.  Similarly, Size2 option
    defined in BLOCK should be parsed by the server as an indication of
    the size of the resource carried in Block1 options and by the client
+
+
+
+
+van der Stok, et al.      Expires May 31, 2019                 [Page 14]
+
+Internet-Draft                  EST-coaps                  November 2018
+
+
    as a maximum size expected in the 4.13 (Request Entity Too Large)
    response to a request.
 
    Examples of fragmented messages are shown in Appendix B.
-
-
-
-van der Stok, et al.      Expires May 26, 2019                 [Page 13]
-
-Internet-Draft                  EST-coaps                  November 2018
-
 
 5.8.  Deployment limits
 
@@ -772,19 +833,21 @@ Internet-Draft                  EST-coaps                  November 2018
    implementation to choose its root resource; throughout this document
    the example root resource /est is used.
 
+
+
+
+
+van der Stok, et al.      Expires May 31, 2019                 [Page 15]
+
+Internet-Draft                  EST-coaps                  November 2018
+
+
    The optional additional EST-coaps server URIs, obtained through
    discovery of the EST root resource(s) as shown below, are of the
    form:
 
    coaps://example.com:<port>/<root-resource>/<short-est>
    coaps://example.com:<port>/<root-resource>/ArbitraryLabel/<short-est>
-
-
-
-van der Stok, et al.      Expires May 26, 2019                 [Page 14]
-
-Internet-Draft                  EST-coaps                  November 2018
-
 
    Figure 5 in section 3.2.2 of [RFC7030] enumerates the operations and
    corresponding paths which are supported by EST.  Table 2 provides the
@@ -827,20 +890,18 @@ Internet-Draft                  EST-coaps                  November 2018
    in the last four lines allows the client to choose the most
    appropriate one from multiple content types.
 
+
+
+
+van der Stok, et al.      Expires May 31, 2019                 [Page 16]
+
+Internet-Draft                  EST-coaps                  November 2018
+
+
    Port numbers, not returned in the example, are assumed to be the
    default numbers 5683 and 5684 for coap and coaps respectively
    (sections 12.6 and 12.7 of [RFC7252].  Discoverable port numbers MAY
    be returned in the <href> of the payload.
-
-
-
-
-
-
-van der Stok, et al.      Expires May 26, 2019                 [Page 15]
-
-Internet-Draft                  EST-coaps                  November 2018
-
 
 7.  DTLS Transport Protocol
 
@@ -884,19 +945,18 @@ Internet-Draft                  EST-coaps                  November 2018
    PRF(master_secret, finished_label, Hash(handshake_messages))
       [0..verify_data_length-1];
 
-   MUST be computed as if each handshake message had been sent as a
-   single fragment [RFC6347].  Similarly, for DTLS 1.3, the Finished
-   message
 
 
 
 
-
-
-van der Stok, et al.      Expires May 26, 2019                 [Page 16]
+van der Stok, et al.      Expires May 31, 2019                 [Page 17]
 
 Internet-Draft                  EST-coaps                  November 2018
 
+
+   MUST be computed as if each handshake message had been sent as a
+   single fragment [RFC6347].  Similarly, for DTLS 1.3, the Finished
+   message
 
    HMAC(finished_key,
        Transcript-Hash(Handshake Context,
@@ -942,17 +1002,18 @@ Internet-Draft                  EST-coaps                  November 2018
 
    The Registrar SHOULD authenticate the client downstream and it should
    be authenticated by the EST server or CA upstream.  The Registration
+
+
+
+van der Stok, et al.      Expires May 31, 2019                 [Page 18]
+
+Internet-Draft                  EST-coaps                  November 2018
+
+
    Authority (re-)creates the secure connection from DTLS to TLS and
    vice versa.  A trust relationship SHOULD be pre-established between
    the Registrar and the EST servers to be able to proxy these
    connections on behalf of various clients.
-
-
-
-van der Stok, et al.      Expires May 26, 2019                 [Page 17]
-
-Internet-Draft                  EST-coaps                  November 2018
-
 
    When enforcing Proof-of-Possession (POP) linking, the (D)TLS tls-
    unique value of the (D)TLS session needs to be used to prove that the
@@ -986,6 +1047,25 @@ Internet-Draft                  EST-coaps                  November 2018
    One possible use-case, shown in one figure below, is expected to be
    deployed in practice:
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+van der Stok, et al.      Expires May 31, 2019                 [Page 19]
+
+Internet-Draft                  EST-coaps                  November 2018
+
+
                                         Constrained Network
    .------.                         .----------------------------.
    |  CA  |                         |.--------------------------.|
@@ -999,16 +1079,7 @@ Internet-Draft                  EST-coaps                  November 2018
                                     |'--------------------------'|
                                     '----------------------------'
 
-             ESTcoaps-to-HTTPS Registrar at the CoAP boundary.
-
-
-
-
-
-van der Stok, et al.      Expires May 26, 2019                 [Page 18]
-
-Internet-Draft                  EST-coaps                  November 2018
-
+        Figure 4: ESTcoaps-to-HTTPS Registrar at the CoAP boundary.
 
    Table 2 contains the URI mapping between the EST-coaps and EST the
    Registrar SHOULD adhere to.  Section 7 of [RFC8075] and Section 5.4
@@ -1016,14 +1087,14 @@ Internet-Draft                  EST-coaps                  November 2018
    determines how the Registrar translates CoAP response codes from/to
    HTTP status codes.  The mapping from Content-Type to media type is
    defined in Section 10.  The conversion from CBOR major type 2 to
-   base64 encoding needs to be done in the Registrar.  Conversion is
+   Base64 encoding needs to be done in the Registrar.  Conversion is
    possible because a TLS link exists between EST-coaps-to-HTTP
    Registrar and EST server and a corresponding DTLS link exists between
    EST-coaps-to-HTTP Registrar and EST client.
 
    Due to fragmentation of large messages into blocks, an EST-coaps-to-
    HTTP Registrar MUST reassemble the BLOCKs before translating the
-   binary content to Base-64, and consecutively relay the message
+   binary content to Base64, and consecutively relay the message
    upstream.
 
    For the discovery of the EST server by the EST client in the coap
@@ -1038,6 +1109,19 @@ Internet-Draft                  EST-coaps                  November 2018
    This section addresses transmission parameters described in sections
    4.7 and 4.8 of the CoAP document [RFC7252].
 
+
+
+
+
+
+
+
+
+van der Stok, et al.      Expires May 31, 2019                 [Page 20]
+
+Internet-Draft                  EST-coaps                  November 2018
+
+
             ACK_TIMEOUT       | 2 seconds     |
             ACK_RANDOM_FACTOR | 1.5           |
             MAX_RETRANSMIT    | 4             |
@@ -1045,7 +1129,7 @@ Internet-Draft                  EST-coaps                  November 2018
             DEFAULT_LEISURE   | 5 seconds     |
             PROBING_RATE      | 1 byte/second |
 
-                  Figure 4: EST-COAP protocol parameters
+                  Figure 5: EST-COAP protocol parameters
 
    EST does not impose any unique parameters that affect the CoAP
    parameters in Table 2 and 3 in the CoAP draft but the ones in CoAP
@@ -1057,14 +1141,6 @@ Internet-Draft                  EST-coaps                  November 2018
    Manager with Californium for CoAP support, communicating with a
    ContikiOS and tinyDTLS based client, from RISE SICS, is to start with
    the default CoAP configuration parameters.
-
-
-
-
-van der Stok, et al.      Expires May 26, 2019                 [Page 19]
-
-Internet-Draft                  EST-coaps                  November 2018
-
 
    However, depending on the implementation scenario, resending and
    timeouts can also occur on other networking layers, governed by other
@@ -1091,36 +1167,25 @@ Internet-Draft                  EST-coaps                  November 2018
    them directly, they might need to be updated if the table 2
    parameters are changed.
 
+
+
+
+
+
+
+van der Stok, et al.      Expires May 31, 2019                 [Page 21]
+
+Internet-Draft                  EST-coaps                  November 2018
+
+
 10.  IANA Considerations
 
 10.1.  Content-Format Registry
 
    Additions to the sub-registry "CoAP Content-Formats", within the
-   "CoRE Parameters" registry are specified in Table 3.  These have been
-   registered temporarily in the Expert Review range (0-255).
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-van der Stok, et al.      Expires May 26, 2019                 [Page 20]
-
-Internet-Draft                  EST-coaps                  November 2018
-
+   "CoRE Parameters" registry [COREparams] are specified in Table 3.
+   These have been registered temporarily in the Expert Review range
+   (0-255).
 
    +--------------------------+--------+-----+-------------------------+
    | HTTP Media-Type          | Encodi |  ID | Reference               |
@@ -1160,6 +1225,15 @@ Internet-Draft                  EST-coaps                  November 2018
    o  rt="ace.est.sen".  This resource depicts the support of EST simple
       enroll.
 
+
+
+
+
+van der Stok, et al.      Expires May 31, 2019                 [Page 22]
+
+Internet-Draft                  EST-coaps                  November 2018
+
+
    o  rt="ace.est.sren".  This resource depicts the support of EST
       simple reenroll.
 
@@ -1168,15 +1242,6 @@ Internet-Draft                  EST-coaps                  November 2018
 
    o  rt="ace.est.skg".  This resource depicts the support of EST
       server-side key generation.
-
-
-
-
-
-van der Stok, et al.      Expires May 26, 2019                 [Page 21]
-
-Internet-Draft                  EST-coaps                  November 2018
-
 
 11.  Security Considerations
 
@@ -1217,6 +1282,14 @@ Internet-Draft                  EST-coaps                  November 2018
 
    In cases where the IDevID used to authenticate the client, is expired
    the server MAY still authenticate the client because IDevIDs are
+
+
+
+van der Stok, et al.      Expires May 31, 2019                 [Page 23]
+
+Internet-Draft                  EST-coaps                  November 2018
+
+
    expected to live as long as the device itself (Section 4).  In such
    occasions, checking the certificate revocation status or authorizing
    the client using another method is important for the server to ensure
@@ -1226,13 +1299,6 @@ Internet-Draft                  EST-coaps                  November 2018
    "_EXPORT_" and "_DES_" in their names MUST NOT be used.  More
    information about recommendations of TLS and DTLS are included in
    [RFC7525].
-
-
-
-van der Stok, et al.      Expires May 26, 2019                 [Page 22]
-
-Internet-Draft                  EST-coaps                  November 2018
-
 
    As described in CMC, Section 6.7 of [RFC5272], "For keys that can be
    used as signature keys, signing the certification request with the
@@ -1273,22 +1339,19 @@ Internet-Draft                  EST-coaps                  November 2018
    man-in-the-middle.  Thus, the clients puts its trust on the Registrar
    not exposing the private key.
 
+
+
+van der Stok, et al.      Expires May 31, 2019                 [Page 24]
+
+Internet-Draft                  EST-coaps                  November 2018
+
+
    Clients that leverage server-side key generation have no knowledge if
    the Registrar will be generating the keys and enrolling the
    certificates with the CA or if the CA will be responsible for
    generating the keys, the existence of a Registrar requires the client
    to put its trust on the registrar doing the right thing if it is
    generating they private keys.
-
-
-
-
-
-
-van der Stok, et al.      Expires May 26, 2019                 [Page 23]
-
-Internet-Draft                  EST-coaps                  November 2018
-
 
 12.  Contributors
 
@@ -1328,6 +1391,17 @@ Internet-Draft                  EST-coaps                  November 2018
               Message Specification", draft-ietf-lamps-rfc5751-bis-12
               (work in progress), September 2018.
 
+
+
+
+
+
+
+van der Stok, et al.      Expires May 31, 2019                 [Page 25]
+
+Internet-Draft                  EST-coaps                  November 2018
+
+
    [I-D.ietf-tls-dtls13]
               Rescorla, E., Tschofenig, H., and N. Modadugu, "The
               Datagram Transport Layer Security (DTLS) Protocol Version
@@ -1338,13 +1412,6 @@ Internet-Draft                  EST-coaps                  November 2018
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
-
-
-
-van der Stok, et al.      Expires May 26, 2019                 [Page 24]
-
-Internet-Draft                  EST-coaps                  November 2018
-
 
    [RFC5272]  Schaad, J. and M. Myers, "Certificate Management over CMS
               (CMC)", RFC 5272, DOI 10.17487/RFC5272, June 2008,
@@ -1381,28 +1448,32 @@ Internet-Draft                  EST-coaps                  November 2018
               DOI 10.17487/RFC7959, August 2016,
               <https://www.rfc-editor.org/info/rfc7959>.
 
+
+
+
+
+
+van der Stok, et al.      Expires May 31, 2019                 [Page 26]
+
+Internet-Draft                  EST-coaps                  November 2018
+
+
    [RFC8075]  Castellani, A., Loreto, S., Rahman, A., Fossati, T., and
               E. Dijk, "Guidelines for Mapping Implementations: HTTP to
               the Constrained Application Protocol (CoAP)", RFC 8075,
               DOI 10.17487/RFC8075, February 2017,
               <https://www.rfc-editor.org/info/rfc8075>.
 
-   [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
-              Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
-              <https://www.rfc-editor.org/info/rfc8446>.
-
-
-
-
-
-
-
-van der Stok, et al.      Expires May 26, 2019                 [Page 25]
-
-Internet-Draft                  EST-coaps                  November 2018
-
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
 14.2.  Informative References
+
+   [COREparams]
+              IANA, "Constrained RESTful Environments (CoRE)
+              Parameters", <https://www.iana.org/assignments/core-
+              parameters/core-parameters.xhtml>.
 
    [I-D.rescorla-tls-dtls-connection-id]
               Rescorla, E., Tschofenig, H., Fossati, T., and T. Gondrom,
@@ -1433,14 +1504,20 @@ Internet-Draft                  EST-coaps                  November 2018
               RFC 4919, DOI 10.17487/RFC4919, August 2007,
               <https://www.rfc-editor.org/info/rfc4919>.
 
+
+
+
+
+
+van der Stok, et al.      Expires May 31, 2019                 [Page 27]
+
+Internet-Draft                  EST-coaps                  November 2018
+
+
    [RFC5273]  Schaad, J. and M. Myers, "Certificate Management over CMS
               (CMC): Transport Protocols", RFC 5273,
               DOI 10.17487/RFC5273, June 2008,
               <https://www.rfc-editor.org/info/rfc5273>.
-
-   [RFC5705]  Rescorla, E., "Keying Material Exporters for Transport
-              Layer Security (TLS)", RFC 5705, DOI 10.17487/RFC5705,
-              March 2010, <https://www.rfc-editor.org/info/rfc5705>.
 
    [RFC5929]  Altman, J., Williams, N., and L. Zhu, "Channel Bindings
               for TLS", RFC 5929, DOI 10.17487/RFC5929, July 2010,
@@ -1449,14 +1526,6 @@ Internet-Draft                  EST-coaps                  November 2018
    [RFC5958]  Turner, S., "Asymmetric Key Packages", RFC 5958,
               DOI 10.17487/RFC5958, August 2010,
               <https://www.rfc-editor.org/info/rfc5958>.
-
-
-
-
-van der Stok, et al.      Expires May 26, 2019                 [Page 26]
-
-Internet-Draft                  EST-coaps                  November 2018
-
 
    [RFC6090]  McGrew, D., Igoe, K., and M. Salter, "Fundamental Elliptic
               Curve Cryptography Algorithms", RFC 6090,
@@ -1494,25 +1563,28 @@ Internet-Draft                  EST-coaps                  November 2018
               DOI 10.17487/RFC7925, July 2016,
               <https://www.rfc-editor.org/info/rfc7925>.
 
+
+
+van der Stok, et al.      Expires May 31, 2019                 [Page 28]
+
+Internet-Draft                  EST-coaps                  November 2018
+
+
    [RFC8422]  Nir, Y., Josefsson, S., and M. Pegourie-Gonnard, "Elliptic
               Curve Cryptography (ECC) Cipher Suites for Transport Layer
               Security (TLS) Versions 1.2 and Earlier", RFC 8422,
               DOI 10.17487/RFC8422, August 2018,
               <https://www.rfc-editor.org/info/rfc8422>.
 
+   [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
+              Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
+              <https://www.rfc-editor.org/info/rfc8446>.
+
    [RSAorig]  Petr Svenda, Matus Nemec, Peter Sekan, Rudolf Kvasnovsky,
               David Formanek, David Komarek, Vashek Matyas, "The
               Million-Key Question - Investigating the Origins of RSA
               Public Keys", USENIX Security Symposium 2016 ISBN
               978-1-931971-32-4, August 2016.
-
-
-
-
-van der Stok, et al.      Expires May 26, 2019                 [Page 27]
-
-Internet-Draft                  EST-coaps                  November 2018
-
 
 Appendix A.  EST messages to EST-coaps
 
@@ -1549,23 +1621,7 @@ A.1.  cacerts
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-van der Stok, et al.      Expires May 26, 2019                 [Page 28]
+van der Stok, et al.      Expires May 31, 2019                 [Page 29]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -1621,7 +1677,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 26, 2019                 [Page 29]
+van der Stok, et al.      Expires May 31, 2019                 [Page 30]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -1677,7 +1733,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 26, 2019                 [Page 30]
+van der Stok, et al.      Expires May 31, 2019                 [Page 31]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -1733,7 +1789,7 @@ A.3.  enroll / reenroll
 
 
 
-van der Stok, et al.      Expires May 26, 2019                 [Page 31]
+van der Stok, et al.      Expires May 31, 2019                 [Page 32]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -1789,7 +1845,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 26, 2019                 [Page 32]
+van der Stok, et al.      Expires May 31, 2019                 [Page 33]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -1845,7 +1901,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 26, 2019                 [Page 33]
+van der Stok, et al.      Expires May 31, 2019                 [Page 34]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -1901,7 +1957,7 @@ dd01c95dd9cff3112aa141774ab655c3d56359c3b3df055294692ed848e7e30a1
 
 
 
-van der Stok, et al.      Expires May 26, 2019                 [Page 34]
+van der Stok, et al.      Expires May 31, 2019                 [Page 35]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -1957,7 +2013,7 @@ a4fa677130da60818175ca4ab2af1d15563624c51e13dfdcf381881b72327e2f4
 
 
 
-van der Stok, et al.      Expires May 26, 2019                 [Page 35]
+van der Stok, et al.      Expires May 31, 2019                 [Page 36]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -1984,7 +2040,7 @@ B.1.  cacerts block example
 
    The following is an example of a valid /cacerts exchange over DTLS.
    The content length of the cacerts response in appendix A.1 of
-   [RFC7030] is 4246 bytes using base64.  This leads to a length of 2509
+   [RFC7030] is 4246 bytes using Base64.  This leads to a length of 2509
    bytes in binary.  The CoAP message adds around 10 bytes, the DTLS
    record 29 bytes.  To avoid IP fragmentation, the CoAP block option is
    used and an MTU of 127 is assumed to stay within one IEEE 802.15.4
@@ -2013,7 +2069,7 @@ B.1.  cacerts block example
 
 
 
-van der Stok, et al.      Expires May 26, 2019                 [Page 36]
+van der Stok, et al.      Expires May 31, 2019                 [Page 37]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -2069,7 +2125,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 26, 2019                 [Page 37]
+van der Stok, et al.      Expires May 31, 2019                 [Page 38]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -2125,7 +2181,7 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 26, 2019                 [Page 38]
+van der Stok, et al.      Expires May 31, 2019                 [Page 39]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -2181,7 +2237,7 @@ B.2.  enroll block example
 
 
 
-van der Stok, et al.      Expires May 26, 2019                 [Page 39]
+van der Stok, et al.      Expires May 31, 2019                 [Page 40]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -2204,7 +2260,7 @@ Internet-Draft                  EST-coaps                  November 2018
           <-- (ACK) (2:N2/0/256) (2.04 Changed) {Cert resp}
 
 
-             Figure 5: EST-COAP enrolment with multiple blocks
+             Figure 6: EST-COAP enrolment with multiple blocks
 
    N1+1 blocks have been transferred from client to server and N2+1
    blocks have been transferred from server to client.
@@ -2237,7 +2293,7 @@ Authors' Addresses
 
 
 
-van der Stok, et al.      Expires May 26, 2019                 [Page 40]
+van der Stok, et al.      Expires May 31, 2019                 [Page 41]
 
 Internet-Draft                  EST-coaps                  November 2018
 
@@ -2293,4 +2349,4 @@ Internet-Draft                  EST-coaps                  November 2018
 
 
 
-van der Stok, et al.      Expires May 26, 2019                 [Page 41]
+van der Stok, et al.      Expires May 31, 2019                 [Page 42]

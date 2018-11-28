@@ -27,6 +27,7 @@
 <!ENTITY RFC4919 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4919.xml">
 <!ENTITY RFC5929 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5929.xml">
 <!ENTITY RFC7525 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7525.xml">
+<!ENTITY RFC7228 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7228.xml">
 <!ENTITY RFC8075 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8075.xml">
 <!ENTITY RFC8174 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml">
 <!ENTITY RFC8446 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8446.xml">
@@ -134,6 +135,7 @@
 		<t>Replaced TBD8 with 62. </t>
 		<t>Added RFC8174 reference and text. </t>
 		<t>Clarified MTI for server-side key generation and Content-Formats. Defined the /skg MTI (PKCS#8) and the cases where CMS encryption will be used. </t>
+		<t>Moved Fragmentation section up because it was referenced in sections above it.</t>
     </list>
    </t>
    <t> -06:
@@ -433,20 +435,30 @@ This specification contains a set of required-to-implement functions, optional f
 	  423 and 503. Their equivalent COAP errors are 4.00, 4.03 and 5.03 respectively. </t>
     </section> <!-- CoAP response codes -->
 
-    <section anchor="pending" title="Delayed Responses">
-   
-      <t><xref target="enrollblock"/> shows an example of a server response that comes immediately after a 
-      client request. The example shows the flows of blocks as the large messages require fragmentation. 
-      But server responses can sometimes be delayed. </t>
-	      
-      <t>According to section 5.2.2 of <xref target="RFC7252" />, a slow server can acknowledge the 
-      request and respond later with the requested resource representation. 
-      In particular, a slow server can respond to a enroll request with an empty ACK with code 0.00, 
-      before sending the certificate to the server after a short delay. Consecutively, the server will need 
-      more than one "Block2" blocks to respond if the certificate is large. This situation is shown in 
-      <xref target="fig-est-short-wait"/> where a client sends an enrollment request that uses more than one 
-      "Block1" blocks. The server uses an empty 0.00 ACK to announce the response which will be 
-      provided later with 2.04 messages containing "Block2" options. Having received the first 128 bytes in the first "block2" block, the client asks for a block reduction to 128 bytes in all following "block2" blocks, starting with the second block (NUM=1).</t>
+    <section anchor="fragment" title="Message fragmentation">
+      <t>DTLS defines fragmentation only for the handshake and not for secure data exchange (DTLS records). <xref target="RFC6347"/> states that to avoid using IP fragmentation, which involves error-prone datagram reconstitution, invokers of the DTLS record layer SHOULD size DTLS records so that they fit within any Path MTU estimates obtained from the record layer. In addition, invokers residing on a 6LoWPAN over IEEE 802.15.4 <xref target="ieee802.15.4"/> network SHOULD attempt to size CoAP messages such that each DTLS record will fit within one or two IEEE 802.15.4 frames.</t>
+	  
+      <t>That is not always possible in EST-coaps. Even though ECC certificates are small in size, they can vary greatly based on signature algorithms, key sizes, and OID fields used. For 256-bit curves, common ECDSA cert sizes are 500-1000 bytes which could fluctuate further based on the algorithms, OIDs, SANs and cert fields. For 384-bit curves, ECDSA certs increase in size and can sometimes reach 1.5KB. Additionally, there are times when the EST cacerts response from the server can include multiple certs that amount to large payloads. Section 4.6 of CoAP <xref target="RFC7252"/> describes the possible payload sizes: "if nothing is known about the size of the headers, good upper bounds are 1152 bytes for the message size and 1024 bytes for the payload size". Section 4.6 of <xref target="RFC7252"/> also suggests that IPv4 implementations may want to limit themselves to more conservative IPv4 datagram sizes such as 576 bytes. <!-- From <xref target="RFC0791"/> follows that the absolute minimum value of the IP MTU for IPv4 is as low as 68 bytes, which would leave only 40 bytes minus security overhead for a UDP payload. --> Even with ECC certs, EST-coaps messages can still exceed MTU sizes on the Internet or 6LoWPAN <xref target="RFC4919"/> (Section 2 of <xref target="RFC7959"/>). EST-coaps needs to be able to fragment messages into multiple DTLS datagrams.</t>
+      
+	  <t>To perform fragmentation in CoAP, <xref target="RFC7959"/> specifies the "Block1" option for fragmentation of the request payload and the "Block2" option for fragmentation of the return payload of a CoAP flow. As explained in Section 1 of <xref target="RFC7959"/>, blockwise transfers SHOULD be used in Confirmable CoAP messages to avoid the exacerbation of lost blocks. <xref target="RFC7959"/> defines SZX in the block option fields. SZX is used to convey the size of the blocks in the requests or responses. The CoAP client MAY specify the Block1 size and MAY also specify the Block2 size. The CoAP server MAY specify the Block2 size, but not the Block1 size. </t>
+	  
+      <t><xref target="RFC7959"/> also defines Size1 and Size2 options to provide size information about the resource representation in a request and response. The Size1 response MAY be parsed by the client as a size indication of the Block2 resource in the server response or by the server as a request for a size estimate by the client. Similarly, the Size2 option defined in BLOCK should be parsed by the server as an indication of the size of the resource carried in Block1 options and by the client as a maximum size expected in the 4.13 (Request Entity Too Large) response to a request.</t>
+	  
+      <t>Examples of fragmented EST  messages are shown in <xref target="blockexamples"/>.</t>
+    </section> <!-- Message fragmentation --> 
+
+    <section anchor="pending" title="Delayed Responses">        
+      <t>Server responses can sometimes be delayed. According to section 5.2.2 of 
+	  <xref target="RFC7252" />, a slow server can acknowledge the request with 
+	  a 2.31 code and respond later with the requested resource representation. 
+      In particular, a slow server can respond to an enrollment request with an empty ACK with code 0.00, 
+      before sending the certificate to the server after a short delay. If the certificate 
+	  response is large, the server will need more than one "Block2" blocks to transfer it. This 
+	  situation is shown in <xref target="fig-est-short-wait"/> where a client sends an enrollment 
+	  request that uses more than one "Block1" blocks. The server uses an empty 0.00 ACK to announce 
+	  the delayed response which is provided later with 2.04 messages containing "Block2" options. 
+	  Having received the first 256 bytes in the first "block2" block, the client asks for a block 
+	  reduction to 128 bytes in all following "block2" blocks, starting with the second block (NUM=1).</t>
       <figure title="EST-COAP enrolment with short wait"
       anchor="fig-est-short-wait"><artwork>
 <![CDATA[  
@@ -460,10 +472,10 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(1:1/1/256) {CSR req} -->
 POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
        <-- (0.00 empty ACK)
                       |
-       ...... short delay before certificate is ready.......
+       ...... short delay before certificate is ready ......
                       |
       <-- (CON) (1:N1/0/256)(2:0/1/256)(2.04 Changed) {Cert resp}
-          (ACK)                                              -->
+(ACK)                                                        -->
 POST [2001:db8::2:1]:61616/est/sen (CON)(2:1/0/128)          -->
        <-- (ACK) (2:1/1/128) (2.04 Changed) {Cert resp}
                       .
@@ -473,18 +485,20 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
        <-- (ACK) (2:N2/0/128) (2.04 Changed) {Cert resp}
 ]]></artwork></figure>
 
-      <t>If the server is very slow providing the response (say minutes, possible when a manual intervention is wanted), 
+      <t>If the server is very slow (i.e. minutes) in providing the response (i.e. when a manual intervention is needed), 
       the server SHOULD respond with an ACK containing response code 5.03 (Service unavailable) and a Max-Age 
       option to indicate the time the client SHOULD wait to request the content later. After a delay of Max-Age, 
       the client SHOULD resend the identical CSR to the server. As long as the server responds with response code 5.03 
-      (Service Unavailable), the client can resend the enrolment request until the server responds with the certificate 
-      or the client abandons for other reasons. </t>
+      (Service Unavailable) with a Max-Age option, the client can resend the enrolment request until the server 
+	  responds with the certificate or the client abandons for other reasons. </t>
       
-      <t>To demonstrate this situation, <xref target="fig-est-long-wait"/> shows a client sending an enrolment request that will use more than one 
-      "Block1" block to send the CSR to the server. The server needs 
+      <t>To demonstrate this scenario, <xref target="fig-est-long-wait"/> shows a client sending an enrolment 
+	  request that uses more than one "Block1" blocks to send the CSR to the server. The server needs 
       more than one "Block2" blocks to respond, but also needs to take a long delay (minutes) to provide 
-      the response. Consequently, the server will use a 5.03 ACK for the response. The client can be requested to wait multiple times for a period of Max-Age. Note that in the example below the server asks for a decrease in the block size when acknowledging the first Block2. </t>
-      <t> <xref target="fig-est-multiple-block"/> can be compared with <xref target="fig-est-long-wait"/> to see the extra requests after a Max-Age wait.</t> 
+      the response. Consequently, the server uses a 5.03 ACK response with a Max-Age option. The client 
+	  waits for a period of Max-Age as many times as he receives the same 5.03 response and retransmits 
+      the enrollment request until he receives a certificate. Note that in the example below the server 
+	  asks for a decrease in the block size when acknowledging the first Block2. </t>
 
 <figure title="EST-COAP enrolment with long wait"
 	anchor="fig-est-long-wait"><artwork>
@@ -516,7 +530,9 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 
 ]]></artwork></figure>
  
-    </section> <!-- Delayed Responses -->
+      <!-- <t>Comparing <xref target="fig-est-multiple-block"/> with <xref target="fig-est-long-wait"/> we 
+	  can see all the extra requests in the latter case after the Max-Age wait-time.</t> -->
+     </section> <!-- Delayed Responses -->
 
     <section anchor="serverkey" title="Server-side Key Generation">
       <t>Constrained devices sometimes do not have the necessary hardware to generate 
@@ -581,20 +597,10 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	  where an entity between the client and the CA terminates the DTLS connection 
 	  (Registrar in <xref target="RAfig"/>).</t>
 	
-    </section> <!-- Server-side Key Generation -->
-
-    <section anchor="fragment" title="Message fragmentation">
-      <t>DTLS defines fragmentation only for the handshake part and not for secure data exchange (DTLS records). <xref target="RFC6347"/> states that to avoid using IP fragmentation, which involves error-prone datagram reconstitution, invokers of the DTLS record layer SHOULD size DTLS records so that they fit within any Path MTU estimates obtained from the record layer. In addition, invokers residing on a 6LoWPAN over IEEE 802.15.4 <xref target="ieee802.15.4"/> network SHOULD attempt to size CoAP messages such that each DTLS record will fit within one or two IEEE 802.15.4 frames.</t>
-      <t>That is not always possible. Even though ECC certificates are small in size, they can vary greatly based on signature algorithms, key sizes, and OID fields used. For 256-bit curves, common ECDSA cert sizes are 500-1000 bytes which could fluctuate further based on the algorithms, OIDs, SANs and cert fields. For 384-bit curves, ECDSA certs increase in size and can sometimes reach 1.5KB. Additionally, there are times when the EST cacerts response from the server can include multiple certs that amount to large payloads. Section 4.6 of CoAP <xref target="RFC7252"/> describes the possible payload sizes: "if nothing is known about the size of the headers, good upper bounds are 1152 bytes for the message size and 1024 bytes for the payload size". Section 4.6 of <xref target="RFC7252"/> also suggests that IPv4 implementations may want to limit themselves to more conservative IPv4 datagram sizes such as 576 bytes. From <xref target="RFC0791"/> follows that the absolute minimum value of the IP MTU for IPv4 is as low as 68 bytes, which would leave only 40 bytes minus security overhead for a UDP payload. Thus, even with ECC certs, EST-coaps messages can still exceed sizes in MTU of 1280 for IPv6 or 60-80 bytes for 6LoWPAN <xref target="RFC4919"/> as explained in section 2 of <xref target="RFC7959"/>. EST-coaps needs to be able to fragment EST messages into multiple DTLS datagrams. Fine-grained fragmentation of EST messages is essential.</t>
-      <t>To perform fragmentation in CoAP, <xref target="RFC7959"/> specifies the "Block1" option for fragmentation of the request payload and the "Block2" option for fragmentation of the return payload of a CoAP flow. </t>     
-      <t>The BLOCK draft defines SZX in the Block1 and Block2 option fields. These are used to convey the size of the blocks in the requests or responses.</t>
-      <t>The CoAP client MAY specify the Block1 size and MAY also specify the Block2 size.  The CoAP server MAY specify the Block2 size, but not the Block1 size. As explained in Section 1 of <xref target="RFC7959"/>), blockwise transfers SHOULD be used in Confirmable CoAP messages to avoid the exacerbation of lost blocks.</t>
-      <t>The Size1 response MAY be parsed by the client as a size indication of the Block2 resource in the server response or by the server as a request for a size estimate by the client. Similarly, Size2 option defined in BLOCK should be parsed by the server as an indication of the size of the resource carried in Block1 options and by the client as a maximum size expected in the 4.13 (Request Entity Too Large) response to a request.</t>
-      <t>Examples of fragmented messages are shown in <xref target="blockexamples"/>.</t>
-    </section> <!-- Message fragmentation -->    
+    </section> <!-- Server-side Key Generation -->  
 
     <section anchor="deploy-limit" title = "Deployment limits">
-      <t>Although EST-coaps paves the way for the utilization of EST for constrained devices on constrained networks, some devices will not have enough resources to handle the large payloads that come with EST-coaps. The specification of EST-coaps is intended to ensure that EST works for networks of constrained devices that choose to limit their communications stack to UDP/CoAP. It is up to the network designer to decide which devices execute the EST protocol and which do not.</t>
+      <t>Although EST-coaps paves the way for the utilization of EST by constrained devices in constrained networks, some classes of devices <xref target="RFC7228" /> will not have enough resources to handle the large payloads that come with EST-coaps. The specification of EST-coaps is intended to ensure that EST works for networks of constrained devices that choose to limit their communications stack to UDP/DTLS/CoAP. It is up to the network designer to decide which devices execute the EST protocol and which do not.</t>
     </section> <!-- Deployment limits  -->
   </section> <!-- protocol design-->
 
@@ -863,7 +869,7 @@ HMAC(finished_key,
 
   </references>
   <references title="Informative References">
-    &RFC0791;
+    <!-- &RFC0791; -->
     &RFC8422;
     <!-- &RFC4944; -->
     <!-- &RFC5246; --> 
@@ -874,6 +880,7 @@ HMAC(finished_key,
     &RFC6402;
     &RFC7230;
     &RFC7231;
+    &RFC7228;
     &RFC7251;
     &RFC7925;
     &RFC4919;

@@ -606,24 +606,16 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 
   <section anchor="discovery" title = "Discovery and URI">
 
-<t>EST-coaps is targeted to low-resource networks with small packets. Saving header space is important and a short EST-coaps URI (see <xref target="est-uri"/>) is specified that is shorter than the EST URI specified in <xref target="RFC7030"/>. The individual EST-coaps well-known server URIs differ from the EST URI by replacing the scheme https by coaps and by specifying shorter resource path names: </t>
+    <t>EST-coaps is targeted for low-resource networks with small packets. Saving header space is important and short EST-coaps URIs are specified in this document. These URIs are shorter than the ones in <xref target="RFC7030"/>. The EST-coaps resource path names are: </t>
 
 <figure align="left"><artwork><![CDATA[
 coaps://example.com:<port>/.well-known/est/<short-est> 
 coaps://example.com:<port>/.well-known/est/ArbitraryLabel/<short-est>
 ]]></artwork></figure>
 
-      <t>The ArbitraryLabel Path-Segment, if used, SHOULD be of the shortest length possible (See sections 3.1 and 3.2.2 of <xref target="RFC7030"/>. Following <xref target="RFC7030"/> discovery is not needed when the client is preconfigured with the /.well-known/est server URI and the coaps port 5684.</t>
+      <t>The short-est strings are defined in <xref target="est-uri"/>. The ArbitraryLabel Path-Segment, if used, SHOULD be of the shortest length possible (Sections 3.1 and 3.2.2 of <xref target="RFC7030"/>. Following <xref target="RFC7030"/> discovery is not needed when the client is preconfigured with the /.well-known/est server URI and the coaps port 5684.</t>
       
-	  <t>The additional EST-coaps server URIs, obtained through discovery of the EST root resource(s) as shown below, are of the form: </t>
-
-<figure align="left"><artwork><![CDATA[
-coaps://example.com:<port>/<root-resource>/<short-est>
-coaps://example.com:<port>/<root-resource>/ArbitraryLabel/<short-est>
-]]></artwork></figure>
-
-      <t>In the context of CoAP, the presence and location of (path to) the management data are discovered by sending a GET request to "/.well-known/core" including a resource type (RT) parameter with the value "ace.est" <xref target="RFC6690"/>. Upon success, the return payload will contain the root resource of the EST resources. It is up to the implementation to choose its root resource; throughout this document the example root resource /est is used. </t>
-	  <t>The optional additional EST-coaps server URIs, obtained through discovery of the EST root resource(s) as shown below, are of the form: </t>
+	  <t>The EST-coaps server URIs, obtained through discovery of the EST-coaps root resource(s) as shown below, are of the form: </t>
 <figure align="left"><artwork><![CDATA[
 coaps://example.com:<port>/<root-resource>/<short-est>
 coaps://example.com:<port>/<root-resource>/ArbitraryLabel/<short-est>
@@ -640,9 +632,9 @@ coaps://example.com:<port>/<root-resource>/ArbitraryLabel/<short-est>
    <c> /csrattrs </c>           <c> /att </c>
    <c> /serverkeygen </c>       <c> /skg </c>
 </texttable>
-      <t>The short resource URIs MUST be supported. The corresponding longer URIs specified in <xref target="RFC7030"/> MAY be supported. </t>
-      
-	  <t>When discovering the root path for the EST resources, the server MAY return all available resource paths and the used content types. This is useful when multiple content types are specified for EST-coaps server and optional functions are available. The example below shows the discovery of the presence and location of EST-coaps resources. Linefeeds are included only for readability.</t>
+      <t>Clients and servers MUST support the short resource URIs. The corresponding longer URIs from <xref target="RFC7030"/> MAY be supported. </t>
+
+      <t>In the context of CoAP, the presence and location of (path to) the management data are discovered by sending a GET request to "/.well-known/core" including a resource type (RT) parameter with the value "ace.est" <xref target="RFC6690"/>. Upon success, the return payload will contain the root resource of the EST resources. The server MAY return all available resource paths and the used content types. This is useful when multiple content types are supported by the EST-coaps server and optional functions are available. The example below shows the discovery of the presence and location of EST-coaps resources. Linefeeds are included only for readability.</t>
 <figure><artwork align="left"><![CDATA[
   REQ: GET /.well-known/core?rt=ace.est*
 
@@ -655,8 +647,10 @@ coaps://example.com:<port>/<root-resource>/ArbitraryLabel/<short-est>
 </est/skg>;rt="ace.est.skg";ct=280 286 62
 ]]></artwork>
     </figure>
-      <t> The first line of the discovery response MUST be returned. The five consecutive lines MAY be returned. The return of the content-types in the last four lines allows the client to choose the most appropriate one from multiple content types.</t>
-<t>Port numbers, not returned in the example, are assumed to be the default numbers 5683 and 5684 for coap and coaps respectively (sections 12.6 and 12.7 of <xref target="RFC7252"/>. Discoverable port numbers MAY be returned in the &lt;href&gt; of the payload.</t>
+      <t> The first line of the discovery response above MUST be included. The five consecutive lines after the first MAY be included. The return of the content-types allows the client to choose the most appropriate one from multiple content types.</t>
+      <t>Port numbers, not returned in the example, are assumed to be the default numbers 5683 and 5684 for coap and coaps respectively (Sections 12.6 and 12.7 of <xref target="RFC7252"/>). Discoverable port numbers MAY be returned in the &lt;href&gt; of the payload.</t>
+	  
+	  <t>It is up to the implementation to choose its root resource; throughout this document the example root resource /est is used. </t>
 
     </section> <!-- discovery and URI -->
 

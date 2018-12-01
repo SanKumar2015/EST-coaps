@@ -720,22 +720,19 @@ HMAC(finished_key,
          DEFAULT_LEISURE   | 5 seconds     |
          PROBING_RATE      | 1 byte/second |
     ]]></artwork></figure>
-    <t> EST does
-        not impose any unique parameters that affect the CoAP parameters in Table
-        2 and 3 in the CoAP draft but the ones in CoAP could be affecting
-        EST. For example, the processing delay of CAs could be less then 2s, but
-        in this case they should send a CoAP ACK every 2s while processing.</t>
-    <t> The main recommendation, based on experiments using Nexus Certificate Manager with Californium for CoAP support, communicating with a ContikiOS and tinyDTLS based client, from RISE SICS, is to start with the default CoAP configuration parameters.</t> 
-    
-    <t>However, depending on the implementation scenario, resending and timeouts can also occur on other networking layers, governed by other configuration parameters.</t>
+    <t> EST does not impose any unique parameters that affect the CoAP parameters in Table
+    2 and 3 in <xref target="RFC7252"/> but the ones in CoAP could be affecting
+    EST. For example, the processing delay of CAs could be less then 2s, but
+    in this case they should send a CoAP ACK every 2s while processing.</t>
+    <t> The main recommendation, based on experiments <!-- using Nexus Certificate Manager with Californium for CoAP support, communicating with a ContikiOS and tinyDTLS based client, from RISE SICS, --> is to follow the default CoAP configuration parameters. However, depending on the implementation scenario, retransmissions and timeouts can also occur on other networking layers, governed by other configuration parameters.</t>
     
     <t>Some further comments about some specific parameters, mainly from Table 2 in <xref target="RFC7252"/>:
     <list style="symbols">
-      <t>DEFAULT_LEISURE: This setting is only relevant in multicast scenarios, outside the scope of the EST-coaps draft.</t>
-      <t> NSTART: Limit the number of simultaneous outstanding interactions that a client maintains to a given server. The default is one, hence is the risk of congestion or out-of-order messages already limited.</t>
+      <t>DEFAULT_LEISURE: This setting is only relevant in multicast scenarios, outside the scope of EST-coaps.</t>
+      <t> NSTART: Limit the number of simultaneous outstanding interactions that a client maintains to a given server. The default is one, hence the risk of congestion or out-of-order messages is already limited.</t>
       <t>PROBING_RATE: A parameter which specifies the rate of re-sending non-confirmable messages. The EST messages are defined to be sent as CoAP confirmable messages, hence the PROBING_RATE setting is not applicable.</t>
     </list></t>
-    <t>Finally, the Table 3 parameters are mainly derived from the more basic Table 2 parameters. If the CoAP implementation allows setting them directly, they might need to be updated if the table 2 parameters are changed.</t>
+    <t>Finally, the Table 3 parameters are mainly derived from the more basic Table 2 parameters. If the CoAP implementation allows setting them directly, they may need to be updated if the Table 2 parameters are changed.</t>
   </section>
     
   <section anchor="iana" title="IANA Considerations">

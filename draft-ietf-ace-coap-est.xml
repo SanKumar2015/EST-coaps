@@ -822,7 +822,7 @@ HMAC(finished_key,
   </section>  <!-- Security considerations  -->
 
   <section anchor="contrib" title="Contributors">
-    <t>Martin Furuhed originally contributed to the est-coaps work by co-authoring the draft selander-ace-eals. The work for that draft was merged with the work described in this document. Sandeep Kumar kick-started this specification and was instrumental in drawing attention to the importance of the subject. </t>
+    <t>Martin Furuhed contributed to the EST-CoAPs work based on experience with the Nexus EST over CoAPs server implementation that started in 2015. Nexus has participated in interoperability tests which resulted in new insights that are added in the draft. Sandeep Kumar kick-started this specification and was instrumental in drawing attention to the importance of the subject. </t>
   </section>   <!-- Contributors -->
 
   <section anchor="ack" title="Acknowledgements">

@@ -127,7 +127,7 @@
    <t> -07:
     <list style="empty">
         <t>Updated authors.</t>
-		<t>Added COAP RST as a MAY for an equivalent to an HTTP 204 message.</t>
+		<t>Added CoAP RST as a MAY for an equivalent to an HTTP 204 message.</t>
 		<t>Added serialization example of the /skg CBOR response. </t>
 		<t>Added text regarding expired IDevIDs and persistent DTLS connection that will start using the Explicit TA Database in the new DTLS connection.</t>
 		<t>Nits and fixes</t>
@@ -144,7 +144,7 @@
         <t>added resource type values for IANA</t>
         <t>added list of compulsory to implement and optional functions. </t>
 		<t>Fixed issues pointed out by the idnits tool.</t>
-		<t>Updated COAP response codes section with more mappings between EST HTTP codes and EST-coaps COAP codes.</t>
+		<t>Updated CoAP response codes section with more mappings between EST HTTP codes and EST-coaps CoAP codes.</t>
 		<t>Minor updates to the MTI EST Functions section.</t>
 		<t>Moved Change Log section higher.</t>
     </list>
@@ -333,7 +333,7 @@ This specification contains a set of required-to-implement functions, optional f
 
 <t> <xref target="est-implementation"/> specifies the mandatory-to-implement or optional implementation of the est-coaps functions.</t>
 
-<texttable anchor="est-implementation" title="List of EST-coaps fuctions">
+<texttable anchor="est-implementation" title="Table 1: List of EST-coaps fuctions">
   <ttcol align="left">EST Functions</ttcol>
   <ttcol align="left">EST-coaps implementation</ttcol>
   
@@ -405,7 +405,7 @@ This specification contains a set of required-to-implement functions, optional f
       <t>The general EST CoAP message characteristics are: 
         <list style="symbols">
           <t>All EST-coaps messages expect a response from the server, thus the client MUST send 
-		  the requests over confirmable CON COAP messages.</t>
+		  the requests over confirmable CON CoAP messages.</t>
           <t>The Ver, TKL, Token, and Message ID values of the CoAP header are not affected by EST.</t>
           <t>The CoAP options used are Uri-Host, Uri-Path, Uri-Port, Content-Format, and Location-Path. 
 		  These CoAP Options are used to communicate the HTTP fields specified in the EST 
@@ -428,11 +428,11 @@ This specification contains a set of required-to-implement functions, optional f
 	  <xref target="pending"/> specifies how EST requests over CoAP handle delayed messages.</t>
 	  
 	  <t>EST makes use of HTTP 204 and 404 responses when a resource is not available 
-	  for the client. The equivalent COAP error code to use in an EST-coaps response is 4.04. 
-	  A COAP RST message with an empty payload MAY be returned instead of a 4.04 when 
+	  for the client. The equivalent CoAP error code to use in an EST-coaps response is 4.04. 
+	  A CoAP RST message with an empty payload MAY be returned instead of a 4.04 when 
 	  there is no content for the server to send (HTTP 204). Additionally, EST's HTTP 
 	  401 error translates to 4.01 in EST-coaps. Other EST HTTP error messages are 400, 
-	  423 and 503. Their equivalent COAP errors are 4.00, 4.03 and 5.03 respectively. </t>
+	  423 and 503. Their equivalent CoAP errors are 4.00, 4.03 and 5.03 respectively. </t>
     </section> <!-- CoAP response codes -->
 
     <section anchor="fragment" title="Message fragmentation">
@@ -622,7 +622,7 @@ coaps://example.com:<port>/<root-resource>/ArbitraryLabel/<short-est>
 ]]></artwork></figure>
 
       <t>Figure 5 in section 3.2.2 of <xref target="RFC7030"/> enumerates the operations and corresponding paths which are supported by EST. <xref target="est-uri"/> provides the mapping from the EST URI path to the shorter EST-coaps URI path.</t>
-<texttable anchor="est-uri" title="Short EST-coaps URI path">
+<texttable anchor="est-uri" title="Table 2: Short EST-coaps URI path">
   <ttcol align="left">EST</ttcol>
   <ttcol align="left">EST-coaps</ttcol>
   
@@ -676,63 +676,123 @@ HMAC(finished_key,
   </section> <!-- Transport protocol -->
 
   <section anchor="proxy" title="HTTPS-CoAPS Registrar">
-    <t>In real-world deployments, the EST server will not always reside within the CoAP boundary. The EST-server can exist outside the constrained network in a non-constrained network that supports TLS/HTTP. In such environments EST-coaps is used by the client within the CoAP boundary and TLS is used to transport the EST messages outside the CoAP boundary. A Registrar at the edge is required to operate between the CoAP environment and the external HTTP network. The EST coaps-to-HTTPS Registrar MUST terminate EST-coaps and authenticate the client downstream and initiate EST connections over TLS upstream.</t>
-    <t>The Registrar SHOULD authenticate the client downstream and it should be authenticated by the EST server or CA upstream. The Registration Authority (re-)creates the secure connection from DTLS to TLS and vice versa. A trust relationship SHOULD be pre-established between the Registrar and the EST servers to be able to proxy these connections on behalf of various clients.</t>
-    <t>When enforcing Proof-of-Possession (POP) linking, the (D)TLS tls-unique value of the (D)TLS session needs to be used to prove that the private key corresponding to the public key is in the possession of and was used to establish the connection by an end-entity or client. To do that the CSR the client is using needs to include information from the DTLS connection the client establishes with the server. In EST, that information is the (D)TLS tls-unique value of the (D)TLS session. In the presence of ESTcoaps-to-HTTPS Registrar, the EST-coaps client MUST be authenticated and authorized by the Registrar and the Registrar MUST be authenticated as an EST Registrar client to the EST server. Thus the POP linking information is lost between the EST-coaps client and the EST server. The EST server becomes aware of the presence of an EST Registrar from its TLS client certificate that includes id-kp-cmcRA <xref target="RFC6402"/> extended key usage extension. As explained in Section 3.7 of <xref target="RFC7030"/>, the EST server SHOULD apply an authorization policy consistent with a Registrar client. For example, it could be configured to accept POP linking information that does not match the current TLS session because the authenticated EST client Registrar has verified this information when acting as an EST server.</t> 
-	<t>For some use cases, clients that leverage server-side key generation might prefer for 
-	  the enrolled keys to be generated by the Registrar if the CA does not support 
-	  server-side key generation. In these cases the Registrar MUST support the 
-	  random number generation using proper entropy and is responsible for generating 
-	  a new CSR signed by a new key which will be returned to the client along with the 
-	  certificate from the CA. </t>
-
-   <t>One possible use-case, shown in one figure below, is expected to be deployed in practice:</t>
-<figure align="left" anchor="RAfig" title="ESTcoaps-to-HTTPS Registrar at the CoAP boundary."><artwork><![CDATA[
+    <t>In real-world deployments, the EST server will not always reside within 
+	the CoAP boundary. The EST server can exist outside the constrained network 
+	that supports TLS/HTTP. In such environments EST-coaps is used by the client 
+	within the CoAP boundary and TLS is used to transport the EST messages 
+	outside the CoAP boundary. A Registrar at the edge is required to operate 
+	between the CoAP environment and the external HTTP network as shown in 
+	<xref target="RAfig"/>. </t>
+	<figure align="left" anchor="RAfig" title="ESTcoaps-to-HTTPS Registrar at the CoAP boundary."><artwork><![CDATA[
                                      Constrained Network
 .------.                         .----------------------------.
 |  CA  |                         |.--------------------------.|
 '------'                         ||                          ||
    |                             ||                          ||
-.------.  HTTP   .-----------------.  CoAPS   .-----------.  ||
-| EST  |<------->|ESTcoaps-to-HTTPS|<-------->| EST Client|  ||
+.------.  HTTP   .-----------------.   CoAPS  .-----------.  ||
+| EST  |<------->|EST-coaps-to-HTTPS|<------->| EST Client|  ||
 |Server|over TLS |   Registrar     |          '-----------'  ||
 '------'         '-----------------'                         ||
                                  ||                          ||
                                  |'--------------------------'|
                                  '----------------------------'
 ]]></artwork></figure>
+    <t>The EST-coaps-to-HTTPS Registrar MUST terminate EST-coaps downstream and 
+	initiate EST connections over TLS upstream. The Registrar MUST authenticate 
+	and OPTIONALLY authorize the clients and it MUST be authenticated 
+	by the EST server or CA. The trust relationship between the Registrar 
+	and the EST server SHOULD be pre-established for the Registrar to proxy 
+	these connections on behalf of various clients.</t>
+    <t>When enforcing Proof-of-Possession (POP) linking, the DTLS tls-unique 
+	value of the (D)TLS session needs to be used to prove that the private key 
+	corresponding to the public key is in the possession of and was used to 
+	establish the connection by the client as explained in <xref target="DTLS"/>). 
+	<!-- To do that the 
+	client CSR needs to include information from the DTLS connection the 
+	client establishes with the server. In EST, that information is the (D)TLS 
+	tls-unique value of the (D)TLS session. In the presence of ESTcoaps-to-HTTPS 
+	Registrar, the EST-coaps client MUST be authenticated and authorized by the 
+	Registrar and the Registrar MUST be authenticated as an EST Registrar client 
+	to the EST server. --> The POP linking information is lost between the 
+	EST-coaps client and the EST server when a Registrar is present. 
+	The EST server becomes aware of the 
+	presence of a Registrar from its TLS client certificate that includes 
+	id-kp-cmcRA <xref target="RFC6402"/> extended key usage extension. As 
+	explained in Section 3.7 of <xref target="RFC7030"/>, the EST server SHOULD 
+	apply an authorization policy consistent with a Registrar client. For example, 
+	it could be configured to accept POP linking information that does not match 
+	the current TLS session because the authenticated EST client Registrar has 
+	verified this information when acting as an EST server.</t> 
+	<t>For some use cases, clients that leverage server-side key generation might 
+	prefer for the enrolled keys to be generated by the Registrar if the CA does not 
+	support server-side key generation. In these cases the Registrar MUST support  
+	random number generation using proper entropy. Such Registrar is responsible 
+	for generating a new CSR signed by a new key which will be returned to the 
+	client along with the certificate from the CA. </t>
 
-    <t><xref target="est-uri"/> contains the URI mapping between the EST-coaps and EST the Registrar SHOULD adhere to. Section 7 of <xref target="RFC8075"/> and <xref target="error"/> define the mapping between EST-coaps and HTTP response codes, that determines how the Registrar translates CoAP response codes from/to HTTP status codes. The mapping from Content-Type to media type is defined in <xref target="iana"/>. The conversion from CBOR major type 2 to Base64 encoding needs to be done in the Registrar. Conversion is possible because a TLS link exists between EST-coaps-to-HTTP Registrar and EST server and a corresponding DTLS link exists between EST-coaps-to-HTTP Registrar and EST client.</t>
-	<t>Due to fragmentation of large messages into blocks, an EST-coaps-to-HTTP Registrar MUST reassemble the BLOCKs before translating the binary content to Base64, and consecutively relay the message upstream. </t>
-    <t>For the discovery of the EST server by the EST client in the coap environment, the EST-coaps-to-HTTP Registrar MUST announce itself according to the rules of <xref target="discovery"/>. The available actions of the  Registrars MUST be announced with as many resource paths. The discovery of EST server in the http environment follow the rules specified in <xref target="RFC7030"/>.</t>
+    <t><xref target="est-uri"/> contains the URI mappings between EST-coaps and EST 
+	that the Registrar MUST adhere to. <xref target="error"/> of this 
+	specification and Section 7 of <xref target="RFC8075"/> define the mappings 
+	between EST-coaps and HTTP response codes, that determine how the Registrar 
+	MUST translate CoAP response codes from/to HTTP status codes. The mapping from 
+	CoAP Content-Type to HTTP Media-Type is defined in <xref target="content-formats"/>. 
+	Additionally, a conversion from CBOR major type 2 to Base64 encoding MUST take 
+	place at the Registrar when server-side key generation is supported. If 
+	CMS end-to-end encryption is employed for the private key, the encrypted 
+	CMS EnvelopedData blob should be included in binary in CBOR type 2 downstream 
+	to the client. </t>
+	<t>Due to fragmentation of large messages into blocks, an EST-coaps-to-HTTP 
+	Registrar MUST reassemble the BLOCKs before translating the binary content to 
+	Base64, and consecutively relay the message upstream. </t>
+    <t>For the discovery of the EST server by the EST client in the CoAP environment, 
+	the EST-coaps-to-HTTP Registrar MUST announce itself according to the rules in  
+	<xref target="discovery"/>. The available actions of the  Registrars MUST be 
+	announced with as many resource paths necessary. 
+	<!-- The discovery of the EST server 
+	in the HTTP environment follow the rules specified in <xref target="RFC7030"/> -->.</t>
 	<!-- Next paragraph should be removed because e2e encryption is possible. No need for the registrar to decrypt -->
 	<!-- <t>When server-side key generation is used, if the private key is protected using symmetric keys then the Registrar needs to encrypt the private key down to the client with one symmetric key and decrypt it from the server with another. If no private key encryption takes place the Registrar will be able to see the key as it establishes a separate connection to the server. In the case of asymmetrically encrypted private key, the Registrar may not be able to decrypt it if the server encrypted it with a public key that corresponds to a private key that belongs to the client. </t> -->
   </section>
 
   <section title="Parameters">
-    <t>This section addresses transmission
-    parameters described in sections 4.7 and 4.8 of the CoAP document <xref target="RFC7252"/>. </t>
-    <figure align="center" title="EST-COAP protocol parameters" anchor="fig-est-coap-parameters"><artwork><![CDATA[
+    <t>This section addresses transmission parameters described 
+	in sections 4.7 and 4.8 of <xref target="RFC7252"/>. </t>
+    <figure align="center"><artwork><![CDATA[
          ACK_TIMEOUT       | 2 seconds     |
          ACK_RANDOM_FACTOR | 1.5           |
          MAX_RETRANSMIT    | 4             |
          NSTART            | 1             |
          DEFAULT_LEISURE   | 5 seconds     |
-         PROBING_RATE      | 1 byte/second |
-    ]]></artwork></figure>
-    <t> EST does not impose any unique parameters that affect the CoAP parameters in Table
-    2 and 3 in <xref target="RFC7252"/> but the ones in CoAP could be affecting
-    EST. For example, the processing delay of CAs could be less then 2s, but
-    in this case they should send a CoAP ACK every 2s while processing.</t>
-    <t> The main recommendation, based on experiments <!-- using Nexus Certificate Manager with Californium for CoAP support, communicating with a ContikiOS and tinyDTLS based client, from RISE SICS, --> is to follow the default CoAP configuration parameters. However, depending on the implementation scenario, retransmissions and timeouts can also occur on other networking layers, governed by other configuration parameters.</t>
+         PROBING_RATE      | 1 byte/second | ]]></artwork></figure>
+    <t> EST does not impose any unique parameters that affect the 
+	CoAP parameters But the CoAP ones could be affecting EST. For 
+	example, the processing delay of CAs could be less then 2s, 
+	but in this case the EST-coaps server should be sending a CoAP 
+	ACK every 2s while processing.</t>
+    <t> The main recommendation, based on experiments, 
+	<!-- using Nexus Certificate Manager with Californium for 
+	CoAP support, communicating with a ContikiOS and tinyDTLS based 
+	client, from RISE SICS, --> is to follow the default CoAP 
+	configuration parameters. However, depending on the implementation 
+	scenario, retransmissions and timeouts can also occur on other 
+	networking layers, governed by other configuration parameters.</t>
     
-    <t>Some further comments about some specific parameters, mainly from Table 2 in <xref target="RFC7252"/>:
+    <t>Some further comments about some specific parameters, mainly from 
+	Table 2 in <xref target="RFC7252"/>:
     <list style="symbols">
-      <t>DEFAULT_LEISURE: This setting is only relevant in multicast scenarios, outside the scope of EST-coaps.</t>
-      <t> NSTART: Limit the number of simultaneous outstanding interactions that a client maintains to a given server. The default is one, hence the risk of congestion or out-of-order messages is already limited.</t>
-      <t>PROBING_RATE: A parameter which specifies the rate of re-sending non-confirmable messages. The EST messages are defined to be sent as CoAP confirmable messages, hence the PROBING_RATE setting is not applicable.</t>
+      <t>NSTART: Limit the number of simultaneous outstanding interactions 
+	  that a client maintains to a given server. EST-coaps clients SHOULD 
+	  use 1, which is the default. A EST-coaps client is not expected to 
+      interact with more than one servers at the same time. </t>
+      <t>DEFAULT_LEISURE: This setting is only relevant in multicast scenarios, 
+	  outside the scope of EST-coaps.</t>
+      <t>PROBING_RATE: A parameter which specifies the rate of re-sending 
+	  non-confirmable messages. The EST messages are defined to be sent as 
+	  CoAP confirmable messages, hence this setting is not applicable.</t>
     </list></t>
-    <t>Finally, the Table 3 parameters are mainly derived from the more basic Table 2 parameters. If the CoAP implementation allows setting them directly, they may need to be updated if the Table 2 parameters are changed.</t>
+    <t>Finally, the Table 3 parameters in <xref target="RFC7252"/> are mainly 
+	derived from Table 2. Directly changing parameters on one table would 
+	affect parameters on the other.</t>
   </section>
     
   <section anchor="iana" title="IANA Considerations">

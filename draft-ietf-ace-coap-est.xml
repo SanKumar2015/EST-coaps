@@ -354,8 +354,8 @@ This specification contains a set of required-to-implement functions, optional f
 	  specified by the Content-Format Option (12) of CoAP. The combination of URI path  
 	  and content-format in EST-coaps MUST map to an allowed combination of URI and 
 	  media type in EST. The required content-formats for these requests and 
-	  response messages are defined in <xref target="iana"/>. The CoAP response codes are 
-	  defined in <xref target="error"/>.</t> 
+	  response messages are defined in <xref target="content-formats"/>. The CoAP response 
+	  codes are defined in <xref target="error"/>.</t> 
       <t>EST-coaps is designed for use between low-resource devices and hence does not need 
 	  to send Base64-encoded data. Simple binary is more efficient (30% smaller payload) and 
 	  well supported by CoAP. Thus, the payload for a given media type follows the ASN.1 
@@ -418,21 +418,23 @@ This specification contains a set of required-to-implement functions, optional f
     </section> <!-- Message bindings -->
 
     <section anchor="error" title="CoAP response codes">
-      <t>Section 5.9 of <xref target="RFC7252"/> specifies the mapping of HTTP response 
-	  codes to CoAP response codes. Every time the HTTP response code 200 is specified in 
+      <t>Section 5.9 of <xref target="RFC7252"/> and Section 7 of <xref target="RFC8075"/> 
+	  specify the mapping of HTTP response codes to CoAP response codes. 
+	  Every time the HTTP response code 200 is specified in 
 	  <xref target="RFC7030"/> in response to a GET request (/cacerts, /csrattrs), in 
 	  EST-coaps the equivalent CoAP response code 2.05 or 2.03 MUST be used. 
 	  Similarly, 2.01, 2.02 or 2.04 MUST be used in response to HTTP POST EST requests 
 	  (/simpleenroll, /simplereenroll, /serverkeygen ). Response code HTTP 202 
 	  Retry-After that existed in EST has no equivalent in CoAP. 
-	  <xref target="pending"/> specifies how EST requests over CoAP handle delayed messages.</t>
+	  <xref target="pending"/> specifies how EST requests over CoAP handle 
+	  delayed messages.</t>
 	  
 	  <t>EST makes use of HTTP 204 and 404 responses when a resource is not available 
-	  for the client. The equivalent CoAP error code to use in an EST-coaps response is 4.04. 
-	  A CoAP RST message with an empty payload MAY be returned instead of a 4.04 when 
-	  there is no content for the server to send (HTTP 204). Additionally, EST's HTTP 
-	  401 error translates to 4.01 in EST-coaps. Other EST HTTP error messages are 400, 
-	  423 and 503. Their equivalent CoAP errors are 4.00, 4.03 and 5.03 respectively. </t>
+	  for the client. The equivalent CoAP error code to use in an EST-coaps responses 
+      are 2.04 and 4.04. Additionally, EST's HTTP 401 error translates to 4.01 in 
+	  EST-coaps. Other EST HTTP error messages are 400, 423 and 503. Their equivalent 
+	  CoAP errors are 4.00, 4.03 and 5.03 respectively. In case a required COAP option (i.e 
+	  Content-Format) is omitted, the server is expected to return a 4.02.</t>
     </section> <!-- CoAP response codes -->
 
     <section anchor="fragment" title="Message fragmentation">
@@ -717,7 +719,7 @@ HMAC(finished_key,
 	EST-coaps client and the EST server when a Registrar is present. 
 	The EST server becomes aware of the 
 	presence of a Registrar from its TLS client certificate that includes 
-	id-kp-cmcRA <xref target="RFC6402"/> extended key usage extension. As 
+	id-kp-cmcRA <xref target="RFC6402"/> extended key usage extension (EKU). As 
 	explained in Section 3.7 of <xref target="RFC7030"/>, the EST server SHOULD 
 	apply an authorization policy consistent with a Registrar client. For example, 
 	it could be configured to accept POP linking information that does not match 
@@ -846,54 +848,97 @@ HMAC(finished_key,
 
   <section anchor="sec" title="Security Considerations">
     <section anchor="sec-est" title="EST server considerations">
-      <t>The security considerations of Section 6 of <xref target="RFC7030"/> are only partially valid for the purposes of this document. As HTTP Basic Authentication is not supported, the considerations expressed for using passwords do not apply.</t>
-      <t>Given that the client has only limited resources and may not be able to generate sufficiently random keys to encrypt its identity, it is possible that the client uses server generated private/public keys to encrypt its certificate. The transport of these keys is inherently risky. A full probability analysis MUST be done to establish whether server side key generation enhances or decreases the probability of identity stealing. </t>
-      <t>When a client uses the Implicit TA database for certificate validation, the client cannot verify that the server is acting as an RA. It is RECOMMENDED that such clients include "Linking Identity and POP Information" (<xref target="DTLS"/>) in requests (to prevent such requests from being forwarded to a real EST server by a man in the middle). </t>
-	  <t>It is also  RECOMMENDED that the Implicit Trust Anchor database used for EST server authentication be carefully managed to reduce the chance of a third-party CA with poor certification practices from being trusted. Disabling the Implicit Trust Anchor database after successfully receiving the Distribution of CA certificates response (Section 4.1.3 of <xref target="RFC7030"/>) limits any risk to the first DTLS exchange. Alternatively, in a persistent DTLS connection where a /sen request follows a /crt in the same connection, a client MAY choose to keep the connection already authenticated by the Implicit TA open for efficiency reasons (<xref target="DTLS"/>) by assuming that the identity of the server is to be trusted. In that case then the Explicit TA MUST be used starting from the next DTLS connection. </t>
-      <t>In cases where the IDevID used to authenticate the client, is expired the server MAY still authenticate the client because IDevIDs are expected to live as long as the device itself (<xref target="profile7925"/>). In such occasions, checking the certificate revocation status or authorizing the client using another method is important for the server to ensure that the client is to be trusted. </t>
-	  <t>In accordance with <xref target="RFC7030"/>, TLS cipher suites that include "_EXPORT_" and "_DES_" in their names MUST NOT be used. More information about recommendations of TLS and DTLS are included in <xref target="RFC7525"/>.</t>
-      <t>As described in CMC, Section 6.7 of <xref target="RFC5272"/>, "For keys that can be used as signature keys, signing the certification request with the private key serves as a POP on that key pair". The inclusion of tls-unique in the certification request links the proof-of-possession to the TLS proof-of-identity. This implies but does not prove that the authenticated client currently has access to the private key.</t>
-      <t>Regarding the Certificate Signing Request (CSR), an adversary could exclude attributes that a server may want, include attributes that a server may not want, and render meaningless other attributes that a server may want. The CA is expected to be able to enforce policies to recover from improper CSR requests. </t>
-      <t>Interpreters of ASN.1 structures should be aware of the use of invalid ASN.1 length fields and should take appropriate measures to guard against buffer overflows, stack overruns in particular, and malicious content in general.</t>
+      <t>The security considerations of Section 6 of <xref target="RFC7030"/> are only 
+	  partially valid for the purposes of this document. As HTTP Basic Authentication is 
+	  not supported, the considerations expressed for using passwords do not apply.</t>
+      <t>Given that the client has only limited resources and may not be able to generate 
+	  sufficiently random keys to encrypt its identity, it is possible that the client 
+	  uses server generated private/public keys. The transport of these keys is 
+	  inherently risky. Analysis SHOULD be done to establish whether server side key 
+	  generation enhances or decreases the probability of identity stealing.</t>
+	  <t>It is also RECOMMENDED that the Implicit Trust Anchor database used for 
+	  EST server authentication be carefully managed to reduce the chance of a 
+	  third-party CA with poor certification practices from being trusted. 
+	  Disabling the Implicit Trust Anchor database after successfully receiving the 
+	  Distribution of CA certificates response (Section 4.1.3 of <xref target="RFC7030"/>) 
+	  limits any risk to the first DTLS exchange. Alternatively, in a persistent DTLS 
+	  connection where a /sen request follows a /crt in the same connection, a client 
+	  MAY choose to keep the connection already authenticated by the Implicit TA open for 
+	  efficiency reasons (<xref target="DTLS"/>) by assuming that the identity of the 
+	  server is to be trusted. In that case then the Explicit TA MUST be used starting 
+	  from the next DTLS connection. </t>
+      <t>In cases where the IDevID used to authenticate the client is expired the server 
+	  MAY still authenticate the client because IDevIDs are expected to live as long 
+	  as the device itself (<xref target="profile7925"/>). In such occasions, checking 
+	  the certificate revocation status or authorizing the client using another method 
+	  is important for the server to ensure that the client is to be trusted. </t>
+	  <t>In accordance with <xref target="RFC7030"/>, TLS cipher suites that include 
+	  "_EXPORT_" and "_DES_" in their names MUST NOT be used. More information about 
+	  recommendations of TLS and DTLS are included in <xref target="RFC7525"/>.</t>
+      <t>As described in CMC, Section 6.7 of <xref target="RFC5272"/>, "For keys that can 
+	  be used as signature keys, signing the certification request with the private key 
+	  serves as a POP on that key pair". The inclusion of tls-unique in the certificate  
+	  request links the proof-of-possession to the TLS proof-of-identity. This implies 
+	  but does not prove that only the authenticated client currently has access to the 
+	  private key.</t>
+      <t>Regarding the Certificate Signing Request (CSR), an adversary could exclude 
+	  attributes that a server may want, include attributes that a server may not want, 
+	  and render meaningless other attributes that a server may want. The CA is expected 
+	  to be able to enforce policies to recover from improper CSR requests. </t>
+      <t>Interpreters of ASN.1 structures should be aware of the use of invalid ASN.1 
+	  length fields and should take appropriate measures to guard against buffer overflows, 
+	  stack overruns in particular, and malicious content in general.</t>
     </section> <!-- EST server considerations -->
 	
     <section anchor="sec-proxy" title="HTTPS-CoAPS Registrar considerations">
       <t>The Registrar proposed in <xref target="proxy"/> must be deployed with care, 
 	    and only when the recommended connections are impossible. When POP linking is used the 
 	    Registrar terminating the TLS connection establishes a new one with the upstream 
-		CA. Thus, it is impossible for POP linking to be enforced end-to-end for the EST transaction. 
-		The EST server could be configured to accept POP linking information that does 
-		not match the current TLS session because the authenticated EST Registrar client 
-		has verified this information  when acting as an EST server. 
-		The introduction of an EST-coaps-to-HTTP Registrar assumes the client can trust 
+		CA. Thus, it is impossible for POP linking to be enforced end-to-end for the EST 
+		transaction. The EST server could be configured to accept POP linking information 
+		that does not match the current TLS session because the authenticated EST Registrar 
+		client has verified this information when acting as an EST server. </t>
+	  <t>The introduction of an EST-coaps-to-HTTP Registrar assumes the client can trust 
 		the registrar using its implicit or explicit TA database. It also assumes 
 		the Registrar has a trust relationship with the upstream EST server in order 
-		to act on behalf of the clients. 
-	  </t>
+		to act on behalf of the clients. When a client uses the Implicit TA 
+		database for certificate validation, he SHOULD confirm if the server 
+		is acting as an RA by the presence of the id-kp-cmcRA <xref target="RFC6402"/> 
+		EKU in the server certificate. If the server certificate does not include 
+		the EKU, it is RECOMMENDED that the client includes "Linking Identity and 
+		POP Information" (<xref target="DTLS"/>) in requests.</t>
 	  <t>In a server-side key generation case, if no end-to-end encryption is 
 	    used, the Registrar may be able see the private key as it acts as a man-in-the-middle. 
-		Thus, the clients puts its trust on the Registrar not exposing the private key. </t>
-      <t>Clients that leverage server-side key generation have no knowledge 
-		if the Registrar will be generating the keys and enrolling the certificates with the 
-		CA or if the CA will be responsible for generating the keys, the existence of a 
-		Registrar requires the client to put its trust on the registrar doing the right 
-		thing if it is generating they private keys. </t>
+		Thus, the client puts its trust on the Registrar not exposing the private key. </t>
+      <t>Clients that leverage server-side key generation without end-to-end encryption 
+	    of the private key (<xref target="serverkey"/> have no knowledge 
+	    if the Registrar will be generating the private key and enrolling the certificates 
+        with the CA or if the CA will be responsible for generating the key. 
+	    In such cases, the existence of a Registrar requires the client to put 
+	    its trust on the registrar doing the right thing if it is generating the 
+	    private key. </t>
     </section> <!-- proxy considerations -->
   </section>  <!-- Security considerations  -->
 
   <section anchor="contrib" title="Contributors">
-    <t>Martin Furuhed contributed to the EST-CoAPs work based on experience with the Nexus EST over CoAPs server implementation that started in 2015. Nexus has participated in interoperability tests which resulted in new insights that are added in the draft. Sandeep Kumar kick-started this specification and was instrumental in drawing attention to the importance of the subject. </t>
+    <t>Martin Furuhed contributed to the EST-coaps specification by providing feedback 
+	based on the Nexus EST over CoAPs server implementation that started in 2015. 
+	<!-- Nexus has participated in interoperability tests which resulted in new 
+	insights that were added in the draft. --> Sandeep Kumar kick-started this 
+	specification and was instrumental in drawing attention to the importance 
+	of the subject. </t>
   </section>   <!-- Contributors -->
 
   <section anchor="ack" title="Acknowledgements">
-    <t>The authors are very grateful to Klaus Hartke for his detailed explanations on the use of 
-	Block with DTLS and his support for the content-format specification. The authors would like 
-	to thank Esko Dijk and Michael Verschoor for the valuable discussions that helped in shaping 
-	the solution. They would also like to thank Peter Panburana for his feedback on technical 
-	details of the solution. Constructive comments were received from Benjamin Kaduk, Eliot Lear, 
-	Jim Schaad, Hannes Tschofenig, Julien Vermillard, John Manuel and Oliver Pfaff.</t>
-<t> Interop tests were done by Oliver Pfaff, Thomas Werner,Oskar Camezind, Bjorn Elmers and Joel Hoglund. 
-</t>
+    <t>The authors are very grateful to Klaus Hartke for his detailed explanations on 
+	the use of Block with DTLS and his support for the content-format specification. 
+	The authors would like to thank Esko Dijk and Michael Verschoor for the valuable 
+	discussions that helped in shaping the solution. They would also like to thank Peter 
+	Panburana for his feedback on technical details of the solution. Constructive comments 
+	were received from Benjamin Kaduk, Eliot Lear, Jim Schaad, Hannes Tschofenig, Julien 
+	Vermillard, John Manuel, Oliver Pfaff and Pete Beal.</t>
+    <t>Interop tests were done by Oliver Pfaff, Thomas Werner, Oskar Camezind, 
+	Bjorn Elmers and Joel Hoglund.</t>
   </section> <!-- Acknowledgements  -->
 </middle>
 
@@ -901,8 +946,6 @@ HMAC(finished_key,
 <back>
   <references title="Normative References">
     &RFC2119;
-    &RFC5272;
-    &I-D.ietf-lamps-rfc5751-bis;
     &RFC5967;
     &RFC6347;
 	&I-D.ietf-tls-dtls13;
@@ -918,6 +961,7 @@ HMAC(finished_key,
   </references>
   <references title="Informative References">
     <!-- &RFC0791; -->
+    &RFC5272;
     &RFC8422;
     <!-- &RFC4944; -->
     <!-- &RFC5246; --> 
@@ -937,6 +981,7 @@ HMAC(finished_key,
 	&RFC8446;
     <!-- &I-D.ietf-anima-bootstrapping-keyinfra; -->
     &I-D.rescorla-tls-dtls-connection-id;
+    &I-D.ietf-lamps-rfc5751-bis;
     <reference anchor="ieee802.15.4">
       <front>
         <title>IEEE Standard 802.15.4-2006</title>
@@ -981,22 +1026,26 @@ HMAC(finished_key,
   </references>
 
   <section anchor="messagebindings" title="EST messages to EST-coaps">
-    <t>This section takes all examples from Appendix A of <xref target="RFC7030"/>, changes the payload from Base64 to binary and replaces the http headers by their CoAP equivalents. </t>
-    <t> The corresponding CoAP headers are only shown in <xref target="cacerts"/>. Creating CoAP headers are assumed to be generally known.</t>
-    <t>Binary payload is a CBOR major type 2 (byte array), that is shown with a
-base16 (hexadecimal) CBOR diagnostic notation.</t>
+    <t>This section takes all examples from Appendix A of <xref target="RFC7030"/>, 
+	changes the payload from Base64 to binary and replaces the http headers by 
+	their CoAP equivalents. </t>
+    <t>The corresponding CoAP headers are only shown in <xref target="cacerts"/>. 
+	Creating CoAP headers are assumed to be generally known.</t>
+	<t>These examples assume that the resource discovery, returned a
+	short URL of "/est".</t>
+    <!-- <t>Binary payload is a CBOR major type 2 (byte array), that is shown with a 
+	Base16 (hexadecimal) CBOR diagnostic notation.</t> --> 
 
 	<t>[EDNOTE: For Michael. The payloads of the examples need to be re-generated with appropriate tools and example certificates.]</t>
 
 	<section title="cacerts" anchor="cacerts">
-	  <t>These examples assume that the resource discovery, returned a
-	  short URL of "/est".</t>
 	  
-      <t>In EST-coaps, a coaps cacerts IPv4 message can be:</t>
+      <t>In EST-coaps, a coaps cacerts message can be:</t>
 <figure align="left"><artwork><![CDATA[
 GET coaps://192.0.2.1:8085/est/crts 
 ]]></artwork></figure>
-      <t>The corresponding CoAP header fields are shown below. The use of block and DTLS are worked out in <xref target= "blockexamples"/>.</t>
+      <t>The corresponding CoAP header fields are shown below. The 
+	  use of block and DTLS are worked out in <xref target= "blockexamples"/>.</t>
 <figure><artwork>
 <![CDATA[  Ver = 1
   T = 0 (CON)
@@ -1026,7 +1075,7 @@ GET coaps://192.0.2.1:8085/est/crts
   Payload = [Empty]
 ]]></artwork></figure>
 
-      <t>A 2.05 Content response with a cert in EST-coaps will then be:</t>
+      <t>A 2.05 Content response with a cert in EST-coaps will then be </t>
 <figure align="left"><artwork><![CDATA[
 2.05 Content (Content-Format: 281)
    {payload}
@@ -1124,36 +1173,22 @@ e37722cd10e7166c50e75ab75a1271324460211991e7445a2960f47351a1a629253
     </section>  <!-- cacerts -->
 
     <section title="csrattrs">
-      <t>In the following valid /csrattrs exchange, the EST-coaps client authenticates itself  with a certificate issued by the connected CA.</t>
-      <t>The initial DTLS handshake is identical to the enrollment example. The IPv6 CoAP GET request looks like: </t>
+      <t>In the following csrattrs exchange, the CoAP GET request looks like </t>
 <figure align="left"><artwork><![CDATA[
 REQ:
 GET coaps://[2001:db8::2:1]:61616/est/att 
 (Content-Format: 285)
 ]]></artwork></figure>
 
-      <t>A 2.05 Content response contains attributes which are relevant for the authenticated client. In this example, the EST-coaps server returns two attributes that the client can ignore when they are unknown to him.</t>
+      <t>A 2.05 Content response contains attributes which are relevant for the 
+	  authenticated client. <!-- In this example, the EST-coaps server returns two 
+	  attributes that the client can ignore when they are unknown to him.--></t>
     </section>  <!-- csrattrs -->
 
     <section title="enroll / reenroll">
       <t>
-	    During the Enroll/Reenroll exchange, the EST-coaps client uses a CSR
+	    During the (re-)enroll exchange the EST-coaps client uses a CSR
         (Content-Format 286) request in the POST request payload.
-      </t>
-	  
-      <t> 
-	    After verification of the CSR by the server, a 2.01 Content response 
-		with the issued certificate will be returned to the client. As described 
-		in <xref target="pending" />, if the server is not able to 
-		provide a response immediately, it sends an empty ACK with response code 5.03 (Service Unavailable) and the Max-Age option. See <xref target="fig-est-long-wait"/> for an example exchange. 
-      </t>
-	  
-      <t>
-	[EDNOTE: For Michael. When redoing this example, 
-	given that POP linking is also used, make sure
-	it is obvious that the ChallengePassword attribute in the CSR 
-	is valid HMAC output. OpenSSL can be used to generate the CSR. 
-	HMAC-REAL.]
       </t>
 
 <figure align="left"><artwork><![CDATA[
@@ -1176,7 +1211,26 @@ a7cda5176e7ccc6be22ae03498588d5f2de3b143f2b1a6175ec544e8e7625af6b
 7b844b5b3e4545f19071865ada007060cad6db26a592d4a7bda7d586b68110962
 17071103407553155cddc75481e272b5ed553a8593fb7e25100a6f7605085dab4
 fc7e0731f0e7fe305703791362d5157e92e6b5c2e3edbcadb40
+]]></artwork></figure>
 
+      <t> 
+	    After verification of the CSR by the server, a 2.01 Content response 
+		with the issued certificate will be returned to the client. As described 
+		in <xref target="pending" />, if the server is not able to 
+		provide a response immediately, it sends an empty ACK with 
+		response code 5.03 (Service Unavailable) and the Max-Age option. 
+		See <xref target="fig-est-long-wait"/> for an example exchange. 
+      </t>
+	  
+      <t>
+	[EDNOTE: For Michael. When redoing this example, 
+	given that POP linking is also used, make sure
+	it is obvious that the ChallengePassword attribute in the CSR 
+	is valid HMAC output. OpenSSL can be used to generate the CSR. 
+	HMAC-REAL.]
+      </t>
+
+<figure align="left"><artwork><![CDATA[
 RET:
 (Content-Format: 281)(token =0x45)
 2.01 Created
@@ -1206,13 +1260,7 @@ a2583aac9024075113db4990b1786b871691e0f020301000134b050300e060355
     </section>  <!-- enroll / reenroll -->
 
     <section anchor="appskg" title="serverkeygen">
-      <t>During this valid /serverkeygen exchange, the EST-coaps client authenticates itself using the certificate provided by the connected CA.</t>
-      	
-      <t>The initial DTLS handshake is identical to the enrollment example. The CoAP GET request looks like:</t> 
-	  
-	  <t>[EDNOTE: For Michael. Maybe ask interop team for an server-side keygen example. 
-	  Suggestion to have only one example with complete encrypted payload (the short one) and point out the different fields. 
-	  Update this example according to the agreed upon solution from <xref target="serverkey"/>. ] </t>
+      <t>In a serverkeygen exchange the CoAP GET request looks like </t> 
 
 <figure align="left"><artwork><![CDATA[
 POST coaps://192.0.2.1:8085/est/skg 
@@ -1238,7 +1286,15 @@ f9288724381909188c851fa9a5059802eb64449f2a3c9e441353d136768da27ff
 4f277651d676a6a7e51931b08f56135a2230891fd184960e1313e7a1a9139ed19
 28196867079a456cd2266cb754a45151b7b1b939e381be333fea61580fe5d25bf
 4823dbd2d6a98445b46305c10637e202856611
+]]></artwork></figure>
+	  
+	  <t>[EDNOTE: For Michael. Maybe ask interop team for an server-side keygen example. 
+	  Suggestion to have only one example with complete encrypted payload (the short one) and point out the different fields. 
+	  Update this example according to the agreed upon solution from <xref target="serverkey"/>. ] </t>
 
+	<t>The response would follow <xref target="I-D.ietf-core-multipart-ct"/> and could looke like </t>
+	
+<figure align="left"><artwork><![CDATA[
 RET:
 2.01 Content (Content-Format: 62)
 (token=0xa5)
@@ -1296,21 +1352,42 @@ a4fa677130da60818175ca4ab2af1d15563624c51e13dfdcf381881b72327e2f4
 9b7467e631a27b5b5c7d542bd2edaf78c0ac294f3972278996bdf673a334ff74c
 84aa7d65726310252f6a4f41281ec10ca2243864e3c5743103100']
 ]]></artwork></figure> 
+	<t>The private key in the response above is without CMS EnvelopedData 
+	and has no additional encryption beyond DTLS (<xref target="serverkey"/>).</t>
+	<!--<t>The response contains first a preamble that can be ignored. The EST-coaps server can use the preamble to include additional explanations, like ownership or support information </t>-->
 
-	<t> Without the DecryptKeyIdentifier attribute, the response has no additional encryption beyond DTLS. </t>
-	<t>The response contains first a preamble that can be ignored. The EST-coaps server can use the preamble to include additional explanations, like ownership or support information </t>
     </section>  <!-- serverkeygen -->
-
   </section>  <!-- EST messages to EST-coaps -->
 
   <section anchor="blockexamples" title="EST-coaps Block message examples"> 
-    <t> Two examples are presented: (1) a cacerts exchange shows the use of Block2 and the block headers, and (2) a enroll exchange shows the Block1 and Block2 size negotiation for request and response payloads.
-	</t>
+    <t>Two examples are presented in this section: 
+	    <list style="numbers">
+        <t>a cacerts exchange shows the use of Block2 and the block headers</t>
+		<t>an enroll exchange shows the Block1 and Block2 size negotiation for request and 
+		response payloads.</t>
+    </list>	</t>
 
  <section anchor="cacertsblock" title="cacerts block example">
-    <t>This section provides a detailed example of the messages using DTLS and BLOCK option Block2. The minimum PMTU is 1280 bytes, which is the example value assumed for the DTLS datagram size. The example block length is taken as 64 which gives an SZX value of 2.</t>
-    <t>The following is an example of a valid /cacerts exchange over DTLS. The content length of the cacerts response in appendix A.1 of <xref target="RFC7030"/> is 4246 bytes using Base64. This leads to a length of 2509 bytes in binary. The CoAP message adds around 10 bytes, the DTLS record 29 bytes. To avoid IP fragmentation, the CoAP block option is used and an MTU of 127 is assumed to stay within one IEEE 802.15.4 packet. To stay below the MTU of 127, the payload is split in 39 packets with a payload of 64 bytes each, followed by a packet of 13 bytes. The client sends an IPv6 packet containing the UDP datagram with the DTLS record that encapsulates the CoAP Request 40 times. The server returns an IPv6 packet containing the UDP datagram with the DTLS record that encapsulates the CoAP response. The CoAP request-response exchange with block option is shown below.  Block option is shown in a decomposed way (block-option:NUM/M/size) indicating the kind of Block option (2 in this case because used in the response) followed by a colon, and then the block number (NUM), the more bit (M = 0 in lock2 response means last block), and block size with exponent (2**(SZX+4)) separated by slashes.  The Length 64 is used with SZX= 2 to avoid IP fragmentation.  The CoAP Request is sent with confirmable (CON) option and the content format of the Response is /application/cacerts.
-</t>
+    <t>This section provides a detailed example of the messages using DTLS and BLOCK 
+	option Block2. The minimum PMTU is 1280 bytes, which is the example value assumed 
+	for the DTLS datagram size. The example block length is taken as 64 which gives an 
+	SZX value of 2.</t>
+    <t>The following is an example of a cacerts exchange over DTLS. The content length of 
+	the cacerts response in appendix A.1 of <xref target="RFC7030"/>] is 4246 bytes using 
+	Base64. This leads to a length of 2509 bytes in binary. The CoAP message adds around 
+	10 bytes, the DTLS record 29 bytes. To avoid IP fragmentation, the CoAP block option 
+	is used and an MTU of 127 is assumed to stay within one IEEE 802.15.4 packet. To stay 
+	below the MTU of 127, the payload is split in 39 packets with a payload of 64 bytes 
+	each, followed by a packet of 13 bytes.  The client sends an IPv6 packet 
+	containing the UDP datagram with the DTLS record that encapsulates the CoAP 
+	request 40 times. The server returns an IPv6 packet containing the UDP datagram with the 
+	DTLS record that encapsulates the CoAP response. The CoAP request-response exchange with block 
+	option is shown below. Block option is shown in a decomposed way (block-option:NUM/M/size) 
+	indicating the kind of Block option (2 in this case) followed by a colon, and then the block 
+	number (NUM), the more bit (M = 0 in Block2 response means it is last block), and block size 
+	with exponent (2**(SZX+4)) separated by slashes.  The Length 64 is used with SZX=2 to avoid IP 
+	fragmentation. The CoAP Request is sent with confirmable (CON) option and the content format 
+	of the response, even though not shown, is 281 (application/pkcs7-mime; smime-type=certs-only).</t>
     <figure align="left"><artwork><![CDATA[
    GET /192.0.2.1:8085/est/crts   (2:0/0/64)    -->
                  <--   (2:0/1/64) 2.05 Content
@@ -1323,9 +1400,9 @@ a4fa677130da60818175ca4ab2af1d15563624c51e13dfdcf381881b72327e2f4
                  <--   (2:39/0/64) 2.05 Content
 ]]></artwork></figure>
 
-    <t>40 blocks have been sent with partially filled block NUM=39 as last block. </t>
-<t>For further detailing the CoAP headers, the first two blocks are written out.</t>
-    <t>The header of the first GET looks like:</t>
+    <t>40 blocks have been sent with partially filled block NUM=39 as the last block. </t>
+    <t>For further detailing the CoAP headers, the first two blocks are written out
+	below. The header of the first GET request looks like</t>
 <figure><artwork>
 <![CDATA[  
   Ver = 1
@@ -1350,10 +1427,9 @@ a4fa677130da60818175ca4ab2af1d15563624c51e13dfdcf381881b72327e2f4
      Option Length = 0x6
      Option Value = "crts" 
   Payload = [Empty]
-]]></artwork>
-          </figure>
+]]></artwork></figure>
 
-    <t>The header of the first response looks like:</t>
+    <t>The header of the first response looks like</t>
     <figure><artwork>
 <![CDATA[  Ver = 1
   T = 2 (ACK)
@@ -1371,11 +1447,10 @@ a4fa677130da60818175ca4ab2af1d15563624c51e13dfdcf381881b72327e2f4
   Payload = 
 30233906092a6206734107028c2a3023260201013100300b06092a6206734107018
 c0c3020bb302063c20102020900a61e75193b7acc0d06092a6206734101
-]]></artwork>
-          </figure>
+]]></artwork></figure>
 
     <t>The second Block2:</t>
-    <figure><artwork>
+<figure><artwork>
 <![CDATA[  Ver = 1
   T = 2 (means ACK)
   Code = 0x45 (2.05 Content)
@@ -1412,12 +1487,16 @@ c0c3020bb302063c20102020900a61e75193b7acc0d06092a6206734101
       Option Value = 0x272 (block number = 39, M=0, SZX=2)
   Payload = 73a30d0c006343116f58403100
 ]]></artwork></figure>
-
     </section> <!-- cacerts block example -->
 
     <section anchor="enrollblock" title="enroll block example">
       <t>
-      In this example the requested block2 size of 256 bytes, required by the client, is transferred to the server in the very first request message.  The request/response consists of two parts: part1 containing the CSR transferred to the server, and part2 contains the certificate transferred back to the client.  The block size 256=(2**(SZX+4)) which gives SZX=4.  The notation for block numbering is the same as in <xref target="cacertsblock"/>.  It is assumed that CSR takes N1+1 blocks and Cert response takes N2+1 blocks.  The header fields and the payload are omitted to show the block exchange.  The type of payload is shown within curly brackets.
+      In this example the requested Block2 size of 256 bytes, required by the client, 
+	  is transferred to the server in the very first request message. The block size 
+	  256=(2**(SZX+4)) which gives SZX=4. The notation for block numbering is the same 
+	  as in <xref target="cacertsblock"/>. It is assumed that CSR takes N1+1 blocks 
+	  and the cert response takes N2+1 blocks. The header fields and the payload are 
+	  omitted for brevity. 
       </t>
 <figure title="EST-COAP enrolment with multiple blocks"
 	anchor="fig-est-multiple-block"><artwork>
@@ -1442,14 +1521,10 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/256)          -->
 
 ]]></artwork></figure>
 
-<t>N1+1 blocks have been transferred from client to server and N2+1 blocks have been transferred from server to client.</t>
-
-
+      <t>N1+1 blocks have been transferred from client to the server and N2+1 blocks have been 
+	  transferred from server to client.</t>
     </section> <!-- enroll block example -->
-
-
   </section> <!-- EST-coaps Block message examples -->
-    
 </back>
 
 </rfc>

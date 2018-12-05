@@ -477,7 +477,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
        ...... short delay before certificate is ready ......
                       |
       <-- (CON) (1:N1/0/256)(2:0/1/256)(2.04 Changed) {Cert resp}
-(ACK)                                                        -->
+                                   (ACK)                     -->
 POST [2001:db8::2:1]:61616/est/sen (CON)(2:1/0/128)          -->
        <-- (ACK) (2:1/1/128) (2.04 Changed) {Cert resp}
                       .
@@ -685,7 +685,7 @@ HMAC(finished_key,
 	outside the CoAP boundary. A Registrar at the edge is required to operate 
 	between the CoAP environment and the external HTTP network as shown in 
 	<xref target="RAfig"/>. </t>
-	<figure align="left" anchor="RAfig" title="ESTcoaps-to-HTTPS Registrar at the CoAP boundary."><artwork><![CDATA[
+	<figure align="left" anchor="RAfig" title="EST-coaps-to-HTTPS Registrar at the CoAP boundary."><artwork><![CDATA[
                                      Constrained Network
 .------.                         .----------------------------.
 |  CA  |                         |.--------------------------.|
@@ -806,17 +806,16 @@ HMAC(finished_key,
 
 <texttable anchor="content-format" title="New CoAP Content-Formats">
   <ttcol align="left">HTTP Media-Type</ttcol>
-  <ttcol align="left">Encoding</ttcol>
   <ttcol align="right">ID</ttcol>
   <ttcol align="left">Reference</ttcol>
 
-  <c>application/pkcs7-mime; smime-type=server-generated-key</c> <c>-</c> <c>280</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/> <xref target="RFC7030"/></c>
-  <c>application/pkcs7-mime; smime-type=certs-only</c>           <c>-</c> <c>281</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/></c>
-  <c>application/pkcs7-mime; smime-type=CMC-request</c>          <c>-</c> <c>282</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/> <xref target="RFC5273"/></c>
-  <c>application/pkcs7-mime; smime-type=CMC-response</c>         <c>-</c> <c>283</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/> <xref target="RFC5273"/></c> 
-  <c>application/pkcs8</c>                                       <c>-</c> <c>284</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/> <xref target="RFC5958"/></c>
-  <c>application/csrattrs</c>                                    <c>-</c> <c>285</c> <c><xref target="RFC7030"/> <xref target="RFC7231"/></c>
-  <c>application/pkcs10</c>                                      <c>-</c> <c>286</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/> <xref target="RFC5967"/></c>
+  <c>application/pkcs7-mime; smime-type=server-generated-key</c><c>280</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/> <xref target="RFC7030"/></c>
+  <c>application/pkcs7-mime; smime-type=certs-only</c>          <c>281</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/></c>
+  <c>application/pkcs7-mime; smime-type=CMC-request</c>         <c>282</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/> <xref target="RFC5273"/></c>
+  <c>application/pkcs7-mime; smime-type=CMC-response</c>        <c>283</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/> <xref target="RFC5273"/></c> 
+  <c>application/pkcs8</c>                                      <c>284</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/> <xref target="RFC5958"/></c>
+  <c>application/csrattrs</c>                                   <c>285</c> <c><xref target="RFC7030"/> <xref target="RFC7231"/></c>
+  <c>application/pkcs10</c>                                     <c>286</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/> <xref target="RFC5967"/></c>
 </texttable>
 
 </section> <!-- Content-Format registry -->
@@ -1052,24 +1051,24 @@ GET coaps://192.0.2.1:8085/est/crts
   Code = 0x01 (0.01 is GET)
   Token = 0x9a (client generated)
   Options
-   Option1 (Uri-Host)               [optional]
-     Option Delta = 0x3  (option nr = 3)
+   Option           [optional]
+     Option Delta = 0x3  (option# 3 Uri-Host)
      Option Length = 0x9
      Option Value = 192.0.2.1
-   Option2 (Uri-Port)               [optional]
-     Option Delta = 0x4  (option nr = 3+4=7)
+   Option           [optional]
+     Option Delta = 0x4  (option# 3+4=7 Uri-Port)
      Option Length = 0x4
      Option Value = 8085
-   Option3 (Uri-Path)
-     Option Delta = 0x4   (option nr = 7+4= 11)
+   Option 
+     Option Delta = 0x4   (option# 7+4=11 Uri-Path)
      Option Length = 0x5
      Option Value = "est" 
-   Option4 (Uri-Path)
-     Option Delta = 0x0   (option nr = 11+0= 11)
+   Option 
+     Option Delta = 0x0   (option# 11+0=11 Uri-Path)
      Option Length = 0x6
      Option Value = "crts"
-   Option5 (Max-Age)
-     Option Delta = 0x3   (option nr = 11+3= 14)
+   Option 
+     Option Delta = 0x3   (option# 11+3=14 Max-Age)
      Option Length = 0x1
      Option Value = 0x1    (1 minute)
   Payload = [Empty]
@@ -1078,7 +1077,7 @@ GET coaps://192.0.2.1:8085/est/crts
       <t>A 2.05 Content response with a cert in EST-coaps will then be </t>
 <figure align="left"><artwork><![CDATA[
 2.05 Content (Content-Format: 281)
-   {payload}
+   {payload with certificate in binary format}
 ]]></artwork></figure>
         <t>with CoAP fields </t>
           <figure><artwork>
@@ -1086,12 +1085,12 @@ GET coaps://192.0.2.1:8085/est/crts
   Ver = 1
   T = 2 (ACK)
   Code = 0x45 (2.05 Content)
-  Token = 0x9a   (copied by server)
+  Token = 0x9a   (copied from request by server)
   Options
-    Option1 (Content-Format)
-      Option Delta = 0xC  (option nr =12)
+    Option 
+      Option Delta = 0xC  (option# 12 Content-Format)
       Option Length = 0x2
-      Option Value = 281 (defined in this document) 
+      Option Value = 281 
                 
   Payload =
 30233906092a6206734107028c2a3023260201013100300b06092a6206734107018
@@ -1180,8 +1179,8 @@ GET coaps://[2001:db8::2:1]:61616/est/att
 (Content-Format: 285)
 ]]></artwork></figure>
 
-      <t>A 2.05 Content response contains attributes which are relevant for the 
-	  authenticated client. <!-- In this example, the EST-coaps server returns two 
+      <t>A 2.05 Content response would contain attributes which are relevant 
+	  for the authenticated client. <!-- In this example, the EST-coaps server returns two 
 	  attributes that the client can ignore when they are unknown to him.--></t>
     </section>  <!-- csrattrs -->
 
@@ -1366,6 +1365,8 @@ a4fa677130da60818175ca4ab2af1d15563624c51e13dfdcf381881b72327e2f4
 		<t>an enroll exchange shows the Block1 and Block2 size negotiation for request and 
 		response payloads.</t>
     </list>	</t>
+	<t>The corresponding CoAP headers are only shown in <xref target="cacertsblock"/>. 
+	Creating CoAP headers are assumed to be generally known.</t>
 
  <section anchor="cacertsblock" title="cacerts block example">
     <t>This section provides a detailed example of the messages using DTLS and BLOCK 
@@ -1410,20 +1411,20 @@ a4fa677130da60818175ca4ab2af1d15563624c51e13dfdcf381881b72327e2f4
   Code = 0x01 (0.1 GET)
   Token = 0x9a    (client generated) 
   Options
-   Option1 (Uri-Host)            [optional]
-     Option Delta = 0x3  (option nr = 3)
+   Option           [optional]
+     Option Delta = 0x3  (option# 3 Uri-Host)
      Option Length = 0x9
      Option Value = 192.0.2.1
-   Option2 (Uri-Port)            [optional]
-     Option Delta = 0x4   (option nr = 3+4=7)
+   Option           [optional]
+     Option Delta = 0x4   (option# 3+4=7 Uri-Port)
      Option Length = 0x4
      Option Value = 8085
-   Option3 (Uri-Path)
-     Option Delta = 0x4    (option nr = 7+4=11)
+   Option 
+     Option Delta = 0x4    (option# 7+4=11 Uri-Path)
      Option Length = 0x5
      Option Value = "est" 
-   Option4 (Uri-Path)
-     Option Delta = 0x0    (option nr = 11+0=11)
+   Option4 
+     Option Delta = 0x0    (option# 11+0=11 Uri-Path)
      Option Length = 0x6
      Option Value = "crts" 
   Payload = [Empty]
@@ -1434,16 +1435,16 @@ a4fa677130da60818175ca4ab2af1d15563624c51e13dfdcf381881b72327e2f4
 <![CDATA[  Ver = 1
   T = 2 (ACK)
   Code = 0x45 (2.05 Content) 
-  Token = 0x9a     (copied by server)
+  Token = 0x9a     (copied from request by server)
   Options
-    Option1 (Content-Format)
-      Option Delta = 0xC  (option nr =12)
+    Option 
+      Option Delta = 0xC  (option# 12 Content-Format)
       Option Length = 0x2
       Option Value = 281                  
-    Option2 (Block2)
-      Option Delta = 0xB  (option 23 = 12 + 11)
+    Option 
+      Option Delta = 0xB  (option# 12+11=23 Block2)
       Option Length = 0x1
-      Option Value = 0x0A (block number = 0, M=1, SZX=2)
+      Option Value = 0x0A (block#=0, M=1, SZX=2)
   Payload = 
 30233906092a6206734107028c2a3023260201013100300b06092a6206734107018
 c0c3020bb302063c20102020900a61e75193b7acc0d06092a6206734101
@@ -1454,16 +1455,16 @@ c0c3020bb302063c20102020900a61e75193b7acc0d06092a6206734101
 <![CDATA[  Ver = 1
   T = 2 (means ACK)
   Code = 0x45 (2.05 Content)
-  Token = 0x9a     (copied by server)
+  Token = 0x9a     (copied from request by server)
   Options
-    Option1 (Content-Format)
-      Option Delta = 0xC  (option nr =12)
+    Option 
+      Option Delta = 0xC  (option# 12 Content-Format)
       Option Length = 0x2
       Option Value = 281                 
-    Option2 (Block2)
-      Option Delta = 0xB  (option 23 = 12 + 11)
+    Option 
+      Option Delta = 0xB  (option 12+11=23 Block2)
       Option Length = 0x1
-      Option Value = 0x1A (block number = 1, M=1, SZX=2)
+      Option Value = 0x1A (block#=1, M=1, SZX=2)
   Payload = 
 05050030
 1b31193017060355040313106573744578616d706c654341204f774f301e170d313
@@ -1475,16 +1476,16 @@ c0c3020bb302063c20102020900a61e75193b7acc0d06092a6206734101
 <![CDATA[  Ver = 1
   T = 2 (means ACK)
   Code = 0x45      (2.05 Content)
-  Token = 0x9a     (copied by server)
+  Token = 0x9a     (copied from request by server)
   Options
-    Option1 (Content-Format)
-      Option Delta = 0xC  (option nr =12)
+    Option 
+      Option Delta = 0xC  (option# 12 Content-Format)
       Option Length = 0x2
       Option Value = 281                  
-    Option2 (Block2)
-      Option Delta = 0xB  (option 23 = 12 + 11)
+    Option 
+      Option Delta = 0xB  (option# 12+11=23 Block2 )
       Option Length = 0x2
-      Option Value = 0x272 (block number = 39, M=0, SZX=2)
+      Option Value = 0x272 (block#=39, M=0, SZX=2)
   Payload = 73a30d0c006343116f58403100
 ]]></artwork></figure>
     </section> <!-- cacerts block example -->

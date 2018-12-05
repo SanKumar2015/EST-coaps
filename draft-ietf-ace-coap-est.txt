@@ -5,12 +5,12 @@
 ACE                                                      P. van der Stok
 Internet-Draft                                                Consultant
 Intended status: Standards Track                           P. Kampanakis
-Expires: June 7, 2019                                      Cisco Systems
+Expires: June 8, 2019                                      Cisco Systems
                                                            M. Richardson
                                                                      SSW
                                                                  S. Raza
                                                                RISE SICS
-                                                        December 4, 2018
+                                                        December 5, 2018
 
 
                     EST over secure CoAP (EST-coaps)
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 7, 2019.
+   This Internet-Draft will expire on June 8, 2019.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-van der Stok, et al.      Expires June 7, 2019                  [Page 1]
+van der Stok, et al.      Expires June 8, 2019                  [Page 1]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -103,13 +103,13 @@ Table of Contents
      A.4.  serverkeygen  . . . . . . . . . . . . . . . . . . . . . .  33
    Appendix B.  EST-coaps Block message examples . . . . . . . . . .  36
      B.1.  cacerts block example . . . . . . . . . . . . . . . . . .  36
-     B.2.  enroll block example  . . . . . . . . . . . . . . . . . .  38
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  39
+     B.2.  enroll block example  . . . . . . . . . . . . . . . . . .  39
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  40
 
 
 
 
-van der Stok, et al.      Expires June 7, 2019                  [Page 2]
+van der Stok, et al.      Expires June 8, 2019                  [Page 2]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -165,7 +165,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 7, 2019                  [Page 3]
+van der Stok, et al.      Expires June 8, 2019                  [Page 3]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -221,7 +221,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 7, 2019                  [Page 4]
+van der Stok, et al.      Expires June 8, 2019                  [Page 4]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -277,7 +277,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 7, 2019                  [Page 5]
+van der Stok, et al.      Expires June 8, 2019                  [Page 5]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -333,7 +333,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 7, 2019                  [Page 6]
+van der Stok, et al.      Expires June 8, 2019                  [Page 6]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -389,7 +389,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 7, 2019                  [Page 7]
+van der Stok, et al.      Expires June 8, 2019                  [Page 7]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -445,7 +445,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 7, 2019                  [Page 8]
+van der Stok, et al.      Expires June 8, 2019                  [Page 8]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -501,7 +501,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 7, 2019                  [Page 9]
+van der Stok, et al.      Expires June 8, 2019                  [Page 9]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -557,7 +557,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 7, 2019                 [Page 10]
+van der Stok, et al.      Expires June 8, 2019                 [Page 10]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -613,7 +613,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 7, 2019                 [Page 11]
+van der Stok, et al.      Expires June 8, 2019                 [Page 11]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -631,7 +631,7 @@ Internet-Draft                  EST-coaps                  December 2018
           ...... short delay before certificate is ready ......
                          |
          <-- (CON) (1:N1/0/256)(2:0/1/256)(2.04 Changed) {Cert resp}
-   (ACK)                                                        -->
+                                      (ACK)                     -->
    POST [2001:db8::2:1]:61616/est/sen (CON)(2:1/0/128)          -->
           <-- (ACK) (2:1/1/128) (2.04 Changed) {Cert resp}
                          .
@@ -669,7 +669,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 7, 2019                 [Page 12]
+van der Stok, et al.      Expires June 8, 2019                 [Page 12]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -725,7 +725,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 7, 2019                 [Page 13]
+van der Stok, et al.      Expires June 8, 2019                 [Page 13]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -781,7 +781,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 7, 2019                 [Page 14]
+van der Stok, et al.      Expires June 8, 2019                 [Page 14]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -837,7 +837,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 7, 2019                 [Page 15]
+van der Stok, et al.      Expires June 8, 2019                 [Page 15]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -893,7 +893,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 7, 2019                 [Page 16]
+van der Stok, et al.      Expires June 8, 2019                 [Page 16]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -949,7 +949,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 7, 2019                 [Page 17]
+van der Stok, et al.      Expires June 8, 2019                 [Page 17]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -986,7 +986,7 @@ Internet-Draft                  EST-coaps                  December 2018
                                     |'--------------------------'|
                                     '----------------------------'
 
-        Figure 4: ESTcoaps-to-HTTPS Registrar at the CoAP boundary.
+       Figure 4: EST-coaps-to-HTTPS Registrar at the CoAP boundary.
 
    The EST-coaps-to-HTTPS Registrar MUST terminate EST-coaps downstream
    and initiate EST connections over TLS upstream.  The Registrar MUST
@@ -1005,7 +1005,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 7, 2019                 [Page 18]
+van der Stok, et al.      Expires June 8, 2019                 [Page 18]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -1061,7 +1061,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 7, 2019                 [Page 19]
+van der Stok, et al.      Expires June 8, 2019                 [Page 19]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -1117,30 +1117,29 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 7, 2019                 [Page 20]
+van der Stok, et al.      Expires June 8, 2019                 [Page 20]
 
 Internet-Draft                  EST-coaps                  December 2018
 
 
-   +--------------------------+--------+-----+-------------------------+
-   | HTTP Media-Type          | Encodi |  ID | Reference               |
-   |                          | ng     |     |                         |
-   +--------------------------+--------+-----+-------------------------+
-   | application/pkcs7-mime;  | -      | 280 | [I-D.ietf-lamps-rfc5751 |
-   | smime-type=server-       |        |     | -bis] [RFC7030]         |
-   | generated-key            |        |     |                         |
-   | application/pkcs7-mime;  | -      | 281 | [I-D.ietf-lamps-rfc5751 |
-   | smime-type=certs-only    |        |     | -bis]                   |
-   | application/pkcs7-mime;  | -      | 282 | [I-D.ietf-lamps-rfc5751 |
-   | smime-type=CMC-request   |        |     | -bis] [RFC5273]         |
-   | application/pkcs7-mime;  | -      | 283 | [I-D.ietf-lamps-rfc5751 |
-   | smime-type=CMC-response  |        |     | -bis] [RFC5273]         |
-   | application/pkcs8        | -      | 284 | [I-D.ietf-lamps-rfc5751 |
-   |                          |        |     | -bis] [RFC5958]         |
-   | application/csrattrs     | -      | 285 | [RFC7030] [RFC7231]     |
-   | application/pkcs10       | -      | 286 | [I-D.ietf-lamps-rfc5751 |
-   |                          |        |     | -bis] [RFC5967]         |
-   +--------------------------+--------+-----+-------------------------+
+   +-------------------------------+-----+-----------------------------+
+   | HTTP Media-Type               |  ID | Reference                   |
+   +-------------------------------+-----+-----------------------------+
+   | application/pkcs7-mime;       | 280 | [I-D.ietf-lamps-rfc5751-bis |
+   | smime-type=server-generated-  |     | ] [RFC7030]                 |
+   | key                           |     |                             |
+   | application/pkcs7-mime;       | 281 | [I-D.ietf-lamps-rfc5751-bis |
+   | smime-type=certs-only         |     | ]                           |
+   | application/pkcs7-mime;       | 282 | [I-D.ietf-lamps-rfc5751-bis |
+   | smime-type=CMC-request        |     | ] [RFC5273]                 |
+   | application/pkcs7-mime;       | 283 | [I-D.ietf-lamps-rfc5751-bis |
+   | smime-type=CMC-response       |     | ] [RFC5273]                 |
+   | application/pkcs8             | 284 | [I-D.ietf-lamps-rfc5751-bis |
+   |                               |     | ] [RFC5958]                 |
+   | application/csrattrs          | 285 | [RFC7030] [RFC7231]         |
+   | application/pkcs10            | 286 | [I-D.ietf-lamps-rfc5751-bis |
+   |                               |     | ] [RFC5967]                 |
+   +-------------------------------+-----+-----------------------------+
 
                      Table 3: New CoAP Content-Formats
 
@@ -1173,7 +1172,8 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 7, 2019                 [Page 21]
+
+van der Stok, et al.      Expires June 8, 2019                 [Page 21]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -1229,7 +1229,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 7, 2019                 [Page 22]
+van der Stok, et al.      Expires June 8, 2019                 [Page 22]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -1285,7 +1285,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 7, 2019                 [Page 23]
+van der Stok, et al.      Expires June 8, 2019                 [Page 23]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -1341,7 +1341,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 7, 2019                 [Page 24]
+van der Stok, et al.      Expires June 8, 2019                 [Page 24]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -1397,7 +1397,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 7, 2019                 [Page 25]
+van der Stok, et al.      Expires June 8, 2019                 [Page 25]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -1453,7 +1453,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 7, 2019                 [Page 26]
+van der Stok, et al.      Expires June 8, 2019                 [Page 26]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -1509,7 +1509,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 7, 2019                 [Page 27]
+van der Stok, et al.      Expires June 8, 2019                 [Page 27]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -1565,7 +1565,7 @@ A.1.  cacerts
 
 
 
-van der Stok, et al.      Expires June 7, 2019                 [Page 28]
+van der Stok, et al.      Expires June 8, 2019                 [Page 28]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -1575,24 +1575,24 @@ Internet-Draft                  EST-coaps                  December 2018
      Code = 0x01 (0.01 is GET)
      Token = 0x9a (client generated)
      Options
-      Option1 (Uri-Host)               [optional]
-        Option Delta = 0x3  (option nr = 3)
+      Option           [optional]
+        Option Delta = 0x3  (option# 3 Uri-Host)
         Option Length = 0x9
         Option Value = 192.0.2.1
-      Option2 (Uri-Port)               [optional]
-        Option Delta = 0x4  (option nr = 3+4=7)
+      Option           [optional]
+        Option Delta = 0x4  (option# 3+4=7 Uri-Port)
         Option Length = 0x4
         Option Value = 8085
-      Option3 (Uri-Path)
-        Option Delta = 0x4   (option nr = 7+4= 11)
+      Option
+        Option Delta = 0x4   (option# 7+4=11 Uri-Path)
         Option Length = 0x5
         Option Value = "est"
-      Option4 (Uri-Path)
-        Option Delta = 0x0   (option nr = 11+0= 11)
+      Option
+        Option Delta = 0x0   (option# 11+0=11 Uri-Path)
         Option Length = 0x6
         Option Value = "crts"
-      Option5 (Max-Age)
-        Option Delta = 0x3   (option nr = 11+3= 14)
+      Option
+        Option Delta = 0x3   (option# 11+3=14 Max-Age)
         Option Length = 0x1
         Option Value = 0x1    (1 minute)
      Payload = [Empty]
@@ -1600,7 +1600,7 @@ Internet-Draft                  EST-coaps                  December 2018
    A 2.05 Content response with a cert in EST-coaps will then be
 
    2.05 Content (Content-Format: 281)
-      {payload}
+      {payload with certificate in binary format}
 
    with CoAP fields
 
@@ -1608,12 +1608,12 @@ Internet-Draft                  EST-coaps                  December 2018
      Ver = 1
      T = 2 (ACK)
      Code = 0x45 (2.05 Content)
-     Token = 0x9a   (copied by server)
+     Token = 0x9a   (copied from request by server)
      Options
-       Option1 (Content-Format)
-         Option Delta = 0xC  (option nr =12)
+       Option
+         Option Delta = 0xC  (option# 12 Content-Format)
          Option Length = 0x2
-         Option Value = 281 (defined in this document)
+         Option Value = 281
 
      Payload =
    30233906092a6206734107028c2a3023260201013100300b06092a6206734107018
@@ -1621,7 +1621,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 7, 2019                 [Page 29]
+van der Stok, et al.      Expires June 8, 2019                 [Page 29]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -1677,7 +1677,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 7, 2019                 [Page 30]
+van der Stok, et al.      Expires June 8, 2019                 [Page 30]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -1716,8 +1716,8 @@ A.2.  csrattrs
    GET coaps://[2001:db8::2:1]:61616/est/att
    (Content-Format: 285)
 
-   A 2.05 Content response contains attributes which are relevant for
-   the authenticated client.
+   A 2.05 Content response would contain attributes which are relevant
+   for the authenticated client.
 
 A.3.  enroll / reenroll
 
@@ -1733,7 +1733,7 @@ A.3.  enroll / reenroll
 
 
 
-van der Stok, et al.      Expires June 7, 2019                 [Page 31]
+van der Stok, et al.      Expires June 8, 2019                 [Page 31]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -1789,7 +1789,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 7, 2019                 [Page 32]
+van der Stok, et al.      Expires June 8, 2019                 [Page 32]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -1845,7 +1845,7 @@ A.4.  serverkeygen
 
 
 
-van der Stok, et al.      Expires June 7, 2019                 [Page 33]
+van der Stok, et al.      Expires June 8, 2019                 [Page 33]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -1901,7 +1901,7 @@ f9288724381909188c851fa9a5059802eb64449f2a3c9e441353d136768da27ff
 
 
 
-van der Stok, et al.      Expires June 7, 2019                 [Page 34]
+van der Stok, et al.      Expires June 8, 2019                 [Page 34]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -1957,7 +1957,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 7, 2019                 [Page 35]
+van der Stok, et al.      Expires June 8, 2019                 [Page 35]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -1970,6 +1970,9 @@ Appendix B.  EST-coaps Block message examples
 
    2.  an enroll exchange shows the Block1 and Block2 size negotiation
        for request and response payloads.
+
+   The corresponding CoAP headers are only shown in Appendix B.1.
+   Creating CoAP headers are assumed to be generally known.
 
 B.1.  cacerts block example
 
@@ -2000,6 +2003,21 @@ B.1.  cacerts block example
    option and the content format of the response, even though not shown,
    is 281 (application/pkcs7-mime; smime-type=certs-only).
 
+
+
+
+
+
+
+
+
+
+
+van der Stok, et al.      Expires June 8, 2019                 [Page 36]
+
+Internet-Draft                  EST-coaps                  December 2018
+
+
       GET /192.0.2.1:8085/est/crts   (2:0/0/64)    -->
                     <--   (2:0/1/64) 2.05 Content
       GET /192.0.2.1:8085/est/crts   (2:1/0/64)    -->
@@ -2009,14 +2027,6 @@ B.1.  cacerts block example
                             |
       GET /192.0.2.1:8085/est/crts    (2:39/0/64)  -->
                     <--   (2:39/0/64) 2.05 Content
-
-
-
-
-van der Stok, et al.      Expires June 7, 2019                 [Page 36]
-
-Internet-Draft                  EST-coaps                  December 2018
-
 
    40 blocks have been sent with partially filled block NUM=39 as the
    last block.
@@ -2030,65 +2040,72 @@ Internet-Draft                  EST-coaps                  December 2018
      Code = 0x01 (0.1 GET)
      Token = 0x9a    (client generated)
      Options
-      Option1 (Uri-Host)            [optional]
-        Option Delta = 0x3  (option nr = 3)
+      Option           [optional]
+        Option Delta = 0x3  (option# 3 Uri-Host)
         Option Length = 0x9
         Option Value = 192.0.2.1
-      Option2 (Uri-Port)            [optional]
-        Option Delta = 0x4   (option nr = 3+4=7)
+      Option           [optional]
+        Option Delta = 0x4   (option# 3+4=7 Uri-Port)
         Option Length = 0x4
         Option Value = 8085
-      Option3 (Uri-Path)
-        Option Delta = 0x4    (option nr = 7+4=11)
+      Option
+        Option Delta = 0x4    (option# 7+4=11 Uri-Path)
         Option Length = 0x5
         Option Value = "est"
-      Option4 (Uri-Path)
-        Option Delta = 0x0    (option nr = 11+0=11)
+      Option4
+        Option Delta = 0x0    (option# 11+0=11 Uri-Path)
         Option Length = 0x6
         Option Value = "crts"
      Payload = [Empty]
 
    The header of the first response looks like
 
-     Ver = 1
-     T = 2 (ACK)
-     Code = 0x45 (2.05 Content)
-     Token = 0x9a     (copied by server)
-     Options
-       Option1 (Content-Format)
-         Option Delta = 0xC  (option nr =12)
-         Option Length = 0x2
-         Option Value = 281
-       Option2 (Block2)
-         Option Delta = 0xB  (option 23 = 12 + 11)
-         Option Length = 0x1
-         Option Value = 0x0A (block number = 0, M=1, SZX=2)
-     Payload =
-   30233906092a6206734107028c2a3023260201013100300b06092a6206734107018
-   c0c3020bb302063c20102020900a61e75193b7acc0d06092a6206734101
 
 
 
-van der Stok, et al.      Expires June 7, 2019                 [Page 37]
+
+
+
+
+
+
+van der Stok, et al.      Expires June 8, 2019                 [Page 37]
 
 Internet-Draft                  EST-coaps                  December 2018
 
+
+     Ver = 1
+     T = 2 (ACK)
+     Code = 0x45 (2.05 Content)
+     Token = 0x9a     (copied from request by server)
+     Options
+       Option
+         Option Delta = 0xC  (option# 12 Content-Format)
+         Option Length = 0x2
+         Option Value = 281
+       Option
+         Option Delta = 0xB  (option# 12+11=23 Block2)
+         Option Length = 0x1
+         Option Value = 0x0A (block#=0, M=1, SZX=2)
+     Payload =
+   30233906092a6206734107028c2a3023260201013100300b06092a6206734107018
+   c0c3020bb302063c20102020900a61e75193b7acc0d06092a6206734101
 
    The second Block2:
 
      Ver = 1
      T = 2 (means ACK)
      Code = 0x45 (2.05 Content)
-     Token = 0x9a     (copied by server)
+     Token = 0x9a     (copied from request by server)
      Options
-       Option1 (Content-Format)
-         Option Delta = 0xC  (option nr =12)
+       Option
+         Option Delta = 0xC  (option# 12 Content-Format)
          Option Length = 0x2
          Option Value = 281
-       Option2 (Block2)
-         Option Delta = 0xB  (option 23 = 12 + 11)
+       Option
+         Option Delta = 0xB  (option 12+11=23 Block2)
          Option Length = 0x1
-         Option Value = 0x1A (block number = 1, M=1, SZX=2)
+         Option Value = 0x1A (block#=1, M=1, SZX=2)
      Payload =
    05050030
    1b31193017060355040313106573744578616d706c654341204f774f301e170d313
@@ -2096,19 +2113,36 @@ Internet-Draft                  EST-coaps                  December 2018
 
    The 40th and final Block2:
 
+
+
+
+
+
+
+
+
+
+
+
+
+van der Stok, et al.      Expires June 8, 2019                 [Page 38]
+
+Internet-Draft                  EST-coaps                  December 2018
+
+
      Ver = 1
      T = 2 (means ACK)
      Code = 0x45      (2.05 Content)
-     Token = 0x9a     (copied by server)
+     Token = 0x9a     (copied from request by server)
      Options
-       Option1 (Content-Format)
-         Option Delta = 0xC  (option nr =12)
+       Option
+         Option Delta = 0xC  (option# 12 Content-Format)
          Option Length = 0x2
          Option Value = 281
-       Option2 (Block2)
-         Option Delta = 0xB  (option 23 = 12 + 11)
+       Option
+         Option Delta = 0xB  (option# 12+11=23 Block2 )
          Option Length = 0x2
-         Option Value = 0x272 (block number = 39, M=0, SZX=2)
+         Option Value = 0x272 (block#=39, M=0, SZX=2)
      Payload = 73a30d0c006343116f58403100
 
 B.2.  enroll block example
@@ -2120,14 +2154,6 @@ B.2.  enroll block example
    assumed that CSR takes N1+1 blocks and the cert response takes N2+1
    blocks.  The header fields and the payload are omitted for brevity.
 
-
-
-
-
-
-van der Stok, et al.      Expires June 7, 2019                 [Page 38]
-
-Internet-Draft                  EST-coaps                  December 2018
 
 
    POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
@@ -2153,6 +2179,13 @@ Internet-Draft                  EST-coaps                  December 2018
    N1+1 blocks have been transferred from client to the server and N2+1
    blocks have been transferred from server to client.
 
+
+
+van der Stok, et al.      Expires June 8, 2019                 [Page 39]
+
+Internet-Draft                  EST-coaps                  December 2018
+
+
 Authors' Addresses
 
    Peter van der Stok
@@ -2172,18 +2205,6 @@ Authors' Addresses
 
    Email: mcr+ietf@sandelman.ca
    URI:   http://www.sandelman.ca/
-
-
-
-
-
-
-
-
-
-van der Stok, et al.      Expires June 7, 2019                 [Page 39]
-
-Internet-Draft                  EST-coaps                  December 2018
 
 
    Shahid Raza
@@ -2216,25 +2237,4 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-van der Stok, et al.      Expires June 7, 2019                 [Page 40]
+van der Stok, et al.      Expires June 8, 2019                 [Page 40]

@@ -296,6 +296,11 @@
         the server MAY want to authenticate a client certificate against its trust store 
 		although the certificate is expired (<xref target="sec"/>). </t>
     </list></t>
+
+    <t>
+      Client authentication via DTLS Client Certificate is mandatory.
+    </t>
+    
   </section>  <!-- 7925 profile  -->
 
   <section anchor="design" title="Protocol Design">
@@ -344,6 +349,13 @@ This specification contains a set of required-to-implement functions, optional f
    <c> /serverkeygen </c>       <c> Optional </c>
    <c> /csrattrs </c>           <c> Optional </c>
 </texttable>
+
+<t>
+  While <xref target="RFC7030" /> permits a number of these functions to be
+  available to unauthenticated, this specification requires authentication
+  for all functions.
+</t>
+
 
 </section>  <!-- Required/optional Functions  -->
 

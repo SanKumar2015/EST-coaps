@@ -5,12 +5,12 @@
 ACE                                                      P. van der Stok
 Internet-Draft                                                Consultant
 Intended status: Standards Track                           P. Kampanakis
-Expires: June 8, 2019                                      Cisco Systems
+Expires: July 4, 2019                                      Cisco Systems
                                                            M. Richardson
                                                                      SSW
                                                                  S. Raza
                                                                RISE SICS
-                                                        December 5, 2018
+                                                       December 31, 2018
 
 
                     EST over secure CoAP (EST-coaps)
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 8, 2019.
+   This Internet-Draft will expire on July 4, 2019.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-van der Stok, et al.      Expires June 8, 2019                  [Page 1]
+van der Stok, et al.      Expires July 4, 2019                  [Page 1]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -70,13 +70,13 @@ Table of Contents
    1.  Change Log  . . . . . . . . . . . . . . . . . . . . . . . . .   3
    2.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   5
    3.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   5
-   4.  Conformance to RFC7925 profiles . . . . . . . . . . . . . . .   5
-   5.  Protocol Design . . . . . . . . . . . . . . . . . . . . . . .   6
+   4.  Conformance to RFC7925 profiles . . . . . . . . . . . . . . .   6
+   5.  Protocol Design . . . . . . . . . . . . . . . . . . . . . . .   7
      5.1.  Mandatory/optional EST Functions  . . . . . . . . . . . .   7
      5.2.  Payload format  . . . . . . . . . . . . . . . . . . . . .   8
        5.2.1.  Content Format application/multipart-core . . . . . .   8
      5.3.  Message Bindings  . . . . . . . . . . . . . . . . . . . .   9
-     5.4.  CoAP response codes . . . . . . . . . . . . . . . . . . .   9
+     5.4.  CoAP response codes . . . . . . . . . . . . . . . . . . .  10
      5.5.  Message fragmentation . . . . . . . . . . . . . . . . . .  10
      5.6.  Delayed Responses . . . . . . . . . . . . . . . . . . . .  11
      5.7.  Server-side Key Generation  . . . . . . . . . . . . . . .  13
@@ -101,24 +101,30 @@ Table of Contents
      A.2.  csrattrs  . . . . . . . . . . . . . . . . . . . . . . . .  31
      A.3.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  31
      A.4.  serverkeygen  . . . . . . . . . . . . . . . . . . . . . .  33
-   Appendix B.  EST-coaps Block message examples . . . . . . . . . .  36
-     B.1.  cacerts block example . . . . . . . . . . . . . . . . . .  36
-     B.2.  enroll block example  . . . . . . . . . . . . . . . . . .  39
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  40
+   Appendix B.  Disassembly Examples . . . . . . . . . . . . . . . .  35
+     B.1.  cacerts payload disassembly . . . . . . . . . . . . . . .  36
+     B.2.  Re-enroll payload disassemblies . . . . . . . . . . . . .  37
+     B.3.  Serverkey generation disassembly  . . . . . . . . . . . .  40
+   Appendix C.  EST-coaps Block message examples . . . . . . . . . .  41
 
 
 
-
-van der Stok, et al.      Expires June 8, 2019                  [Page 2]
+van der Stok, et al.      Expires July 4, 2019                  [Page 2]
 
 Internet-Draft                  EST-coaps                  December 2018
 
+
+     C.1.  cacerts block example . . . . . . . . . . . . . . . . . .  42
+     C.2.  enroll block example  . . . . . . . . . . . . . . . . . .  44
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  45
 
 1.  Change Log
 
    EDNOTE: Remove this section before publication
 
    -07:
+
+      redone examples from scratch with openssl
 
       Updated authors.
 
@@ -156,19 +162,20 @@ Internet-Draft                  EST-coaps                  December 2018
 
       Fixed issues pointed out by the idnits tool.
 
+
+
+
+van der Stok, et al.      Expires July 4, 2019                  [Page 3]
+
+Internet-Draft                  EST-coaps                  December 2018
+
+
       Updated CoAP response codes section with more mappings between EST
       HTTP codes and EST-coaps CoAP codes.
 
       Minor updates to the MTI EST Functions section.
 
       Moved Change Log section higher.
-
-
-
-van der Stok, et al.      Expires June 8, 2019                  [Page 3]
-
-Internet-Draft                  EST-coaps                  December 2018
-
 
    -05:
 
@@ -211,20 +218,20 @@ Internet-Draft                  EST-coaps                  December 2018
 
       Broke down details for DTLS 1.3
 
+
+
+
+van der Stok, et al.      Expires July 4, 2019                  [Page 4]
+
+Internet-Draft                  EST-coaps                  December 2018
+
+
       New media type uses CBOR array for multiple content-format
       payloads
 
       provided new content format tables
 
       new media format for IANA
-
-
-
-
-van der Stok, et al.      Expires June 8, 2019                  [Page 4]
-
-Internet-Draft                  EST-coaps                  December 2018
-
 
    -00
 
@@ -265,6 +272,16 @@ Internet-Draft                  EST-coaps                  December 2018
    document structure is followed to point out the differences and
    commonalities between EST and EST-coaps.
 
+
+
+
+
+
+van der Stok, et al.      Expires July 4, 2019                  [Page 5]
+
+Internet-Draft                  EST-coaps                  December 2018
+
+
 4.  Conformance to RFC7925 profiles
 
    This section shows how EST-coaps fits into the profiles of low-
@@ -274,13 +291,6 @@ Internet-Draft                  EST-coaps                  December 2018
    Private keys can be transported as responses to a server-side key
    generation request as described in section 4.4 of [RFC7030] snd
    discussed in Section 5.7 of this document.
-
-
-
-van der Stok, et al.      Expires June 8, 2019                  [Page 5]
-
-Internet-Draft                  EST-coaps                  December 2018
-
 
    As per Sections 3.3 and 4.4 of [RFC7925], the mandatory cipher suite
    for DTLS in EST-coaps is TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8
@@ -315,11 +325,20 @@ Internet-Draft                  EST-coaps                  December 2018
    o  a previously installed certificate (e.g., manufacturer-installed
       IDevID (IEEE 802.1AR [ieee802.1ar] certificate or a certificate
       issued by some other party); the server is expected to trust the
-      root CA certificate in this case.  IDevID's are expected to have a
-      very long life, as long as the device, but under some conditions
-      could expire.  In the latter case, the server MAY want to
-      authenticate a client certificate against its trust store although
-      the certificate is expired (Section 11).
+      previously installed certificate in this case.  IDevID's are
+      expected to have a very long life, as long as the device, but
+      under some conditions could expire.  In the latter case, the
+      server MAY want to authenticate a client certificate against its
+      trust store although the certificate is expired (Section 11).
+
+
+
+van der Stok, et al.      Expires July 4, 2019                  [Page 6]
+
+Internet-Draft                  EST-coaps                  December 2018
+
+
+   Client authentication via DTLS Client Certificate is mandatory.
 
 5.  Protocol Design
 
@@ -328,15 +347,6 @@ Internet-Draft                  EST-coaps                  December 2018
    (excessive) fragmentation of UDP datagrams.  The use of "Block" for
    the transfer of larger EST messages is specified in Section 5.5.
    Figure 1 below shows the layered EST-coaps architecture.
-
-
-
-
-
-van der Stok, et al.      Expires June 8, 2019                  [Page 6]
-
-Internet-Draft                  EST-coaps                  December 2018
-
 
    +------------------------------------------------+
    |    EST request/response messages               |
@@ -379,17 +389,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-
-
-
-
-
-
-
-
-
-
-van der Stok, et al.      Expires June 8, 2019                  [Page 7]
+van der Stok, et al.      Expires July 4, 2019                  [Page 7]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -397,15 +397,19 @@ Internet-Draft                  EST-coaps                  December 2018
               +------------------+--------------------------+
               | EST Functions    | EST-coaps implementation |
               +------------------+--------------------------+
-              | /cacerts         | Mandatory                |
-              | /simpleenroll    | Mandatory                |
-              | /simplereenroll  | Mandatory                |
+              | /cacerts         | MUST                     |
+              | /simpleenroll    | MUST                     |
+              | /simplereenroll  | MUST                     |
               | /fullcmc         | Not specified            |
-              | /serverkeygen    | Optional                 |
-              | /csrattrs        | Optional                 |
+              | /serverkeygen    | OPTIONAL                 |
+              | /csrattrs        | OPTIONAL                 |
               +------------------+--------------------------+
 
                Table 1: Table 1: List of EST-coaps fuctions
+
+   While [RFC7030] permits a number of these functions to be used
+   without authentication, this specification requires authentication
+   for all functions.
 
 5.2.  Payload format
 
@@ -423,10 +427,9 @@ Internet-Draft                  EST-coaps                  December 2018
    does not need to send Base64-encoded data.  Simple binary is more
    efficient (30% smaller payload) and well supported by CoAP.  Thus,
    the payload for a given media type follows the ASN.1 structure of the
-   media-type and is transported as straight binary.
-
-   Section 5.2.1 specifies the payload structure when multiple media
-   types are present in the payload.
+   media-type and is transported as straight binary.  Section 5.2.1
+   specifies the payload structure when multiple media types are present
+   in the payload.
 
 5.2.1.  Content Format application/multipart-core
 
@@ -439,17 +442,17 @@ Internet-Draft                  EST-coaps                  December 2018
    number of elements.  The second, fourth, sixth, etc. element is a
    binary string containing a representation.  The first, third, fifth,
    etc. element is an unsigned integer specifying the content format ID
-   of the following representation.  For example, a collection
-   containing two representations in response to a server-side key
-   generation request, could include a private key in PKCS#8 [RFC5958]
 
 
 
-van der Stok, et al.      Expires June 8, 2019                  [Page 8]
+van der Stok, et al.      Expires July 4, 2019                  [Page 8]
 
 Internet-Draft                  EST-coaps                  December 2018
 
 
+   of the consecutive representation.  For example, a collection
+   containing two representations in response to a server-side key
+   generation request, could include a private key in PKCS#8 [RFC5958]
    with content format ID 284 (0x011C) and a certificate with content
    format ID 281 (0x0119).  Such a collection would look like
    [284,h'0123456789abcdef', 281,h'fedcba9876543210'] in diagnostic CBOR
@@ -492,20 +495,23 @@ Internet-Draft                  EST-coaps                  December 2018
    Appendix A includes some practical examples of EST messages
    translated to CoAP.
 
+
+
+
+
+
+
+van der Stok, et al.      Expires July 4, 2019                  [Page 9]
+
+Internet-Draft                  EST-coaps                  December 2018
+
+
 5.4.  CoAP response codes
 
    Section 5.9 of [RFC7252] and Section 7 of [RFC8075] specify the
    mapping of HTTP response codes to CoAP response codes.  Every time
    the HTTP response code 200 is specified in [RFC7030] in response to a
    GET request (/cacerts, /csrattrs), in EST-coaps the equivalent CoAP
-
-
-
-van der Stok, et al.      Expires June 8, 2019                  [Page 9]
-
-Internet-Draft                  EST-coaps                  December 2018
-
-
    response code 2.05 or 2.03 MUST be used.  Similarly, 2.01, 2.02 or
    2.04 MUST be used in response to HTTP POST EST requests
    (/simpleenroll, /simplereenroll, /serverkeygen ).  Response code HTTP
@@ -548,20 +554,20 @@ Internet-Draft                  EST-coaps                  December 2018
    and 1024 bytes for the payload size".  Section 4.6 of [RFC7252] also
    suggests that IPv4 implementations may want to limit themselves to
    more conservative IPv4 datagram sizes such as 576 bytes.  Even with
+
+
+
+van der Stok, et al.      Expires July 4, 2019                 [Page 10]
+
+Internet-Draft                  EST-coaps                  December 2018
+
+
    ECC certs, EST-coaps messages can still exceed MTU sizes on the
    Internet or 6LoWPAN [RFC4919] (Section 2 of [RFC7959]).  EST-coaps
    needs to be able to fragment messages into multiple DTLS datagrams.
 
    To perform fragmentation in CoAP, [RFC7959] specifies the "Block1"
    option for fragmentation of the request payload and the "Block2"
-
-
-
-van der Stok, et al.      Expires June 8, 2019                 [Page 10]
-
-Internet-Draft                  EST-coaps                  December 2018
-
-
    option for fragmentation of the return payload of a CoAP flow.  As
    explained in Section 1 of [RFC7959], blockwise transfers SHOULD be
    used in Confirmable CoAP messages to avoid the exacerbation of lost
@@ -581,7 +587,7 @@ Internet-Draft                  EST-coaps                  December 2018
    and by the client as a maximum size expected in the 4.13 (Request
    Entity Too Large) response to a request.
 
-   Examples of fragmented EST messages are shown in Appendix B.
+   Examples of fragmented EST messages are shown in Appendix C.
 
 5.6.  Delayed Responses
 
@@ -607,13 +613,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-
-
-
-
-
-
-van der Stok, et al.      Expires June 8, 2019                 [Page 11]
+van der Stok, et al.      Expires July 4, 2019                 [Page 11]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -669,7 +669,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 8, 2019                 [Page 12]
+van der Stok, et al.      Expires July 4, 2019                 [Page 12]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -720,19 +720,19 @@ Internet-Draft                  EST-coaps                  December 2018
    client asks for the server or proxy to generate the private key and
    the certificate which is transferred back to the client in the
    server-side key generation response.  In all respects, the server
-   SHOULD treat the CSR as it would any enroll or re-enroll CSR; the
-   only distinction here is that the server MUST ignore the public key
+   SHOULD treat the CSR as it would treat any enroll or re-enroll CSR;
+   the only distinction here is that the server MUST ignore the public
 
 
 
-van der Stok, et al.      Expires June 8, 2019                 [Page 13]
+van der Stok, et al.      Expires July 4, 2019                 [Page 13]
 
 Internet-Draft                  EST-coaps                  December 2018
 
 
-   values and signature in the CSR.  These are included in the request
-   only to allow re-use of existing codebases for generating and parsing
-   such requests.
+   key values and signature in the CSR.  These are included in the
+   request only to allow re-use of existing codebases for generating and
+   parsing such requests.
 
    [RFC7030] recommends the private key returned by the server to be
    encrypted.  This specification provides two methods to encrypt the
@@ -781,7 +781,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 8, 2019                 [Page 14]
+van der Stok, et al.      Expires July 4, 2019                 [Page 14]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -837,7 +837,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 8, 2019                 [Page 15]
+van der Stok, et al.      Expires July 4, 2019                 [Page 15]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -893,7 +893,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 8, 2019                 [Page 16]
+van der Stok, et al.      Expires July 4, 2019                 [Page 16]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -949,7 +949,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 8, 2019                 [Page 17]
+van der Stok, et al.      Expires July 4, 2019                 [Page 17]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -1005,7 +1005,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 8, 2019                 [Page 18]
+van der Stok, et al.      Expires July 4, 2019                 [Page 18]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -1061,7 +1061,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 8, 2019                 [Page 19]
+van der Stok, et al.      Expires July 4, 2019                 [Page 19]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -1117,7 +1117,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 8, 2019                 [Page 20]
+van der Stok, et al.      Expires July 4, 2019                 [Page 20]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -1173,7 +1173,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 8, 2019                 [Page 21]
+van der Stok, et al.      Expires July 4, 2019                 [Page 21]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -1229,7 +1229,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 8, 2019                 [Page 22]
+van der Stok, et al.      Expires July 4, 2019                 [Page 22]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -1285,7 +1285,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 8, 2019                 [Page 23]
+van der Stok, et al.      Expires July 4, 2019                 [Page 23]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -1313,6 +1313,8 @@ Internet-Draft                  EST-coaps                  December 2018
    Interop tests were done by Oliver Pfaff, Thomas Werner, Oskar
    Camezind, Bjorn Elmers and Joel Hoglund.
 
+   Robert Moskowitz provided the technology to make the examples.
+
 14.  References
 
 14.1.  Normative References
@@ -1339,9 +1341,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-
-
-van der Stok, et al.      Expires June 8, 2019                 [Page 24]
+van der Stok, et al.      Expires July 4, 2019                 [Page 24]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -1397,7 +1397,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 8, 2019                 [Page 25]
+van der Stok, et al.      Expires July 4, 2019                 [Page 25]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -1453,7 +1453,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 8, 2019                 [Page 26]
+van der Stok, et al.      Expires July 4, 2019                 [Page 26]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -1509,7 +1509,7 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 8, 2019                 [Page 27]
+van der Stok, et al.      Expires July 4, 2019                 [Page 27]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -1526,18 +1526,24 @@ Internet-Draft                  EST-coaps                  December 2018
 
 Appendix A.  EST messages to EST-coaps
 
-   This section takes all examples from Appendix A of [RFC7030], changes
-   the payload from Base64 to binary and replaces the http headers by
-   their CoAP equivalents.
+   This section shows the same examples as the ones presented in
+   Appendix A of [RFC7030].  The payloads in the examples are the hex
+   encoded binary, generated with "xxd - p file", of the files created
+   following the specifications presented in I-D.draft-moskowitz-ecdsa-
+   pki.  The shown payloads are not encrypted with DTLS.  In particular,
+   the shell scripts from section 4.2 (create root certificate), section
+   6.2 (Create the 802.1AR intermediate certificate) and section 6.3
+   (Create an 802.1AR IdevID certificate) have been used.  The 802.1AR
+   IdevID certificate is signed by the 802.1AR intermediate certificate
+   that is signed by the auto-signed root certificate.
+
+   The disassemblies of the payloads are presented in Appendix B.
 
    The corresponding CoAP headers are only shown in Appendix A.1.
-   Creating CoAP headers are assumed to be generally known.
+   Creating CoAP headers is assumed to be generally known.
 
    These examples assume that the resource discovery, returned a short
-   URL of "/est".
-
-   [EDNOTE: For Michael.  The payloads of the examples need to be re-
-   generated with appropriate tools and example certificates.]
+   base path of "/est".
 
 A.1.  cacerts
 
@@ -1546,7 +1552,7 @@ A.1.  cacerts
    GET coaps://192.0.2.1:8085/est/crts
 
    The corresponding CoAP header fields are shown below.  The use of
-   block and DTLS are worked out in Appendix B.
+   block and DTLS are worked out in Appendix C.
 
 
 
@@ -1559,13 +1565,7 @@ A.1.  cacerts
 
 
 
-
-
-
-
-
-
-van der Stok, et al.      Expires June 8, 2019                 [Page 28]
+van der Stok, et al.      Expires July 4, 2019                 [Page 28]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -1616,97 +1616,81 @@ Internet-Draft                  EST-coaps                  December 2018
          Option Value = 281
 
      Payload =
-   30233906092a6206734107028c2a3023260201013100300b06092a6206734107018
-   c0c3020bb302063c20102020900a61e75193b7acc0d06092a620673410105050030
+   2d2d2d2d2d424547494e20504b4353372d2d2d2d2d0a4d4949457741594a
+   4b6f5a496876634e415163436f49494573544343424b3043415145784144
 
 
 
-van der Stok, et al.      Expires June 8, 2019                 [Page 29]
+van der Stok, et al.      Expires July 4, 2019                 [Page 29]
 
 Internet-Draft                  EST-coaps                  December 2018
 
 
-   1b31193017060355040313106573744578616d706c654341204f774f301e170d313
-   3303530393033353333315a170d3134303530393033353333315a301b3119301706
-   0355040313106573744578616d706c654341204f774f302062300d06092a6206734
-   10101050003204f0030204a022041003a923a2968bae4aae136ca4e2512c5200680
-   358482ac39d6f640e4574e654ea35f48b1e054c5da3372872f7a1e429f4edf39584
-   32efb2106591d3eb783c1034709f251fc86566bda2d541c792389eac4ec9e181f4b
-   9f596e5ef2679cc321542b11337f90a44df3c85f1516561fa968a1914f265bc0b82
-   76ebe3106a790d97d34c8c37c74fe1c30b396424664ac426284a9f6022e02693843
-   6880adfcd95c98ca1dfc2e6d75319b85d0458de28a9d13fb16d620fff7541f6a25d
-   7daf004355020301000130b040300f0603551d130101f10530030101fc1d0603551
-   d0e04160414084d321ca0135e77217a486b686b334b00e0603551d0f0101f104030
-   20106300d06092a62067341010505000320410023703b965746a0c2c978666d787a
-   94f89b495a11f0d369b28936ec2475c0f0855c8e83f823f2b871a1d92282f323c45
-   904ba008579216cf5223b8b1bc425a0677262047f7700240631c17f3035d1c3780b
-   2385241cba1f4a6e98e6be6820306b3a786de5a557795d1893822347b5f825d34a7
-   ad2876f8feba4d525b31066f6505796f71530003431a3e6bbfe788b4565029a7e20
-   a51107677552586152d051e8eebf383e92288983421d5c5652a4870c3af74b9bdbe
-   d6b462e2263d30f6d3020c330206bc20102020101300d06092a6206734101050500
-   301b31193017060355040313106573744578616d706c654341204f774f301e170d3
-   133303530393033353333325a170d3134303530393033353333325a301b31193017
-   060355040313106573744578616d706c654341204e774f302062300d06092a62067
-   3410101050003204f0030204a02204100ef6b677a3247c1fc03d2b9baf113e5e7e1
-   1f49e0421120e6b8384160f2bf02630ef544d5fd0d5623b35713c79a7229283a790
-   8751a634aa420a3e2a4b1f10519d046f02f5a5dd6d760c2a842356e067b7bd94338
-   d1faa3b3ddd4813060a207b0a097067007e45b052b60fdbae4656e11562c4f5abb7
-   b0cf87a79d221f1127313c53371ce1245d63db45a1203a23340ba08042c768d03b8
-   076a028d3a51d87d2ef107bbd6f2305ce5e67668724002fb726df9c14476c37de0f
-   55033f192a5ad21f9a2a71c20301000134b050300e0603551d0f0101f104030204c
-   1d0603551d0e04160414112966e304761732fbfe6a2c823c301f0603551d2304183
-   0165084d321ca0135e77217a486b686b334b00d06092a6206734101050500032041
-   00b382ba3355a50e287bae15758b3beff63d34d3e357b90031495d018868e49589b
-   9faf46a4ad49b1d35b06ef380106677440934663c2cc111c183655f4dc41c0b3401
-   123d35387389db91f1e1b4131b16c291d35730b3f9b33c7475124851555fe5fc647
-   e8fd029605367c7e01281bf6617110021b0d10847dce0e9f0ca6c764b6334784055
-   172c3983d1e3a3a82301a54fcc9b0670c543a1c747164619101ff23b240b2a26394
-   c1f7d38d0e2f4747928ece5c34627a075a8b3122011e9d9158055c28f020c330206
-   bc20102020102300d06092a6206734101050500301b311930170603550403131065
-   73744578616d706c654341204e774e301e170d3133303530393033353333325a170
-   d3134303530393033353333325a301b31193017060355040313106573744578616d
-   706c654341204f774e302062300d06092a620673410101050003204f0030204a022
-   041003a923a2968bae4aae136ca4e2512c5200680358482ac39d6f640e4574e654e
-   a35f48b1e054c5da3372872f7a1e429f4edf3958432efb2106591d3eb783c103470
-   9f251fc86566bda2d541c792389eac4ec9e181f4b9f596e5ef2679cc321542b1133
-   7f90a44df3c85f1516561fa968a1914f265bc0b8276ebe3106a790d97d34c8c37c7
-   4fe1c30b396424664ac426284a9f6022e026938436880adfcd95c98ca1dfc2e6d75
-   319b85d0458de28a9d13fb16d620fff7541f6a25d7daf004355020301000134b050
-   300e0603551d0f0101f104030204c1d0603551d0e04160414084d321ca0135e7721
-   7a486b686b334b01f0603551d230418301653112966e304761732fbfe6a2c823c30
+   414c42676b71686b69473977304242774767676753544d4949430a516a43
+   434165696741774942416749494430796b6e3052497a334177436759494b
+   6f5a497a6a3045417749775a7a454c4d416b474131554542684d4356564d
+   780a437a414a42674e564241674d416b4e424d5173774351594456515148
+   44414a4d515445554d424947413155454367774c52586868625842735a53
+   424a626d4d780a466a415542674e564241734d44574e6c636e52705a6d6c
+   6a59585270623234784544414f42674e5642414d4d42314a766233516751
+   3045774868634e4d5467780a4d6a4d774d544d314e44457a5768634e4d6a
+   67784d6a49334d544d314e44457a576a42644d5173774351594456515147
+   45774a56557a454c4d416b47413155450a43417743513045784644415342
+   674e5642416f4d4330563459573177624755675357356a4d525977464159
+   445651514c4441316a5a584a3061575a70593246300a615739754d524d77
+   455159445651514444416f344d4449754d55465349454e424d466b774577
+   59484b6f5a497a6a3043415159494b6f5a497a6a3044415163440a516741
+   456e484e74356e5874324d7958734a7071796a6777572f55667a744f5738
+   363837484f79755a2b547870347952442b426e3878644b6f6f7869777637
+   530a672f4967634c4c6c657265436179377677675a303644766346364f42
+   687a43426844416442674e56485134454667515555367937506d362f4331
+   31526a754a540a7644623034572b35574a3077487759445652306a424267
+   77466f41554258612f6f61476d6f41336752416453544f4c6f584b6a4635
+   70307745675944565230540a4151482f42416777426745422f7749424154
+   414f42674e56485138424166384542414d43415159774867594456523052
+   42426377465945545932567964476c6d0a6555426c654746746347786c4c
+   6d4e766254414b42676771686b6a4f5051514441674e4941444246416942
+   70592f77557230676737342b736833504f486e69700a594c4a57445a635a
+   4d786f315654717065512b324e774968414b572b75467150544479653379
+   58484275496d436c645731354561775a70454648747a473672670a467479
+   374d4949435354434341664367417749424167494a414f666e5249463148
+   4d43764d416f4743437147534d343942414d434d476378437a414a42674e
+   560a42415954416c56544d517377435159445651514944414a445154454c
+   4d416b474131554542777743544545784644415342674e5642416f4d4330
+   5634595731770a624755675357356a4d525977464159445651514c444131
+   6a5a584a3061575a7059324630615739754d524177446759445651514444
+   4164536232393049454e420a4d423458445445344d54497a4d44457a4e54
+   4d314e6c6f5844544d344d5449794e54457a4e544d314e6c6f775a7a454c
+   4d416b474131554542684d4356564d780a437a414a42674e564241674d41
+   6b4e424d517377435159445651514844414a4d515445554d424947413155
+   454367774c52586868625842735a53424a626d4d780a466a415542674e56
+   4241734d44574e6c636e52705a6d6c6a59585270623234784544414f4267
+   4e5642414d4d42314a76623351675130457757544154426763710a686b6a
+   4f5051494242676771686b6a4f50514d4242774e43414153496f69435753
+   564f68765956692b526348363675344f732b327a4f395a62757a5a76686f
+   770a565a43647a34655353394e52382b535275505244385149555930572b
+   4975693133626a77556c41587a747947746473616f3447454d4947424d42
+   3047413155640a446751574242514664722b686f6161674465424542314a
+   4d34756863714d586d6e54416642674e5648534d45474441576742514664
+   722b686f616167446542450a42314a4d34756863714d586d6e5441504267
+   4e5648524d4241663845425441444151482f4d4134474131556444774542
 
 
 
-van der Stok, et al.      Expires June 8, 2019                 [Page 30]
+van der Stok, et al.      Expires July 4, 2019                 [Page 30]
 
 Internet-Draft                  EST-coaps                  December 2018
 
 
-   0d06092a6206734101050500032041002e106933a443070acf5594a3a584d08af7e
-   06c295059370a06639eff9bd418d13bc25a298223164a6cf1856b11a81617282e4a
-   410d82ef086839c6e235690322763065455351e4c596acc7c016b225dec094706c2
-   a10608f403b10821984c7c152343b18a768c2ad30238dc45dd653ee6092b0d5cd4c
-   2f7d236043269357f76d13f95fb5f00d0e19263c6833948e1ba612ce8197af650e2
-   5d882c12f4b6b9b67252c608ef064aca3f9bc867d71172349d510bb7651cd438837
-   73d927deb41c4673020bb302063c201020209009b9dda3324700d06092a62067341
-   01050500301b31193017060355040313106573744578616d706c654341204e774e3
-   01e170d3133303530393033353333325a170d3134303530393033353333325a301b
-   31193017060355040313106573744578616d706c654341204e774e302062300d060
-   92a620673410101050003204f0030204a02204100ef6b677a3247c1fc03d2b9baf1
-   13e5e7e11f49e0421120e6b8384160f2bf02630ef544d5fd0d5623b35713c79a722
-   9283a7908751a634aa420a3e2a4b1f10519d046f02f5a5dd6d760c2a842356e067b
-   7bd94338d1faa3b3ddd4813060a207b0a097067007e45b052b60fdbae4656e11562
-   c4f5abb7b0cf87a79d221f1127313c53371ce1245d63db45a1203a23340ba08042c
-   768d03b8076a028d3a51d87d2ef107bbd6f2305ce5e67668724002fb726df9c1447
-   6c37de0f55033f192a5ad21f9a2a71c20301000130b040300f0603551d130101f10
-   530030101fc1d0603551d0e04160414112966e304761732fbfe6a2c823c300e0603
-   551d0f0101f10403020106300d06092a620673410105050003204100423f06d4b76
-   0f4b42744a279035571696f272a0060f1325a40898509601ad14004f652db6312a1
-   475c4d7cd50f4b269035585d7856c5337765a66b38462d5bdaa7778aab24bbe2815
-   e37722cd10e7166c50e75ab75a1271324460211991e7445a2960f47351a1a629253
-   34119794b90e320bc730d6c1bee496e7ac125ce9a1eca595a3a4c54a865e6b623c9
-   247bfd0a7c19b56077392555c955e233642bec643ae37c166c5e221d797aea3748f
-   0391c8d692a5cf9bb71f6d0e37984d6fa673a30d0c006343116f58403100
+   2f77514541774942426a416542674e560a48524545467a415667524e6a5a
+   584a3061575a35514756345957317762475575593239744d416f47434371
+   47534d343942414d43413063414d4551434947714a0a4e5a553039317053
+   6574334458394d6b50787341567875766b674570556b527a44514c657467
+   4b3641694168635673714f697a757633554331686572567057530a6b647a
+   306c4d43536e30766c4e65435934366473326145414d51413d0a2d2d2d2d
+   2d454e4420504b4353372d2d2d2d2d0a
+
+   The disassembly of the payload is shown in Appendix B.1.
 
 A.2.  csrattrs
 
@@ -1716,8 +1700,18 @@ A.2.  csrattrs
    GET coaps://[2001:db8::2:1]:61616/est/att
    (Content-Format: 285)
 
-   A 2.05 Content response would contain attributes which are relevant
-   for the authenticated client.
+   307c06072b06010101011630220603883701311b131950617273652053455
+   420617320322e3939392e31206461746106092a864886f70d010907302c06
+   0388370231250603883703060388370413195061727365205345542061732
+   0322e3939392e32206461746106092b240303020801010b06096086480165
+   03040202
+
+   A 2.05 Content response should contain attributes which are relevant
+   for the authenticated client.  This example is copied from section
+   A.2 in [RFC7030], where the base64 representation is replaced with a
+   hexadecimal representation of the binary payload.  The EST-coaps
+   server returns two attributes that the client can ignore when they
+   are unknown to him.
 
 A.3.  enroll / reenroll
 
@@ -1733,7 +1727,13 @@ A.3.  enroll / reenroll
 
 
 
-van der Stok, et al.      Expires June 8, 2019                 [Page 31]
+
+
+
+
+
+
+van der Stok, et al.      Expires July 4, 2019                 [Page 31]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -1741,22 +1741,19 @@ Internet-Draft                  EST-coaps                  December 2018
    POST [2001:db8::2:1]:61616/est/sen
    (token 0x45)
    (Content-Format: 286)
-   30208530206d020100301f311d301b0603550403131464656d6f7374657034203
-   1333638313431333532302062300d06092a620673410101050003204f0030204a
-   022041005d9f4dffd3c5949f646a9584367778560950b355c35b8e34726dd3764
-   54231734795b4c09b9c6d75d408311307a81f7adef7f5d241f7d5be85620c5d44
-   38bbb4242cf215c167f2ccf36c364ea2618a62f0536576369d6304e6a96877224
-   7d86824f079faac7a6f694cfda5b84c42087dc062d462190c525813f210a036a7
-   37b4f30d8891f4b75559fb72752453146332d51c937557716ccec624f5125c3a4
-   447ad3115020048113fef54ad554ee88af09a2583aac9024075113db4990b1786
-   b871691e0f02030100018701f06092a620673410907311213102b72724369722f
-   372b45597535305434300d06092a620673410105050003204100441b40177a3a6
-   5501487735a8ad5d3827a4eaa867013920e2afcda87aa81733c7c0353be47e1bf
-   a7cda5176e7ccc6be22ae03498588d5f2de3b143f2b1a6175ec544e8e7625af6b
-   836fd4416894c2e55ea99c6606f69075d6d53475d410729aa6d806afbb9986caf
-   7b844b5b3e4545f19071865ada007060cad6db26a592d4a7bda7d586b68110962
-   17071103407553155cddc75481e272b5ed553a8593fb7e25100a6f7605085dab4
-   fc7e0731f0e7fe305703791362d5157e92e6b5c2e3edbcadb40
+   3082016f308201150201003076310b3009060355040613025553310b3009
+   06035504080c0243413111300f06035504070c084f616b205061726b3114
+   3012060355040a0c0b6578616d706c6520496e63310c300a060355040b0c
+   03496f543112301006035504030c09436c69656e74205241310f300d0603
+   55040513065774313233343059301306072a8648ce3d020106082a8648ce
+   3d03010703420004835f89726506f0d586f8db511d945b4880ecb8d15ee9
+   707893944b6ca7e247e753fd9d82c8bf8f353003327ee51f9b033330bc20
+   6999fff6e62cc8119c405a31a03d303b06092a864886f70d01090e312e30
+   2c302a0603551d1104233021a01f06082b06010505070804a01330110609
+   2b06010401b43b0a01040401020304300a06082a8648ce3d040302034800
+   3045022025084bf66faa41504bcb83f6aeca0e95d941a8a250f86e6300da
+   9501992c878b02210082c2ff4ef22c60d2f7e52f9095b8381a25200fdc87
+   f90aef577cb00d43224833
 
    After verification of the CSR by the server, a 2.01 Content response
    with the issued certificate will be returned to the client.  As
@@ -1765,10 +1762,7 @@ Internet-Draft                  EST-coaps                  December 2018
    (Service Unavailable) and the Max-Age option.  See Figure 3 for an
    example exchange.
 
-   [EDNOTE: For Michael.  When redoing this example, given that POP
-   linking is also used, make sure it is obvious that the
-   ChallengePassword attribute in the CSR is valid HMAC output.  OpenSSL
-   can be used to generate the CSR.  HMAC-REAL.]
+   [EDNOTE: to include ChallengePassword.]
 
 
 
@@ -1789,7 +1783,13 @@ Internet-Draft                  EST-coaps                  December 2018
 
 
 
-van der Stok, et al.      Expires June 8, 2019                 [Page 32]
+
+
+
+
+
+
+van der Stok, et al.      Expires July 4, 2019                 [Page 32]
 
 Internet-Draft                  EST-coaps                  December 2018
 
@@ -1797,27 +1797,39 @@ Internet-Draft                  EST-coaps                  December 2018
    RET:
    (Content-Format: 281)(token =0x45)
    2.01 Created
-   3020f806092a62067341070283293020e50201013100300b06092a62067341070
-   1830b3020c730206fc20102020115300d06092a6206734101050500301b311930
-   17060355040313106573744578616d706c654341204e774e301e170d313330353
-   0393233313535335a170d3134303530393233313535335a301f311d301b060355
-   0403131464656d6f73746570342031333638313431333532302062300d06092a6
-   20673410101050003204f0030204a022041005d9f4dffd3c5949f646a95843677
-   78560950b355c35b8e34726dd376454231734795b4c09b9c6d75d408311307a81
-   f7adef7f5d241f7d5be85620c5d4438bbb4242cf215c167f2ccf36c364ea2618a
-   62f0536576369d6304e6a968772247d86824f079faac7a6f694cfda5b84c42087
-   dc062d462190c525813f210a036a737b4f30d8891f4b75559fb72752453146332
-   d51c937557716ccec624f5125c3a4447ad3115020048113fef54ad554ee88af09
-   a2583aac9024075113db4990b1786b871691e0f020301000134b050300e060355
-   1d0f0101f104030204c1d0603551d0e04160414e81d0788aa2710304c5ecd4d1e
-   065701f0603551d230418301653112966e304761732fbfe6a2c823c300d06092a
-   6206734101050500032041002910d86f2ffeeb914c046816871de601567d291b4
-   3fabee0f0e8ff81cea27302a7133e20e9d04029866a8963c7d14e26fbe8a0ab1b
-   77fbb1214bbcdc906fbc381137ec1de685f79406c3e416b8d82f97174bc691637
-   5a4e1c4bf744c7572b4b2c6bade9fb35da786392ee0d95e3970542565f3886ad6
-   7746d1b12484bb02616e63302dc371dc6006e431fb7c457598dd204b367b0b3d3
-   258760a303f1102db26327f929b7c5a60173e1799491b69150248756026b80553
-   171e4733ad3d13c0103100
+   2d2d2d2d2d424547494e20504b4353372d2d2d2d2d0a4d4949436951594a
+   4b6f5a496876634e415163436f494943656a4343416e5943415145784144
+   414c42676b71686b6947397730424277476767674a634d4949430a574443
+   4341663267417749424167494a414b6667736d4479476f554a4d416f4743
+   437147534d343942414d434d463078437a414a42674e5642415954416c56
+   540a4d517377435159445651514944414a44515445554d42494741315545
+   4367774c52586868625842735a53424a626d4d78466a415542674e564241
+   734d44574e6c0a636e52705a6d6c6a5958527062323478457a415242674e
+   5642414d4d436a67774d69347851564967513045774942634e4d5467784d
+   6a4d774d544d314e444d780a576867504f546b354f5445794d7a45794d7a
+   55354e546c614d485978437a414a42674e5642415954416c56544d517377
+   435159445651514944414a44515445520a4d413847413155454277774954
+   32467249464268636d73784644415342674e5642416f4d43325634595731
+   77624755675357356a4d517777436759445651514c0a44414e4a62315178
+   456a415142674e5642414d4d43554e736157567564434253515445504d41
+   30474131554542524d47563351784d6a4d304d466b77457759480a4b6f5a
+   497a6a3043415159494b6f5a497a6a3044415163445167414567312b4a63
+   6d5547384e57472b4e7452485a526253494473754e4665365842346b3552
+   4c0a624b6669522b64542f5a3243794c2b504e5441444d6e376c48357344
+   4d7a433849476d5a2f2f626d4c4d67526e4542614d614f42696a4342687a
+   414a42674e560a48524d45416a41414d4230474131556444675157424252
+   3768735069476868793355686d61732b6c6f5369714c4339354d54416642
+   674e5648534d45474441570a67425254724c732b6272384c5856474f346c
+   4f384e76546862376c596e54414f42674e56485138424166384542414d43
+   426141774b6759445652305242434d770a49614166426767724267454642
+   516349424b41544d42454743537347415151427444734b41515145415149
+   444244414b42676771686b6a4f5051514441674e4a0a4144424741694541
+   685a424e6a7a736a53316475745438413854454168687659504c71787330
+   754b4f766571354b7742526249434951435374793569426f75470a52502b
+   51534131716242753831466b6d346a682f33336379376d33616e35363349
+   7145414d51413d0a2d2d2d2d2d454e4420504b4353372d2d2d2d2d0a
+
+   The disassembly of the payload is shown in Appendix B.2.
 
 A.4.  serverkeygen
 
@@ -1833,148 +1845,466 @@ A.4.  serverkeygen
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-van der Stok, et al.      Expires June 8, 2019                 [Page 33]
+van der Stok, et al.      Expires July 4, 2019                 [Page 33]
 
 Internet-Draft                  EST-coaps                  December 2018
 
 
-POST coaps://192.0.2.1:8085/est/skg
-(token 0xa5)
-(Content-Format: 286)(Max-Age=120)
+   POST coaps://192.0.2.1:8085/est/skg
+   (token 0xa5)
+   (Content-Format: 286)(Max-Age=120)
+   3081d5307c020100301a310b3009060355040613025553310b3009060355
+   04080c024c413059301306072a8648ce3d020106082a8648ce3d03010703
+   420004835f89726506f0d586f8db511d945b4880ecb8d15ee9707893944b
+   6ca7e247e753fd9d82c8bf8f353003327ee51f9b033330bc206999fff6e6
+   2cc8119c405a31a000300a06082a8648ce3d0403020349003046022100bf
+   562cf8178654187284e2d0c3a01b760748d6be80d54c49d3986a17d0197f
+   cc022100e34e6cd8c20e3ea5388a69d52fa814795eb8ae1bca099b3d5ae5
+   1a77e79bd9a5
 
-[EDNOTE For Michael. This should be a CSR Same comment as HMAC-REAL above applies.]
-302081302069020100305b313e303c060355040313357365727665724b6579476
-56e2072657120627920636c69656e7420696e2064656d6f207374657020313220
-3133363831343139353531193017060355040513105049443a576964676574205
-34e3a3130302062300d06092a620673410101050003204f0030204a02204100f4
-dfa6c03f7f2766b23776c333d2c0f9d1a7a6ee36d01499bbe6f075d1e38a57e98
-ecc197f51b75228454b7f19652332de5e52e4a974c6ae34e1df80b33f15f47d3b
-cbf76116bb0e4d3e04a9651218a476a13fc186c2a255e4065ff7c271cff104e47
-31fad53c22b21a1e5138bf9ad0187314ac39445949a48805392390e78c7659621
-6d3e61327a534f5ea7721d2b1343c7362b37da502717cfc2475653c7a3860c5f4
-0612a5db6d33794d755264b6327e3a3263b149628585b85e57e42f6b3277591b0
-2030100018701f06092a6206734109073112131064467341586d4a6e6a6f6b427
-4447672300d06092a620673410105050003204100472d11007e5a2b2c2023d47a
-6d71d046c307701d8ebc9e47272713378390b4ee321462a3dbe54579f5a514f6f
-4050af497f428189b63655d03a194ef729f101743e5d03fbc6ae1e84486d1300a
-f9288724381909188c851fa9a5059802eb64449f2a3c9e441353d136768da27ff
-4f277651d676a6a7e51931b08f56135a2230891fd184960e1313e7a1a9139ed19
-28196867079a456cd2266cb754a45151b7b1b939e381be333fea61580fe5d25bf
-4823dbd2d6a98445b46305c10637e202856611
-
-   [EDNOTE: For Michael.  Maybe ask interop team for an server-side
-   keygen example.  Suggestion to have only one example with complete
-   encrypted payload (the short one) and point out the different fields.
-   Update this example according to the agreed upon solution from
-   Section 5.7. ]
+   The disassembly of this request is shown in Appendix B.3
 
    The response would follow [I-D.ietf-core-multipart-ct] and could
    looke like
 
-   RET:
-   2.01 Content (Content-Format: 62)
-   (token=0xa5)
-
-   [284,
-   h'30213e020100300d06092a6206734101010500042128302124020100022041003
-   c0bc2748f2003e3e8ea15f746f2a71e83f585412b92cf6f8e64de02e056153274
-   dd01c95dd9cff3112aa141774ab655c3d56359c3b3df055294692ed848e7e30a1
-   1bf14e47e0693d93017022b4cdb3e6d40325356152b213c8b535851e681a7074c
-   0c6d2b60e7c32fc0336b28e743eba4e5921074d47195d3c05e43c527526e692d5
-   45e562578d2d4b5f2191bff89d3eef0222764a2674637a1f99257216647df6704
-   efec5adbf54dab24231844eb595875795000e673dd6862310a146ad7e31083010
-   001022041004e6b3f78b7791d6377f33117c17844531c81111fb8000282816264
-   915565bc7c3f3f643b537a2c69140a31c22550fa97e5132c61b74166b68626704
-   260620333050f510096b6570f5880e7e1c15dc0ca6ce2b5f187e2325da14ab705
 
 
 
-van der Stok, et al.      Expires June 8, 2019                 [Page 34]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+van der Stok, et al.      Expires July 4, 2019                 [Page 34]
 
 Internet-Draft                  EST-coaps                  December 2018
 
 
-   ad004717f3b2f779127b5c535e0cee6a343b502722f2397a26126e0af606b5aa7
-   f96313511c0b7eb26354f91b82269de62757e3def807a6afdf83ddcbb0614bb7c
-   542e6975d6456554e7bd9988fbd1930cd44d0e01ee9182ca54539418653150254
-   1ad1a2a11e5021040bfce554b642c29131e7d65455e83c5406d76771912f758f5
-   ee3ee36af386f38ffa313c0f661880c5a2b0970485d36f528e7f77a2e55b4ad76
-   1242d1c2f75939c8061217d31491d305d3e07d6161c43e26f7de4477b1811de92
-   33dc75b426302104015bf48ac376f52887813461fc54635517bcb67293837053e
-   8ce1a33da7a35565a75a370dc14555b5316cb55742380350774d769d151ff0456
-   0214389a232a2258326163167504cfce44cd316f63bb8a52da53a4cb74fd87194
-   c0844881f791f23b0813ea0921325edd14459d41c8a1593f04316388e40b35fef
-   7d2a195a5930fa54774427ac821eee2c62790d2c17bd192af794c611011506557
-   83d4efe22185cbd83368786f2b1e68a5a27067e321066f0217b4b6d7971a3c21a
-   241366b7907187583b511102103369047e5cce0b65012200df5ec697b5827575c
-   db6821ff299d6a69574b31ddf0fbe9245ea2f74396c24b3a7565067e41366423b
-   5bdd2b2a78194094dbe333f493d159b8e07722f2280d48388db7f1c9f0633bb0e
-   173de2c3aa1f200af535411c7090210401421e2ea217e37312dcc606f453a6634
-   f3df4dc31a9e910614406412e70eec9247f10672a500947a64356c015a845a7d1
-   50e2e3911a2b3b61070a73247166da10bb45474cc97d1ec2bc392524307f35118
-   f917438f607f18181684376e13a39e07',
-   281,
-   h'3020c506092a62067341070283363020f20201013100300b06092a62067341070
-   183183020d430207cc20102020116300d06092a6206734101050500301b311930
-   17060355040313106573744578616d706c654341204e774e301e170d313330353
-   0393233323535365a170d3134303530393233323535365a302c312a3028060355
-   0403132173657276657273696465206b65792067656e657261746564207265737
-   06f6e7365302062300d06092a620673410101050003204f0030204a022041003c
-   0bc2748f2003e3e8ea15f746f2a71e83f585412b92cf6f8e64de02e056153274d
-   d01c95dd9cff3112aa141774ab655c3d56359c3b3df055294692ed848e7e30a11
-   bf14e47e0693d93017022b4cdb3e6d40325356152b213c8b535851e681a7074c0
-   c6d2b60e7c32fc0336b28e743eba4e5921074d47195d3c05e43c527526e692d54
-   5e562578d2d4b5f2191bff89d3eef0222764a2674637a1f99257216647df6704e
-   fec5adbf54dab24231844eb595875795000e673dd6862310a146ad7e310830100
-   0134b050300e0603551d0f0101f104030204c1d0603551d0e04160414764b1bd5
-   e69935626e476b195a1a8c1f0603551d230418301653112966e304761732fbfe6
-   a2c823c300d06092a620673410105050003204100474e5100a9cdaaa813b30f48
-   40340fb17e7d6d6063064a5a7f2162301c464b5a8176623dfb1a4a484e618de1c
-   3c3c5927cf590f4541233ff3c251e772a9a3f2c5fc6e5ef2fe155e5e385deb846
-   b36eb4c3c7ef713f2d137ae8be4c022715fd033a818d55250f4e6077718180755
-   a4fa677130da60818175ca4ab2af1d15563624c51e13dfdcf381881b72327e2f4
-   9b7467e631a27b5b5c7d542bd2edaf78c0ac294f3972278996bdf673a334ff74c
-   84aa7d65726310252f6a4f41281ec10ca2243864e3c5743103100']
+   RET:
+   2.01 Content (Content-Format: 62)
+   (token=0xa5)
+   84                                # array(4)
+   19 011C                              # unsigned(284)
+   58 F1                                # bytes(241)
+   2d2d2d2d2d424547494e2050524956415445204b45592d2d2d2d2d0a4d49
+   4748416745414d424d4742797147534d34394167454743437147534d3439
+   417745484247307761774942415151672b742f377a70785067324172424f
+   6c680a61744a33772b516e4e2f5970625345656b7735777649663477362b
+   6852414e434141534458346c795a51627731596234323145646c46744967
+   4f7934305637700a634869546c457473702b4a48353150396e594c497634
+   38314d414d79667555666d774d7a4d4c7767615a6e2f3975597379424763
+   51466f780a2d2d2d2d2d454e442050524956415445204b45592d2d2d2d2d
+   0a
+   19 0119                          # unsigned(281)
+   59 0273                          # bytes(627)
+   2d2d2d2d2d424547494e20504b4353372d2d2d2d2d0a4d4949427177594a
+   4b6f5a496876634e415163436f4949426e444343415a6743415145784144
+   414c42676b71686b694739773042427747676767462b4d4949420a656a43
+   4341534767417749424167494a4150766369393676765864304d416f4743
+   437147534d343942414d434d426f78437a414a42674e5642415954416c56
+   540a4d517377435159445651514944414a4451544165467730784f444579
+   4d7a45774f4449344e4456614677307a4f4445794d6a59774f4449344e44
+   56614d426f780a437a414a42674e5642415954416c56544d517377435159
+   445651514944414a445154425a4d424d4742797147534d34394167454743
+   437147534d3439417745480a4130494142494e6669584a6c427644566876
+   6a625552325557306941374c6a5258756c77654a4f555332796e346b666e
+   552f32646773692f6a7a5577417a4a2b0a35522b62417a4d77764342706d
+   662f3235697a49455a7841576a476a5544424f4d42304741315564446751
+   574242523768735069476868793355686d61732b6c0a6f5369714c433935
+   4d54416642674e5648534d45474441576742523768735069476868793355
+   686d61732b6c6f5369714c4339354d54414d42674e5648524d450a425441
+   444151482f4d416f4743437147534d343942414d43413063414d45514349
+   484878334f49456d372b2f47414b764e7635747a7530306a614569346c36
+   4d0a656548476f656f58504b71714169426b4b44486e68736a316e537566
+   4130763664474130315233464f543433542f67654c6b2f50652b37584e61
+   45414d51413d0a2d2d2d2d2d454e4420504b4353372d2d2d2d2d0a
+
+Appendix B.  Disassembly Examples
+
+   The subsections present the disassembly of the hexadecimal dumps of
+   the payloads shown in Appendix A.
+
+
+
+
+
+
+
+
+van der Stok, et al.      Expires July 4, 2019                 [Page 35]
+
+Internet-Draft                  EST-coaps                  December 2018
+
+
+B.1.  cacerts payload disassembly
+
+   Disassembly of pkcs7 response payload containing a chain of two
+   certificates.
+
+  Certificate:
+      Data:
+          Version: 3 (0x2)
+          Serial Number: 1102437012751306608 (0xf4ca49f4448cf70)
+      Signature Algorithm: ecdsa-with-SHA256
+          Issuer: C=US, ST=CA, L=LA, O=Example Inc, OU=certification,
+                  CN=Root CA
+          Validity
+              Not Before: Dec 30 13:54:13 2018 GMT
+              Not After : Dec 27 13:54:13 2028 GMT
+          Subject: C=US, ST=CA, O=Example Inc, OU=certification,
+                   CN=802.1AR CA
+          Subject Public Key Info:
+              Public Key Algorithm: id-ecPublicKey
+                  Public-Key: (256 bit)
+                  pub:
+                      04:9c:73:6d:e6:75:ed:d8:cc:97:b0:9a:6a:ca:38:
+                      30:5b:f5:1f:ce:d3:96:f3:af:3b:1c:ec:ae:67:e4:
+                      f1:a7:8c:91:0f:e0:67:f3:17:4a:a2:8c:62:c2:fe:
+                      d2:83:f2:20:70:b2:e5:7a:b7:82:6b:2e:ef:c2:06:
+                      74:e8:3b:dc:17
+                  ASN1 OID: prime256v1
+                  NIST CURVE: P-256
+          X509v3 extensions:
+              X509v3 Subject Key Identifier:
+                53:AC:BB:3E:6E:BF:0B:5D:51:8E:E2:53:BC:36:F4:E1:6F:B9:
+  58:9D
+              X509v3 Authority Key Identifier:
+                  keyid:05:76:BF:A1:A1:A6:A0:0D:E0:44:07:52:4C:E2:E8:5C:
+  A8:C5:E6:9D
+
+              X509v3 Basic Constraints: critical
+                  CA:TRUE, pathlen:1
+              X509v3 Key Usage: critical
+                  Certificate Sign, CRL Sign
+              X509v3 Subject Alternative Name:
+                  email:certify@example.com
+      Signature Algorithm: ecdsa-with-SHA256
+           30:45:02:20:69:63:fc:14:af:48:20:ef:8f:ac:87:73:ce:1e:
+           78:a9:60:b2:56:0d:97:19:33:1a:35:55:3a:a9:79:0f:b6:37:
+           02:21:00:a5:be:b8:5a:8f:4c:3c:9e:df:25:c7:06:e2:26:0a:
+           57:56:d7:91:1a:c1:9a:44:14:7b:73:1b:aa:e0:16:dc:bb
+
+
+
+
+van der Stok, et al.      Expires July 4, 2019                 [Page 36]
+
+Internet-Draft                  EST-coaps                  December 2018
+
+
+  Certificate:
+      Data:
+          Version: 3 (0x2)
+          Serial Number:
+              e7:e7:44:81:75:1c:c0:af
+      Signature Algorithm: ecdsa-with-SHA256
+          Issuer: C=US, ST=CA, L=LA, O=Example Inc, OU=certification,
+                  CN=Root CA
+          Validity
+              Not Before: Dec 30 13:53:56 2018 GMT
+              Not After : Dec 25 13:53:56 2038 GMT
+          Subject: C=US, ST=CA, L=LA, O=Example Inc,
+           OU=certification, CN=Root CA
+          Subject Public Key Info:
+              Public Key Algorithm: id-ecPublicKey
+                  Public-Key: (256 bit)
+                  pub:
+                      04:88:a2:20:96:49:53:a1:bd:85:62:f9:17:07:eb:
+                      ab:b8:3a:cf:b6:cc:ef:59:6e:ec:d9:be:1a:30:55:
+                      90:9d:cf:87:92:4b:d3:51:f3:e4:91:b8:f4:43:f1:
+                      02:14:63:45:be:22:e8:b5:dd:b8:f0:52:50:17:ce:
+                      dc:86:b5:db:1a
+                  ASN1 OID: prime256v1
+                  NIST CURVE: P-256
+          X509v3 extensions:
+              X509v3 Subject Key Identifier:
+  05:76:BF:A1:A1:A6:A0:0D:E0:44:07:52:4C:E2:E8:5C:A8:C5:E6:9D
+              X509v3 Authority Key Identifier:
+                  keyid:
+  05:76:BF:A1:A1:A6:A0:0D:E0:44:07:52:4C:E2:E8:5C:A8:C5:E6:9D
+
+              X509v3 Basic Constraints: critical
+                  CA:TRUE
+              X509v3 Key Usage: critical
+                  Certificate Sign, CRL Sign
+              X509v3 Subject Alternative Name:
+                  email:certify@example.com
+      Signature Algorithm: ecdsa-with-SHA256
+           30:44:02:20:6a:89:35:95:34:f7:5a:52:7a:dd:c3:5f:d3:24:
+           3f:1b:00:57:1b:af:92:01:29:52:44:73:0d:02:de:b6:02:ba:
+           02:20:21:71:5b:2a:3a:2c:ee:bf:75:02:d6:17:ab:56:95:92:
+           91:dc:f4:94:c0:92:9f:4b:e5:35:e0:98:e3:a7:6c:d9
+
+B.2.  Re-enroll payload disassemblies
+
+   Disassembly of pkcs10 request payload.
+
+
+
+
+
+van der Stok, et al.      Expires July 4, 2019                 [Page 37]
+
+Internet-Draft                  EST-coaps                  December 2018
+
+
+   Certificate Request:
+       Data:
+           Version: 0 (0x0)
+           Subject: C=US, ST=CA, L=Oak Park, O=,
+          OU=IoT, CN=Client RA/serialNumber=Wt1234
+           Subject Public Key Info:
+               Public Key Algorithm: id-ecPublicKey
+                   Public-Key: (256 bit)
+                   pub:
+                       04:83:5f:89:72:65:06:f0:d5:86:f8:db:51:1d:94:
+                       5b:48:80:ec:b8:d1:5e:e9:70:78:93:94:4b:6c:a7:
+                       e2:47:e7:53:fd:9d:82:c8:bf:8f:35:30:03:32:7e:
+                       e5:1f:9b:03:33:30:bc:20:69:99:ff:f6:e6:2c:c8:
+                       11:9c:40:5a:31
+                   ASN1 OID: prime256v1
+                   NIST CURVE: P-256
+           Attributes:
+           Requested Extensions:
+               X509v3 Subject Alternative Name:
+                   othername:<unsupported>
+       Signature Algorithm: ecdsa-with-SHA256
+            30:45:02:20:25:08:4b:f6:6f:aa:41:50:4b:cb:83:f6:ae:ca:
+            0e:95:d9:41:a8:a2:50:f8:6e:63:00:da:95:01:99:2c:87:8b:
+            02:21:00:82:c2:ff:4e:f2:2c:60:d2:f7:e5:2f:90:95:b8:38:
+            1a:25:20:0f:dc:87:f9:0a:ef:57:7c:b0:0d:43:22:48:33
+
+   Disassembley of pkcs7 response payload.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+van der Stok, et al.      Expires July 4, 2019                 [Page 38]
+
+Internet-Draft                  EST-coaps                  December 2018
+
+
+   Certificate:
+       Data:
+           Version: 3 (0x2)
+           Serial Number:
+               a7:e0:b2:60:f2:1a:85:09
+       Signature Algorithm: ecdsa-with-SHA256
+           Issuer: C=US, ST=CA, O=Example Inc, OU=certification,
+                   CN=802.1AR CA
+           Validity
+               Not Before: Dec 30 13:54:31 2018 GMT
+               Not After : Dec 31 23:59:59 9999 GMT
+           Subject: C=US, ST=CA, L=Oak Park, O=example Inc, OU=IoT,
+              CN=Client RA/serialNumber=Wt1234
+           Subject Public Key Info:
+               Public Key Algorithm: id-ecPublicKey
+                   Public-Key: (256 bit)
+                   pub:
+                       04:83:5f:89:72:65:06:f0:d5:86:f8:db:51:1d:94:
+                       5b:48:80:ec:b8:d1:5e:e9:70:78:93:94:4b:6c:a7:
+                       e2:47:e7:53:fd:9d:82:c8:bf:8f:35:30:03:32:7e:
+                       e5:1f:9b:03:33:30:bc:20:69:99:ff:f6:e6:2c:c8:
+                       11:9c:40:5a:31
+                   ASN1 OID: prime256v1
+                   NIST CURVE: P-256
+           X509v3 extensions:
+               X509v3 Basic Constraints:
+                   CA:FALSE
+               X509v3 Subject Key Identifier:
+   7B:86:C3:E2:1A:18:72:DD:48:66:6A:CF:A5:A1:28:AA:2C:
+   2F:79:31
+               X509v3 Authority Key Identifier:
+                   keyid:
+   53:AC:BB:3E:6E:BF:0B:5D:51:8E:E2:53:BC:36:F4:E1:6F:B9:58:9D
+
+               X509v3 Key Usage: critical
+                   Digital Signature, Key Encipherment
+               X509v3 Subject Alternative Name:
+                   othername:<unsupported>
+       Signature Algorithm: ecdsa-with-SHA256
+            30:46:02:21:00:85:90:4d:8f:3b:23:4b:57:6e:b5:3f:00:f1:
+            31:00:86:1b:d8:3c:ba:b1:b3:4b:8a:3a:f7:aa:e4:ac:01:45:
+            b2:02:21:00:92:b7:2e:62:06:8b:86:44:ff:90:48:0d:6a:6c:
+            1b:bc:d4:59:26:e2:38:7f:df:77:32:ee:6d:da:9f:9e:b7:22
+
+
+
+
+
+
+
+
+van der Stok, et al.      Expires July 4, 2019                 [Page 39]
+
+Internet-Draft                  EST-coaps                  December 2018
+
+
+B.3.  Serverkey generation disassembly
+
+   The followng is the disassembly of the pkcs10 request payload.
+
+   Certificate Request:
+       Data:
+           Version: 0 (0x0)
+           Subject: C=US, ST=LA
+           Subject Public Key Info:
+               Public Key Algorithm: id-ecPublicKey
+                   Public-Key: (256 bit)
+                   pub:
+                       04:83:5f:89:72:65:06:f0:d5:86:f8:db:51:1d:94:
+                       5b:48:80:ec:b8:d1:5e:e9:70:78:93:94:4b:6c:a7:
+                       e2:47:e7:53:fd:9d:82:c8:bf:8f:35:30:03:32:7e:
+                       e5:1f:9b:03:33:30:bc:20:69:99:ff:f6:e6:2c:c8:
+                       11:9c:40:5a:31
+                   ASN1 OID: prime256v1
+                   NIST CURVE: P-256
+           Attributes:
+               a0:00
+       Signature Algorithm: ecdsa-with-SHA256
+            30:46:02:21:00:bf:56:2c:f8:17:86:54:18:72:84:e2:d0:c3:
+            a0:1b:76:07:48:d6:be:80:d5:4c:49:d3:98:6a:17:d0:19:7f:
+            cc:02:21:00:e3:4e:6c:d8:c2:0e:3e:a5:38:8a:69:d5:2f:a8:
+            14:79:5e:b8:ae:1b:ca:09:9b:3d:5a:e5:1a:77:e7:9b:d9:a5
+
+   The following is the disassembly of the pkcs8 preamble content of the
+   response payload.
+
+   Private-Key: (256 bit)
+   priv:
+       00:fa:df:fb:ce:9c:4f:83:60:2b:04:e9:61:6a:d2:
+       77:c3:e4:27:37:f6:29:6d:21:1e:93:0e:70:bc:87:
+       f8:c3:af
+   pub:
+       04:83:5f:89:72:65:06:f0:d5:86:f8:db:51:1d:94:
+       5b:48:80:ec:b8:d1:5e:e9:70:78:93:94:4b:6c:a7:
+       e2:47:e7:53:fd:9d:82:c8:bf:8f:35:30:03:32:7e:
+       e5:1f:9b:03:33:30:bc:20:69:99:ff:f6:e6:2c:c8:
+       11:9c:40:5a:31
+   ASN1 OID: prime256v1
+   NIST CURVE: P-256
+
+   The following is the disassembly of the pkcs7 content of the second
+   part of the response payload.
+
+
+
+
+
+van der Stok, et al.      Expires July 4, 2019                 [Page 40]
+
+Internet-Draft                  EST-coaps                  December 2018
+
+
+   Certificate:
+       Data:
+           Version: 3 (0x2)
+           Serial Number:
+               fb:dc:8b:de:af:bd:77:74
+       Signature Algorithm: ecdsa-with-SHA256
+           Issuer: C=US, ST=CA
+           Validity
+               Not Before: Dec 31 08:28:45 2018 GMT
+               Not After : Dec 26 08:28:45 2038 GMT
+           Subject: C=US, ST=CA
+           Subject Public Key Info:
+               Public Key Algorithm: id-ecPublicKey
+                   Public-Key: (256 bit)
+                   pub:
+                       04:83:5f:89:72:65:06:f0:d5:86:f8:db:51:1d:94:
+                       5b:48:80:ec:b8:d1:5e:e9:70:78:93:94:4b:6c:a7:
+                       e2:47:e7:53:fd:9d:82:c8:bf:8f:35:30:03:32:7e:
+                       e5:1f:9b:03:33:30:bc:20:69:99:ff:f6:e6:2c:c8:
+                       11:9c:40:5a:31
+                   ASN1 OID: prime256v1
+                   NIST CURVE: P-256
+           X509v3 extensions:
+               X509v3 Subject Key Identifier:
+
+   7B:86:C3:E2:1A:18:72:DD:48:66:6A:CF:A5:A1:28:AA:2C:2F:79:31
+               X509v3 Authority Key Identifier:
+                   keyid:
+   7B:86:C3:E2:1A:18:72:DD:48:66:6A:CF:A5:A1:28:AA:2C:2F:79:31
+
+               X509v3 Basic Constraints:
+                   CA:TRUE
+       Signature Algorithm: ecdsa-with-SHA256
+            30:44:02:20:71:f1:dc:e2:04:9b:bf:bf:18:02:af:36:fe:6d:
+            ce:ed:34:8d:a1:22:e2:5e:8c:79:e1:c6:a1:ea:17:3c:aa:aa:
+            02:20:64:28:31:e7:86:c8:f5:9d:2b:9f:03:4b:fa:74:60:34:
+            d5:1d:c5:39:3e:37:4f:f8:1e:2e:4f:cf:7b:ee:d7:35
 
    The private key in the response above is without CMS EnvelopedData
    and has no additional encryption beyond DTLS (Section 5.7).
 
-
-
-
-
-
-
-van der Stok, et al.      Expires June 8, 2019                 [Page 35]
-
-Internet-Draft                  EST-coaps                  December 2018
-
-
-Appendix B.  EST-coaps Block message examples
+Appendix C.  EST-coaps Block message examples
 
    Two examples are presented in this section:
 
    1.  a cacerts exchange shows the use of Block2 and the block headers
 
+
+
+
+
+van der Stok, et al.      Expires July 4, 2019                 [Page 41]
+
+Internet-Draft                  EST-coaps                  December 2018
+
+
    2.  an enroll exchange shows the Block1 and Block2 size negotiation
        for request and response payloads.
 
-   The corresponding CoAP headers are only shown in Appendix B.1.
+   The corresponding CoAP headers are only shown in Appendix C.1.
    Creating CoAP headers are assumed to be generally known.
 
-B.1.  cacerts block example
+C.1.  cacerts block example
 
    This section provides a detailed example of the messages using DTLS
    and BLOCK option Block2.  The minimum PMTU is 1280 bytes, which is
@@ -1983,40 +2313,24 @@ B.1.  cacerts block example
 
    The following is an example of a cacerts exchange over DTLS.  The
    content length of the cacerts response in appendix A.1 of [RFC7030]]
-   is 4246 bytes using Base64.  This leads to a length of 2509 bytes in
-   binary.  The CoAP message adds around 10 bytes, the DTLS record 29
-   bytes.  To avoid IP fragmentation, the CoAP block option is used and
-   an MTU of 127 is assumed to stay within one IEEE 802.15.4 packet.  To
-   stay below the MTU of 127, the payload is split in 39 packets with a
-   payload of 64 bytes each, followed by a packet of 13 bytes.  The
-   client sends an IPv6 packet containing the UDP datagram with the DTLS
-   record that encapsulates the CoAP request 40 times.  The server
-   returns an IPv6 packet containing the UDP datagram with the DTLS
-   record that encapsulates the CoAP response.  The CoAP request-
-   response exchange with block option is shown below.  Block option is
-   shown in a decomposed way (block-option:NUM/M/size) indicating the
-   kind of Block option (2 in this case) followed by a colon, and then
-   the block number (NUM), the more bit (M = 0 in Block2 response means
-   it is last block), and block size with exponent (2**(SZX+4))
-   separated by slashes.  The Length 64 is used with SZX=2 to avoid IP
-   fragmentation.  The CoAP Request is sent with confirmable (CON)
-   option and the content format of the response, even though not shown,
-   is 281 (application/pkcs7-mime; smime-type=certs-only).
-
-
-
-
-
-
-
-
-
-
-
-van der Stok, et al.      Expires June 8, 2019                 [Page 36]
-
-Internet-Draft                  EST-coaps                  December 2018
-
+   contains 1640 bytes.  The CoAP message adds around 10 bytes, the DTLS
+   record 29 bytes.  To avoid IP fragmentation, the CoAP block option is
+   used and an MTU of 127 is assumed to stay within one IEEE 802.15.4
+   packet.  To stay below the MTU of 127, the payload is split in 25
+   packets with a payload of 64 bytes each, followed by a last packet of
+   40 bytes.  The client sends an IPv6 packet containing the UDP
+   datagram with the DTLS record that encapsulates the CoAP request 40
+   times.  The server returns an IPv6 packet containing the UDP datagram
+   with the DTLS record that encapsulates the CoAP response.  The CoAP
+   request-response exchange with block option is shown below.  Block
+   option is shown in a decomposed way (block-option:NUM/M/size)
+   indicating the kind of Block option (2 in this case) followed by a
+   colon, and then the block number (NUM), the more bit (M = 0 in Block2
+   response means it is last block), and block size with exponent
+   (2**(SZX+4)) separated by slashes.  The Length 64 is used with SZX=2
+   to avoid IP fragmentation.  The CoAP Request is sent with confirmable
+   (CON) option and the content format of the response, even though not
+   shown, is 281 (application/pkcs7-mime; smime-type=certs-only).
 
       GET /192.0.2.1:8085/est/crts   (2:0/0/64)    -->
                     <--   (2:0/1/64) 2.05 Content
@@ -2025,11 +2339,20 @@ Internet-Draft                  EST-coaps                  December 2018
                             |
                             |
                             |
-      GET /192.0.2.1:8085/est/crts    (2:39/0/64)  -->
-                    <--   (2:39/0/64) 2.05 Content
+      GET /192.0.2.1:8085/est/crts    (2:25/0/64)  -->
+                    <--   (2:25/0/64) 2.05 Content
 
-   40 blocks have been sent with partially filled block NUM=39 as the
+   25 blocks have been sent with partially filled block NUM=25 as the
    last block.
+
+
+
+
+
+van der Stok, et al.      Expires July 4, 2019                 [Page 42]
+
+Internet-Draft                  EST-coaps                  December 2018
+
 
    For further detailing the CoAP headers, the first two blocks are
    written out below.  The header of the first GET request looks like
@@ -2060,20 +2383,6 @@ Internet-Draft                  EST-coaps                  December 2018
 
    The header of the first response looks like
 
-
-
-
-
-
-
-
-
-
-van der Stok, et al.      Expires June 8, 2019                 [Page 37]
-
-Internet-Draft                  EST-coaps                  December 2018
-
-
      Ver = 1
      T = 2 (ACK)
      Code = 0x45 (2.05 Content)
@@ -2088,10 +2397,18 @@ Internet-Draft                  EST-coaps                  December 2018
          Option Length = 0x1
          Option Value = 0x0A (block#=0, M=1, SZX=2)
      Payload =
-   30233906092a6206734107028c2a3023260201013100300b06092a6206734107018
-   c0c3020bb302063c20102020900a61e75193b7acc0d06092a6206734101
+   2d2d2d2d2d424547494e20504b4353372d2d2d2d2d0a4d4949457741594a
+   4b6f5a496876634e415163436f49494573544343424b3043415145784144
+   414c42676b71686b
 
    The second Block2:
+
+
+
+van der Stok, et al.      Expires July 4, 2019                 [Page 43]
+
+Internet-Draft                  EST-coaps                  December 2018
+
 
      Ver = 1
      T = 2 (means ACK)
@@ -2107,28 +2424,11 @@ Internet-Draft                  EST-coaps                  December 2018
          Option Length = 0x1
          Option Value = 0x1A (block#=1, M=1, SZX=2)
      Payload =
-   05050030
-   1b31193017060355040313106573744578616d706c654341204f774f301e170d313
-   3303530393033353333315a170d3134303530393033353333315a
+   69473977304242774767676753544d4949430a516a43
+   434165696741774942416749494430796b6e3052497a334177436759494b
+   6f5a497a6a3045417749775a7a454c4d416b
 
-   The 40th and final Block2:
-
-
-
-
-
-
-
-
-
-
-
-
-
-van der Stok, et al.      Expires June 8, 2019                 [Page 38]
-
-Internet-Draft                  EST-coaps                  December 2018
-
+   The 26th and final Block2:
 
      Ver = 1
      T = 2 (means ACK)
@@ -2142,18 +2442,28 @@ Internet-Draft                  EST-coaps                  December 2018
        Option
          Option Delta = 0xB  (option# 12+11=23 Block2 )
          Option Length = 0x2
-         Option Value = 0x272 (block#=39, M=0, SZX=2)
-     Payload = 73a30d0c006343116f58403100
+         Option Value = 0x272 (block#=25, M=0, SZX=2)
+     Payload =
+   536e30766c4e65435934366473326145414d51413d0a2d2d2d2d
+   2d454e4420504b4353372d2d2d2d2d0a
 
-B.2.  enroll block example
+C.2.  enroll block example
 
    In this example the requested Block2 size of 256 bytes, required by
    the client, is transferred to the server in the very first request
    message.  The block size 256=(2**(SZX+4)) which gives SZX=4.  The
-   notation for block numbering is the same as in Appendix B.1.  It is
+   notation for block numbering is the same as in Appendix C.1.  It is
    assumed that CSR takes N1+1 blocks and the cert response takes N2+1
    blocks.  The header fields and the payload are omitted for brevity.
 
+
+
+
+
+
+van der Stok, et al.      Expires July 4, 2019                 [Page 44]
+
+Internet-Draft                  EST-coaps                  December 2018
 
 
    POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
@@ -2179,13 +2489,6 @@ B.2.  enroll block example
    N1+1 blocks have been transferred from client to the server and N2+1
    blocks have been transferred from server to client.
 
-
-
-van der Stok, et al.      Expires June 8, 2019                 [Page 39]
-
-Internet-Draft                  EST-coaps                  December 2018
-
-
 Authors' Addresses
 
    Peter van der Stok
@@ -2205,6 +2508,18 @@ Authors' Addresses
 
    Email: mcr+ietf@sandelman.ca
    URI:   http://www.sandelman.ca/
+
+
+
+
+
+
+
+
+
+van der Stok, et al.      Expires July 4, 2019                 [Page 45]
+
+Internet-Draft                  EST-coaps                  December 2018
 
 
    Shahid Raza
@@ -2237,4 +2552,25 @@ Authors' Addresses
 
 
 
-van der Stok, et al.      Expires June 8, 2019                 [Page 40]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+van der Stok, et al.      Expires July 4, 2019                 [Page 46]

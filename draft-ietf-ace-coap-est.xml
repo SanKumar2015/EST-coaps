@@ -1345,6 +1345,8 @@ RET:
 		<t>an enroll exchange shows the Block1 and Block2 size negotiation for request and 
 		response payloads.</t>
     </list>	</t>
+	<t>The shown payloads are shown unencrypted. In practice the message contents 
+	would be binary formatted and transferred over an encrypted DTLS tunnel.</t>
 	<t>The corresponding CoAP headers are only shown in <xref target="cacertsblock"/>. 
 	Creating CoAP headers are assumed to be generally known.</t>
 

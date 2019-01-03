@@ -34,6 +34,7 @@
 <!ENTITY I-D.ietf-anima-bootstrapping-keyinfra SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-anima-bootstrapping-keyinfra.xml">
 <!ENTITY I-D.ietf-tls-dtls13 SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-tls-dtls13.xml">
 <!ENTITY I-D.rescorla-tls-dtls-connection-id SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.rescorla-tls-dtls-connection-id.xml">
+<!ENTITY I-D.moskowitz-ecdsa-pki SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.moskowitz-ecdsa-pki.xml">
 <!ENTITY I-D.ietf-core-multipart-ct SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-core-multipart-ct.xml">
 <!ENTITY I-D.ietf-lamps-rfc5751-bis SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-lamps-rfc5751-bis.xml">
 ]>
@@ -994,7 +995,7 @@ HMAC(finished_key,
     <!-- &I-D.ietf-anima-bootstrapping-keyinfra; -->
     &I-D.rescorla-tls-dtls-connection-id;
     &I-D.ietf-lamps-rfc5751-bis;
-    <!-- &I-D.draft-moskowitz-ecdsa-pki; -->
+    &I-D.moskowitz-ecdsa-pki;
     <reference anchor="ieee802.15.4">
       <front>
         <title>IEEE Standard 802.15.4-2006</title>
@@ -1039,16 +1040,21 @@ HMAC(finished_key,
   </references>
 
   <section anchor="messagebindings" title="EST messages to EST-coaps">
-    <t>This section shows the same examples as the ones presented in Appendix A of <xref target="RFC7030"/>. The payloads in the examples are the hex encoded binary, generated with "xxd - p file", of the files created following the specifications presented in I-D.draft-moskowitz-ecdsa-pki. The shown payloads are not encrypted with DTLS. In particular, the shell scripts from section 4.2 (create root certificate), section 6.2 (Create the 802.1AR intermediate certificate) and section 6.3 (Create an 802.1AR IdevID certificate) have been used. The 802.1AR IdevID certificate is signed by the 802.1AR intermediate certificate that is signed by the auto-signed root certificate.</t>
-    <t>The payloads breakdown is presented in <xref target="cont_breakdown"/>.</t>
+    <t>This section shows similar examples to the ones presented in Appendix A of 
+	<xref target="RFC7030"/>. The payloads in the examples are the hex encoded binary, 
+	generated with 'xxd -p', of the PKI certificates created following  
+	<xref target="I-D.moskowitz-ecdsa-pki"/>. The shown payloads are shown unencrypted. 
+    In practice they would be transferred over an encrypted DTLS tunnel.	
+	<!-- [EDONTE: No need for these details of how these were generated from I-D.moskowitz-ecdsa-pki. ] 
+	In particular, the shell scripts from section 4.2 (create root certificate), section 6.2 (Create the 802.1AR intermediate certificate) and section 6.3 (Create an 802.1AR IdevID certificate) have been used. The 802.1AR IdevID certificate is signed by the 802.1AR intermediate certificate that is signed by the auto-signed root certificate.--></t>
+    <t>The message content breakdown is presented in <xref target="cont_breakdown"/>.</t>
     <t>The corresponding CoAP headers are only shown in <xref target="cacerts"/>. 
-	Creating CoAP headers is assumed to be generally known.</t>
+	Creating CoAP headers is assumed to be generally understood.</t>
 	<t>These examples assume that the resource discovery, returned a
 	short base path of "/est".</t>
     
 
 	<section title="cacerts" anchor="cacerts">
-	  
       <t>In EST-coaps, a coaps cacerts message can be:</t>
 <figure align="left"><artwork><![CDATA[
 GET coaps://192.0.2.1:8085/est/crts 
@@ -1179,8 +1185,11 @@ GET coaps://[2001:db8::2:1]:61616/est/att
 ]]></artwork></figure>
 
       <t>A 2.05 Content response should contain attributes which are relevant 
-	  for the authenticated client. This example is copied from section A.2 in <xref target="RFC7030"/>, where the base64 representation is replaced with a hexadecimal representation of the binary payload. The EST-coaps server returns two 
-	  attributes that the client can ignore when they are unknown to him.</t>
+	  for the authenticated client. This example is copied from section A.2 
+	  in <xref target="RFC7030"/>, where the base64 representation is replaced 
+	  with a hexadecimal representation of the equivalent binary format . 
+	  The EST-coaps server returns attributes that the client can ignore 
+	  if they are unknown to him.</t>
     </section>  <!-- csrattrs -->
 
     <section title="enroll / reenroll">
@@ -1257,9 +1266,8 @@ RET:
 51534131716242753831466b6d346a682f33336379376d33616e35363349
 7145414d51413d0a2d2d2d2d2d454e4420504b4353372d2d2d2d2d0a
 ]]></artwork></figure>
-<t>
-The breakdown of the payload is shown in <xref target="enrolldis"/>.
-</t>
+      <t>The breakdown of the request and response is shown in 
+	  <xref target="enrolldis"/>.</t>
     </section>  <!-- enroll / reenroll -->
 
     <section anchor="appskg" title="serverkeygen">
@@ -1279,9 +1287,6 @@ cc022100e34e6cd8c20e3ea5388a69d52fa814795eb8ae1bca099b3d5ae5
 1a77e79bd9a5
 ]]></artwork></figure>
 	
-	  <t>The breakdown of this request is shown in <xref target="disskgrequest"/>
-</t>
-
 	<t>The response would follow <xref target="I-D.ietf-core-multipart-ct"/> and could looke like </t>
 	
 <figure align="left"><artwork><![CDATA[
@@ -1324,6 +1329,10 @@ RET:
 4130763664474130315233464f543433542f67654c6b2f50652b37584e61
 45414d51413d0a2d2d2d2d2d454e4420504b4353372d2d2d2d2d0a
 ]]></artwork></figure> 
+	
+	  <t>The breakdown of the request and response is shown 
+	  in <xref target="disskgrequest"/>
+</t>
 	
     </section>  <!-- serverkeygen -->
   </section>  <!-- EST messages to EST-coaps -->
@@ -1498,11 +1507,13 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/256)          -->
 	  transferred from server to client.</t>
     </section> <!-- enroll block example -->
   </section> <!-- EST-coaps Block message examples -->
+  
   <section anchor="cont_breakdown" title="Message content breakdown">
-    <t>The subsections present the breakdown of the hexadecimal dumps of the payloads shown in <xref target="messagebindings"/>.
+    <t>This appendix presents the breakdown of the hexadecimal dumps of the 
+	binary payloads shown in <xref target="messagebindings"/>.
 </t>
     <section anchor="cacertsdis" title="cacerts">
-      <t>Breakdown of PKCS#7 response payload containing a chain of two certificates.</t>
+      <t>Breakdown of cacerts response containing a chain of two certificates.</t>
 <figure align="left"><artwork><![CDATA[
 Certificate:
     Data:
@@ -1592,8 +1603,8 @@ Certificate:
 ]]></artwork></figure>
     </section>  <!--  cacerts payload breakdown -->
 
-   <section anchor="enrolldis" title="enroll">
-   <t>Breakdown of PKCS#10 request payload.</t>
+   <section anchor="enrolldis" title="enroll / reenroll">
+   <t>The breakdown of the request is </t>
 
 <figure align="left"><artwork><![CDATA[
 Certificate Request:
@@ -1623,7 +1634,7 @@ Certificate Request:
          1a:25:20:0f:dc:87:f9:0a:ef:57:7c:b0:0d:43:22:48:33
 ]]></artwork></figure>
 
-   <t>Breakdown of PKCS#7 response payload.</t>
+   <t>The breakdown of the issued certificate response is </t>
 
 <figure align="left"><artwork><![CDATA[
 Certificate:
@@ -1673,8 +1684,8 @@ Certificate:
 
    </section> <!-- Re-enroll message breakdown  -->
 
-   <section anchor="disskgrequest" title="Serverkey generation">
-     <t>The followng is the breakdown of the PKCS#10 request payload.</t>
+   <section anchor="disskgrequest" title="serverkeygen">
+     <t>The followng is the breakdown of the request example used.</t>
 <figure align="left"><artwork><![CDATA[
 Certificate Request:
     Data:
@@ -1700,7 +1711,8 @@ Certificate Request:
          14:79:5e:b8:ae:1b:ca:09:9b:3d:5a:e5:1a:77:e7:9b:d9:a5
 ]]></artwork></figure>
 
-     <t>The following is the breakdown of the pkcs8 preamble content of the response payload.</t>
+     <t>The following is the breakdown of the private key content 
+	 of the server-side key generation response payload.</t>
 
 <figure align="left"><artwork><![CDATA[
 Private-Key: (256 bit)
@@ -1718,7 +1730,8 @@ ASN1 OID: prime256v1
 NIST CURVE: P-256
 ]]></artwork></figure>
 
-     <t>The following is the breakdown of the certificate of the second part of the response payload.</t>
+     <t>The following is the breakdown of the certificate of the 
+	 second part of the server-side key generation response payload.</t>
 
 <figure align="left"><artwork><![CDATA[
 Certificate:

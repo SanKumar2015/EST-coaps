@@ -292,7 +292,7 @@
         <t>a previously installed certificate (e.g., manufacturer-installed IDevID 
 		(IEEE 802.1AR <xref target="ieee802.1ar"/> certificate 
         or a certificate issued by some other party); the server 
-        is expected to trust the previously installed certificate in this case. IDevID's are expected to have 
+        is expected to trust the previously installed CA certificate in this case. IDevID's are expected to have 
         a very long life, as long as the device, but under some conditions could expire. In the latter case, 
         the server MAY want to authenticate a client certificate against its trust store 
 		although the certificate is expired (<xref target="sec"/>). </t>
@@ -1040,8 +1040,7 @@ HMAC(finished_key,
 
   <section anchor="messagebindings" title="EST messages to EST-coaps">
     <t>This section shows the same examples as the ones presented in Appendix A of <xref target="RFC7030"/>. The payloads in the examples are the hex encoded binary, generated with "xxd - p file", of the files created following the specifications presented in I-D.draft-moskowitz-ecdsa-pki. The shown payloads are not encrypted with DTLS. In particular, the shell scripts from section 4.2 (create root certificate), section 6.2 (Create the 802.1AR intermediate certificate) and section 6.3 (Create an 802.1AR IdevID certificate) have been used. The 802.1AR IdevID certificate is signed by the 802.1AR intermediate certificate that is signed by the auto-signed root certificate.</t>
-<t>The disassemblies of the payloads are presented in <xref target="certificate"/>.
-	 </t>
+    <t>The payloads breakdown is presented in <xref target="cont_breakdown"/>.</t>
     <t>The corresponding CoAP headers are only shown in <xref target="cacerts"/>. 
 	Creating CoAP headers is assumed to be generally known.</t>
 	<t>These examples assume that the resource discovery, returned a
@@ -1162,9 +1161,7 @@ GET coaps://192.0.2.1:8085/est/crts
 306c4d43536e30766c4e65435934366473326145414d51413d0a2d2d2d2d
 2d454e4420504b4353372d2d2d2d2d0a
 ]]></artwork></figure>
-<t>
-The disassembly of the payload is shown in <xref target="cacertsdis"/>.
-</t>
+      <t>The breakdown of the payload is shown in <xref target="cacertsdis"/>. </t>
     </section>  <!-- cacerts -->
 
     <section title="csrattrs">
@@ -1261,7 +1258,7 @@ RET:
 7145414d51413d0a2d2d2d2d2d454e4420504b4353372d2d2d2d2d0a
 ]]></artwork></figure>
 <t>
-The disassembly of the payload is shown in <xref target="enrolldis"/>.
+The breakdown of the payload is shown in <xref target="enrolldis"/>.
 </t>
     </section>  <!-- enroll / reenroll -->
 
@@ -1282,7 +1279,7 @@ cc022100e34e6cd8c20e3ea5388a69d52fa814795eb8ae1bca099b3d5ae5
 1a77e79bd9a5
 ]]></artwork></figure>
 	
-	  <t>The disassembly of this request is shown in <xref target="disskgrequest"/>
+	  <t>The breakdown of this request is shown in <xref target="disskgrequest"/>
 </t>
 
 	<t>The response would follow <xref target="I-D.ietf-core-multipart-ct"/> and could looke like </t>
@@ -1331,278 +1328,6 @@ RET:
     </section>  <!-- serverkeygen -->
   </section>  <!-- EST messages to EST-coaps -->
 
-  <section anchor="certificate" title="Disassembly Examples">
-   <t>
-The subsections present the disassembly of the hexadecimal dumps of the payloads shown in <xref target="messagebindings"/>.
-</t>
-   <section anchor="cacertsdis" title="cacerts payload disassembly">
-<t>Disassembly of pkcs7 response payload containing a chain of two certificates.</t>
-<figure align="left"><artwork><![CDATA[
-Certificate:
-    Data:
-        Version: 3 (0x2)
-        Serial Number: 1102437012751306608 (0xf4ca49f4448cf70)
-    Signature Algorithm: ecdsa-with-SHA256
-        Issuer: C=US, ST=CA, L=LA, O=Example Inc, OU=certification,
-                CN=Root CA
-        Validity
-            Not Before: Dec 30 13:54:13 2018 GMT
-            Not After : Dec 27 13:54:13 2028 GMT
-        Subject: C=US, ST=CA, O=Example Inc, OU=certification,
-                 CN=802.1AR CA
-        Subject Public Key Info:
-            Public Key Algorithm: id-ecPublicKey
-                Public-Key: (256 bit)
-                pub: 
-                    04:9c:73:6d:e6:75:ed:d8:cc:97:b0:9a:6a:ca:38:
-                    30:5b:f5:1f:ce:d3:96:f3:af:3b:1c:ec:ae:67:e4:
-                    f1:a7:8c:91:0f:e0:67:f3:17:4a:a2:8c:62:c2:fe:
-                    d2:83:f2:20:70:b2:e5:7a:b7:82:6b:2e:ef:c2:06:
-                    74:e8:3b:dc:17
-                ASN1 OID: prime256v1
-                NIST CURVE: P-256
-        X509v3 extensions:
-            X509v3 Subject Key Identifier: 
-              53:AC:BB:3E:6E:BF:0B:5D:51:8E:E2:53:BC:36:F4:E1:6F:B9:
-58:9D
-            X509v3 Authority Key Identifier: 
-                keyid:05:76:BF:A1:A1:A6:A0:0D:E0:44:07:52:4C:E2:E8:5C:
-A8:C5:E6:9D
-
-            X509v3 Basic Constraints: critical
-                CA:TRUE, pathlen:1
-            X509v3 Key Usage: critical
-                Certificate Sign, CRL Sign
-            X509v3 Subject Alternative Name: 
-                email:certify@example.com
-    Signature Algorithm: ecdsa-with-SHA256
-         30:45:02:20:69:63:fc:14:af:48:20:ef:8f:ac:87:73:ce:1e:
-         78:a9:60:b2:56:0d:97:19:33:1a:35:55:3a:a9:79:0f:b6:37:
-         02:21:00:a5:be:b8:5a:8f:4c:3c:9e:df:25:c7:06:e2:26:0a:
-         57:56:d7:91:1a:c1:9a:44:14:7b:73:1b:aa:e0:16:dc:bb
-
-Certificate:
-    Data:
-        Version: 3 (0x2)
-        Serial Number:
-            e7:e7:44:81:75:1c:c0:af
-    Signature Algorithm: ecdsa-with-SHA256
-        Issuer: C=US, ST=CA, L=LA, O=Example Inc, OU=certification,
-                CN=Root CA
-        Validity
-            Not Before: Dec 30 13:53:56 2018 GMT
-            Not After : Dec 25 13:53:56 2038 GMT
-        Subject: C=US, ST=CA, L=LA, O=Example Inc, 
-         OU=certification, CN=Root CA
-        Subject Public Key Info:
-            Public Key Algorithm: id-ecPublicKey
-                Public-Key: (256 bit)
-                pub: 
-                    04:88:a2:20:96:49:53:a1:bd:85:62:f9:17:07:eb:
-                    ab:b8:3a:cf:b6:cc:ef:59:6e:ec:d9:be:1a:30:55:
-                    90:9d:cf:87:92:4b:d3:51:f3:e4:91:b8:f4:43:f1:
-                    02:14:63:45:be:22:e8:b5:dd:b8:f0:52:50:17:ce:
-                    dc:86:b5:db:1a
-                ASN1 OID: prime256v1
-                NIST CURVE: P-256
-        X509v3 extensions:
-            X509v3 Subject Key Identifier: 
-05:76:BF:A1:A1:A6:A0:0D:E0:44:07:52:4C:E2:E8:5C:A8:C5:E6:9D
-            X509v3 Authority Key Identifier: 
-                keyid:
-05:76:BF:A1:A1:A6:A0:0D:E0:44:07:52:4C:E2:E8:5C:A8:C5:E6:9D
-
-            X509v3 Basic Constraints: critical
-                CA:TRUE
-            X509v3 Key Usage: critical
-                Certificate Sign, CRL Sign
-            X509v3 Subject Alternative Name: 
-                email:certify@example.com
-    Signature Algorithm: ecdsa-with-SHA256
-         30:44:02:20:6a:89:35:95:34:f7:5a:52:7a:dd:c3:5f:d3:24:
-         3f:1b:00:57:1b:af:92:01:29:52:44:73:0d:02:de:b6:02:ba:
-         02:20:21:71:5b:2a:3a:2c:ee:bf:75:02:d6:17:ab:56:95:92:
-         91:dc:f4:94:c0:92:9f:4b:e5:35:e0:98:e3:a7:6c:d9
-]]></artwork></figure>
-    </section>  <!--  cacerts payload disassembly -->
-
-   <section anchor="enrolldis" title="Re-enroll payload disassemblies">
-   <t> Disassembly of pkcs10 request payload.</t>
-
-<figure align="left"><artwork><![CDATA[
-Certificate Request:
-    Data:
-        Version: 0 (0x0)
-        Subject: C=US, ST=CA, L=Oak Park, O=, 
-       OU=IoT, CN=Client RA/serialNumber=Wt1234
-        Subject Public Key Info:
-            Public Key Algorithm: id-ecPublicKey
-                Public-Key: (256 bit)
-                pub: 
-                    04:83:5f:89:72:65:06:f0:d5:86:f8:db:51:1d:94:
-                    5b:48:80:ec:b8:d1:5e:e9:70:78:93:94:4b:6c:a7:
-                    e2:47:e7:53:fd:9d:82:c8:bf:8f:35:30:03:32:7e:
-                    e5:1f:9b:03:33:30:bc:20:69:99:ff:f6:e6:2c:c8:
-                    11:9c:40:5a:31
-                ASN1 OID: prime256v1
-                NIST CURVE: P-256
-        Attributes:
-        Requested Extensions:
-            X509v3 Subject Alternative Name: 
-                othername:<unsupported>
-    Signature Algorithm: ecdsa-with-SHA256
-         30:45:02:20:25:08:4b:f6:6f:aa:41:50:4b:cb:83:f6:ae:ca:
-         0e:95:d9:41:a8:a2:50:f8:6e:63:00:da:95:01:99:2c:87:8b:
-         02:21:00:82:c2:ff:4e:f2:2c:60:d2:f7:e5:2f:90:95:b8:38:
-         1a:25:20:0f:dc:87:f9:0a:ef:57:7c:b0:0d:43:22:48:33
-]]></artwork></figure>
-
-   <t> Disassembley of pkcs7 response payload.</t>
-
-<figure align="left"><artwork><![CDATA[
-Certificate:
-    Data:
-        Version: 3 (0x2)
-        Serial Number:
-            a7:e0:b2:60:f2:1a:85:09
-    Signature Algorithm: ecdsa-with-SHA256
-        Issuer: C=US, ST=CA, O=Example Inc, OU=certification,
-                CN=802.1AR CA
-        Validity
-            Not Before: Dec 30 13:54:31 2018 GMT
-            Not After : Dec 31 23:59:59 9999 GMT
-        Subject: C=US, ST=CA, L=Oak Park, O=example Inc, OU=IoT,
-           CN=Client RA/serialNumber=Wt1234
-        Subject Public Key Info:
-            Public Key Algorithm: id-ecPublicKey
-                Public-Key: (256 bit)
-                pub: 
-                    04:83:5f:89:72:65:06:f0:d5:86:f8:db:51:1d:94:
-                    5b:48:80:ec:b8:d1:5e:e9:70:78:93:94:4b:6c:a7:
-                    e2:47:e7:53:fd:9d:82:c8:bf:8f:35:30:03:32:7e:
-                    e5:1f:9b:03:33:30:bc:20:69:99:ff:f6:e6:2c:c8:
-                    11:9c:40:5a:31
-                ASN1 OID: prime256v1
-                NIST CURVE: P-256
-        X509v3 extensions:
-            X509v3 Basic Constraints: 
-                CA:FALSE
-            X509v3 Subject Key Identifier: 
-7B:86:C3:E2:1A:18:72:DD:48:66:6A:CF:A5:A1:28:AA:2C:
-2F:79:31
-            X509v3 Authority Key Identifier: 
-                keyid:
-53:AC:BB:3E:6E:BF:0B:5D:51:8E:E2:53:BC:36:F4:E1:6F:B9:58:9D
-
-            X509v3 Key Usage: critical
-                Digital Signature, Key Encipherment
-            X509v3 Subject Alternative Name: 
-                othername:<unsupported>
-    Signature Algorithm: ecdsa-with-SHA256
-         30:46:02:21:00:85:90:4d:8f:3b:23:4b:57:6e:b5:3f:00:f1:
-         31:00:86:1b:d8:3c:ba:b1:b3:4b:8a:3a:f7:aa:e4:ac:01:45:
-         b2:02:21:00:92:b7:2e:62:06:8b:86:44:ff:90:48:0d:6a:6c:
-         1b:bc:d4:59:26:e2:38:7f:df:77:32:ee:6d:da:9f:9e:b7:22
-]]></artwork></figure>
-
-   </section> <!-- Re-enroll payload disassemblies  -->
-
-<section anchor="disskgrequest" title="Serverkey generation disassembly">
-<t>
-The followng is the disassembly of the pkcs10 request payload.
-</t>
-<figure align="left"><artwork><![CDATA[
-Certificate Request:
-    Data:
-        Version: 0 (0x0)
-        Subject: C=US, ST=LA
-        Subject Public Key Info:
-            Public Key Algorithm: id-ecPublicKey
-                Public-Key: (256 bit)
-                pub: 
-                    04:83:5f:89:72:65:06:f0:d5:86:f8:db:51:1d:94:
-                    5b:48:80:ec:b8:d1:5e:e9:70:78:93:94:4b:6c:a7:
-                    e2:47:e7:53:fd:9d:82:c8:bf:8f:35:30:03:32:7e:
-                    e5:1f:9b:03:33:30:bc:20:69:99:ff:f6:e6:2c:c8:
-                    11:9c:40:5a:31
-                ASN1 OID: prime256v1
-                NIST CURVE: P-256
-        Attributes:
-            a0:00
-    Signature Algorithm: ecdsa-with-SHA256
-         30:46:02:21:00:bf:56:2c:f8:17:86:54:18:72:84:e2:d0:c3:
-         a0:1b:76:07:48:d6:be:80:d5:4c:49:d3:98:6a:17:d0:19:7f:
-         cc:02:21:00:e3:4e:6c:d8:c2:0e:3e:a5:38:8a:69:d5:2f:a8:
-         14:79:5e:b8:ae:1b:ca:09:9b:3d:5a:e5:1a:77:e7:9b:d9:a5
-]]></artwork></figure>
-
-<t> The following is the disassembly of the pkcs8 preamble content of the response payload.</t>
-
-<figure align="left"><artwork><![CDATA[
-Private-Key: (256 bit)
-priv:
-    00:fa:df:fb:ce:9c:4f:83:60:2b:04:e9:61:6a:d2:
-    77:c3:e4:27:37:f6:29:6d:21:1e:93:0e:70:bc:87:
-    f8:c3:af
-pub: 
-    04:83:5f:89:72:65:06:f0:d5:86:f8:db:51:1d:94:
-    5b:48:80:ec:b8:d1:5e:e9:70:78:93:94:4b:6c:a7:
-    e2:47:e7:53:fd:9d:82:c8:bf:8f:35:30:03:32:7e:
-    e5:1f:9b:03:33:30:bc:20:69:99:ff:f6:e6:2c:c8:
-    11:9c:40:5a:31
-ASN1 OID: prime256v1
-NIST CURVE: P-256
-]]></artwork></figure>
-
-<t> The following is the disassembly of the pkcs7 content of the second part of the response payload.</t>
-
-<figure align="left"><artwork><![CDATA[
-Certificate:
-    Data:
-        Version: 3 (0x2)
-        Serial Number:
-            fb:dc:8b:de:af:bd:77:74
-    Signature Algorithm: ecdsa-with-SHA256
-        Issuer: C=US, ST=CA
-        Validity
-            Not Before: Dec 31 08:28:45 2018 GMT
-            Not After : Dec 26 08:28:45 2038 GMT
-        Subject: C=US, ST=CA
-        Subject Public Key Info:
-            Public Key Algorithm: id-ecPublicKey
-                Public-Key: (256 bit)
-                pub: 
-                    04:83:5f:89:72:65:06:f0:d5:86:f8:db:51:1d:94:
-                    5b:48:80:ec:b8:d1:5e:e9:70:78:93:94:4b:6c:a7:
-                    e2:47:e7:53:fd:9d:82:c8:bf:8f:35:30:03:32:7e:
-                    e5:1f:9b:03:33:30:bc:20:69:99:ff:f6:e6:2c:c8:
-                    11:9c:40:5a:31
-                ASN1 OID: prime256v1
-                NIST CURVE: P-256
-        X509v3 extensions:
-            X509v3 Subject Key Identifier: 
-
-7B:86:C3:E2:1A:18:72:DD:48:66:6A:CF:A5:A1:28:AA:2C:2F:79:31
-            X509v3 Authority Key Identifier: 
-                keyid:
-7B:86:C3:E2:1A:18:72:DD:48:66:6A:CF:A5:A1:28:AA:2C:2F:79:31
-
-            X509v3 Basic Constraints: 
-                CA:TRUE
-    Signature Algorithm: ecdsa-with-SHA256
-         30:44:02:20:71:f1:dc:e2:04:9b:bf:bf:18:02:af:36:fe:6d:
-         ce:ed:34:8d:a1:22:e2:5e:8c:79:e1:c6:a1:ea:17:3c:aa:aa:
-         02:20:64:28:31:e7:86:c8:f5:9d:2b:9f:03:4b:fa:74:60:34:
-         d5:1d:c5:39:3e:37:4f:f8:1e:2e:4f:cf:7b:ee:d7:35]]></artwork></figure>
-
-<t>The private key in the response above is without CMS EnvelopedData 
-	and has no additional encryption beyond DTLS (<xref target="serverkey"/>).</t>
-	<!--<t>The response contains first a preamble that can be ignored. The EST-coaps server can use the preamble to include additional explanations, like ownership or support information </t>-->
-
-</section> <!-- serverkey generation disassembly -->
- 
-  </section>  <!-- Disassembly Examples -->
-
   <section anchor="blockexamples" title="EST-coaps Block message examples"> 
     <t>Two examples are presented in this section: 
 	    <list style="numbers">
@@ -1613,7 +1338,7 @@ Certificate:
 	<t>The corresponding CoAP headers are only shown in <xref target="cacertsblock"/>. 
 	Creating CoAP headers are assumed to be generally known.</t>
 
- <section anchor="cacertsblock" title="cacerts block example">
+ <section anchor="cacertsblock" title="cacerts">
     <t>This section provides a detailed example of the messages using DTLS and BLOCK 
 	option Block2. The minimum PMTU is 1280 bytes, which is the example value assumed 
 	for the DTLS datagram size. The example block length is taken as 64 which gives an 
@@ -1737,7 +1462,7 @@ Certificate:
 ]]></artwork></figure>
     </section> <!-- cacerts block example -->
 
-    <section anchor="enrollblock" title="enroll block example">
+    <section anchor="enrollblock" title="enroll">
       <t>
       In this example the requested Block2 size of 256 bytes, required by the client, 
 	  is transferred to the server in the very first request message. The block size 
@@ -1773,6 +1498,274 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/256)          -->
 	  transferred from server to client.</t>
     </section> <!-- enroll block example -->
   </section> <!-- EST-coaps Block message examples -->
+  <section anchor="cont_breakdown" title="Message content breakdown">
+    <t>The subsections present the breakdown of the hexadecimal dumps of the payloads shown in <xref target="messagebindings"/>.
+</t>
+    <section anchor="cacertsdis" title="cacerts">
+      <t>Breakdown of PKCS#7 response payload containing a chain of two certificates.</t>
+<figure align="left"><artwork><![CDATA[
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 1102437012751306608 (0xf4ca49f4448cf70)
+    Signature Algorithm: ecdsa-with-SHA256
+        Issuer: C=US, ST=CA, L=LA, O=Example Inc, OU=certification,
+                CN=Root CA
+        Validity
+            Not Before: Dec 30 13:54:13 2018 GMT
+            Not After : Dec 27 13:54:13 2028 GMT
+        Subject: C=US, ST=CA, O=Example Inc, OU=certification,
+                 CN=802.1AR CA
+        Subject Public Key Info:
+            Public Key Algorithm: id-ecPublicKey
+                Public-Key: (256 bit)
+                pub: 
+                    04:9c:73:6d:e6:75:ed:d8:cc:97:b0:9a:6a:ca:38:
+                    30:5b:f5:1f:ce:d3:96:f3:af:3b:1c:ec:ae:67:e4:
+                    f1:a7:8c:91:0f:e0:67:f3:17:4a:a2:8c:62:c2:fe:
+                    d2:83:f2:20:70:b2:e5:7a:b7:82:6b:2e:ef:c2:06:
+                    74:e8:3b:dc:17
+                ASN1 OID: prime256v1
+                NIST CURVE: P-256
+        X509v3 extensions:
+            X509v3 Subject Key Identifier: 
+              53:AC:BB:3E:6E:BF:0B:5D:51:8E:E2:53:BC:36:F4:E1:6F:B9:
+58:9D
+            X509v3 Authority Key Identifier: 
+                keyid:05:76:BF:A1:A1:A6:A0:0D:E0:44:07:52:4C:E2:E8:5C:
+A8:C5:E6:9D
+
+            X509v3 Basic Constraints: critical
+                CA:TRUE, pathlen:1
+            X509v3 Key Usage: critical
+                Certificate Sign, CRL Sign
+            X509v3 Subject Alternative Name: 
+                email:certify@example.com
+    Signature Algorithm: ecdsa-with-SHA256
+         30:45:02:20:69:63:fc:14:af:48:20:ef:8f:ac:87:73:ce:1e:
+         78:a9:60:b2:56:0d:97:19:33:1a:35:55:3a:a9:79:0f:b6:37:
+         02:21:00:a5:be:b8:5a:8f:4c:3c:9e:df:25:c7:06:e2:26:0a:
+         57:56:d7:91:1a:c1:9a:44:14:7b:73:1b:aa:e0:16:dc:bb
+
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            e7:e7:44:81:75:1c:c0:af
+    Signature Algorithm: ecdsa-with-SHA256
+        Issuer: C=US, ST=CA, L=LA, O=Example Inc, OU=certification,
+                CN=Root CA
+        Validity
+            Not Before: Dec 30 13:53:56 2018 GMT
+            Not After : Dec 25 13:53:56 2038 GMT
+        Subject: C=US, ST=CA, L=LA, O=Example Inc, 
+         OU=certification, CN=Root CA
+        Subject Public Key Info:
+            Public Key Algorithm: id-ecPublicKey
+                Public-Key: (256 bit)
+                pub: 
+                    04:88:a2:20:96:49:53:a1:bd:85:62:f9:17:07:eb:
+                    ab:b8:3a:cf:b6:cc:ef:59:6e:ec:d9:be:1a:30:55:
+                    90:9d:cf:87:92:4b:d3:51:f3:e4:91:b8:f4:43:f1:
+                    02:14:63:45:be:22:e8:b5:dd:b8:f0:52:50:17:ce:
+                    dc:86:b5:db:1a
+                ASN1 OID: prime256v1
+                NIST CURVE: P-256
+        X509v3 extensions:
+            X509v3 Subject Key Identifier: 
+05:76:BF:A1:A1:A6:A0:0D:E0:44:07:52:4C:E2:E8:5C:A8:C5:E6:9D
+            X509v3 Authority Key Identifier: 
+                keyid:
+05:76:BF:A1:A1:A6:A0:0D:E0:44:07:52:4C:E2:E8:5C:A8:C5:E6:9D
+
+            X509v3 Basic Constraints: critical
+                CA:TRUE
+            X509v3 Key Usage: critical
+                Certificate Sign, CRL Sign
+            X509v3 Subject Alternative Name: 
+                email:certify@example.com
+    Signature Algorithm: ecdsa-with-SHA256
+         30:44:02:20:6a:89:35:95:34:f7:5a:52:7a:dd:c3:5f:d3:24:
+         3f:1b:00:57:1b:af:92:01:29:52:44:73:0d:02:de:b6:02:ba:
+         02:20:21:71:5b:2a:3a:2c:ee:bf:75:02:d6:17:ab:56:95:92:
+         91:dc:f4:94:c0:92:9f:4b:e5:35:e0:98:e3:a7:6c:d9
+]]></artwork></figure>
+    </section>  <!--  cacerts payload breakdown -->
+
+   <section anchor="enrolldis" title="enroll">
+   <t>Breakdown of PKCS#10 request payload.</t>
+
+<figure align="left"><artwork><![CDATA[
+Certificate Request:
+    Data:
+        Version: 0 (0x0)
+        Subject: C=US, ST=CA, L=Oak Park, O=, 
+       OU=IoT, CN=Client RA/serialNumber=Wt1234
+        Subject Public Key Info:
+            Public Key Algorithm: id-ecPublicKey
+                Public-Key: (256 bit)
+                pub: 
+                    04:83:5f:89:72:65:06:f0:d5:86:f8:db:51:1d:94:
+                    5b:48:80:ec:b8:d1:5e:e9:70:78:93:94:4b:6c:a7:
+                    e2:47:e7:53:fd:9d:82:c8:bf:8f:35:30:03:32:7e:
+                    e5:1f:9b:03:33:30:bc:20:69:99:ff:f6:e6:2c:c8:
+                    11:9c:40:5a:31
+                ASN1 OID: prime256v1
+                NIST CURVE: P-256
+        Attributes:
+        Requested Extensions:
+            X509v3 Subject Alternative Name: 
+                othername:<unsupported>
+    Signature Algorithm: ecdsa-with-SHA256
+         30:45:02:20:25:08:4b:f6:6f:aa:41:50:4b:cb:83:f6:ae:ca:
+         0e:95:d9:41:a8:a2:50:f8:6e:63:00:da:95:01:99:2c:87:8b:
+         02:21:00:82:c2:ff:4e:f2:2c:60:d2:f7:e5:2f:90:95:b8:38:
+         1a:25:20:0f:dc:87:f9:0a:ef:57:7c:b0:0d:43:22:48:33
+]]></artwork></figure>
+
+   <t>Breakdown of PKCS#7 response payload.</t>
+
+<figure align="left"><artwork><![CDATA[
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            a7:e0:b2:60:f2:1a:85:09
+    Signature Algorithm: ecdsa-with-SHA256
+        Issuer: C=US, ST=CA, O=Example Inc, OU=certification,
+                CN=802.1AR CA
+        Validity
+            Not Before: Dec 30 13:54:31 2018 GMT
+            Not After : Dec 31 23:59:59 9999 GMT
+        Subject: C=US, ST=CA, L=Oak Park, O=example Inc, OU=IoT,
+           CN=Client RA/serialNumber=Wt1234
+        Subject Public Key Info:
+            Public Key Algorithm: id-ecPublicKey
+                Public-Key: (256 bit)
+                pub: 
+                    04:83:5f:89:72:65:06:f0:d5:86:f8:db:51:1d:94:
+                    5b:48:80:ec:b8:d1:5e:e9:70:78:93:94:4b:6c:a7:
+                    e2:47:e7:53:fd:9d:82:c8:bf:8f:35:30:03:32:7e:
+                    e5:1f:9b:03:33:30:bc:20:69:99:ff:f6:e6:2c:c8:
+                    11:9c:40:5a:31
+                ASN1 OID: prime256v1
+                NIST CURVE: P-256
+        X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            X509v3 Subject Key Identifier: 
+7B:86:C3:E2:1A:18:72:DD:48:66:6A:CF:A5:A1:28:AA:2C:
+2F:79:31
+            X509v3 Authority Key Identifier: 
+                keyid:
+53:AC:BB:3E:6E:BF:0B:5D:51:8E:E2:53:BC:36:F4:E1:6F:B9:58:9D
+
+            X509v3 Key Usage: critical
+                Digital Signature, Key Encipherment
+            X509v3 Subject Alternative Name: 
+                othername:<unsupported>
+    Signature Algorithm: ecdsa-with-SHA256
+         30:46:02:21:00:85:90:4d:8f:3b:23:4b:57:6e:b5:3f:00:f1:
+         31:00:86:1b:d8:3c:ba:b1:b3:4b:8a:3a:f7:aa:e4:ac:01:45:
+         b2:02:21:00:92:b7:2e:62:06:8b:86:44:ff:90:48:0d:6a:6c:
+         1b:bc:d4:59:26:e2:38:7f:df:77:32:ee:6d:da:9f:9e:b7:22
+]]></artwork></figure>
+
+   </section> <!-- Re-enroll message breakdown  -->
+
+   <section anchor="disskgrequest" title="Serverkey generation">
+     <t>The followng is the breakdown of the PKCS#10 request payload.</t>
+<figure align="left"><artwork><![CDATA[
+Certificate Request:
+    Data:
+        Version: 0 (0x0)
+        Subject: C=US, ST=LA
+        Subject Public Key Info:
+            Public Key Algorithm: id-ecPublicKey
+                Public-Key: (256 bit)
+                pub: 
+                    04:83:5f:89:72:65:06:f0:d5:86:f8:db:51:1d:94:
+                    5b:48:80:ec:b8:d1:5e:e9:70:78:93:94:4b:6c:a7:
+                    e2:47:e7:53:fd:9d:82:c8:bf:8f:35:30:03:32:7e:
+                    e5:1f:9b:03:33:30:bc:20:69:99:ff:f6:e6:2c:c8:
+                    11:9c:40:5a:31
+                ASN1 OID: prime256v1
+                NIST CURVE: P-256
+        Attributes:
+            a0:00
+    Signature Algorithm: ecdsa-with-SHA256
+         30:46:02:21:00:bf:56:2c:f8:17:86:54:18:72:84:e2:d0:c3:
+         a0:1b:76:07:48:d6:be:80:d5:4c:49:d3:98:6a:17:d0:19:7f:
+         cc:02:21:00:e3:4e:6c:d8:c2:0e:3e:a5:38:8a:69:d5:2f:a8:
+         14:79:5e:b8:ae:1b:ca:09:9b:3d:5a:e5:1a:77:e7:9b:d9:a5
+]]></artwork></figure>
+
+     <t>The following is the breakdown of the pkcs8 preamble content of the response payload.</t>
+
+<figure align="left"><artwork><![CDATA[
+Private-Key: (256 bit)
+priv:
+    00:fa:df:fb:ce:9c:4f:83:60:2b:04:e9:61:6a:d2:
+    77:c3:e4:27:37:f6:29:6d:21:1e:93:0e:70:bc:87:
+    f8:c3:af
+pub: 
+    04:83:5f:89:72:65:06:f0:d5:86:f8:db:51:1d:94:
+    5b:48:80:ec:b8:d1:5e:e9:70:78:93:94:4b:6c:a7:
+    e2:47:e7:53:fd:9d:82:c8:bf:8f:35:30:03:32:7e:
+    e5:1f:9b:03:33:30:bc:20:69:99:ff:f6:e6:2c:c8:
+    11:9c:40:5a:31
+ASN1 OID: prime256v1
+NIST CURVE: P-256
+]]></artwork></figure>
+
+     <t>The following is the breakdown of the certificate of the second part of the response payload.</t>
+
+<figure align="left"><artwork><![CDATA[
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            fb:dc:8b:de:af:bd:77:74
+    Signature Algorithm: ecdsa-with-SHA256
+        Issuer: C=US, ST=CA
+        Validity
+            Not Before: Dec 31 08:28:45 2018 GMT
+            Not After : Dec 26 08:28:45 2038 GMT
+        Subject: C=US, ST=CA
+        Subject Public Key Info:
+            Public Key Algorithm: id-ecPublicKey
+                Public-Key: (256 bit)
+                pub: 
+                    04:83:5f:89:72:65:06:f0:d5:86:f8:db:51:1d:94:
+                    5b:48:80:ec:b8:d1:5e:e9:70:78:93:94:4b:6c:a7:
+                    e2:47:e7:53:fd:9d:82:c8:bf:8f:35:30:03:32:7e:
+                    e5:1f:9b:03:33:30:bc:20:69:99:ff:f6:e6:2c:c8:
+                    11:9c:40:5a:31
+                ASN1 OID: prime256v1
+                NIST CURVE: P-256
+        X509v3 extensions:
+            X509v3 Subject Key Identifier: 
+
+7B:86:C3:E2:1A:18:72:DD:48:66:6A:CF:A5:A1:28:AA:2C:2F:79:31
+            X509v3 Authority Key Identifier: 
+                keyid:
+7B:86:C3:E2:1A:18:72:DD:48:66:6A:CF:A5:A1:28:AA:2C:2F:79:31
+
+            X509v3 Basic Constraints: 
+                CA:TRUE
+    Signature Algorithm: ecdsa-with-SHA256
+         30:44:02:20:71:f1:dc:e2:04:9b:bf:bf:18:02:af:36:fe:6d:
+         ce:ed:34:8d:a1:22:e2:5e:8c:79:e1:c6:a1:ea:17:3c:aa:aa:
+         02:20:64:28:31:e7:86:c8:f5:9d:2b:9f:03:4b:fa:74:60:34:
+         d5:1d:c5:39:3e:37:4f:f8:1e:2e:4f:cf:7b:ee:d7:35]]></artwork></figure>
+
+      <t>The private key in the response above is without CMS EnvelopedData 
+	  and has no additional encryption beyond DTLS (<xref target="serverkey"/>).</t>
+	<!--<t>The response contains first a preamble that can be ignored. The EST-coaps server can use the preamble to include additional explanations, like ownership or support information </t>-->
+    </section> <!-- serverkey generation breakdown -->
+ 
+  </section>  <!-- Message Content Brakdown -->
+
 </back>
 
 </rfc>

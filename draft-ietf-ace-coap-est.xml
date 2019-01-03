@@ -951,7 +951,7 @@ HMAC(finished_key,
 	Vermillard, John Manuel, Oliver Pfaff and Pete Beal.</t>
     <t>Interop tests were done by Oliver Pfaff, Thomas Werner, Oskar Camezind, 
 	Bjorn Elmers and Joel Hoglund.</t>
-<t> Robert Moskowitz provided the technology to make the examples. </t>
+	<t>Robert Moskowitz provided code to create the examples.</t>
   </section> <!-- Acknowledgements  -->
 </middle>
 
@@ -1044,7 +1044,8 @@ HMAC(finished_key,
 	<xref target="RFC7030"/>. The payloads in the examples are the hex encoded binary, 
 	generated with 'xxd -p', of the PKI certificates created following  
 	<xref target="I-D.moskowitz-ecdsa-pki"/>. The shown payloads are shown unencrypted. 
-    In practice they would be transferred over an encrypted DTLS tunnel.	
+    In practice the message content would be binary formatted and transferred over 
+	an encrypted DTLS tunnel.	
 	<!-- [EDONTE: No need for these details of how these were generated from I-D.moskowitz-ecdsa-pki. ] 
 	In particular, the shell scripts from section 4.2 (create root certificate), section 6.2 (Create the 802.1AR intermediate certificate) and section 6.3 (Create an 802.1AR IdevID certificate) have been used. The 802.1AR IdevID certificate is signed by the 802.1AR intermediate certificate that is signed by the auto-signed root certificate.--></t>
     <t>The message content breakdown is presented in <xref target="cont_breakdown"/>.</t>

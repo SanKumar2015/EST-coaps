@@ -1045,8 +1045,8 @@ HMAC(finished_key,
 	generated with 'xxd -p', of the PKI certificates created following  
 	<xref target="I-D.moskowitz-ecdsa-pki"/>. The shown payloads are shown unencrypted. 
     In practice the message content would be binary formatted and transferred over 
-	an encrypted DTLS tunnel.	
-	<!-- [EDONTE: No need for these details of how these were generated from I-D.moskowitz-ecdsa-pki. ] 
+	an encrypted DTLS tunnel. The hexadecimal representation is NOT transported, but only used in the example for visualization purposes.
+	<!-- [EDNOTE: No need for these details of how these were generated from I-D.moskowitz-ecdsa-pki. ] 
 	In particular, the shell scripts from section 4.2 (create root certificate), section 6.2 (Create the 802.1AR intermediate certificate) and section 6.3 (Create an 802.1AR IdevID certificate) have been used. The 802.1AR IdevID certificate is signed by the 802.1AR intermediate certificate that is signed by the auto-signed root certificate.--></t>
     <t>The message content breakdown is presented in <xref target="cont_breakdown"/>.</t>
     <t>The corresponding CoAP headers are only shown in <xref target="cacerts"/>. 
@@ -1110,63 +1110,29 @@ GET coaps://192.0.2.1:8085/est/crts
       Option Value = 281 
                 
   Payload =
-2d2d2d2d2d424547494e20504b4353372d2d2d2d2d0a4d4949457741594a
-4b6f5a496876634e415163436f49494573544343424b3043415145784144
-414c42676b71686b69473977304242774767676753544d4949430a516a43
-434165696741774942416749494430796b6e3052497a334177436759494b
-6f5a497a6a3045417749775a7a454c4d416b474131554542684d4356564d
-780a437a414a42674e564241674d416b4e424d5173774351594456515148
-44414a4d515445554d424947413155454367774c52586868625842735a53
-424a626d4d780a466a415542674e564241734d44574e6c636e52705a6d6c
-6a59585270623234784544414f42674e5642414d4d42314a766233516751
-3045774868634e4d5467780a4d6a4d774d544d314e44457a5768634e4d6a
-67784d6a49334d544d314e44457a576a42644d5173774351594456515147
-45774a56557a454c4d416b47413155450a43417743513045784644415342
-674e5642416f4d4330563459573177624755675357356a4d525977464159
-445651514c4441316a5a584a3061575a70593246300a615739754d524d77
-455159445651514444416f344d4449754d55465349454e424d466b774577
-59484b6f5a497a6a3043415159494b6f5a497a6a3044415163440a516741
-456e484e74356e5874324d7958734a7071796a6777572f55667a744f5738
-363837484f79755a2b547870347952442b426e3878644b6f6f7869777637
-530a672f4967634c4c6c657265436179377677675a303644766346364f42
-687a43426844416442674e56485134454667515555367937506d362f4331
-31526a754a540a7644623034572b35574a3077487759445652306a424267
-77466f41554258612f6f61476d6f41336752416453544f4c6f584b6a4635
-70307745675944565230540a4151482f42416777426745422f7749424154
-414f42674e56485138424166384542414d43415159774867594456523052
-42426377465945545932567964476c6d0a6555426c654746746347786c4c
-6d4e766254414b42676771686b6a4f5051514441674e4941444246416942
-70592f77557230676737342b736833504f486e69700a594c4a57445a635a
-4d786f315654717065512b324e774968414b572b75467150544479653379
-58484275496d436c645731354561775a70454648747a473672670a467479
-374d4949435354434341664367417749424167494a414f666e5249463148
-4d43764d416f4743437147534d343942414d434d476378437a414a42674e
-560a42415954416c56544d517377435159445651514944414a445154454c
-4d416b474131554542777743544545784644415342674e5642416f4d4330
-5634595731770a624755675357356a4d525977464159445651514c444131
-6a5a584a3061575a7059324630615739754d524177446759445651514444
-4164536232393049454e420a4d423458445445344d54497a4d44457a4e54
-4d314e6c6f5844544d344d5449794e54457a4e544d314e6c6f775a7a454c
-4d416b474131554542684d4356564d780a437a414a42674e564241674d41
-6b4e424d517377435159445651514844414a4d515445554d424947413155
-454367774c52586868625842735a53424a626d4d780a466a415542674e56
-4241734d44574e6c636e52705a6d6c6a59585270623234784544414f4267
-4e5642414d4d42314a76623351675130457757544154426763710a686b6a
-4f5051494242676771686b6a4f50514d4242774e43414153496f69435753
-564f68765956692b526348363675344f732b327a4f395a62757a5a76686f
-770a565a43647a34655353394e52382b535275505244385149555930572b
-4975693133626a77556c41587a747947746473616f3447454d4947424d42
-3047413155640a446751574242514664722b686f6161674465424542314a
-4d34756863714d586d6e54416642674e5648534d45474441576742514664
-722b686f616167446542450a42314a4d34756863714d586d6e5441504267
-4e5648524d4241663845425441444151482f4d4134474131556444774542
-2f77514541774942426a416542674e560a48524545467a415667524e6a5a
-584a3061575a35514756345957317762475575593239744d416f47434371
-47534d343942414d43413063414d4551434947714a0a4e5a553039317053
-6574334458394d6b50787341567875766b674570556b527a44514c657467
-4b3641694168635673714f697a757633554331686572567057530a6b647a
-306c4d43536e30766c4e65435934366473326145414d51413d0a2d2d2d2d
-2d454e4420504b4353372d2d2d2d2d0a
+3082027b06092a864886f70d010702a082026c308202680201013100300b
+06092a864886f70d010701a082024e3082024a308201f0a0030201020209
+009189bcdf9c99244b300a06082a8648ce3d0403023067310b3009060355
+040613025553310b300906035504080c024341310b300906035504070c02
+4c4131143012060355040a0c0b4578616d706c6520496e63311630140603
+55040b0c0d63657274696669636174696f6e3110300e06035504030c0752
+6f6f74204341301e170d3139303130373130343034315a170d3339303130
+323130343034315a3067310b3009060355040613025553310b3009060355
+04080c024341310b300906035504070c024c4131143012060355040a0c0b
+4578616d706c6520496e6331163014060355040b0c0d6365727469666963
+6174696f6e3110300e06035504030c07526f6f742043413059301306072a
+8648ce3d020106082a8648ce3d03010703420004814994082b6e8185f3df
+53f5e0bee698973335200023ddf78cd17a443ffd8ddd40908769c55652ac
+2ccb75c4a50a7c7ddb7c22dae6c85cca538209fdbbf104c9a38184308181
+301d0603551d0e041604142495e816ef6ffcaaf356ce4adffe33cf492abb
+a8301f0603551d230418301680142495e816ef6ffcaaf356ce4adffe33cf
+492abba8300f0603551d130101ff040530030101ff300e0603551d0f0101
+ff040403020106301e0603551d1104173015811363657274696679406578
+616d706c652e636f6d300a06082a8648ce3d0403020348003045022100da
+009189bcdf9c99244b300a06082a8648ce3d0403023067310b3009060355
+040613025553310b300906035504080c024341310b300906035504070c02
+4c4131143012060355040a0c0b4578616d706c6520496e63311630140603
+
 ]]></artwork></figure>
       <t>The breakdown of the payload is shown in <xref target="cacertsdis"/>. </t>
     </section>  <!-- cacerts -->
@@ -1203,19 +1169,20 @@ GET coaps://[2001:db8::2:1]:61616/est/att
 POST [2001:db8::2:1]:61616/est/sen 
 (token 0x45)
 (Content-Format: 286)
-3082016f308201150201003076310b3009060355040613025553310b3009
-06035504080c0243413111300f06035504070c084f616b205061726b3114
-3012060355040a0c0b6578616d706c6520496e63310c300a060355040b0c
-03496f543112301006035504030c09436c69656e74205241310f300d0603
-55040513065774313233343059301306072a8648ce3d020106082a8648ce
-3d03010703420004835f89726506f0d586f8db511d945b4880ecb8d15ee9
-707893944b6ca7e247e753fd9d82c8bf8f353003327ee51f9b033330bc20
-6999fff6e62cc8119c405a31a03d303b06092a864886f70d01090e312e30
-2c302a0603551d1104233021a01f06082b06010505070804a01330110609
-2b06010401b43b0a01040401020304300a06082a8648ce3d040302034800
-3045022025084bf66faa41504bcb83f6aeca0e95d941a8a250f86e6300da
-9501992c878b02210082c2ff4ef22c60d2f7e52f9095b8381a25200fdc87
-f90aef577cb00d43224833
+308201853082012c0201003070310b3009060355040613025553310b3009
+06035504080c024341310b300906035504070c024c413114301206035504
+0a0c0b6578616d706c6520496e63310c300a060355040b0c03496f543112
+301006035504030c09436c69656e74205241310f300d0603550405130657
+74313233343059301306072a8648ce3d020106082a8648ce3d0301070342
+00041bb8c1117896f98e4506c03d70efbe820d8e38ea97e9d65d52c8460c
+5852c51dd89a61370a2843760fc859799d78cd33f3c1846e304f1717f812
+3f1a284cc99fa05a301b06092a864886f70d010907310e0c0c6461746e69
+65746465657274303b06092a864886f70d01090e312e302c302a0603551d
+1104233021a01f06082b06010505070804a013301106092b06010401b43b
+0a01040401020304300a06082a8648ce3d040302034700304402201f82c6
+868a654e2dec43cff50aebd6cbbe20dc8242a20a806684f2b8545d008902
+20668de2c306df1768105a781e49b1cdc42a2a7f41d6b71d928789547d61
+b2b7cf
 ]]></artwork></figure>
 
       <t> 
@@ -1227,45 +1194,34 @@ f90aef577cb00d43224833
 		See <xref target="fig-est-long-wait"/> for an example exchange. 
       </t>
 	  
-      <t>
-	[EDNOTE: to include ChallengePassword.]
-      </t>
+      
 
 <figure align="left"><artwork><![CDATA[
 RET:
 (Content-Format: 281)(token =0x45)
 2.01 Created
-2d2d2d2d2d424547494e20504b4353372d2d2d2d2d0a4d4949436951594a
-4b6f5a496876634e415163436f494943656a4343416e5943415145784144
-414c42676b71686b6947397730424277476767674a634d4949430a574443
-4341663267417749424167494a414b6667736d4479476f554a4d416f4743
-437147534d343942414d434d463078437a414a42674e5642415954416c56
-540a4d517377435159445651514944414a44515445554d42494741315545
-4367774c52586868625842735a53424a626d4d78466a415542674e564241
-734d44574e6c0a636e52705a6d6c6a5958527062323478457a415242674e
-5642414d4d436a67774d69347851564967513045774942634e4d5467784d
-6a4d774d544d314e444d780a576867504f546b354f5445794d7a45794d7a
-55354e546c614d485978437a414a42674e5642415954416c56544d517377
-435159445651514944414a44515445520a4d413847413155454277774954
-32467249464268636d73784644415342674e5642416f4d43325634595731
-77624755675357356a4d517777436759445651514c0a44414e4a62315178
-456a415142674e5642414d4d43554e736157567564434253515445504d41
-30474131554542524d47563351784d6a4d304d466b77457759480a4b6f5a
-497a6a3043415159494b6f5a497a6a3044415163445167414567312b4a63
-6d5547384e57472b4e7452485a526253494473754e4665365842346b3552
-4c0a624b6669522b64542f5a3243794c2b504e5441444d6e376c48357344
-4d7a433849476d5a2f2f626d4c4d67526e4542614d614f42696a4342687a
-414a42674e560a48524d45416a41414d4230474131556444675157424252
-3768735069476868793355686d61732b6c6f5369714c4339354d54416642
-674e5648534d45474441570a67425254724c732b6272384c5856474f346c
-4f384e76546862376c596e54414f42674e56485138424166384542414d43
-426141774b6759445652305242434d770a49614166426767724267454642
-516349424b41544d42454743537347415151427444734b41515145415149
-444244414b42676771686b6a4f5051514441674e4a0a4144424741694541
-685a424e6a7a736a53316475745438413854454168687659504c71787330
-754b4f766571354b7742526249434951435374793569426f75470a52502b
-51534131716242753831466b6d346a682f33336379376d33616e35363349
-7145414d51413d0a2d2d2d2d2d454e4420504b4353372d2d2d2d2d0a
+3082028206092a864886f70d010702a08202733082026f0201013100300b
+06092a864886f70d010701a082025530820251308201f7a0030201020209
+00ce06119a0fd27ca9300a06082a8648ce3d040302305d310b3009060355
+040613025553310b300906035504080c02434131143012060355040a0c0b
+4578616d706c6520496e6331163014060355040b0c0d6365727469666963
+6174696f6e3113301106035504030c0a3830322e3141522043413020170d
+3139303130373130343832345a180f39393939313233313233353935395a
+3070310b3009060355040613025553310b300906035504080c024341310b
+300906035504070c024c4131143012060355040a0c0b6578616d706c6520
+496e63310c300a060355040b0c03496f543112301006035504030c09436c
+69656e74205241310f300d06035504051306577431323334305930130607
+2a8648ce3d020106082a8648ce3d030107034200041bb8c1117896f98e45
+06c03d70efbe820d8e38ea97e9d65d52c8460c5852c51dd89a61370a2843
+760fc859799d78cd33f3c1846e304f1717f8123f1a284cc99fa3818a3081
+8730090603551d1304023000301d0603551d0e04160414494be598dc8dbc
+0dbc071c486b777460e5cce621301f0603551d23041830168014d344161b
+ff1fa5343015958577dd33507be6b29b300e0603551d0f0101ff04040302
+05a0302a0603551d1104233021a01f06082b06010505070804a013301106
+092b06010401b43b0a01040401020304300a06082a8648ce3d0403020348
+003045022100a8073d6c1f9abb40739fc85a3773378568544036d8cd24f0
+1d4b34cb61d9602c022008cc77f8dd5ca7c2fcf95ffc94fdc341e2b61080
+118a9576c09e88d2fbd8a921a1003100
 ]]></artwork></figure>
       <t>The breakdown of the request and response is shown in 
 	  <xref target="enrolldis"/>.</t>
@@ -1278,14 +1234,14 @@ RET:
 POST coaps://192.0.2.1:8085/est/skg 
 (token 0xa5)
 (Content-Format: 286)(Max-Age=120)
-3081d5307c020100301a310b3009060355040613025553310b3009060355
-04080c024c413059301306072a8648ce3d020106082a8648ce3d03010703
-420004835f89726506f0d586f8db511d945b4880ecb8d15ee9707893944b
-6ca7e247e753fd9d82c8bf8f353003327ee51f9b033330bc206999fff6e6
-2cc8119c405a31a000300a06082a8648ce3d0403020349003046022100bf
-562cf8178654187284e2d0c3a01b760748d6be80d54c49d3986a17d0197f
-cc022100e34e6cd8c20e3ea5388a69d52fa814795eb8ae1bca099b3d5ae5
-1a77e79bd9a5
+3081d03078020100301631143012060355040a0c0b736b67206578616d70
+6c653059301306072a8648ce3d020106082a8648ce3d030107034200041b
+b8c1117896f98e4506c03d70efbe820d8e38ea97e9d65d52c8460c5852c5
+1dd89a61370a2843760fc859799d78cd33f3c1846e304f1717f8123f1a28
+4cc99fa000300a06082a8648ce3d0403020348003045022000e74fcd66f3
+37a708a8fb9c63f3619b43c3ba0f622f568dcb4af8488b412a0f022100d5
+19e4f7bd154a56991938fb233ddc451abc5f85c0787023465f49936c1a65
+76
 ]]></artwork></figure>
 	
 	<t>The response would follow <xref target="I-D.ietf-core-multipart-ct"/> and could looke like </t>
@@ -1294,41 +1250,31 @@ cc022100e34e6cd8c20e3ea5388a69d52fa814795eb8ae1bca099b3d5ae5
 RET:
 2.01 Content (Content-Format: 62)
 (token=0xa5)
-84                                # array(4)
+84                                   # array(4)
 19 011C                              # unsigned(284)
-58 F1                                # bytes(241)
-2d2d2d2d2d424547494e2050524956415445204b45592d2d2d2d2d0a4d49
-4748416745414d424d4742797147534d34394167454743437147534d3439
-417745484247307761774942415151672b742f377a70785067324172424f
-6c680a61744a33772b516e4e2f5970625345656b7735777649663477362b
-6852414e434141534458346c795a51627731596234323145646c46744967
-4f7934305637700a634869546c457473702b4a48353150396e594c497634
-38314d414d79667555666d774d7a4d4c7767615a6e2f3975597379424763
-51466f780a2d2d2d2d2d454e442050524956415445204b45592d2d2d2d2d
-0a
-19 0119                          # unsigned(281)
-59 0273                          # bytes(627)
-2d2d2d2d2d424547494e20504b4353372d2d2d2d2d0a4d4949427177594a
-4b6f5a496876634e415163436f4949426e444343415a6743415145784144
-414c42676b71686b694739773042427747676767462b4d4949420a656a43
-4341534767417749424167494a4150766369393676765864304d416f4743
-437147534d343942414d434d426f78437a414a42674e5642415954416c56
-540a4d517377435159445651514944414a4451544165467730784f444579
-4d7a45774f4449344e4456614677307a4f4445794d6a59774f4449344e44
-56614d426f780a437a414a42674e5642415954416c56544d517377435159
-445651514944414a445154425a4d424d4742797147534d34394167454743
-437147534d3439417745480a4130494142494e6669584a6c427644566876
-6a625552325557306941374c6a5258756c77654a4f555332796e346b666e
-552f32646773692f6a7a5577417a4a2b0a35522b62417a4d77764342706d
-662f3235697a49455a7841576a476a5544424f4d42304741315564446751
-574242523768735069476868793355686d61732b6c0a6f5369714c433935
-4d54416642674e5648534d45474441576742523768735069476868793355
-686d61732b6c6f5369714c4339354d54414d42674e5648524d450a425441
-444151482f4d416f4743437147534d343942414d43413063414d45514349
-484878334f49456d372b2f47414b764e7635747a7530306a614569346c36
-4d0a656548476f656f58504b71714169426b4b44486e68736a316e537566
-4130763664474130315233464f543433542f67654c6b2f50652b37584e61
-45414d51413d0a2d2d2d2d2d454e4420504b4353372d2d2d2d2d0a
+58 8A                                # bytes(138)
+308187020100301306072a8648ce3d020106082a8648ce3d030107046d30
+6b02010104200b9a67785b65e07360b6d28cfc1d3f3925c0755799deeca7
+45372b01697bd8a6a144034200041bb8c1117896f98e4506c03d70efbe82
+0d8e38ea97e9d65d52c8460c5852c51dd89a61370a2843760fc859799d78
+cd33f3c1846e304f1717f8123f1a284cc99f
+19 0119                              # unsigned(281)
+59 01A9                              # bytes(425)
+308201a506092a864886f70d010702a0820196308201920201013100300b
+06092a864886f70d010701a08201783082017430820119a0030201020209
+009a51705ec656cbea300a06082a8648ce3d040302301631143012060355
+040a0c0b736b67206578616d706c65301e170d3139303130373131333031
+305a170d3339303130323131333031305a301631143012060355040a0c0b
+736b67206578616d706c653059301306072a8648ce3d020106082a8648ce
+3d030107034200041bb8c1117896f98e4506c03d70efbe820d8e38ea97e9
+d65d52c8460c5852c51dd89a61370a2843760fc859799d78cd33f3c1846e
+304f1717f8123f1a284cc99fa350304e301d0603551d0e04160414494be5
+98dc8dbc0dbc071c486b777460e5cce621301f0603551d23041830168014
+494be598dc8dbc0dbc071c486b777460e5cce621300c0603551d13040530
+030101ff300a06082a8648ce3d0403020349003046022100a9d3615acd25
+5925dcc4dca5e826593dd5420843ca156e9752a305cb7c8cd9ea02210090
+53483cc93b46a8283dad444c3db733291bf80f5189822d7a965d8e56b6fd
+fda1003100
 ]]></artwork></figure> 
 	
 	  <t>The breakdown of the request and response is shown 
@@ -1356,13 +1302,13 @@ RET:
 	for the DTLS datagram size. The example block length is taken as 64 which gives an 
 	SZX value of 2.</t>
     <t>The following is an example of a cacerts exchange over DTLS. The content length of 
-	the cacerts response in appendix A.1 of <xref target="RFC7030"/>] contains 1640 bytes. The CoAP message adds around 
+	the cacerts response in appendix A.1 of <xref target="RFC7030"/>] contains 660 bytes. The CoAP message adds around 
 	10 bytes, the DTLS record 29 bytes. To avoid IP fragmentation, the CoAP block option 
 	is used and an MTU of 127 is assumed to stay within one IEEE 802.15.4 packet. To stay 
-	below the MTU of 127, the payload is split in 25 packets with a payload of 64 bytes 
-	each, followed by a last packet of 40 bytes.  The client sends an IPv6 packet 
+	below the MTU of 127, the payload is split in 10 packets with a payload of 64 bytes 
+	each, followed by a last packet of 20 bytes.  The client sends an IPv6 packet 
 	containing the UDP datagram with the DTLS record that encapsulates the CoAP 
-	request 40 times. The server returns an IPv6 packet containing the UDP datagram with the 
+	request 11 times. The server returns an IPv6 packet containing the UDP datagram with the 
 	DTLS record that encapsulates the CoAP response. The CoAP request-response exchange with block 
 	option is shown below. Block option is shown in a decomposed way (block-option:NUM/M/size) 
 	indicating the kind of Block option (2 in this case) followed by a colon, and then the block 
@@ -1378,7 +1324,7 @@ RET:
                          |
                          |
                          |
-   GET /192.0.2.1:8085/est/crts    (2:25/0/64)  -->
+   GET /192.0.2.1:8085/est/crts    (2:10/0/64)  -->
                  <--   (2:25/0/64) 2.05 Content
 ]]></artwork></figure>
 
@@ -1427,9 +1373,9 @@ RET:
       Option Length = 0x1
       Option Value = 0x0A (block#=0, M=1, SZX=2)
   Payload = 
-2d2d2d2d2d424547494e20504b4353372d2d2d2d2d0a4d4949457741594a
-4b6f5a496876634e415163436f49494573544343424b3043415145784144
-414c42676b71686b
+3082027b06092a864886f70d010702a082026c308202680201013100300b
+06092a864886f70d010701a082024e3082024a308201f0a0030201020209
+009189bc
 ]]></artwork></figure>
 
     <t>The second Block2:</t>
@@ -1448,12 +1394,13 @@ RET:
       Option Length = 0x1
       Option Value = 0x1A (block#=1, M=1, SZX=2)
   Payload = 
-69473977304242774767676753544d4949430a516a43
-434165696741774942416749494430796b6e3052497a334177436759494b
-6f5a497a6a3045417749775a7a454c4d416b
+df9c99244b300a06082a8648ce3d0403023067310b3009060355
+040613025553310b300906035504080c024341310b300906035504070c02
+4c413114301206035
+
 ]]></artwork></figure>
 
-    <t>The 26th and final Block2:</t>
+    <t>The 11th and final Block2:</t>
     <figure><artwork>
 <![CDATA[  Ver = 1
   T = 2 (means ACK)
@@ -1467,10 +1414,9 @@ RET:
     Option 
       Option Delta = 0xB  (option# 12+11=23 Block2 )
       Option Length = 0x2
-      Option Value = 0x272 (block#=25, M=0, SZX=2)
+      Option Value = 0x272 (block#=10, M=0, SZX=2)
   Payload = 
-536e30766c4e65435934366473326145414d51413d0a2d2d2d2d
-2d454e4420504b4353372d2d2d2d2d0a
+291bf80f5189822d7a965d8e56b6fdfda1003100
 ]]></artwork></figure>
     </section> <!-- cacerts block example -->
 
@@ -1516,81 +1462,38 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/256)          -->
 	binary payloads shown in <xref target="messagebindings"/>.
 </t>
     <section anchor="cacertsdis" title="cacerts">
-      <t>Breakdown of cacerts response containing a chain of two certificates.</t>
+      <t>Breakdown of cacerts response containing one root certificate. Other intermediate certificates are not returned to keep the payload as small as possible.</t>
 <figure align="left"><artwork><![CDATA[
 Certificate:
     Data:
         Version: 3 (0x2)
-        Serial Number: 1102437012751306608 (0xf4ca49f4448cf70)
-    Signature Algorithm: ecdsa-with-SHA256
-        Issuer: C=US, ST=CA, L=LA, O=Example Inc, OU=certification,
-                CN=Root CA
-        Validity
-            Not Before: Dec 30 13:54:13 2018 GMT
-            Not After : Dec 27 13:54:13 2028 GMT
-        Subject: C=US, ST=CA, O=Example Inc, OU=certification,
-                 CN=802.1AR CA
-        Subject Public Key Info:
-            Public Key Algorithm: id-ecPublicKey
-                Public-Key: (256 bit)
-                pub: 
-                    04:9c:73:6d:e6:75:ed:d8:cc:97:b0:9a:6a:ca:38:
-                    30:5b:f5:1f:ce:d3:96:f3:af:3b:1c:ec:ae:67:e4:
-                    f1:a7:8c:91:0f:e0:67:f3:17:4a:a2:8c:62:c2:fe:
-                    d2:83:f2:20:70:b2:e5:7a:b7:82:6b:2e:ef:c2:06:
-                    74:e8:3b:dc:17
-                ASN1 OID: prime256v1
-                NIST CURVE: P-256
-        X509v3 extensions:
-            X509v3 Subject Key Identifier: 
-              53:AC:BB:3E:6E:BF:0B:5D:51:8E:E2:53:BC:36:F4:E1:6F:B9:
-58:9D
-            X509v3 Authority Key Identifier: 
-                keyid:05:76:BF:A1:A1:A6:A0:0D:E0:44:07:52:4C:E2:E8:5C:
-A8:C5:E6:9D
-
-            X509v3 Basic Constraints: critical
-                CA:TRUE, pathlen:1
-            X509v3 Key Usage: critical
-                Certificate Sign, CRL Sign
-            X509v3 Subject Alternative Name: 
-                email:certify@example.com
-    Signature Algorithm: ecdsa-with-SHA256
-         30:45:02:20:69:63:fc:14:af:48:20:ef:8f:ac:87:73:ce:1e:
-         78:a9:60:b2:56:0d:97:19:33:1a:35:55:3a:a9:79:0f:b6:37:
-         02:21:00:a5:be:b8:5a:8f:4c:3c:9e:df:25:c7:06:e2:26:0a:
-         57:56:d7:91:1a:c1:9a:44:14:7b:73:1b:aa:e0:16:dc:bb
-
-Certificate:
-    Data:
-        Version: 3 (0x2)
         Serial Number:
-            e7:e7:44:81:75:1c:c0:af
+            91:89:bc:df:9c:99:24:4b
     Signature Algorithm: ecdsa-with-SHA256
-        Issuer: C=US, ST=CA, L=LA, O=Example Inc, OU=certification,
-                CN=Root CA
+        Issuer: C=US, ST=CA, L=LA, O=Example Inc, 
+              OU=certification, CN=Root CA
         Validity
-            Not Before: Dec 30 13:53:56 2018 GMT
-            Not After : Dec 25 13:53:56 2038 GMT
-        Subject: C=US, ST=CA, L=LA, O=Example Inc, 
-         OU=certification, CN=Root CA
+            Not Before: Jan  7 10:40:41 2019 GMT
+            Not After : Jan  2 10:40:41 2039 GMT
+        Subject: C=US, ST=CA, L=LA, O=Example Inc,
+                 OU=certification, CN=Root CA
         Subject Public Key Info:
             Public Key Algorithm: id-ecPublicKey
                 Public-Key: (256 bit)
                 pub: 
-                    04:88:a2:20:96:49:53:a1:bd:85:62:f9:17:07:eb:
-                    ab:b8:3a:cf:b6:cc:ef:59:6e:ec:d9:be:1a:30:55:
-                    90:9d:cf:87:92:4b:d3:51:f3:e4:91:b8:f4:43:f1:
-                    02:14:63:45:be:22:e8:b5:dd:b8:f0:52:50:17:ce:
-                    dc:86:b5:db:1a
+                    04:81:49:94:08:2b:6e:81:85:f3:df:53:f5:e0:be:
+                    e6:98:97:33:35:20:00:23:dd:f7:8c:d1:7a:44:3f:
+                    fd:8d:dd:40:90:87:69:c5:56:52:ac:2c:cb:75:c4:
+                    a5:0a:7c:7d:db:7c:22:da:e6:c8:5c:ca:53:82:09:
+                    fd:bb:f1:04:c9
                 ASN1 OID: prime256v1
                 NIST CURVE: P-256
         X509v3 extensions:
-            X509v3 Subject Key Identifier: 
-05:76:BF:A1:A1:A6:A0:0D:E0:44:07:52:4C:E2:E8:5C:A8:C5:E6:9D
+            X509v3 Subject Key Identifier:
+ 24:95:E8:16:EF:6F:FC:AA:F3:56:CE:4A:DF:FE:33:CF:49:2A:BB:A8
             X509v3 Authority Key Identifier: 
                 keyid:
-05:76:BF:A1:A1:A6:A0:0D:E0:44:07:52:4C:E2:E8:5C:A8:C5:E6:9D
+24:95:E8:16:EF:6F:FC:AA:F3:56:CE:4A:DF:FE:33:CF:49:2A:BB:A8
 
             X509v3 Basic Constraints: critical
                 CA:TRUE
@@ -1599,10 +1502,11 @@ Certificate:
             X509v3 Subject Alternative Name: 
                 email:certify@example.com
     Signature Algorithm: ecdsa-with-SHA256
-         30:44:02:20:6a:89:35:95:34:f7:5a:52:7a:dd:c3:5f:d3:24:
-         3f:1b:00:57:1b:af:92:01:29:52:44:73:0d:02:de:b6:02:ba:
-         02:20:21:71:5b:2a:3a:2c:ee:bf:75:02:d6:17:ab:56:95:92:
-         91:dc:f4:94:c0:92:9f:4b:e5:35:e0:98:e3:a7:6c:d9
+         30:45:02:21:00:da:e3:7c:96:f1:54:c3:2e:c0:b4:af:52:d4:
+         6f:3b:7e:cc:96:87:dd:f2:67:bc:ec:36:8f:7b:7f:13:53:27:
+         2f:02:20:47:a2:8a:e5:c7:30:61:63:b3:c3:83:4b:ab:3c:10:
+         3f:74:30:70:59:4c:08:9a:aa:0a:c8:70:cd:13:b9:02:ca
+
 ]]></artwork></figure>
     </section>  <!--  cacerts payload breakdown -->
 
@@ -1613,28 +1517,29 @@ Certificate:
 Certificate Request:
     Data:
         Version: 0 (0x0)
-        Subject: C=US, ST=CA, L=Oak Park, O=, 
-       OU=IoT, CN=Client RA/serialNumber=Wt1234
+        Subject: C=US, ST=CA, L=LA, O=example Inc, OU=IoT,
+               CN=Client RA/serialNumber=Wt1234
         Subject Public Key Info:
             Public Key Algorithm: id-ecPublicKey
                 Public-Key: (256 bit)
                 pub: 
-                    04:83:5f:89:72:65:06:f0:d5:86:f8:db:51:1d:94:
-                    5b:48:80:ec:b8:d1:5e:e9:70:78:93:94:4b:6c:a7:
-                    e2:47:e7:53:fd:9d:82:c8:bf:8f:35:30:03:32:7e:
-                    e5:1f:9b:03:33:30:bc:20:69:99:ff:f6:e6:2c:c8:
-                    11:9c:40:5a:31
+                    04:1b:b8:c1:11:78:96:f9:8e:45:06:c0:3d:70:ef:
+                    be:82:0d:8e:38:ea:97:e9:d6:5d:52:c8:46:0c:58:
+                    52:c5:1d:d8:9a:61:37:0a:28:43:76:0f:c8:59:79:
+                    9d:78:cd:33:f3:c1:84:6e:30:4f:17:17:f8:12:3f:
+                    1a:28:4c:c9:9f
                 ASN1 OID: prime256v1
                 NIST CURVE: P-256
         Attributes:
+            challengePassword        :datnietdeert
         Requested Extensions:
             X509v3 Subject Alternative Name: 
                 othername:<unsupported>
     Signature Algorithm: ecdsa-with-SHA256
-         30:45:02:20:25:08:4b:f6:6f:aa:41:50:4b:cb:83:f6:ae:ca:
-         0e:95:d9:41:a8:a2:50:f8:6e:63:00:da:95:01:99:2c:87:8b:
-         02:21:00:82:c2:ff:4e:f2:2c:60:d2:f7:e5:2f:90:95:b8:38:
-         1a:25:20:0f:dc:87:f9:0a:ef:57:7c:b0:0d:43:22:48:33
+         30:44:02:20:1f:82:c6:86:8a:65:4e:2d:ec:43:cf:f5:0a:eb:
+         d6:cb:be:20:dc:82:42:a2:0a:80:66:84:f2:b8:54:5d:00:89:
+         02:20:66:8d:e2:c3:06:df:17:68:10:5a:78:1e:49:b1:cd:c4:
+         2a:2a:7f:41:d6:b7:1d:92:87:89:54:7d:61:b2:b7:cf
 ]]></artwork></figure>
 
    <t>The breakdown of the issued certificate response is </t>
@@ -1644,45 +1549,44 @@ Certificate:
     Data:
         Version: 3 (0x2)
         Serial Number:
-            a7:e0:b2:60:f2:1a:85:09
+            ce:06:11:9a:0f:d2:7c:a9
     Signature Algorithm: ecdsa-with-SHA256
-        Issuer: C=US, ST=CA, O=Example Inc, OU=certification,
-                CN=802.1AR CA
+        Issuer: C=US, ST=CA, O=Example Inc, 
+            OU=certification, CN=802.1AR CA
         Validity
-            Not Before: Dec 30 13:54:31 2018 GMT
+            Not Before: Jan  7 10:48:24 2019 GMT
             Not After : Dec 31 23:59:59 9999 GMT
-        Subject: C=US, ST=CA, L=Oak Park, O=example Inc, OU=IoT,
-           CN=Client RA/serialNumber=Wt1234
+        Subject: C=US, ST=CA, L=LA, O=example Inc, 
+            OU=IoT, CN=Client RA/serialNumber=Wt1234
         Subject Public Key Info:
             Public Key Algorithm: id-ecPublicKey
                 Public-Key: (256 bit)
                 pub: 
-                    04:83:5f:89:72:65:06:f0:d5:86:f8:db:51:1d:94:
-                    5b:48:80:ec:b8:d1:5e:e9:70:78:93:94:4b:6c:a7:
-                    e2:47:e7:53:fd:9d:82:c8:bf:8f:35:30:03:32:7e:
-                    e5:1f:9b:03:33:30:bc:20:69:99:ff:f6:e6:2c:c8:
-                    11:9c:40:5a:31
+                    04:1b:b8:c1:11:78:96:f9:8e:45:06:c0:3d:70:ef:
+                    be:82:0d:8e:38:ea:97:e9:d6:5d:52:c8:46:0c:58:
+                    52:c5:1d:d8:9a:61:37:0a:28:43:76:0f:c8:59:79:
+                    9d:78:cd:33:f3:c1:84:6e:30:4f:17:17:f8:12:3f:
+                    1a:28:4c:c9:9f
                 ASN1 OID: prime256v1
                 NIST CURVE: P-256
         X509v3 extensions:
             X509v3 Basic Constraints: 
                 CA:FALSE
             X509v3 Subject Key Identifier: 
-7B:86:C3:E2:1A:18:72:DD:48:66:6A:CF:A5:A1:28:AA:2C:
-2F:79:31
+49:4B:E5:98:DC:8D:BC:0D:BC:07:1C:48:6B:77:74:60:E5:CC:E6:21
             X509v3 Authority Key Identifier: 
                 keyid:
-53:AC:BB:3E:6E:BF:0B:5D:51:8E:E2:53:BC:36:F4:E1:6F:B9:58:9D
+D3:44:16:1B:FF:1F:A5:34:30:15:95:85:77:DD:33:50:7B:E6:B2:9B
 
             X509v3 Key Usage: critical
                 Digital Signature, Key Encipherment
             X509v3 Subject Alternative Name: 
                 othername:<unsupported>
     Signature Algorithm: ecdsa-with-SHA256
-         30:46:02:21:00:85:90:4d:8f:3b:23:4b:57:6e:b5:3f:00:f1:
-         31:00:86:1b:d8:3c:ba:b1:b3:4b:8a:3a:f7:aa:e4:ac:01:45:
-         b2:02:21:00:92:b7:2e:62:06:8b:86:44:ff:90:48:0d:6a:6c:
-         1b:bc:d4:59:26:e2:38:7f:df:77:32:ee:6d:da:9f:9e:b7:22
+         30:45:02:21:00:a8:07:3d:6c:1f:9a:bb:40:73:9f:c8:5a:37:
+         73:37:85:68:54:40:36:d8:cd:24:f0:1d:4b:34:cb:61:d9:60:
+         2c:02:20:08:cc:77:f8:dd:5c:a7:c2:fc:f9:5f:fc:94:fd:c3:
+         41:e2:b6:10:80:11:8a:95:76:c0:9e:88:d2:fb:d8:a9:21
 ]]></artwork></figure>
 
    </section> <!-- Re-enroll message breakdown  -->
@@ -1693,25 +1597,25 @@ Certificate:
 Certificate Request:
     Data:
         Version: 0 (0x0)
-        Subject: C=US, ST=LA
+        Subject: O=skg example
         Subject Public Key Info:
             Public Key Algorithm: id-ecPublicKey
                 Public-Key: (256 bit)
                 pub: 
-                    04:83:5f:89:72:65:06:f0:d5:86:f8:db:51:1d:94:
-                    5b:48:80:ec:b8:d1:5e:e9:70:78:93:94:4b:6c:a7:
-                    e2:47:e7:53:fd:9d:82:c8:bf:8f:35:30:03:32:7e:
-                    e5:1f:9b:03:33:30:bc:20:69:99:ff:f6:e6:2c:c8:
-                    11:9c:40:5a:31
+                    04:1b:b8:c1:11:78:96:f9:8e:45:06:c0:3d:70:ef:
+                    be:82:0d:8e:38:ea:97:e9:d6:5d:52:c8:46:0c:58:
+                    52:c5:1d:d8:9a:61:37:0a:28:43:76:0f:c8:59:79:
+                    9d:78:cd:33:f3:c1:84:6e:30:4f:17:17:f8:12:3f:
+                    1a:28:4c:c9:9f
                 ASN1 OID: prime256v1
                 NIST CURVE: P-256
         Attributes:
             a0:00
     Signature Algorithm: ecdsa-with-SHA256
-         30:46:02:21:00:bf:56:2c:f8:17:86:54:18:72:84:e2:d0:c3:
-         a0:1b:76:07:48:d6:be:80:d5:4c:49:d3:98:6a:17:d0:19:7f:
-         cc:02:21:00:e3:4e:6c:d8:c2:0e:3e:a5:38:8a:69:d5:2f:a8:
-         14:79:5e:b8:ae:1b:ca:09:9b:3d:5a:e5:1a:77:e7:9b:d9:a5
+         30:45:02:20:00:e7:4f:cd:66:f3:37:a7:08:a8:fb:9c:63:f3:
+         61:9b:43:c3:ba:0f:62:2f:56:8d:cb:4a:f8:48:8b:41:2a:0f:
+         02:21:00:d5:19:e4:f7:bd:15:4a:56:99:19:38:fb:23:3d:dc:
+         45:1a:bc:5f:85:c0:78:70:23:46:5f:49:93:6c:1a:65:76
 ]]></artwork></figure>
 
      <t>The following is the breakdown of the private key content 
@@ -1720,15 +1624,15 @@ Certificate Request:
 <figure align="left"><artwork><![CDATA[
 Private-Key: (256 bit)
 priv:
-    00:fa:df:fb:ce:9c:4f:83:60:2b:04:e9:61:6a:d2:
-    77:c3:e4:27:37:f6:29:6d:21:1e:93:0e:70:bc:87:
-    f8:c3:af
+    0b:9a:67:78:5b:65:e0:73:60:b6:d2:8c:fc:1d:3f:
+    39:25:c0:75:57:99:de:ec:a7:45:37:2b:01:69:7b:
+    d8:a6
 pub: 
-    04:83:5f:89:72:65:06:f0:d5:86:f8:db:51:1d:94:
-    5b:48:80:ec:b8:d1:5e:e9:70:78:93:94:4b:6c:a7:
-    e2:47:e7:53:fd:9d:82:c8:bf:8f:35:30:03:32:7e:
-    e5:1f:9b:03:33:30:bc:20:69:99:ff:f6:e6:2c:c8:
-    11:9c:40:5a:31
+    04:1b:b8:c1:11:78:96:f9:8e:45:06:c0:3d:70:ef:
+    be:82:0d:8e:38:ea:97:e9:d6:5d:52:c8:46:0c:58:
+    52:c5:1d:d8:9a:61:37:0a:28:43:76:0f:c8:59:79:
+    9d:78:cd:33:f3:c1:84:6e:30:4f:17:17:f8:12:3f:
+    1a:28:4c:c9:9f
 ASN1 OID: prime256v1
 NIST CURVE: P-256
 ]]></artwork></figure>
@@ -1741,43 +1645,43 @@ Certificate:
     Data:
         Version: 3 (0x2)
         Serial Number:
-            fb:dc:8b:de:af:bd:77:74
+            c5:47:f1:2c:7a:30:70:ac
     Signature Algorithm: ecdsa-with-SHA256
-        Issuer: C=US, ST=CA
+        Issuer: O=skg example
         Validity
-            Not Before: Dec 31 08:28:45 2018 GMT
-            Not After : Dec 26 08:28:45 2038 GMT
-        Subject: C=US, ST=CA
+            Not Before: Jan  7 10:54:11 2019 GMT
+            Not After : Jan  2 10:54:11 2039 GMT
+        Subject: O=skg example
         Subject Public Key Info:
             Public Key Algorithm: id-ecPublicKey
                 Public-Key: (256 bit)
                 pub: 
-                    04:83:5f:89:72:65:06:f0:d5:86:f8:db:51:1d:94:
-                    5b:48:80:ec:b8:d1:5e:e9:70:78:93:94:4b:6c:a7:
-                    e2:47:e7:53:fd:9d:82:c8:bf:8f:35:30:03:32:7e:
-                    e5:1f:9b:03:33:30:bc:20:69:99:ff:f6:e6:2c:c8:
-                    11:9c:40:5a:31
+                    04:1b:b8:c1:11:78:96:f9:8e:45:06:c0:3d:70:ef:
+                    be:82:0d:8e:38:ea:97:e9:d6:5d:52:c8:46:0c:58:
+                    52:c5:1d:d8:9a:61:37:0a:28:43:76:0f:c8:59:79:
+                    9d:78:cd:33:f3:c1:84:6e:30:4f:17:17:f8:12:3f:
+                    1a:28:4c:c9:9f
                 ASN1 OID: prime256v1
                 NIST CURVE: P-256
         X509v3 extensions:
-            X509v3 Subject Key Identifier: 
-
-7B:86:C3:E2:1A:18:72:DD:48:66:6A:CF:A5:A1:28:AA:2C:2F:79:31
+            X509v3 Subject Key Identifier:
+49:4B:E5:98:DC:8D:BC:0D:BC:07:1C:48:6B:77:74:60:E5:CC:E6:21
             X509v3 Authority Key Identifier: 
                 keyid:
-7B:86:C3:E2:1A:18:72:DD:48:66:6A:CF:A5:A1:28:AA:2C:2F:79:31
+49:4B:E5:98:DC:8D:BC:0D:BC:07:1C:48:6B:77:74:60:E5:CC:E6:21
 
             X509v3 Basic Constraints: 
                 CA:TRUE
     Signature Algorithm: ecdsa-with-SHA256
-         30:44:02:20:71:f1:dc:e2:04:9b:bf:bf:18:02:af:36:fe:6d:
-         ce:ed:34:8d:a1:22:e2:5e:8c:79:e1:c6:a1:ea:17:3c:aa:aa:
-         02:20:64:28:31:e7:86:c8:f5:9d:2b:9f:03:4b:fa:74:60:34:
-         d5:1d:c5:39:3e:37:4f:f8:1e:2e:4f:cf:7b:ee:d7:35]]></artwork></figure>
+         30:45:02:21:00:87:d0:70:91:6b:91:56:19:eb:07:4b:d9:d7:
+         e2:2f:17:02:7f:43:b2:33:37:6a:52:cd:e1:65:1c:ef:29:ed:
+         dd:02:20:14:d3:94:5e:4a:92:c8:cd:8c:9d:cf:70:d7:3a:3b:
+         00:9b:a5:d5:b6:a5:21:55:74:9d:a2:b7:d2:0e:04:09:91
+]]></artwork></figure>
 
       <t>The private key in the response above is without CMS EnvelopedData 
 	  and has no additional encryption beyond DTLS (<xref target="serverkey"/>).</t>
-	<!--<t>The response contains first a preamble that can be ignored. The EST-coaps server can use the preamble to include additional explanations, like ownership or support information </t>-->
+
     </section> <!-- serverkey generation breakdown -->
  
   </section>  <!-- Message Content Brakdown -->

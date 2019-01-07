@@ -1348,7 +1348,7 @@ fda1003100
 	with exponent (2**(SZX+4)) separated by slashes.  The Length 64 is used with SZX=2 to avoid IP 
 	fragmentation. The CoAP Request is sent with confirmable (CON) option and the content format 
 	of the response, even though not shown, is 281 (application/pkcs7-mime; smime-type=certs-only). 
-	The transer of the 10 blocks with partially filled block NUM=10 is shown below </t>
+	The transer of the 10 blocks with partially filled block NUM=9 is shown below </t>
     <figure align="left"><artwork><![CDATA[
    GET /192.0.2.1:8085/est/crts   (2:0/0/64)    -->
                  <--   (2:0/1/64) 2.05 Content
@@ -1358,7 +1358,7 @@ fda1003100
                          |
                          |
    GET /192.0.2.1:8085/est/crts    (2:10/0/64)  -->
-                 <--   (2:25/0/64) 2.05 Content
+                 <--   (2:9/0/64) 2.05 Content
 ]]></artwork></figure>
 	
     <t>The header of the GET request looks like</t>
@@ -1439,7 +1439,6 @@ fda1003100
 81751cc0af300a06082a8648ce3d0403023067310b300906035504061302
 5553310b300906035504080c024341310b300906035504070c024c413114
 30120603
-
 ]]></artwork></figure>
 
     <t>The 10th and final Block2:</t>
@@ -1456,7 +1455,7 @@ fda1003100
     Option 
       Option Delta = 0xB  (option# 12+11=23 Block2 )
       Option Length = 0x2
-      Option Value = 0x272 (block#=10, M=0, SZX=2)
+      Option Value = 0x272 (block#=9, M=0, SZX=2)
 	  
   [ The hexadecimal representation below would NOT be transported 
   in hex, but in binary. Hex is used because a binary representation 

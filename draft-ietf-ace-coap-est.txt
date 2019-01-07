@@ -1992,7 +1992,7 @@ B.1.  cacerts
    to avoid IP fragmentation.  The CoAP Request is sent with confirmable
    (CON) option and the content format of the response, even though not
    shown, is 281 (application/pkcs7-mime; smime-type=certs-only).  The
-   transer of the 10 blocks with partially filled block NUM=10 is shown
+   transer of the 10 blocks with partially filled block NUM=9 is shown
    below
 
       GET /192.0.2.1:8085/est/crts   (2:0/0/64)    -->
@@ -2003,7 +2003,7 @@ B.1.  cacerts
                             |
                             |
       GET /192.0.2.1:8085/est/crts    (2:10/0/64)  -->
-                    <--   (2:25/0/64) 2.05 Content
+                    <--   (2:9/0/64) 2.05 Content
 
    The header of the GET request looks like
 
@@ -2144,7 +2144,7 @@ Internet-Draft                  EST-coaps                   January 2019
        Option
          Option Delta = 0xB  (option# 12+11=23 Block2 )
          Option Length = 0x2
-         Option Value = 0x272 (block#=10, M=0, SZX=2)
+         Option Value = 0x272 (block#=9, M=0, SZX=2)
 
      [ The hexadecimal representation below would NOT be transported
      in hex, but in binary. Hex is used because a binary representation

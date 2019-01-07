@@ -1045,7 +1045,9 @@ HMAC(finished_key,
 	generated with 'xxd -p', of the PKI certificates created following  
 	<xref target="I-D.moskowitz-ecdsa-pki"/>. The shown payloads are shown unencrypted. 
     In practice the message content would be binary formatted and transferred over 
-	an encrypted DTLS tunnel. The hexadecimal representation is NOT transported, but only used in the example for visualization purposes.
+	an encrypted DTLS tunnel. The hexadecimal representations in the examples below 
+	would NOT be transported in hex, but in binary. They are used for visualization 
+	purposes because a binary representation cannot be rendered well in text.
 	<!-- [EDNOTE: No need for these details of how these were generated from I-D.moskowitz-ecdsa-pki. ] 
 	In particular, the shell scripts from section 4.2 (create root certificate), section 6.2 (Create the 802.1AR intermediate certificate) and section 6.3 (Create an 802.1AR IdevID certificate) have been used. The 802.1AR IdevID certificate is signed by the 802.1AR intermediate certificate that is signed by the auto-signed root certificate.--></t>
     <t>The message content breakdown is presented in <xref target="cont_breakdown"/>.</t>
@@ -1108,31 +1110,34 @@ GET coaps://192.0.2.1:8085/est/crts
       Option Delta = 0xC  (option# 12 Content-Format)
       Option Length = 0x2
       Option Value = 281 
-                
-  Payload =
-3082027b06092a864886f70d010702a082026c308202680201013100300b
-06092a864886f70d010701a082024e3082024a308201f0a0030201020209
-009189bcdf9c99244b300a06082a8648ce3d0403023067310b3009060355
+  
+  [ The hexadecimal representation below would NOT be transported 
+  in hex, but in binary. Hex is used because a binary representation 
+  cannot be rendered well in text. ]
+  
+  Payload = 
+3082027a06092a864886f70d010702a082026b308202670201013100300b
+06092a864886f70d010701a082024d30820249308201f0a0030201020209
+00e7e74481751cc0af300a06082a8648ce3d0403023067310b3009060355
 040613025553310b300906035504080c024341310b300906035504070c02
 4c4131143012060355040a0c0b4578616d706c6520496e63311630140603
 55040b0c0d63657274696669636174696f6e3110300e06035504030c0752
-6f6f74204341301e170d3139303130373130343034315a170d3339303130
-323130343034315a3067310b3009060355040613025553310b3009060355
+6f6f74204341301e170d3138313233303133353335365a170d3338313232
+353133353335365a3067310b3009060355040613025553310b3009060355
 04080c024341310b300906035504070c024c4131143012060355040a0c0b
 4578616d706c6520496e6331163014060355040b0c0d6365727469666963
 6174696f6e3110300e06035504030c07526f6f742043413059301306072a
-8648ce3d020106082a8648ce3d03010703420004814994082b6e8185f3df
-53f5e0bee698973335200023ddf78cd17a443ffd8ddd40908769c55652ac
-2ccb75c4a50a7c7ddb7c22dae6c85cca538209fdbbf104c9a38184308181
-301d0603551d0e041604142495e816ef6ffcaaf356ce4adffe33cf492abb
-a8301f0603551d230418301680142495e816ef6ffcaaf356ce4adffe33cf
-492abba8300f0603551d130101ff040530030101ff300e0603551d0f0101
+8648ce3d020106082a8648ce3d0301070342000488a220964953a1bd8562
+f91707ebabb83acfb6ccef596eecd9be1a3055909dcf87924bd351f3e491
+b8f443f102146345be22e8b5ddb8f0525017cedc86b5db1aa38184308181
+301d0603551d0e041604140576bfa1a1a6a00de04407524ce2e85ca8c5e6
+9d301f0603551d230418301680140576bfa1a1a6a00de04407524ce2e85c
+a8c5e69d300f0603551d130101ff040530030101ff300e0603551d0f0101
 ff040403020106301e0603551d1104173015811363657274696679406578
-616d706c652e636f6d300a06082a8648ce3d0403020348003045022100da
-009189bcdf9c99244b300a06082a8648ce3d0403023067310b3009060355
-040613025553310b300906035504080c024341310b300906035504070c02
-4c4131143012060355040a0c0b4578616d706c6520496e63311630140603
-
+616d706c652e636f6d300a06082a8648ce3d040302034700304402206a89
+359534f75a527addc35fd3243f1b00571baf9201295244730d02deb602ba
+022021715b2a3a2ceebf7502d617ab56959291dcf494c0929f4be535e098
+e3a76cd9a1003100
 ]]></artwork></figure>
       <t>The breakdown of the payload is shown in <xref target="cacertsdis"/>. </t>
     </section>  <!-- cacerts -->
@@ -1144,6 +1149,10 @@ REQ:
 GET coaps://[2001:db8::2:1]:61616/est/att 
 (Content-Format: 285)
 
+[ The hexadecimal representation below would NOT be transported 
+in hex, but in binary. Hex is used because a binary representation 
+cannot be rendered well in text. ]
+  
 307c06072b06010101011630220603883701311b131950617273652053455
 420617320322e3939392e31206461746106092a864886f70d010907302c06
 0388370231250603883703060388370413195061727365205345542061732
@@ -1154,7 +1163,7 @@ GET coaps://[2001:db8::2:1]:61616/est/att
       <t>A 2.05 Content response should contain attributes which are relevant 
 	  for the authenticated client. This example is copied from section A.2 
 	  in <xref target="RFC7030"/>, where the base64 representation is replaced 
-	  with a hexadecimal representation of the equivalent binary format . 
+	  with a hexadecimal representation of the equivalent binary format. 
 	  The EST-coaps server returns attributes that the client can ignore 
 	  if they are unknown to him.</t>
     </section>  <!-- csrattrs -->
@@ -1162,13 +1171,20 @@ GET coaps://[2001:db8::2:1]:61616/est/att
     <section title="enroll / reenroll">
       <t>
 	    During the (re-)enroll exchange the EST-coaps client uses a CSR
-        (Content-Format 286) request in the POST request payload.
+        (Content-Format 286) request in the POST request payload. 
+		As shown in <xref target="enrolldis"/>, the CSR contains a 
+		challenge password which is used for POP linking (<xref target="DTLS"/>).
       </t>
 
 <figure align="left"><artwork><![CDATA[
 POST [2001:db8::2:1]:61616/est/sen 
 (token 0x45)
 (Content-Format: 286)
+
+[ The hexadecimal representation below would NOT be transported 
+in hex, but in binary. Hex is used because a binary representation 
+cannot be rendered well in text. ] 
+
 308201853082012c0201003070310b3009060355040613025553310b3009
 06035504080c024341310b300906035504070c024c413114301206035504
 0a0c0b6578616d706c6520496e63310c300a060355040b0c03496f543112
@@ -1200,6 +1216,11 @@ b2b7cf
 RET:
 (Content-Format: 281)(token =0x45)
 2.01 Created
+
+[ The hexadecimal representation below would NOT be transported 
+in hex, but in binary. Hex is used because a binary representation 
+cannot be rendered well in text. ] 
+
 3082028206092a864886f70d010702a08202733082026f0201013100300b
 06092a864886f70d010701a082025530820251308201f7a0030201020209
 00ce06119a0fd27ca9300a06082a8648ce3d040302305d310b3009060355
@@ -1234,6 +1255,11 @@ ff1fa5343015958577dd33507be6b29b300e0603551d0f0101ff04040302
 POST coaps://192.0.2.1:8085/est/skg 
 (token 0xa5)
 (Content-Format: 286)(Max-Age=120)
+
+[ The hexadecimal representation below would NOT be transported 
+in hex, but in binary. Hex is used because a binary representation 
+cannot be rendered well in text. ] 
+
 3081d03078020100301631143012060355040a0c0b736b67206578616d70
 6c653059301306072a8648ce3d020106082a8648ce3d030107034200041b
 b8c1117896f98e4506c03d70efbe820d8e38ea97e9d65d52c8460c5852c5
@@ -1250,6 +1276,11 @@ b8c1117896f98e4506c03d70efbe820d8e38ea97e9d65d52c8460c5852c5
 RET:
 2.01 Content (Content-Format: 62)
 (token=0xa5)
+
+[ The hexadecimal representations below would NOT be transported 
+in hex, but in binary. Hex is used because a binary representation 
+cannot be rendered well in text. ] 
+
 84                                   # array(4)
 19 011C                              # unsigned(284)
 58 8A                                # bytes(138)
@@ -1302,20 +1333,22 @@ fda1003100
 	for the DTLS datagram size. The example block length is taken as 64 which gives an 
 	SZX value of 2.</t>
     <t>The following is an example of a cacerts exchange over DTLS. The content length of 
-	the cacerts response in appendix A.1 of <xref target="RFC7030"/>] contains 660 bytes. The CoAP message adds around 
-	10 bytes, the DTLS record 29 bytes. To avoid IP fragmentation, the CoAP block option 
+	the cacerts response in appendix A.1 of <xref target="RFC7030"/> contains 638 
+	bytes in binary. The CoAP message adds around 10 bytes, 
+	the DTLS record 29 bytes. To avoid IP fragmentation, the CoAP block option 
 	is used and an MTU of 127 is assumed to stay within one IEEE 802.15.4 packet. To stay 
-	below the MTU of 127, the payload is split in 10 packets with a payload of 64 bytes 
-	each, followed by a last packet of 20 bytes.  The client sends an IPv6 packet 
+	below the MTU of 127, the payload is split in 9 packets with a payload of 64 bytes 
+	each, followed by a last packet of 62 bytes. The client sends an IPv6 packet 
 	containing the UDP datagram with the DTLS record that encapsulates the CoAP 
-	request 11 times. The server returns an IPv6 packet containing the UDP datagram with the 
+	request 10 times. The server returns an IPv6 packet containing the UDP datagram with the 
 	DTLS record that encapsulates the CoAP response. The CoAP request-response exchange with block 
 	option is shown below. Block option is shown in a decomposed way (block-option:NUM/M/size) 
 	indicating the kind of Block option (2 in this case) followed by a colon, and then the block 
 	number (NUM), the more bit (M = 0 in Block2 response means it is last block), and block size 
 	with exponent (2**(SZX+4)) separated by slashes.  The Length 64 is used with SZX=2 to avoid IP 
 	fragmentation. The CoAP Request is sent with confirmable (CON) option and the content format 
-	of the response, even though not shown, is 281 (application/pkcs7-mime; smime-type=certs-only).</t>
+	of the response, even though not shown, is 281 (application/pkcs7-mime; smime-type=certs-only). 
+	The transer of the 10 blocks with partially filled block NUM=10 is shown below </t>
     <figure align="left"><artwork><![CDATA[
    GET /192.0.2.1:8085/est/crts   (2:0/0/64)    -->
                  <--   (2:0/1/64) 2.05 Content
@@ -1327,10 +1360,8 @@ fda1003100
    GET /192.0.2.1:8085/est/crts    (2:10/0/64)  -->
                  <--   (2:25/0/64) 2.05 Content
 ]]></artwork></figure>
-
-    <t>25 blocks have been sent with partially filled block NUM=25 as the last block. </t>
-    <t>For further detailing the CoAP headers, the first two blocks are written out
-	below. The header of the first GET request looks like</t>
+	
+    <t>The header of the GET request looks like</t>
 <figure><artwork>
 <![CDATA[  
   Ver = 1
@@ -1357,7 +1388,8 @@ fda1003100
   Payload = [Empty]
 ]]></artwork></figure>
 
-    <t>The header of the first response looks like</t>
+    <t>For further detailing the CoAP headers, the first two and the last blocks are 
+	written out below. The header of the first Block2 response looks like</t>
     <figure><artwork>
 <![CDATA[  Ver = 1
   T = 2 (ACK)
@@ -1372,10 +1404,15 @@ fda1003100
       Option Delta = 0xB  (option# 12+11=23 Block2)
       Option Length = 0x1
       Option Value = 0x0A (block#=0, M=1, SZX=2)
+	  
+  [ The hexadecimal representation below would NOT be transported 
+  in hex, but in binary. Hex is used because a binary representation 
+  cannot be rendered well in text. ] 
+  
   Payload = 
-3082027b06092a864886f70d010702a082026c308202680201013100300b
-06092a864886f70d010701a082024e3082024a308201f0a0030201020209
-009189bc
+3082027a06092a864886f70d010702a082026b308202670201013100300b
+06092a864886f70d010701a082024d30820249308201f0a0030201020209
+00e7e744
 ]]></artwork></figure>
 
     <t>The second Block2:</t>
@@ -1393,14 +1430,19 @@ fda1003100
       Option Delta = 0xB  (option 12+11=23 Block2)
       Option Length = 0x1
       Option Value = 0x1A (block#=1, M=1, SZX=2)
+	  
+  [ The hexadecimal representation below would NOT be transported 
+  in hex, but in binary. Hex is used because a binary representation 
+  cannot be rendered well in text. ] 
+	  
   Payload = 
-df9c99244b300a06082a8648ce3d0403023067310b3009060355
-040613025553310b300906035504080c024341310b300906035504070c02
-4c413114301206035
+81751cc0af300a06082a8648ce3d0403023067310b300906035504061302
+5553310b300906035504080c024341310b300906035504070c024c413114
+30120603
 
 ]]></artwork></figure>
 
-    <t>The 11th and final Block2:</t>
+    <t>The 10th and final Block2:</t>
     <figure><artwork>
 <![CDATA[  Ver = 1
   T = 2 (means ACK)
@@ -1415,8 +1457,15 @@ df9c99244b300a06082a8648ce3d0403023067310b3009060355
       Option Delta = 0xB  (option# 12+11=23 Block2 )
       Option Length = 0x2
       Option Value = 0x272 (block#=10, M=0, SZX=2)
+	  
+  [ The hexadecimal representation below would NOT be transported 
+  in hex, but in binary. Hex is used because a binary representation 
+  cannot be rendered well in text. ] 
+	  
   Payload = 
-291bf80f5189822d7a965d8e56b6fdfda1003100
+7addc35fd3243f1b00571baf9201295244730d02deb602ba022021715b2a
+3a2ceebf7502d617ab56959291dcf494c0929f4be535e098e3a76cd9a100
+3100
 ]]></artwork></figure>
     </section> <!-- cacerts block example -->
 
@@ -1462,7 +1511,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/256)          -->
 	binary payloads shown in <xref target="messagebindings"/>.
 </t>
     <section anchor="cacertsdis" title="cacerts">
-      <t>Breakdown of cacerts response containing one root certificate. Other intermediate certificates are not returned to keep the payload as small as possible.</t>
+      <t>Breakdown of cacerts response containing one root CA certificate. </t>
 <figure align="left"><artwork><![CDATA[
 Certificate:
     Data:
@@ -1541,6 +1590,9 @@ Certificate Request:
          02:20:66:8d:e2:c3:06:df:17:68:10:5a:78:1e:49:b1:cd:c4:
          2a:2a:7f:41:d6:b7:1d:92:87:89:54:7d:61:b2:b7:cf
 ]]></artwork></figure>
+
+   <t>The CSR contains a challenge password which is used for 
+   POP linking (<xref target="DTLS"/>)</t>
 
    <t>The breakdown of the issued certificate response is </t>
 

@@ -1333,14 +1333,14 @@ fda1003100
 	for the DTLS datagram size. The example block length is taken as 64 which gives an 
 	SZX value of 2.</t>
     <t>The following is an example of a cacerts exchange over DTLS. The content length of 
-	the cacerts response in appendix A.1 of <xref target="RFC7030"/> contains 638 
+	the cacerts response in appendix A.1 of <xref target="RFC7030"/> contains 660 
 	bytes in binary. The CoAP message adds around 10 bytes, 
 	the DTLS record 29 bytes. To avoid IP fragmentation, the CoAP block option 
 	is used and an MTU of 127 is assumed to stay within one IEEE 802.15.4 packet. To stay 
-	below the MTU of 127, the payload is split in 9 packets with a payload of 64 bytes 
-	each, followed by a last packet of 62 bytes. The client sends an IPv6 packet 
+	below the MTU of 127, the payload is split in 10 packets with a payload of 64 bytes 
+	each, followed by a last packet of 20 bytes. The client sends an IPv6 packet 
 	containing the UDP datagram with the DTLS record that encapsulates the CoAP 
-	request 10 times. The server returns an IPv6 packet containing the UDP datagram with the 
+	request 11 times. The server returns an IPv6 packet containing the UDP datagram with the 
 	DTLS record that encapsulates the CoAP response. The CoAP request-response exchange with block 
 	option is shown below. Block option is shown in a decomposed way (block-option:NUM/M/size) 
 	indicating the kind of Block option (2 in this case) followed by a colon, and then the block 
@@ -1348,7 +1348,7 @@ fda1003100
 	with exponent (2**(SZX+4)) separated by slashes.  The Length 64 is used with SZX=2 to avoid IP 
 	fragmentation. The CoAP Request is sent with confirmable (CON) option and the content format 
 	of the response, even though not shown, is 281 (application/pkcs7-mime; smime-type=certs-only). 
-	The transer of the 10 blocks with partially filled block NUM=9 is shown below </t>
+	The transer of the 11 blocks with partially filled block NUM=10 is shown below </t>
     <figure align="left"><artwork><![CDATA[
    GET /192.0.2.1:8085/est/crts   (2:0/0/64)    -->
                  <--   (2:0/1/64) 2.05 Content
@@ -1358,7 +1358,7 @@ fda1003100
                          |
                          |
    GET /192.0.2.1:8085/est/crts    (2:10/0/64)  -->
-                 <--   (2:9/0/64) 2.05 Content
+                 <--   (2:10/0/64) 2.05 Content
 ]]></artwork></figure>
 	
     <t>The header of the GET request looks like</t>
@@ -1441,7 +1441,7 @@ fda1003100
 30120603
 ]]></artwork></figure>
 
-    <t>The 10th and final Block2:</t>
+    <t>The 11th and final Block2:</t>
     <figure><artwork>
 <![CDATA[  Ver = 1
   T = 2 (means ACK)
@@ -1455,16 +1455,14 @@ fda1003100
     Option 
       Option Delta = 0xB  (option# 12+11=23 Block2 )
       Option Length = 0x2
-      Option Value = 0x272 (block#=9, M=0, SZX=2)
+      Option Value = 0x272 (block#=10, M=0, SZX=2)
 	  
   [ The hexadecimal representation below would NOT be transported 
   in hex, but in binary. Hex is used because a binary representation 
   cannot be rendered well in text. ] 
 	  
   Payload = 
-7addc35fd3243f1b00571baf9201295244730d02deb602ba022021715b2a
-3a2ceebf7502d617ab56959291dcf494c0929f4be535e098e3a76cd9a100
-3100
+91dcf494c0929f4be535e098e3a76cd9a1003100
 ]]></artwork></figure>
     </section> <!-- cacerts block example -->
 

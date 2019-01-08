@@ -1974,14 +1974,14 @@ B.1.  cacerts
 
    The following is an example of a cacerts exchange over DTLS.  The
    content length of the cacerts response in appendix A.1 of [RFC7030]
-   contains 638 bytes in binary.  The CoAP message adds around 10 bytes,
+   contains 660 bytes in binary.  The CoAP message adds around 10 bytes,
    the DTLS record 29 bytes.  To avoid IP fragmentation, the CoAP block
    option is used and an MTU of 127 is assumed to stay within one IEEE
    802.15.4 packet.  To stay below the MTU of 127, the payload is split
-   in 9 packets with a payload of 64 bytes each, followed by a last
-   packet of 62 bytes.  The client sends an IPv6 packet containing the
+   in 10 packets with a payload of 64 bytes each, followed by a last
+   packet of 20 bytes.  The client sends an IPv6 packet containing the
    UDP datagram with the DTLS record that encapsulates the CoAP request
-   10 times.  The server returns an IPv6 packet containing the UDP
+   11 times.  The server returns an IPv6 packet containing the UDP
    datagram with the DTLS record that encapsulates the CoAP response.
    The CoAP request-response exchange with block option is shown below.
    Block option is shown in a decomposed way (block-option:NUM/M/size)
@@ -1992,7 +1992,7 @@ B.1.  cacerts
    to avoid IP fragmentation.  The CoAP Request is sent with confirmable
    (CON) option and the content format of the response, even though not
    shown, is 281 (application/pkcs7-mime; smime-type=certs-only).  The
-   transer of the 10 blocks with partially filled block NUM=9 is shown
+   transer of the 11 blocks with partially filled block NUM=10 is shown
    below
 
       GET /192.0.2.1:8085/est/crts   (2:0/0/64)    -->
@@ -2003,7 +2003,7 @@ B.1.  cacerts
                             |
                             |
       GET /192.0.2.1:8085/est/crts    (2:10/0/64)  -->
-                    <--   (2:9/0/64) 2.05 Content
+                    <--   (2:10/0/64) 2.05 Content
 
    The header of the GET request looks like
 
@@ -2130,7 +2130,7 @@ van der Stok, et al.      Expires July 11, 2019                [Page 38]
 Internet-Draft                  EST-coaps                   January 2019
 
 
-   The 10th and final Block2:
+   The 11th and final Block2:
 
      Ver = 1
      T = 2 (means ACK)
@@ -2144,16 +2144,14 @@ Internet-Draft                  EST-coaps                   January 2019
        Option
          Option Delta = 0xB  (option# 12+11=23 Block2 )
          Option Length = 0x2
-         Option Value = 0x272 (block#=9, M=0, SZX=2)
+         Option Value = 0x272 (block#=10, M=0, SZX=2)
 
      [ The hexadecimal representation below would NOT be transported
      in hex, but in binary. Hex is used because a binary representation
      cannot be rendered well in text. ]
 
      Payload =
-   7addc35fd3243f1b00571baf9201295244730d02deb602ba022021715b2a
-   3a2ceebf7502d617ab56959291dcf494c0929f4be535e098e3a76cd9a100
-   3100
+   91dcf494c0929f4be535e098e3a76cd9a1003100
 
 B.2.  enroll
 
@@ -2163,6 +2161,8 @@ B.2.  enroll
    notation for block numbering is the same as in Appendix B.1.  It is
    assumed that CSR takes N1+1 blocks and the cert response takes N2+1
    blocks.  The header fields and the payload are omitted for brevity.
+
+
 
 
 

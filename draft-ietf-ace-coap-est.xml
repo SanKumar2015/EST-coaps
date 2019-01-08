@@ -1173,7 +1173,7 @@ cannot be rendered well in text. ]
 	    During the (re-)enroll exchange the EST-coaps client uses a CSR
         (Content-Format 286) request in the POST request payload. 
 		As shown in <xref target="enrolldis"/>, the CSR contains a 
-		challenge password which is used for POP linking (<xref target="DTLS"/>).
+		ChallengePassword which is used for POP linking (<xref target="DTLS"/>).
       </t>
 
 <figure align="left"><artwork><![CDATA[
@@ -1590,7 +1590,7 @@ Certificate Request:
          2a:2a:7f:41:d6:b7:1d:92:87:89:54:7d:61:b2:b7:cf
 ]]></artwork></figure>
 
-   <t>The CSR contains a challenge password which is used for 
+   <t>The CSR contained a ChallengePassword which is used for 
    POP linking (<xref target="DTLS"/>)</t>
 
    <t>The breakdown of the issued certificate response is </t>

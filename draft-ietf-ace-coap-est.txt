@@ -1707,7 +1707,7 @@ A.3.  enroll / reenroll
 
    During the (re-)enroll exchange the EST-coaps client uses a CSR
    (Content-Format 286) request in the POST request payload.  As shown
-   in Appendix C.2, the CSR contains a challenge password which is used
+   in Appendix C.2, the CSR contains a ChallengePassword which is used
    for POP linking (Section 7).
 
 
@@ -2329,7 +2329,7 @@ C.2.  enroll / reenroll
             02:20:66:8d:e2:c3:06:df:17:68:10:5a:78:1e:49:b1:cd:c4:
             2a:2a:7f:41:d6:b7:1d:92:87:89:54:7d:61:b2:b7:cf
 
-   The CSR contains a challenge password which is used for POP linking
+   The CSR contained a ChallengePassword which is used for POP linking
    (Section 7)
 
    The breakdown of the issued certificate response is

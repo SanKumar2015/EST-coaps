@@ -373,7 +373,7 @@ This specification contains a set of required-to-implement functions, optional f
       <t>EST-coaps is designed for use between low-resource devices and hence does not need 
 	  to send Base64-encoded data. Simple binary is more efficient (30% smaller payload) and 
 	  well supported by CoAP. Thus, the payload for a given media type follows the ASN.1 
-	  structure of the media-type and is transported as straight binary.
+	  structure of the media-type and is transported in binary DER format.
       <xref target="cborpair"/> specifies the payload structure when multiple media types 
 	  are present in the payload.</t>
 
@@ -1041,10 +1041,10 @@ HMAC(finished_key,
 
   <section anchor="messagebindings" title="EST messages to EST-coaps">
     <t>This section shows similar examples to the ones presented in Appendix A of 
-	<xref target="RFC7030"/>. The payloads in the examples are the hex encoded binary, 
+	<xref target="RFC7030"/>. The payloads in the examples are the hex encoded DER binary, 
 	generated with 'xxd -p', of the PKI certificates created following  
 	<xref target="I-D.moskowitz-ecdsa-pki"/>. The shown payloads are shown unencrypted. 
-    In practice the message content would be binary formatted and transferred over 
+    In practice the message content would be binary DER formatted and transferred over 
 	an encrypted DTLS tunnel. The hexadecimal representations in the examples below 
 	would NOT be transported in hex, but in binary. They are used for visualization 
 	purposes because a binary representation cannot be rendered well in text.
@@ -1096,7 +1096,7 @@ GET coaps://192.0.2.1:8085/est/crts
       <t>A 2.05 Content response with a cert in EST-coaps will then be </t>
 <figure align="left"><artwork><![CDATA[
 2.05 Content (Content-Format: 281)
-   {payload with certificate in binary format}
+   {payload with certificate in binary DER format}
 ]]></artwork></figure>
         <t>with CoAP fields </t>
           <figure><artwork>
@@ -1116,28 +1116,28 @@ GET coaps://192.0.2.1:8085/est/crts
   cannot be rendered well in text. ]
   
   Payload = 
-3082027a06092a864886f70d010702a082026b308202670201013100300b
-06092a864886f70d010701a082024d30820249308201f0a0030201020209
-00e7e74481751cc0af300a06082a8648ce3d0403023067310b3009060355
+3082027b06092a864886f70d010702a082026c308202680201013100300b
+06092a864886f70d010701a082024e3082024a308201f0a0030201020209
+009189bcdf9c99244b300a06082a8648ce3d0403023067310b3009060355
 040613025553310b300906035504080c024341310b300906035504070c02
 4c4131143012060355040a0c0b4578616d706c6520496e63311630140603
 55040b0c0d63657274696669636174696f6e3110300e06035504030c0752
-6f6f74204341301e170d3138313233303133353335365a170d3338313232
-353133353335365a3067310b3009060355040613025553310b3009060355
+6f6f74204341301e170d3139303130373130343034315a170d3339303130
+323130343034315a3067310b3009060355040613025553310b3009060355
 04080c024341310b300906035504070c024c4131143012060355040a0c0b
 4578616d706c6520496e6331163014060355040b0c0d6365727469666963
 6174696f6e3110300e06035504030c07526f6f742043413059301306072a
-8648ce3d020106082a8648ce3d0301070342000488a220964953a1bd8562
-f91707ebabb83acfb6ccef596eecd9be1a3055909dcf87924bd351f3e491
-b8f443f102146345be22e8b5ddb8f0525017cedc86b5db1aa38184308181
-301d0603551d0e041604140576bfa1a1a6a00de04407524ce2e85ca8c5e6
-9d301f0603551d230418301680140576bfa1a1a6a00de04407524ce2e85c
-a8c5e69d300f0603551d130101ff040530030101ff300e0603551d0f0101
+8648ce3d020106082a8648ce3d03010703420004814994082b6e8185f3df
+53f5e0bee698973335200023ddf78cd17a443ffd8ddd40908769c55652ac
+2ccb75c4a50a7c7ddb7c22dae6c85cca538209fdbbf104c9a38184308181
+301d0603551d0e041604142495e816ef6ffcaaf356ce4adffe33cf492abb
+a8301f0603551d230418301680142495e816ef6ffcaaf356ce4adffe33cf
+492abba8300f0603551d130101ff040530030101ff300e0603551d0f0101
 ff040403020106301e0603551d1104173015811363657274696679406578
-616d706c652e636f6d300a06082a8648ce3d040302034700304402206a89
-359534f75a527addc35fd3243f1b00571baf9201295244730d02deb602ba
-022021715b2a3a2ceebf7502d617ab56959291dcf494c0929f4be535e098
-e3a76cd9a1003100
+616d706c652e636f6d300a06082a8648ce3d0403020348003045022100da
+e37c96f154c32ec0b4af52d46f3b7ecc9687ddf267bcec368f7b7f135327
+2f022047a28ae5c7306163b3c3834bab3c103f743070594c089aaa0ac870
+cd13b902caa1003100
 ]]></artwork></figure>
       <t>The breakdown of the payload is shown in <xref target="cacertsdis"/>. </t>
     </section>  <!-- cacerts -->
@@ -1163,7 +1163,7 @@ cannot be rendered well in text. ]
       <t>A 2.05 Content response should contain attributes which are relevant 
 	  for the authenticated client. This example is copied from section A.2 
 	  in <xref target="RFC7030"/>, where the base64 representation is replaced 
-	  with a hexadecimal representation of the equivalent binary format. 
+	  with a hexadecimal representation of the equivalent binary DER format. 
 	  The EST-coaps server returns attributes that the client can ignore 
 	  if they are unknown to him.</t>
     </section>  <!-- csrattrs -->
@@ -1260,14 +1260,13 @@ POST coaps://192.0.2.1:8085/est/skg
 in hex, but in binary. Hex is used because a binary representation 
 cannot be rendered well in text. ] 
 
-3081d03078020100301631143012060355040a0c0b736b67206578616d70
+3081cf3078020100301631143012060355040a0c0b736b67206578616d70
 6c653059301306072a8648ce3d020106082a8648ce3d030107034200041b
 b8c1117896f98e4506c03d70efbe820d8e38ea97e9d65d52c8460c5852c5
 1dd89a61370a2843760fc859799d78cd33f3c1846e304f1717f8123f1a28
-4cc99fa000300a06082a8648ce3d0403020348003045022000e74fcd66f3
-37a708a8fb9c63f3619b43c3ba0f622f568dcb4af8488b412a0f022100d5
-19e4f7bd154a56991938fb233ddc451abc5f85c0787023465f49936c1a65
-76
+4cc99fa000300a06082a8648ce3d04030203470030440220387cd4e9cf62
+8d4af77f92ebed4890d9d141dca86cd2757dd14cbd59cdf6961802202f24
+5e828c77754378b66660a4977f113cacdaa0cc7bad7d1474a7fd155d090d
 ]]></artwork></figure>
 	
 	<t>The response would follow <xref target="I-D.ietf-core-multipart-ct"/> and could looke like </t>
@@ -1290,22 +1289,23 @@ cannot be rendered well in text. ]
 0d8e38ea97e9d65d52c8460c5852c51dd89a61370a2843760fc859799d78
 cd33f3c1846e304f1717f8123f1a284cc99f
 19 0119                              # unsigned(281)
-59 01A9                              # bytes(425)
-308201a506092a864886f70d010702a0820196308201920201013100300b
-06092a864886f70d010701a08201783082017430820119a0030201020209
-009a51705ec656cbea300a06082a8648ce3d040302301631143012060355
-040a0c0b736b67206578616d706c65301e170d3139303130373131333031
-305a170d3339303130323131333031305a301631143012060355040a0c0b
-736b67206578616d706c653059301306072a8648ce3d020106082a8648ce
-3d030107034200041bb8c1117896f98e4506c03d70efbe820d8e38ea97e9
-d65d52c8460c5852c51dd89a61370a2843760fc859799d78cd33f3c1846e
-304f1717f8123f1a284cc99fa350304e301d0603551d0e04160414494be5
-98dc8dbc0dbc071c486b777460e5cce621301f0603551d23041830168014
-494be598dc8dbc0dbc071c486b777460e5cce621300c0603551d13040530
-030101ff300a06082a8648ce3d0403020349003046022100a9d3615acd25
-5925dcc4dca5e826593dd5420843ca156e9752a305cb7c8cd9ea02210090
-53483cc93b46a8283dad444c3db733291bf80f5189822d7a965d8e56b6fd
-fda1003100
+59 01D3                              # bytes(467)
+308201cf06092a864886f70d010702a08201c0308201bc0201013100300b
+06092a864886f70d010701a08201a23082019e30820143a0030201020208
+126de8571518524b300a06082a8648ce3d04030230163114301206035504
+0a0c0b736b67206578616d706c65301e170d313930313039303835373038
+5a170d3339303130343038353730385a301631143012060355040a0c0b73
+6b67206578616d706c653059301306072a8648ce3d020106082a8648ce3d
+030107034200041bb8c1117896f98e4506c03d70efbe820d8e38ea97e9d6
+5d52c8460c5852c51dd89a61370a2843760fc859799d78cd33f3c1846e30
+4f1717f8123f1a284cc99fa37b307930090603551d1304023000302c0609
+6086480186f842010d041f161d4f70656e53534c2047656e657261746564
+204365727469666963617465301d0603551d0e04160414494be598dc8dbc
+0dbc071c486b777460e5cce621301f0603551d23041830168014494be598
+dc8dbc0dbc071c486b777460e5cce621300a06082a8648ce3d0403020349
+003046022100a4b167d0f9add9202810e6bf6a290b8cfdfc9b9c9fea2cc1
+c8fc3a464f79f2c202210081d31ba142751a7b4a34fd1a01fcfb08716b9e
+b53bdaadc9ae60b08f52429c0fa1003100
 ]]></artwork></figure> 
 	
 	  <t>The breakdown of the request and response is shown 
@@ -1323,7 +1323,7 @@ fda1003100
 		response payloads.</t>
     </list>	</t>
 	<t>The shown payloads are shown unencrypted. In practice the message contents 
-	would be binary formatted and transferred over an encrypted DTLS tunnel.</t>
+	would be binary DER formatted and transferred over an encrypted DTLS tunnel.</t>
 	<t>The corresponding CoAP headers are only shown in <xref target="cacertsblock"/>. 
 	Creating CoAP headers are assumed to be generally known.</t>
 
@@ -1333,14 +1333,14 @@ fda1003100
 	for the DTLS datagram size. The example block length is taken as 64 which gives an 
 	SZX value of 2.</t>
     <t>The following is an example of a cacerts exchange over DTLS. The content length of 
-	the cacerts response in appendix A.1 of <xref target="RFC7030"/> contains 660 
+	the cacerts response in appendix A.1 of <xref target="RFC7030"/> contains 639 
 	bytes in binary. The CoAP message adds around 10 bytes, 
 	the DTLS record 29 bytes. To avoid IP fragmentation, the CoAP block option 
 	is used and an MTU of 127 is assumed to stay within one IEEE 802.15.4 packet. To stay 
-	below the MTU of 127, the payload is split in 10 packets with a payload of 64 bytes 
-	each, followed by a last packet of 20 bytes. The client sends an IPv6 packet 
+	below the MTU of 127, the payload is split in 9 packets with a payload of 64 bytes 
+	each, followed by a last tenth packet of 63 bytes. The client sends an IPv6 packet 
 	containing the UDP datagram with the DTLS record that encapsulates the CoAP 
-	request 11 times. The server returns an IPv6 packet containing the UDP datagram with the 
+	request 10 times. The server returns an IPv6 packet containing the UDP datagram with the 
 	DTLS record that encapsulates the CoAP response. The CoAP request-response exchange with block 
 	option is shown below. Block option is shown in a decomposed way (block-option:NUM/M/size) 
 	indicating the kind of Block option (2 in this case) followed by a colon, and then the block 
@@ -1358,7 +1358,7 @@ fda1003100
                          |
                          |
    GET /192.0.2.1:8085/est/crts    (2:10/0/64)  -->
-                 <--   (2:10/0/64) 2.05 Content
+                 <--   (2:9/0/64) 2.05 Content
 ]]></artwork></figure>
 	
     <t>The header of the GET request looks like</t>
@@ -1410,9 +1410,9 @@ fda1003100
   cannot be rendered well in text. ] 
   
   Payload = 
-3082027a06092a864886f70d010702a082026b308202670201013100300b
-06092a864886f70d010701a082024d30820249308201f0a0030201020209
-00e7e744
+3082027b06092a864886f70d010702a082026c308202680201013100300b
+06092a864886f70d010701a082024e3082024a308201f0a0030201020209
+009189bc
 ]]></artwork></figure>
 
     <t>The second Block2:</t>
@@ -1436,9 +1436,10 @@ fda1003100
   cannot be rendered well in text. ] 
 	  
   Payload = 
-81751cc0af300a06082a8648ce3d0403023067310b300906035504061302
+df9c99244b300a06082a8648ce3d0403023067310b300906035504061302
 5553310b300906035504080c024341310b300906035504070c024c413114
 30120603
+
 ]]></artwork></figure>
 
     <t>The 11th and final Block2:</t>
@@ -1455,14 +1456,16 @@ fda1003100
     Option 
       Option Delta = 0xB  (option# 12+11=23 Block2 )
       Option Length = 0x2
-      Option Value = 0x272 (block#=10, M=0, SZX=2)
+      Option Value = 0x92 (block#=9, M=0, SZX=2)
 	  
   [ The hexadecimal representation below would NOT be transported 
   in hex, but in binary. Hex is used because a binary representation 
   cannot be rendered well in text. ] 
 	  
   Payload = 
-91dcf494c0929f4be535e098e3a76cd9a1003100
+2ec0b4af52d46f3b7ecc9687ddf267bcec368f7b7f1353272f022047a28a
+e5c7306163b3c3834bab3c103f743070594c089aaa0ac870cd13b902caa1
+003100
 ]]></artwork></figure>
     </section> <!-- cacerts block example -->
 
@@ -1517,7 +1520,7 @@ Certificate:
             91:89:bc:df:9c:99:24:4b
     Signature Algorithm: ecdsa-with-SHA256
         Issuer: C=US, ST=CA, L=LA, O=Example Inc, 
-              OU=certification, CN=Root CA
+                OU=certification, CN=Root CA
         Validity
             Not Before: Jan  7 10:40:41 2019 GMT
             Not After : Jan  2 10:40:41 2039 GMT
@@ -1536,7 +1539,7 @@ Certificate:
                 NIST CURVE: P-256
         X509v3 extensions:
             X509v3 Subject Key Identifier:
- 24:95:E8:16:EF:6F:FC:AA:F3:56:CE:4A:DF:FE:33:CF:49:2A:BB:A8
+24:95:E8:16:EF:6F:FC:AA:F3:56:CE:4A:DF:FE:33:CF:49:2A:BB:A8
             X509v3 Authority Key Identifier: 
                 keyid:
 24:95:E8:16:EF:6F:FC:AA:F3:56:CE:4A:DF:FE:33:CF:49:2A:BB:A8
@@ -1552,7 +1555,6 @@ Certificate:
          6f:3b:7e:cc:96:87:dd:f2:67:bc:ec:36:8f:7b:7f:13:53:27:
          2f:02:20:47:a2:8a:e5:c7:30:61:63:b3:c3:83:4b:ab:3c:10:
          3f:74:30:70:59:4c:08:9a:aa:0a:c8:70:cd:13:b9:02:ca
-
 ]]></artwork></figure>
     </section>  <!--  cacerts payload breakdown -->
 
@@ -1563,8 +1565,8 @@ Certificate:
 Certificate Request:
     Data:
         Version: 0 (0x0)
-        Subject: C=US, ST=CA, L=LA, O=example Inc, OU=IoT,
-               CN=Client RA/serialNumber=Wt1234
+        Subject: C=US, ST=CA, L=LA, O=example Inc, 
+                 OU=IoT, CN=Client RA/serialNumber=Wt1234
         Subject Public Key Info:
             Public Key Algorithm: id-ecPublicKey
                 Public-Key: (256 bit)
@@ -1585,8 +1587,7 @@ Certificate Request:
          30:44:02:20:1f:82:c6:86:8a:65:4e:2d:ec:43:cf:f5:0a:eb:
          d6:cb:be:20:dc:82:42:a2:0a:80:66:84:f2:b8:54:5d:00:89:
          02:20:66:8d:e2:c3:06:df:17:68:10:5a:78:1e:49:b1:cd:c4:
-         2a:2a:7f:41:d6:b7:1d:92:87:89:54:7d:61:b2:b7:cf
-]]></artwork></figure>
+         2a:2a:7f:41:d6:b7:1d:92:87:89:54:7d:61:b2:b7:cf]]></artwork></figure>
 
    <t>The CSR contained a ChallengePassword which is used for 
    POP linking (<xref target="DTLS"/>)</t>
@@ -1601,12 +1602,12 @@ Certificate:
             ce:06:11:9a:0f:d2:7c:a9
     Signature Algorithm: ecdsa-with-SHA256
         Issuer: C=US, ST=CA, O=Example Inc, 
-            OU=certification, CN=802.1AR CA
+                OU=certification, CN=802.1AR CA
         Validity
             Not Before: Jan  7 10:48:24 2019 GMT
             Not After : Dec 31 23:59:59 9999 GMT
         Subject: C=US, ST=CA, L=LA, O=example Inc, 
-            OU=IoT, CN=Client RA/serialNumber=Wt1234
+                 OU=IoT, CN=Client RA/serialNumber=Wt1234
         Subject Public Key Info:
             Public Key Algorithm: id-ecPublicKey
                 Public-Key: (256 bit)
@@ -1621,7 +1622,7 @@ Certificate:
         X509v3 extensions:
             X509v3 Basic Constraints: 
                 CA:FALSE
-            X509v3 Subject Key Identifier: 
+            X509v3 Subject Key Identifier:
 49:4B:E5:98:DC:8D:BC:0D:BC:07:1C:48:6B:77:74:60:E5:CC:E6:21
             X509v3 Authority Key Identifier: 
                 keyid:
@@ -1661,10 +1662,10 @@ Certificate Request:
         Attributes:
             a0:00
     Signature Algorithm: ecdsa-with-SHA256
-         30:45:02:20:00:e7:4f:cd:66:f3:37:a7:08:a8:fb:9c:63:f3:
-         61:9b:43:c3:ba:0f:62:2f:56:8d:cb:4a:f8:48:8b:41:2a:0f:
-         02:21:00:d5:19:e4:f7:bd:15:4a:56:99:19:38:fb:23:3d:dc:
-         45:1a:bc:5f:85:c0:78:70:23:46:5f:49:93:6c:1a:65:76
+         30:44:02:20:38:7c:d4:e9:cf:62:8d:4a:f7:7f:92:eb:ed:48:
+         90:d9:d1:41:dc:a8:6c:d2:75:7d:d1:4c:bd:59:cd:f6:96:18:
+         02:20:2f:24:5e:82:8c:77:75:43:78:b6:66:60:a4:97:7f:11:
+         3c:ac:da:a0:cc:7b:ad:7d:14:74:a7:fd:15:5d:09:0d
 ]]></artwork></figure>
 
      <t>The following is the breakdown of the private key content 
@@ -1693,13 +1694,12 @@ NIST CURVE: P-256
 Certificate:
     Data:
         Version: 3 (0x2)
-        Serial Number:
-            c5:47:f1:2c:7a:30:70:ac
+        Serial Number: 1327972925857878603 (0x126de8571518524b)
     Signature Algorithm: ecdsa-with-SHA256
         Issuer: O=skg example
         Validity
-            Not Before: Jan  7 10:54:11 2019 GMT
-            Not After : Jan  2 10:54:11 2039 GMT
+            Not Before: Jan  9 08:57:08 2019 GMT
+            Not After : Jan  4 08:57:08 2039 GMT
         Subject: O=skg example
         Subject Public Key Info:
             Public Key Algorithm: id-ecPublicKey
@@ -1713,19 +1713,21 @@ Certificate:
                 ASN1 OID: prime256v1
                 NIST CURVE: P-256
         X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            Netscape Comment: 
+                OpenSSL Generated Certificate
             X509v3 Subject Key Identifier:
 49:4B:E5:98:DC:8D:BC:0D:BC:07:1C:48:6B:77:74:60:E5:CC:E6:21
             X509v3 Authority Key Identifier: 
                 keyid:
 49:4B:E5:98:DC:8D:BC:0D:BC:07:1C:48:6B:77:74:60:E5:CC:E6:21
 
-            X509v3 Basic Constraints: 
-                CA:TRUE
     Signature Algorithm: ecdsa-with-SHA256
-         30:45:02:21:00:87:d0:70:91:6b:91:56:19:eb:07:4b:d9:d7:
-         e2:2f:17:02:7f:43:b2:33:37:6a:52:cd:e1:65:1c:ef:29:ed:
-         dd:02:20:14:d3:94:5e:4a:92:c8:cd:8c:9d:cf:70:d7:3a:3b:
-         00:9b:a5:d5:b6:a5:21:55:74:9d:a2:b7:d2:0e:04:09:91
+         30:46:02:21:00:a4:b1:67:d0:f9:ad:d9:20:28:10:e6:bf:6a:
+         29:0b:8c:fd:fc:9b:9c:9f:ea:2c:c1:c8:fc:3a:46:4f:79:f2:
+         c2:02:21:00:81:d3:1b:a1:42:75:1a:7b:4a:34:fd:1a:01:fc:
+         fb:08:71:6b:9e:b5:3b:da:ad:c9:ae:60:b0:8f:52:42:9c:0f
 ]]></artwork></figure>
 
       <t>The private key in the response above is without CMS EnvelopedData 

@@ -470,7 +470,7 @@ Internet-Draft                  EST-coaps                   January 2019
                    Multipart /skg response serialization
 
    The PKCS#8 key and X.509 certificate representations are ASN.1
-   encoded in binary format.  An example is shown in Appendix A.4.
+   encoded in binary DER format.  An example is shown in Appendix A.4.
 
    In cases where the private key is further encrypted with CMS (as
    explained in Section 5.7) the content format ID is 280 (0x0118).
@@ -745,39 +745,39 @@ Internet-Draft                  EST-coaps                   January 2019
    The sever-side key generation response is returned using a CBOR array
    Section 5.2.1.  The certificate part exactly matches the response
    from an enrollment response.  The private key can be in unprotected
-   PKCS#8 [RFC5958] format or protected inside of CMS SignedData.  The
-   SignedData is signed by the party that generated the private key,
-   which may or may not be the EST server or the EST CA.  The SignedData
-   is further protected by placing it inside of a CMS EnvelopedData as
-   explained in Section 4.4.2 of [RFC7030].  In summary, the symmetricly
-   encrypted key is included in the encryptedKey attribute in a
-   KEKRecipientInfo structure.  In the case where the asymmetric
-   encryption key is suitable for transport key operations the generated
-   private key is encrypted with a symmetric key which is encrypted by
-   using the client defined (in the CSR) asymmetric public key and is
-   carried in an encryptedKey attribute in a KeyTransRecipientInfo.
-   Finally, if the asymmetric encryption key is suitable for key
-   agreement, the generated private key is encrypted with a symmetric
-   key which is encrypted by using the client defined (in the CSR)
-   asymmetric public key and is carried in an recipientEncryptedKeys
-   attribute in a KeyAgreeRecipientInfo.
+   PKCS#8 [RFC5958] format (content type 281) or protected inside of CMS
+   SignedData (content type 280).  The SignedData is signed by the party
+   that generated the private key, which may or may not be the EST
+   server or the EST CA.  The SignedData is further protected by placing
+   it inside of a CMS EnvelopedData as explained in Section 4.4.2 of
+   [RFC7030].  In summary, the symmetricly encrypted key is included in
+   the encryptedKey attribute in a KEKRecipientInfo structure.  In the
+   case where the asymmetric encryption key is suitable for transport
+   key operations the generated private key is encrypted with a
+   symmetric key which is encrypted by using the client defined (in the
+   CSR) asymmetric public key and is carried in an encryptedKey
+   attribute in a KeyTransRecipientInfo.  Finally, if the asymmetric
+   encryption key is suitable for key agreement, the generated private
+   key is encrypted with a symmetric key which is encrypted by using the
+   client defined (in the CSR) asymmetric public key and is carried in
+   an recipientEncryptedKeys attribute in a KeyAgreeRecipientInfo.
 
    [RFC7030] recommends the use of additional encryption of the returned
    private key.  For the context of this specification, clients and
    servers that choose to support server-side key generation MUST
-   support unprotected (PKCS#8) private keys.  Symmetric or asymmetric
-   encryption of the private key (CMS EnvelopedData) SHOULD be supported
-   for deployments where end-to-end encryption needs to be provided
-   between the client and a server.  Such cases could include
-   architectures where an entity between the client and the CA
-   terminates the DTLS connection (Registrar in Figure 4).
+   support unprotected (PKCS#8) private keys (content type 281).
+   Symmetric or asymmetric encryption of the private key (CMS
+   EnvelopedData, content type 280) SHOULD be supported for deployments
+   where end-to-end encryption needs to be provided between the client
+   and a server.  Such cases could include architectures where an entity
+   between the client and the CA terminates the DTLS connection
+   (Registrar in Figure 4).
 
 5.8.  Deployment limits
 
    Although EST-coaps paves the way for the utilization of EST by
    constrained devices in constrained networks, some classes of devices
    [RFC7228] will not have enough resources to handle the large payloads
-   that come with EST-coaps.  The specification of EST-coaps is intended
 
 
 
@@ -786,6 +786,7 @@ van der Stok, et al.      Expires July 13, 2019                [Page 14]
 Internet-Draft                  EST-coaps                   January 2019
 
 
+   that come with EST-coaps.  The specification of EST-coaps is intended
    to ensure that EST works for networks of constrained devices that
    choose to limit their communications stack to UDP/DTLS/CoAP.  It is
    up to the network designer to decide which devices execute the EST
@@ -832,8 +833,7 @@ Internet-Draft                  EST-coaps                   January 2019
    Clients and servers MUST support the short resource URIs.  The
    corresponding longer URIs from [RFC7030] MAY be supported.
 
-   In the context of CoAP, the presence and location of (path to) the
-   management data are discovered by sending a GET request to "/.well-
+
 
 
 
@@ -842,6 +842,8 @@ van der Stok, et al.      Expires July 13, 2019                [Page 15]
 Internet-Draft                  EST-coaps                   January 2019
 
 
+   In the context of CoAP, the presence and location of (path to) the
+   management data are discovered by sending a GET request to "/.well-
    known/core" including a resource type (RT) parameter with the value
    "ace.est" [RFC6690].  Upon success, the return payload will contain
    the root resource of the EST resources.  The server MAY return all
@@ -888,8 +890,6 @@ Internet-Draft                  EST-coaps                   January 2019
    layer during the DTLS handshake when using ECC ciphersuites.  If
    fragmentation is necessary, "DTLS provides a mechanism for
    fragmenting a handshake message over several records, each of which
-   can be transmitted separately, thus avoiding IP fragmentation"
-   [RFC6347].
 
 
 
@@ -897,6 +897,9 @@ van der Stok, et al.      Expires July 13, 2019                [Page 16]
 
 Internet-Draft                  EST-coaps                   January 2019
 
+
+   can be transmitted separately, thus avoiding IP fragmentation"
+   [RFC6347].
 
    The DTLS handshake is authenticated by using certificates.  EST-coaps
    supports the certificate types and Trust Anchors (TA) that are
@@ -942,9 +945,6 @@ Internet-Draft                  EST-coaps                   January 2019
    SHOULD remain open for sequential EST transactions.  For example, an
    EST cacerts request that is followed by a simpleenroll request can
    use the same authenticated DTLS connection.  However, some additional
-   security considerations apply regarding the use of the Implicit and
-   Explicit TA database (Section 11.1)
-
 
 
 
@@ -953,6 +953,9 @@ van der Stok, et al.      Expires July 13, 2019                [Page 17]
 
 Internet-Draft                  EST-coaps                   January 2019
 
+
+   security considerations apply regarding the use of the Implicit and
+   Explicit TA database (Section 11.1)
 
    Given that after a successful enrollment, it is more likely that a
    new EST transaction will take place after a significant amount of
@@ -999,9 +1002,6 @@ Internet-Draft                  EST-coaps                   January 2019
    When enforcing Proof-of-Possession (POP) linking, the DTLS tls-unique
    value of the (D)TLS session needs to be used to prove that the
    private key corresponding to the public key is in the possession of
-   and was used to establish the connection by the client as explained
-   in Section 7).  The POP linking information is lost between the EST-
-   coaps client and the EST server when a Registrar is present.  The EST
 
 
 
@@ -1010,6 +1010,9 @@ van der Stok, et al.      Expires July 13, 2019                [Page 18]
 Internet-Draft                  EST-coaps                   January 2019
 
 
+   and was used to establish the connection by the client as explained
+   in Section 7).  The POP linking information is lost between the EST-
+   coaps client and the EST server when a Registrar is present.  The EST
    server becomes aware of the presence of a Registrar from its TLS
    client certificate that includes id-kp-cmcRA [RFC6402] extended key
    usage extension (EKU).  As explained in Section 3.7 of [RFC7030], the
@@ -1054,9 +1057,6 @@ Internet-Draft                  EST-coaps                   January 2019
 
    This section addresses transmission parameters described in sections
    4.7 and 4.8 of [RFC7252].
-
-
-
 
 
 
@@ -1535,11 +1535,11 @@ Appendix A.  EST messages to EST-coaps
    This section shows similar examples to the ones presented in
    Appendix A of [RFC7030].  The payloads in the examples are the hex
    encoded DER binary, generated with 'xxd -p', of the PKI certificates
-   created following [I-D.moskowitz-ecdsa-pki].  The shown payloads are
-   shown unencrypted.  In practice the message content would be binary
-   DER formatted and transferred over an encrypted DTLS tunnel.  The
+   created following [I-D.moskowitz-ecdsa-pki].  The payloads are shown
+   unencrypted.  In practice the message content would be binary DER
+   formatted and transferred over an encrypted DTLS tunnel.  The
    hexadecimal representations in the examples below would NOT be
-   transported in hex, but in binary.  They are used for visualization
+   transported in hex, but in binary DER.  Hex is used for visualization
    purposes because a binary representation cannot be rendered well in
    text.
 
@@ -1637,7 +1637,7 @@ Internet-Draft                  EST-coaps                   January 2019
          Option Value = 281
 
      [ The hexadecimal representation below would NOT be transported
-     in hex, but in binary. Hex is used because a binary representation
+     in hex, but in DER. Hex is used because a binary representation
      cannot be rendered well in text. ]
 
      Payload =
@@ -1687,7 +1687,7 @@ Internet-Draft                  EST-coaps                   January 2019
    (Content-Format: 285)
 
    [ The hexadecimal representation below would NOT be transported
-   in hex, but in binary. Hex is used because a binary representation
+   in hex, but in DER. Hex is used because a binary representation
    cannot be rendered well in text. ]
 
    307c06072b06010101011630220603883701311b131950617273652053455
@@ -1743,7 +1743,7 @@ Internet-Draft                  EST-coaps                   January 2019
    (Content-Format: 286)
 
    [ The hexadecimal representation below would NOT be transported
-   in hex, but in binary. Hex is used because a binary representation
+   in hex, but in DER. Hex is used because a binary representation
    cannot be rendered well in text. ]
 
    308201853082012c0201003070310b3009060355040613025553310b3009
@@ -1799,7 +1799,7 @@ Internet-Draft                  EST-coaps                   January 2019
    2.01 Created
 
    [ The hexadecimal representation below would NOT be transported
-   in hex, but in binary. Hex is used because a binary representation
+   in hex, but in DER. Hex is used because a binary representation
    cannot be rendered well in text. ]
 
    3082028206092a864886f70d010702a08202733082026f0201013100300b
@@ -1855,7 +1855,7 @@ Internet-Draft                  EST-coaps                   January 2019
    (Content-Format: 286)(Max-Age=120)
 
    [ The hexadecimal representation below would NOT be transported
-   in hex, but in binary. Hex is used because a binary representation
+   in hex, but in DER. Hex is used because a binary representation
    cannot be rendered well in text. ]
 
    3081cf3078020100301631143012060355040a0c0b736b67206578616d70
@@ -1911,7 +1911,7 @@ Internet-Draft                  EST-coaps                   January 2019
    (token=0xa5)
 
    [ The hexadecimal representations below would NOT be transported
-   in hex, but in binary. Hex is used because a binary representation
+   in hex, but in DER. Hex is used because a binary representation
    cannot be rendered well in text. ]
 
    84                                   # array(4)
@@ -1952,8 +1952,8 @@ Appendix B.  EST-coaps Block message examples
    2.  an enroll exchange shows the Block1 and Block2 size negotiation
        for request and response payloads.
 
-
-
+   The payloads are shown unencrypted.  In practice the message contents
+   would be binary DER formatted and transferred over an encrypted DTLS
 
 
 
@@ -1962,12 +1962,9 @@ van der Stok, et al.      Expires July 13, 2019                [Page 35]
 Internet-Draft                  EST-coaps                   January 2019
 
 
-   The shown payloads are shown unencrypted.  In practice the message
-   contents would be binary DER formatted and transferred over an
-   encrypted DTLS tunnel.
-
-   The corresponding CoAP headers are only shown in Appendix B.1.
-   Creating CoAP headers are assumed to be generally known.
+   tunnel.  The corresponding CoAP headers are only shown in
+   Appendix B.1.  Creating CoAP headers are assumed to be generally
+   known.
 
 B.1.  cacerts
 
@@ -2010,6 +2007,9 @@ B.1.  cacerts
                     <--   (2:9/0/64) 2.05 Content
 
    The header of the GET request looks like
+
+
+
 
 
 
@@ -2089,7 +2089,7 @@ Internet-Draft                  EST-coaps                   January 2019
          Option Value = 0x0A (block#=0, M=1, SZX=2)
 
      [ The hexadecimal representation below would NOT be transported
-     in hex, but in binary. Hex is used because a binary representation
+     in hex, but in DER. Hex is used because a binary representation
      cannot be rendered well in text. ]
 
      Payload =
@@ -2114,7 +2114,7 @@ Internet-Draft                  EST-coaps                   January 2019
          Option Value = 0x1A (block#=1, M=1, SZX=2)
 
      [ The hexadecimal representation below would NOT be transported
-     in hex, but in binary. Hex is used because a binary representation
+     in hex, but in DER. Hex is used because a binary representation
      cannot be rendered well in text. ]
 
      Payload =
@@ -2147,7 +2147,7 @@ Internet-Draft                  EST-coaps                   January 2019
          Option Value = 0x92 (block#=9, M=0, SZX=2)
 
      [ The hexadecimal representation below would NOT be transported
-     in hex, but in binary. Hex is used because a binary representation
+     in hex, but in DER. Hex is used because a binary representation
      cannot be rendered well in text. ]
 
      Payload =

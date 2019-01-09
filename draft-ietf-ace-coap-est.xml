@@ -404,7 +404,7 @@ This specification contains a set of required-to-implement functions, optional f
          ]]></artwork></figure>
 
 		<t>The PKCS#8 key and X.509 certificate representations are ASN.1 encoded 
-		in binary format. An example is shown in <xref target="appskg"/>. </t>
+		in binary DER format. An example is shown in <xref target="appskg"/>. </t>
 		
 		<t>In cases where the private key is further encrypted with CMS (as 
 		explained in <xref target="serverkey"/>) the content format ID is 
@@ -584,10 +584,11 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	    The sever-side key generation response is returned using a CBOR array <xref target="cborpair"/>. 
 		The certificate part exactly matches the response from an enrollment response. 
 		The private key can be in unprotected PKCS#8 <xref target="RFC5958"/> 
-		format or protected inside of CMS SignedData. The SignedData is signed 
-		by the party that generated the private key, which may or may not 
-		be the EST server or the EST CA. The SignedData is further protected 
-		by placing it inside of a CMS EnvelopedData as explained in Section 4.4.2 
+		format (content type 281) or protected inside of CMS SignedData 
+		(content type 280). The SignedData is signed by the party that 
+		generated the private key, which may or may not be the EST 
+		server or the EST CA. The SignedData is further protected by placing 
+		it inside of a CMS EnvelopedData as explained in Section 4.4.2 
 		of <xref target="RFC7030" />. In summary, the symmetricly encrypted key 
 		is included in the encryptedKey attribute in a KEKRecipientInfo structure. 
 		In the case where the asymmetric encryption key is suitable for transport key 
@@ -606,8 +607,9 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	  <t><xref target="RFC7030" /> recommends the use of additional encryption of the 
 	  returned private key. For the context of this specification, clients and servers 
 	  that choose to support server-side key generation MUST support unprotected (PKCS#8) <!-- MTI --> 
-	  private keys. Symmetric or asymmetric encryption of the private key (CMS EnvelopedData) 
-	  SHOULD be supported for deployments where end-to-end encryption needs to be provided 
+	  private keys (content type 281). Symmetric or asymmetric encryption of the 
+	  private key (CMS EnvelopedData, content type 280) SHOULD be supported 
+	  for deployments where end-to-end encryption needs to be provided 
 	  between the client and a server. Such cases could include architectures 
 	  where an entity between the client and the CA terminates the DTLS connection 
 	  (Registrar in <xref target="RAfig"/>).</t>
@@ -1043,10 +1045,10 @@ HMAC(finished_key,
     <t>This section shows similar examples to the ones presented in Appendix A of 
 	<xref target="RFC7030"/>. The payloads in the examples are the hex encoded DER binary, 
 	generated with 'xxd -p', of the PKI certificates created following  
-	<xref target="I-D.moskowitz-ecdsa-pki"/>. The shown payloads are shown unencrypted. 
+	<xref target="I-D.moskowitz-ecdsa-pki"/>. The payloads are shown unencrypted. 
     In practice the message content would be binary DER formatted and transferred over 
 	an encrypted DTLS tunnel. The hexadecimal representations in the examples below 
-	would NOT be transported in hex, but in binary. They are used for visualization 
+	would NOT be transported in hex, but in binary DER. Hex is used for visualization 
 	purposes because a binary representation cannot be rendered well in text.
 	<!-- [EDNOTE: No need for these details of how these were generated from I-D.moskowitz-ecdsa-pki. ] 
 	In particular, the shell scripts from section 4.2 (create root certificate), section 6.2 (Create the 802.1AR intermediate certificate) and section 6.3 (Create an 802.1AR IdevID certificate) have been used. The 802.1AR IdevID certificate is signed by the 802.1AR intermediate certificate that is signed by the auto-signed root certificate.--></t>
@@ -1112,7 +1114,7 @@ GET coaps://192.0.2.1:8085/est/crts
       Option Value = 281 
   
   [ The hexadecimal representation below would NOT be transported 
-  in hex, but in binary. Hex is used because a binary representation 
+  in hex, but in DER. Hex is used because a binary representation 
   cannot be rendered well in text. ]
   
   Payload = 
@@ -1150,7 +1152,7 @@ GET coaps://[2001:db8::2:1]:61616/est/att
 (Content-Format: 285)
 
 [ The hexadecimal representation below would NOT be transported 
-in hex, but in binary. Hex is used because a binary representation 
+in hex, but in DER. Hex is used because a binary representation 
 cannot be rendered well in text. ]
   
 307c06072b06010101011630220603883701311b131950617273652053455
@@ -1182,7 +1184,7 @@ POST [2001:db8::2:1]:61616/est/sen
 (Content-Format: 286)
 
 [ The hexadecimal representation below would NOT be transported 
-in hex, but in binary. Hex is used because a binary representation 
+in hex, but in DER. Hex is used because a binary representation 
 cannot be rendered well in text. ] 
 
 308201853082012c0201003070310b3009060355040613025553310b3009
@@ -1218,7 +1220,7 @@ RET:
 2.01 Created
 
 [ The hexadecimal representation below would NOT be transported 
-in hex, but in binary. Hex is used because a binary representation 
+in hex, but in DER. Hex is used because a binary representation 
 cannot be rendered well in text. ] 
 
 3082028206092a864886f70d010702a08202733082026f0201013100300b
@@ -1257,7 +1259,7 @@ POST coaps://192.0.2.1:8085/est/skg
 (Content-Format: 286)(Max-Age=120)
 
 [ The hexadecimal representation below would NOT be transported 
-in hex, but in binary. Hex is used because a binary representation 
+in hex, but in DER. Hex is used because a binary representation 
 cannot be rendered well in text. ] 
 
 3081cf3078020100301631143012060355040a0c0b736b67206578616d70
@@ -1277,7 +1279,7 @@ RET:
 (token=0xa5)
 
 [ The hexadecimal representations below would NOT be transported 
-in hex, but in binary. Hex is used because a binary representation 
+in hex, but in DER. Hex is used because a binary representation 
 cannot be rendered well in text. ] 
 
 84                                   # array(4)
@@ -1322,9 +1324,9 @@ b53bdaadc9ae60b08f52429c0fa1003100
 		<t>an enroll exchange shows the Block1 and Block2 size negotiation for request and 
 		response payloads.</t>
     </list>	</t>
-	<t>The shown payloads are shown unencrypted. In practice the message contents 
-	would be binary DER formatted and transferred over an encrypted DTLS tunnel.</t>
-	<t>The corresponding CoAP headers are only shown in <xref target="cacertsblock"/>. 
+	<t>The payloads are shown unencrypted. In practice the message contents 
+	would be binary DER formatted and transferred over an encrypted DTLS tunnel.
+	The corresponding CoAP headers are only shown in <xref target="cacertsblock"/>. 
 	Creating CoAP headers are assumed to be generally known.</t>
 
  <section anchor="cacertsblock" title="cacerts">
@@ -1406,7 +1408,7 @@ b53bdaadc9ae60b08f52429c0fa1003100
       Option Value = 0x0A (block#=0, M=1, SZX=2)
 	  
   [ The hexadecimal representation below would NOT be transported 
-  in hex, but in binary. Hex is used because a binary representation 
+  in hex, but in DER. Hex is used because a binary representation 
   cannot be rendered well in text. ] 
   
   Payload = 
@@ -1432,7 +1434,7 @@ b53bdaadc9ae60b08f52429c0fa1003100
       Option Value = 0x1A (block#=1, M=1, SZX=2)
 	  
   [ The hexadecimal representation below would NOT be transported 
-  in hex, but in binary. Hex is used because a binary representation 
+  in hex, but in DER. Hex is used because a binary representation 
   cannot be rendered well in text. ] 
 	  
   Payload = 
@@ -1459,7 +1461,7 @@ df9c99244b300a06082a8648ce3d0403023067310b300906035504061302
       Option Value = 0x92 (block#=9, M=0, SZX=2)
 	  
   [ The hexadecimal representation below would NOT be transported 
-  in hex, but in binary. Hex is used because a binary representation 
+  in hex, but in DER. Hex is used because a binary representation 
   cannot be rendered well in text. ] 
 	  
   Payload = 

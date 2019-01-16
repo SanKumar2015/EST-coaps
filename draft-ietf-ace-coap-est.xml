@@ -581,7 +581,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 		specification. 
       </t>
 	  <t>
-	    The sever-side key generation response is returned using a CBOR array <xref target="cborpair"/>. 
+	    The sever-side key generation response is returned using a CBOR array (<xref target="cborpair"/>). 
 		The certificate part exactly matches the response from an enrollment response. 
 		The private key can be in unprotected PKCS#8 <xref target="RFC5958"/> 
 		format (content type 281) or protected inside of CMS SignedData 
@@ -630,7 +630,11 @@ coaps://example.com:<port>/.well-known/est/<short-est>
 coaps://example.com:<port>/.well-known/est/ArbitraryLabel/<short-est>
 ]]></artwork></figure>
 
-      <t>The short-est strings are defined in <xref target="est-uri"/>. The ArbitraryLabel Path-Segment, if used, SHOULD be of the shortest length possible (Sections 3.1 and 3.2.2 of <xref target="RFC7030"/>. Following <xref target="RFC7030"/> discovery is not needed when the client is preconfigured with the /.well-known/est server URI and the coaps port 5684.</t>
+      <t>The short-est strings are defined in <xref target="est-uri"/>. 
+	  The ArbitraryLabel path-segment, if used, SHOULD be of the shortest length 
+	  possible (Sections 3.1 and 3.2.2 of <xref target="RFC7030"/>. 
+	  Arbitrary Labels are usually defined and used by EST CAs in order 
+	  to route client requests to the appropriate certificate profile. </t>
       
 	  <t>The EST-coaps server URIs, obtained through discovery of the EST-coaps root resource(s) as shown below, are of the form: </t>
 <figure align="left"><artwork><![CDATA[
@@ -666,6 +670,13 @@ coaps://example.com:<port>/<root-resource>/ArbitraryLabel/<short-est>
     </figure>
       <t> The first line of the discovery response above MUST be included. The five consecutive lines after the first MAY be included. The return of the content-types allows the client to choose the most appropriate one from multiple content types.</t>
       <t>Port numbers, not returned in the example, are assumed to be the default numbers 5683 and 5684 for coap and coaps respectively (Sections 12.6 and 12.7 of <xref target="RFC7252"/>). Discoverable port numbers MAY be returned in the &lt;href&gt; of the payload.</t>
+	  
+	  <t>Discovery SHOULD NOT be chosen when the client is preconfigured to use the default 
+	  /.well-known/est server root resource and port 5684. If the default root resource 
+	  requests fail, the client SHOULD fall back to doing a resource discovery. Resource 
+	  discovery SHOULD be employed when non-default URIs (like /est or 
+	  /est/ArbitraryLabel) or ports are supported by the server or when the 
+	  client is unaware of what EST-coaps resources are available by the server.</t>
 	  
 	  <t>It is up to the implementation to choose its root resource; throughout this document the example root resource /est is used. </t>
 

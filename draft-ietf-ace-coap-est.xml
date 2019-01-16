@@ -200,7 +200,7 @@
 	<t>"Classical" Enrollment over Secure Transport (EST) <xref target="RFC7030"/> 
 	is used for authenticated/authorized endpoint certificate enrollment (and 
 	optionally key provisioning) through a Certificate Authority (CA) or 
-	Registration Authority (RA). EST messages run over HTTPS. </t>
+	Registration Authority (RA). EST is defined to transport messages over HTTPS.</t>
    
    <t>This document defines a new transport for EST based on the Constrained 
    Application Protocol (CoAP) since some Internet of Things (IoT) devices 
@@ -243,7 +243,7 @@
     described in BCP 14 <xref target="RFC2119"/> <xref target="RFC8174"/> 
 	when, and only when, they appear in all capitals, as shown here.</t>
 	
-    <t>Many of the concepts in this document are taken over from <xref target="RFC7030"/>. Consequently, much text is directly traceable to <xref target="RFC7030"/>. The same document structure is followed to point out the differences and commonalities between EST and EST-coaps.</t>
+    <t>Many of the concepts in this document are taken from <xref target="RFC7030"/>. Consequently, much text is directly traceable to <xref target="RFC7030"/>. The same document structure is followed to point out the differences and commonalities between EST and EST-coaps.</t>
   </section>  <!-- Terminology -->
   
   <section anchor="profile7925" title="Conformance to RFC7925 profiles">
@@ -453,7 +453,7 @@ This specification contains a set of required-to-implement functions, optional f
     <section anchor="fragment" title="Message fragmentation">
       <t>DTLS defines fragmentation only for the handshake and not for secure data exchange (DTLS records). <xref target="RFC6347"/> states that to avoid using IP fragmentation, which involves error-prone datagram reconstitution, invokers of the DTLS record layer SHOULD size DTLS records so that they fit within any Path MTU estimates obtained from the record layer. In addition, invokers residing on a 6LoWPAN over IEEE 802.15.4 <xref target="ieee802.15.4"/> network SHOULD attempt to size CoAP messages such that each DTLS record will fit within one or two IEEE 802.15.4 frames.</t>
 	  
-      <t>That is not always possible in EST-coaps. Even though ECC certificates are small in size, they can vary greatly based on signature algorithms, key sizes, and OID fields used. For 256-bit curves, common ECDSA cert sizes are 500-1000 bytes which could fluctuate further based on the algorithms, OIDs, SANs and cert fields. For 384-bit curves, ECDSA certs increase in size and can sometimes reach 1.5KB. Additionally, there are times when the EST cacerts response from the server can include multiple certs that amount to large payloads. Section 4.6 of CoAP <xref target="RFC7252"/> describes the possible payload sizes: "if nothing is known about the size of the headers, good upper bounds are 1152 bytes for the message size and 1024 bytes for the payload size". Section 4.6 of <xref target="RFC7252"/> also suggests that IPv4 implementations may want to limit themselves to more conservative IPv4 datagram sizes such as 576 bytes. <!-- From <xref target="RFC0791"/> follows that the absolute minimum value of the IP MTU for IPv4 is as low as 68 bytes, which would leave only 40 bytes minus security overhead for a UDP payload. --> Even with ECC certs, EST-coaps messages can still exceed MTU sizes on the Internet or 6LoWPAN <xref target="RFC4919"/> (Section 2 of <xref target="RFC7959"/>). EST-coaps needs to be able to fragment messages into multiple DTLS datagrams.</t>
+      <t>That is not always possible in EST-coaps. Even though ECC certificates are small in size, they can vary greatly based on signature algorithms, key sizes, and Object Identifier (OID) fields used. For 256-bit curves, common ECDSA cert sizes are 500-1000 bytes which could fluctuate further based on the algorithms, OIDs, Subject Alternative Names (SAN) and cert fields. For 384-bit curves, ECDSA certs increase in size and can sometimes reach 1.5KB. Additionally, there are times when the EST cacerts response from the server can include multiple certs that amount to large payloads. Section 4.6 of CoAP <xref target="RFC7252"/> describes the possible payload sizes: "if nothing is known about the size of the headers, good upper bounds are 1152 bytes for the message size and 1024 bytes for the payload size". Section 4.6 of <xref target="RFC7252"/> also suggests that IPv4 implementations may want to limit themselves to more conservative IPv4 datagram sizes such as 576 bytes. <!-- From <xref target="RFC0791"/> follows that the absolute minimum value of the IP MTU for IPv4 is as low as 68 bytes, which would leave only 40 bytes minus security overhead for a UDP payload. --> Even with ECC certs, EST-coaps messages can still exceed MTU sizes on the Internet or 6LoWPAN <xref target="RFC4919"/> (Section 2 of <xref target="RFC7959"/>). EST-coaps needs to be able to fragment messages into multiple DTLS datagrams.</t>
       
 	  <t>To perform fragmentation in CoAP, <xref target="RFC7959"/> specifies the "Block1" option for fragmentation of the request payload and the "Block2" option for fragmentation of the return payload of a CoAP flow. As explained in Section 1 of <xref target="RFC7959"/>, blockwise transfers SHOULD be used in Confirmable CoAP messages to avoid the exacerbation of lost blocks. <xref target="RFC7959"/> defines SZX in the block option fields. SZX is used to convey the size of the blocks in the requests or responses. The CoAP client MAY specify the Block1 size and MAY also specify the Block2 size. The CoAP server MAY specify the Block2 size, but not the Block1 size. </t>
 	  
@@ -662,11 +662,12 @@ coaps://example.com:<port>/<root-resource>/ArbitraryLabel/<short-est>
   RES: 2.05 Content 
 </est>; rt="ace.est", 
 </est/crts>;rt="ace.est.crts";ct=281, 
-</est/sen>;rt="ace.est.sen";ct=281 286, 
-</est/sren>;rt="ace.est.sren";ct=281 286, 
+</est/sen>;rt="ace.est.sen";ct="281 286", 
+</est/sren>;rt="ace.est.sren";ct="281 286", 
 </est/att>;rt="ace.est.att";ct=285, 
-</est/skg>;rt="ace.est.skg";ct=280 286 62
+</est/skg>;rt="ace.est.skg";ct="280 286 62"
 ]]></artwork>
+    <!-- Used quotes when multiple cts are returned as shown in draft-ietf-core-resource-directory-19 --> 
     </figure>
       <t> The first line of the discovery response above MUST be included. The five consecutive lines after the first MAY be included. The return of the content-types allows the client to choose the most appropriate one from multiple content types.</t>
       <t>Port numbers, not returned in the example, are assumed to be the default numbers 5683 and 5684 for coap and coaps respectively (Sections 12.6 and 12.7 of <xref target="RFC7252"/>). Discoverable port numbers MAY be returned in the &lt;href&gt; of the payload.</t>
@@ -706,10 +707,11 @@ HMAC(finished_key,
   <section anchor="proxy" title="HTTPS-CoAPS Registrar">
     <t>In real-world deployments, the EST server will not always reside within 
 	the CoAP boundary. The EST server can exist outside the constrained network 
-	that supports TLS/HTTP. In such environments EST-coaps is used by the client 
-	within the CoAP boundary and TLS is used to transport the EST messages 
-	outside the CoAP boundary. A Registrar at the edge is required to operate 
-	between the CoAP environment and the external HTTP network as shown in 
+	in which case it will support TLS/HTTP instead of COAPS. In such environments 
+	EST-coaps is used by the client within the CoAP boundary and TLS is used to 
+	transport the EST messages outside the CoAP boundary. A Registrar at the edge 
+	is required to operate between the CoAP environment and the external HTTP 
+	network as shown in 
 	<xref target="RAfig"/>. </t>
 	<figure align="left" anchor="RAfig" title="EST-coaps-to-HTTPS Registrar at the CoAP boundary."><artwork><![CDATA[
                                      Constrained Network
@@ -828,7 +830,7 @@ HMAC(finished_key,
   <section anchor="content-formats" title="Content-Format Registry">
     <t>Additions to the sub-registry "CoAP Content-Formats", within the "CoRE Parameters" 
 	registry <xref target="COREparams"/> are specified in <xref target="content-format"/>. 
-	These have been registered temporarily in the Expert Review range (0-255).</t>
+	These have been registered provisionally in the Expert Review range (0-255).</t>
 
 <texttable anchor="content-format" title="New CoAP Content-Formats">
   <ttcol align="left">HTTP Media-Type</ttcol>
@@ -1282,7 +1284,7 @@ b8c1117896f98e4506c03d70efbe820d8e38ea97e9d65d52c8460c5852c5
 5e828c77754378b66660a4977f113cacdaa0cc7bad7d1474a7fd155d090d
 ]]></artwork></figure>
 	
-	<t>The response would follow <xref target="I-D.ietf-core-multipart-ct"/> and could looke like </t>
+	<t>The response would follow <xref target="I-D.ietf-core-multipart-ct"/> and could look like </t>
 	
 <figure align="left"><artwork><![CDATA[
 RET:

@@ -662,17 +662,17 @@ coaps://example.com:<port>/<root-resource>/ArbitraryLabel/<short-est>
   RES: 2.05 Content 
 </est>; rt="ace.est", 
 </est/crts>;rt="ace.est.crts";ct=281, 
-</est/sen>;rt="ace.est.sen";ct="281 286", 
-</est/sren>;rt="ace.est.sren";ct="281 286", 
+</est/sen>;rt="ace.est.sen";ct=281, 
+</est/sren>;rt="ace.est.sren";ct=281, 
 </est/att>;rt="ace.est.att";ct=285, 
-</est/skg>;rt="ace.est.skg";ct="280 286 62"
+</est/skg>;rt="ace.est.skg";ct=280
 ]]></artwork>
     <!-- Used quotes when multiple cts are returned as shown in draft-ietf-core-resource-directory-19 --> 
     </figure>
       <t> The first line of the discovery response above MUST be included. The five consecutive lines after the first MAY be included. The return of the content-types allows the client to choose the most appropriate one from multiple content types.</t>
       <t>Port numbers, not returned in the example, are assumed to be the default numbers 5683 and 5684 for coap and coaps respectively (Sections 12.6 and 12.7 of <xref target="RFC7252"/>). Discoverable port numbers MAY be returned in the &lt;href&gt; of the payload.</t>
 	  
-	  <t>Discovery SHOULD NOT be chosen when the client is preconfigured to use the default 
+	  <t>Discovery SHOULD be ignored when the client is preconfigured to use the default 
 	  /.well-known/est server root resource and port 5684. If the default root resource 
 	  requests fail, the client SHOULD fall back to doing a resource discovery. Resource 
 	  discovery SHOULD be employed when non-default URIs (like /est or 

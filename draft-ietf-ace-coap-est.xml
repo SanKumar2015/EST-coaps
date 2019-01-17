@@ -583,7 +583,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	  <t>
 	    The sever-side key generation response is returned with content format 
 		application/multipart-core <xref target="I-D.ietf-core-multipart-ct"/> 
-		containing a CBOR array (<xref target="cborpair"/>). 
+		containing a CBOR array with two elements (<xref target="cborpair"/>). 
 		The certificate part exactly matches the response from an enrollment response. 
 		The private key can be in unprotected PKCS#8 <xref target="RFC5958"/> 
 		format (content type 281) or protected inside of CMS SignedData 

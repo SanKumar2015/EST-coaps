@@ -475,7 +475,7 @@ This specification contains a set of required-to-implement functions, optional f
 	  the delayed response which is provided later with 2.04 messages containing "Block2" options.
 	  Having received the first 256 bytes in the first "block2" block, the client asks for a block
 	  reduction to 128 bytes in all following "block2" blocks, starting with the second block (NUM=1).</t>
-      <figure title="EST-COAP enrolment with short wait"
+      <figure title="EST-COAP enrollment with short wait"
       anchor="fig-est-short-wait"><artwork>
 <![CDATA[
 POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
@@ -505,10 +505,10 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
       the server SHOULD respond with an ACK containing response code 5.03 (Service unavailable) and a Max-Age
       option to indicate the time the client SHOULD wait to request the content later. After a delay of Max-Age,
       the client SHOULD resend the identical CSR to the server. As long as the server responds with response code 5.03
-      (Service Unavailable) with a Max-Age option, the client can resend the enrolment request until the server
+      (Service Unavailable) with a Max-Age option, the client can resend the enrollment request until the server
 	  responds with the certificate or the client abandons for other reasons. </t>
 
-      <t>To demonstrate this scenario, <xref target="fig-est-long-wait"/> shows a client sending an enrolment
+      <t>To demonstrate this scenario, <xref target="fig-est-long-wait"/> shows a client sending an enrollment
 	  request that uses more than one "Block1" blocks to send the CSR to the server. The server needs
       more than one "Block2" blocks to respond, but also needs to take a long delay (minutes) to provide
       the response. Consequently, the server uses a 5.03 ACK response with a Max-Age option. The client
@@ -516,7 +516,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
       the enrollment request until he receives a certificate. Note that in the example below the server
 	  asks for a decrease in the block size when acknowledging the first Block2. </t>
 
-<figure title="EST-COAP enrolment with long wait"
+<figure title="EST-COAP enrollment with long wait"
 	anchor="fig-est-long-wait"><artwork>
 <![CDATA[
 
@@ -1532,7 +1532,7 @@ e5c7306163b3c3834bab3c103f743070594c089aaa0ac870cd13b902caa1
 	  and the cert response takes N2+1 blocks. The header fields and the payload are
 	  omitted for brevity.
       </t>
-<figure title="EST-COAP enrolment with multiple blocks"
+<figure title="EST-COAP enrollment with multiple blocks"
 	anchor="fig-est-multiple-block"><artwork>
 <![CDATA[
 

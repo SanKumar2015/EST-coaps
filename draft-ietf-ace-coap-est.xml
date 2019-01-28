@@ -9,6 +9,7 @@
 <!ENTITY RFC5246 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5246.xml">
 <!ENTITY RFC5273 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5273.xml">
 <!ENTITY RFC5272 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5272.xml">
+<!ENTITY RFC5280 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5280.xml">
 <!ENTITY RFC5705 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5705.xml">
 <!ENTITY RFC5958 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5958.xml">
 <!ENTITY RFC5967 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5967.xml">
@@ -126,6 +127,11 @@
 
   <section anchor="changes" title="Change Log">
    <t>EDNOTE: Remove this section before publication</t>
+   <t> -08
+    <list style="empty">
+       <t> added application/pkix-cert content format </t>
+    </list>
+   </t>
    <t> -07:
     <list style="empty">
        <t> redone examples from scratch with openssl </t>
@@ -603,7 +609,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 		encrypted by using the client defined (in the CSR) asymmetric public key and
 		is carried in an recipientEncryptedKeys attribute in a KeyAgreeRecipientInfo.
 		<!-- The EnvelopedData is
-   returned in the response as an "application/pkcs7-mime" part with an
+   returned in the response as an "application/pkcs7-mime" or "application-pkix_cert" part with an
    smime-type parameter of "server-generated-key" and a Content-
    Transfer-Encoding of "Base64". -->
 	  </t>
@@ -664,9 +670,9 @@ coaps://example.com:<port>/<root-resource>/ArbitraryLabel/<short-est>
 
   RES: 2.05 Content
 </est>; rt="ace.est",
-</est/crts>;rt="ace.est.crts";ct=281,
-</est/sen>;rt="ace.est.sen";ct=281,
-</est/sren>;rt="ace.est.sren";ct=281,
+</est/crts>;rt="ace.est.crts";ct=281 CT=TBD287,
+</est/sen>;rt="ace.est.sen";ct=281 CT=TBD287,
+</est/sren>;rt="ace.est.sren";ct=281 CT=TBD287,
 </est/att>;rt="ace.est.att";ct=285,
 </est/skg>;rt="ace.est.skg";ct=280
 ]]></artwork>
@@ -853,6 +859,7 @@ HMAC(finished_key,
   <c>application/pkcs8</c>                                      <c>284</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/> <xref target="RFC5958"/></c>
   <c>application/csrattrs</c>                                   <c>285</c> <c><xref target="RFC7030"/> <xref target="RFC7231"/></c>
   <c>application/pkcs10</c>                                     <c>286</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/> <xref target="RFC5967"/></c>
+<c>application/pkix-cert</c>                                     <c>TBD287</c> <c> <xref target="RFC5280"/></c>
 </texttable>
 
 </section> <!-- Content-Format registry -->
@@ -1004,6 +1011,7 @@ HMAC(finished_key,
   <references title="Normative References">
     &RFC2119;
     &RFC5246;
+    &RFC5280;
     &RFC5967;
     &RFC6347;
     &I-D.ietf-tls-dtls13;
@@ -1104,6 +1112,7 @@ HMAC(finished_key,
 	purposes because a binary representation cannot be rendered well in text.
 	<!-- [EDNOTE: No need for these details of how these were generated from I-D.moskowitz-ecdsa-pki. ]
 	In particular, the shell scripts from section 4.2 (create root certificate), section 6.2 (Create the 802.1AR intermediate certificate) and section 6.3 (Create an 802.1AR IdevID certificate) have been used. The 802.1AR IdevID certificate is signed by the 802.1AR intermediate certificate that is signed by the auto-signed root certificate.--></t>
+    <t> The content-format 281 "application/pkcs7" can be replaced with TBD287 "application/pkix-cert" without modifications in the payload, because a single certificate is transported.</t>
     <t>The message content breakdown is presented in <xref target="cont_breakdown"/>.</t>
     <t>The corresponding CoAP headers are only shown in <xref target="cacerts"/>.
 	Creating CoAP headers is assumed to be generally understood.</t>

@@ -9,7 +9,7 @@
 <!ENTITY RFC5246 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5246.xml">
 <!ENTITY RFC5273 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5273.xml">
 <!ENTITY RFC5272 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5272.xml">
-<!ENTITY RFC5280 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5280.xml">
+<!ENTITY RFC2585 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2585.xml">
 <!ENTITY RFC5705 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5705.xml">
 <!ENTITY RFC5958 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5958.xml">
 <!ENTITY RFC5967 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5967.xml">
@@ -129,7 +129,8 @@
    <t>EDNOTE: Remove this section before publication</t>
    <t> -08
     <list style="empty">
-       <t> added application/pkix-cert content format </t>
+       <t>added application/pkix-cert content format TBD287.</t>
+	   <t>Minor text fixes. </t>
     </list>
    </t>
    <t> -07:
@@ -369,12 +370,12 @@ This specification contains a set of required-to-implement functions, optional f
 </section>  <!-- Required/optional Functions  -->
 
     <section anchor="format" title ="Payload format">
-      <t>The content-format (media type equivalent) of the CoAP message determines which
+      <t>The content format (media type equivalent) of the CoAP message determines which
 	  EST message is transported in the CoAP payload. The media types specified in the HTTP
 	  Content-Type header (section 3.2.2 of <xref target="RFC7030"/>) are in EST-coaps
 	  specified by the Content-Format Option (12) of CoAP. The combination of URI path
 	  and content-format in EST-coaps MUST map to an allowed combination of URI and
-	  media type in EST. The required content-formats for these requests and
+	  media type in EST. The required Content-Formats for these requests and
 	  response messages are defined in <xref target="content-formats"/>. The CoAP response
 	  codes are defined in <xref target="error"/>.</t>
       <t>EST-coaps is designed for use between low-resource devices and hence does not need
@@ -593,8 +594,8 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 		containing a CBOR array with four items (<xref target="cborpair"/>).
 		The certificate part exactly matches the response from an enrollment response.
 		The private key can be in unprotected PKCS#8 <xref target="RFC5958"/>
-		format (content type 281) or protected inside of CMS SignedData
-		(content type 280). The SignedData is signed by the party that
+		format (content format 284) or protected inside of CMS SignedData
+		(content format 280). The SignedData is signed by the party that
 		generated the private key, which may or may not be the EST
 		server or the EST CA. The SignedData is further protected by placing
 		it inside of a CMS EnvelopedData as explained in Section 4.4.2
@@ -616,8 +617,8 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	  <t><xref target="RFC7030" /> recommends the use of additional encryption of the
 	  returned private key. For the context of this specification, clients and servers
 	  that choose to support server-side key generation MUST support unprotected (PKCS#8) <!-- MTI -->
-	  private keys (content type 281). Symmetric or asymmetric encryption of the
-	  private key (CMS EnvelopedData, content type 280) SHOULD be supported
+	  private keys (content format 284). Symmetric or asymmetric encryption of the
+	  private key (CMS EnvelopedData, content format 280) SHOULD be supported
 	  for deployments where end-to-end encryption needs to be provided
 	  between the client and a server. Such cases could include architectures
 	  where an entity between the client and the CA terminates the DTLS connection
@@ -670,15 +671,15 @@ coaps://example.com:<port>/<root-resource>/ArbitraryLabel/<short-est>
 
   RES: 2.05 Content
 </est>; rt="ace.est",
-</est/crts>;rt="ace.est.crts";ct=281 CT=TBD287,
-</est/sen>;rt="ace.est.sen";ct=281 CT=TBD287,
-</est/sren>;rt="ace.est.sren";ct=281 CT=TBD287,
+</est/crts>;rt="ace.est.crts";ct="281 TBD287",
+</est/sen>;rt="ace.est.sen";ct="281 TBD287",
+</est/sren>;rt="ace.est.sren";ct="281 TBD287",
 </est/att>;rt="ace.est.att";ct=285,
-</est/skg>;rt="ace.est.skg";ct=280
+</est/skg>;rt="ace.est.skg";ct="280 284 281 TBD287"
 ]]></artwork>
     <!-- Used quotes when multiple cts are returned as shown in draft-ietf-core-resource-directory-19 -->
     </figure>
-      <t> The first line of the discovery response above MUST be included. The five consecutive lines after the first MAY be included. The return of the content-types allows the client to choose the most appropriate one from multiple content types.</t>
+      <t> The first line of the discovery response above MUST be included. The five consecutive lines after the first MAY be included. The return of the content types allows the client to choose the most appropriate one.</t>
       <t>Port numbers, not returned in the example, are assumed to be the default numbers 5683 and 5684 for coap and coaps respectively (Sections 12.6 and 12.7 of <xref target="RFC7252"/>). Discoverable port numbers MAY be returned in the &lt;href&gt; of the payload.</t>
 
 	  <t>Discovery SHOULD be ignored when the client is preconfigured to use the default
@@ -780,7 +781,7 @@ HMAC(finished_key,
 	specification and Section 7 of <xref target="RFC8075"/> define the mappings
 	between EST-coaps and HTTP response codes, that determine how the Registrar
 	MUST translate CoAP response codes from/to HTTP status codes. The mapping from
-	CoAP Content-Type to HTTP Media-Type is defined in <xref target="content-formats"/>.
+	CoAP Content-Format to HTTP Media-Type is defined in <xref target="content-formats"/>.
 	Additionally, a conversion from CBOR major type 2 to Base64 encoding MUST take
 	place at the Registrar when server-side key generation is supported. If
 	CMS end-to-end encryption is employed for the private key, the encrypted
@@ -859,8 +860,15 @@ HMAC(finished_key,
   <c>application/pkcs8</c>                                      <c>284</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/> <xref target="RFC5958"/></c>
   <c>application/csrattrs</c>                                   <c>285</c> <c><xref target="RFC7030"/> <xref target="RFC7231"/></c>
   <c>application/pkcs10</c>                                     <c>286</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/> <xref target="RFC5967"/></c>
-<c>application/pkix-cert</c>                                     <c>TBD287</c> <c> <xref target="RFC5280"/></c>
+<c>application/pkix-cert</c>                                     <c>TBD287</c> <c> <xref target="RFC2585"/></c>
 </texttable>
+
+  <t>Content format TBD287 can be used in place of 281 when only one 
+  certificate is returned in a /crts, /sen, /sren or /skg response. 
+  The client is expected to use an COAP Accept Option in the request to 
+  ask for an application/pkix-cert certificate. If an Accept Option is 
+  not included in the client request the server SHOULD return content 
+  format 281 by default.</t>
 
 </section> <!-- Content-Format registry -->
 
@@ -994,7 +1002,7 @@ HMAC(finished_key,
 
   <section anchor="ack" title="Acknowledgements">
     <t>The authors are very grateful to Klaus Hartke for his detailed explanations on
-	the use of Block with DTLS and his support for the content-format specification.
+	the use of Block with DTLS and his support for the content format specification.
 	The authors would like to thank Esko Dijk and Michael Verschoor for the valuable
 	discussions that helped in shaping the solution. They would also like to thank Peter
 	Panburana for his feedback on technical details of the solution. Constructive comments
@@ -1010,8 +1018,8 @@ HMAC(finished_key,
 <back>
   <references title="Normative References">
     &RFC2119;
+    &RFC2585;
     &RFC5246;
-    &RFC5280;
     &RFC5967;
     &RFC6347;
     &I-D.ietf-tls-dtls13;
@@ -1112,7 +1120,10 @@ HMAC(finished_key,
 	purposes because a binary representation cannot be rendered well in text.
 	<!-- [EDNOTE: No need for these details of how these were generated from I-D.moskowitz-ecdsa-pki. ]
 	In particular, the shell scripts from section 4.2 (create root certificate), section 6.2 (Create the 802.1AR intermediate certificate) and section 6.3 (Create an 802.1AR IdevID certificate) have been used. The 802.1AR IdevID certificate is signed by the 802.1AR intermediate certificate that is signed by the auto-signed root certificate.--></t>
-    <t> The content-format 281 "application/pkcs7" can be replaced with TBD287 "application/pkix-cert" without modifications in the payload, because a single certificate is transported.</t>
+    <t>The certificate responses included in the examples contain content 
+	format 281 (application/pkcs7). If the client had requested content 
+	format TBD287 (application/pkix-cert) with an Accept Option, the 
+	server would respond a signle DER binary certificate.</t>
     <t>The message content breakdown is presented in <xref target="cont_breakdown"/>.</t>
     <t>The corresponding CoAP headers are only shown in <xref target="cacerts"/>.
 	Creating CoAP headers is assumed to be generally understood.</t>

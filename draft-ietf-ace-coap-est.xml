@@ -1223,7 +1223,7 @@ cd13b902caa1003100
     </section>  <!-- cacerts -->
 
     <section title="csrattrs">
-      <t>In the following csrattrs exchange, the CoAP GET request looks like </t>
+      <t>Below is a csrattrs exchange </t>
 <figure align="left"><artwork><![CDATA[
 REQ:
 GET coaps://[2001:db8::2:1]:61616/est/att

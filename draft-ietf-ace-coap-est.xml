@@ -697,11 +697,14 @@ coaps://example.com:<port>/<root-resource>/ArbitraryLabel/<short-est>
 	<t>The Content Formats returned by /est/skg need some explanation. The returned Content Format 62 envelops the content formats 284 and 281, where 281 can be replaced by TBD287. Content Format 281 is the default format and the TBD287 can be requested with an Accept option.</t>
       <t>Port numbers, not returned in the example, are assumed to be the default numbers 5683 and 5684 for coap and coaps respectively (Sections 12.6 and 12.7 of <xref target="RFC7252"/>). Discoverable port numbers MAY be returned in the &lt;href&gt; of the payload.</t>
 
-	  <t>The server MUST be preconfigured with the default
-	  /.well-known/est server root resource and port 5684. Resource discovery is necessary when the IP address of the server is unknown to the client. Resource
+	  <t>The server MUST be preconfigured to support the default
+	  /.well-known/est server root resource and port 5684. Resource discovery is 
+	  necessary when the IP address of the server is unknown to the client. Resource
 	  discovery SHOULD be employed when non-default URIs (like /est or
-	  /est/ArbitraryLabel) or ports are supported by the server or when the
-	  client is unaware of what EST-coaps resources are available by the server.</t>
+	  /est/ArbitraryLabel) or ports are supported by the server, when the
+	  client is unaware of what EST-coaps resources are available on the server 
+	  or if the client considers sending two Uri-Path options to convey the 
+	  resource is wasteful.</t>
 
 	  <t>It is up to the implementation to choose its root resource; throughout this document the example root resource /est is used. </t>
 

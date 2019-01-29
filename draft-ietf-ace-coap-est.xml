@@ -454,8 +454,11 @@ This specification contains a set of required-to-implement functions, optional f
 	  for the client. The equivalent CoAP codes to use in an EST-coaps responses
       are 2.04 and 4.04. Additionally, EST's HTTP 401 error translates to 4.01 in
 	  EST-coaps. Other EST HTTP error messages are 400, 423 and 503. Their equivalent
-	  CoAP errors are 4.00, 4.03 and 5.03 respectively. In case a required COAP option (i.e
-	  Content-Format) is omitted, the server is expected to return a 4.02.</t>
+	  CoAP errors are 4.00, 4.03 and 5.03 respectively. In case a COAP option 
+	  is unrecognized or unsafe, the server is expected to return a 4.02. If the 
+	  client requested. If the client Content-Format requested in the client 
+	  Accept Option is not supported the server MUST return a 4.06, unless another 
+	  error code takes precedence for the response.</t>
     </section> <!-- CoAP response codes -->
 
     <section anchor="fragment" title="Message fragmentation">
@@ -866,9 +869,12 @@ HMAC(finished_key,
   <t>Content format TBD287 can be used in place of 281 when only one 
   certificate is returned in a /crts, /sen, /sren or /skg response. 
   The client is expected to use an COAP Accept Option in the request to 
-  ask for an application/pkix-cert certificate. If an Accept Option is 
-  not included in the client request the server SHOULD return content 
-  format 281 by default.</t>
+  express the preferred response content format. If an Accept Option is 
+  not included in the client request the client is not expressing 
+  any preferrence and the server can chose what to send. If the 
+  preferred Content-Format cannot be returned, then a 4.06 
+  "Not Acceptable" MUST be sent as a response, unless another 
+  error code takes precedence for the response <xref target="RFC7252"/>.</t>
 
 </section> <!-- Content-Format registry -->
 

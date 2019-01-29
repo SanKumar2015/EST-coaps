@@ -451,7 +451,7 @@ This specification contains a set of required-to-implement functions, optional f
 	  delayed messages.</t>
 
 	  <t>EST makes use of HTTP 204 and 404 responses when a resource is not available
-	  for the client. The equivalent CoAP error code to use in an EST-coaps responses
+	  for the client. The equivalent CoAP codes to use in an EST-coaps responses
       are 2.04 and 4.04. Additionally, EST's HTTP 401 error translates to 4.01 in
 	  EST-coaps. Other EST HTTP error messages are 400, 423 and 503. Their equivalent
 	  CoAP errors are 4.00, 4.03 and 5.03 respectively. In case a required COAP option (i.e
@@ -473,15 +473,15 @@ This specification contains a set of required-to-implement functions, optional f
     <section anchor="pending" title="Delayed Responses">
       <t>Server responses can sometimes be delayed. According to section 5.2.2 of
 	  <xref target="RFC7252" />, a slow server can acknowledge the request with
-	  a 2.31 code and respond later with the requested resource representation.
+	  and respond later with the requested resource representation.
       In particular, a slow server can respond to an enrollment request with an empty ACK with code 0.00,
       before sending the certificate to the server after a short delay. If the certificate
 	  response is large, the server will need more than one "Block2" blocks to transfer it. This
 	  situation is shown in <xref target="fig-est-short-wait"/> where a client sends an enrollment
 	  request that uses more than one "Block1" blocks. The server uses an empty 0.00 ACK to announce
 	  the delayed response which is provided later with 2.04 messages containing "Block2" options.
-	  Having received the first 256 bytes in the first "block2" block, the client asks for a block
-	  reduction to 128 bytes in all following "block2" blocks, starting with the second block (NUM=1).</t>
+	  Having received the first 256 bytes in the first "Block2" block, the client asks for a block
+	  reduction to 128 bytes in all following "Block2" blocks, starting with the second block (NUM=1).</t>
       <figure title="EST-COAP enrollment with short wait"
       anchor="fig-est-short-wait"><artwork>
 <![CDATA[

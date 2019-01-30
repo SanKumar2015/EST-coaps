@@ -104,8 +104,8 @@ Table of Contents
    Appendix B.  EST-coaps Block message examples . . . . . . . . . .  37
      B.1.  cacerts . . . . . . . . . . . . . . . . . . . . . . . . .  38
      B.2.  enroll  . . . . . . . . . . . . . . . . . . . . . . . . .  41
-   Appendix C.  Message content breakdown  . . . . . . . . . . . . .  42
-     C.1.  cacerts . . . . . . . . . . . . . . . . . . . . . . . . .  42
+   Appendix C.  Message content breakdown  . . . . . . . . . . . . .  41
+     C.1.  cacerts . . . . . . . . . . . . . . . . . . . . . . . . .  41
 
 
 
@@ -114,9 +114,9 @@ van der Stok, et al.     Expires August 3, 2019                 [Page 2]
 Internet-Draft                  EST-coaps                   January 2019
 
 
-     C.2.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  43
-     C.3.  serverkeygen  . . . . . . . . . . . . . . . . . . . . . .  45
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  47
+     C.2.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  42
+     C.3.  serverkeygen  . . . . . . . . . . . . . . . . . . . . . .  44
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  46
 
 1.  Change Log
 
@@ -422,8 +422,8 @@ Internet-Draft                  EST-coaps                   January 2019
                     Table 1: List of EST-coaps fuctions
 
    While [RFC7030] permits a number of these functions to be used
-   without authentication, this specification requires authentication
-   for all functions.
+   without authentication, this specification requires client
+   authentication for all functions.
 
 5.2.  Payload format
 
@@ -467,10 +467,11 @@ Internet-Draft                  EST-coaps                   January 2019
    of the consecutive representation.  For example, a collection
    containing two representations in response to a server-side key
    generation request, could include a private key in PKCS#8 [RFC5958]
-   with content format ID 284 (0x011C) and a certificate with content
-   format ID 281 (0x0119).  Such a collection would look like
-   [284,h'0123456789abcdef', 281,h'fedcba9876543210'] in diagnostic CBOR
-   notation.  The serialization of such CBOR content would be
+   with content format ID 284 (0x011C) and a single certificate in
+   PKCS#7 with content format ID 281 (0x0119).  Such a collection would
+   look like [284,h'0123456789abcdef', 281,h'fedcba9876543210'] in
+   diagnostic CBOR notation.  The serialization of such CBOR content
+   would be
 
 
       84                  # array(4)
@@ -483,7 +484,7 @@ Internet-Draft                  EST-coaps                   January 2019
 
                    Multipart /skg response serialization
 
-   The PKCS#8 key and X.509 certificate representations are ASN.1
+   The PKCS#8 key and PKCS#7 X.509 certificate representations are ASN.1
    encoded in binary DER format.  An example is shown in Appendix A.4.
 
    In cases where the private key is further encrypted with CMS (as
@@ -496,8 +497,7 @@ Internet-Draft                  EST-coaps                   January 2019
    o  All EST-coaps messages expect a response from the server, thus the
       client MUST send the requests over confirmable CON CoAP messages.
 
-   o  The Ver, TKL, Token, and Message ID values of the CoAP header are
-      not affected by EST.
+
 
 
 
@@ -505,6 +505,9 @@ van der Stok, et al.     Expires August 3, 2019                 [Page 9]
 
 Internet-Draft                  EST-coaps                   January 2019
 
+
+   o  The Ver, TKL, Token, and Message ID values of the CoAP header are
+      not affected by EST.
 
    o  The CoAP options used are Uri-Host, Uri-Path, Uri-Port, Content-
       Format, and Location-Path.  These CoAP Options are used to
@@ -552,9 +555,6 @@ Internet-Draft                  EST-coaps                   January 2019
    such that each DTLS record will fit within one or two IEEE 802.15.4
    frames.
 
-   That is not always possible in EST-coaps.  Even though ECC
-   certificates are small in size, they can vary greatly based on
-
 
 
 van der Stok, et al.     Expires August 3, 2019                [Page 10]
@@ -562,6 +562,8 @@ van der Stok, et al.     Expires August 3, 2019                [Page 10]
 Internet-Draft                  EST-coaps                   January 2019
 
 
+   That is not always possible in EST-coaps.  Even though ECC
+   certificates are small in size, they can vary greatly based on
    signature algorithms, key sizes, and Object Identifier (OID) fields
    used.  For 256-bit curves, common ECDSA cert sizes are 500-1000 bytes
    which could fluctuate further based on the algorithms, OIDs, Subject
@@ -608,8 +610,6 @@ Internet-Draft                  EST-coaps                   January 2019
    5.2.2 of [RFC7252], a slow server can acknowledge the request and
    respond later with the requested resource representation.  In
    particular, a slow server can respond to an enrollment request with
-   an empty ACK with code 0.00, before sending the certificate to the
-   server after a short delay.  If the certificate response is large,
 
 
 
@@ -618,6 +618,8 @@ van der Stok, et al.     Expires August 3, 2019                [Page 11]
 Internet-Draft                  EST-coaps                   January 2019
 
 
+   an empty ACK with code 0.00, before sending the certificate to the
+   server after a short delay.  If the certificate response is large,
    the server will need more than one "Block2" blocks to transfer it.
    This situation is shown in Figure 2 where a client sends an
    enrollment request that uses more than one "Block1" blocks.  The
@@ -663,9 +665,7 @@ Internet-Draft                  EST-coaps                   January 2019
    until the server responds with the certificate or the client abandons
    for other reasons.
 
-   To demonstrate this scenario, Figure 3 shows a client sending an
-   enrollment request that uses more than one "Block1" blocks to send
-   the CSR to the server.  The server needs more than one "Block2"
+
 
 
 
@@ -674,6 +674,9 @@ van der Stok, et al.     Expires August 3, 2019                [Page 12]
 Internet-Draft                  EST-coaps                   January 2019
 
 
+   To demonstrate this scenario, Figure 3 shows a client sending an
+   enrollment request that uses more than one "Block1" blocks to send
+   the CSR to the server.  The server needs more than one "Block2"
    blocks to respond, but also needs to take a long delay (minutes) to
    provide the response.  Consequently, the server uses a 5.03 ACK
    response with a Max-Age option.  The client waits for a period of
@@ -720,9 +723,6 @@ Internet-Draft                  EST-coaps                   January 2019
    decrypt the communication or guess the private key and impersonate as
    the device [PsQs] [RSAorig].
 
-   Additionally, random number key generation is costly, thus energy
-   draining.  Even though the random numbers that constitute the
-
 
 
 van der Stok, et al.     Expires August 3, 2019                [Page 13]
@@ -730,6 +730,8 @@ van der Stok, et al.     Expires August 3, 2019                [Page 13]
 Internet-Draft                  EST-coaps                   January 2019
 
 
+   Additionally, random number key generation is costly, thus energy
+   draining.  Even though the random numbers that constitute the
    identity/cert do not get generated often, an endpoint may not want to
    spend time and energy generating keypairs, and just ask for one from
    the server.
@@ -776,8 +778,6 @@ Internet-Draft                  EST-coaps                   January 2019
 
    [RFC7030] recommends the use of additional encryption of the returned
    private key.  For the context of this specification, clients and
-   servers that choose to support server-side key generation MUST
-   support unprotected (PKCS#8) private keys (content format 284).
 
 
 
@@ -786,6 +786,8 @@ van der Stok, et al.     Expires August 3, 2019                [Page 14]
 Internet-Draft                  EST-coaps                   January 2019
 
 
+   servers that choose to support server-side key generation MUST
+   support unprotected (PKCS#8) private keys (content format 284).
    Symmetric or asymmetric encryption of the private key (CMS
    EnvelopedData, content format 280) SHOULD be supported for
    deployments where end-to-end encryption needs to be provided between
@@ -829,8 +831,6 @@ Internet-Draft                  EST-coaps                   January 2019
    Figure 5 in section 3.2.2 of [RFC7030] enumerates the operations and
    corresponding paths which are supported by EST.  Table 2 provides the
    mapping from the EST URI path to the shorter EST-coaps URI path.
-
-
 
 
 
@@ -1696,16 +1696,8 @@ A.1.  cacerts
      Code = 0x01 (0.01 is GET)
      Token = 0x9a (client generated)
      Options
-      Option           [optional]
-        Option Delta = 0x3  (option# 3 Uri-Host)
-        Option Length = 0x9
-        Option Value = 192.0.2.1
-      Option           [optional]
-        Option Delta = 0x4  (option# 3+4=7 Uri-Port)
-        Option Length = 0x4
-        Option Value = 8085
       Option
-        Option Delta = 0x4   (option# 7+4=11 Uri-Path)
+        Option Delta = 0xb   (option# 11 Uri-Path)
         Option Length = 0x5
         Option Value = "est"
       Option
@@ -1720,6 +1712,14 @@ A.1.  cacerts
       {payload with certificate in binary DER format}
 
    with CoAP fields
+
+
+
+
+
+
+
+
 
 
 
@@ -2135,16 +2135,8 @@ Internet-Draft                  EST-coaps                   January 2019
      Code = 0x01 (0.1 GET)
      Token = 0x9a    (client generated)
      Options
-      Option           [optional]
-        Option Delta = 0x3  (option# 3 Uri-Host)
-        Option Length = 0x9
-        Option Value = 192.0.2.1
-      Option           [optional]
-        Option Delta = 0x4   (option# 3+4=7 Uri-Port)
-        Option Length = 0x4
-        Option Value = 8085
       Option
-        Option Delta = 0x4    (option# 7+4=11 Uri-Path)
+        Option Delta = 0xb    (option# 11 Uri-Path)
         Option Length = 0x5
         Option Value = "est"
       Option4
@@ -2156,35 +2148,6 @@ Internet-Draft                  EST-coaps                   January 2019
    For further detailing the CoAP headers, the first two and the last
    blocks are written out below.  The header of the first Block2
    response looks like
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-van der Stok, et al.     Expires August 3, 2019                [Page 39]
-
-Internet-Draft                  EST-coaps                   January 2019
-
 
      Ver = 1
      T = 2 (ACK)
@@ -2211,6 +2174,18 @@ Internet-Draft                  EST-coaps                   January 2019
 
    The second Block2:
 
+
+
+
+
+
+
+
+van der Stok, et al.     Expires August 3, 2019                [Page 39]
+
+Internet-Draft                  EST-coaps                   January 2019
+
+
      Ver = 1
      T = 2 (means ACK)
      Code = 0x45 (2.05 Content)
@@ -2233,13 +2208,6 @@ Internet-Draft                  EST-coaps                   January 2019
    df9c99244b300a06082a8648ce3d0403023067310b300906035504061302
    5553310b300906035504080c024341310b300906035504070c024c413114
    30120603
-
-
-
-
-van der Stok, et al.     Expires August 3, 2019                [Page 40]
-
-Internet-Draft                  EST-coaps                   January 2019
 
 
    The 11th and final Block2:
@@ -2267,6 +2235,13 @@ Internet-Draft                  EST-coaps                   January 2019
    e5c7306163b3c3834bab3c103f743070594c089aaa0ac870cd13b902caa1
    003100
 
+
+
+van der Stok, et al.     Expires August 3, 2019                [Page 40]
+
+Internet-Draft                  EST-coaps                   January 2019
+
+
 B.2.  enroll
 
    In this example the requested Block2 size of 256 bytes, required by
@@ -2276,26 +2251,6 @@ B.2.  enroll
    assumed that CSR takes N1+1 blocks and the cert response takes N2+1
    blocks.  The header fields and the payload are omitted for brevity.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-van der Stok, et al.     Expires August 3, 2019                [Page 41]
-
-Internet-Draft                  EST-coaps                   January 2019
 
 
    POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
@@ -2338,18 +2293,7 @@ C.1.  cacerts
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-van der Stok, et al.     Expires August 3, 2019                [Page 42]
+van der Stok, et al.     Expires August 3, 2019                [Page 41]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -2405,7 +2349,7 @@ C.2.  enroll / reenroll
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 43]
+van der Stok, et al.     Expires August 3, 2019                [Page 42]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -2461,7 +2405,7 @@ Internet-Draft                  EST-coaps                   January 2019
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 44]
+van der Stok, et al.     Expires August 3, 2019                [Page 43]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -2517,7 +2461,7 @@ C.3.  serverkeygen
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 45]
+van der Stok, et al.     Expires August 3, 2019                [Page 44]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -2573,7 +2517,7 @@ Internet-Draft                  EST-coaps                   January 2019
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 46]
+van der Stok, et al.     Expires August 3, 2019                [Page 45]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -2629,7 +2573,7 @@ Authors' Addresses
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 47]
+van der Stok, et al.     Expires August 3, 2019                [Page 46]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -2685,4 +2629,4 @@ Internet-Draft                  EST-coaps                   January 2019
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 48]
+van der Stok, et al.     Expires August 3, 2019                [Page 47]

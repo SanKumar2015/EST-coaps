@@ -365,7 +365,7 @@ This specification contains a set of required-to-implement functions, optional f
 
 <t>
   While <xref target="RFC7030" /> permits a number of these functions to be used without
-  authentication, this specification requires authentication
+  authentication, this specification requires client authentication
   for all functions.
 </t>
 
@@ -400,7 +400,7 @@ This specification contains a set of required-to-implement functions, optional f
 		unsigned integer specifying the content format ID of the consecutive representation.
 		For example, a collection containing two representations in response to a server-side
 		key generation request, could include a private key in PKCS#8 <xref target="RFC5958"/>
-		with content format ID 284 (0x011C) and a certificate with content format ID
+		with content format ID 284 (0x011C) and a single certificate in PKCS#7 with content format ID
 		281 (0x0119). Such a collection would look like [284,h'0123456789abcdef', 281,h'fedcba9876543210']
 		in diagnostic CBOR notation. The serialization of such CBOR content would be </t>
         <figure title="Multipart /skg response serialization"><artwork>
@@ -414,7 +414,7 @@ This specification contains a set of required-to-implement functions, optional f
       FEDCBA9876543210 # "\xFE\xDC\xBA\x98vT2\x10"
          ]]></artwork></figure>
 
-		<t>The PKCS#8 key and X.509 certificate representations are ASN.1 encoded
+		<t>The PKCS#8 key and PKCS#7 X.509 certificate representations are ASN.1 encoded
 		in binary DER format. An example is shown in <xref target="appskg"/>. </t>
 
 		<t>In cases where the private key is further encrypted with CMS (as
@@ -1157,16 +1157,8 @@ GET coaps://192.0.2.1:8085/est/crts
   Code = 0x01 (0.01 is GET)
   Token = 0x9a (client generated)
   Options
-   Option           [optional]
-     Option Delta = 0x3  (option# 3 Uri-Host)
-     Option Length = 0x9
-     Option Value = 192.0.2.1
-   Option           [optional]
-     Option Delta = 0x4  (option# 3+4=7 Uri-Port)
-     Option Length = 0x4
-     Option Value = 8085
    Option
-     Option Delta = 0x4   (option# 7+4=11 Uri-Path)
+     Option Delta = 0xb   (option# 11 Uri-Path)
      Option Length = 0x5
      Option Value = "est"
    Option
@@ -1455,16 +1447,8 @@ b53bdaadc9ae60b08f52429c0fa1003100
   Code = 0x01 (0.1 GET)
   Token = 0x9a    (client generated)
   Options
-   Option           [optional]
-     Option Delta = 0x3  (option# 3 Uri-Host)
-     Option Length = 0x9
-     Option Value = 192.0.2.1
-   Option           [optional]
-     Option Delta = 0x4   (option# 3+4=7 Uri-Port)
-     Option Length = 0x4
-     Option Value = 8085
    Option
-     Option Delta = 0x4    (option# 7+4=11 Uri-Path)
+     Option Delta = 0xb    (option# 11 Uri-Path)
      Option Length = 0x5
      Option Value = "est"
    Option4

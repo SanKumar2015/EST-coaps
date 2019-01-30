@@ -264,7 +264,7 @@
 	are responses to (re-)enrollment requests or requests for a trusted certificate
 	list. Private keys can be transported as responses to a
 	server-side key generation request as described in section 4.4 of
-	<xref target="RFC7030"/> snd discussed in <xref target="serverkey"/>
+	<xref target="RFC7030"/> and discussed in <xref target="serverkey"/>
 	of this document. </t>
 
     <t>

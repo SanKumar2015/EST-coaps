@@ -680,21 +680,21 @@ coaps://example.com:<port>/<root-resource>/ArbitraryLabel/<short-est>
 </est/sen>;rt="ace.est.sen";ct="281 TBD287",
 </est/sren>;rt="ace.est.sren";ct="281 TBD287",
 </est/att>;rt="ace.est.att";ct=285,
-</est/skg>;rt="ace.est.skg";ct="62 284 281 TBD287"
+</est/skg>;rt="ace.est.skg";ct="62 280 284 281 TBD287"
 ]]></artwork>
     <!-- Used quotes when multiple cts are returned as shown in draft-ietf-core-resource-directory-19 -->
     </figure>
       <t> The first line of the discovery response above MUST be included. The five consecutive lines after the first MAY be included. The return of the content types allows the client to choose the most appropriate one.</t>
-     <t>Content format TBD287 can be used in place of 281 when only one 
-  certificate is returned in a /crts, /sen, /sren or /skg response. Content-Format 281 is the default one and MUST be supported by /crts,/sen,/sren, and /skg.
+     <t>Content Format TBD287 can be used in place of 281 when only one 
+  certificate is returned in a /crts, /sen, /sren or /skg response. Content Format 281 is the default one and MUST be supported by /crts,/sen,/sren, and /skg.
   The client is expected to use an COAP Accept Option in the request to 
   express the preferred response content format. If an Accept Option is 
   not included in the client request, the client is not expressing 
   any preference and the server chooses the default format 281. If the 
-  preferred Content-Format cannot be returned, then a 4.06 
+  preferred Content Format cannot be returned, then a 4.06 
   "Not Acceptable" MUST be sent as a response, unless another 
   error code takes precedence for the response <xref target="RFC7252"/>.</t>
-	<t>The Content Formats returned by /est/skg need some explanation. The returned Content Format 62 envelops the content formats 284 and 281, where 281 can be replaced by TBD287. Content Format 281 is the default format and the TBD287 can be requested with an Accept option.</t>
+	<t>The Content Formats returned by /est/skg need some explanation. The returned Content Format 62 envelops the content formats 284, 280 and 281, where 281 can be replaced by TBD287. Content Format 281 is the default format and the TBD287 can be requested with an Accept option.</t>
       <t>Port numbers, not returned in the example, are assumed to be the default numbers 5683 and 5684 for coap and coaps respectively (Sections 12.6 and 12.7 of <xref target="RFC7252"/>). Discoverable port numbers MAY be returned in the &lt;href&gt; of the payload.</t>
 
 	  <t>The server MUST be preconfigured to support the default

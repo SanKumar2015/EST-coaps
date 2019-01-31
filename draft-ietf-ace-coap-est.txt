@@ -5,12 +5,12 @@
 ACE                                                      P. van der Stok
 Internet-Draft                                                Consultant
 Intended status: Standards Track                           P. Kampanakis
-Expires: August 3, 2019                                    Cisco Systems
+Expires: August 4, 2019                                    Cisco Systems
                                                            M. Richardson
                                                                      SSW
                                                                  S. Raza
                                                                RISE SICS
-                                                        January 30, 2019
+                                                        January 31, 2019
 
 
                     EST over secure CoAP (EST-coaps)
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 3, 2019.
+   This Internet-Draft will expire on August 4, 2019.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-van der Stok, et al.     Expires August 3, 2019                 [Page 1]
+van der Stok, et al.     Expires August 4, 2019                 [Page 1]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -74,7 +74,7 @@ Table of Contents
    5.  Protocol Design . . . . . . . . . . . . . . . . . . . . . . .   7
      5.1.  Mandatory/optional EST Functions  . . . . . . . . . . . .   8
      5.2.  Payload format  . . . . . . . . . . . . . . . . . . . . .   8
-       5.2.1.  Content Format application/multipart-core . . . . . .   9
+       5.2.1.  Content_Format application/multipart-core . . . . . .   9
      5.3.  Message Bindings  . . . . . . . . . . . . . . . . . . . .   9
      5.4.  CoAP response codes . . . . . . . . . . . . . . . . . . .  10
      5.5.  Message fragmentation . . . . . . . . . . . . . . . . . .  10
@@ -86,7 +86,7 @@ Table of Contents
    8.  HTTPS-CoAPS Registrar . . . . . . . . . . . . . . . . . . . .  19
    9.  Parameters  . . . . . . . . . . . . . . . . . . . . . . . . .  20
    10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  21
-     10.1.  Content-Format Registry  . . . . . . . . . . . . . . . .  21
+     10.1.  Content_Format Registry  . . . . . . . . . . . . . . . .  21
      10.2.  Resource Type registry . . . . . . . . . . . . . . . . .  22
    11. Security Considerations . . . . . . . . . . . . . . . . . . .  23
      11.1.  EST server considerations  . . . . . . . . . . . . . . .  23
@@ -104,19 +104,19 @@ Table of Contents
    Appendix B.  EST-coaps Block message examples . . . . . . . . . .  37
      B.1.  cacerts . . . . . . . . . . . . . . . . . . . . . . . . .  38
      B.2.  enroll  . . . . . . . . . . . . . . . . . . . . . . . . .  41
-   Appendix C.  Message content breakdown  . . . . . . . . . . . . .  41
-     C.1.  cacerts . . . . . . . . . . . . . . . . . . . . . . . . .  41
+   Appendix C.  Message content breakdown  . . . . . . . . . . . . .  42
+     C.1.  cacerts . . . . . . . . . . . . . . . . . . . . . . . . .  42
 
 
 
-van der Stok, et al.     Expires August 3, 2019                 [Page 2]
+van der Stok, et al.     Expires August 4, 2019                 [Page 2]
 
 Internet-Draft                  EST-coaps                   January 2019
 
 
-     C.2.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  42
-     C.3.  serverkeygen  . . . . . . . . . . . . . . . . . . . . . .  44
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  46
+     C.2.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  44
+     C.3.  serverkeygen  . . . . . . . . . . . . . . . . . . . . . .  45
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  47
 
 1.  Change Log
 
@@ -124,13 +124,13 @@ Internet-Draft                  EST-coaps                   January 2019
 
    -08
 
-      added application/pkix-cert content format TBD287.
+      added application/pkix-cert Content_Format TBD287.
 
       Minor text fixes.
 
       Stated that well-known/est is compulsory
 
-      removed bugs: Max-Age and Content-Format options in Request
+      removed bugs: Max-Age and Content_Format options in Request
 
       accept option explained for est/skg and added in enroll example
 
@@ -156,7 +156,7 @@ Internet-Draft                  EST-coaps                   January 2019
 
       Added RFC8174 reference and text.
 
-      Clarified MTI for server-side key generation and Content-Formats.
+      Clarified MTI for server-side key generation and Content_Formats.
       Defined the /skg MTI (PKCS#8) and the cases where CMS encryption
       will be used.
 
@@ -165,7 +165,7 @@ Internet-Draft                  EST-coaps                   January 2019
 
 
 
-van der Stok, et al.     Expires August 3, 2019                 [Page 3]
+van der Stok, et al.     Expires August 4, 2019                 [Page 3]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -203,13 +203,13 @@ Internet-Draft                  EST-coaps                   January 2019
 
       Removed observe and simplified long waits
 
-      Repaired content-format specification
+      Repaired Content_Format specification
 
    -02:
 
       Added parameter discussion in section 8
 
-      Concluded content-format specification using multipart-ct draft
+      Concluded Content_Format specification using multipart-ct draft
 
       examples updated
 
@@ -221,7 +221,7 @@ Internet-Draft                  EST-coaps                   January 2019
 
 
 
-van der Stok, et al.     Expires August 3, 2019                 [Page 4]
+van der Stok, et al.     Expires August 4, 2019                 [Page 4]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -238,10 +238,10 @@ Internet-Draft                  EST-coaps                   January 2019
 
       Broke down details for DTLS 1.3
 
-      New media type uses CBOR array for multiple content-format
+      New media type uses CBOR array for multiple Content_Format
       payloads
 
-      provided new content format tables
+      provided new Content_Format tables
 
       new media format for IANA
 
@@ -277,7 +277,7 @@ Internet-Draft                  EST-coaps                   January 2019
 
 
 
-van der Stok, et al.     Expires August 3, 2019                 [Page 5]
+van der Stok, et al.     Expires August 4, 2019                 [Page 5]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -333,7 +333,7 @@ Internet-Draft                  EST-coaps                   January 2019
 
 
 
-van der Stok, et al.     Expires August 3, 2019                 [Page 6]
+van der Stok, et al.     Expires August 4, 2019                 [Page 6]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -389,7 +389,7 @@ Internet-Draft                  EST-coaps                   January 2019
 
 
 
-van der Stok, et al.     Expires August 3, 2019                 [Page 7]
+van der Stok, et al.     Expires August 4, 2019                 [Page 7]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -427,13 +427,13 @@ Internet-Draft                  EST-coaps                   January 2019
 
 5.2.  Payload format
 
-   The content format (media type equivalent) of the CoAP message
+   The Content_Format (media type equivalent) of the CoAP message
    determines which EST message is transported in the CoAP payload.  The
    media types specified in the HTTP Content-Type header (section 3.2.2
-   of [RFC7030]) are in EST-coaps specified by the Content-Format Option
-   (12) of CoAP.  The combination of URI path and content-format in EST-
+   of [RFC7030]) are in EST-coaps specified by the Content_Format Option
+   (12) of CoAP.  The combination of URI path and Content_Format in EST-
    coaps MUST map to an allowed combination of URI and media type in
-   EST.  The required Content-Formats for these requests and response
+   EST.  The required Content_Formats for these requests and response
    messages are defined in Section 10.1.  The CoAP response codes are
    defined in Section 5.4.
 
@@ -445,7 +445,7 @@ Internet-Draft                  EST-coaps                   January 2019
 
 
 
-van der Stok, et al.     Expires August 3, 2019                 [Page 8]
+van der Stok, et al.     Expires August 4, 2019                 [Page 8]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -453,22 +453,22 @@ Internet-Draft                  EST-coaps                   January 2019
    specifies the payload structure when multiple media types are present
    in the payload.
 
-5.2.1.  Content Format application/multipart-core
+5.2.1.  Content_Format application/multipart-core
 
-   A representation with content format ID 62 contains a collection of
-   representations along with their respective content format.  The
-   content-format identifies the media-type application/multipart-core
+   A representation with Content_Format ID 62 contains a collection of
+   representations along with their respective Content_Format.  The
+   Content_Format identifies the media-type application/multipart-core
    specified in [I-D.ietf-core-multipart-ct].
 
    The collection is encoded as a CBOR array [RFC7049] with an even
    number of elements.  The second, fourth, sixth, etc. element is a
    binary string containing a representation.  The first, third, fifth,
-   etc. element is an unsigned integer specifying the content format ID
+   etc. element is an unsigned integer specifying the Content_Format ID
    of the consecutive representation.  For example, a collection
    containing two representations in response to a server-side key
    generation request, could include a private key in PKCS#8 [RFC5958]
-   with content format ID 284 (0x011C) and a single certificate in
-   PKCS#7 with content format ID 281 (0x0119).  Such a collection would
+   with Content_Format ID 284 (0x011C) and a single certificate in
+   PKCS#7 with Content_Format ID 281 (0x0119).  Such a collection would
    look like [284,h'0123456789abcdef', 281,h'fedcba9876543210'] in
    diagnostic CBOR notation.  The serialization of such CBOR content
    would be
@@ -488,7 +488,7 @@ Internet-Draft                  EST-coaps                   January 2019
    encoded in binary DER format.  An example is shown in Appendix A.4.
 
    In cases where the private key is further encrypted with CMS (as
-   explained in Section 5.7) the content format ID is 280 (0x0118).
+   explained in Section 5.7) the Content_Format ID is 280 (0x0118).
 
 5.3.  Message Bindings
 
@@ -501,7 +501,7 @@ Internet-Draft                  EST-coaps                   January 2019
 
 
 
-van der Stok, et al.     Expires August 3, 2019                 [Page 9]
+van der Stok, et al.     Expires August 4, 2019                 [Page 9]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -509,8 +509,8 @@ Internet-Draft                  EST-coaps                   January 2019
    o  The Ver, TKL, Token, and Message ID values of the CoAP header are
       not affected by EST.
 
-   o  The CoAP options used are Uri-Host, Uri-Path, Uri-Port, Content-
-      Format, and Location-Path.  These CoAP Options are used to
+   o  The CoAP options used are Uri-Host, Uri-Path, Uri-Port,
+      Content_Format, and Location-Path.  These CoAP Options are used to
       communicate the HTTP fields specified in the EST REST messages.
 
    o  EST URLs are HTTPS based (https://), in CoAP these are assumed to
@@ -538,10 +538,10 @@ Internet-Draft                  EST-coaps                   January 2019
    error translates to 4.01 in EST-coaps.  Other EST HTTP error messages
    are 400, 423 and 503.  Their equivalent CoAP errors are 4.00, 4.03
    and 5.03 respectively.  In case a COAP option is unrecognized or
-   unsafe, the server is expected to return a 4.02.  If the Content-
-   Format requested in the client Accept Option, is not supported the
-   server MUST return a 4.06, unless another error code takes precedence
-   for the response.
+   unsafe, the server is expected to return a 4.02.  If the
+   Content_Format requested in the client Accept Option, is not
+   supported the server MUST return a 4.06, unless another error code
+   takes precedence for the response.
 
 5.5.  Message fragmentation
 
@@ -557,7 +557,7 @@ Internet-Draft                  EST-coaps                   January 2019
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 10]
+van der Stok, et al.     Expires August 4, 2019                [Page 10]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -613,7 +613,7 @@ Internet-Draft                  EST-coaps                   January 2019
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 11]
+van der Stok, et al.     Expires August 4, 2019                [Page 11]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -669,7 +669,7 @@ Internet-Draft                  EST-coaps                   January 2019
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 12]
+van der Stok, et al.     Expires August 4, 2019                [Page 12]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -725,7 +725,7 @@ Internet-Draft                  EST-coaps                   January 2019
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 13]
+van der Stok, et al.     Expires August 4, 2019                [Page 13]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -754,42 +754,42 @@ Internet-Draft                  EST-coaps                   January 2019
    request.  The symmetric key or the asymmetric keypair establishment
    method is out of scope of this specification.
 
-   The sever-side key generation response is returned with content
-   format application/multipart-core [I-D.ietf-core-multipart-ct]
-   containing a CBOR array with four items (Section 5.2.1).  The
-   certificate part exactly matches the response from an enrollment
-   response.  The private key can be in unprotected PKCS#8 [RFC5958]
-   format (content format 284) or protected inside of CMS SignedData
-   (content format 280).  The SignedData is signed by the party that
-   generated the private key, which may or may not be the EST server or
-   the EST CA.  The SignedData is further protected by placing it inside
-   of a CMS EnvelopedData as explained in Section 4.4.2 of [RFC7030].
-   In summary, the symmetricly encrypted key is included in the
-   encryptedKey attribute in a KEKRecipientInfo structure.  In the case
-   where the asymmetric encryption key is suitable for transport key
-   operations the generated private key is encrypted with a symmetric
-   key which is encrypted by using the client defined (in the CSR)
-   asymmetric public key and is carried in an encryptedKey attribute in
-   a KeyTransRecipientInfo.  Finally, if the asymmetric encryption key
-   is suitable for key agreement, the generated private key is encrypted
-   with a symmetric key which is encrypted by using the client defined
-   (in the CSR) asymmetric public key and is carried in an
-   recipientEncryptedKeys attribute in a KeyAgreeRecipientInfo.
+   The sever-side key generation response is returned with
+   Content_Format application/multipart-core
+   [I-D.ietf-core-multipart-ct] containing a CBOR array with four items
+   (Section 5.2.1).  The certificate part exactly matches the response
+   from an enrollment response.  The private key can be in unprotected
+   PKCS#8 [RFC5958] format (Content_Format 284) or protected inside of
+   CMS SignedData (Content_Format 280).  The SignedData is signed by the
+   party that generated the private key, which may or may not be the EST
+   server or the EST CA.  The SignedData is further protected by placing
+   it inside of a CMS EnvelopedData as explained in Section 4.4.2 of
+   [RFC7030].  In summary, the symmetricly encrypted key is included in
+   the encryptedKey attribute in a KEKRecipientInfo structure.  In the
+   case where the asymmetric encryption key is suitable for transport
+   key operations the generated private key is encrypted with a
+   symmetric key which is encrypted by using the client defined (in the
+   CSR) asymmetric public key and is carried in an encryptedKey
+   attribute in a KeyTransRecipientInfo.  Finally, if the asymmetric
+   encryption key is suitable for key agreement, the generated private
+   key is encrypted with a symmetric key which is encrypted by using the
+   client defined (in the CSR) asymmetric public key and is carried in
+   an recipientEncryptedKeys attribute in a KeyAgreeRecipientInfo.
 
    [RFC7030] recommends the use of additional encryption of the returned
    private key.  For the context of this specification, clients and
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 14]
+van der Stok, et al.     Expires August 4, 2019                [Page 14]
 
 Internet-Draft                  EST-coaps                   January 2019
 
 
    servers that choose to support server-side key generation MUST
-   support unprotected (PKCS#8) private keys (content format 284).
+   support unprotected (PKCS#8) private keys (Content_Format 284).
    Symmetric or asymmetric encryption of the private key (CMS
-   EnvelopedData, content format 280) SHOULD be supported for
+   EnvelopedData, Content_Format 280) SHOULD be supported for
    deployments where end-to-end encryption needs to be provided between
    the client and a server.  Such cases could include architectures
    where an entity between the client and the CA terminates the DTLS
@@ -837,7 +837,7 @@ Internet-Draft                  EST-coaps                   January 2019
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 15]
+van der Stok, et al.     Expires August 4, 2019                [Page 15]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -883,29 +883,29 @@ Internet-Draft                  EST-coaps                   January 2019
    of the content types allows the client to choose the most appropriate
    one.
 
-   Content Format TBD287 can be used in place of 281 when only one
+   Content_Format TBD287 can be used in place of 281 when only one
    certificate is returned in a /crts, /sen, /sren or /skg response.
-   Content Format 281 is the default one and MUST be supported by
+   Content_Format 281 is the default one and MUST be supported by
    /crts,/sen,/sren, and /skg.  The client is expected to use an COAP
    Accept Option in the request to express the preferred response
-   content format.  If an Accept Option is not included in the client
+   Content_Format.  If an Accept Option is not included in the client
    request, the client is not expressing any preference and the server
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 16]
+van der Stok, et al.     Expires August 4, 2019                [Page 16]
 
 Internet-Draft                  EST-coaps                   January 2019
 
 
-   chooses the default format 281.  If the preferred Content Format
+   chooses the default format 281.  If the preferred Content_Format
    cannot be returned, then a 4.06 "Not Acceptable" MUST be sent as a
    response, unless another error code takes precedence for the response
    [RFC7252].
 
-   The Content Formats returned by /est/skg need some explanation.  The
-   returned Content Format 62 envelops the content formats 284, 280 and
-   281, where 281 can be replaced by TBD287.  Content Format 281 is the
+   The Content_Formats returned by /est/skg need some explanation.  The
+   returned Content_Format 62 envelops the Content_Formats 284, 280 and
+   281, where 281 can be replaced by TBD287.  Content_Format 281 is the
    default format and the TBD287 can be requested with an Accept option.
 
    Port numbers, not returned in the example, are assumed to be the
@@ -949,7 +949,7 @@ Internet-Draft                  EST-coaps                   January 2019
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 17]
+van der Stok, et al.     Expires August 4, 2019                [Page 17]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -1005,7 +1005,7 @@ Internet-Draft                  EST-coaps                   January 2019
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 18]
+van der Stok, et al.     Expires August 4, 2019                [Page 18]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -1061,7 +1061,7 @@ Internet-Draft                  EST-coaps                   January 2019
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 19]
+van der Stok, et al.     Expires August 4, 2019                [Page 19]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -1079,7 +1079,7 @@ Internet-Draft                  EST-coaps                   January 2019
    Section 7 of [RFC8075] define the mappings between EST-coaps and HTTP
    response codes, that determine how the Registrar MUST translate CoAP
    response codes from/to HTTP status codes.  The mapping from CoAP
-   Content-Format to HTTP Media-Type is defined in Section 10.1.
+   Content_Format to HTTP Media-Type is defined in Section 10.1.
    Additionally, a conversion from CBOR major type 2 to Base64 encoding
    MUST take place at the Registrar when server-side key generation is
    supported.  If CMS end-to-end encryption is employed for the private
@@ -1109,15 +1109,15 @@ Internet-Draft                  EST-coaps                   January 2019
             DEFAULT_LEISURE   | 5 seconds     |
             PROBING_RATE      | 1 byte/second |
 
-   EST does not impose any unique parameters that affect the CoAP
-   parameters But the CoAP ones could be affecting EST.  For example,
-   the processing delay of CAs could be less then 2s, but in this case
-   the EST-coaps server should be sending a CoAP ACK every 2s while
-   processing.
+   EST does not impose any unique values on the CoAP parameters, but the
+   EST parameter values need to be tuned to the CoAP parameter vaues.
+   For example, the processing delay of CAs could be less then 2s, but
+   in this case the EST-coaps server should be sending a CoAP ACK every
+   2s while processing.
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 20]
+van der Stok, et al.     Expires August 4, 2019                [Page 20]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -1150,9 +1150,9 @@ Internet-Draft                  EST-coaps                   January 2019
 
 10.  IANA Considerations
 
-10.1.  Content-Format Registry
+10.1.  Content_Format Registry
 
-   Additions to the sub-registry "CoAP Content-Formats", within the
+   Additions to the sub-registry "CoAP Content_Formats", within the
    "CoRE Parameters" registry [COREparams] are specified in Table 3.
    These have been registered provisionally in the Expert Review range
    (0-255).
@@ -1173,7 +1173,7 @@ Internet-Draft                  EST-coaps                   January 2019
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 21]
+van der Stok, et al.     Expires August 4, 2019                [Page 21]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -1199,9 +1199,9 @@ Internet-Draft                  EST-coaps                   January 2019
    |                              |     7 |                            |
    +------------------------------+-------+----------------------------+
 
-                     Table 3: New CoAP Content-Formats
+                     Table 3: New CoAP Content_Formats
 
-   The Content-Formats 281 to 286 have been the subject of an earlier
+   The Content_Formats 281 to 286 have been the subject of an earlier
    temporary allocation.  It is suggested that 287 is allocated to
    TBD287.
 
@@ -1229,7 +1229,7 @@ Internet-Draft                  EST-coaps                   January 2019
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 22]
+van der Stok, et al.     Expires August 4, 2019                [Page 22]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -1285,7 +1285,7 @@ Internet-Draft                  EST-coaps                   January 2019
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 23]
+van der Stok, et al.     Expires August 4, 2019                [Page 23]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -1341,7 +1341,7 @@ Internet-Draft                  EST-coaps                   January 2019
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 24]
+van der Stok, et al.     Expires August 4, 2019                [Page 24]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -1382,7 +1382,7 @@ Internet-Draft                  EST-coaps                   January 2019
 
    The authors are very grateful to Klaus Hartke for his detailed
    explanations on the use of Block with DTLS and his support for the
-   content format specification.  The authors would like to thank Esko
+   Content_Format specification.  The authors would like to thank Esko
    Dijk and Michael Verschoor for the valuable discussions that helped
    in shaping the solution.  They would also like to thank Peter
    Panburana for his feedback on technical details of the solution.
@@ -1397,7 +1397,7 @@ Internet-Draft                  EST-coaps                   January 2019
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 25]
+van der Stok, et al.     Expires August 4, 2019                [Page 25]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -1453,7 +1453,7 @@ Internet-Draft                  EST-coaps                   January 2019
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 26]
+van der Stok, et al.     Expires August 4, 2019                [Page 26]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -1509,7 +1509,7 @@ Internet-Draft                  EST-coaps                   January 2019
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 27]
+van der Stok, et al.     Expires August 4, 2019                [Page 27]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -1565,7 +1565,7 @@ Internet-Draft                  EST-coaps                   January 2019
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 28]
+van der Stok, et al.     Expires August 4, 2019                [Page 28]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -1621,7 +1621,7 @@ Internet-Draft                  EST-coaps                   January 2019
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 29]
+van der Stok, et al.     Expires August 4, 2019                [Page 29]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -1677,7 +1677,7 @@ Appendix A.  EST messages to EST-coaps
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 30]
+van der Stok, et al.     Expires August 4, 2019                [Page 30]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -1696,19 +1696,27 @@ A.1.  cacerts
      Code = 0x01 (0.01 is GET)
      Token = 0x9a (client generated)
      Options
-      Option
-        Option Delta = 0xb   (option# 11 Uri-Path)
+     Option (Uri-Host)               [optional]
+        Option Delta = 0x3  (option nr = 3)
+        Option Length = 0x9
+        Option Value = 192.0.2.1
+     Option (Uri-Port)               [optional]
+        Option Delta = 0x4  (option nr = 3+4=7)
+        Option Length = 0x4
+        Option Value = 8085
+      Option (Uri-Path)
+        Option Delta = 0x4   (option nr = 7+4=11)
         Option Length = 0x5
         Option Value = "est"
-      Option
-        Option Delta = 0x0   (option# 11+0=11 Uri-Path)
+      Option (Uri-Path)
+        Option Delta = 0x0   (option# 11+0=11)
         Option Length = 0x6
         Option Value = "crts"
      Payload = [Empty]
 
    A 2.05 Content response with a cert in EST-coaps will then be
 
-   2.05 Content (Content-Format: 281)
+   2.05 Content (Content_Format: 281)
       {payload with certificate in binary DER format}
 
    with CoAP fields
@@ -1725,15 +1733,7 @@ A.1.  cacerts
 
 
 
-
-
-
-
-
-
-
-
-van der Stok, et al.     Expires August 3, 2019                [Page 31]
+van der Stok, et al.     Expires August 4, 2019                [Page 31]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -1744,7 +1744,7 @@ Internet-Draft                  EST-coaps                   January 2019
      Token = 0x9a   (copied from request by server)
      Options
        Option
-         Option Delta = 0xC  (option# 12 Content-Format)
+         Option Delta = 0xC  (option# 12 Content_Format)
          Option Length = 0x2
          Option Value = 281
 
@@ -1789,7 +1789,7 @@ A.2.  csrattrs
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 32]
+van der Stok, et al.     Expires August 4, 2019                [Page 32]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -1797,7 +1797,7 @@ Internet-Draft                  EST-coaps                   January 2019
    REQ:
    GET coaps://[2001:db8::2:1]:61616/est/att
    RET:
-   2.05 Content (Content-Format: 285)
+   2.05 Content (Content_Format: 285)
 
    [ The hexadecimal representation below would NOT be transported
    in hex, but in DER. Hex is used because a binary representation
@@ -1819,9 +1819,9 @@ Internet-Draft                  EST-coaps                   January 2019
 A.3.  enroll / reenroll
 
    During the (re-)enroll exchange the EST-coaps client uses a CSR
-   (Content-Format 286) request in the POST request payload.  The Accept
+   (Content_Format 286) request in the POST request payload.  The Accept
    281 option is not stricly necessary because 281 is the default
-   returned Content Format.  As shown in Appendix C.2, the CSR contains
+   returned Content_Format.  As shown in Appendix C.2, the CSR contains
    a ChallengePassword which is used for POP linking (Section 7).
 
 
@@ -1845,7 +1845,7 @@ A.3.  enroll / reenroll
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 33]
+van der Stok, et al.     Expires August 4, 2019                [Page 33]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -1853,26 +1853,26 @@ Internet-Draft                  EST-coaps                   January 2019
    POST [2001:db8::2:1]:61616/est/sen
    (token 0x45)
    (Accept 281)
-   (Content-Format: 286)
+   (Content_Format: 286)
 
    [ The hexadecimal representation below would NOT be transported
    in hex, but in DER. Hex is used because a binary representation
    cannot be rendered well in text. ]
 
-   308201853082012c0201003070310b3009060355040613025553310b3009
+   3082018b30820131020100305c310b3009060355040613025553310b3009
    06035504080c024341310b300906035504070c024c413114301206035504
-   0a0c0b6578616d706c6520496e63310c300a060355040b0c03496f543112
-   301006035504030c09436c69656e74205241310f300d0603550405130657
-   74313233343059301306072a8648ce3d020106082a8648ce3d0301070342
-   00041bb8c1117896f98e4506c03d70efbe820d8e38ea97e9d65d52c8460c
-   5852c51dd89a61370a2843760fc859799d78cd33f3c1846e304f1717f812
-   3f1a284cc99fa05a301b06092a864886f70d010907310e0c0c6461746e69
-   65746465657274303b06092a864886f70d01090e312e302c302a0603551d
-   1104233021a01f06082b06010505070804a013301106092b06010401b43b
-   0a01040401020304300a06082a8648ce3d040302034700304402201f82c6
-   868a654e2dec43cff50aebd6cbbe20dc8242a20a806684f2b8545d008902
-   20668de2c306df1768105a781e49b1cdc42a2a7f41d6b71d928789547d61
-   b2b7cf
+   0a0c0b6578616d706c6520496e63310c300a060355040b0c03496f54310f
+   300d060355040513065774313233343059301306072a8648ce3d02010608
+   2a8648ce3d03010703420004c8b421f11c25e47e3ac57123bf2d9fdc494f
+   028bc351cc80c03f150bf50cff958d75419d81a6a245dffae790be95cf75
+   f602f9152618f816a2b23b5638e59fd9a073303406092a864886f70d0109
+   0731270c2576437630292a264a4b4a3bc3a2c280c2992f3e3c2e2c3d6b6e
+   7634332323403d204e787e60303b06092a864886f70d01090e312e302c30
+   2a0603551d1104233021a01f06082b06010505070804a013301106092b06
+   010401b43b0a01040401020304300a06082a8648ce3d0403020348003045
+   02210092563a546463bd9ecff170d0fd1f2ef0d3d012160e5ee90cffedab
+   ec9b9a38920220179f10a3436109051abad17590a09bc87c4dce5453a6fc
+   1135a1e84eed754377
 
    After verification of the CSR by the server, a 2.01 Content response
    with the issued certificate will be returned to the client.  As
@@ -1901,41 +1901,40 @@ Internet-Draft                  EST-coaps                   January 2019
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 34]
+van der Stok, et al.     Expires August 4, 2019                [Page 34]
 
 Internet-Draft                  EST-coaps                   January 2019
 
 
    RET:
-   (Content-Format: 281)(token =0x45)
+   (Content_Format: 281)(token =0x45)
    2.01 Created
 
    [ The hexadecimal representation below would NOT be transported
    in hex, but in DER. Hex is used because a binary representation
    cannot be rendered well in text. ]
 
-   3082028206092a864886f70d010702a08202733082026f0201013100300b
-   06092a864886f70d010701a082025530820251308201f7a0030201020209
-   00ce06119a0fd27ca9300a06082a8648ce3d040302305d310b3009060355
-   040613025553310b300906035504080c02434131143012060355040a0c0b
-   4578616d706c6520496e6331163014060355040b0c0d6365727469666963
-   6174696f6e3113301106035504030c0a3830322e3141522043413020170d
-   3139303130373130343832345a180f39393939313233313233353935395a
-   3070310b3009060355040613025553310b300906035504080c024341310b
-   300906035504070c024c4131143012060355040a0c0b6578616d706c6520
-   496e63310c300a060355040b0c03496f543112301006035504030c09436c
-   69656e74205241310f300d06035504051306577431323334305930130607
-   2a8648ce3d020106082a8648ce3d030107034200041bb8c1117896f98e45
-   06c03d70efbe820d8e38ea97e9d65d52c8460c5852c51dd89a61370a2843
-   760fc859799d78cd33f3c1846e304f1717f8123f1a284cc99fa3818a3081
-   8730090603551d1304023000301d0603551d0e04160414494be598dc8dbc
-   0dbc071c486b777460e5cce621301f0603551d23041830168014d344161b
-   ff1fa5343015958577dd33507be6b29b300e0603551d0f0101ff04040302
-   05a0302a0603551d1104233021a01f06082b06010505070804a013301106
-   092b06010401b43b0a01040401020304300a06082a8648ce3d0403020348
-   003045022100a8073d6c1f9abb40739fc85a3773378568544036d8cd24f0
-   1d4b34cb61d9602c022008cc77f8dd5ca7c2fcf95ffc94fdc341e2b61080
-   118a9576c09e88d2fbd8a921a1003100
+   3082026e06092a864886f70d010702a082025f3082025b0201013100300b
+   06092a864886f70d010701a08202413082023d308201e2a0030201020208
+   7e7661d7b54e4632300a06082a8648ce3d040302305d310b300906035504
+   0613025553310b300906035504080c02434131143012060355040a0c0b45
+   78616d706c6520496e6331163014060355040b0c0d636572746966696361
+   74696f6e3113301106035504030c0a3830322e3141522043413020170d31
+   39303133313131323931365a180f39393939313233313233353935395a30
+   5c310b3009060355040613025553310b300906035504080c024341310b30
+   0906035504070c024c4131143012060355040a0c0b6578616d706c652049
+   6e63310c300a060355040b0c03496f54310f300d06035504051306577431
+   3233343059301306072a8648ce3d020106082a8648ce3d03010703420004
+   c8b421f11c25e47e3ac57123bf2d9fdc494f028bc351cc80c03f150bf50c
+   ff958d75419d81a6a245dffae790be95cf75f602f9152618f816a2b23b56
+   38e59fd9a3818a30818730090603551d1304023000301d0603551d0e0416
+   041496600d8716bf7fd0e752d0ac760777ad665d02a0301f0603551d2304
+   183016801468d16551f951bfc82a431d0d9f08bc2d205b1160300e060355
+   1d0f0101ff0404030205a0302a0603551d1104233021a01f06082b060105
+   05070804a013301106092b06010401b43b0a01040401020304300a06082a
+   8648ce3d0403020349003046022100c0d81996d2507d693f3c48eaa5ee94
+   91bda6db214099d98117c63b361374cd86022100a774989f4c321a5cf25d
+   832a4d336a08ad67df20f1506421188a0ade6d349236a1003100
 
    The breakdown of the request and response is shown in Appendix C.2.
 
@@ -1957,14 +1956,15 @@ A.4.  serverkeygen
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 35]
+
+van der Stok, et al.     Expires August 4, 2019                [Page 35]
 
 Internet-Draft                  EST-coaps                   January 2019
 
 
    POST coaps://192.0.2.1:8085/est/skg
    (token 0xa5)
-   (Content-Format: 286)
+   (Content_Format: 286)
 
    [ The hexadecimal representation below would NOT be transported
    in hex, but in DER. Hex is used because a binary representation
@@ -2013,13 +2013,13 @@ Internet-Draft                  EST-coaps                   January 2019
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 36]
+van der Stok, et al.     Expires August 4, 2019                [Page 36]
 
 Internet-Draft                  EST-coaps                   January 2019
 
 
    RET:
-   2.01 Content (Content-Format: 62)
+   2.01 Content (Content_Format: 62)
    (token=0xa5)
 
    [ The hexadecimal representations below would NOT be transported
@@ -2069,7 +2069,7 @@ Appendix B.  EST-coaps Block message examples
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 37]
+van der Stok, et al.     Expires August 4, 2019                [Page 37]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -2103,7 +2103,7 @@ B.1.  cacerts
    bit (M = 0 in Block2 response means it is last block), and block size
    with exponent (2**(SZX+4)) separated by slashes.  The Length 64 is
    used with SZX=2 to avoid IP fragmentation.  The CoAP Request is sent
-   with confirmable (CON) option and the content format of the response,
+   with confirmable (CON) option and the Content_Format of the response,
    even though not shown, is 281 (application/pkcs7-mime; smime-
    type=certs-only).  The transer of the 11 blocks with partially filled
    block NUM=10 is shown below
@@ -2125,7 +2125,7 @@ B.1.  cacerts
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 38]
+van der Stok, et al.     Expires August 4, 2019                [Page 38]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -2135,12 +2135,20 @@ Internet-Draft                  EST-coaps                   January 2019
      Code = 0x01 (0.1 GET)
      Token = 0x9a    (client generated)
      Options
-      Option
-        Option Delta = 0xb    (option# 11 Uri-Path)
+      Option (Uri-Host)            [optional]
+        Option Delta = 0x3  (option nr = 3)
+        Option Length = 0x9
+        Option Value = 192.0.2.1
+      Option (Uri-Port)            [optional]
+        Option Delta = 0x4   (option nr = 3+4=7)
+        Option Length = 0x4
+        Option Value = 8085
+      Option (Uri-Path)
+        Option Delta = 0x4    (option nr = 7+4=11)
         Option Length = 0x5
         Option Value = "est"
-      Option4
-        Option Delta = 0x0    (option# 11+0=11 Uri-Path)
+      Option (Uri-Path)
+        Option Delta = 0x0    (option# 11+0=11)
         Option Length = 0x6
         Option Value = "crts"
      Payload = [Empty]
@@ -2149,13 +2157,42 @@ Internet-Draft                  EST-coaps                   January 2019
    blocks are written out below.  The header of the first Block2
    response looks like
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+van der Stok, et al.     Expires August 4, 2019                [Page 39]
+
+Internet-Draft                  EST-coaps                   January 2019
+
+
      Ver = 1
      T = 2 (ACK)
      Code = 0x45 (2.05 Content)
      Token = 0x9a     (copied from request by server)
      Options
        Option
-         Option Delta = 0xC  (option# 12 Content-Format)
+         Option Delta = 0xC  (option# 12 Content_Format)
          Option Length = 0x2
          Option Value = 281
        Option
@@ -2174,25 +2211,13 @@ Internet-Draft                  EST-coaps                   January 2019
 
    The second Block2:
 
-
-
-
-
-
-
-
-van der Stok, et al.     Expires August 3, 2019                [Page 39]
-
-Internet-Draft                  EST-coaps                   January 2019
-
-
      Ver = 1
      T = 2 (means ACK)
      Code = 0x45 (2.05 Content)
      Token = 0x9a     (copied from request by server)
      Options
        Option
-         Option Delta = 0xC  (option# 12 Content-Format)
+         Option Delta = 0xC  (option# 12 Content_Format)
          Option Length = 0x2
          Option Value = 281
        Option
@@ -2210,6 +2235,13 @@ Internet-Draft                  EST-coaps                   January 2019
    30120603
 
 
+
+
+van der Stok, et al.     Expires August 4, 2019                [Page 40]
+
+Internet-Draft                  EST-coaps                   January 2019
+
+
    The 11th and final Block2:
 
      Ver = 1
@@ -2218,7 +2250,7 @@ Internet-Draft                  EST-coaps                   January 2019
      Token = 0x9a     (copied from request by server)
      Options
        Option
-         Option Delta = 0xC  (option# 12 Content-Format)
+         Option Delta = 0xC  (option# 12 Content_Format)
          Option Length = 0x2
          Option Value = 281
        Option
@@ -2235,13 +2267,6 @@ Internet-Draft                  EST-coaps                   January 2019
    e5c7306163b3c3834bab3c103f743070594c089aaa0ac870cd13b902caa1
    003100
 
-
-
-van der Stok, et al.     Expires August 3, 2019                [Page 40]
-
-Internet-Draft                  EST-coaps                   January 2019
-
-
 B.2.  enroll
 
    In this example the requested Block2 size of 256 bytes, required by
@@ -2251,6 +2276,26 @@ B.2.  enroll
    assumed that CSR takes N1+1 blocks and the cert response takes N2+1
    blocks.  The header fields and the payload are omitted for brevity.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+van der Stok, et al.     Expires August 4, 2019                [Page 41]
+
+Internet-Draft                  EST-coaps                   January 2019
 
 
    POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
@@ -2293,7 +2338,18 @@ C.1.  cacerts
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 41]
+
+
+
+
+
+
+
+
+
+
+
+van der Stok, et al.     Expires August 4, 2019                [Page 42]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -2341,48 +2397,53 @@ Internet-Draft                  EST-coaps                   January 2019
             2f:02:20:47:a2:8a:e5:c7:30:61:63:b3:c3:83:4b:ab:3c:10:
             3f:74:30:70:59:4c:08:9a:aa:0a:c8:70:cd:13:b9:02:ca
 
-C.2.  enroll / reenroll
-
-   The breakdown of the request is
 
 
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 42]
+
+
+
+van der Stok, et al.     Expires August 4, 2019                [Page 43]
 
 Internet-Draft                  EST-coaps                   January 2019
 
+
+C.2.  enroll / reenroll
+
+   The breakdown of the request is
 
    Certificate Request:
        Data:
            Version: 0 (0x0)
            Subject: C=US, ST=CA, L=LA, O=example Inc,
-                    OU=IoT, CN=Client RA/serialNumber=Wt1234
+                                   OU=IoT/serialNumber=Wt1234
            Subject Public Key Info:
                Public Key Algorithm: id-ecPublicKey
                    Public-Key: (256 bit)
                    pub:
-                       04:1b:b8:c1:11:78:96:f9:8e:45:06:c0:3d:70:ef:
-                       be:82:0d:8e:38:ea:97:e9:d6:5d:52:c8:46:0c:58:
-                       52:c5:1d:d8:9a:61:37:0a:28:43:76:0f:c8:59:79:
-                       9d:78:cd:33:f3:c1:84:6e:30:4f:17:17:f8:12:3f:
-                       1a:28:4c:c9:9f
+                       04:c8:b4:21:f1:1c:25:e4:7e:3a:c5:71:23:bf:2d:
+                       9f:dc:49:4f:02:8b:c3:51:cc:80:c0:3f:15:0b:f5:
+                       0c:ff:95:8d:75:41:9d:81:a6:a2:45:df:fa:e7:90:
+                       be:95:cf:75:f6:02:f9:15:26:18:f8:16:a2:b2:3b:
+                       56:38:e5:9f:d9
                    ASN1 OID: prime256v1
                    NIST CURVE: P-256
            Attributes:
-               challengePassword        :datnietdeert
+               challengePassword        : 0x---------
            Requested Extensions:
                X509v3 Subject Alternative Name:
                    othername:<unsupported>
        Signature Algorithm: ecdsa-with-SHA256
-            30:44:02:20:1f:82:c6:86:8a:65:4e:2d:ec:43:cf:f5:0a:eb:
-            d6:cb:be:20:dc:82:42:a2:0a:80:66:84:f2:b8:54:5d:00:89:
-            02:20:66:8d:e2:c3:06:df:17:68:10:5a:78:1e:49:b1:cd:c4:
-            2a:2a:7f:41:d6:b7:1d:92:87:89:54:7d:61:b2:b7:cf
+            30:45:02:21:00:92:56:3a:54:64:63:bd:9e:cf:f1:70:d0:fd:
+            1f:2e:f0:d3:d0:12:16:0e:5e:e9:0c:ff:ed:ab:ec:9b:9a:38:
+            92:02:20:17:9f:10:a3:43:61:09:05:1a:ba:d1:75:90:a0:9b:
+            c8:7c:4d:ce:54:53:a6:fc:11:35:a1:e8:4e:ed:75:43:77
 
    The CSR contained a ChallengePassword which is used for POP linking
-   (Section 7)
+   (Section 7).  The value is repesented with 0x--------- because xml
+   parser fails on it.
 
    The breakdown of the issued certificate response is
 
@@ -2400,12 +2461,7 @@ Internet-Draft                  EST-coaps                   January 2019
 
 
 
-
-
-
-
-
-van der Stok, et al.     Expires August 3, 2019                [Page 43]
+van der Stok, et al.     Expires August 4, 2019                [Page 44]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -2413,45 +2469,45 @@ Internet-Draft                  EST-coaps                   January 2019
    Certificate:
        Data:
            Version: 3 (0x2)
-           Serial Number:
-               ce:06:11:9a:0f:d2:7c:a9
+           Serial Number: 9112578475118446130 (0x7e7661d7b54e4632)
        Signature Algorithm: ecdsa-with-SHA256
-           Issuer: C=US, ST=CA, O=Example Inc,
-                   OU=certification, CN=802.1AR CA
+           Issuer: C=US, ST=CA, O=Example Inc, OU=certification,
+                              CN=802.1AR CA
            Validity
-               Not Before: Jan  7 10:48:24 2019 GMT
+               Not Before: Jan 31 11:29:16 2019 GMT
                Not After : Dec 31 23:59:59 9999 GMT
            Subject: C=US, ST=CA, L=LA, O=example Inc,
-                    OU=IoT, CN=Client RA/serialNumber=Wt1234
+                                OU=IoT/serialNumber=Wt1234
            Subject Public Key Info:
                Public Key Algorithm: id-ecPublicKey
                    Public-Key: (256 bit)
                    pub:
-                       04:1b:b8:c1:11:78:96:f9:8e:45:06:c0:3d:70:ef:
-                       be:82:0d:8e:38:ea:97:e9:d6:5d:52:c8:46:0c:58:
-                       52:c5:1d:d8:9a:61:37:0a:28:43:76:0f:c8:59:79:
-                       9d:78:cd:33:f3:c1:84:6e:30:4f:17:17:f8:12:3f:
-                       1a:28:4c:c9:9f
+                       04:c8:b4:21:f1:1c:25:e4:7e:3a:c5:71:23:bf:2d:
+                       9f:dc:49:4f:02:8b:c3:51:cc:80:c0:3f:15:0b:f5:
+                       0c:ff:95:8d:75:41:9d:81:a6:a2:45:df:fa:e7:90:
+                       be:95:cf:75:f6:02:f9:15:26:18:f8:16:a2:b2:3b:
+                       56:38:e5:9f:d9
                    ASN1 OID: prime256v1
                    NIST CURVE: P-256
            X509v3 extensions:
                X509v3 Basic Constraints:
                    CA:FALSE
                X509v3 Subject Key Identifier:
-   49:4B:E5:98:DC:8D:BC:0D:BC:07:1C:48:6B:77:74:60:E5:CC:E6:21
+   96:60:0D:87:16:BF:7F:D0:E7:52:D0:AC:76:07:77:AD:66:5D:02:A0
+
                X509v3 Authority Key Identifier:
                    keyid:
-   D3:44:16:1B:FF:1F:A5:34:30:15:95:85:77:DD:33:50:7B:E6:B2:9B
+   68:D1:65:51:F9:51:BF:C8:2A:43:1D:0D:9F:08:BC:2D:20:5B:11:60
 
                X509v3 Key Usage: critical
                    Digital Signature, Key Encipherment
                X509v3 Subject Alternative Name:
                    othername:<unsupported>
        Signature Algorithm: ecdsa-with-SHA256
-            30:45:02:21:00:a8:07:3d:6c:1f:9a:bb:40:73:9f:c8:5a:37:
-            73:37:85:68:54:40:36:d8:cd:24:f0:1d:4b:34:cb:61:d9:60:
-            2c:02:20:08:cc:77:f8:dd:5c:a7:c2:fc:f9:5f:fc:94:fd:c3:
-            41:e2:b6:10:80:11:8a:95:76:c0:9e:88:d2:fb:d8:a9:21
+            30:46:02:21:00:c0:d8:19:96:d2:50:7d:69:3f:3c:48:ea:a5:
+            ee:94:91:bd:a6:db:21:40:99:d9:81:17:c6:3b:36:13:74:cd:
+            86:02:21:00:a7:74:98:9f:4c:32:1a:5c:f2:5d:83:2a:4d:33:
+            6a:08:ad:67:df:20:f1:50:64:21:18:8a:0a:de:6d:34:92:36
 
 C.3.  serverkeygen
 
@@ -2461,7 +2517,7 @@ C.3.  serverkeygen
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 44]
+van der Stok, et al.     Expires August 4, 2019                [Page 45]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -2517,7 +2573,7 @@ Internet-Draft                  EST-coaps                   January 2019
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 45]
+van der Stok, et al.     Expires August 4, 2019                [Page 46]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -2573,7 +2629,7 @@ Authors' Addresses
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 46]
+van der Stok, et al.     Expires August 4, 2019                [Page 47]
 
 Internet-Draft                  EST-coaps                   January 2019
 
@@ -2629,4 +2685,4 @@ Internet-Draft                  EST-coaps                   January 2019
 
 
 
-van der Stok, et al.     Expires August 3, 2019                [Page 47]
+van der Stok, et al.     Expires August 4, 2019                [Page 48]

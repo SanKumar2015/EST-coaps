@@ -458,9 +458,10 @@ This specification contains a set of required-to-implement functions, optional f
       are 2.04 and 4.04. Additionally, EST's HTTP 401 error translates to 4.01 in
 	  EST-coaps. Other EST HTTP error messages are 400, 423 and 503. Their equivalent
 	  CoAP errors are 4.00, 4.03 and 5.03 respectively. In case a COAP option 
-	  is unrecognized or unsafe, the server is expected to return a 4.02. If the Content_Format requested in the client 
-	  Accept Option, is not supported the server MUST return a 4.06, unless another 
-	  error code takes precedence for the response.</t>
+	  is unrecognized or unsafe, the server is expected to return a 4.02 (Bad Option). 
+	  If the Content_Format requested in the client 
+	  Accept Option, is not supported the server MUST return a 4.06 (Not Acceptable), 
+	  unless another error code takes precedence for the response.</t>
     </section> <!-- CoAP response codes -->
 
     <section anchor="fragment" title="Message fragmentation">

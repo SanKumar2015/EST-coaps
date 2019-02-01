@@ -827,10 +827,7 @@ HMAC(finished_key,
          NSTART            | 1             |
          DEFAULT_LEISURE   | 5 seconds     |
          PROBING_RATE      | 1 byte/second | ]]></artwork></figure>
-    <t> EST does not impose any unique values on the CoAP parameters, but the EST parameter values need to be tuned to the CoAP parameter values. For
-	example, the processing delay of CAs could be less then 2s,
-	but in this case the EST-coaps server should be sending a CoAP
-	ACK every 2s while processing.</t>
+    <t> EST does not impose any unique values on the CoAP parameters, but the EST parameter values need to be tuned to the CoAP parameter values. </t>
     <t> The main recommendation, based on experiments,
 	<!-- using Nexus Certificate Manager with Californium for
 	CoAP support, communicating with a ContikiOS and tinyDTLS based

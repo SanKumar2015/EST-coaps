@@ -384,7 +384,7 @@ This specification contains a set of required-to-implement functions, optional f
       <t>EST-coaps is designed for use between low-resource devices and hence does not need
 	  to send Base64-encoded data. Simple binary is more efficient (30% smaller payload) and
 	  well supported by CoAP. Thus, the payload for a given media type follows the ASN.1
-	  structure of the media-type and is transported in binary DER format.
+	  structure of the media-type and is transported in binary format.
       <xref target="cborpair"/> specifies the payload structure when multiple media types
 	  are present in the payload.</t>
 
@@ -400,8 +400,8 @@ This specification contains a set of required-to-implement functions, optional f
 		unsigned integer specifying the Content_Format ID of the consecutive representation.
 		For example, a collection containing two representations in response to a server-side
 		key generation request, could include a private key in PKCS#8 <xref target="RFC5958"/>
-		with Content_Format ID 284 (0x011C) and a single certificate in PKCS#7 with Content_Format ID
-		281 (0x0119). Such a collection would look like [284,h'0123456789abcdef', 281,h'fedcba9876543210']
+		with Content_Format ID 284 (0x011C) and a single certificate in a PKCS#7 container 
+		with Content_Format ID 281 (0x0119). Such a collection would look like [284,h'0123456789abcdef', 281,h'fedcba9876543210']
 		in diagnostic CBOR notation. The serialization of such CBOR content would be </t>
         <figure title="Multipart /skg response serialization"><artwork>
         <![CDATA[
@@ -414,12 +414,12 @@ This specification contains a set of required-to-implement functions, optional f
       FEDCBA9876543210 # "\xFE\xDC\xBA\x98vT2\x10"
          ]]></artwork></figure>
 
-		<t>The PKCS#8 key and PKCS#7 X.509 certificate representations are ASN.1 encoded
-		in binary DER format. An example is shown in <xref target="appskg"/>. </t>
-
-		<t>In cases where the private key is further encrypted with CMS (as
+		<t>When the returned certificate is a single X.509 certificate (not a 
+		PKCS#7 container) the Content_Format ID is TBD287 (0x011F).
+		In cases where the private key is encrypted with CMS (as
 		explained in <xref target="serverkey"/>) the Content_Format ID is
-		280 (0x0118).</t>
+		280 (0x0118). The key and certificate representations are ASN.1 encoded
+		in binary format. An example is shown in <xref target="appskg"/>.</t>
 
       </section>  <!--Content_Format application/multipart-core -->
 
@@ -1125,12 +1125,12 @@ HMAC(finished_key,
 
   <section anchor="messagebindings" title="EST messages to EST-coaps">
     <t>This section shows similar examples to the ones presented in Appendix A of
-	<xref target="RFC7030"/>. The payloads in the examples are the hex encoded DER binary,
+	<xref target="RFC7030"/>. The payloads in the examples are the hex encoded binary,
 	generated with 'xxd -p', of the PKI certificates created following
 	<xref target="I-D.moskowitz-ecdsa-pki"/>. The payloads are shown unencrypted.
-    In practice the message content would be binary DER formatted and transferred over
+    In practice the message content would be binary formatted and transferred over
 	an encrypted DTLS tunnel. The hexadecimal representations in the examples below
-	would NOT be transported in hex, but in binary DER. Hex is used for visualization
+	would NOT be transported in hex, but in binary. Hex is used for visualization
 	purposes because a binary representation cannot be rendered well in text.
 	<!-- [EDNOTE: No need for these details of how these were generated from I-D.moskowitz-ecdsa-pki. ]
 	In particular, the shell scripts from section 4.2 (create root certificate), section 6.2 (Create the 802.1AR intermediate certificate) and section 6.3 (Create an 802.1AR IdevID certificate) have been used. The 802.1AR IdevID certificate is signed by the 802.1AR intermediate certificate that is signed by the auto-signed root certificate.--></t>
@@ -1189,7 +1189,7 @@ GET coaps://est-coaps.example.ietf.org:9085/est/crts
       <t>A 2.05 Content response with a cert in EST-coaps will then be </t>
 <figure align="left"><artwork><![CDATA[
 2.05 Content (Content_Format: 281)
-   {payload with certificate in binary DER format}
+   {payload with certificate in binary format}
 ]]></artwork></figure>
         <t>with CoAP fields </t>
           <figure><artwork>
@@ -1257,7 +1257,7 @@ cannot be rendered well in text. ]
       <t>A 2.05 Content response should contain attributes which are relevant
 	  for the authenticated client. This example is copied from section A.2
 	  in <xref target="RFC7030"/>, where the base64 representation is replaced
-	  with a hexadecimal representation of the equivalent binary DER format.
+	  with a hexadecimal representation of the equivalent binary format.
 	  The EST-coaps server returns attributes that the client can ignore
 	  if they are unknown to him.</t>
     </section>  <!-- csrattrs -->
@@ -1418,7 +1418,7 @@ b53bdaadc9ae60b08f52429c0fa1003100
 		response payloads.</t>
     </list>	</t>
 	<t>The payloads are shown unencrypted. In practice the message contents
-	would be binary DER formatted and transferred over an encrypted DTLS tunnel.
+	would be binary formatted and transferred over an encrypted DTLS tunnel.
 	The corresponding CoAP headers are only shown in <xref target="cacertsblock"/>.
 	Creating CoAP headers are assumed to be generally known.</t>
 

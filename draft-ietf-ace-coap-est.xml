@@ -638,11 +638,11 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 
   <section anchor="discovery" title = "Discovery and URIs">
 
-    <t>EST-coaps is targeted for low-resource networks with small packets. Saving header space is important and short EST-coaps URIs are specified in this document. These URIs are shorter than the ones in <xref target="RFC7030"/>. The EST-coaps resource path names are: </t>
+    <t>EST-coaps is targeted for low-resource networks with small packets. Saving header space is important and short EST-coaps URIs are specified in this document. These URIs are shorter than the ones in <xref target="RFC7030"/>. Two example EST-coaps resource path names are: </t>
 
 <figure align="left"><artwork><![CDATA[
-coaps://example.com:<port>/.well-known/est/<short-est>
-coaps://example.com:<port>/.well-known/est/ArbitraryLabel/<short-est>
+coaps://est-coaps.example.ietf.org:<port>/.well-known/est/<short-est>
+coaps://est-coaps.example.ietf.org:<port>/.well-known/est/ArbitraryLabel/<short-est>
 ]]></artwork></figure>
 
       <t>The short-est strings are defined in <xref target="est-uri"/>.
@@ -653,8 +653,8 @@ coaps://example.com:<port>/.well-known/est/ArbitraryLabel/<short-est>
 
 	  <t>The EST-coaps server URIs, obtained through discovery of the EST-coaps root resource(s) as shown below, are of the form: </t>
 <figure align="left"><artwork><![CDATA[
-coaps://example.com:<port>/<root-resource>/<short-est>
-coaps://example.com:<port>/<root-resource>/ArbitraryLabel/<short-est>
+coaps://est-coaps.example.ietf.org:<port>/<root-resource>/<short-est>
+coaps://est-coaps.example.ietf.org:<port>/<root-resource>/ArbitraryLabel/<short-est>
 ]]></artwork></figure>
 
       <t>Figure 5 in section 3.2.2 of <xref target="RFC7030"/> enumerates the operations and corresponding paths which are supported by EST. <xref target="est-uri"/> provides the mapping from the EST URI path to the shorter EST-coaps URI path.</t>
@@ -1146,7 +1146,7 @@ HMAC(finished_key,
 	<section title="cacerts" anchor="cacerts">
       <t>In EST-coaps, a coaps cacerts message can be:</t>
 <figure align="left"><artwork><![CDATA[
-GET coaps://192.0.2.1:8085/est/crts
+GET coaps://est-coaps.example.ietf.org:9085/est/crts
 ]]></artwork></figure>
       <t>The corresponding CoAP header fields are shown below. The
 	  use of block and DTLS are worked out in <xref target= "blockexamples"/>.</t>
@@ -1157,15 +1157,15 @@ GET coaps://192.0.2.1:8085/est/crts
   Token = 0x9a (client generated)
   Options
   Option (Uri-Host)               [optional]
-     Option Delta = 0x3  (option nr = 3)
+     Option Delta = 0x3  (option# 3)
      Option Length = 0x9
-     Option Value = 192.0.2.1
+     Option Value = est-coaps.example.ietf.org
   Option (Uri-Port)               [optional]
-     Option Delta = 0x4  (option nr = 3+4=7)
+     Option Delta = 0x4  (option# 3+4=7)
      Option Length = 0x4
-     Option Value = 8085
+     Option Value = 9085
    Option (Uri-Path)
-     Option Delta = 0x4   (option nr = 7+4=11)
+     Option Delta = 0x4   (option# 7+4=11)
      Option Length = 0x5
      Option Value = "est"
    Option (Uri-Path)
@@ -1175,6 +1175,15 @@ GET coaps://192.0.2.1:8085/est/crts
   Payload = [Empty]
 ]]></artwork></figure>
 
+      <t>The Uri-Host and Uri-Port options are optional. They 
+	  are usually omitted as the DTLS destination and port 
+	  are sufficient. Explicit Uri-Host and Uri-Port options 
+	  are typically used when an endpoint hosts multiple virtual 
+	  servers and uses the options to route the requests accordingly. 
+	  Alternatively, if a UDP port to a server is blocked, 
+	  someone could send the DTLS packets to a known open port 
+	  on the server and use the Uri-Port to convey the intended port 
+      he is attempting to reach.</t>
       <t>A 2.05 Content response with a cert in EST-coaps will then be </t>
 <figure align="left"><artwork><![CDATA[
 2.05 Content (Content_Format: 281)
@@ -1434,14 +1443,14 @@ b53bdaadc9ae60b08f52429c0fa1003100
 	of the response, even though not shown, is 281 (application/pkcs7-mime; smime-type=certs-only).
 	The transer of the 11 blocks with partially filled block NUM=10 is shown below </t>
     <figure align="left"><artwork><![CDATA[
-   GET /192.0.2.1:8085/est/crts   (2:0/0/64)    -->
+   GET coaps://est-coaps.example.ietf.org:9085/est/crts (2:0/0/64)    -->
                  <--   (2:0/1/64) 2.05 Content
-   GET /192.0.2.1:8085/est/crts   (2:1/0/64)    -->
+   GET coaps://est-coaps.example.ietf.org:9085/est/crts (2:1/0/64)    -->
                  <--   (2:1/1/64) 2.05 Content
-                         |
-                         |
-                         |
-   GET /192.0.2.1:8085/est/crts    (2:10/0/64)  -->
+                               |
+                               |
+                               |
+   GET coaps://est-coaps.example.ietf.org:9085/est/crts (2:10/0/64)  -->
                  <--   (2:9/0/64) 2.05 Content
 ]]></artwork></figure>
 
@@ -1454,15 +1463,15 @@ b53bdaadc9ae60b08f52429c0fa1003100
   Token = 0x9a    (client generated)
   Options
    Option (Uri-Host)            [optional]
-     Option Delta = 0x3  (option nr = 3)
+     Option Delta = 0x3  (option# 3)
      Option Length = 0x9
-     Option Value = 192.0.2.1
+     Option Value = est-coaps.example.ietf.org
    Option (Uri-Port)            [optional]
-     Option Delta = 0x4   (option nr = 3+4=7)
+     Option Delta = 0x4   (option# 3+4=7)
      Option Length = 0x4
-     Option Value = 8085
+     Option Value = 9085
    Option (Uri-Path)
-     Option Delta = 0x4    (option nr = 7+4=11)
+     Option Delta = 0x4    (option# 7+4=11)
      Option Length = 0x5
      Option Value = "est"
    Option (Uri-Path)
@@ -1471,6 +1480,16 @@ b53bdaadc9ae60b08f52429c0fa1003100
      Option Value = "crts"
   Payload = [Empty]
 ]]></artwork></figure>
+
+    <t>The Uri-Host and Uri-Port options are optional. They 
+	are usually omitted as the DTLS destination and port 
+	are sufficient. Explicit Uri-Host and Uri-Port options 
+	are typically used when an endpoint hosts multiple virtual 
+	servers and uses the options to route the requests accordingly. 
+	Alternatively, if a UDP port to a server is blocked, 
+	someone could send the DTLS packets to a known open port 
+	on the server and use the Uri-Port to convey the intended port 
+    he is attempting to reach.</t>
 
     <t>For further detailing the CoAP headers, the first two and the last blocks are
 	written out below. The header of the first Block2 response looks like</t>

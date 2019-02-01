@@ -1665,7 +1665,7 @@ Certificate Request:
                 ASN1 OID: prime256v1
                 NIST CURVE: P-256
         Attributes:
-            challengePassword        : 0x---------
+            challengePassword        : <256-bit POP linking value>
         Requested Extensions:
             X509v3 Subject Alternative Name: 
                 othername:<unsupported>
@@ -1677,7 +1677,7 @@ Certificate Request:
 ]]></artwork></figure>
 
    <t>The CSR contained a ChallengePassword which is used for
-   POP linking (<xref target="DTLS"/>). The value is repesented with 0x--------- because xml parser fails on it.</t>
+   POP linking (<xref target="DTLS"/>). </t>
 
    <t>The breakdown of the issued certificate response is </t>
 

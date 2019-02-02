@@ -383,7 +383,7 @@ This specification contains a set of required-to-implement functions, optional f
 	  codes are defined in <xref target="error"/>.</t>
 	  
 	  <t>Content-Format TBD287 can be used in place of 281 to carry a single 
-      certificate instead of a PKCS#7 envelope when only one 
+      certificate instead of a PKCS#7 container when only one 
       in a /crts, /sen, /sren or /skg response. 
       Content-Format 281 MUST be supported by EST-coaps servers. 
 	  Server MAY also support Content-Format TBD287.
@@ -750,7 +750,7 @@ HMAC(finished_key,
   <section anchor="proxy" title="HTTPS-CoAPS Registrar">
     <t>In real-world deployments, the EST server will not always reside within
 	the CoAP boundary. The EST server can exist outside the constrained network
-	in which case it will support TLS/HTTP instead of COAPS. In such environments
+	in which case it will support TLS/HTTP instead of CoAPS. In such environments
 	EST-coaps is used by the client within the CoAP boundary and TLS is used to
 	transport the EST messages outside the CoAP boundary. A Registrar at the edge
 	is required to operate between the CoAP environment and the external HTTP

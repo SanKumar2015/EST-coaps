@@ -132,8 +132,8 @@
        <t>added application/pkix-cert Content-Format TBD287.</t>
 	   <t>Minor text fixes. </t>
         <t> Stated that well-known/est is compulsory</t>
-        <t> removed bugs: Max-Age and Content-Format options in Request</t>
-        <t> accept option explained for est/skg and added in enroll example </t>
+        <t> removed bugs: Max-Age and Content-Format Options in Request</t>
+        <t> accept Option explained for est/skg and added in enroll example </t>
     </list>
    </t>
    <t> -07:
@@ -191,7 +191,7 @@
     <list style="empty">
       <t>Editorials done.</t>
       <t>Redefinition of proxy to Registrar in <xref target="proxy"/>. Explained better the role of https-coaps Registrar, instead of "proxy"</t>
-      <t>Provide "observe" option examples </t>
+      <t>Provide "observe" Option examples </t>
       <t> extended block message example. </t>
       <t>inserted new server key generation text in <xref target="serverkey"/> and motivated server key generation.</t>
       <t>Broke down details for DTLS 1.3 </t>
@@ -376,7 +376,7 @@ This specification contains a set of required-to-implement functions, optional f
       <t>The Content-Format (media type equivalent) of the CoAP message determines which
 	  EST message is transported in the CoAP payload. The media types specified in the HTTP
 	  Content-Type header (section 3.2.2 of <xref target="RFC7030"/>) are in EST-coaps
-	  specified by the Content-Format Option (12) of CoAP. The combination of URI path
+	  specified by the Content-Format Option (12) of CoAP. The combination of URI-Path
 	  and Content-Format in EST-coaps MUST map to an allowed combination of URI and
 	  media type in EST. The required Content-Formats for these requests and
 	  response messages are defined in <xref target="Content-Formats"/>. The CoAP response
@@ -431,7 +431,7 @@ This specification contains a set of required-to-implement functions, optional f
           <t>All EST-coaps messages expect a response from the server, thus the client MUST send
 		  the requests over confirmable CON CoAP messages.</t>
           <t>The Ver, TKL, Token, and Message ID values of the CoAP header are not affected by EST.</t>
-          <t>The CoAP options used are Uri-Host, Uri-Path, Uri-Port, Content-Format, and Location-Path.
+          <t>The CoAP Options used are Uri-Host, Uri-Path, Uri-Port, Content-Format, and Location-Path.
 		  These CoAP Options are used to communicate the HTTP fields specified in the EST
 		  REST messages. </t>
           <t>EST URLs are HTTPS based (https://), in CoAP these are assumed to be translated
@@ -457,7 +457,7 @@ This specification contains a set of required-to-implement functions, optional f
 	  for the client. The equivalent CoAP codes to use in an EST-coaps responses
       are 2.04 and 4.04. Additionally, EST's HTTP 401 error translates to 4.01 in
 	  EST-coaps. Other EST HTTP error messages are 400, 423 and 503. Their equivalent
-	  CoAP errors are 4.00, 4.03 and 5.03 respectively. In case a COAP option 
+	  CoAP errors are 4.00, 4.03 and 5.03 respectively. In case a COAP Option 
 	  is unrecognized or unsafe, the server is expected to return a 4.02 (Bad Option). 
 	  If the Content-Format requested in the client 
 	  Accept Option, is not supported the server MUST return a 4.06 (Not Acceptable), 
@@ -469,9 +469,9 @@ This specification contains a set of required-to-implement functions, optional f
 
       <t>That is not always possible in EST-coaps. Even though ECC certificates are small in size, they can vary greatly based on signature algorithms, key sizes, and Object Identifier (OID) fields used. For 256-bit curves, common ECDSA cert sizes are 500-1000 bytes which could fluctuate further based on the algorithms, OIDs, Subject Alternative Names (SAN) and cert fields. For 384-bit curves, ECDSA certs increase in size and can sometimes reach 1.5KB. Additionally, there are times when the EST cacerts response from the server can include multiple certs that amount to large payloads. Section 4.6 of CoAP <xref target="RFC7252"/> describes the possible payload sizes: "if nothing is known about the size of the headers, good upper bounds are 1152 bytes for the message size and 1024 bytes for the payload size". Section 4.6 of <xref target="RFC7252"/> also suggests that IPv4 implementations may want to limit themselves to more conservative IPv4 datagram sizes such as 576 bytes. <!-- From <xref target="RFC0791"/> follows that the absolute minimum value of the IP MTU for IPv4 is as low as 68 bytes, which would leave only 40 bytes minus security overhead for a UDP payload. --> Even with ECC certs, EST-coaps messages can still exceed MTU sizes on the Internet or 6LoWPAN <xref target="RFC4919"/> (Section 2 of <xref target="RFC7959"/>). EST-coaps needs to be able to fragment messages into multiple DTLS datagrams.</t>
 
-	  <t>To perform fragmentation in CoAP, <xref target="RFC7959"/> specifies the "Block1" option for fragmentation of the request payload and the "Block2" option for fragmentation of the return payload of a CoAP flow. As explained in Section 1 of <xref target="RFC7959"/>, blockwise transfers SHOULD be used in Confirmable CoAP messages to avoid the exacerbation of lost blocks. <xref target="RFC7959"/> defines SZX in the block option fields. SZX is used to convey the size of the blocks in the requests or responses. The CoAP client MAY specify the Block1 size and MAY also specify the Block2 size. The CoAP server MAY specify the Block2 size, but not the Block1 size. </t>
+	  <t>To perform fragmentation in CoAP, <xref target="RFC7959"/> specifies the Block1 Option for fragmentation of the request payload and the Block2 Option for fragmentation of the return payload of a CoAP flow. As explained in Section 1 of <xref target="RFC7959"/>, blockwise transfers SHOULD be used in Confirmable CoAP messages to avoid the exacerbation of lost blocks. <xref target="RFC7959"/> defines SZX in the block Option fields. SZX is used to convey the size of the blocks in the requests or responses. The CoAP client MAY specify the Block1 size and MAY also specify the Block2 size. The CoAP server MAY specify the Block2 size, but not the Block1 size. </t>
 
-      <t><xref target="RFC7959"/> also defines Size1 and Size2 options to provide size information about the resource representation in a request and response. The Size1 response MAY be parsed by the client as a size indication of the Block2 resource in the server response or by the server as a request for a size estimate by the client. Similarly, the Size2 option defined in BLOCK should be parsed by the server as an indication of the size of the resource carried in Block1 options and by the client as a maximum size expected in the 4.13 (Request Entity Too Large) response to a request.</t>
+      <t><xref target="RFC7959"/> also defines Size1 and Size2 Options to provide size information about the resource representation in a request and response. The Size1 response MAY be parsed by the client as a size indication of the Block2 resource in the server response or by the server as a request for a size estimate by the client. Similarly, the Size2 Option defined in BLOCK should be parsed by the server as an indication of the size of the resource carried in Block1 Options and by the client as a maximum size expected in the 4.13 (Request Entity Too Large) response to a request.</t>
 
       <t>Examples of fragmented EST  messages are shown in <xref target="blockexamples"/>.</t>
     </section> <!-- Message fragmentation -->
@@ -485,7 +485,7 @@ This specification contains a set of required-to-implement functions, optional f
 	  response is large, the server will need more than one "Block2" blocks to transfer it. This
 	  situation is shown in <xref target="fig-est-short-wait"/> where a client sends an enrollment
 	  request that uses more than one "Block1" blocks. The server uses an empty 0.00 ACK to announce
-	  the delayed response which is provided later with 2.04 messages containing "Block2" options.
+	  the delayed response which is provided later with 2.04 messages containing "Block2" Options.
 	  Having received the first 256 bytes in the first "Block2" block, the client asks for a block
 	  reduction to 128 bytes in all following "Block2" blocks, starting with the second block (NUM=1).</t>
       <figure title="EST-COAP enrollment with short wait"
@@ -516,15 +516,15 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 
       <t>If the server is very slow (i.e. minutes) in providing the response (i.e. when a manual intervention is needed),
       the server SHOULD respond with an ACK containing response code 5.03 (Service unavailable) and a Max-Age
-      option to indicate the time the client SHOULD wait to request the content later. After a delay of Max-Age,
+      Option to indicate the time the client SHOULD wait to request the content later. After a delay of Max-Age,
       the client SHOULD resend the identical CSR to the server. As long as the server responds with response code 5.03
-      (Service Unavailable) with a Max-Age option, the client can resend the enrollment request until the server
+      (Service Unavailable) with a Max-Age Option, the client can resend the enrollment request until the server
 	  responds with the certificate or the client abandons for other reasons. </t>
 
       <t>To demonstrate this scenario, <xref target="fig-est-long-wait"/> shows a client sending an enrollment
 	  request that uses more than one "Block1" blocks to send the CSR to the server. The server needs
       more than one "Block2" blocks to respond, but also needs to take a long delay (minutes) to provide
-      the response. Consequently, the server uses a 5.03 ACK response with a Max-Age option. The client
+      the response. Consequently, the server uses a 5.03 ACK response with a Max-Age Option. The client
 	  waits for a period of Max-Age as many times as he receives the same 5.03 response and retransmits
       the enrollment request until he receives a certificate. Note that in the example below the server
 	  asks for a decrease in the block size when acknowledging the first Block2. </t>
@@ -695,7 +695,7 @@ coaps://est-coaps.example.ietf.org:<port>/<root-resource>/ArbitraryLabel/<short-
   preferred Content-Format cannot be returned, then a 4.06 
   "Not Acceptable" MUST be sent as a response, unless another 
   error code takes precedence for the response <xref target="RFC7252"/>.</t>
-	<t>The Content-Formats returned by /est/skg need some explanation. The returned Content-Format 62 envelops the Content-Formats 284, 280 and 281, where 281 can be replaced by TBD287. Content-Format 281 is the default format and the TBD287 can be requested with an Accept option.</t>
+	<t>The Content-Formats returned by /est/skg need some explanation. The returned Content-Format 62 envelops the Content-Formats 284, 280 and 281, where 281 can be replaced by TBD287. Content-Format 281 is the default format and the TBD287 can be requested with an Accept Option.</t>
       <t>Port numbers, not returned in the example, are assumed to be the default numbers 5683 and 5684 for coap and coaps respectively (Sections 12.6 and 12.7 of <xref target="RFC7252"/>). Discoverable port numbers MAY be returned in the &lt;href&gt; of the payload.</t>
 
 	  <t>The server MUST be preconfigured to support the default
@@ -704,7 +704,7 @@ coaps://est-coaps.example.ietf.org:<port>/<root-resource>/ArbitraryLabel/<short-
 	  discovery SHOULD be employed when non-default URIs (like /est or
 	  /est/ArbitraryLabel) or ports are supported by the server, when the
 	  client is unaware of what EST-coaps resources are available on the server 
-	  or if the client considers sending two Uri-Path options to convey the 
+	  or if the client considers sending two Uri-Path Options to convey the 
 	  resource is wasteful.</t>
 
 	  <t>It is up to the implementation to choose its root resource; throughout this document the example root resource /est is used. </t>
@@ -1177,11 +1177,11 @@ GET coaps://est-coaps.example.ietf.org:9085/est/crts
   Payload = [Empty]
 ]]></artwork></figure>
 
-      <t>The Uri-Host and Uri-Port options are optional. They 
+      <t>The Uri-Host and Uri-Port Options are optional. They 
 	  are usually omitted as the DTLS destination and port 
-	  are sufficient. Explicit Uri-Host and Uri-Port options 
+	  are sufficient. Explicit Uri-Host and Uri-Port Options 
 	  are typically used when an endpoint hosts multiple virtual 
-	  servers and uses the options to route the requests accordingly. 
+	  servers and uses the Options to route the requests accordingly. 
 	  Alternatively, if a UDP port to a server is blocked, 
 	  someone could send the DTLS packets to a known open port 
 	  on the server and use the Uri-Port to convey the intended port 
@@ -1265,7 +1265,7 @@ cannot be rendered well in text. ]
     <section title="enroll / reenroll">
       <t>
 	    During the (re-)enroll exchange the EST-coaps client uses a CSR
-        (Content-Format 286) request in the POST request payload. The Accept 281 option is not stricly necessary because 281 is the default returned Content-Format.
+        (Content-Format 286) request in the POST request payload. The Accept 281 Option is not stricly necessary because 281 is the default returned Content-Format.
 		As shown in <xref target="enrolldis"/>, the CSR contains a
 		ChallengePassword which is used for POP linking (<xref target="DTLS"/>).
       </t>
@@ -1302,7 +1302,7 @@ ec9b9a38920220179f10a3436109051abad17590a09bc87c4dce5453a6fc
 As described
 		in <xref target="pending" />, if the server is not able to
 		provide a response immediately, it sends an empty ACK with
-		response code 5.03 (Service Unavailable) and the Max-Age option.
+		response code 5.03 (Service Unavailable) and the Max-Age Option.
 		See <xref target="fig-est-long-wait"/> for an example exchange.
       </t>
 
@@ -1430,18 +1430,18 @@ b53bdaadc9ae60b08f52429c0fa1003100
     <t>The following is an example of a cacerts exchange over DTLS. The content length of
 	the cacerts response in appendix A.1 of <xref target="RFC7030"/> contains 639
 	bytes in binary. The CoAP message adds around 10 bytes,
-	the DTLS record 29 bytes. To avoid IP fragmentation, the CoAP block option
+	the DTLS record 29 bytes. To avoid IP fragmentation, the CoAP Block Option
 	is used and an MTU of 127 is assumed to stay within one IEEE 802.15.4 packet. To stay
 	below the MTU of 127, the payload is split in 9 packets with a payload of 64 bytes
 	each, followed by a last tenth packet of 63 bytes. The client sends an IPv6 packet
 	containing the UDP datagram with the DTLS record that encapsulates the CoAP
 	request 10 times. The server returns an IPv6 packet containing the UDP datagram with the
 	DTLS record that encapsulates the CoAP response. The CoAP request-response exchange with block
-	option is shown below. Block option is shown in a decomposed way (block-option:NUM/M/size)
-	indicating the kind of Block option (2 in this case) followed by a colon, and then the block
+	option is shown below. Block Option is shown in a decomposed way (block-option:NUM/M/size)
+	indicating the kind of Block Option (2 in this case) followed by a colon, and then the block
 	number (NUM), the more bit (M = 0 in Block2 response means it is last block), and block size
 	with exponent (2**(SZX+4)) separated by slashes.  The Length 64 is used with SZX=2 to avoid IP
-	fragmentation. The CoAP Request is sent with confirmable (CON) option and the Content-Format
+	fragmentation. The CoAP Request is sent confirmable (CON) and the Content-Format
 	of the response, even though not shown, is 281 (application/pkcs7-mime; smime-type=certs-only).
 	The transer of the 11 blocks with partially filled block NUM=10 is shown below </t>
     <figure align="left"><artwork><![CDATA[
@@ -1483,11 +1483,11 @@ b53bdaadc9ae60b08f52429c0fa1003100
   Payload = [Empty]
 ]]></artwork></figure>
 
-    <t>The Uri-Host and Uri-Port options are optional. They 
+    <t>The Uri-Host and Uri-Port Options are optional. They 
 	are usually omitted as the DTLS destination and port 
-	are sufficient. Explicit Uri-Host and Uri-Port options 
+	are sufficient. Explicit Uri-Host and Uri-Port Options 
 	are typically used when an endpoint hosts multiple virtual 
-	servers and uses the options to route the requests accordingly. 
+	servers and uses the Options to route the requests accordingly. 
 	Alternatively, if a UDP port to a server is blocked, 
 	someone could send the DTLS packets to a known open port 
 	on the server and use the Uri-Port to convey the intended port 

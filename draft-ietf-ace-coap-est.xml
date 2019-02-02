@@ -687,14 +687,16 @@ coaps://est-coaps.example.ietf.org:<port>/<root-resource>/ArbitraryLabel/<short-
     </figure>
       <t> The first line of the discovery response above MUST be included. The five consecutive lines after the first MAY be included. The return of the content types allows the client to choose the most appropriate one.</t>
      <t>Content-Format TBD287 can be used in place of 281 when only one 
-  certificate is returned in a /crts, /sen, /sren or /skg response. Content-Format 281 is the default one and MUST be supported by /crts,/sen,/sren, and /skg.
-  The client is expected to use an COAP Accept Option in the request to 
-  express the preferred response Content-Format. If an Accept Option is 
-  not included in the client request, the client is not expressing 
-  any preference and the server chooses the default format 281. If the 
-  preferred Content-Format cannot be returned, then a 4.06 
-  "Not Acceptable" MUST be sent as a response, unless another 
-  error code takes precedence for the response <xref target="RFC7252"/>.</t>
+     certificate is returned in a /crts, /sen, /sren or /skg response. 
+     Content-Format 281 MUST be supported by servers. It is up to 
+	 the client's to support Content-Format 281, TBD287 or both. 
+     The client is expected to use an COAP Accept Option in the request to 
+     express the preferred response Content-Format. If an Accept Option is 
+     not included in the client request, the client is not expressing 
+     any preference and the server SHOULD choose format 281. If the 
+     preferred Content-Format cannot be returned, then a 4.06 
+     (Not Acceptable) MUST be sent as a response, unless another 
+     error code takes precedence for the response <xref target="RFC7252"/>.</t>
 	<t>The Content-Formats returned by /est/skg need some explanation. The returned Content-Format 62 envelops the Content-Formats 284, 280 and 281, where 281 can be replaced by TBD287. Content-Format 281 is the default format and the TBD287 can be requested with an Accept Option.</t>
       <t>Port numbers, not returned in the example, are assumed to be the default numbers 5683 and 5684 for coap and coaps respectively (Sections 12.6 and 12.7 of <xref target="RFC7252"/>). Discoverable port numbers MAY be returned in the &lt;href&gt; of the payload.</t>
 

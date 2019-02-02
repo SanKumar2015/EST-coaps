@@ -129,10 +129,10 @@
    <t>EDNOTE: Remove this section before publication</t>
    <t> -08
     <list style="empty">
-       <t>added application/pkix-cert Content_Format TBD287.</t>
+       <t>added application/pkix-cert Content-Format TBD287.</t>
 	   <t>Minor text fixes. </t>
         <t> Stated that well-known/est is compulsory</t>
-        <t> removed bugs: Max-Age and Content_Format options in Request</t>
+        <t> removed bugs: Max-Age and Content-Format options in Request</t>
         <t> accept option explained for est/skg and added in enroll example </t>
     </list>
    </t>
@@ -147,7 +147,7 @@
         <t>Removed CBOR envelop for binary data</t>
 		<t>Replaced TBD8 with 62. </t>
 		<t>Added RFC8174 reference and text. </t>
-		<t>Clarified MTI for server-side key generation and Content_Formats. Defined the /skg MTI (PKCS#8) and the cases where CMS encryption will be used. </t>
+		<t>Clarified MTI for server-side key generation and Content-Formats. Defined the /skg MTI (PKCS#8) and the cases where CMS encryption will be used. </t>
 		<t>Moved Fragmentation section up because it was referenced in sections above it.</t>
     </list>
    </t>
@@ -177,13 +177,13 @@
     <t> -03:
     <list style="empty">
       <t>Removed observe and simplified long waits</t>
-      <t>Repaired Content_Format specification</t>
+      <t>Repaired Content-Format specification</t>
     </list>
     </t>
     <t> -02:
     <list style="empty">
       <t>Added parameter discussion in section 8</t>
-      <t>Concluded Content_Format specification using multipart-ct draft</t>
+      <t>Concluded Content-Format specification using multipart-ct draft</t>
       <t>examples updated </t>
     </list>
     </t>
@@ -195,8 +195,8 @@
       <t> extended block message example. </t>
       <t>inserted new server key generation text in <xref target="serverkey"/> and motivated server key generation.</t>
       <t>Broke down details for DTLS 1.3 </t>
-      <t>New media type uses CBOR array for multiple Content_Format payloads</t>
-      <t>provided new Content_Format tables</t>
+      <t>New media type uses CBOR array for multiple Content-Format payloads</t>
+      <t>provided new Content-Format tables</t>
       <t> new media format for IANA </t>
     </list>
     </t>
@@ -373,13 +373,13 @@ This specification contains a set of required-to-implement functions, optional f
 </section>  <!-- Required/optional Functions  -->
 
     <section anchor="format" title ="Payload format">
-      <t>The Content_Format (media type equivalent) of the CoAP message determines which
+      <t>The Content-Format (media type equivalent) of the CoAP message determines which
 	  EST message is transported in the CoAP payload. The media types specified in the HTTP
 	  Content-Type header (section 3.2.2 of <xref target="RFC7030"/>) are in EST-coaps
-	  specified by the Content_Format Option (12) of CoAP. The combination of URI path
-	  and Content_Format in EST-coaps MUST map to an allowed combination of URI and
-	  media type in EST. The required Content_Formats for these requests and
-	  response messages are defined in <xref target="Content_Formats"/>. The CoAP response
+	  specified by the Content-Format Option (12) of CoAP. The combination of URI path
+	  and Content-Format in EST-coaps MUST map to an allowed combination of URI and
+	  media type in EST. The required Content-Formats for these requests and
+	  response messages are defined in <xref target="Content-Formats"/>. The CoAP response
 	  codes are defined in <xref target="error"/>.</t>
       <t>EST-coaps is designed for use between low-resource devices and hence does not need
 	  to send Base64-encoded data. Simple binary is more efficient (30% smaller payload) and
@@ -388,20 +388,20 @@ This specification contains a set of required-to-implement functions, optional f
       <xref target="cborpair"/> specifies the payload structure when multiple media types
 	  are present in the payload.</t>
 
-      <section anchor="cborpair" title="Content_Format application/multipart-core">
+      <section anchor="cborpair" title="Content-Format application/multipart-core">
         <t>
-        A representation with Content_Format ID 62 contains a collection of representations
-		along with their respective Content_Format. The Content_Format identifies the
+        A representation with Content-Format identifier 62 contains a collection of representations
+		along with their respective Content-Format. The Content-Format identifies the
 		media-type application/multipart-core specified in <xref target="I-D.ietf-core-multipart-ct"/>. </t>
 
 		<t>The collection is encoded as a <xref target="RFC7049">CBOR array</xref> with
 		an even number of elements. The second, fourth, sixth, etc. element is a binary
 		string containing a representation. The first, third, fifth, etc. element is an
-		unsigned integer specifying the Content_Format ID of the consecutive representation.
+		unsigned integer specifying the Content-Format identifier of the consecutive representation.
 		For example, a collection containing two representations in response to a server-side
 		key generation request, could include a private key in PKCS#8 <xref target="RFC5958"/>
-		with Content_Format ID 284 (0x011C) and a single certificate in a PKCS#7 container 
-		with Content_Format ID 281 (0x0119). Such a collection would look like [284,h'0123456789abcdef', 281,h'fedcba9876543210']
+		with Content-Format identifier 284 (0x011C) and a single certificate in a PKCS#7 container 
+		with Content-Format identifier 281 (0x0119). Such a collection would look like [284,h'0123456789abcdef', 281,h'fedcba9876543210']
 		in diagnostic CBOR notation. The serialization of such CBOR content would be </t>
         <figure title="Multipart /skg response serialization"><artwork>
         <![CDATA[
@@ -415,13 +415,13 @@ This specification contains a set of required-to-implement functions, optional f
          ]]></artwork></figure>
 
 		<t>When the returned certificate is a single X.509 certificate (not a 
-		PKCS#7 container) the Content_Format ID is TBD287 (0x011F).
+		PKCS#7 container) the Content-Format identifier is TBD287 (0x011F).
 		In cases where the private key is encrypted with CMS (as
-		explained in <xref target="serverkey"/>) the Content_Format ID is
+		explained in <xref target="serverkey"/>) the Content-Format identifier is
 		280 (0x0118). The key and certificate representations are ASN.1 encoded
 		in binary format. An example is shown in <xref target="appskg"/>.</t>
 
-      </section>  <!--Content_Format application/multipart-core -->
+      </section>  <!--Content-Format application/multipart-core -->
 
    </section> <!-- Payload format -->
 
@@ -431,7 +431,7 @@ This specification contains a set of required-to-implement functions, optional f
           <t>All EST-coaps messages expect a response from the server, thus the client MUST send
 		  the requests over confirmable CON CoAP messages.</t>
           <t>The Ver, TKL, Token, and Message ID values of the CoAP header are not affected by EST.</t>
-          <t>The CoAP options used are Uri-Host, Uri-Path, Uri-Port, Content_Format, and Location-Path.
+          <t>The CoAP options used are Uri-Host, Uri-Path, Uri-Port, Content-Format, and Location-Path.
 		  These CoAP Options are used to communicate the HTTP fields specified in the EST
 		  REST messages. </t>
           <t>EST URLs are HTTPS based (https://), in CoAP these are assumed to be translated
@@ -459,7 +459,7 @@ This specification contains a set of required-to-implement functions, optional f
 	  EST-coaps. Other EST HTTP error messages are 400, 423 and 503. Their equivalent
 	  CoAP errors are 4.00, 4.03 and 5.03 respectively. In case a COAP option 
 	  is unrecognized or unsafe, the server is expected to return a 4.02 (Bad Option). 
-	  If the Content_Format requested in the client 
+	  If the Content-Format requested in the client 
 	  Accept Option, is not supported the server MUST return a 4.06 (Not Acceptable), 
 	  unless another error code takes precedence for the response.</t>
     </section> <!-- CoAP response codes -->
@@ -595,13 +595,13 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 		specification.
       </t>
 	  <t>
-	    The sever-side key generation response is returned with Content_Format
+	    The sever-side key generation response is returned with Content-Format
 		application/multipart-core <xref target="I-D.ietf-core-multipart-ct"/>
 		containing a CBOR array with four items (<xref target="cborpair"/>).
 		The certificate part exactly matches the response from an enrollment response.
 		The private key can be in unprotected PKCS#8 <xref target="RFC5958"/>
-		format (Content_Format 284) or protected inside of CMS SignedData
-		(Content_Format 280). The SignedData is signed by the party that
+		format (Content-Format 284) or protected inside of CMS SignedData
+		(Content-Format 280). The SignedData is signed by the party that
 		generated the private key, which may or may not be the EST
 		server or the EST CA. The SignedData is further protected by placing
 		it inside of a CMS EnvelopedData as explained in Section 4.4.2
@@ -623,8 +623,8 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	  <t><xref target="RFC7030" /> recommends the use of additional encryption of the
 	  returned private key. For the context of this specification, clients and servers
 	  that choose to support server-side key generation MUST support unprotected (PKCS#8) <!-- MTI -->
-	  private keys (Content_Format 284). Symmetric or asymmetric encryption of the
-	  private key (CMS EnvelopedData, Content_Format 280) SHOULD be supported
+	  private keys (Content-Format 284). Symmetric or asymmetric encryption of the
+	  private key (CMS EnvelopedData, Content-Format 280) SHOULD be supported
 	  for deployments where end-to-end encryption needs to be provided
 	  between the client and a server. Such cases could include architectures
 	  where an entity between the client and the CA terminates the DTLS connection
@@ -686,16 +686,16 @@ coaps://est-coaps.example.ietf.org:<port>/<root-resource>/ArbitraryLabel/<short-
     <!-- Used quotes when multiple cts are returned as shown in draft-ietf-core-resource-directory-19 -->
     </figure>
       <t> The first line of the discovery response above MUST be included. The five consecutive lines after the first MAY be included. The return of the content types allows the client to choose the most appropriate one.</t>
-     <t>Content_Format TBD287 can be used in place of 281 when only one 
-  certificate is returned in a /crts, /sen, /sren or /skg response. Content_Format 281 is the default one and MUST be supported by /crts,/sen,/sren, and /skg.
+     <t>Content-Format TBD287 can be used in place of 281 when only one 
+  certificate is returned in a /crts, /sen, /sren or /skg response. Content-Format 281 is the default one and MUST be supported by /crts,/sen,/sren, and /skg.
   The client is expected to use an COAP Accept Option in the request to 
-  express the preferred response Content_Format. If an Accept Option is 
+  express the preferred response Content-Format. If an Accept Option is 
   not included in the client request, the client is not expressing 
   any preference and the server chooses the default format 281. If the 
-  preferred Content_Format cannot be returned, then a 4.06 
+  preferred Content-Format cannot be returned, then a 4.06 
   "Not Acceptable" MUST be sent as a response, unless another 
   error code takes precedence for the response <xref target="RFC7252"/>.</t>
-	<t>The Content_Formats returned by /est/skg need some explanation. The returned Content_Format 62 envelops the Content_Formats 284, 280 and 281, where 281 can be replaced by TBD287. Content_Format 281 is the default format and the TBD287 can be requested with an Accept option.</t>
+	<t>The Content-Formats returned by /est/skg need some explanation. The returned Content-Format 62 envelops the Content-Formats 284, 280 and 281, where 281 can be replaced by TBD287. Content-Format 281 is the default format and the TBD287 can be requested with an Accept option.</t>
       <t>Port numbers, not returned in the example, are assumed to be the default numbers 5683 and 5684 for coap and coaps respectively (Sections 12.6 and 12.7 of <xref target="RFC7252"/>). Discoverable port numbers MAY be returned in the &lt;href&gt; of the payload.</t>
 
 	  <t>The server MUST be preconfigured to support the default
@@ -799,7 +799,7 @@ HMAC(finished_key,
 	specification and Section 7 of <xref target="RFC8075"/> define the mappings
 	between EST-coaps and HTTP response codes, that determine how the Registrar
 	MUST translate CoAP response codes from/to HTTP status codes. The mapping from
-	CoAP Content_Format to HTTP Media-Type is defined in <xref target="Content_Formats"/>.
+	CoAP Content-Format to HTTP Media-Type is defined in <xref target="Content-Formats"/>.
 	Additionally, a conversion from CBOR major type 2 to Base64 encoding MUST take
 	place at the Registrar when server-side key generation is supported. If
 	CMS end-to-end encryption is employed for the private key, the encrypted
@@ -857,12 +857,12 @@ HMAC(finished_key,
 
   <section anchor="iana" title="IANA Considerations">
 
-  <section anchor="Content_Formats" title="Content_Format Registry">
-    <t>Additions to the sub-registry "CoAP Content_Formats", within the "CoRE Parameters"
-	registry <xref target="COREparams"/> are specified in <xref target="Content_Format"/>.
+  <section anchor="Content-Formats" title="Content-Format Registry">
+    <t>Additions to the sub-registry "CoAP Content-Formats", within the "CoRE Parameters"
+	registry <xref target="COREparams"/> are specified in <xref target="Content-Format"/>.
 	These have been registered provisionally in the Expert Review range (0-255).</t>
 
-<texttable anchor="Content_Format" title="New CoAP Content_Formats">
+<texttable anchor="Content-Format" title="New CoAP Content-Formats">
   <ttcol align="left">HTTP Media-Type</ttcol>
   <ttcol align="right">ID</ttcol>
   <ttcol align="left">Reference</ttcol>
@@ -877,10 +877,10 @@ HMAC(finished_key,
 <c>application/pkix-cert</c>                                     <c>TBD287</c> <c> <xref target="RFC2585"/></c>
 </texttable>
 
-<t>The Content_Formats 281 to 286 have been the subject of an earlier temporary allocation. It is suggested that 287 is allocated to TBD287.</t>
+<t>The Content-Formats 281 to 286 have been the subject of an earlier temporary allocation. It is suggested that 287 is allocated to TBD287.</t>
   
 
-</section> <!-- Content_Format registry -->
+</section> <!-- Content-Format registry -->
 
 <section anchor="resource-type" title="Resource Type registry">
    <t>This memo registers a new Resource Type (rt=) Link Target Attributes
@@ -1016,7 +1016,7 @@ HMAC(finished_key,
 
   <section anchor="ack" title="Acknowledgements">
     <t>The authors are very grateful to Klaus Hartke for his detailed explanations on
-	the use of Block with DTLS and his support for the Content_Format specification.
+	the use of Block with DTLS and his support for the Content-Format specification.
 	The authors would like to thank Esko Dijk and Michael Verschoor for the valuable
 	discussions that helped in shaping the solution. They would also like to thank Peter
 	Panburana for his feedback on technical details of the solution. Constructive comments
@@ -1188,7 +1188,7 @@ GET coaps://est-coaps.example.ietf.org:9085/est/crts
       he is attempting to reach.</t>
       <t>A 2.05 Content response with a cert in EST-coaps will then be </t>
 <figure align="left"><artwork><![CDATA[
-2.05 Content (Content_Format: 281)
+2.05 Content (Content-Format: 281)
    {payload with certificate in binary format}
 ]]></artwork></figure>
         <t>with CoAP fields </t>
@@ -1200,7 +1200,7 @@ GET coaps://est-coaps.example.ietf.org:9085/est/crts
   Token = 0x9a   (copied from request by server)
   Options
     Option
-      Option Delta = 0xC  (option# 12 Content_Format)
+      Option Delta = 0xC  (option# 12 Content-Format)
       Option Length = 0x2
       Option Value = 281
 
@@ -1241,7 +1241,7 @@ cd13b902caa1003100
 REQ:
 GET coaps://[2001:db8::2:1]:61616/est/att
 RET:
-2.05 Content (Content_Format: 285)
+2.05 Content (Content-Format: 285)
 
 [ The hexadecimal representation below would NOT be transported
 in hex, but in DER. Hex is used because a binary representation
@@ -1265,7 +1265,7 @@ cannot be rendered well in text. ]
     <section title="enroll / reenroll">
       <t>
 	    During the (re-)enroll exchange the EST-coaps client uses a CSR
-        (Content_Format 286) request in the POST request payload. The Accept 281 option is not stricly necessary because 281 is the default returned Content_Format.
+        (Content-Format 286) request in the POST request payload. The Accept 281 option is not stricly necessary because 281 is the default returned Content-Format.
 		As shown in <xref target="enrolldis"/>, the CSR contains a
 		ChallengePassword which is used for POP linking (<xref target="DTLS"/>).
       </t>
@@ -1274,7 +1274,7 @@ cannot be rendered well in text. ]
 POST [2001:db8::2:1]:61616/est/sen
 (token 0x45)
 (Accept 281)
-(Content_Format: 286)
+(Content-Format: 286)
 
 [ The hexadecimal representation below would NOT be transported
 in hex, but in DER. Hex is used because a binary representation
@@ -1310,7 +1310,7 @@ As described
 
 <figure align="left"><artwork><![CDATA[
 RET:
-(Content_Format: 281)(token =0x45)
+(Content-Format: 281)(token =0x45)
 2.01 Created
 
 [ The hexadecimal representation below would NOT be transported
@@ -1349,7 +1349,7 @@ ff958d75419d81a6a245dffae790be95cf75f602f9152618f816a2b23b56
 <figure align="left"><artwork><![CDATA[
 POST coaps://192.0.2.1:8085/est/skg
 (token 0xa5)
-(Content_Format: 286)
+(Content-Format: 286)
 
 [ The hexadecimal representation below would NOT be transported
 in hex, but in DER. Hex is used because a binary representation
@@ -1368,7 +1368,7 @@ b8c1117896f98e4506c03d70efbe820d8e38ea97e9d65d52c8460c5852c5
 
 <figure align="left"><artwork><![CDATA[
 RET:
-2.01 Content (Content_Format: 62)
+2.01 Content (Content-Format: 62)
 (token=0xa5)
 
 [ The hexadecimal representations below would NOT be transported
@@ -1441,7 +1441,7 @@ b53bdaadc9ae60b08f52429c0fa1003100
 	indicating the kind of Block option (2 in this case) followed by a colon, and then the block
 	number (NUM), the more bit (M = 0 in Block2 response means it is last block), and block size
 	with exponent (2**(SZX+4)) separated by slashes.  The Length 64 is used with SZX=2 to avoid IP
-	fragmentation. The CoAP Request is sent with confirmable (CON) option and the Content_Format
+	fragmentation. The CoAP Request is sent with confirmable (CON) option and the Content-Format
 	of the response, even though not shown, is 281 (application/pkcs7-mime; smime-type=certs-only).
 	The transer of the 11 blocks with partially filled block NUM=10 is shown below </t>
     <figure align="left"><artwork><![CDATA[
@@ -1502,7 +1502,7 @@ b53bdaadc9ae60b08f52429c0fa1003100
   Token = 0x9a     (copied from request by server)
   Options
     Option
-      Option Delta = 0xC  (option# 12 Content_Format)
+      Option Delta = 0xC  (option# 12 Content-Format)
       Option Length = 0x2
       Option Value = 281
     Option
@@ -1528,7 +1528,7 @@ b53bdaadc9ae60b08f52429c0fa1003100
   Token = 0x9a     (copied from request by server)
   Options
     Option
-      Option Delta = 0xC  (option# 12 Content_Format)
+      Option Delta = 0xC  (option# 12 Content-Format)
       Option Length = 0x2
       Option Value = 281
     Option
@@ -1555,7 +1555,7 @@ df9c99244b300a06082a8648ce3d0403023067310b300906035504061302
   Token = 0x9a     (copied from request by server)
   Options
     Option
-      Option Delta = 0xC  (option# 12 Content_Format)
+      Option Delta = 0xC  (option# 12 Content-Format)
       Option Length = 0x2
       Option Value = 281
     Option

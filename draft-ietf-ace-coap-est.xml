@@ -1149,6 +1149,7 @@ HMAC(finished_key,
       <t>In EST-coaps, a coaps cacerts message can be:</t>
 <figure align="left"><artwork><![CDATA[
 GET coaps://est-coaps.example.ietf.org:9085/est/crts
+(Accept:  281)
 ]]></artwork></figure>
       <t>The corresponding CoAP header fields are shown below. The
 	  use of block and DTLS are worked out in <xref target= "blockexamples"/>.</t>
@@ -1174,6 +1175,10 @@ GET coaps://est-coaps.example.ietf.org:9085/est/crts
      Option Delta = 0x0   (option# 11+0=11)
      Option Length = 0x6
      Option Value = "crts"
+   Option (Accept)
+     Option Delta = 0x6   (option# 11+6=17)
+     Option Length = 0x2
+     Option Value = 281 
   Payload = [Empty]
 ]]></artwork></figure>
 
@@ -1199,13 +1204,13 @@ GET coaps://est-coaps.example.ietf.org:9085/est/crts
   Code = 0x45 (2.05 Content)
   Token = 0x9a   (copied from request by server)
   Options
-    Option
-      Option Delta = 0xC  (option# 12 Content-Format)
+    Option (Content-Format)
+      Option Delta = 0xC  (option# 12)
       Option Length = 0x2
       Option Value = 281
 
   [ The hexadecimal representation below would NOT be transported
-  in hex, but in DER. Hex is used because a binary representation
+  in hex, but in binary. Hex is used because a binary representation
   cannot be rendered well in text. ]
 
   Payload =
@@ -1240,11 +1245,13 @@ cd13b902caa1003100
 <figure align="left"><artwork><![CDATA[
 REQ:
 GET coaps://[2001:db8::2:1]:61616/est/att
-RET:
-2.05 Content (Content-Format: 285)
+
+RES:
+2.05 Content 
+(Content-Format: 285)
 
 [ The hexadecimal representation below would NOT be transported
-in hex, but in DER. Hex is used because a binary representation
+in hex, but in binary. Hex is used because a binary representation
 cannot be rendered well in text. ]
 
 307c06072b06010101011630220603883701311b131950617273652053455
@@ -1265,19 +1272,21 @@ cannot be rendered well in text. ]
     <section title="enroll / reenroll">
       <t>
 	    During the (re-)enroll exchange the EST-coaps client uses a CSR
-        (Content-Format 286) request in the POST request payload. The Accept 281 Option is not stricly necessary because 281 is the default returned Content-Format.
+        (Content-Format 286) request in the POST request payload. 
+		The Accept option tells the server that the client is expecting 
+		Content-Format 281 (PKCS#7) in the response. 
 		As shown in <xref target="enrolldis"/>, the CSR contains a
 		ChallengePassword which is used for POP linking (<xref target="DTLS"/>).
       </t>
 
 <figure align="left"><artwork><![CDATA[
 POST [2001:db8::2:1]:61616/est/sen
-(token 0x45)
-(Accept 281)
+(token: 0x45) 
+(Accept: 281)
 (Content-Format: 286)
 
 [ The hexadecimal representation below would NOT be transported
-in hex, but in DER. Hex is used because a binary representation
+in hex, but in binary. Hex is used because a binary representation
 cannot be rendered well in text. ]
 
 3082018b30820131020100305c310b3009060355040613025553310b3009
@@ -1299,22 +1308,15 @@ ec9b9a38920220179f10a3436109051abad17590a09bc87c4dce5453a6fc
       <t>
 	    After verification of the CSR by the server, a 2.01 Content response
 		with the issued certificate will be returned to the client. 
-As described
-		in <xref target="pending" />, if the server is not able to
-		provide a response immediately, it sends an empty ACK with
-		response code 5.03 (Service Unavailable) and the Max-Age Option.
-		See <xref target="fig-est-long-wait"/> for an example exchange.
-      </t>
-
-
+	  </t>
 
 <figure align="left"><artwork><![CDATA[
-RET:
-(Content-Format: 281)(token =0x45)
-2.01 Created
+2.01 Created 
+(token: 0x45)
+(Content-Format: 281)
 
 [ The hexadecimal representation below would NOT be transported
-in hex, but in DER. Hex is used because a binary representation
+in hex, but in binary. Hex is used because a binary representation
 cannot be rendered well in text. ]
 
 3082026e06092a864886f70d010702a082025f3082025b0201013100300b
@@ -1341,6 +1343,13 @@ ff958d75419d81a6a245dffae790be95cf75f602f9152618f816a2b23b56
 ]]></artwork></figure>
       <t>The breakdown of the request and response is shown in
 	  <xref target="enrolldis"/>.</t>
+	  
+	  <t>As described in <xref target="pending" />, if 
+	    the server is not able to provide a response 
+		immediately, it sends an empty ACK with response 
+		code 5.03 (Service Unavailable) and the Max-Age Option.
+		See <xref target="fig-est-long-wait"/> for an example exchange.</t>
+	  
     </section>  <!-- enroll / reenroll -->
 
     <section anchor="appskg" title="serverkeygen">
@@ -1348,11 +1357,12 @@ ff958d75419d81a6a245dffae790be95cf75f602f9152618f816a2b23b56
 
 <figure align="left"><artwork><![CDATA[
 POST coaps://192.0.2.1:8085/est/skg
-(token 0xa5)
+(token: 0xa5)
+(Accept: EDNOTE )
 (Content-Format: 286)
 
 [ The hexadecimal representation below would NOT be transported
-in hex, but in DER. Hex is used because a binary representation
+in hex, but in binary. Hex is used because a binary representation
 cannot be rendered well in text. ]
 
 3081cf3078020100301631143012060355040a0c0b736b67206578616d70
@@ -1367,12 +1377,12 @@ b8c1117896f98e4506c03d70efbe820d8e38ea97e9d65d52c8460c5852c5
 	<t>The response would follow <xref target="I-D.ietf-core-multipart-ct"/> and could look like </t>
 
 <figure align="left"><artwork><![CDATA[
-RET:
-2.01 Content (Content-Format: 62)
-(token=0xa5)
+2.01 Content 
+(token: 0xa5)
+(Content-Format: 62)
 
 [ The hexadecimal representations below would NOT be transported
-in hex, but in DER. Hex is used because a binary representation
+in hex, but in binary. Hex is used because a binary representation
 cannot be rendered well in text. ]
 
 84                                   # array(4)
@@ -1476,10 +1486,14 @@ b53bdaadc9ae60b08f52429c0fa1003100
      Option Delta = 0x4    (option# 7+4=11)
      Option Length = 0x5
      Option Value = "est"
-   Option (Uri-Path)
+   Option (Uri-Path)Uri-Path)
      Option Delta = 0x0    (option# 11+0=11)
      Option Length = 0x6
      Option Value = "crts"
+   Option (Accept)
+     Option Delta = 0x6   (option# 11+6=17)
+     Option Length = 0x2
+     Option Value = 281 
   Payload = [Empty]
 ]]></artwork></figure>
 
@@ -1511,7 +1525,7 @@ b53bdaadc9ae60b08f52429c0fa1003100
       Option Value = 0x0A (block#=0, M=1, SZX=2)
 
   [ The hexadecimal representation below would NOT be transported
-  in hex, but in DER. Hex is used because a binary representation
+  in hex, but in binary. Hex is used because a binary representation
   cannot be rendered well in text. ]
 
   Payload =
@@ -1537,7 +1551,7 @@ b53bdaadc9ae60b08f52429c0fa1003100
       Option Value = 0x1A (block#=1, M=1, SZX=2)
 
   [ The hexadecimal representation below would NOT be transported
-  in hex, but in DER. Hex is used because a binary representation
+  in hex, but in binary. Hex is used because a binary representation
   cannot be rendered well in text. ]
 
   Payload =
@@ -1564,7 +1578,7 @@ df9c99244b300a06082a8648ce3d0403023067310b300906035504061302
       Option Value = 0x92 (block#=9, M=0, SZX=2)
 
   [ The hexadecimal representation below would NOT be transported
-  in hex, but in DER. Hex is used because a binary representation
+  in hex, but in binary. Hex is used because a binary representation
   cannot be rendered well in text. ]
 
   Payload =

@@ -671,7 +671,8 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 
 <figure align="left"><artwork><![CDATA[
 coaps://est-coaps.example.ietf.org:<port>/.well-known/est/<short-est>
-coaps://est-coaps.example.ietf.org:<port>/.well-known/est/ArbitraryLabel/<short-est>
+coaps://est-coaps.example.ietf.org:<port>/.well-known/est/
+                                           ArbitraryLabel/<short-est>
 ]]></artwork></figure>
 
       <t>The short-est strings are defined in <xref target="est-uri"/>.
@@ -683,7 +684,8 @@ coaps://est-coaps.example.ietf.org:<port>/.well-known/est/ArbitraryLabel/<short-
 	  <t>The EST-coaps server URIs, obtained through discovery of the EST-coaps root resource(s) as shown below, are of the form: </t>
 <figure align="left"><artwork><![CDATA[
 coaps://est-coaps.example.ietf.org:<port>/<root-resource>/<short-est>
-coaps://est-coaps.example.ietf.org:<port>/<root-resource>/ArbitraryLabel/<short-est>
+coaps://est-coaps.example.ietf.org:<port>/<root-resource>/
+                                           ArbitraryLabel/<short-est>
 ]]></artwork></figure>
 
       <t>Figure 5 in section 3.2.2 of <xref target="RFC7030"/> enumerates the operations and corresponding paths which are supported by EST. <xref target="est-uri"/> provides the mapping from the EST URI path to the shorter EST-coaps URI path.</t>
@@ -1482,14 +1484,14 @@ b53bdaadc9ae60b08f52429c0fa1003100
 	of the response, even though not shown, is 281 (application/pkcs7-mime; smime-type=certs-only).
 	The transer of the 11 blocks with partially filled block NUM=10 is shown below </t>
     <figure align="left"><artwork><![CDATA[
-   GET coaps://est-coaps.example.ietf.org:9085/est/crts (2:0/0/64)    -->
+   GET coaps://est-coaps.example.ietf.org:9085/est/crts (2:0/0/64)  -->
                  <--   (2:0/1/64) 2.05 Content
-   GET coaps://est-coaps.example.ietf.org:9085/est/crts (2:1/0/64)    -->
+   GET coaps://est-coaps.example.ietf.org:9085/est/crts (2:1/0/64)  -->
                  <--   (2:1/1/64) 2.05 Content
                                |
                                |
                                |
-   GET coaps://est-coaps.example.ietf.org:9085/est/crts (2:10/0/64)  -->
+   GET coaps://est-coaps.example.ietf.org:9085/est/crts (2:10/0/64) -->
                  <--   (2:9/0/64) 2.05 Content
 ]]></artwork></figure>
 

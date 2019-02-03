@@ -195,7 +195,7 @@
       <t> extended block message example. </t>
       <t>inserted new server key generation text in <xref target="serverkey"/> and motivated server key generation.</t>
       <t>Broke down details for DTLS 1.3 </t>
-      <t>New media type uses CBOR array for multiple Content-Format payloads</t>
+      <t>New Media-Type uses CBOR array for multiple Content-Format payloads</t>
       <t>provided new Content-Format tables</t>
       <t> new media format for IANA </t>
     </list>
@@ -372,13 +372,13 @@ This specification contains a set of required-to-implement functions, optional f
 
 </section>  <!-- Required/optional Functions  -->
 
-    <section anchor="format" title ="Payload format">
-      <t>The Content-Format (media type equivalent) of the CoAP message determines which
-	  EST message is transported in the CoAP payload. The media types specified in the HTTP
+    <section anchor="format" title ="Payload formats">
+      <t>The Content-Format (Media-Type equivalent) of the CoAP message determines which
+	  EST message is transported in the CoAP payload. The Media-Types specified in the HTTP
 	  Content-Type header (section 3.2.2 of <xref target="RFC7030"/>) are in EST-coaps
 	  specified by the Content-Format Option (12) of CoAP. The combination of URI-Path
 	  and Content-Format in EST-coaps MUST map to an allowed combination of URI and
-	  media type in EST. The required Content-Formats for these requests and
+	  Media-Type in EST. The required Content-Formats for these requests and
 	  response messages are defined in <xref target="Content-Formats"/>. The CoAP response
 	  codes are defined in <xref target="error"/>.</t>
 	  
@@ -402,10 +402,10 @@ This specification contains a set of required-to-implement functions, optional f
 	  
       <t>EST-coaps is designed for use between low-resource devices and hence does not need
 	  to send Base64-encoded data. Simple binary is more efficient (30% smaller payload) and
-	  well supported by CoAP. Thus, the payload for a given media type follows the ASN.1
+	  well supported by CoAP. Thus, the payload for a given Media-Type follows the ASN.1
 	  structure of the media-type and is transported in binary format.
       <!-- <xref target="cborpair"/> --> <xref target="format"/> specifies the payload 
-	  structure when multiple media types
+	  structure when multiple Media-Types
 	  are present in the payload.</t>
 
       <!-- <section anchor="cborpair" title="Content-Format application/multipart-core"> -->
@@ -442,7 +442,7 @@ This specification contains a set of required-to-implement functions, optional f
 		280 (0x0118). The key and certificate representations are ASN.1 encoded
 		in binary format. An example is shown in <xref target="appskg"/>.</t>
 		
-		<t>The client needs to communicate to the server the content format of 
+		<t>The client needs to communicate to the server the Content-Format of 
 		the application/multipart-core. 
 		The key Content-Format requested by the client is depicted in the 
 		PKCS#10 request. If the request contains SMIMECapabilities the the client 
@@ -1161,9 +1161,9 @@ HMAC(finished_key,
 	purposes because a binary representation cannot be rendered well in text.
 	<!-- [EDNOTE: No need for these details of how these were generated from I-D.moskowitz-ecdsa-pki. ]
 	In particular, the shell scripts from section 4.2 (create root certificate), section 6.2 (Create the 802.1AR intermediate certificate) and section 6.3 (Create an 802.1AR IdevID certificate) have been used. The 802.1AR IdevID certificate is signed by the 802.1AR intermediate certificate that is signed by the auto-signed root certificate.--></t>
-    <t>The certificate responses included in the examples contain content 
-	format 281 (application/pkcs7). If the client had requested content 
-	format TBD287 (application/pkix-cert) with an Accept Option, the 
+    <t>The certificate responses included in the examples contain Content-Format 
+	281 (application/pkcs7). If the client had requested Content-Format 
+	TBD287 (application/pkix-cert) with an Accept Option, the 
 	server would respond a single PEM binary certificate.</t>
     <t>The message content breakdown is presented in <xref target="cont_breakdown"/>.</t>
     <t>The corresponding CoAP headers are only shown in <xref target="cacerts"/>.

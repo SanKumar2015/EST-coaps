@@ -476,8 +476,8 @@ This specification contains a set of required-to-implement functions, optional f
 	  for the client. The equivalent CoAP codes to use in an EST-coaps responses
       are 2.04 and 4.04. Additionally, EST's HTTP 401 error translates to 4.01 in
 	  EST-coaps. Other EST HTTP error messages are 400, 423 and 503. Their equivalent
-	  CoAP errors are 4.00, 4.03 and 5.03 respectively. In case a COAP Option 
-	  is unrecognized or unsafe, the server is expected to return a 4.02 (Bad Option). 
+	  CoAP errors are 4.00, 4.03 and 5.03 respectively. In case a CoAP Option 
+	  is unrecognized and critical, the server is expected to return a 4.02 (Bad Option). 
 	  If the Content-Format requested in the client 
 	  Accept Option, is not supported the server MUST return a 4.06 (Not Acceptable), 
 	  unless another error code takes precedence for the response.</t>

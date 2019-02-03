@@ -130,10 +130,10 @@
    <t> -08
     <list style="empty">
        <t>added application/pkix-cert Content-Format TBD287.</t>
-	   <t>Minor text fixes. </t>
         <t> Stated that well-known/est is compulsory</t>
         <t> removed bugs: Max-Age and Content-Format Options in Request</t>
-        <t> accept Option explained for est/skg and added in enroll example </t>
+        <t> Accept Option explained for est/skg and added in enroll example </t>
+		<t> Minor text fixes. </t>
     </list>
    </t>
    <t> -07:
@@ -439,6 +439,16 @@ This specification contains a set of required-to-implement functions, optional f
 		explained in <xref target="serverkey"/>) the Content-Format identifier is
 		280 (0x0118). The key and certificate representations are ASN.1 encoded
 		in binary format. An example is shown in <xref target="appskg"/>.</t>
+		
+		<t>The client needs to communicate to the server the content format of 
+		the application/multipart-core. 
+		The key Content-Format requested by the client is depicted in the 
+		PKCS#10 request. If the request contains SMIMECapabilities the the client 
+		is expecting Content-Format 280. Otherwise he expects a PKCS#8 key in 
+		Content-Format 284. The client expresses the preferred certificate 
+		Content-Format in his /skg request by using an Accept Option. The Accept 
+        Option is 281 for PKCS#7 container certificates or TBD287 for X.509 
+		certificates. </t>
 
       </section>  <!--Content-Format application/multipart-core -->
 
@@ -1296,7 +1306,7 @@ cannot be rendered well in text. ]
 
 <figure align="left"><artwork><![CDATA[
 POST [2001:db8::2:1]:61616/est/sen
-(token: 0x45) 
+(Token: 0x45) 
 (Accept: 281)
 (Content-Format: 286)
 
@@ -1327,7 +1337,7 @@ ec9b9a38920220179f10a3436109051abad17590a09bc87c4dce5453a6fc
 
 <figure align="left"><artwork><![CDATA[
 2.01 Created 
-(token: 0x45)
+(Token: 0x45)
 (Content-Format: 281)
 
 [ The hexadecimal representation below would NOT be transported
@@ -1372,8 +1382,8 @@ ff958d75419d81a6a245dffae790be95cf75f602f9152618f816a2b23b56
 
 <figure align="left"><artwork><![CDATA[
 POST coaps://192.0.2.1:8085/est/skg
-(token: 0xa5)
-(Accept: EDNOTE )
+(Token: 0xa5)
+(Accept: 281)
 (Content-Format: 286)
 
 [ The hexadecimal representation below would NOT be transported
@@ -1393,7 +1403,7 @@ b8c1117896f98e4506c03d70efbe820d8e38ea97e9d65d52c8460c5852c5
 
 <figure align="left"><artwork><![CDATA[
 2.01 Content 
-(token: 0xa5)
+(Token: 0xa5)
 (Content-Format: 62)
 
 [ The hexadecimal representations below would NOT be transported

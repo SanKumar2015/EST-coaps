@@ -830,21 +830,27 @@ HMAC(finished_key,
   <section title="Parameters">
     <t>This section addresses transmission parameters described
 	in sections 4.7 and 4.8 of <xref target="RFC7252"/>. </t>
-    <figure align="center"><artwork><![CDATA[
+    <!-- <figure align="center"><artwork><![CDATA[
          ACK_TIMEOUT       | 2 seconds     |
          ACK_RANDOM_FACTOR | 1.5           |
          MAX_RETRANSMIT    | 4             |
          NSTART            | 1             |
          DEFAULT_LEISURE   | 5 seconds     |
-         PROBING_RATE      | 1 byte/second | ]]></artwork></figure>
-    <t> EST does not impose any unique values on the CoAP parameters, but the EST parameter values need to be tuned to the CoAP parameter values. </t>
+         PROBING_RATE      | 1 byte/second | ]]></artwork></figure> --> 
+    <t> EST does not impose any unique values on the CoAP parameters 
+	in <xref target="RFC7252"/>, but the EST parameter values need to 
+	be tuned to the CoAP parameter values. </t>
     <t> The main recommendation, based on experiments,
 	<!-- using Nexus Certificate Manager with Californium for
 	CoAP support, communicating with a ContikiOS and tinyDTLS based
 	client, from RISE SICS, --> is to follow the default CoAP
-	configuration parameters. However, depending on the implementation
-	scenario, retransmissions and timeouts can also occur on other
-	networking layers, governed by other configuration parameters.</t>
+	configuration parameters (<xref target="RFC7252"/>). However, 
+	depending on the implementation scenario, retransmissions 
+	and timeouts can also occur on other networking layers, 
+	governed by other configuration parameters. A change in a 
+	server parameter MUST ensure the adjusted value is also 
+	available to all the endpoints with which these adjusted 
+	values are to be used to communicate.</t>
 
     <t>Some further comments about some specific parameters, mainly from
 	Table 2 in <xref target="RFC7252"/>:

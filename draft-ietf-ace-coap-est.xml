@@ -404,10 +404,12 @@ This specification contains a set of required-to-implement functions, optional f
 	  to send Base64-encoded data. Simple binary is more efficient (30% smaller payload) and
 	  well supported by CoAP. Thus, the payload for a given media type follows the ASN.1
 	  structure of the media-type and is transported in binary format.
-      <xref target="cborpair"/> specifies the payload structure when multiple media types
+      <!-- <xref target="cborpair"/> --> <xref target="format"/> specifies the payload 
+	  structure when multiple media types
 	  are present in the payload.</t>
 
-      <section anchor="cborpair" title="Content-Format application/multipart-core">
+      <!-- <section anchor="cborpair" title="Content-Format application/multipart-core"> -->
+	  <t><spanx style="strong">application/multipart-core</spanx> </t>
         <t>
         A representation with Content-Format identifier 62 contains a collection of representations
 		along with their respective Content-Format. The Content-Format identifies the
@@ -450,7 +452,7 @@ This specification contains a set of required-to-implement functions, optional f
         Option is 281 for PKCS#7 container certificates or TBD287 for X.509 
 		certificates. </t>
 
-      </section>  <!--Content-Format application/multipart-core -->
+      <!-- </section> -->  <!--Content-Format application/multipart-core -->
 
    </section> <!-- Payload format -->
 
@@ -626,7 +628,8 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	  <t>
 	    The sever-side key generation response is returned with Content-Format
 		application/multipart-core <xref target="I-D.ietf-core-multipart-ct"/>
-		containing a CBOR array with four items (<xref target="cborpair"/>).
+		containing a CBOR array with four items <!--(<xref target="cborpair"/>) -->
+		<xref target="format"/>.
 		The certificate part exactly matches the response from an enrollment response.
 		The private key can be in unprotected PKCS#8 <xref target="RFC5958"/>
 		format (Content-Format 284) or protected inside of CMS SignedData
@@ -660,10 +663,6 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	  (Registrar in <xref target="RAfig"/>).</t>
 
     </section> <!-- Server-side Key Generation -->
-
-    <section anchor="deploy-limit" title = "Deployment limits">
-      <t>Although EST-coaps paves the way for the utilization of EST by constrained devices in constrained networks, some classes of devices <xref target="RFC7228" /> will not have enough resources to handle the large payloads that come with EST-coaps. The specification of EST-coaps is intended to ensure that EST works for networks of constrained devices that choose to limit their communications stack to UDP/DTLS/CoAP. It is up to the network designer to decide which devices execute the EST protocol and which do not.</t>
-    </section> <!-- Deployment limits  -->
   </section> <!-- protocol design-->
 
   <section anchor="discovery" title = "Discovery and URIs">
@@ -879,6 +878,9 @@ HMAC(finished_key,
 	derived from Table 2. Directly changing parameters on one table would
 	affect parameters on the other.</t>
   </section>
+  <section anchor="deploy-limit" title = "Deployment limits">
+    <t>Although EST-coaps paves the way for the utilization of EST by constrained devices in constrained networks, some classes of devices <xref target="RFC7228" /> will not have enough resources to handle the large payloads that come with EST-coaps. The specification of EST-coaps is intended to ensure that EST works for networks of constrained devices that choose to limit their communications stack to UDP/DTLS/CoAP. It is up to the network designer to decide which devices execute the EST protocol and which do not.</t>
+  </section> <!-- Deployment limits  -->
 
   <section anchor="iana" title="IANA Considerations">
 

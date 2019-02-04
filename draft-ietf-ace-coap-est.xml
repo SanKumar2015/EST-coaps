@@ -218,7 +218,7 @@
    <t>This document defines a new transport for EST based on the Constrained
    Application Protocol (CoAP) since some Internet of Things (IoT) devices
    use CoAP instead of HTTP. Therefore, this specification utilizes DTLS
-   <xref target="RFC6347"/>, CoAP <xref target="RFC7252"/>, and UDP instead of
+   <xref target="RFC6347"/>, CoAP <xref target="RFC7252"/> and UDP instead of
    TLS <xref target="RFC8446"/>, HTTP <xref target="RFC7230"/> and TCP. </t>
 
    <t>EST responses can be relatively large and for this reason this
@@ -256,7 +256,7 @@
     described in BCP 14 <xref target="RFC2119"/> <xref target="RFC8174"/>
 	when, and only when, they appear in all capitals, as shown here.</t>
 
-    <t>Many of the concepts in this document are taken from <xref target="RFC7030"/>. Consequently, much text is directly traceable to <xref target="RFC7030"/>. The same document structure is followed to point out the differences and commonalities between EST and EST-coaps.</t>
+    <t>Many of the concepts in this document are taken from <xref target="RFC7030"/>. Consequently, much text is directly traceable to <xref target="RFC7030"/>. <!-- The same document structure is followed to point out the differences and commonalities between EST and EST-coaps. --></t>
   </section>  <!-- Terminology -->
 
   <section anchor="profile7925" title="Conformance to RFC7925 profiles">
@@ -283,9 +283,8 @@
 	<t>
 	DTLS1.2 implementations MUST use the Supported Elliptic Curves and Supported
     Point Formats Extensions <xref target="RFC8422"/>. Uncompressed point
-    format MUST also be supported. <xref target="RFC6090"/> can be used as
-	summary of the ECC algorithms. DTLS 1.3
-	<xref target="I-D.ietf-tls-dtls13"/>
+    format MUST also be supported. <xref target="RFC6090"/> is a summary 
+	of the ECC algorithms. DTLS 1.3 <xref target="I-D.ietf-tls-dtls13"/>
 	implementations differ from DTLS 1.2
     because they do not support point format negotiation in favor of a single
     point format for each curve and thus support for DTLS 1.3 does not mandate
@@ -295,33 +294,28 @@
     <t>The authentication of the EST-coaps server by the EST-coaps
 	client is based on certificate authentication in the DTLS handshake.
 	The EST-coaps client MUST be configured with at least an Implicit TA database
-	from its manufacturer which will allow for the authenticating the server the
+	from its manufacturer which will enable the authentication of the server the
 	first time before updating its trust anchor (Explicit TA) <xref target="RFC7030"/>.</t>
 
-    <t>The authentication of the EST-coaps client is based on a client certificate
+    <t>The authentication of the EST-coaps client MUST be with a client certificate
 	in the DTLS handshake. This can either be
       <list style="symbols">
         <t>a previously issued client certificate (e.g., an existing certificate issued
-		by the EST CA); this could be a common case for simple reenrollment of clients. </t>
-        <t>a previously installed certificate (e.g., manufacturer-installed IDevID
-		(IEEE 802.1AR <xref target="ieee802.1ar"/> certificate
-        or a certificate issued by some other party); the server
-        is expected to trust the previously installed CA certificate in this case. IDevID's are expected to have
-        a very long life, as long as the device, but under some conditions could expire. In the latter case,
-        the server MAY want to authenticate a client certificate against its trust store
-		although the certificate is expired (<xref target="sec"/>). </t>
+		by the EST CA); this could be a common case for simple re-enrollment of clients. </t>
+        <t>a previously installed certificate (e.g., manufacturer IDevID
+		<xref target="ieee802.1ar"/> or a certificate issued by some other party); the server
+        is expected to trust that certificate. IDevID's are expected to have
+        a very long life, as long as the device, but under some conditions 
+		could expire. In that case, the server MAY want to authenticate 
+		a client certificate against its trust store although the certificate 
+		is expired (<xref target="sec"/>). </t>
     </list></t>
-
-    <t>
-      Client authentication via DTLS Client Certificate is mandatory.
-    </t>
-
   </section>  <!-- 7925 profile  -->
 
   <section anchor="design" title="Protocol Design">
     <t>EST-coaps uses CoAP to transfer EST messages, aided by Block-Wise Transfer
-	<xref target="RFC7959"/> to transport CoAP messages in blocks thus avoiding (excessive)
-	fragmentation of UDP datagrams. The use of "Block" for the transfer of larger
+	<xref target="RFC7959"/> to avoid (excessive)
+	fragmentation of UDP datagrams. The use of Blocks for the transfer of larger
 	EST messages is specified in <xref target="fragment"/>.
 	<xref target="fig-est-coaps-layers"/> below shows the layered EST-coaps
 	architecture.</t>
@@ -329,7 +323,7 @@
 +------------------------------------------------+
 |    EST request/response messages               |
 +------------------------------------------------+
-|    CoAP for message transfer and signalling    |
+|    CoAP for message transfer and signaling    |
 +------------------------------------------------+
 |    DTLS for transport security                 |
 +------------------------------------------------+
@@ -341,7 +335,7 @@
       <list style="symbols">
         <t>CA certificate retrieval, needed to receive the complete set of CA certificates. </t>
 		<t>Simple enroll and reenroll, for CA to sign public client-identity key.</t>
-        <t>Certificate Signing Request (CSR) Attributes request messages, informs the client
+        <t>Certificate Signing Request (CSR) Attributes messages, informs the client
 		of the fields to include in generated CSR.</t>
         <t>Server-side key generation messages, to provide a private client-identity key
 		when the client choses for an external entity to generate its private key. </t>
@@ -367,15 +361,15 @@ This specification contains a set of required-to-implement functions, optional f
 
 <t>
   While <xref target="RFC7030" /> permits a number of these functions to be used without
-  authentication, this specification requires client authentication
-  for all functions.
+  authentication, this specification requires that the client MUST be authenticated 
+  for all functions. <!-- because allowing unauthenticated requests introduces security concerns and amplification attacks -->
 </t>
 
 
 </section>  <!-- Required/optional Functions  -->
 
     <section anchor="format" title ="Payload formats">
-      <t>The Content-Format (Media-Type equivalent) of the CoAP message determines which
+      <t>The Content-Format (HTTP Media-Type equivalent) of the CoAP message determines which
 	  EST message is transported in the CoAP payload. The Media-Types specified in the HTTP
 	  Content-Type header (section 3.2.2 of <xref target="RFC7030"/>) are in EST-coaps
 	  specified by the Content-Format Option (12) of CoAP. The combination of URI-Path
@@ -385,15 +379,15 @@ This specification contains a set of required-to-implement functions, optional f
 	  codes are defined in <xref target="error"/>.</t>
 	  
 	  <t>Content-Format TBD287 can be used in place of 281 to carry a single 
-      certificate instead of a PKCS#7 container when only one 
+      certificate instead of a PKCS#7 container 
       in a /crts, /sen, /sren or /skg response. 
       Content-Format 281 MUST be supported by EST-coaps servers. 
-	  Server MAY also support Content-Format TBD287.
-	  It is up to the client to support Content-Format only 281, 
+	  Servers MAY also support Content-Format TBD287.
+	  It is up to the client to support only Content-Format 281, 
 	  TBD287 or both. The client is expected to use 
 	  an COAP Accept Option in the request to express the 
 	  preferred response Content-Format. If an Accept Option is 
-      not included in the client request, the client is not expressing 
+      not included in the request, the client is not expressing 
       any preference and the server SHOULD choose format 281. If the 
       preferred Content-Format cannot be returned, then a 4.06 
       (Not Acceptable) MUST be sent as a response, unless another 
@@ -402,20 +396,20 @@ This specification contains a set of required-to-implement functions, optional f
 	  <t>Content-Format 286 is used in /sen, /sren and /skg requests 
 	  and 285 in /att responses. </t>
 	  
-      <t>EST-coaps is designed for use between low-resource devices and hence does not need
+      <t>EST-coaps is designed for low-resource devices and hence does not need
 	  to send Base64-encoded data. Simple binary is more efficient (30% smaller payload) and
 	  well supported by CoAP. Thus, the payload for a given Media-Type follows the ASN.1
 	  structure of the media-type and is transported in binary format.
-      <!-- <xref target="cborpair"/> --> <xref target="format"/> specifies the payload 
+      <!-- <xref target="cborpair"/> <xref target="format"/> specifies the payload 
 	  structure when multiple Media-Types
-	  are present in the payload.</t>
+	  are present in the payload.--> </t>
 
       <!-- <section anchor="cborpair" title="Content-Format application/multipart-core"> -->
 	  <t><spanx style="strong">application/multipart-core</spanx> </t>
         <t>
         A representation with Content-Format identifier 62 contains a collection of representations
 		along with their respective Content-Format. The Content-Format identifies the
-		media-type application/multipart-core specified in <xref target="I-D.ietf-core-multipart-ct"/>. </t>
+		Media-Type application/multipart-core specified in <xref target="I-D.ietf-core-multipart-ct"/>. </t>
 
 		<t>The collection is encoded as a <xref target="RFC7049">CBOR array</xref> with
 		an even number of elements. The second, fourth, sixth, etc. element is a binary
@@ -445,14 +439,14 @@ This specification contains a set of required-to-implement functions, optional f
 		in binary format. An example is shown in <xref target="appskg"/>.</t>
 		
 		<t>The client needs to communicate to the server the Content-Format of 
-		the application/multipart-core. 
+		the application/multipart-core elements. 
 		The key Content-Format requested by the client is depicted in the 
 		PKCS#10 request. If the request contains SMIMECapabilities the client 
 		is expecting Content-Format 280. Otherwise he expects a PKCS#8 key in 
 		Content-Format 284. The client expresses the preferred certificate 
 		Content-Format in his /skg request by using an Accept Option. The Accept 
-        Option is 281 for PKCS#7 container certificates or TBD287 for X.509 
-		certificates. </t>
+        Option is 281 for a certificate in a PKCS#7 container or TBD287 for a X.509 
+		certificate. </t>
 
       <!-- </section> -->  <!--Content-Format application/multipart-core -->
 
@@ -464,9 +458,17 @@ This specification contains a set of required-to-implement functions, optional f
           <t>All EST-coaps messages expect a response from the server, thus the client MUST send
 		  the requests over confirmable CON CoAP messages.</t>
           <t>The Ver, TKL, Token, and Message ID values of the CoAP header are not affected by EST.</t>
-          <t>The CoAP Options used are Uri-Host, Uri-Path, Uri-Port, Content-Format, and Location-Path.
+          <t>The CoAP Options used are Uri-Host, Uri-Path, Uri-Port, Content-Format, Accept and Location-Path.
 		  These CoAP Options are used to communicate the HTTP fields specified in the EST
-		  REST messages. </t>
+		  REST messages. The Uri-Host and Uri-Port Options are optional. They 
+	      are usually omitted as the DTLS destination and port 
+	      are sufficient. Explicit Uri-Host and Uri-Port Options 
+	      are typically used when an endpoint hosts multiple virtual 
+	      servers and uses the Options to route the requests accordingly. 
+	      Alternatively, if a UDP port to a server is blocked, 
+	      someone could send the DTLS packets to a known open port 
+	      on the server and use the Uri-Port to convey the intended port 
+          he is attempting to reach.</t>
           <t>EST URLs are HTTPS based (https://), in CoAP these are assumed to be translated
 		  to coaps (coaps://)</t>
         </list></t>
@@ -1494,7 +1496,7 @@ b53bdaadc9ae60b08f52429c0fa1003100
                                |
                                |
    GET coaps://est-coaps.example.ietf.org:9085/est/crts (2:9/0/64) -->
-                 <--   (2:10/0/64) 2.05 Content
+                 <--   (2:9/0/64) 2.05 Content
 ]]></artwork></figure>
 
     <t>The header of the GET request looks like</t>

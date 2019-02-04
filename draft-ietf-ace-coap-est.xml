@@ -131,8 +131,10 @@
     <list style="empty">
        <t>added application/pkix-cert Content-Format TBD287.</t>
         <t> Stated that well-known/est is compulsory</t>
+        <t> Use of response codes clarified.</t>
         <t> removed bugs: Max-Age and Content-Format Options in Request</t>
         <t> Accept Option explained for est/skg and added in enroll example </t>
+        <t> Persistenc of DTLS connection clarified. </t>
 		<t> Minor text fixes. </t>
     </list>
    </t>
@@ -445,7 +447,7 @@ This specification contains a set of required-to-implement functions, optional f
 		<t>The client needs to communicate to the server the Content-Format of 
 		the application/multipart-core. 
 		The key Content-Format requested by the client is depicted in the 
-		PKCS#10 request. If the request contains SMIMECapabilities the the client 
+		PKCS#10 request. If the request contains SMIMECapabilities the client 
 		is expecting Content-Format 280. Otherwise he expects a PKCS#8 key in 
 		Content-Format 284. The client expresses the preferred certificate 
 		Content-Format in his /skg request by using an Accept Option. The Accept 

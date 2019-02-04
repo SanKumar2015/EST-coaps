@@ -1484,7 +1484,7 @@ b53bdaadc9ae60b08f52429c0fa1003100
 	with exponent (2**(SZX+4)) separated by slashes.  The Length 64 is used with SZX=2 to avoid IP
 	fragmentation. The CoAP Request is sent confirmable (CON) and the Content-Format
 	of the response, even though not shown, is 281 (application/pkcs7-mime; smime-type=certs-only).
-	The transer of the 11 blocks with partially filled block NUM=10 is shown below </t>
+	The transer of the 10 blocks with partially filled block NUM=9 is shown below </t>
     <figure align="left"><artwork><![CDATA[
    GET coaps://est-coaps.example.ietf.org:9085/est/crts (2:0/0/64)  -->
                  <--   (2:0/1/64) 2.05 Content
@@ -1493,8 +1493,8 @@ b53bdaadc9ae60b08f52429c0fa1003100
                                |
                                |
                                |
-   GET coaps://est-coaps.example.ietf.org:9085/est/crts (2:10/0/64) -->
-                 <--   (2:9/0/64) 2.05 Content
+   GET coaps://est-coaps.example.ietf.org:9085/est/crts (2:9/0/64) -->
+                 <--   (2:10/0/64) 2.05 Content
 ]]></artwork></figure>
 
     <t>The header of the GET request looks like</t>
@@ -1592,7 +1592,7 @@ df9c99244b300a06082a8648ce3d0403023067310b300906035504061302
 
 ]]></artwork></figure>
 
-    <t>The 11th and final Block2:</t>
+    <t>The 10th and final Block2:</t>
     <figure><artwork>
 <![CDATA[  Ver = 1
   T = 2 (means ACK)

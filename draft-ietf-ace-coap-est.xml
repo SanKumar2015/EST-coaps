@@ -900,13 +900,13 @@ HMAC(finished_key,
   <ttcol align="right">ID</ttcol>
   <ttcol align="left">Reference</ttcol>
 
-  <c>application/pkcs7-mime; smime-type=server-generated-key</c><c>280</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/> <xref target="RFC7030"/></c>
+  <c>application/pkcs7-mime; smime-type=server-generated-key</c><c>280</c> <c><xref target="RFC7030"/> <xref target="I-D.ietf-lamps-rfc5751-bis"/> </c>
   <c>application/pkcs7-mime; smime-type=certs-only</c>          <c>281</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/></c>
-  <c>application/pkcs7-mime; smime-type=CMC-request</c>         <c>282</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/> <xref target="RFC5273"/></c>
-  <c>application/pkcs7-mime; smime-type=CMC-response</c>        <c>283</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/> <xref target="RFC5273"/></c>
-  <c>application/pkcs8</c>                                      <c>284</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/> <xref target="RFC5958"/></c>
+  <c>application/pkcs7-mime; smime-type=CMC-request</c>         <c>282</c> <c><xref target="RFC5273"/> <xref target="I-D.ietf-lamps-rfc5751-bis"/></c>
+  <c>application/pkcs7-mime; smime-type=CMC-response</c>        <c>283</c> <c><xref target="RFC5273"/> <xref target="I-D.ietf-lamps-rfc5751-bis"/></c>
+  <c>application/pkcs8</c>                                      <c>284</c> <c><xref target="RFC5958"/> <xref target="I-D.ietf-lamps-rfc5751-bis"/></c>
   <c>application/csrattrs</c>                                   <c>285</c> <c><xref target="RFC7030"/> <xref target="RFC7231"/></c>
-  <c>application/pkcs10</c>                                     <c>286</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/> <xref target="RFC5967"/></c>
+  <c>application/pkcs10</c>                                     <c>286</c> <c><xref target="RFC5967"/> <xref target="I-D.ietf-lamps-rfc5751-bis"/></c>
 <c>application/pkix-cert</c>                                     <c>TBD287</c> <c> <xref target="RFC2585"/></c>
 </texttable>
 

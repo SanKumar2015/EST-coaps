@@ -38,6 +38,7 @@
 <!ENTITY I-D.moskowitz-ecdsa-pki SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.moskowitz-ecdsa-pki.xml">
 <!ENTITY I-D.ietf-core-multipart-ct SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-core-multipart-ct.xml">
 <!ENTITY I-D.ietf-lamps-rfc5751-bis SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-lamps-rfc5751-bis.xml">
+<!ENTITY I-D.draft-ietf-core-resource-directory-19 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-core-resource-directory-19.xml">
 <!ENTITY I-D.josefsson-sasl-tls-cb SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.josefsson-sasl-tls-cb.xml">
 ]>
 
@@ -723,7 +724,25 @@ coaps://est-coaps.example.ietf.org:<port>/<root-resource>/
     <!-- Used quotes when multiple cts are returned as shown in draft-ietf-core-resource-directory-19 -->
     </figure>
       <t> The first line of the discovery response above MUST be included. The five consecutive lines after the first MAY be included. The return of the content types allows the client to choose the most appropriate one.</t>
-      <t>Port numbers, not returned in the example, are assumed to be the default numbers 5683 and 5684 for coap and coaps respectively (Sections 12.6 and 12.7 of <xref target="RFC7252"/>). Discoverable port numbers MAY be returned in the &lt;href&gt; of the payload.</t>
+      <t>Port numbers, not returned in the example, are assumed to be the default numbers 5683 and 5684 for coap and coaps respectively (Sections 12.6 and 12.7 of <xref target="RFC7252"/>). Discoverable port numbers MAY be returned in the &lt;href&gt; of the payload <xref target="I-D.ietf-core-resource-directory"/>. An example response payload for non-default CoAPs server port 61617 follows below. Linefeeds were included only for readability.</t>
+<figure><artwork align="left"><![CDATA[
+  REQ: GET /.well-known/core?rt=ace.est*
+
+  RES: 2.05 Content
+<coap://[2001:db8:3::123]:61617/est>;rt="ace.est";
+                              anchor="coap://[2001:db8:3::123]:61617", 
+<coap://[2001:db8:3::123]:61617/est/crts>;rt="ace.est.crts";
+              ct="281 TBD287";anchor="coap://[2001:db8:3::123]:61617", 
+<coap://[2001:db8:3::123]:61617/est/sen>;rt="ace.est.sen";
+              ct="281 TBD287";anchor="coap://[2001:db8:3::123]:61617", 
+<coap://[2001:db8:3::123]:61617/est/sren>;rt="ace.est.sren";
+              ct="281 TBD287";anchor="coap://[2001:db8:3::123]:61617",
+<coap://[2001:db8:3::123]:61617/est/att>;rt="ace.est.att";
+                     ct="285";anchor="coap://[2001:db8:3::123]:61617",
+<coap://[2001:db8:3::123]:61617/est/skg>;rt="ace.est.skg";
+    ct="62 280 284 281 TBD287";anchor="coap://[2001:db8:3::123]:61617"
+]]></artwork>
+    </figure>
 
 	  <t>The server MUST support the default
 	  /.well-known/est server root resource and port 5684. Resource discovery is 
@@ -1105,6 +1124,7 @@ HMAC(finished_key,
     <!-- &I-D.ietf-anima-bootstrapping-keyinfra; -->
 	&I-D.ietf-tls-dtls-connection-id;
     &I-D.ietf-lamps-rfc5751-bis;
+	&I-D.draft-ietf-core-resource-directory-19;
     &I-D.moskowitz-ecdsa-pki;
 	&I-D.josefsson-sasl-tls-cb;
     <reference anchor="ieee802.15.4">

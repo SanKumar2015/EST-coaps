@@ -5,12 +5,12 @@
 ACE                                                      P. van der Stok
 Internet-Draft                                                Consultant
 Intended status: Standards Track                           P. Kampanakis
-Expires: August 8, 2019                                    Cisco Systems
+Expires: August 10, 2019                                   Cisco Systems
                                                            M. Richardson
                                                                      SSW
                                                                  S. Raza
                                                                RISE SICS
-                                                        February 4, 2019
+                                                        February 6, 2019
 
 
                     EST over secure CoAP (EST-coaps)
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 8, 2019.
+   This Internet-Draft will expire on August 10, 2019.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-van der Stok, et al.     Expires August 8, 2019                 [Page 1]
+van der Stok, et al.     Expires August 10, 2019                [Page 1]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -72,44 +72,44 @@ Table of Contents
    3.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   6
    4.  Conformance to RFC7925 profiles . . . . . . . . . . . . . . .   6
    5.  Protocol Design . . . . . . . . . . . . . . . . . . . . . . .   7
-     5.1.  Mandatory/optional EST Functions  . . . . . . . . . . . .   8
-     5.2.  Payload formats . . . . . . . . . . . . . . . . . . . . .   8
-     5.3.  Message Bindings  . . . . . . . . . . . . . . . . . . . .  10
-     5.4.  CoAP response codes . . . . . . . . . . . . . . . . . . .  10
-     5.5.  Message fragmentation . . . . . . . . . . . . . . . . . .  11
-     5.6.  Delayed Responses . . . . . . . . . . . . . . . . . . . .  12
-     5.7.  Server-side Key Generation  . . . . . . . . . . . . . . .  14
-   6.  Discovery and URIs  . . . . . . . . . . . . . . . . . . . . .  16
-   7.  DTLS Transport Protocol . . . . . . . . . . . . . . . . . . .  17
-   8.  HTTPS-CoAPS Registrar . . . . . . . . . . . . . . . . . . . .  19
-   9.  Parameters  . . . . . . . . . . . . . . . . . . . . . . . . .  20
-   10. Deployment limits . . . . . . . . . . . . . . . . . . . . . .  21
-   11. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  21
-     11.1.  Content-Format Registry  . . . . . . . . . . . . . . . .  22
-     11.2.  Resource Type registry . . . . . . . . . . . . . . . . .  22
-   12. Security Considerations . . . . . . . . . . . . . . . . . . .  23
-     12.1.  EST server considerations  . . . . . . . . . . . . . . .  23
-     12.2.  HTTPS-CoAPS Registrar considerations . . . . . . . . . .  25
-   13. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  25
-   14. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  26
-   15. References  . . . . . . . . . . . . . . . . . . . . . . . . .  26
-     15.1.  Normative References . . . . . . . . . . . . . . . . . .  26
-     15.2.  Informative References . . . . . . . . . . . . . . . . .  28
+     5.1.  Discovery and URIs  . . . . . . . . . . . . . . . . . . .   8
+     5.2.  Mandatory/optional EST Functions  . . . . . . . . . . . .  10
+     5.3.  Payload formats . . . . . . . . . . . . . . . . . . . . .  10
+     5.4.  Message Bindings  . . . . . . . . . . . . . . . . . . . .  12
+     5.5.  CoAP response codes . . . . . . . . . . . . . . . . . . .  13
+     5.6.  Message fragmentation . . . . . . . . . . . . . . . . . .  13
+     5.7.  Delayed Responses . . . . . . . . . . . . . . . . . . . .  14
+     5.8.  Server-side Key Generation  . . . . . . . . . . . . . . .  16
+   6.  DTLS Transport Protocol . . . . . . . . . . . . . . . . . . .  18
+   7.  HTTPS-CoAPS Registrar . . . . . . . . . . . . . . . . . . . .  19
+   8.  Parameters  . . . . . . . . . . . . . . . . . . . . . . . . .  21
+   9.  Deployment limitations  . . . . . . . . . . . . . . . . . . .  21
+   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  22
+     10.1.  Content-Format Registry  . . . . . . . . . . . . . . . .  22
+     10.2.  Resource Type registry . . . . . . . . . . . . . . . . .  22
+   11. Security Considerations . . . . . . . . . . . . . . . . . . .  23
+     11.1.  EST server considerations  . . . . . . . . . . . . . . .  23
+     11.2.  HTTPS-CoAPS Registrar considerations . . . . . . . . . .  25
+   12. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  25
+   13. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  26
+   14. References  . . . . . . . . . . . . . . . . . . . . . . . . .  26
+     14.1.  Normative References . . . . . . . . . . . . . . . . . .  26
+     14.2.  Informative References . . . . . . . . . . . . . . . . .  28
    Appendix A.  EST messages to EST-coaps  . . . . . . . . . . . . .  30
      A.1.  cacerts . . . . . . . . . . . . . . . . . . . . . . . . .  31
-     A.2.  csrattrs  . . . . . . . . . . . . . . . . . . . . . . . .  33
-     A.3.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  34
-     A.4.  serverkeygen  . . . . . . . . . . . . . . . . . . . . . .  36
+     A.2.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  33
+     A.3.  serverkeygen  . . . . . . . . . . . . . . . . . . . . . .  35
+     A.4.  csrattrs  . . . . . . . . . . . . . . . . . . . . . . . .  37
    Appendix B.  EST-coaps Block message examples . . . . . . . . . .  38
-     B.1.  cacerts . . . . . . . . . . . . . . . . . . . . . . . . .  39
-     B.2.  enroll  . . . . . . . . . . . . . . . . . . . . . . . . .  42
+     B.1.  cacerts . . . . . . . . . . . . . . . . . . . . . . . . .  38
+     B.2.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  42
    Appendix C.  Message content breakdown  . . . . . . . . . . . . .  43
      C.1.  cacerts . . . . . . . . . . . . . . . . . . . . . . . . .  43
      C.2.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  45
 
 
 
-van der Stok, et al.     Expires August 8, 2019                 [Page 2]
+van der Stok, et al.     Expires August 10, 2019                [Page 2]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -165,7 +165,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 8, 2019                 [Page 3]
+van der Stok, et al.     Expires August 10, 2019                [Page 3]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -221,21 +221,21 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 8, 2019                 [Page 4]
+van der Stok, et al.     Expires August 10, 2019                [Page 4]
 
 Internet-Draft                  EST-coaps                  February 2019
 
 
       Editorials done.
 
-      Redefinition of proxy to Registrar in Section 8.  Explained better
+      Redefinition of proxy to Registrar in Section 7.  Explained better
       the role of https-coaps Registrar, instead of "proxy"
 
       Provide "observe" Option examples
 
       extended block message example.
 
-      inserted new server key generation text in Section 5.7 and
+      inserted new server key generation text in Section 5.8 and
       motivated server key generation.
 
       Broke down details for DTLS 1.3
@@ -256,8 +256,7 @@ Internet-Draft                  EST-coaps                  February 2019
    "Classical" Enrollment over Secure Transport (EST) [RFC7030] is used
    for authenticated/authorized endpoint certificate enrollment (and
    optionally key provisioning) through a Certificate Authority (CA) or
-   Registration Authority (RA).  EST is defined to transport messages
-   over HTTPS.
+   Registration Authority (RA).  EST transports messages over HTTPS.
 
    This document defines a new transport for EST based on the
    Constrained Application Protocol (CoAP) since some Internet of Things
@@ -277,7 +276,8 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 8, 2019                 [Page 5]
+
+van der Stok, et al.     Expires August 10, 2019                [Page 5]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -295,13 +295,13 @@ Internet-Draft                  EST-coaps                  February 2019
 
 4.  Conformance to RFC7925 profiles
 
-   This section shows how EST-coaps fits into the profiles of low-
+   This section describes how EST-coaps fits into the profiles of low-
    resource devices described in [RFC7925].  EST-coaps can transport
    certificates and private keys.  Certificates are responses to
    (re-)enrollment requests or requests for a trusted certificate list.
    Private keys can be transported as responses to a server-side key
    generation request as described in section 4.4 of [RFC7030] and
-   discussed in Section 5.7 of this document.
+   discussed in Section 5.8 of this document.
 
    As per Sections 3.3 and 4.4 of [RFC7925], the mandatory cipher suite
    for DTLS in EST-coaps is TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8
@@ -315,7 +315,7 @@ Internet-Draft                  EST-coaps                  February 2019
    format MUST also be supported.  [RFC6090] is a summary of the ECC
    algorithms.  DTLS 1.3 [I-D.ietf-tls-dtls13] implementations differ
    from DTLS 1.2 because they do not support point format negotiation in
-   favor of a single point format for each curve and thus support for
+   favor of a single point format for each curve.  Thus, support for
    DTLS 1.3 does not mandate point formation extensions and negotiation.
 
    The authentication of the EST-coaps server by the EST-coaps client is
@@ -333,7 +333,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 8, 2019                 [Page 6]
+van der Stok, et al.     Expires August 10, 2019                [Page 6]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -348,14 +348,14 @@ Internet-Draft                  EST-coaps                  February 2019
       expected to have a very long life, as long as the device, but
       under some conditions could expire.  In that case, the server MAY
       want to authenticate a client certificate against its trust store
-      although the certificate is expired (Section 12).
+      although the certificate is expired (Section 11).
 
 5.  Protocol Design
 
    EST-coaps uses CoAP to transfer EST messages, aided by Block-Wise
    Transfer [RFC7959] to avoid (excessive) fragmentation of UDP
    datagrams.  The use of Blocks for the transfer of larger EST messages
-   is specified in Section 5.5.  Figure 1 below shows the layered EST-
+   is specified in Section 5.6.  Figure 1 below shows the layered EST-
    coaps architecture.
 
    +------------------------------------------------+
@@ -371,37 +371,155 @@ Internet-Draft                  EST-coaps                  February 2019
                     Figure 1: EST-coaps protocol layers
 
    The EST-coaps protocol design follows closely the EST design.  The
-   actions supported by EST-coaps are identified by their message types:
+   supported message types in EST-coaps are:
 
    o  CA certificate retrieval, needed to receive the complete set of CA
       certificates.
 
-   o  Simple enroll and reenroll, for CA to sign public client-identity
-      key.
+   o  Simple enroll and reenroll, for a CA to sign public client-
+      identity key.
 
-   o  Certificate Signing Request (CSR) Attributes messages, informs the
-      client of the fields to include in generated CSR.
+   o  Certificate Signing Request (CSR) Attributes messages that informs
+      the client of the fields to include in generated CSR.
 
-   o  Server-side key generation messages, to provide a private client-
-      identity key when the client choses for an external entity to
-      generate its private key.
-
+   o  Server-side key generation messages to provide a private client-
+      identity key when the client choses so.
 
 
 
-van der Stok, et al.     Expires August 8, 2019                 [Page 7]
+
+
+van der Stok, et al.     Expires August 10, 2019                [Page 7]
 
 Internet-Draft                  EST-coaps                  February 2019
 
 
-5.1.  Mandatory/optional EST Functions
+5.1.  Discovery and URIs
+
+   EST-coaps is targeted for low-resource networks with small packets.
+   Saving header space is important and short EST-coaps URIs are
+   specified in this document.  These URIs are shorter than the ones in
+   [RFC7030].  Two example EST-coaps resource path names are:
+
+   coaps://est-coaps.example.ietf.org:<port>/.well-known/est/<short-est>
+   coaps://est-coaps.example.ietf.org:<port>/.well-known/est/
+                                              ArbitraryLabel/<short-est>
+
+   The short-est strings are defined in Table 1.  The ArbitraryLabel
+   path-segment, if used, SHOULD be of the shortest length possible
+   (Sections 3.1 and 3.2.2 of [RFC7030].  Arbitrary Labels are usually
+   defined and used by EST CAs in order to route client requests to the
+   appropriate certificate profile.
+
+   The EST-coaps server URIs, obtained through discovery of the EST-
+   coaps root resource(s) as shown below, are of the form:
+
+   coaps://est-coaps.example.ietf.org:<port>/<root-resource>/<short-est>
+   coaps://est-coaps.example.ietf.org:<port>/<root-resource>/
+                                              ArbitraryLabel/<short-est>
+
+   Figure 5 in section 3.2.2 of [RFC7030] enumerates the operations and
+   corresponding paths which are supported by EST.  Table 1 provides the
+   mapping from the EST URI path to the shorter EST-coaps URI path.
+
+                     +------------------+-----------+
+                     | EST              | EST-coaps |
+                     +------------------+-----------+
+                     | /cacerts         | /crts     |
+                     | /simpleenroll    | /sen      |
+                     | /simplereenroll  | /sren     |
+                     | /csrattrs        | /att      |
+                     | /serverkeygen    | /skg      |
+                     +------------------+-----------+
+
+                Table 1: Table 1: Short EST-coaps URI path
+
+   Clients and servers MUST support the short resource URIs.  The
+   corresponding longer URIs from [RFC7030] MAY be supported.
+
+   In the context of CoAP, the presence and location of (path to) the
+   management data are discovered by sending a GET request to "/.well-
+   known/core" including a resource type (RT) parameter with the value
+   "ace.est" [RFC6690].  Upon success, the return payload will contain
+   the root resource of the EST resources.  The example below shows the
+
+
+
+van der Stok, et al.     Expires August 10, 2019                [Page 8]
+
+Internet-Draft                  EST-coaps                  February 2019
+
+
+   discovery of the presence and location of EST-coaps resources.
+   Linefeeds are included only for readability.
+
+     REQ: GET /.well-known/core?rt=ace.est*
+
+     RES: 2.05 Content
+   </est>; rt="ace.est",
+   </est/crts>;rt="ace.est.crts";ct="281 TBD287",
+   </est/sen>;rt="ace.est.sen";ct="281 TBD287",
+   </est/sren>;rt="ace.est.sren";ct="281 TBD287",
+   </est/att>;rt="ace.est.att";ct=285,
+   </est/skg>;rt="ace.est.skg";ct="62 280 284 281 TBD287"
+
+   The first line of the discovery response above MUST be included.  The
+   five consecutive lines after the first MAY be included.  The return
+   of the content types allows the client to choose the most appropriate
+   one.
+
+   Port numbers, not returned in the example, are assumed to be the
+   default numbers 5683 and 5684 for CoAP and CoAPS respectively
+   (Sections 12.6 and 12.7 of [RFC7252]).  Discoverable port numbers MAY
+   be returned in the <href> of the payload
+   [I-D.ietf-core-resource-directory].  An example response payload for
+   non-default CoAPS server port 61617 follows below.  Linefeeds were
+   included only for readability.
+
+    REQ: GET /.well-known/core?rt=ace.est*
+
+    RES: 2.05 Content
+  <coap://[2001:db8:3::123]:61617/est>;rt="ace.est";
+                                anchor="coap://[2001:db8:3::123]:61617",
+  <coap://[2001:db8:3::123]:61617/est/crts>;rt="ace.est.crts";
+                ct="281 TBD287";anchor="coap://[2001:db8:3::123]:61617",
+  <coap://[2001:db8:3::123]:61617/est/sen>;rt="ace.est.sen";
+                ct="281 TBD287";anchor="coap://[2001:db8:3::123]:61617",
+  <coap://[2001:db8:3::123]:61617/est/sren>;rt="ace.est.sren";
+                ct="281 TBD287";anchor="coap://[2001:db8:3::123]:61617",
+  <coap://[2001:db8:3::123]:61617/est/att>;rt="ace.est.att";
+                       ct="285";anchor="coap://[2001:db8:3::123]:61617",
+  <coap://[2001:db8:3::123]:61617/est/skg>;rt="ace.est.skg";
+      ct="62 280 284 281 TBD287";anchor="coap://[2001:db8:3::123]:61617"
+
+   The server MUST support the default /.well-known/est server root
+   resource and port 5684.  Resource discovery is necessary when the IP
+   address of the server is unknown to the client.  Resource discovery
+   SHOULD be employed when non-default URIs (like /est or /est/
+   ArbitraryLabel) or ports are supported by the server, when the client
+   is unaware of what EST-coaps resources are available or if the client
+
+
+
+van der Stok, et al.     Expires August 10, 2019                [Page 9]
+
+Internet-Draft                  EST-coaps                  February 2019
+
+
+   considers sending two Uri-Path Options to convey the resource is
+   wasteful.
+
+   It is up to the implementation to choose its root resource;
+   throughout this document the example root resource /est is used.
+
+5.2.  Mandatory/optional EST Functions
 
    This specification contains a set of required-to-implement functions,
    optional functions, and not specified functions.  The latter ones are
    deemed too expensive for low-resource devices in payload and
    calculation times.
 
-   Table 1 specifies the mandatory-to-implement or optional
+   Table 2 specifies the mandatory-to-implement or optional
    implementation of the est-coaps functions.
 
               +------------------+--------------------------+
@@ -415,13 +533,13 @@ Internet-Draft                  EST-coaps                  February 2019
               | /csrattrs        | OPTIONAL                 |
               +------------------+--------------------------+
 
-                    Table 1: List of EST-coaps fuctions
+               Table 2: Table 2: List of EST-coaps functions
 
    While [RFC7030] permits a number of these functions to be used
    without authentication, this specification requires that the client
    MUST be authenticated for all functions.
 
-5.2.  Payload formats
+5.3.  Payload formats
 
    The Content-Format (HTTP Media-Type equivalent) of the CoAP message
    determines which EST message is transported in the CoAP payload.  The
@@ -430,28 +548,28 @@ Internet-Draft                  EST-coaps                  February 2019
    (12) of CoAP.  The combination of URI-Path and Content-Format in EST-
    coaps MUST map to an allowed combination of URI and Media-Type in
    EST.  The required Content-Formats for these requests and response
-   messages are defined in Section 11.1.  The CoAP response codes are
-   defined in Section 5.4.
+   messages are defined in Section 10.1.  The CoAP response codes are
+   defined in Section 5.5.
 
    Content-Format TBD287 can be used in place of 281 to carry a single
    certificate instead of a PKCS#7 container in a /crts, /sen, /sren or
    /skg response.  Content-Format 281 MUST be supported by EST-coaps
+
+
+
+van der Stok, et al.     Expires August 10, 2019               [Page 10]
+
+Internet-Draft                  EST-coaps                  February 2019
+
+
    servers.  Servers MAY also support Content-Format TBD287.  It is up
    to the client to support only Content-Format 281, TBD287 or both.
    The client is expected to use an COAP Accept Option in the request to
    express the preferred response Content-Format.  If an Accept Option
    is not included in the request, the client is not expressing any
    preference and the server SHOULD choose format 281.  If the preferred
-
-
-
-van der Stok, et al.     Expires August 8, 2019                 [Page 8]
-
-Internet-Draft                  EST-coaps                  February 2019
-
-
-   Content-Format cannot be returned, then a 4.06 (Not Acceptable) MUST
-   be sent as a response, unless another error code takes precedence for
+   Content-Format cannot be returned, the server MUST send a 4.06 (Not
+   Acceptable) response, unless another error code takes precedence for
    the response [RFC7252].
 
    Content-Format 286 is used in /sen, /sren and /skg requests and 285
@@ -460,7 +578,7 @@ Internet-Draft                  EST-coaps                  February 2019
    EST-coaps is designed for low-resource devices and hence does not
    need to send Base64-encoded data.  Simple binary is more efficient
    (30% smaller payload) and well supported by CoAP.  Thus, the payload
-   for a given Media-Type follows the ASN.1 structure of the media-type
+   for a given Media-Type follows the ASN.1 structure of the Media-Type
    and is transported in binary format.
 
    *application/multipart-core*
@@ -475,13 +593,29 @@ Internet-Draft                  EST-coaps                  February 2019
    binary string containing a representation.  The first, third, fifth,
    etc. element is an unsigned integer specifying the Content-Format
    identifier of the consecutive representation.  For example, a
-   collection containing two representations in response to a server-
-   side key generation request, could include a private key in PKCS#8
-   [RFC5958] with Content-Format identifier 284 (0x011C) and a single
-   certificate in a PKCS#7 container with Content-Format identifier 281
-   (0x0119).  Such a collection would look like
+   collection containing two representations in response to a EST-coaps
+   server-side key generation request, could include a private key in
+   PKCS#8 [RFC5958] with Content-Format identifier 284 (0x011C) and a
+   single certificate in a PKCS#7 container with Content-Format
+   identifier 281 (0x0119).  Such a collection would look like
    [284,h'0123456789abcdef', 281,h'fedcba9876543210'] in diagnostic CBOR
    notation.  The serialization of such CBOR content would be
+
+
+
+
+
+
+
+
+
+
+
+
+
+van der Stok, et al.     Expires August 10, 2019               [Page 11]
+
+Internet-Draft                  EST-coaps                  February 2019
 
 
       84                  # array(4)
@@ -495,33 +629,15 @@ Internet-Draft                  EST-coaps                  February 2019
                    Multipart /skg response serialization
 
    When the returned certificate is a single X.509 certificate (not a
-   PKCS#7 container) the Content-Format identifier is TBD287 (0x011F).
-   In cases where the private key is encrypted with CMS (as explained in
-   Section 5.7) the Content-Format identifier is 280 (0x0118).  The key
+   PKCS#7 container) the Content-Format identifier is TBD287 (0x011F)
+   instead of 281.  In cases where the private key is encrypted with CMS
+   (as explained in Section 5.8) the Content-Format identifier is 280
+   (0x0118) instead of 284.  The key and certificate representations are
+   ASN.1 encoded in binary format.  An example is shown in Appendix A.3.
 
+5.4.  Message Bindings
 
-
-van der Stok, et al.     Expires August 8, 2019                 [Page 9]
-
-Internet-Draft                  EST-coaps                  February 2019
-
-
-   and certificate representations are ASN.1 encoded in binary format.
-   An example is shown in Appendix A.4.
-
-   The client needs to communicate to the server the Content-Format of
-   the application/multipart-core elements.  The key Content-Format
-   requested by the client is depicted in the PKCS#10 request.  If the
-   request contains SMIMECapabilities the client is expecting Content-
-   Format 280.  Otherwise he expects a PKCS#8 key in Content-Format 284.
-   The client expresses the preferred certificate Content-Format in his
-   /skg request by using an Accept Option.  The Accept Option is 281 for
-   a certificate in a PKCS#7 container or TBD287 for a X.509
-   certificate.
-
-5.3.  Message Bindings
-
-   The general EST CoAP message characteristics are:
+   The general EST-coaps message characteristics are:
 
    o  All EST-coaps messages expect a response from the server, thus the
       client MUST send the requests over confirmable CON CoAP messages.
@@ -542,30 +658,35 @@ Internet-Draft                  EST-coaps                  February 2019
       is attempting to reach.
 
    o  EST URLs are HTTPS based (https://), in CoAP these are assumed to
-      be translated to coaps (coaps://)
+      be translated to CoAPS (coaps://)
 
-   Appendix A includes some practical examples of EST messages
-   translated to CoAP.
+   Table 1 provides the mapping from the EST URI path to the EST-coaps
+   URI path.  Appendix A includes some practical examples of EST
+   messages translated to CoAP.
 
-5.4.  CoAP response codes
+
+
+
+
+
+van der Stok, et al.     Expires August 10, 2019               [Page 12]
+
+Internet-Draft                  EST-coaps                  February 2019
+
+
+5.5.  CoAP response codes
 
    Section 5.9 of [RFC7252] and Section 7 of [RFC8075] specify the
    mapping of HTTP response codes to CoAP response codes.  Every time
    the HTTP response code 200 is specified in [RFC7030] in response to a
    GET request (/cacerts, /csrattrs), in EST-coaps the equivalent CoAP
    response code 2.05 or 2.03 MUST be used.  Similarly, 2.01, 2.02 or
+   2.04 MUST be used in response to EST POST requests (/simpleenroll,
+   /simplereenroll, /serverkeygen).
 
-
-
-van der Stok, et al.     Expires August 8, 2019                [Page 10]
-
-Internet-Draft                  EST-coaps                  February 2019
-
-
-   2.04 MUST be used in response to HTTP POST EST requests
-   (/simpleenroll, /simplereenroll, /serverkeygen ).  Response code HTTP
-   202 Retry-After that existed in EST has no equivalent in CoAP.
-   Section 5.6 specifies how EST requests over CoAP handle delayed
+   Response code HTTP 202 Retry-After that existed in EST has no
+   equivalent in CoAP.  Retry-After is used in EST for delayed server
+   responses.  Section 5.7 specifies how EST-coaps handles delayed
    messages.
 
    EST makes use of HTTP 204 and 404 responses when a resource is not
@@ -574,12 +695,13 @@ Internet-Draft                  EST-coaps                  February 2019
    error translates to 4.01 in EST-coaps.  Other EST HTTP error messages
    are 400, 423 and 503.  Their equivalent CoAP errors are 4.00, 4.03
    and 5.03 respectively.  In case a CoAP Option is unrecognized and
-   critical, the server is expected to return a 4.02 (Bad Option).  If
-   the Content-Format requested in the client Accept Option, is not
-   supported the server MUST return a 4.06 (Not Acceptable), unless
-   another error code takes precedence for the response.
+   critical, the server is expected to return a 4.02 (Bad Option).
+   Moreover, if the Content-Format requested in the client Accept
+   Option, is not supported the server MUST return a 4.06 (Not
+   Acceptable), unless another error code takes precedence for the
+   response.
 
-5.5.  Message fragmentation
+5.6.  Message fragmentation
 
    DTLS defines fragmentation only for the handshake and not for secure
    data exchange (DTLS records).  [RFC6347] states that to avoid using
@@ -597,66 +719,59 @@ Internet-Draft                  EST-coaps                  February 2019
    used.  For 256-bit curves, common ECDSA cert sizes are 500-1000 bytes
    which could fluctuate further based on the algorithms, OIDs, Subject
    Alternative Names (SAN) and cert fields.  For 384-bit curves, ECDSA
-   certs increase in size and can sometimes reach 1.5KB.  Additionally,
-   there are times when the EST cacerts response from the server can
-   include multiple certs that amount to large payloads.  Section 4.6 of
-   CoAP [RFC7252] describes the possible payload sizes: "if nothing is
-   known about the size of the headers, good upper bounds are 1152 bytes
-   for the message size and 1024 bytes for the payload size".
-   Section 4.6 of [RFC7252] also suggests that IPv4 implementations may
-   want to limit themselves to more conservative IPv4 datagram sizes
-   such as 576 bytes.  Even with ECC certs, EST-coaps messages can still
-   exceed MTU sizes on the Internet or 6LoWPAN [RFC4919] (Section 2 of
-   [RFC7959]).  EST-coaps needs to be able to fragment messages into
-   multiple DTLS datagrams.
+   certificates increase in size and can sometimes reach 1.5KB.
+   Additionally, there are times when the EST cacerts response from the
+   server can include multiple certificates that amount to large
 
 
 
-
-van der Stok, et al.     Expires August 8, 2019                [Page 11]
+van der Stok, et al.     Expires August 10, 2019               [Page 13]
 
 Internet-Draft                  EST-coaps                  February 2019
 
 
+   payloads.  Section 4.6 of CoAP [RFC7252] describes the possible
+   payload sizes: "if nothing is known about the size of the headers,
+   good upper bounds are 1152 bytes for the message size and 1024 bytes
+   for the payload size".  Section 4.6 of [RFC7252] also suggests that
+   IPv4 implementations may want to limit themselves to more
+   conservative IPv4 datagram sizes such as 576 bytes.  Even with ECC,
+   EST-coaps messages can still exceed MTU sizes on the Internet or
+   6LoWPAN [RFC4919] (Section 2 of [RFC7959]).  EST-coaps needs to be
+   able to fragment messages into multiple DTLS datagrams.
+
    To perform fragmentation in CoAP, [RFC7959] specifies the Block1
    Option for fragmentation of the request payload and the Block2 Option
    for fragmentation of the return payload of a CoAP flow.  As explained
-   in Section 1 of [RFC7959], blockwise transfers SHOULD be used in
+   in Section 1 of [RFC7959], block-wise transfers should be used in
    Confirmable CoAP messages to avoid the exacerbation of lost blocks.
-   [RFC7959] defines SZX in the block Option fields.  SZX is used to
-   convey the size of the blocks in the requests or responses.  The CoAP
-   client MAY specify the Block1 size and MAY also specify the Block2
-   size.  The CoAP server MAY specify the Block2 size, but not the
-   Block1 size.
+   The EST-coaps client and server MUST support Block2.  Block1 MUST be
+   supported for EST-coaps enrollment requests that exceed the Path MTU.
 
    [RFC7959] also defines Size1 and Size2 Options to provide size
    information about the resource representation in a request and
-   response.  The Size1 response MAY be parsed by the client as a size
-   indication of the Block2 resource in the server response or by the
-   server as a request for a size estimate by the client.  Similarly,
-   the Size2 Option defined in BLOCK should be parsed by the server as
-   an indication of the size of the resource carried in Block1 Options
-   and by the client as a maximum size expected in the 4.13 (Request
-   Entity Too Large) response to a request.
+   response.  EST-client and server MAY support Size1 and Size2 Options.
 
-   Examples of fragmented EST messages are shown in Appendix B.
+   Examples of fragmented EST-coaps messages are shown in Appendix B.
 
-5.6.  Delayed Responses
+5.7.  Delayed Responses
 
    Server responses can sometimes be delayed.  According to section
    5.2.2 of [RFC7252], a slow server can acknowledge the request and
    respond later with the requested resource representation.  In
-   particular, a slow server can respond to an enrollment request with
-   an empty ACK with code 0.00, before sending the certificate to the
-   server after a short delay.  If the certificate response is large,
-   the server will need more than one "Block2" blocks to transfer it.
-   This situation is shown in Figure 2 where a client sends an
-   enrollment request that uses more than one "Block1" blocks.  The
-   server uses an empty 0.00 ACK to announce the delayed response which
-   is provided later with 2.04 messages containing "Block2" Options.
-   Having received the first 256 bytes in the first "Block2" block, the
-   client asks for a block reduction to 128 bytes in all following
-   "Block2" blocks, starting with the second block (NUM=1).
+   particular, a slow server can respond to an EST-coaps enrollment
+   request with an empty ACK with code 0.00, before sending the
+   certificate to the server after a short delay.  If the certificate
+   response is large, the server will need more than one Block2 blocks
+   to transfer it.  This situation is shown in Figure 2.  The client
+   sends an enrollment request that uses N1+1 Block1 blocks.  The server
+   uses an empty 0.00 ACK to announce the delayed response which is
+   provided later with 2.04 messages containing N2+1 Block2 Options.
+   The first 2.04 is a confirmable message that is acknowledged by the
+   client with an ACK.  Onwards, having received the first 256 bytes in
+   the first Block2 block, the client asks for a block reduction to 128
+   bytes in a confirmable enrollment request Uri-Path and acknowledges
+   the Block2 blocks sent up to that point.
 
 
 
@@ -666,10 +781,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-
-
-
-van der Stok, et al.     Expires August 8, 2019                [Page 12]
+van der Stok, et al.     Expires August 10, 2019               [Page 14]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -705,27 +817,27 @@ Internet-Draft                  EST-coaps                  February 2019
    SHOULD wait to request the content later.  After a delay of Max-Age,
    the client SHOULD resend the identical CSR to the server.  As long as
    the server responds with response code 5.03 (Service Unavailable)
-   with a Max-Age Option, the client can resend the enrollment request
-   until the server responds with the certificate or the client abandons
-   for other reasons.
+   with a Max-Age Option, the client SHOULD keep resending the
+   enrollment request until the server responds with the certificate or
+   the client abandons for other reasons.
 
    To demonstrate this scenario, Figure 3 shows a client sending an
-   enrollment request that uses more than one "Block1" blocks to send
-   the CSR to the server.  The server needs more than one "Block2"
-   blocks to respond, but also needs to take a long delay (minutes) to
-   provide the response.  Consequently, the server uses a 5.03 ACK
-   response with a Max-Age Option.  The client waits for a period of
-   Max-Age as many times as he receives the same 5.03 response and
-   retransmits the enrollment request until he receives a certificate.
-   Note that in the example below the server asks for a decrease in the
-   block size when acknowledging the first Block2.
+   enrollment request that uses N1+1 Block1 blocks to send the CSR to
+   the server.  The server needs N2+1 Block2 blocks to respond, but also
+   needs to take a long delay (minutes) to provide the response.
+   Consequently, the server uses a 5.03 ACK response with a Max-Age
+   Option.  The client waits for a period of Max-Age as many times as he
+   receives the same 5.03 response and retransmits the enrollment
+   request until he receives a certificate in a fragmented 2.01
+   response.  Note that the server asks for a decrease in the block size
+   when acknowledging the first Block2.
 
 
 
 
 
 
-van der Stok, et al.     Expires August 8, 2019                [Page 13]
+van der Stok, et al.     Expires August 10, 2019               [Page 15]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -745,80 +857,88 @@ Internet-Draft                  EST-coaps                  February 2019
                          |
                          |
    POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
-        <-- (ACK) (1:N1/0/256) (2:0/1/128) (2.04 Changed){Cert resp}
+        <-- (ACK) (1:N1/0/256) (2:0/1/128) (2.01 Created){Cert resp}
    POST [2001:db8::2:1]:61616/est/sen (CON)(2:1/0/128)           -->
-        <-- (ACK) (2:1/1/128) (2.04 Changed) {Cert resp}
+        <-- (ACK) (2:1/1/128) (2.01 Created) {Cert resp}
                          .
                          .
                          .
    POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
-          <-- (ACK) (2:N2/0/128) (2.04 Changed) {Cert resp}
+          <-- (ACK) (2:N2/0/128) (2.01 Created) {Cert resp}
 
 
                Figure 3: EST-COAP enrollment with long wait
 
-5.7.  Server-side Key Generation
+5.8.  Server-side Key Generation
 
    Constrained devices sometimes do not have the necessary hardware to
    generate statistically random numbers for private keys and DTLS
    ephemeral keys.  Past experience has also shown that low-resource
    endpoints sometimes generate numbers which could allow someone to
    decrypt the communication or guess the private key and impersonate as
-   the device [PsQs] [RSAorig].
-
-   Additionally, random number key generation is costly, thus energy
-   draining.  Even though the random numbers that constitute the
-   identity/cert do not get generated often, an endpoint may not want to
-   spend time and energy generating keypairs, and just ask for one from
-   the server.
+   the device [PsQs] [RSAorig].  Additionally, random number key
+   generation is costly, thus energy draining.  Even though the random
+   numbers that constitute the identity/cert do not get generated often,
+   an endpoint may not want to spend time and energy generating
+   keypairs, and just ask for one from the server.
 
    In these scenarios, server-side key generation can be used.  The
    client asks for the server or proxy to generate the private key and
-   the certificate which is transferred back to the client in the
+   the certificate which are transferred back to the client in the
    server-side key generation response.  In all respects, the server
    SHOULD treat the CSR as it would treat any enroll or re-enroll CSR;
    the only distinction here is that the server MUST ignore the public
+   key values and signature in the CSR.  These are included in the
 
 
 
-van der Stok, et al.     Expires August 8, 2019                [Page 14]
+
+van der Stok, et al.     Expires August 10, 2019               [Page 16]
 
 Internet-Draft                  EST-coaps                  February 2019
 
 
-   key values and signature in the CSR.  These are included in the
    request only to allow re-use of existing codebases for generating and
    parsing such requests.
 
-   [RFC7030] recommends the private key returned by the server to be
-   encrypted.  This specification provides two methods to encrypt the
-   generated key, symmetric and asymmetric.  The methods are signalled
-   by the client by using the relevant attributes (SMIMECapabilities and
+   The client /skg request needs to communicate to the server the
+   Content-Format of the application/multipart-core elements.  The key
+   Content-Format requested by the client is depicted in the PKCS#10
+   request.  If the request contains SMIMECapabilities the client is
+   expecting Content-Format 280.  Otherwise he expects a PKCS#8 key in
+   Content-Format 284.  The client expresses the preferred certificate
+   Content-Format in his /skg request by using an Accept Option.  The
+   Accept Option is 281 when preferring a certificate in a PKCS#7
+   container or TBD287 when preferring a single X.509 certificate.
+
+   [RFC7030] provides two methods, symmetric and asymmetric, to
+   optionally encrypt the generated key.  The methods are signaled by
+   the client by using the relevant attributes (SMIMECapabilities and
    DecryptKeyIdentifier or AsymmetricDecryptKeyIdentifier) in the CSR
    request.  The symmetric key or the asymmetric keypair establishment
-   method is out of scope of this specification.
+   method is out of scope of the specification.
 
-   The sever-side key generation response is returned with Content-
-   Format application/multipart-core [I-D.ietf-core-multipart-ct]
-   containing a CBOR array with four items Section 5.2.  The certificate
-   part exactly matches the response from an enrollment response.  The
-   private key can be in unprotected PKCS#8 [RFC5958] format (Content-
-   Format 284) or protected inside of CMS SignedData (Content-Format
-   280).  The SignedData is signed by the party that generated the
-   private key, which may or may not be the EST server or the EST CA.
-   The SignedData is further protected by placing it inside of a CMS
-   EnvelopedData as explained in Section 4.4.2 of [RFC7030].  In
-   summary, the symmetricly encrypted key is included in the
+   The EST-coaps server-side key generation response is returned with
+   Content-Format application/multipart-core
+   [I-D.ietf-core-multipart-ct] containing a CBOR array with four items
+   Section 5.3.  The certificate part exactly matches the response from
+   an enrollment response.  The private key can be in unprotected PKCS#8
+   [RFC5958] format (Content-Format 284) or protected inside of CMS
+   SignedData (Content-Format 280).  The SignedData is signed by the
+   party that generated the private key, which may be the EST server or
+   the EST CA.  The SignedData is further protected by placing it inside
+   of a CMS EnvelopedData as explained in Section 4.4.2 of [RFC7030].
+   In summary, the symmetrically encrypted key is included in the
    encryptedKey attribute in a KEKRecipientInfo structure.  In the case
    where the asymmetric encryption key is suitable for transport key
    operations the generated private key is encrypted with a symmetric
-   key which is encrypted by using the client defined (in the CSR)
-   asymmetric public key and is carried in an encryptedKey attribute in
-   a KeyTransRecipientInfo.  Finally, if the asymmetric encryption key
-   is suitable for key agreement, the generated private key is encrypted
-   with a symmetric key which is encrypted by using the client defined
-   (in the CSR) asymmetric public key and is carried in an
-   recipientEncryptedKeys attribute in a KeyAgreeRecipientInfo.
+   key which is encrypted by the client defined (in the CSR) asymmetric
+   public key and is carried in an encryptedKey attribute in a
+   KeyTransRecipientInfo structure.  Finally, if the asymmetric
+   encryption key is suitable for key agreement, the generated private
+   key is encrypted with a symmetric key which is encrypted by the
+   client defined (in the CSR) asymmetric public key and is carried in
+   an recipientEncryptedKeys attribute in a KeyAgreeRecipientInfo.
 
    [RFC7030] recommends the use of additional encryption of the returned
    private key.  For the context of this specification, clients and
@@ -826,133 +946,25 @@ Internet-Draft                  EST-coaps                  February 2019
    support unprotected (PKCS#8) private keys (Content-Format 284).
    Symmetric or asymmetric encryption of the private key (CMS
    EnvelopedData, Content-Format 280) SHOULD be supported for
+
+
+
+van der Stok, et al.     Expires August 10, 2019               [Page 17]
+
+Internet-Draft                  EST-coaps                  February 2019
+
+
    deployments where end-to-end encryption needs to be provided between
    the client and a server.  Such cases could include architectures
    where an entity between the client and the CA terminates the DTLS
    connection (Registrar in Figure 4).
 
-
-
-
-
-
-
-van der Stok, et al.     Expires August 8, 2019                [Page 15]
-
-Internet-Draft                  EST-coaps                  February 2019
-
-
-6.  Discovery and URIs
-
-   EST-coaps is targeted for low-resource networks with small packets.
-   Saving header space is important and short EST-coaps URIs are
-   specified in this document.  These URIs are shorter than the ones in
-   [RFC7030].  Two example EST-coaps resource path names are:
-
-   coaps://est-coaps.example.ietf.org:<port>/.well-known/est/<short-est>
-   coaps://est-coaps.example.ietf.org:<port>/.well-known/est/
-                                              ArbitraryLabel/<short-est>
-
-   The short-est strings are defined in Table 2.  The ArbitraryLabel
-   path-segment, if used, SHOULD be of the shortest length possible
-   (Sections 3.1 and 3.2.2 of [RFC7030].  Arbitrary Labels are usually
-   defined and used by EST CAs in order to route client requests to the
-   appropriate certificate profile.
-
-   The EST-coaps server URIs, obtained through discovery of the EST-
-   coaps root resource(s) as shown below, are of the form:
-
-   coaps://est-coaps.example.ietf.org:<port>/<root-resource>/<short-est>
-   coaps://est-coaps.example.ietf.org:<port>/<root-resource>/
-                                              ArbitraryLabel/<short-est>
-
-   Figure 5 in section 3.2.2 of [RFC7030] enumerates the operations and
-   corresponding paths which are supported by EST.  Table 2 provides the
-   mapping from the EST URI path to the shorter EST-coaps URI path.
-
-                     +------------------+-----------+
-                     | EST              | EST-coaps |
-                     +------------------+-----------+
-                     | /cacerts         | /crts     |
-                     | /simpleenroll    | /sen      |
-                     | /simplereenroll  | /sren     |
-                     | /csrattrs        | /att      |
-                     | /serverkeygen    | /skg      |
-                     +------------------+-----------+
-
-                     Table 2: Short EST-coaps URI path
-
-   Clients and servers MUST support the short resource URIs.  The
-   corresponding longer URIs from [RFC7030] MAY be supported.
-
-   In the context of CoAP, the presence and location of (path to) the
-   management data are discovered by sending a GET request to "/.well-
-   known/core" including a resource type (RT) parameter with the value
-   "ace.est" [RFC6690].  Upon success, the return payload will contain
-   the root resource of the EST resources.  The server MAY return all
-
-
-
-van der Stok, et al.     Expires August 8, 2019                [Page 16]
-
-Internet-Draft                  EST-coaps                  February 2019
-
-
-   available resource paths and the used content types.  This is useful
-   when multiple content types are supported by the EST-coaps server and
-   optional functions are available.  The example below shows the
-   discovery of the presence and location of EST-coaps resources.
-   Linefeeds are included only for readability.
-
-     REQ: GET /.well-known/core?rt=ace.est*
-
-     RES: 2.05 Content
-   </est>; rt="ace.est",
-   </est/crts>;rt="ace.est.crts";ct="281 TBD287",
-   </est/sen>;rt="ace.est.sen";ct="281 TBD287",
-   </est/sren>;rt="ace.est.sren";ct="281 TBD287",
-   </est/att>;rt="ace.est.att";ct=285,
-   </est/skg>;rt="ace.est.skg";ct="62 280 284 281 TBD287"
-
-   The first line of the discovery response above MUST be included.  The
-   five consecutive lines after the first MAY be included.  The return
-   of the content types allows the client to choose the most appropriate
-   one.
-
-   Port numbers, not returned in the example, are assumed to be the
-   default numbers 5683 and 5684 for coap and coaps respectively
-   (Sections 12.6 and 12.7 of [RFC7252]).  Discoverable port numbers MAY
-   be returned in the <href> of the payload.
-
-   The server MUST be preconfigured to support the default /.well-known/
-   est server root resource and port 5684.  Resource discovery is
-   necessary when the IP address of the server is unknown to the client.
-   Resource discovery SHOULD be employed when non-default URIs (like
-   /est or /est/ArbitraryLabel) or ports are supported by the server,
-   when the client is unaware of what EST-coaps resources are available
-   on the server or if the client considers sending two Uri-Path Options
-   to convey the resource is wasteful.
-
-   It is up to the implementation to choose its root resource;
-   throughout this document the example root resource /est is used.
-
-7.  DTLS Transport Protocol
+6.  DTLS Transport Protocol
 
    EST-coaps depends on a secure transport mechanism over UDP that
    secures the exchanged CoAP messages.  DTLS is one such secure
-   protocol.  Where TLS is used in the context of EST, it is understood
-   that EST-coaps uses DTLS instead.  No other changes are necessary
-   regarding the secure transport of EST messages (all provisional modes
-   etc. are the same as in TLS).
-
-
-
-
-
-van der Stok, et al.     Expires August 8, 2019                [Page 17]
-
-Internet-Draft                  EST-coaps                  February 2019
-
+   protocol.  EST depended in TLS.  No other changes are necessary
+   regarding the secure transport of EST messages.
 
    CoAP was designed to avoid fragmentation.  DTLS is used to secure
    CoAP messages.  However, fragmentation is still possible at the DTLS
@@ -967,18 +979,17 @@ Internet-Draft                  EST-coaps                  February 2019
    specified for EST in Section 3 of [RFC7030].
 
    CoAP and DTLS can provide proof-of-identity for EST-coaps clients and
-   servers with simple PKI messages as descrbed in Section 3.1 of
+   servers with simple PKI messages as described in Section 3.1 of
    [RFC5272].  Moreover, channel-binding information for linking proof-
    of-identity with connection-based proof-of-possession is OPTIONAL for
    EST-coaps.  When proof-of-possession is desired, a set of actions are
    required regarding the use of tls-unique, described in section 3.5 in
    [RFC7030].  The tls-unique information consists of the contents of
    the first "Finished" message in the (D)TLS handshake between server
-   and client [RFC5929].  The client is supposed to add this "Finished"
-   message as a ChallengePassword in the attributes section of the
-   PKCS#10 Request [RFC5967] to prove that the client is indeed in
-   control of the private key at the time of the (D)TLS session
-   establishment.
+   and client [RFC5929].  The client adds the "Finished" message as a
+   ChallengePassword in the attributes section of the PKCS#10 Request
+   [RFC5967] to prove that the client is indeed in control of the
+   private key at the time of the (D)TLS session establishment.
 
    In the case of EST-coaps, the same operations can be performed during
    the DTLS handshake.  For DTLS 1.2, in the event of handshake message
@@ -991,35 +1002,36 @@ Internet-Draft                  EST-coaps                  February 2019
    as a single fragment (Section 5.8 of [I-D.ietf-tls-dtls13]) following
    the algorithm described in 4.4.4 of [RFC8446].
 
-   In a constrained CoAP environment, endpoints can't always afford to
-   establish a DTLS connection for every EST transaction.
-   Authenticating and negotiating DTLS keys requires resources on low-
-   end endpoints and consumes valuable bandwidth.  The DTLS connection
-   MAY remain open for sequential EST transactions.  For example, an EST
-   csrattrs request that is followed by a simpleenroll request can use
-   the same authenticated DTLS connection.  However, when a cacerts
-   request is included in the set of sequential EST transactions, some
-   additional security considerations apply regarding the use of the
-   Implicit and Explicit TA database as explained in Section 12.1.
 
 
 
-
-van der Stok, et al.     Expires August 8, 2019                [Page 18]
+van der Stok, et al.     Expires August 10, 2019               [Page 18]
 
 Internet-Draft                  EST-coaps                  February 2019
 
 
+   In a constrained CoAP environment, endpoints can't always afford to
+   establish a DTLS connection for every EST transaction.
+   Authenticating and negotiating DTLS keys requires resources on low-
+   end endpoints and consumes valuable bandwidth.  To alleviate this
+   situation, an EST-coaps DTLS connection MAY remain open for
+   sequential EST transactions.  For example, an EST csrattrs request
+   that is followed by a simpleenroll request can use the same
+   authenticated DTLS connection.  However, when a cacerts request is
+   included in the set of sequential EST transactions, some additional
+   security considerations apply regarding the use of the Implicit and
+   Explicit TA database as explained in Section 11.1.
+
    Given that after a successful enrollment, it is more likely that a
    new EST transaction will take place after a significant amount of
    time, the DTLS connections SHOULD only be kept alive for EST messages
-   that are relatively close to each other.  In some cases like NAT
+   that are relatively close to each other.  In some cases, like NAT
    rebinding, keeping the state of a connection is not possible when
    devices sleep for extended periods of time.  In such occasions,
-   [I-D.rescorla-tls-dtls-connection-id] negotiates a connection ID that
-   can eliminate the need for new handshake and its additional cost.
+   [I-D.ietf-tls-dtls-connection-id] negotiates a connection ID that can
+   eliminate the need for new handshake and its additional cost.
 
-8.  HTTPS-CoAPS Registrar
+7.  HTTPS-CoAPS Registrar
 
    In real-world deployments, the EST server will not always reside
    within the CoAP boundary.  The EST server can exist outside the
@@ -1045,6 +1057,15 @@ Internet-Draft                  EST-coaps                  February 2019
 
        Figure 4: EST-coaps-to-HTTPS Registrar at the CoAP boundary.
 
+
+
+
+
+van der Stok, et al.     Expires August 10, 2019               [Page 19]
+
+Internet-Draft                  EST-coaps                  February 2019
+
+
    The EST-coaps-to-HTTPS Registrar MUST terminate EST-coaps downstream
    and initiate EST connections over TLS upstream.  The Registrar MUST
    authenticate and OPTIONALLY authorize the clients and it MUST be
@@ -1054,85 +1075,72 @@ Internet-Draft                  EST-coaps                  February 2019
    clients.
 
    When enforcing Proof-of-Possession (POP) linking, the DTLS tls-unique
-   value of the (D)TLS session needs to be used to prove that the
-   private key corresponding to the public key is in the possession of
-   and was used to establish the connection by the client as explained
-   in Section 7).  The POP linking information is lost between the EST-
-
-
-
-van der Stok, et al.     Expires August 8, 2019                [Page 19]
-
-Internet-Draft                  EST-coaps                  February 2019
-
-
-   coaps client and the EST server when a Registrar is present.  The EST
-   server becomes aware of the presence of a Registrar from its TLS
-   client certificate that includes id-kp-cmcRA [RFC6402] extended key
-   usage extension (EKU).  As explained in Section 3.7 of [RFC7030], the
-   EST server SHOULD apply an authorization policy consistent with a
-   Registrar client.  For example, it could be configured to accept POP
-   linking information that does not match the current TLS session
-   because the authenticated EST client Registrar has verified this
-   information when acting as an EST server.
+   value of the (D)TLS session is used to prove that the private key
+   corresponding to the public key is in the possession of and was used
+   to establish the connection by the client as explained in Section 6).
+   The POP linking information is lost between the EST-coaps client and
+   the EST server when a Registrar is present.  The EST server becomes
+   aware of the presence of a Registrar from its TLS client certificate
+   that includes id-kp-cmcRA [RFC6402] extended key usage extension
+   (EKU).  As explained in Section 3.7 of [RFC7030], the EST server
+   SHOULD apply an authorization policy consistent with a Registrar
+   client.  For example, it could be configured to accept POP linking
+   information that does not match the current TLS session because the
+   authenticated EST client Registrar has verified this information when
+   acting as an EST server.
 
    For some use cases, clients that leverage server-side key generation
    might prefer for the enrolled keys to be generated by the Registrar
    if the CA does not support server-side key generation.  In these
-   cases the Registrar MUST support random number generation using
+   cases, the Registrar MUST support random number generation using
    proper entropy.  Such Registrar is responsible for generating a new
    CSR signed by a new key which will be returned to the client along
    with the certificate from the CA.
 
-   Table 2 contains the URI mappings between EST-coaps and EST that the
-   Registrar MUST adhere to.  Section 5.4 of this specification and
+   Table 1 contains the URI mappings between EST-coaps and EST that the
+   Registrar MUST adhere to.  Section 5.5 of this specification and
    Section 7 of [RFC8075] define the mappings between EST-coaps and HTTP
    response codes, that determine how the Registrar MUST translate CoAP
    response codes from/to HTTP status codes.  The mapping from CoAP
-   Content-Format to HTTP Media-Type is defined in Section 11.1.
+   Content-Format to HTTP Media-Type is defined in Section 10.1.
    Additionally, a conversion from CBOR major type 2 to Base64 encoding
    MUST take place at the Registrar when server-side key generation is
    supported.  If CMS end-to-end encryption is employed for the private
-   key, the encrypted CMS EnvelopedData blob should be included in
-   binary in CBOR type 2 downstream to the client.
+   key, the encrypted CMS EnvelopedData blob MUST be converted to binary
+   in CBOR type 2 downstream to the client.
 
    Due to fragmentation of large messages into blocks, an EST-coaps-to-
    HTTP Registrar MUST reassemble the BLOCKs before translating the
    binary content to Base64, and consecutively relay the message
    upstream.
 
-   For the discovery of the EST server by the EST client in the CoAP
-   environment, the EST-coaps-to-HTTP Registrar MUST announce itself
-   according to the rules in Section 6.  The available actions of the
-   Registrars MUST be announced with as many resource paths necessary.
-   .
-
-9.  Parameters
-
-   This section addresses transmission parameters described in sections
-   4.7 and 4.8 of [RFC7252].
 
 
 
-
-
-
-van der Stok, et al.     Expires August 8, 2019                [Page 20]
+van der Stok, et al.     Expires August 10, 2019               [Page 20]
 
 Internet-Draft                  EST-coaps                  February 2019
 
 
-   EST does not impose any unique values on the CoAP parameters in
-   [RFC7252], but the EST parameter values need to be tuned to the CoAP
-   parameter values.
+   For the discovery of the EST server by the EST client in the CoAP
+   environment, the EST-coaps-to-HTTP Registrar MUST announce itself
+   according to the rules in Section 5.1.  The available actions of the
+   Registrars MUST be announced with as many resource paths necessary.
 
-   The main recommendation, based on experiments, is to follow the
-   default CoAP configuration parameters ([RFC7252]).  However,
-   depending on the implementation scenario, retransmissions and
-   timeouts can also occur on other networking layers, governed by other
-   configuration parameters.  A change in a server parameter MUST ensure
-   the adjusted value is also available to all the endpoints with which
-   these adjusted values are to be used to communicate.
+8.  Parameters
+
+   This section addresses transmission parameters described in sections
+   4.7 and 4.8 of [RFC7252].  EST does not impose any unique values on
+   the CoAP parameters in [RFC7252], but the EST parameter values need
+   to be tuned to the CoAP parameter values.
+
+   It is RECOMMENDED, based on experiments, to follow the default CoAP
+   configuration parameters ([RFC7252]).  However, depending on the
+   implementation scenario, retransmissions and timeouts can also occur
+   on other networking layers, governed by other configuration
+   parameters.  A change in a server parameter MUST ensure the adjusted
+   value is also available to all the endpoints with which these
+   adjusted values are to be used to communicate.
 
    Some further comments about some specific parameters, mainly from
    Table 2 in [RFC7252]:
@@ -1154,7 +1162,7 @@ Internet-Draft                  EST-coaps                  February 2019
    Table 2.  Directly changing parameters on one table would affect
    parameters on the other.
 
-10.  Deployment limits
+9.  Deployment limitations
 
    Although EST-coaps paves the way for the utilization of EST by
    constrained devices in constrained networks, some classes of devices
@@ -1162,23 +1170,20 @@ Internet-Draft                  EST-coaps                  February 2019
    that come with EST-coaps.  The specification of EST-coaps is intended
    to ensure that EST works for networks of constrained devices that
    choose to limit their communications stack to UDP/DTLS/CoAP.  It is
-   up to the network designer to decide which devices execute the EST
-   protocol and which do not.
-
-11.  IANA Considerations
 
 
 
-
-
-
-
-van der Stok, et al.     Expires August 8, 2019                [Page 21]
+van der Stok, et al.     Expires August 10, 2019               [Page 21]
 
 Internet-Draft                  EST-coaps                  February 2019
 
 
-11.1.  Content-Format Registry
+   up to the network designer to decide which devices execute the EST
+   protocol and which do not.
+
+10.  IANA Considerations
+
+10.1.  Content-Format Registry
 
    Additions to the sub-registry "CoAP Content-Formats", within the
    "CoRE Parameters" registry [COREparams] are specified in Table 3.
@@ -1188,31 +1193,31 @@ Internet-Draft                  EST-coaps                  February 2019
    +------------------------------+-------+----------------------------+
    | HTTP Media-Type              |    ID | Reference                  |
    +------------------------------+-------+----------------------------+
-   | application/pkcs7-mime;      |   280 | [I-D.ietf-lamps-rfc5751-bi |
-   | smime-type=server-generated- |       | s] [RFC7030]               |
+   | application/pkcs7-mime;      |   280 | [RFC7030] [I-D.ietf-lamps- |
+   | smime-type=server-generated- |       | rfc5751-bis]               |
    | key                          |       |                            |
    | application/pkcs7-mime;      |   281 | [I-D.ietf-lamps-rfc5751-bi |
    | smime-type=certs-only        |       | s]                         |
-   | application/pkcs7-mime;      |   282 | [I-D.ietf-lamps-rfc5751-bi |
-   | smime-type=CMC-request       |       | s] [RFC5273]               |
-   | application/pkcs7-mime;      |   283 | [I-D.ietf-lamps-rfc5751-bi |
-   | smime-type=CMC-response      |       | s] [RFC5273]               |
-   | application/pkcs8            |   284 | [I-D.ietf-lamps-rfc5751-bi |
-   |                              |       | s] [RFC5958]               |
+   | application/pkcs7-mime;      |   282 | [RFC5273] [I-D.ietf-lamps- |
+   | smime-type=CMC-request       |       | rfc5751-bis]               |
+   | application/pkcs7-mime;      |   283 | [RFC5273] [I-D.ietf-lamps- |
+   | smime-type=CMC-response      |       | rfc5751-bis]               |
+   | application/pkcs8            |   284 | [RFC5958] [I-D.ietf-lamps- |
+   |                              |       | rfc5751-bis]               |
    | application/csrattrs         |   285 | [RFC7030] [RFC7231]        |
-   | application/pkcs10           |   286 | [I-D.ietf-lamps-rfc5751-bi |
-   |                              |       | s] [RFC5967]               |
+   | application/pkcs10           |   286 | [RFC5967] [I-D.ietf-lamps- |
+   |                              |       | rfc5751-bis]               |
    | application/pkix-cert        | TBD28 | [RFC2585]                  |
    |                              |     7 |                            |
    +------------------------------+-------+----------------------------+
 
-                     Table 3: New CoAP Content-Formats
+                Table 3: Table 3: New CoAP Content-Formats
 
    The Content-Formats 281 to 286 have been the subject of an earlier
    temporary allocation.  It is suggested that 287 is allocated to
    TBD287.
 
-11.2.  Resource Type registry
+10.2.  Resource Type registry
 
    This memo registers a new Resource Type (rt=) Link Target Attributes
    in the "Resource Type (rt=) Link Target Attribute Values" subregistry
@@ -1222,17 +1227,15 @@ Internet-Draft                  EST-coaps                  February 2019
    o  rt="ace.est".  This EST resource is used to query and return the
       supported EST resources of a CoAP server.
 
-   o  rt="ace.est.crts".  This resource depicts the support of EST get
-      cacerts.
 
 
-
-
-
-van der Stok, et al.     Expires August 8, 2019                [Page 22]
+van der Stok, et al.     Expires August 10, 2019               [Page 22]
 
 Internet-Draft                  EST-coaps                  February 2019
 
+
+   o  rt="ace.est.crts".  This resource depicts the support of EST get
+      cacerts.
 
    o  rt="ace.est.sen".  This resource depicts the support of EST simple
       enroll.
@@ -1246,9 +1249,9 @@ Internet-Draft                  EST-coaps                  February 2019
    o  rt="ace.est.skg".  This resource depicts the support of EST
       server-side key generation.
 
-12.  Security Considerations
+11.  Security Considerations
 
-12.1.  EST server considerations
+11.1.  EST server considerations
 
    The security considerations of Section 6 of [RFC7030] are only
    partially valid for the purposes of this document.  As HTTP Basic
@@ -1259,37 +1262,36 @@ Internet-Draft                  EST-coaps                  February 2019
    to generate sufficiently random keys to encrypt its identity, it is
    possible that the client uses server generated private/public keys.
    The transport of these keys is inherently risky.  Analysis SHOULD be
-   done to establish whether server side key generation enhances or
+   done to establish whether server-side key generation enhances or
    decreases the probability of identity stealing.
 
    It is also RECOMMENDED that the Implicit Trust Anchor database used
-   for EST server authentication be carefully managed to reduce the
-   chance of a third-party CA with poor certification practices from
-   being trusted.  Disabling the Implicit Trust Anchor database after
-   successfully receiving the Distribution of CA certificates response
-   (Section 4.1.3 of [RFC7030]) limits any risk to the first DTLS
-   exchange.  Alternatively, in a case where a /sen request immediately
-   follows a /crt, a client MAY choose to keep the connection
-   authenticated by the Implicit TA open for efficiency reasons
-   (Section 7).  A client that pipelines EST-coaps /crt request with
-   other requests in the same DTLS connection SHOULD revalidate the
+   for EST server authentication is carefully managed to reduce the
+   chance of a third-party CA with poor certification practices
+   jeopardizing authentication.  Disabling the Implicit Trust Anchor
+   database after successfully receiving the Distribution of CA
+   certificates response (Section 4.1.3 of [RFC7030]) limits any risk to
+   the first DTLS exchange.  Alternatively, in a case where a /sen
+   request immediately follows a /crt, a client MAY choose to keep the
+   connection authenticated by the Implicit TA open for efficiency
+   reasons (Section 6).  A client that pipelines EST-coaps /crt request
+   with other requests in the same DTLS connection SHOULD revalidate the
    server certificate chain against the updated Explicit TA from the
    /crt response before proceeding with the subsequent requests.  If the
-   server certificate chain does not authenticate the client SHOULD
-   close the connection without completing the rest of the requests.
-   The updated Explicit TA MUST continue to be used in new DTLS
-   connections.
-
-   In cases where the IDevID used to authenticate the client is expired
-   the server MAY still authenticate the client because IDevIDs are
+   server certificate chain does not authenticate against the database,
+   the client SHOULD close the connection without completing the rest of
+   the requests.  The updated Explicit TA MUST continue to be used in
+   new DTLS connections.
 
 
 
-van der Stok, et al.     Expires August 8, 2019                [Page 23]
+van der Stok, et al.     Expires August 10, 2019               [Page 23]
 
 Internet-Draft                  EST-coaps                  February 2019
 
 
+   In cases where the IDevID used to authenticate the client is expired
+   the server MAY still authenticate the client because IDevIDs are
    expected to live as long as the device itself (Section 4).  In such
    occasions, checking the certificate revocation status or authorizing
    the client using another method is important for the server to ensure
@@ -1324,15 +1326,12 @@ Internet-Draft                  EST-coaps                  February 2019
    mechanism has not been standardized yet.  Adopting in this document a
    channel binding value generated from an exporter would break
    backwards compatibility.  Thus, in this specification we still depend
-   in the tls-unique mechansim defined in [RFC5929], especially since
-   the practicallity of such an attack would not expose any messages
+   in the tls-unique mechanism defined in [RFC5929], especially since
+   the practicality of such an attack would not expose any messages
    exchanged with EST-coaps.
 
-   Regarding the Certificate Signing Request (CSR), an adversary could
-   exclude attributes that a server may want, include attributes that a
-   server may not want, and render meaningless other attributes that a
-   server may want.  The CA is expected to be able to enforce policies
-   to recover from improper CSR requests.
+   Regarding the Certificate Signing Request (CSR), a CA is expected to
+   be able to enforce policies to recover from improper CSR requests.
 
    Interpreters of ASN.1 structures should be aware of the use of
    invalid ASN.1 length fields and should take appropriate measures to
@@ -1341,14 +1340,15 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 8, 2019                [Page 24]
+
+van der Stok, et al.     Expires August 10, 2019               [Page 24]
 
 Internet-Draft                  EST-coaps                  February 2019
 
 
-12.2.  HTTPS-CoAPS Registrar considerations
+11.2.  HTTPS-CoAPS Registrar considerations
 
-   The Registrar proposed in Section 8 must be deployed with care, and
+   The Registrar proposed in Section 7 must be deployed with care, and
    only when the recommended connections are impossible.  When POP
    linking is used the Registrar terminating the TLS connection
    establishes a new one with the upstream CA.  Thus, it is impossible
@@ -1367,7 +1367,7 @@ Internet-Draft                  EST-coaps                  February 2019
    the id-kp-cmcRA [RFC6402] EKU in the server certificate.  If the
    server certificate does not include the EKU, it is RECOMMENDED that
    the client includes "Linking Identity and POP Information"
-   (Section 7) in requests.
+   (Section 6) in requests.
 
    In a server-side key generation case, if no end-to-end encryption is
    used, the Registrar may be able see the private key as it acts as a
@@ -1375,17 +1375,17 @@ Internet-Draft                  EST-coaps                  February 2019
    not exposing the private key.
 
    Clients that leverage server-side key generation without end-to-end
-   encryption of the private key (Section 5.7 have no knowledge if the
+   encryption of the private key (Section 5.8) have no knowledge if the
    Registrar will be generating the private key and enrolling the
    certificates with the CA or if the CA will be responsible for
    generating the key.  In such cases, the existence of a Registrar
    requires the client to put its trust on the registrar doing the right
    thing if it is generating the private key.
 
-13.  Contributors
+12.  Contributors
 
    Martin Furuhed contributed to the EST-coaps specification by
-   providing feedback based on the Nexus EST over CoAPs server
+   providing feedback based on the Nexus EST over CoAPS server
    implementation that started in 2015.  Sandeep Kumar kick-started this
    specification and was instrumental in drawing attention to the
    importance of the subject.
@@ -1397,12 +1397,12 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 8, 2019                [Page 25]
+van der Stok, et al.     Expires August 10, 2019               [Page 25]
 
 Internet-Draft                  EST-coaps                  February 2019
 
 
-14.  Acknowledgements
+13.  Acknowledgements
 
    The authors are very grateful to Klaus Hartke for his detailed
    explanations on the use of Block with DTLS and his support for the
@@ -1419,9 +1419,9 @@ Internet-Draft                  EST-coaps                  February 2019
 
    Robert Moskowitz provided code to create the examples.
 
-15.  References
+14.  References
 
-15.1.  Normative References
+14.1.  Normative References
 
    [I-D.ietf-core-multipart-ct]
               Fossati, T., Hartke, K., and C. Bormann, "Multipart
@@ -1453,7 +1453,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 8, 2019                [Page 26]
+van der Stok, et al.     Expires August 10, 2019               [Page 26]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -1509,23 +1509,33 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 8, 2019                [Page 27]
+van der Stok, et al.     Expires August 10, 2019               [Page 27]
 
 Internet-Draft                  EST-coaps                  February 2019
 
 
-15.2.  Informative References
+14.2.  Informative References
 
    [COREparams]
               IANA, "Constrained RESTful Environments (CoRE)
               Parameters", <https://www.iana.org/assignments/core-
               parameters/core-parameters.xhtml>.
 
+   [I-D.ietf-core-resource-directory]
+              Shelby, Z., Koster, M., Bormann, C., Stok, P., and C.
+              Amsuess, "CoRE Resource Directory", draft-ietf-core-
+              resource-directory-19 (work in progress), January 2019.
+
    [I-D.ietf-lamps-rfc5751-bis]
               Schaad, J., Ramsdell, B., and S. Turner, "Secure/
               Multipurpose Internet Mail Extensions (S/MIME) Version 4.0
               Message Specification", draft-ietf-lamps-rfc5751-bis-12
               (work in progress), September 2018.
+
+   [I-D.ietf-tls-dtls-connection-id]
+              Rescorla, E., Tschofenig, H., Fossati, T., and T. Gondrom,
+              "Connection Identifiers for DTLS 1.2", draft-ietf-tls-
+              dtls-connection-id-02 (work in progress), October 2018.
 
    [I-D.josefsson-sasl-tls-cb]
               Josefsson, S., "Channel Bindings for TLS based on the
@@ -1536,12 +1546,6 @@ Internet-Draft                  EST-coaps                  February 2019
               Moskowitz, R., Birkholz, H., Xia, L., and M. Richardson,
               "Guide for building an ECC pki", draft-moskowitz-ecdsa-
               pki-04 (work in progress), September 2018.
-
-   [I-D.rescorla-tls-dtls-connection-id]
-              Rescorla, E., Tschofenig, H., Fossati, T., and T. Gondrom,
-              "The Datagram Transport Layer Security (DTLS) Connection
-              Identifier", draft-rescorla-tls-dtls-connection-id-02
-              (work in progress), November 2017.
 
    [ieee802.15.4]
               Institute of Electrical and Electronics Engineers, "IEEE
@@ -1556,19 +1560,21 @@ Internet-Draft                  EST-coaps                  February 2019
               Weak Keys in Network Devices", USENIX Security Symposium
               2012 ISBN 978-931971-95-9, August 2012.
 
+
+
+
+
+
+van der Stok, et al.     Expires August 10, 2019               [Page 28]
+
+Internet-Draft                  EST-coaps                  February 2019
+
+
    [RFC4919]  Kushalnagar, N., Montenegro, G., and C. Schumacher, "IPv6
               over Low-Power Wireless Personal Area Networks (6LoWPANs):
               Overview, Assumptions, Problem Statement, and Goals",
               RFC 4919, DOI 10.17487/RFC4919, August 2007,
               <https://www.rfc-editor.org/info/rfc4919>.
-
-
-
-
-van der Stok, et al.     Expires August 8, 2019                [Page 28]
-
-Internet-Draft                  EST-coaps                  February 2019
-
 
    [RFC5272]  Schaad, J. and M. Myers, "Certificate Management over CMS
               (CMC)", RFC 5272, DOI 10.17487/RFC5272, June 2008,
@@ -1610,21 +1616,20 @@ Internet-Draft                  EST-coaps                  February 2019
               RFC 7230, DOI 10.17487/RFC7230, June 2014,
               <https://www.rfc-editor.org/info/rfc7230>.
 
+
+
+
+
+
+van der Stok, et al.     Expires August 10, 2019               [Page 29]
+
+Internet-Draft                  EST-coaps                  February 2019
+
+
    [RFC7231]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
               Protocol (HTTP/1.1): Semantics and Content", RFC 7231,
               DOI 10.17487/RFC7231, June 2014,
               <https://www.rfc-editor.org/info/rfc7231>.
-
-
-
-
-
-
-
-van der Stok, et al.     Expires August 8, 2019                [Page 29]
-
-Internet-Draft                  EST-coaps                  February 2019
-
 
    [RFC7251]  McGrew, D., Bailey, D., Campagna, M., and R. Dugal, "AES-
               CCM Elliptic Curve Cryptography (ECC) Cipher Suites for
@@ -1669,35 +1674,36 @@ Appendix A.  EST messages to EST-coaps
    encoded binary, generated with 'xxd -p', of the PKI certificates
    created following [I-D.moskowitz-ecdsa-pki].  The payloads are shown
    unencrypted.  In practice the message content would be binary
+
+
+
+van der Stok, et al.     Expires August 10, 2019               [Page 30]
+
+Internet-Draft                  EST-coaps                  February 2019
+
+
    formatted and transferred over an encrypted DTLS tunnel.  The
    hexadecimal representations in the examples below would NOT be
    transported in hex, but in binary.  Hex is used for visualization
    purposes because a binary representation cannot be rendered well in
    text.
 
-
-
-van der Stok, et al.     Expires August 8, 2019                [Page 30]
-
-Internet-Draft                  EST-coaps                  February 2019
-
-
    The certificate responses included in the examples contain Content-
    Format 281 (application/pkcs7).  If the client had requested Content-
    Format TBD287 (application/pkix-cert) with an Accept Option, the
-   server would respond a single PEM binary certificate.
-
-   The message content breakdown is presented in Appendix C.
-
-   The corresponding CoAP headers are only shown in Appendix A.1.
-   Creating CoAP headers is assumed to be generally understood.
+   server would respond a single DER binary certificate.
 
    These examples assume that the resource discovery, returned a short
    base path of "/est".
 
+   The corresponding CoAP headers are only shown in Appendix A.1.
+   Creating CoAP headers is assumed to be generally understood.
+
+   The message content breakdown is presented in Appendix C.
+
 A.1.  cacerts
 
-   In EST-coaps, a coaps cacerts message can be:
+   In EST-coaps, a cacerts message can be:
 
    GET coaps://est-coaps.example.ietf.org:9085/est/crts
    (Accept:  281)
@@ -1727,13 +1733,7 @@ A.1.  cacerts
 
 
 
-
-
-
-
-
-
-van der Stok, et al.     Expires August 8, 2019                [Page 31]
+van der Stok, et al.     Expires August 10, 2019               [Page 31]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -1789,7 +1789,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 8, 2019                [Page 32]
+van der Stok, et al.     Expires August 10, 2019               [Page 32]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -1834,74 +1834,18 @@ Internet-Draft                  EST-coaps                  February 2019
 
    The breakdown of the payload is shown in Appendix C.1.
 
-A.2.  csrattrs
-
-   Below is a csrattrs exchange
-
-
-
-
-
-
-
-
-van der Stok, et al.     Expires August 8, 2019                [Page 33]
-
-Internet-Draft                  EST-coaps                  February 2019
-
-
-   REQ:
-   GET coaps://[2001:db8::2:1]:61616/est/att
-
-   RES:
-   2.05 Content
-   (Content-Format: 285)
-
-   [ The hexadecimal representation below would NOT be transported
-   in hex, but in binary. Hex is used because a binary representation
-   cannot be rendered well in text. ]
-
-   307c06072b06010101011630220603883701311b131950617273652053455
-   420617320322e3939392e31206461746106092a864886f70d010907302c06
-   0388370231250603883703060388370413195061727365205345542061732
-   0322e3939392e32206461746106092b240303020801010b06096086480165
-   03040202
-
-   A 2.05 Content response should contain attributes which are relevant
-   for the authenticated client.  This example is copied from section
-   A.2 in [RFC7030], where the base64 representation is replaced with a
-   hexadecimal representation of the equivalent binary format.  The EST-
-   coaps server returns attributes that the client can ignore if they
-   are unknown to him.
-
-A.3.  enroll / reenroll
+A.2.  enroll / reenroll
 
    During the (re-)enroll exchange the EST-coaps client uses a CSR
    (Content-Format 286) request in the POST request payload.  The Accept
    option tells the server that the client is expecting Content-Format
    281 (PKCS#7) in the response.  As shown in Appendix C.2, the CSR
    contains a ChallengePassword which is used for POP linking
-   (Section 7).
+   (Section 6).
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-van der Stok, et al.     Expires August 8, 2019                [Page 34]
+van der Stok, et al.     Expires August 10, 2019               [Page 33]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -1957,7 +1901,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 8, 2019                [Page 35]
+van der Stok, et al.     Expires August 10, 2019               [Page 34]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -1994,16 +1938,14 @@ Internet-Draft                  EST-coaps                  February 2019
 
    The breakdown of the request and response is shown in Appendix C.2.
 
-   As described in Section 5.6, if the server is not able to provide a
+   As described in Section 5.7, if the server is not able to provide a
    response immediately, it sends an empty ACK with response code 5.03
    (Service Unavailable) and the Max-Age Option.  See Figure 3 for an
    example exchange.
 
-A.4.  serverkeygen
+A.3.  serverkeygen
 
-   In a serverkeygen exchange the CoAP GET request looks like
-
-
+   In a serverkeygen exchange the CoAP POST request looks like
 
 
 
@@ -2013,7 +1955,9 @@ A.4.  serverkeygen
 
 
 
-van der Stok, et al.     Expires August 8, 2019                [Page 36]
+
+
+van der Stok, et al.     Expires August 10, 2019               [Page 35]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -2069,7 +2013,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 8, 2019                [Page 37]
+van der Stok, et al.     Expires August 10, 2019               [Page 36]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -2109,7 +2053,50 @@ Internet-Draft                  EST-coaps                  February 2019
    c8fc3a464f79f2c202210081d31ba142751a7b4a34fd1a01fcfb08716b9e
    b53bdaadc9ae60b08f52429c0fa1003100
 
+   The private key in the response above is without CMS EnvelopedData
+   and has no additional encryption beyond DTLS (Section 5.8).
+
    The breakdown of the request and response is shown in Appendix C.3
+
+A.4.  csrattrs
+
+   Below is a csrattrs exchange
+
+
+
+
+
+
+
+
+van der Stok, et al.     Expires August 10, 2019               [Page 37]
+
+Internet-Draft                  EST-coaps                  February 2019
+
+
+   REQ:
+   GET coaps://[2001:db8::2:1]:61616/est/att
+
+   RES:
+   2.05 Content
+   (Content-Format: 285)
+
+   [ The hexadecimal representation below would NOT be transported
+   in hex, but in binary. Hex is used because a binary representation
+   cannot be rendered well in text. ]
+
+   307c06072b06010101011630220603883701311b131950617273652053455
+   420617320322e3939392e31206461746106092a864886f70d010907302c06
+   0388370231250603883703060388370413195061727365205345542061732
+   0322e3939392e32206461746106092b240303020801010b06096086480165
+   03040202
+
+   A 2.05 Content response should contain attributes which are relevant
+   for the authenticated client.  This example is copied from section
+   A.2 in [RFC7030], where the base64 representation is replaced with a
+   hexadecimal representation of the equivalent binary format.  The EST-
+   coaps server returns attributes that the client can ignore if they
+   are unknown to him.
 
 Appendix B.  EST-coaps Block message examples
 
@@ -2122,14 +2109,6 @@ Appendix B.  EST-coaps Block message examples
 
    The payloads are shown unencrypted.  In practice the message contents
    would be binary formatted and transferred over an encrypted DTLS
-
-
-
-van der Stok, et al.     Expires August 8, 2019                [Page 38]
-
-Internet-Draft                  EST-coaps                  February 2019
-
-
    tunnel.  The corresponding CoAP headers are only shown in
    Appendix B.1.  Creating CoAP headers are assumed to be generally
    known.
@@ -2143,6 +2122,14 @@ B.1.  cacerts
 
    The following is an example of a cacerts exchange over DTLS.  The
    content length of the cacerts response in appendix A.1 of [RFC7030]
+
+
+
+van der Stok, et al.     Expires August 10, 2019               [Page 38]
+
+Internet-Draft                  EST-coaps                  February 2019
+
+
    contains 639 bytes in binary.  The CoAP message adds around 10 bytes,
    the DTLS record 29 bytes.  To avoid IP fragmentation, the CoAP Block
    Option is used and an MTU of 127 is assumed to stay within one IEEE
@@ -2161,7 +2148,7 @@ B.1.  cacerts
    used with SZX=2 to avoid IP fragmentation.  The CoAP Request is sent
    confirmable (CON) and the Content-Format of the response, even though
    not shown, is 281 (application/pkcs7-mime; smime-type=certs-only).
-   The transer of the 10 blocks with partially filled block NUM=9 is
+   The transfer of the 10 blocks with partially filled block NUM=9 is
    shown below
 
     GET coaps://est-coaps.example.ietf.org:9085/est/crts (2:0/0/64)  -->
@@ -2181,7 +2168,20 @@ B.1.  cacerts
 
 
 
-van der Stok, et al.     Expires August 8, 2019                [Page 39]
+
+
+
+
+
+
+
+
+
+
+
+
+
+van der Stok, et al.     Expires August 10, 2019               [Page 39]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -2237,7 +2237,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 8, 2019                [Page 40]
+van der Stok, et al.     Expires August 10, 2019               [Page 40]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -2293,7 +2293,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 8, 2019                [Page 41]
+van der Stok, et al.     Expires August 10, 2019               [Page 41]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -2323,7 +2323,7 @@ Internet-Draft                  EST-coaps                  February 2019
    e5c7306163b3c3834bab3c103f743070594c089aaa0ac870cd13b902caa1
    003100
 
-B.2.  enroll
+B.2.  enroll / reenroll
 
    In this example the requested Block2 size of 256 bytes, required by
    the client, is transferred to the server in the very first request
@@ -2349,7 +2349,7 @@ B.2.  enroll
 
 
 
-van der Stok, et al.     Expires August 8, 2019                [Page 42]
+van der Stok, et al.     Expires August 10, 2019               [Page 42]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -2405,7 +2405,7 @@ C.1.  cacerts
 
 
 
-van der Stok, et al.     Expires August 8, 2019                [Page 43]
+van der Stok, et al.     Expires August 10, 2019               [Page 43]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -2461,7 +2461,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 8, 2019                [Page 44]
+van der Stok, et al.     Expires August 10, 2019               [Page 44]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -2498,7 +2498,7 @@ C.2.  enroll / reenroll
             c8:7c:4d:ce:54:53:a6:fc:11:35:a1:e8:4e:ed:75:43:77
 
    The CSR contained a ChallengePassword which is used for POP linking
-   (Section 7).
+   (Section 6).
 
    The breakdown of the issued certificate response is
 
@@ -2517,7 +2517,7 @@ C.2.  enroll / reenroll
 
 
 
-van der Stok, et al.     Expires August 8, 2019                [Page 45]
+van der Stok, et al.     Expires August 10, 2019               [Page 45]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -2567,13 +2567,13 @@ Internet-Draft                  EST-coaps                  February 2019
 
 C.3.  serverkeygen
 
-   The followng is the breakdown of the request example used.
+   The following is the breakdown of the request example used.
 
 
 
 
 
-van der Stok, et al.     Expires August 8, 2019                [Page 46]
+van der Stok, et al.     Expires August 10, 2019               [Page 46]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -2629,7 +2629,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 8, 2019                [Page 47]
+van der Stok, et al.     Expires August 10, 2019               [Page 47]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -2672,9 +2672,6 @@ Internet-Draft                  EST-coaps                  February 2019
             c2:02:21:00:81:d3:1b:a1:42:75:1a:7b:4a:34:fd:1a:01:fc:
             fb:08:71:6b:9e:b5:3b:da:ad:c9:ae:60:b0:8f:52:42:9c:0f
 
-   The private key in the response above is without CMS EnvelopedData
-   and has no additional encryption beyond DTLS (Section 5.7).
-
 Authors' Addresses
 
    Peter van der Stok
@@ -2685,7 +2682,10 @@ Authors' Addresses
 
 
 
-van der Stok, et al.     Expires August 8, 2019                [Page 48]
+
+
+
+van der Stok, et al.     Expires August 10, 2019               [Page 48]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -2741,4 +2741,4 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 8, 2019                [Page 49]
+van der Stok, et al.     Expires August 10, 2019               [Page 49]

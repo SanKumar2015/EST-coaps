@@ -394,7 +394,7 @@ coaps://est-coaps.example.ietf.org:<port>/<root-resource>/
     <!-- Used quotes when multiple cts are returned as shown in draft-ietf-core-resource-directory-19 -->
     </figure>
       <t> The first four lines of the discovery response above MUST be returned if the server supports resource discovery. The last two lines MAY be included if the server supports resource discovery and the corresponding EST messages. The Content-Formats in the response allow the client to request one that is supported by the server.</t>
-      <t>Port numbers, not returned in the example, are assumed to be the default numbers 5683 and 5684 for CoAP and CoAPS respectively (Sections 12.6 and 12.7 of <xref target="RFC7252"/>). Discoverable port numbers MAY be returned in the &lt;href&gt; of the payload <xref target="I-D.ietf-core-resource-directory"/>. An example response payload for non-default CoAPS server port 61617 follows below. Linefeeds were included only for readability.</t>
+      <t><!--Port numbers, not returned in the example, are assumed to be the default numbers 5683 and 5684 for CoAP and CoAPS respectively (Sections 12.6 and 12.7 of <xref target="RFC7252"/>). --> Discoverable port numbers MAY be returned in the &lt;href&gt; of the payload <xref target="I-D.ietf-core-resource-directory"/>. An example response payload for non-default CoAPS server port 61617 follows below. Linefeeds were included only for readability.</t>
 <figure><artwork align="left"><![CDATA[
   REQ: GET /.well-known/core?rt=ace.est*
 

@@ -415,7 +415,7 @@ coaps://est-coaps.example.ietf.org:<port>/<root-resource>/
     </figure>
 
 	  <t>The server MUST support the default /.well-known/est  
-	  root resource on port 5684. The server SHOULD support 
+	  root resource<!--on port 5684-->. The server SHOULD support 
 	  resource discovery when he supports non-default URIs 
 	  (like /est or /est/ArbitraryLabel) or ports. The client 
 	  SHOULD use resource discovery when /.well-known/est 

@@ -367,7 +367,7 @@ coaps://est-coaps.example.ietf.org:<port>/<root-resource>/
 ]]></artwork></figure>
 
       <t>Figure 5 in section 3.2.2 of <xref target="RFC7030"/> enumerates the operations and corresponding paths which are supported by EST. <xref target="est-uri"/> provides the mapping from the EST URI path to the shorter EST-coaps URI path.</t>
-<texttable anchor="est-uri" title="Table 1: Short EST-coaps URI path">
+<texttable anchor="est-uri" title="Short EST-coaps URI path">
   <ttcol align="left">EST</ttcol>
   <ttcol align="left">EST-coaps</ttcol>
 
@@ -434,7 +434,7 @@ This specification contains a set of required-to-implement functions, optional f
 
 <t> <xref target="est-implementation"/> specifies the mandatory-to-implement or optional implementation of the est-coaps functions.</t>
 
-<texttable anchor="est-implementation" title="Table 2: List of EST-coaps functions">
+<texttable anchor="est-implementation" title="List of EST-coaps functions">
   <ttcol align="left">EST Functions</ttcol>
   <ttcol align="left">EST-coaps implementation</ttcol>
 
@@ -921,7 +921,7 @@ HMAC(finished_key,
 	registry <xref target="COREparams"/> are specified in <xref target="Content-Format"/>.
 	These have been registered provisionally in the Expert Review range (0-255).</t>
 
-<texttable anchor="Content-Format" title="Table 3: New CoAP Content-Formats">
+<texttable anchor="Content-Format" title="New CoAP Content-Formats">
   <ttcol align="left">HTTP Media-Type</ttcol>
   <ttcol align="right">ID</ttcol>
   <ttcol align="left">Reference</ttcol>

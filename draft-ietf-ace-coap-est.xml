@@ -393,7 +393,7 @@ coaps://est-coaps.example.ietf.org:<port>/<root-resource>/
 ]]></artwork>
     <!-- Used quotes when multiple cts are returned as shown in draft-ietf-core-resource-directory-19 -->
     </figure>
-      <t> The first line of the discovery response above MUST be included. The five consecutive lines after the first MAY be included. The return of the content types allows the client to choose the most appropriate one.</t>
+      <t> The first four lines of the discovery response above MUST be returned if the server supports resource discovery. The last two lines MAY be included if the server supports resource discovery and the corresponding EST messages. The Content-Formats in the response allow the client to request one that is supported by the server.</t>
       <t>Port numbers, not returned in the example, are assumed to be the default numbers 5683 and 5684 for CoAP and CoAPS respectively (Sections 12.6 and 12.7 of <xref target="RFC7252"/>). Discoverable port numbers MAY be returned in the &lt;href&gt; of the payload <xref target="I-D.ietf-core-resource-directory"/>. An example response payload for non-default CoAPS server port 61617 follows below. Linefeeds were included only for readability.</t>
 <figure><artwork align="left"><![CDATA[
   REQ: GET /.well-known/core?rt=ace.est*
@@ -414,14 +414,15 @@ coaps://est-coaps.example.ietf.org:<port>/<root-resource>/
 ]]></artwork>
     </figure>
 
-	  <t>The server MUST support the default
-	  /.well-known/est server root resource and port 5684. Resource discovery is 
-	  necessary when the IP address of the server is unknown to the client. Resource
-	  discovery SHOULD be employed when non-default URIs (like /est or
-	  /est/ArbitraryLabel) or ports are supported by the server, when the 
-	  client is unaware of what EST-coaps resources are available 
-	  or if the client considers sending two Uri-Path Options to convey the 
-	  resource is wasteful.</t>
+	  <t>The server MUST support the default /.well-known/est  
+	  root resource on port 5684. The server SHOULD support 
+	  resource discovery when he supports non-default URIs 
+	  (like /est or /est/ArbitraryLabel) or ports. The client 
+	  SHOULD use resource discovery when /.well-known/est 
+	  fails or when she is unaware of the server address or 
+	  the available EST-coaps resources or when she considers 
+	  sending two Uri-Path Options to convey the resource 
+	  wasteful.</t>
 
 	  <t>It is up to the implementation to choose its root resource; throughout this document the example root resource /est is used. </t>
 
@@ -471,7 +472,7 @@ This specification contains a set of required-to-implement functions, optional f
 	  Servers MAY also support Content-Format TBD287.
 	  It is up to the client to support only Content-Format 281, 
 	  TBD287 or both. The client is expected to use 
-	  an COAP Accept Option in the request to express the 
+	  a COAP Accept Option in the request to express the 
 	  preferred response Content-Format. If an Accept Option is 
       not included in the request, the client is not expressing 
       any preference and the server SHOULD choose format 281. If the 

@@ -561,8 +561,8 @@ This specification contains a set of required-to-implement functions, optional f
 	  Similarly, 2.01, 2.02 or 2.04 MUST be used in response to EST POST requests
 	  (/simpleenroll, /simplereenroll, /serverkeygen). </t>
 	  
-	  <t>Response code HTTP 202
-	  Retry-After that existed in EST has no equivalent in CoAP.
+	  <t>HTTP response code 202 with a Retry-After header 
+	  in <xref target="RFC7030"/> has no equivalent in CoAP. 
 	  Retry-After is used in EST for delayed server responses. 
 	  <xref target="pending"/> specifies how EST-coaps handles 
 	  delayed messages.</t>

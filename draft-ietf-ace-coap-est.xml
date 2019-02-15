@@ -573,9 +573,9 @@ This specification contains a set of required-to-implement functions, optional f
 	  EST-coaps. Other EST HTTP error messages are 400, 423 and 503. Their equivalent
 	  CoAP errors are 4.00, 4.03 and 5.03 respectively. In case a CoAP Option 
 	  is unrecognized and critical, the server is expected to return a 4.02 (Bad Option). 
-	  Moreover, if the Content-Format requested in the client 
+	  <!-- Moreover, if the Content-Format requested in the client 
 	  Accept Option, is not supported the server MUST return a 4.06 (Not Acceptable), 
-	  unless another error code takes precedence for the response.</t>
+	  unless another error code takes precedence for the response.--></t>
     </section> <!-- CoAP response codes -->
 
     <section anchor="fragment" title="Message fragmentation">

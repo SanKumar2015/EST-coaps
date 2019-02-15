@@ -419,7 +419,7 @@ coaps://est-coaps.example.ietf.org:<port>/<root-resource>/
 	  resource discovery when he supports non-default URIs 
 	  (like /est or /est/ArbitraryLabel) or ports. The client 
 	  SHOULD use resource discovery when /.well-known/est 
-	  fails or when she is unaware of the server address or 
+	  fails or when she is unaware of 
 	  the available EST-coaps resources or when she considers 
 	  sending two Uri-Path Options to convey the resource 
 	  wasteful.</t>

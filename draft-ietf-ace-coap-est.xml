@@ -530,9 +530,9 @@ This specification contains a set of required-to-implement functions, optional f
     <section title="Message Bindings">
       <t>The general EST-coaps message characteristics are:
         <list style="symbols">
-          <t>All EST-coaps request messages expect and acknowledgement (with a response payload), thus EST-coaps requests are confirmable CON CoAP messages.</t>
-          <t>The Ver, TKL, Token, and Message ID values of the CoAP header are not affected by EST.</t>
-          <t>The CoAP Options used are Uri-Host, Uri-Path, Uri-Port, Content-Format, Accept and Location-Path.
+          <t>All EST-coaps request messages expect and acknowledgement (with a response payload); EST-coaps requests are confirmable CON CoAP messages.</t>
+          <!-- <t>The Ver, TKL, Token, and Message ID values of the CoAP header are not affected by EST.</t> -->
+          <t>The CoAP Options used are Uri-Host, Uri-Path, Uri-Port, Content-Format, Block, Accept and Location-Path.
 		  These CoAP Options are used to communicate the HTTP fields specified in the EST
 		  REST messages. The Uri-Host and Uri-Port Options are optional. They 
 	      are usually omitted as the DTLS destination and port 
@@ -542,7 +542,8 @@ This specification contains a set of required-to-implement functions, optional f
 	      Alternatively, if a UDP port to a server is blocked, 
 	      someone could send the DTLS packets to a known open port 
 	      on the server and use the Uri-Port to convey the intended port 
-          he is attempting to reach.</t>
+          he is attempting to reach. Other COAP Options should be handled in 
+		  accordance with <xref target="RFC7252"/>.</t>
           <t>EST URLs are HTTPS based (https://), in CoAP these are assumed to be translated
 		  to CoAPS (coaps://)</t>
         </list></t>

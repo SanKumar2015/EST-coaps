@@ -530,8 +530,7 @@ This specification contains a set of required-to-implement functions, optional f
     <section title="Message Bindings">
       <t>The general EST-coaps message characteristics are:
         <list style="symbols">
-          <t>All EST-coaps messages expect a response from the server, thus the client MUST send
-		  the requests over confirmable CON CoAP messages.</t>
+          <t>All EST-coaps request messages expect and acknowledgement (with a response payload), thus EST-coaps requests are confirmable CON CoAP messages.</t>
           <t>The Ver, TKL, Token, and Message ID values of the CoAP header are not affected by EST.</t>
           <t>The CoAP Options used are Uri-Host, Uri-Path, Uri-Port, Content-Format, Accept and Location-Path.
 		  These CoAP Options are used to communicate the HTTP fields specified in the EST

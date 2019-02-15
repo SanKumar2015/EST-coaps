@@ -595,7 +595,7 @@ This specification contains a set of required-to-implement functions, optional f
 	  <xref target="RFC7252" />, a slow server can acknowledge the request
 	  and respond later with the requested resource representation. In particular, 
 	  a slow server can respond to an EST-coaps enrollment request with an empty ACK with code 0.00,
-      before sending the certificate to the server after a short delay. If the certificate
+      before sending the certificate to the client after a short delay. If the certificate
 	  response is large, the server will need more than one Block2 blocks to transfer it. This
 	  situation is shown in <xref target="fig-est-short-wait"/>. The client sends an enrollment
 	  request that uses N1+1 Block1 blocks. The server uses an empty 0.00 ACK to announce
@@ -723,7 +723,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	    The EST-coaps server-side key generation response is returned with Content-Format
 		application/multipart-core <xref target="I-D.ietf-core-multipart-ct"/>
 		containing a CBOR array with four items <!--(<xref target="cborpair"/>) -->
-		<xref target="format"/>.
+		(<xref target="format"/>).
 		The certificate part exactly matches the response from an enrollment response.
 		The private key can be in unprotected PKCS#8 <xref target="RFC5958"/>
 		format (Content-Format 284) or protected inside of CMS SignedData

@@ -456,6 +456,15 @@ This specification contains a set of required-to-implement functions, optional f
 </section>  <!-- Required/optional Functions  -->
 
     <section anchor="format" title ="Payload formats">
+	
+      <t>EST-coaps is designed for low-resource devices and hence does not need
+	  to send Base64-encoded data. Simple binary is more efficient (30% smaller payload) and
+	  well supported by CoAP. Thus, the payload for a given Media-Type follows the ASN.1
+	  structure of the Media-Type and is transported in binary format.
+      <!-- <xref target="cborpair"/> <xref target="format"/> specifies the payload 
+	  structure when multiple Media-Types
+	  are present in the payload.--> </t>
+	  
       <t>The Content-Format (HTTP Media-Type equivalent) of the CoAP message determines which
 	  EST message is transported in the CoAP payload. The Media-Types specified in the HTTP
 	  Content-Type header (section 3.2.2 of <xref target="RFC7030"/>) are in EST-coaps
@@ -475,39 +484,29 @@ This specification contains a set of required-to-implement functions, optional f
 	  a COAP Accept Option in the request to express the 
 	  preferred response Content-Format. If an Accept Option is 
       not included in the request, the client is not expressing 
-      any preference and the server SHOULD choose format 281. If the 
+      any preference and the server SHOULD choose format 281. <!-- If the 
       preferred Content-Format cannot be returned, the server 
       MUST send a 4.06 (Not Acceptable) response, unless another 
-      error code takes precedence for the response <xref target="RFC7252"/>. </t>
+      error code takes precedence for the response <xref target="RFC7252"/>. --></t>
 	  
 	  <t>Content-Format 286 is used in /sen, /sren and /skg requests 
 	  and 285 in /att responses. </t>
 	  
-      <t>EST-coaps is designed for low-resource devices and hence does not need
-	  to send Base64-encoded data. Simple binary is more efficient (30% smaller payload) and
-	  well supported by CoAP. Thus, the payload for a given Media-Type follows the ASN.1
-	  structure of the Media-Type and is transported in binary format.
-      <!-- <xref target="cborpair"/> <xref target="format"/> specifies the payload 
-	  structure when multiple Media-Types
-	  are present in the payload.--> </t>
-
       <!-- <section anchor="cborpair" title="Content-Format application/multipart-core"> -->
-	  <t><spanx style="strong">application/multipart-core</spanx> </t>
-        <t>
-        A representation with Content-Format identifier 62 contains a collection of representations
-		along with their respective Content-Format. The Content-Format identifies the
-		Media-Type application/multipart-core specified in <xref target="I-D.ietf-core-multipart-ct"/>. </t>
-
-		<t>The collection is encoded as a <xref target="RFC7049">CBOR array</xref> with
-		an even number of elements. The second, fourth, sixth, etc. element is a binary
-		string containing a representation. The first, third, fifth, etc. element is an
-		unsigned integer specifying the Content-Format identifier of the consecutive representation.
-		For example, a collection containing two representations in response to a EST-coaps server-side
-		key generation request, could include a private key in PKCS#8 <xref target="RFC5958"/>
-		with Content-Format identifier 284 (0x011C) and a single certificate in a PKCS#7 container 
-		with Content-Format identifier 281 (0x0119). Such a collection would look like [284,h'0123456789abcdef', 281,h'fedcba9876543210']
-		in diagnostic CBOR notation. The serialization of such CBOR content would be </t>
-        <figure title="Multipart /skg response serialization"><artwork>
+	  <!-- <t><spanx style="strong">application/multipart-core</spanx> </t>-->
+      <t>
+      A representation with Content-Format identifier 62 contains a collection of representations
+	along with their respective Content-Format. The Content-Format identifies the
+	Media-Type application/multipart-core specified in <xref target="I-D.ietf-core-multipart-ct"/><!--The collection is encoded as a <xref target="RFC7049">CBOR array</xref> with
+	an even number of elements. The second, fourth, sixth, etc. element is a binary
+	string containing a representation. The first, third, fifth, etc. element is an
+	unsigned integer specifying the Content-Format identifier of the consecutive representation. -->
+	For example, a collection containing two representations in response to a EST-coaps server-side
+	key generation request, could include a private key in PKCS#8 <xref target="RFC5958"/>
+	with Content-Format identifier 284 (0x011C) and a single certificate in a PKCS#7 container 
+	with Content-Format identifier 281 (0x0119). Such a collection would look like [284,h'0123456789abcdef', 281,h'fedcba9876543210']
+	in diagnostic CBOR notation. The serialization of such CBOR content would be </t>
+    <figure title="Multipart /skg response serialization"><artwork>
         <![CDATA[
    84                  # array(4)
    19 011C             # unsigned(284)
@@ -516,15 +515,14 @@ This specification contains a set of required-to-implement functions, optional f
    19 0119             # unsigned(281)
    48                  # bytes(8)
       FEDCBA9876543210 # "\xFE\xDC\xBA\x98vT2\x10"
-         ]]></artwork></figure>
+       ]]></artwork></figure>
 
-		<t>When the returned certificate is a single X.509 certificate (not a 
-		PKCS#7 container) the Content-Format identifier is TBD287 (0x011F) instead of 281.
-		In cases where the private key is encrypted with CMS (as
-		explained in <xref target="serverkey"/>) the Content-Format identifier is
-		280 (0x0118) instead of 284. The key and certificate representations are ASN.1 encoded
-		in binary format. An example is shown in <xref target="appskg"/>.</t>
-		
+	  <t>When the returned certificate is a single X.509 certificate (not a 
+	  PKCS#7 container) the Content-Format identifier is TBD287 (0x011F) instead of 281.
+	  In cases where the private key is encrypted with CMS (as
+	  explained in <xref target="serverkey"/>) the Content-Format identifier is
+	  280 (0x0118) instead of 284. The key and certificate representations are ASN.1 encoded
+	  in binary format. An example is shown in <xref target="appskg"/>.</t>
       <!-- </section> -->  <!--Content-Format application/multipart-core -->
 
    </section> <!-- Payload format -->
@@ -1098,7 +1096,7 @@ HMAC(finished_key,
     &I-D.ietf-tls-dtls13;
     &RFC6690;
     &RFC7030;
-    &RFC7049;
+    <!--&RFC7049;-->
     &RFC7252;
     &RFC7959;
     &RFC8075;

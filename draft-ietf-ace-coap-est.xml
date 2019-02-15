@@ -539,10 +539,10 @@ This specification contains a set of required-to-implement functions, optional f
 	      are sufficient. Explicit Uri-Host and Uri-Port Options 
 	      are typically used when an endpoint hosts multiple virtual 
 	      servers and uses the Options to route the requests accordingly. 
-	      Alternatively, if a UDP port to a server is blocked, 
+	      <!-- Alternatively, if a UDP port to a server is blocked, 
 	      someone could send the DTLS packets to a known open port 
 	      on the server and use the Uri-Port to convey the intended port 
-          he is attempting to reach. Other COAP Options should be handled in 
+          he is attempting to reach. --> Other COAP Options should be handled in 
 		  accordance with <xref target="RFC7252"/>.</t>
           <t>EST URLs are HTTPS based (https://), in CoAP these are assumed to be translated
 		  to CoAPS (coaps://)</t>
@@ -1244,10 +1244,10 @@ GET coaps://est-coaps.example.ietf.org:9085/est/crts
 	  are sufficient. Explicit Uri-Host and Uri-Port Options 
 	  are typically used when an endpoint hosts multiple virtual 
 	  servers and uses the Options to route the requests accordingly. 
-	  Alternatively, if a UDP port to a server is blocked, 
+	  <!-- Alternatively, if a UDP port to a server is blocked, 
 	  someone could send the DTLS packets to a known open port 
 	  on the server and use the Uri-Port to convey the intended port 
-      he is attempting to reach.</t>
+      he is attempting to reach.--></t>
       <t>A 2.05 Content response with a cert in EST-coaps will then be </t>
 <figure align="left"><artwork><![CDATA[
 2.05 Content (Content-Format: 281)
@@ -1559,10 +1559,10 @@ cannot be rendered well in text. ]
 	are sufficient. Explicit Uri-Host and Uri-Port Options 
 	are typically used when an endpoint hosts multiple virtual 
 	servers and uses the Options to route the requests accordingly. 
-	Alternatively, if a UDP port to a server is blocked, 
+	<!-- Alternatively, if a UDP port to a server is blocked, 
 	someone could send the DTLS packets to a known open port 
 	on the server and use the Uri-Port to convey the intended port 
-    he is attempting to reach.</t>
+    he is attempting to reach.--></t>
 
     <t>For further detailing the CoAP headers, the first two and the last blocks are
 	written out below. The header of the first Block2 response looks like</t>

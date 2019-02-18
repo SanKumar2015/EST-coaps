@@ -434,7 +434,7 @@ coaps://est-coaps.example.org:<port>/<root-resource>/
 <t>
 This specification contains a set of required-to-implement functions, optional functions, and not specified functions. The latter ones are deemed too expensive for low-resource devices in payload and calculation times.</t>
 
-<t> <xref target="est-implementation"/> specifies the mandatory-to-implement or optional implementation of the est-coaps functions. Discovery of the existence of optional functions is described <xref target="discovery"/>.</t>
+<t> <xref target="est-implementation"/> specifies the mandatory-to-implement or optional implementation of the est-coaps functions. Discovery of the existence of optional functions is described in <xref target="discovery"/>.</t>
 
 <texttable anchor="est-implementation" title="List of EST-coaps functions">
   <ttcol align="left">EST Functions</ttcol>
@@ -482,18 +482,19 @@ This specification contains a set of required-to-implement functions, optional f
       Content-Format 281 MUST be supported by EST-coaps servers. 
 	  Servers MAY also support Content-Format TBD287.
 	  It is up to the client to support only Content-Format 281, 
-	  TBD287 or both. CoAP doesn't have a mechanism for negotiating the
+	  TBD287 or both. <!-- CoAP doesn't have a mechanism for negotiating the
 content formats of representations embedded in application/multipart-core
-representations. </t>
-
-<!-- The client is expected to use 
+representations. -->
+      The client will use 
 	  a COAP Accept Option in the request to express the 
 	  preferred response Content-Format. If an Accept Option is 
       not included in the request, the client is not expressing 
-      any preference and the server SHOULD choose format 281.  If the 
+      any preference and the server SHOULD choose format 281.  
+	  <!--If the 
       preferred Content-Format cannot be returned, the server 
       MUST send a 4.06 (Not Acceptable) response, unless another 
-      error code takes precedence for the response <xref target="RFC7252"/>. -->
+      error code takes precedence for the response 
+	  <xref target="RFC7252"/>. --></t>
 	  
 	  <t>Content-Format 286 is used in /sen, /sren and /skg requests 
 	  and 285 in /att responses. </t>
@@ -727,7 +728,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	    The EST-coaps server-side key generation response is returned with Content-Format
 		application/multipart-core <xref target="I-D.ietf-core-multipart-ct"/>
 		containing a CBOR array with four items <!--(<xref target="cborpair"/>) -->
-		(<xref target="format"/>) with the order specified in <xref target="RFC7030"/>.
+		(<xref target="format"/>) <!-- with the order specified in <xref target="RFC7030"/> -->.
 		The certificate part exactly matches the response from an enrollment response.
 		The private key can be in unprotected PKCS#8 <xref target="RFC5958"/>
 		format (Content-Format 284) or protected inside of CMS SignedData

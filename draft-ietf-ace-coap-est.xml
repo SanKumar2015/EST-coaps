@@ -380,7 +380,7 @@ coaps://est-coaps.example.org:<port>/<root-resource>/
    <c> /csrattrs </c>           <c> /att </c>
    <c> /serverkeygen </c>       <c> /skg </c>
 </texttable>
-      <t>Clients and servers MUST support the short resource URIs. The corresponding longer URIs from <xref target="RFC7030"/> MAY be supported. </t>
+      <t>Clients and servers MUST support the short resource URIs. <!-- The corresponding longer URIs from <xref target="RFC7030"/> MAY be supported. --></t>
 
       <t>In the context of CoAP, the presence and location of (path to) the management data are discovered by sending a GET request to "/.well-known/core" including a resource type (RT) parameter with the value "ace.est" <xref target="RFC6690"/>. Upon success, the return payload will contain the root resource of the EST resources. <!-- The server MAY return all available resource paths and the used content types. This is useful when multiple content types are supported by the EST-coaps server and optional functions are available. --> The example below shows the discovery of the presence and location of EST-coaps resources. Linefeeds are included only for readability.</t>
 <figure><artwork align="left"><![CDATA[

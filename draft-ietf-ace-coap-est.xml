@@ -131,6 +131,9 @@
    <t> -08
     <list style="empty">
        <t>added application/pkix-cert Content-Format TBD287.</t>
+        <t> discovery text clarified </t>
+        <t> Removed text on ct negotation in connection to multipart-core </t>
+        <t> removed text that duplicates or contradicts RFC7252 (thanks Klaus) </t>
         <t> Stated that well-known/est is compulsory</t>
         <t> Use of response codes clarified.</t>
         <t> removed bugs: Max-Age and Content-Format Options in Request</t>
@@ -219,8 +222,8 @@
    <t>This document defines a new transport for EST based on the Constrained
    Application Protocol (CoAP) since some Internet of Things (IoT) devices
    use CoAP instead of HTTP. Therefore, this specification utilizes DTLS
-   <xref target="RFC6347"/>, CoAP <xref target="RFC7252"/> and UDP instead of
-   TLS <xref target="RFC8446"/>, HTTP <xref target="RFC7230"/> and TCP. </t>
+   <xref target="RFC6347"/>, and CoAP <xref target="RFC7252"/> instead of
+   TLS <xref target="RFC8446"/>, and HTTP <xref target="RFC7230"/>. </t>
 
    <t>EST responses can be relatively large and for this reason this
    specification also uses CoAP Block-Wise Transfer <xref target="RFC7959"/> to
@@ -348,8 +351,8 @@
     <t>EST-coaps is targeted for low-resource networks with small packets. Saving header space is important and short EST-coaps URIs are specified in this document. These URIs are shorter than the ones in <xref target="RFC7030"/>. Two example EST-coaps resource path names are: </t>
 
 <figure align="left"><artwork><![CDATA[
-coaps://est-coaps.example.ietf.org:<port>/.well-known/est/<short-est>
-coaps://est-coaps.example.ietf.org:<port>/.well-known/est/
+coaps://est-coaps.example.org:<port>/.well-known/est/<short-est>
+coaps://est-coaps.example.org:<port>/.well-known/est/
                                            ArbitraryLabel/<short-est>
 ]]></artwork></figure>
 
@@ -361,8 +364,8 @@ coaps://est-coaps.example.ietf.org:<port>/.well-known/est/
 
 	  <t>The EST-coaps server URIs, obtained through discovery of the EST-coaps root resource(s) as shown below, are of the form: </t>
 <figure align="left"><artwork><![CDATA[
-coaps://est-coaps.example.ietf.org:<port>/<root-resource>/<short-est>
-coaps://est-coaps.example.ietf.org:<port>/<root-resource>/
+coaps://est-coaps.example.org:<port>/<root-resource>/<short-est>
+coaps://est-coaps.example.org:<port>/<root-resource>/
                                            ArbitraryLabel/<short-est>
 ]]></artwork></figure>
 
@@ -389,28 +392,27 @@ coaps://est-coaps.example.ietf.org:<port>/<root-resource>/
 </est/sen>;rt="ace.est.sen";ct="281 TBD287",
 </est/sren>;rt="ace.est.sren";ct="281 TBD287",
 </est/att>;rt="ace.est.att";ct=285,
-</est/skg>;rt="ace.est.skg";ct="62 280 284 281 TBD287"
+</est/skg>;rt="ace.est.skg";ct="62"
 ]]></artwork>
     <!-- Used quotes when multiple cts are returned as shown in draft-ietf-core-resource-directory-19 -->
     </figure>
-      <t> The first four lines of the discovery response above MUST be returned if the server supports resource discovery. The last two lines MAY be included if the server supports resource discovery and the corresponding EST messages. The Content-Formats in the response allow the client to request one that is supported by the server.</t>
-      <t><!--Port numbers, not returned in the example, are assumed to be the default numbers 5683 and 5684 for CoAP and CoAPS respectively (Sections 12.6 and 12.7 of <xref target="RFC7252"/>). --> Discoverable port numbers MAY be returned in the &lt;href&gt; of the payload <xref target="I-D.ietf-core-resource-directory"/>. An example response payload for non-default CoAPS server port 61617 follows below. Linefeeds were included only for readability.</t>
+      <t> The first four lines of the discovery response above MUST be returned if the server supports resource discovery. The last two lines are only included if the corresponding EST functions are implemented. The Content-Formats in the response allow the client to request one that is supported by the server.</t>
+      <t><!--Port numbers, not returned in the example, are assumed to be the default numbers 5683 and 5684 for CoAP and CoAPS respectively (Sections 12.6 and 12.7 of <xref target="RFC7252"/>). --> Discoverable port numbers MAY be returned in the &lt;href&gt; of the payload (see <xref target="I-D.ietf-core-resource-directory"/>). An example response payload for non-default CoAPS server port 61617 follows below. Linefeeds were included only for readability.</t>
 <figure><artwork align="left"><![CDATA[
   REQ: GET /.well-known/core?rt=ace.est*
 
   RES: 2.05 Content
-<coap://[2001:db8:3::123]:61617/est>;rt="ace.est";
-                              anchor="coap://[2001:db8:3::123]:61617", 
+<coap://[2001:db8:3::123]:61617/est>;rt="ace.est", 
 <coap://[2001:db8:3::123]:61617/est/crts>;rt="ace.est.crts";
-              ct="281 TBD287";anchor="coap://[2001:db8:3::123]:61617", 
+              ct="281 TBD287", 
 <coap://[2001:db8:3::123]:61617/est/sen>;rt="ace.est.sen";
-              ct="281 TBD287";anchor="coap://[2001:db8:3::123]:61617", 
+              ct="281 TBD287", 
 <coap://[2001:db8:3::123]:61617/est/sren>;rt="ace.est.sren";
-              ct="281 TBD287";anchor="coap://[2001:db8:3::123]:61617",
+              ct="281 TBD287",
 <coap://[2001:db8:3::123]:61617/est/att>;rt="ace.est.att";
-                     ct="285";anchor="coap://[2001:db8:3::123]:61617",
+              ct="285",
 <coap://[2001:db8:3::123]:61617/est/skg>;rt="ace.est.skg";
-    ct="62 280 284 281 TBD287";anchor="coap://[2001:db8:3::123]:61617"
+              ct="62"
 ]]></artwork>
     </figure>
 
@@ -419,7 +421,7 @@ coaps://est-coaps.example.ietf.org:<port>/<root-resource>/
 	  resource discovery when he supports non-default URIs 
 	  (like /est or /est/ArbitraryLabel) or ports. The client 
 	  SHOULD use resource discovery when /.well-known/est 
-	  fails or when she is unaware of 
+	  fails or when the client is unaware of 
 	  the available EST-coaps resources or when she considers 
 	  sending two Uri-Path Options to convey the resource 
 	  wasteful.</t>
@@ -432,7 +434,7 @@ coaps://est-coaps.example.ietf.org:<port>/<root-resource>/
 <t>
 This specification contains a set of required-to-implement functions, optional functions, and not specified functions. The latter ones are deemed too expensive for low-resource devices in payload and calculation times.</t>
 
-<t> <xref target="est-implementation"/> specifies the mandatory-to-implement or optional implementation of the est-coaps functions.</t>
+<t> <xref target="est-implementation"/> specifies the mandatory-to-implement or optional implementation of the est-coaps functions. Discovery of the existence of optional functions is described <xref target="discovery"/>.</t>
 
 <texttable anchor="est-implementation" title="List of EST-coaps functions">
   <ttcol align="left">EST Functions</ttcol>
@@ -480,14 +482,18 @@ This specification contains a set of required-to-implement functions, optional f
       Content-Format 281 MUST be supported by EST-coaps servers. 
 	  Servers MAY also support Content-Format TBD287.
 	  It is up to the client to support only Content-Format 281, 
-	  TBD287 or both. The client is expected to use 
+	  TBD287 or both. CoAP doesn't have a mechanism for negotiating the
+content formats of representations embedded in application/multipart-core
+representations. </t>
+
+<!-- The client is expected to use 
 	  a COAP Accept Option in the request to express the 
 	  preferred response Content-Format. If an Accept Option is 
       not included in the request, the client is not expressing 
-      any preference and the server SHOULD choose format 281. <!-- If the 
+      any preference and the server SHOULD choose format 281.  If the 
       preferred Content-Format cannot be returned, the server 
       MUST send a 4.06 (Not Acceptable) response, unless another 
-      error code takes precedence for the response <xref target="RFC7252"/>. --></t>
+      error code takes precedence for the response <xref target="RFC7252"/>. -->
 	  
 	  <t>Content-Format 286 is used in /sen, /sren and /skg requests 
 	  and 285 in /att responses. </t>
@@ -534,9 +540,7 @@ This specification contains a set of required-to-implement functions, optional f
           <!-- <t>The Ver, TKL, Token, and Message ID values of the CoAP header are not affected by EST.</t> -->
           <t>The CoAP Options used are Uri-Host, Uri-Path, Uri-Port, Content-Format, Block, Accept and Location-Path.
 		  These CoAP Options are used to communicate the HTTP fields specified in the EST
-		  REST messages. The Uri-Host and Uri-Port Options are optional. They 
-	      are usually omitted as the DTLS destination and port 
-	      are sufficient. Explicit Uri-Host and Uri-Port Options 
+		  REST messages. The default URI-host and Uri-Port Options can be omitted . Explicit Uri-Host and Uri-Port Options 
 	      are typically used when an endpoint hosts multiple virtual 
 	      servers and uses the Options to route the requests accordingly. 
 	      <!-- Alternatively, if a UDP port to a server is blocked, 
@@ -723,7 +727,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	    The EST-coaps server-side key generation response is returned with Content-Format
 		application/multipart-core <xref target="I-D.ietf-core-multipart-ct"/>
 		containing a CBOR array with four items <!--(<xref target="cborpair"/>) -->
-		(<xref target="format"/>).
+		(<xref target="format"/>) with the order specified in <xref target="RFC7030"/>.
 		The certificate part exactly matches the response from an enrollment response.
 		The private key can be in unprotected PKCS#8 <xref target="RFC5958"/>
 		format (Content-Format 284) or protected inside of CMS SignedData
@@ -926,27 +930,24 @@ HMAC(finished_key,
 
   <c>application/pkcs7-mime; smime-type=server-generated-key</c><c>280</c> <c><xref target="RFC7030"/> <xref target="I-D.ietf-lamps-rfc5751-bis"/> </c>
   <c>application/pkcs7-mime; smime-type=certs-only</c>          <c>281</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/></c>
-  <c>application/pkcs7-mime; smime-type=CMC-request</c>         <c>282</c> <c><xref target="RFC5273"/> <xref target="I-D.ietf-lamps-rfc5751-bis"/></c>
-  <c>application/pkcs7-mime; smime-type=CMC-response</c>        <c>283</c> <c><xref target="RFC5273"/> <xref target="I-D.ietf-lamps-rfc5751-bis"/></c>
   <c>application/pkcs8</c>                                      <c>284</c> <c><xref target="RFC5958"/> <xref target="I-D.ietf-lamps-rfc5751-bis"/></c>
   <c>application/csrattrs</c>                                   <c>285</c> <c><xref target="RFC7030"/> <xref target="RFC7231"/></c>
   <c>application/pkcs10</c>                                     <c>286</c> <c><xref target="RFC5967"/> <xref target="I-D.ietf-lamps-rfc5751-bis"/></c>
 <c>application/pkix-cert</c>                                     <c>TBD287</c> <c> <xref target="RFC2585"/></c>
 </texttable>
 
-<t>The Content-Formats 281 to 286 have been the subject of an earlier temporary allocation. It is suggested that 287 is allocated to TBD287.</t>
+<t>It is suggested that 287 is allocated to TBD287.</t>
   
 
 </section> <!-- Content-Format registry -->
 
 <section anchor="resource-type" title="Resource Type registry">
-   <t>This memo registers a new Resource Type (rt=) Link Target Attributes
+   <t>This memo registers new Resource Type (rt=) Link Target Attributes
    in the "Resource Type (rt=) Link Target Attribute Values"
    subregistry under the "Constrained RESTful Environments (CoRE)
    Parameters" registry.
     <list style="symbols">
-      <t>rt="ace.est". This EST resource is used to
-      query and return the supported EST resources of a CoAP server. </t>
+      <t>rt="ace.est". This resource is a container of the est resources </t>
       <t>rt="ace.est.crts". This resource depicts the support
 	  of EST get cacerts.</t>
       <t>rt="ace.est.sen". This resource depicts the support
@@ -1205,7 +1206,7 @@ HMAC(finished_key,
 	<section title="cacerts" anchor="cacerts">
       <t>In EST-coaps, a cacerts message can be:</t>
 <figure align="left"><artwork><![CDATA[
-GET coaps://est-coaps.example.ietf.org:9085/est/crts
+GET coaps://est-coaps.example.org:9085/est/crts
 (Accept:  281)
 ]]></artwork></figure>
       <t>The corresponding CoAP header fields are shown below. The
@@ -1219,7 +1220,7 @@ GET coaps://est-coaps.example.ietf.org:9085/est/crts
   Option (Uri-Host)               [optional]
      Option Delta = 0x3  (option# 3)
      Option Length = 0x9
-     Option Value = est-coaps.example.ietf.org
+     Option Value = est-coaps.example.org
   Option (Uri-Port)               [optional]
      Option Delta = 0x4  (option# 3+4=7)
      Option Length = 0x4
@@ -1512,14 +1513,14 @@ cannot be rendered well in text. ]
 	of the response, even though not shown, is 281 (application/pkcs7-mime; smime-type=certs-only).
 	The transfer of the 10 blocks with partially filled block NUM=9 is shown below </t>
     <figure align="left"><artwork><![CDATA[
-   GET coaps://est-coaps.example.ietf.org:9085/est/crts (2:0/0/64)  -->
+   GET coaps://est-coaps.example.org:9085/est/crts (2:0/0/64)  -->
                  <--   (2:0/1/64) 2.05 Content
-   GET coaps://est-coaps.example.ietf.org:9085/est/crts (2:1/0/64)  -->
+   GET coaps://est-coaps.example.org:9085/est/crts (2:1/0/64)  -->
                  <--   (2:1/1/64) 2.05 Content
                                |
                                |
                                |
-   GET coaps://est-coaps.example.ietf.org:9085/est/crts (2:9/0/64) -->
+   GET coaps://est-coaps.example.org:9085/est/crts (2:9/0/64) -->
                  <--   (2:9/0/64) 2.05 Content
 ]]></artwork></figure>
 
@@ -1534,7 +1535,7 @@ cannot be rendered well in text. ]
    Option (Uri-Host)            [optional]
      Option Delta = 0x3  (option# 3)
      Option Length = 0x9
-     Option Value = est-coaps.example.ietf.org
+     Option Value = est-coaps.example.org
    Option (Uri-Port)            [optional]
      Option Delta = 0x4   (option# 3+4=7)
      Option Length = 0x4

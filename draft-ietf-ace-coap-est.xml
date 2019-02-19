@@ -222,8 +222,8 @@
    <t>This document defines a new transport for EST based on the Constrained
    Application Protocol (CoAP) since some Internet of Things (IoT) devices
    use CoAP instead of HTTP. Therefore, this specification utilizes DTLS
-   <xref target="RFC6347"/>, and CoAP <xref target="RFC7252"/> instead of
-   TLS <xref target="RFC8446"/>, and HTTP <xref target="RFC7230"/>. </t>
+   <xref target="RFC6347"/> and CoAP <xref target="RFC7252"/> instead of
+   TLS <xref target="RFC8446"/> and HTTP <xref target="RFC7230"/>. </t>
 
    <t>EST responses can be relatively large and for this reason this
    specification also uses CoAP Block-Wise Transfer <xref target="RFC7959"/> to
@@ -273,7 +273,17 @@
 	<xref target="RFC7030"/> and discussed in <xref target="serverkey"/>
 	of this document. </t>
 	
-	<t>EST-coaps depends on a secure transport mechanism over UDP that secures the exchanged CoAP messages. DTLS is one such secure protocol. EST depended in TLS. No other changes are necessary regarding the secure transport of EST messages. <!-- DTLS handshakes use a retramsit times to handle packet loss in lossy environments. as explained in https://tools.ietf.org/html/rfc6347#section-3.2.1 --> </t>
+	<t>EST-coaps depends on a secure transport mechanism that secures the exchanged CoAP messages. DTLS is one such secure protocol. No other changes are necessary regarding the secure transport of EST messages. <!-- DTLS handshakes use a retramsit times to handle packet loss in lossy environments. as explained in https://tools.ietf.org/html/rfc6347#section-3.2.1 --> </t>
+	
+	<figure align="center" title="EST-coaps protocol layers" anchor="fig-est-coaps-layers"><artwork><![CDATA[
++------------------------------------------------+
+|    EST request/response messages               |
++------------------------------------------------+
+|    CoAP for message transfer and signaling     |
++------------------------------------------------+
+|    Secure Transport                            |
++------------------------------------------------+
+]]></artwork></figure>
 
     <t>
     As per Sections 3.3 and 4.4 of <xref target="RFC7925" />, the
@@ -297,7 +307,7 @@
 	point formation extensions and negotiation.
     </t>
 	
-    <t>CoAP was designed to avoid fragmentation. DTLS is used to secure CoAP messages. However, fragmentation is still possible at the DTLS layer during the DTLS handshake when using ECC ciphersuites. If fragmentation is necessary, "DTLS provides a mechanism for fragmenting a handshake message over several records, each of which can be transmitted separately, thus avoiding IP fragmentation" <xref target="RFC6347"/>.</t>
+    <t>CoAP was designed to avoid IP fragmentation. DTLS is used to secure CoAP messages. However, fragmentation is still possible at the DTLS layer during the DTLS handshake when using ECC ciphersuites. If fragmentation is necessary, "DTLS provides a mechanism for fragmenting a handshake message over several records, each of which can be transmitted separately, thus avoiding IP fragmentation" <xref target="RFC6347"/>.</t>
 
     <t>The authentication of the EST-coaps server by the EST-coaps
 	client is based on certificate authentication in the DTLS handshake.
@@ -349,22 +359,12 @@ HMAC(finished_key,
 
   <section anchor="design" title="Protocol Design">
     <t>EST-coaps uses CoAP to transfer EST messages, aided by Block-Wise Transfer
-	<xref target="RFC7959"/> to avoid (excessive)
-	fragmentation of UDP datagrams. The use of Blocks for the transfer of larger
+	<xref target="RFC7959"/> to avoid IP 
+	fragmentation. The use of Blocks for the transfer of larger
 	EST messages is specified in <xref target="fragment"/>.
-	<xref target="fig-est-coaps-layers"/> below shows the layered EST-coaps
+	<xref target="fig-est-coaps-layers"/> shows the layered EST-coaps
 	architecture.</t>
-<figure align="center" title="EST-coaps protocol layers" anchor="fig-est-coaps-layers"><artwork><![CDATA[
-+------------------------------------------------+
-|    EST request/response messages               |
-+------------------------------------------------+
-|    CoAP for message transfer and signaling    |
-+------------------------------------------------+
-|    DTLS for transport security                 |
-+------------------------------------------------+
-|    UDP for transport                           |
-+------------------------------------------------+
-]]></artwork></figure>
+
     <t>The EST-coaps protocol design follows closely the EST design. The supported 
 	 message types in EST-coaps are: 
       <list style="symbols">

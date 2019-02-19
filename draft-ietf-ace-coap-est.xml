@@ -902,10 +902,11 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
     <t>Some further comments about some specific parameters, mainly from
 	Table 2 in <xref target="RFC7252"/>:
     <list style="symbols">
-      <t>NSTART: Limit the number of simultaneous outstanding interactions
-	  that a client maintains to a given server. EST-coaps clients SHOULD
-	  use 1, which is the default. A EST-coaps client is not expected to
-      interact with more than one servers at the same time. </t>
+      <t>NSTART: A parameter that controls the number of simultaneous 
+	  outstanding interactions that a client maintains to a given server. 
+	  An EST-coaps client is not expected to interact with more than 
+	  one servers at the same time, which is the default NSTART value 
+	  defined in <xref target="RFC7252"/>.</t>
       <t>DEFAULT_LEISURE: This setting is only relevant in multicast scenarios,
 	  outside the scope of EST-coaps.</t>
       <t>PROBING_RATE: A parameter which specifies the rate of re-sending

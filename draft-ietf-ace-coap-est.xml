@@ -417,7 +417,7 @@ coaps://est-coaps.example.org:<port>/<root-resource>/
   REQ: GET /.well-known/core?rt=ace.est*
 
   RES: 2.05 Content
-</est>; rt="ace.est",
+</est>;rt="ace.est",
 </est/crts>;rt="ace.est.crts";ct="281 TBD287",
 </est/sen>;rt="ace.est.sen";ct="281 TBD287",
 </est/sren>;rt="ace.est.sren";ct="281 TBD287",

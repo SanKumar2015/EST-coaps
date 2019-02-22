@@ -422,7 +422,7 @@ coaps://est-coaps.example.org:<port>/<root-resource>/
 </est/sen>;rt="ace.est.sen";ct="281 TBD287",
 </est/sren>;rt="ace.est.sren";ct="281 TBD287",
 </est/att>;rt="ace.est.att";ct=285,
-</est/skg>;rt="ace.est.skg";ct="62 280 284 281 TBD287"
+</est/skg>;rt="ace.est.skg";ct=62
 ]]></artwork>
     <!-- Used quotes when multiple cts are returned as shown in draft-ietf-core-resource-directory-19 -->
     </figure>
@@ -442,7 +442,7 @@ coaps://est-coaps.example.org:<port>/<root-resource>/
 <coaps://[2001:db8:3::123]:61617/est/att>;rt="ace.est.att";
               ct="285",
 <coaps://[2001:db8:3::123]:61617/est/skg>;rt="ace.est.skg";
-              ct="62 280 284 281 TBD287"
+              ct=62
 ]]></artwork>
     </figure>
 

@@ -544,11 +544,11 @@ Internet-Draft                  EST-coaps                  February 2019
    </est/skg>;rt="ace.est.skg";ct=62
    </est/skc>;rt="ace.est.skc";ct=62
 
-   The first four lines of the discovery response above MUST be returned
-   if the server supports resource discovery.  The last two lines are
-   only included if the corresponding EST functions are implemented.
-   The Content-Formats in the response allow the client to request one
-   that is supported by the server.
+   The first three lines of the discovery response above MUST be
+   returned if the server supports resource discovery.  The last three
+   lines are only included if the corresponding EST functions are
+   implemented.  The Content-Formats in the response allow the client to
+   request one that is supported by the server.
 
    Discoverable port numbers can be returned in the response payload.
    An example response payload for non-default CoAPS server port 61617

@@ -550,9 +550,9 @@ Internet-Draft                  EST-coaps                  February 2019
    The Content-Formats in the response allow the client to request one
    that is supported by the server.
 
-   The first four lines of the discovery response above MUST be returned
-   if the server supports resource discovery.  The last two lines are
-   only included if the corresponding EST functions are implemented.
+   Discoverable port numbers can be returned in the response payload.
+   An example response payload for non-default CoAPS server port 61617
+   follows below.  Linefeeds were included only for readability.
 
 
 
@@ -561,19 +561,6 @@ van der Stok, et al.     Expires August 26, 2019               [Page 10]
 
 Internet-Draft                  EST-coaps                  February 2019
 
-
-   The Content-Formats in the response allow the client to request one
-   that is supported by the server.
-
-   The first four lines of the discovery response above MUST be returned
-   if the server supports resource discovery.  The last two lines are
-   only included if the corresponding EST functions are implemented.
-   The Content-Formats in the response allow the client to request one
-   that is supported by the server.
-
-   Discoverable port numbers can be returned in the response payload.
-   An example response payload for non-default CoAPS server port 61617
-   follows below.  Linefeeds were included only for readability.
 
      REQ: GET /.well-known/core?rt=ace.est*
 
@@ -609,6 +596,19 @@ Internet-Draft                  EST-coaps                  February 2019
    deemed too expensive for low-resource devices in payload and
    calculation times.
 
+   Table 2 specifies the mandatory-to-implement or optional
+   implementation of the est-coaps functions.  Discovery of the
+   existence of optional functions is described in Section 5.1.
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -618,19 +618,15 @@ van der Stok, et al.     Expires August 26, 2019               [Page 11]
 Internet-Draft                  EST-coaps                  February 2019
 
 
-   Table 2 specifies the mandatory-to-implement or optional
-   implementation of the est-coaps functions.  Discovery of the
-   existence of optional functions is described in Section 5.1.
-
               +------------------+--------------------------+
               | EST Functions    | EST-coaps implementation |
               +------------------+--------------------------+
               | /cacerts         | MUST                     |
               | /simpleenroll    | MUST                     |
               | /simplereenroll  | MUST                     |
-              | /fullcmc         | Not specified            |
-              | /serverkeygen    | OPTIONAL                 |
               | /csrattrs        | OPTIONAL                 |
+              | /serverkeygen    | OPTIONAL                 |
+              | /fullcmc         | Not specified            |
               +------------------+--------------------------+
 
                    Table 2: List of EST-coaps functions
@@ -667,15 +663,16 @@ Internet-Draft                  EST-coaps                  February 2019
    included in the request, the client is not expressing any preference
    and the server SHOULD choose format 281.
 
+   Content-Format 286 is used in /sen, /sren and /skg requests and 285
+   in /att responses.
+
+
 
 
 van der Stok, et al.     Expires August 26, 2019               [Page 12]
 
 Internet-Draft                  EST-coaps                  February 2019
 
-
-   Content-Format 286 is used in /sen, /sren and /skg requests and 285
-   in /att responses.
 
    A representation with Content-Format identifier 62 contains a
    collection of representations along with their respective Content-
@@ -722,6 +719,9 @@ Internet-Draft                  EST-coaps                  February 2019
       messages.  The URI-host and Uri-Port Options can be omitted from
       the COAP message sent on the wire.  When omitted, they are
       logically assumed to be the transport protocol destination address
+      and port respectively.  Explicit Uri-Host and Uri-Port Options are
+      typically used when an endpoint hosts multiple virtual servers and
+
 
 
 
@@ -730,8 +730,6 @@ van der Stok, et al.     Expires August 26, 2019               [Page 13]
 Internet-Draft                  EST-coaps                  February 2019
 
 
-      and port respectively.  Explicit Uri-Host and Uri-Port Options are
-      typically used when an endpoint hosts multiple virtual servers and
       uses the Options to route the requests accordingly.  Other COAP
       Options should be handled in accordance with [RFC7252].
 
@@ -777,7 +775,9 @@ Internet-Draft                  EST-coaps                  February 2019
    such that each DTLS record will fit within one or two IEEE 802.15.4
    frames.
 
-
+   That is not always possible in EST-coaps.  Even though ECC
+   certificates are small in size, they can vary greatly based on
+   signature algorithms, key sizes, and Object Identifier (OID) fields
 
 
 
@@ -786,9 +786,6 @@ van der Stok, et al.     Expires August 26, 2019               [Page 14]
 Internet-Draft                  EST-coaps                  February 2019
 
 
-   That is not always possible in EST-coaps.  Even though ECC
-   certificates are small in size, they can vary greatly based on
-   signature algorithms, key sizes, and Object Identifier (OID) fields
    used.  For 256-bit curves, common ECDSA cert sizes are 500-1000 bytes
    which could fluctuate further based on the algorithms, OIDs, Subject
    Alternative Names (SAN) and cert fields.  For 384-bit curves, ECDSA
@@ -834,17 +831,15 @@ Internet-Draft                  EST-coaps                  February 2019
    provided later with 2.04 messages containing N2+1 Block2 Options.
    The first 2.04 is a confirmable message that is acknowledged by the
    client with an ACK.  Onwards, having received the first 256 bytes in
+   the first Block2 block, the client asks for a block reduction to 128
+   bytes in a confirmable enrollment request Uri-Path and acknowledges
+   the Block2 blocks sent up to that point.
 
 
 
 van der Stok, et al.     Expires August 26, 2019               [Page 15]
 
 Internet-Draft                  EST-coaps                  February 2019
-
-
-   the first Block2 block, the client asks for a block reduction to 128
-   bytes in a confirmable enrollment request Uri-Path and acknowledges
-   the Block2 blocks sent up to that point.
 
 
    POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
@@ -890,17 +885,17 @@ Internet-Draft                  EST-coaps                  February 2019
    Option.  The client waits for a period of Max-Age as many times as he
    receives the same 5.03 response and retransmits the enrollment
    request until he receives a certificate in a fragmented 2.01
+   response.  Note that the server asks for a decrease in the block size
+   when acknowledging the first Block2.
+
+
+
 
 
 
 van der Stok, et al.     Expires August 26, 2019               [Page 16]
 
 Internet-Draft                  EST-coaps                  February 2019
-
-
-   response.  Note that the server asks for a decrease in the block size
-   when acknowledging the first Block2.
-
 
 
    POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
@@ -946,6 +941,11 @@ Internet-Draft                  EST-coaps                  February 2019
    In these scenarios, server-side key generation can be used.  The
    client asks for the server or proxy to generate the private key and
    the certificate which are transferred back to the client in the
+   server-side key generation response.  In all respects, the server
+   SHOULD treat the CSR as it would treat any enroll or re-enroll CSR;
+   the only distinction here is that the server MUST ignore the public
+   key values and signature in the CSR.  These are included in the
+
 
 
 
@@ -954,10 +954,6 @@ van der Stok, et al.     Expires August 26, 2019               [Page 17]
 Internet-Draft                  EST-coaps                  February 2019
 
 
-   server-side key generation response.  In all respects, the server
-   SHOULD treat the CSR as it would treat any enroll or re-enroll CSR;
-   the only distinction here is that the server MUST ignore the public
-   key values and signature in the CSR.  These are included in the
    request only to allow re-use of existing codebases for generating and
    parsing such requests.
 
@@ -1002,6 +998,10 @@ Internet-Draft                  EST-coaps                  February 2019
    private key.  For the context of this specification, clients and
    servers that choose to support server-side key generation MUST
    support unprotected (PKCS#8) private keys (Content-Format 284).
+   Symmetric or asymmetric encryption of the private key (CMS
+   EnvelopedData, Content-Format 280) SHOULD be supported for
+   deployments where end-to-end encryption needs to be provided between
+   the client and a server.  Such cases could include architectures
 
 
 
@@ -1010,10 +1010,6 @@ van der Stok, et al.     Expires August 26, 2019               [Page 18]
 Internet-Draft                  EST-coaps                  February 2019
 
 
-   Symmetric or asymmetric encryption of the private key (CMS
-   EnvelopedData, Content-Format 280) SHOULD be supported for
-   deployments where end-to-end encryption needs to be provided between
-   the client and a server.  Such cases could include architectures
    where an entity between the client and the CA terminates the DTLS
    connection (Registrar in Figure 4).
 
@@ -1058,6 +1054,10 @@ Internet-Draft                  EST-coaps                  February 2019
    The POP linking information is lost between the EST-coaps client and
    the EST server when a Registrar is present.  The EST server becomes
    aware of the presence of a Registrar from its TLS client certificate
+   that includes id-kp-cmcRA [RFC6402] extended key usage extension
+   (EKU).  As explained in Section 3.7 of [RFC7030], the EST server
+   SHOULD apply an authorization policy consistent with a Registrar
+   client.  For example, it could be configured to accept POP linking
 
 
 
@@ -1066,10 +1066,6 @@ van der Stok, et al.     Expires August 26, 2019               [Page 19]
 Internet-Draft                  EST-coaps                  February 2019
 
 
-   that includes id-kp-cmcRA [RFC6402] extended key usage extension
-   (EKU).  As explained in Section 3.7 of [RFC7030], the EST server
-   SHOULD apply an authorization policy consistent with a Registrar
-   client.  For example, it could be configured to accept POP linking
    information that does not match the current TLS session because the
    authenticated EST client Registrar has verified this information when
    acting as an EST server.
@@ -1114,6 +1110,10 @@ Internet-Draft                  EST-coaps                  February 2019
    It is RECOMMENDED, based on experiments, to follow the default CoAP
    configuration parameters ([RFC7252]).  However, depending on the
    implementation scenario, retransmissions and timeouts can also occur
+   on other networking layers, governed by other configuration
+   parameters.  A change in a server parameter MUST ensure the adjusted
+   value is also available to all the endpoints with which these
+   adjusted values are to be used to communicate.
 
 
 
@@ -1121,11 +1121,6 @@ van der Stok, et al.     Expires August 26, 2019               [Page 20]
 
 Internet-Draft                  EST-coaps                  February 2019
 
-
-   on other networking layers, governed by other configuration
-   parameters.  A change in a server parameter MUST ensure the adjusted
-   value is also available to all the endpoints with which these
-   adjusted values are to be used to communicate.
 
    Some further comments about some specific parameters, mainly from
    Table 2 in [RFC7252]:
@@ -1167,6 +1162,11 @@ Internet-Draft                  EST-coaps                  February 2019
    "CoRE Parameters" registry [COREparams] are specified in Table 3.
    These have been registered provisionally in the Expert Review range
    (0-255).
+
+
+
+
+
 
 
 

@@ -138,6 +138,7 @@
         <t> Use of response codes clarified.</t>
         <t> removed bugs: Max-Age and Content-Format Options in Request</t>
         <t> Accept Option explained for est/skg and added in enroll example </t>
+		<t> Added second URI /skc for server-side key gen and a simple cert (not PKCS#7)</t>
         <t> Persistenc of DTLS connection clarified. </t>
 		<t> Minor text fixes. </t>
     </list>
@@ -408,8 +409,14 @@ coaps://est-coaps.example.org:<port>/<root-resource>/
    <c> /simpleenroll </c>       <c> /sen </c>
    <c> /simplereenroll </c>     <c> /sren </c>
    <c> /csrattrs </c>           <c> /att </c>
-   <c> /serverkeygen </c>       <c> /skg </c>
+   <c> /serverkeygen </c>       <c> /skg (PKCS#7) </c>
+   <c> /serverkeygen </c>       <c> /skc (application/pkix-cert) </c>
 </texttable>
+
+      <t>The /skg message is the EST /serverkeygen equivalent where the client 
+	  requests for a certificate in PKCS#7 format and a private key. If the 
+	  client prefers a single application/pkix-cert certificate instead of PKCS#7, 
+	  he will make an /skc request.</t>
       <t>Clients and servers MUST support the short resource URIs. <!-- The corresponding longer URIs from <xref target="RFC7030"/> MAY be supported. --></t>
 
       <t>In the context of CoAP, the presence and location of (path to) the management data are discovered by sending a GET request to "/.well-known/core" including a resource type (RT) parameter with the value "ace.est" <xref target="RFC6690"/>. Upon success, the return payload will contain the root resource of the EST resources. <!-- The server MAY return all available resource paths and the used content types. This is useful when multiple content types are supported by the EST-coaps server and optional functions are available. --> The example below shows the discovery of the presence and location of EST-coaps resources. Linefeeds are included only for readability.</t>
@@ -422,10 +429,13 @@ coaps://est-coaps.example.org:<port>/<root-resource>/
 </est/sren>;rt="ace.est.sren";ct="281 TBD287",
 </est/att>;rt="ace.est.att";ct=285,
 </est/skg>;rt="ace.est.skg";ct=62
+</est/skc>;rt="ace.est.skc";ct=62
 ]]></artwork>
     <!-- Used quotes when multiple cts are returned as shown in draft-ietf-core-resource-directory-19 -->
     </figure>
-      <t> The first four lines of the discovery response above MUST be returned if the server supports resource discovery. The last two lines are only included if the corresponding EST functions are implemented. The Content-Formats in the response allow the client to request one that is supported by the server.</t>
+      <t>The first four lines of the discovery response above MUST be returned if the server supports resource discovery. The last two lines are only included if the corresponding EST functions are implemented. The Content-Formats in the response allow the client to request one that is supported by the server.</t>
+      <t>The first four lines of the discovery response above MUST be returned if the server supports resource discovery. The last two lines are only included if the corresponding EST functions are implemented. The Content-Formats in the response allow the client to request one that is supported by the server.</t>
+      <t>The first four lines of the discovery response above MUST be returned if the server supports resource discovery. The last two lines are only included if the corresponding EST functions are implemented. The Content-Formats in the response allow the client to request one that is supported by the server.</t>
       <t><!--Port numbers, not returned in the example, are assumed to be the default numbers 5683 and 5684 for CoAP and CoAPS respectively (Sections 12.6 and 12.7 of <xref target="RFC7252"/>). --> Discoverable port numbers can be returned in the response payload. An example response payload for non-default CoAPS server port 61617 follows below. Linefeeds were included only for readability.</t>
 <figure><artwork align="left"><![CDATA[
   REQ: GET /.well-known/core?rt=ace.est*
@@ -440,6 +450,8 @@ coaps://est-coaps.example.org:<port>/<root-resource>/
 <coaps://[2001:db8:3::123]:61617/est/att>;rt="ace.est.att";
               ct="285",
 <coaps://[2001:db8:3::123]:61617/est/skg>;rt="ace.est.skg";
+              ct=62
+<coaps://[2001:db8:3::123]:61617/est/skc>;rt="ace.est.skc";
               ct=62
 ]]></artwork>
     </figure>
@@ -532,14 +544,14 @@ representations. -->
       <t>
       A representation with Content-Format identifier 62 contains a collection of representations
 	along with their respective Content-Format. The Content-Format identifies the
-	Media-Type application/multipart-core specified in <xref target="I-D.ietf-core-multipart-ct"/><!--The collection is encoded as a <xref target="RFC7049">CBOR array</xref> with
+	Media-Type application/multipart-core specified in <xref target="I-D.ietf-core-multipart-ct"/>. <!--The collection is encoded as a <xref target="RFC7049">CBOR array</xref> with
 	an even number of elements. The second, fourth, sixth, etc. element is a binary
 	string containing a representation. The first, third, fifth, etc. element is an
 	unsigned integer specifying the Content-Format identifier of the consecutive representation. -->
-	For example, a collection containing two representations in response to a EST-coaps server-side
-	key generation request, could include a private key in PKCS#8 <xref target="RFC5958"/>
-	with Content-Format identifier 284 (0x011C) and a single certificate in a PKCS#7 container 
-	with Content-Format identifier 281 (0x0119). Such a collection would look like [284,h'0123456789abcdef', 281,h'fedcba9876543210']
+	For example, a collection, containing two representations in response to a EST-coaps server-side
+	key generation /skg request, could include a private key in PKCS#8 <xref target="RFC5958"/>
+	with Content-Format identifier 284 (0x011C) and a single certificate in a PKCS#7 container. 
+	Such a collection would look like [284,h'0123456789abcdef', 281,h'fedcba9876543210']
 	in diagnostic CBOR notation. The serialization of such CBOR content would be </t>
     <figure title="Multipart /skg response serialization"><artwork>
         <![CDATA[
@@ -552,8 +564,9 @@ representations. -->
       FEDCBA9876543210 # "\xFE\xDC\xBA\x98vT2\x10"
        ]]></artwork></figure>
 
-	  <t>When the returned certificate is a single X.509 certificate (not a 
-	  PKCS#7 container) the Content-Format identifier is TBD287 (0x011F) instead of 281.
+	  <t>When the client makes an /skc request the certificate returned with the private key 
+	  is a single X.509 certificate (not a PKCS#7 container) with Content-Format identifier 
+	  TBD287 (0x011F) instead of 281. 
 	  In cases where the private key is encrypted with CMS (as
 	  explained in <xref target="serverkey"/>) the Content-Format identifier is
 	  280 (0x0118) instead of 284. The key and certificate representations are ASN.1 encoded
@@ -733,15 +746,14 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
       are included in the request only to allow re-use of existing
       codebases for generating and parsing such requests.</t>
 	  
-	  <t>The client /skg request needs to communicate to the server the 
-	  Content-Format of the application/multipart-core elements. 
-	  The key Content-Format requested by the client is depicted in the 
+	  <t>The client /skg request is for a certificate in a PKCS#7 container 
+	  and private key in two application/multipart-core elements. 
+	  Respectively, an /skc request is for a single application/pkix-cert 
+	  certificate and a private key. 
+	  The private key Content-Format requested by the client is depicted in the 
 	  PKCS#10 request. If the request contains SMIMECapabilities the client 
 	  is expecting Content-Format 280. Otherwise he expects a PKCS#8 key in 
-	  Content-Format 284. The client expresses the preferred certificate 
-	  Content-Format in his /skg request by using an Accept Option. The Accept 
-      Option is 281 when preferring a certificate in a PKCS#7 container or TBD287 
-	  when preferring a single X.509 certificate. </t>
+	  Content-Format 284.</t>
 	  
       <t>
 	    <xref target="RFC7030" /> provides two methods, symmetric and asymmetric, to 
@@ -959,7 +971,11 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
       <t>rt="ace.est.att". This resource depicts the support
 	  of EST CSR attributes.</t>
       <t>rt="ace.est.skg". This resource depicts the support
-	  of EST server-side key generation.</t>
+	  of EST server-side key generation with the returned 
+	  certificate in a PKCS#7 container.</t>
+      <t>rt="ace.est.skc". This resource depicts the support
+	  of EST server-side key generation with the returned 
+	  certificate in application/pkix-cert format.</t>
     </list>
    </t>
    <t></t>
@@ -1389,7 +1405,7 @@ ff958d75419d81a6a245dffae790be95cf75f602f9152618f816a2b23b56
 <figure align="left"><artwork><![CDATA[
 POST coaps://192.0.2.1:8085/est/skg
 (Token: 0xa5)
-(Accept: 281)
+(Accept: 62)
 (Content-Format: 286)
 
 [ The hexadecimal representation below would NOT be transported
@@ -1918,4 +1934,3 @@ Certificate:
 </back>
 
 </rfc>
-

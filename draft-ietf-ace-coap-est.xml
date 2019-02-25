@@ -234,7 +234,7 @@
    <t>This document also profiles the use of EST to only support
    certificate-based client authentication. HTTP Basic or Digest
    authentication (as described in Section 3.2.3 of
-   <xref target="RFC7030"/> are not supported. </t>
+   <xref target="RFC7030"/>) are not supported. </t>
 
    <!-- <t>IPv6 over Low-power Wireless Personal Area Networks (6LoWPANs) <xref target="RFC4944" /> on IEEE 802.15.4 <xref target="ieee802.15.4" /> wireless networks are becoming common in many industry application domains such as lighting controls. Although IEEE 802.15.4 defines how security can be enabled between nodes within a single mesh network, it does not specify the provisioning and management of the keys. Therefore, securing a 6LoWPAN network with devices from multiple manufacturers with different provisioning techniques is often tedious and time consuming. An example use case is the application of Bootstrapping of Remote Secure Infrastructures (BRSKI) <xref target="I-D.ietf-anima-bootstrapping-keyinfra"/> </t> -->
 
@@ -270,7 +270,7 @@
 	EST-coaps can transport certificates and private keys. Certificates
 	are responses to (re-)enrollment requests or requests for a trusted certificate
 	list. Private keys can be transported as responses to a
-	server-side key generation request as described in section 4.4 of
+	server-side key generation request as described in Section 4.4 of
 	<xref target="RFC7030"/> and discussed in <xref target="serverkey"/>
 	of this document. </t>
 	
@@ -287,33 +287,33 @@
 ]]></artwork></figure>
 
     <t>
-    As per Sections 3.3 and 4.4 of <xref target="RFC7925" />, the
+    As per sections 3.3 and 4.4 of <xref target="RFC7925" />, the
     mandatory cipher suite for DTLS in EST-coaps is
     TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 <xref target="RFC7251"/>.
     Curve secp256r1 MUST
     be supported <xref target="RFC8422"/>; this curve is equivalent to the
-    NIST P-256 curve. Crypto agility is important, and the
-    recommendations in <xref target="RFC7925" /> section 4.4 and any
-    updates to RFC7925 concerning Curve25519 and other CFRG curves also apply.
+    NIST P-256 curve. Additionally, crypto agility is important, and the
+    recommendations in Section 4.4 of <xref target="RFC7925" /> and any
+    updates to it concerning Curve25519 and other curves also apply. 
     </t>
 
-	<t>
-	DTLS1.2 implementations MUST use the Supported Elliptic Curves and Supported
-    Point Formats Extensions <xref target="RFC8422"/>. Uncompressed point
-    format MUST also be supported. <xref target="RFC6090"/> is a summary 
-	of the ECC algorithms. DTLS 1.3 <xref target="I-D.ietf-tls-dtls13"/>
+	<t><!-- Removed DTLS normative language for DTLS. Keeping lowercase wording just to serve as non-normative reminders -->
+	DTLS 1.2 implementations must use the Supported Elliptic Curves and Supported
+    Point Formats Extensions in <xref target="RFC8422"/>. Uncompressed point
+    format must also be supported. <!-- <xref target="RFC6090"/> includes a summary 
+	of the ECC algorithms.--> DTLS 1.3 <xref target="I-D.ietf-tls-dtls13"/>
 	implementations differ from DTLS 1.2
     because they do not support point format negotiation in favor of a single
     point format for each curve. Thus, support for DTLS 1.3 does not mandate
-	point formation extensions and negotiation.
+	point format extensions and negotiation.
     </t>
 	
     <t>CoAP was designed to avoid IP fragmentation. DTLS is used to secure CoAP messages. However, fragmentation is still possible at the DTLS layer during the DTLS handshake when using ECC ciphersuites. If fragmentation is necessary, "DTLS provides a mechanism for fragmenting a handshake message over several records, each of which can be transmitted separately, thus avoiding IP fragmentation" <xref target="RFC6347"/>.</t>
 
     <t>The authentication of the EST-coaps server by the EST-coaps
 	client is based on certificate authentication in the DTLS handshake.
-	The EST-coaps client MUST be configured with at least an Implicit TA database
-	from its manufacturer which will enable the authentication of the server the
+	The EST-coaps client MUST be configured with at least an Implicit TA 
+	database which will enable the authentication of the server the
 	first time before updating its trust anchor (Explicit TA) <xref target="RFC7030"/>.</t>
 
     <t>The authentication of the EST-coaps client MUST be with a client certificate
@@ -328,19 +328,19 @@
 		could expire. In that case, the server MAY want to authenticate 
 		a client certificate against its trust store although the certificate 
 		is expired (<xref target="sec"/>). </t>
-    </list>
-	EST-coaps supports the certificate types and Trust Anchors (TA) that are specified for EST in Section 3 of <xref target="RFC7030"/>.
+    </list></t>
+	<t>EST-coaps supports the certificate types and Trust Anchors (TA) that are specified for EST in Section 3 of <xref target="RFC7030"/>.
 	</t>
 		
-    <t>CoAP and DTLS can provide proof-of-identity for EST-coaps clients and servers with simple PKI messages as described in Section 3.1 of <xref target="RFC5272"/>. Moreover, channel-binding information for linking proof-of-identity with connection-based proof-of-possession is OPTIONAL for EST-coaps. When proof-of-possession is desired, a set of actions are required regarding the use of tls-unique, described in section 3.5 in <xref target="RFC7030"/>. The tls-unique information consists of the contents of the first "Finished" message in the (D)TLS handshake between server and client <xref target="RFC5929"/>. The client adds the "Finished" message as a ChallengePassword in the attributes section of the PKCS#10 Request <xref target="RFC5967"/> to prove that the client is indeed in control of the private key at the time of the (D)TLS session establishment. </t>
+    <t>CoAP and DTLS can provide proof-of-identity for EST-coaps clients and servers with simple PKI messages as described in Section 3.1 of <xref target="RFC5272"/>. Moreover, channel-binding information for linking proof-of-identity with connection-based proof-of-possession is OPTIONAL for EST-coaps. When proof-of-possession is desired, a set of actions are required regarding the use of tls-unique, described in Section 3.5 in <xref target="RFC7030"/>. The tls-unique information consists of the contents of the first "Finished" message in the (D)TLS handshake between server and client <xref target="RFC5929"/>. The client adds the "Finished" message as a ChallengePassword in the attributes section of the PKCS#10 Request <xref target="RFC5967"/> to prove that the client is indeed in control of the private key at the time of the (D)TLS session establishment. </t>
 
 	<t>In the case of EST-coaps, the same operations can be performed during the DTLS handshake.
-	For DTLS 1.2, in the event of handshake message fragmentation, the Hash of the handshake messages used in the MAC calculation of the Finished message MUST be computed as if each handshake message had been sent as a single fragment (Section 4.2.6 of <xref target="RFC6347"/>). The Finished message is calculated as shown in Section 7.4.9 of <xref target="RFC5246"/>.
+	For DTLS 1.2, in the event of handshake message fragmentation, the Hash of the handshake messages used in the MAC calculation of the Finished message must be computed as if each handshake message had been sent as a single fragment (Section 4.2.6 of <xref target="RFC6347"/>). The Finished message is calculated as shown in Section 7.4.9 of <xref target="RFC5246"/>.
 <!--<figure align="left"><artwork><![CDATA[
 PRF(master_secret, finished_label, Hash(handshake_messages))
    [0..verify_data_length-1];
 ]]></artwork></figure> -->
-   Similarly, for DTLS 1.3, the Finished message MUST be computed as if each
+   Similarly, for DTLS 1.3, the Finished message must be computed as if each
    handshake message had been sent as a single fragment (Section 5.8 of
    <xref target="I-D.ietf-tls-dtls13"/>) following the algorithm described
    in 4.4.4 of <xref target="RFC8446"/>.
@@ -400,7 +400,7 @@ coaps://est-coaps.example.org:<port>/<root-resource>/
                                            ArbitraryLabel/<short-est>
 ]]></artwork></figure>
 
-      <t>Figure 5 in section 3.2.2 of <xref target="RFC7030"/> enumerates the operations and corresponding paths which are supported by EST. <xref target="est-uri"/> provides the mapping from the EST URI path to the shorter EST-coaps URI path.</t>
+      <t>Figure 5 in Section 3.2.2 of <xref target="RFC7030"/> enumerates the operations and corresponding paths which are supported by EST. <xref target="est-uri"/> provides the mapping from the EST URI path to the shorter EST-coaps URI path.</t>
 <texttable anchor="est-uri" title="Short EST-coaps URI path">
   <ttcol align="left">EST</ttcol>
   <ttcol align="left">EST-coaps</ttcol>
@@ -507,7 +507,7 @@ This specification contains a set of required-to-implement functions, optional f
 	  
       <t>The Content-Format (HTTP Media-Type equivalent) of the CoAP message determines which
 	  EST message is transported in the CoAP payload. The Media-Types specified in the HTTP
-	  Content-Type header (section 3.2.2 of <xref target="RFC7030"/>) are in EST-coaps
+	  Content-Type header (Section 3.2.2 of <xref target="RFC7030"/>) are in EST-coaps
 	  specified by the Content-Format Option (12) of CoAP. The combination of URI-Path
 	  and Content-Format in EST-coaps MUST map to an allowed combination of URI and
 	  Media-Type in EST. The required Content-Formats for these requests and
@@ -537,7 +537,7 @@ representations. -->
 	  <t>Content-Format 286 is used in /sen, /sren and /skg requests 
 	  and 285 in /att responses. </t>
 	  
-      <!-- <section anchor="cborpair" title="Content-Format application/multipart-core"> -->
+      <!-- <Section anchor="cborpair" title="Content-Format application/multipart-core"> -->
 	  <!-- <t><spanx style="strong">application/multipart-core</spanx> </t>-->
       <t>
       A representation with Content-Format identifier 62 contains a collection of representations
@@ -635,7 +635,7 @@ representations. -->
     </section> <!-- Message fragmentation -->
 
     <section anchor="pending" title="Delayed Responses">
-      <t>Server responses can sometimes be delayed. According to section 5.2.2 of
+      <t>Server responses can sometimes be delayed. According to Section 5.2.2 of
 	  <xref target="RFC7252" />, a slow server can acknowledge the request
 	  and respond later with the requested resource representation. In particular, 
 	  a slow server can respond to an EST-coaps enrollment request with an empty ACK with code 0.00,
@@ -767,6 +767,9 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 		application/multipart-core <xref target="I-D.ietf-core-multipart-ct"/>
 		containing a CBOR array with four items <!--(<xref target="cborpair"/>) -->
 		(<xref target="format"/>) <!-- with the order specified in <xref target="RFC7030"/> -->.
+		The two representations (each consisting of two CBOR array items) do 
+        not have to be in a particular order since each representation is 
+        preceded by its Content-Format ID. 
 		The certificate part exactly matches the response from an enrollment response.
 		The private key can be in unprotected PKCS#8 <xref target="RFC5958"/>
 		format (Content-Format 284) or protected inside of CMS SignedData
@@ -1130,7 +1133,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
     <!--&RFC5273;-->
     &RFC5705;
     &RFC5958;
-    &RFC6090;
+    <!-- &RFC6090; -->
     &RFC6402;
     &RFC7230;
     &RFC7231;
@@ -1486,7 +1489,7 @@ cannot be rendered well in text. ]
 ]]></artwork></figure>
 
       <t>A 2.05 Content response should contain attributes which are relevant
-	  for the authenticated client. This example is copied from section A.2
+	  for the authenticated client. This example is copied from Section A.2
 	  in <xref target="RFC7030"/>, where the base64 representation is replaced
 	  with a hexadecimal representation of the equivalent binary format.
 	  The EST-coaps server returns attributes that the client can ignore

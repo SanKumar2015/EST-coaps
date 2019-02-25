@@ -362,18 +362,18 @@ HMAC(finished_key,
     <t>EST-coaps uses CoAP to transfer EST messages, aided by Block-Wise Transfer
 	<xref target="RFC7959"/> to avoid IP 
 	fragmentation. The use of Blocks for the transfer of larger
-	EST messages is specified in <xref target="fragment"/>.
+	EST messages is specified in <xref target="fragment"/>. 
 	<xref target="fig-est-coaps-layers"/> shows the layered EST-coaps
 	architecture.</t>
 
     <t>The EST-coaps protocol design follows closely the EST design. The supported 
 	 message types in EST-coaps are: 
       <list style="symbols">
-        <t>CA certificate retrieval, needed to receive the complete set of CA certificates. </t>
-		<t>Simple enroll and reenroll, for a CA to sign public client-identity key.</t>
-        <t>Certificate Signing Request (CSR) Attributes messages that informs the client
-		of the fields to include in generated CSR.</t>
-        <t>Server-side key generation messages to provide a private client-identity key
+        <t>CA certificate retrieval needed to receive the complete set of CA certificates. </t>
+		<t>Simple enroll and re-enroll  for a CA to sign public client identity key.</t>
+        <t>Certificate Signing Request (CSR) attribute messages that inform the client 
+		of the fields to include in a CSR.</t>
+        <t>Server-side key generation messages to provide a private client identity key 
 		when the client choses so. </t>
       </list></t>
 	  
@@ -472,7 +472,7 @@ coaps://est-coaps.example.org:<port>/<root-resource>/
 <t>
 This specification contains a set of required-to-implement functions, optional functions, and not specified functions. The latter ones are deemed too expensive for low-resource devices in payload and calculation times.</t>
 
-<t> <xref target="est-implementation"/> specifies the mandatory-to-implement or optional implementation of the est-coaps functions. Discovery of the existence of optional functions is described in <xref target="discovery"/>.</t>
+<t> <xref target="est-implementation"/> specifies the mandatory-to-implement or optional implementation of the EST-coaps functions. Discovery of the existence of optional functions is described in <xref target="discovery"/>.</t>
 
 <texttable anchor="est-implementation" title="List of EST-coaps functions">
   <ttcol align="left">EST Functions</ttcol>
@@ -507,7 +507,7 @@ This specification contains a set of required-to-implement functions, optional f
 	  
       <t>The Content-Format (HTTP Media-Type equivalent) of the CoAP message determines which
 	  EST message is transported in the CoAP payload. The Media-Types specified in the HTTP
-	  Content-Type header (Section 3.2.2 of <xref target="RFC7030"/>) are in EST-coaps
+	  Content-Type header (Section 3.2.2 of <xref target="RFC7030"/>) are 
 	  specified by the Content-Format Option (12) of CoAP. The combination of URI-Path
 	  and Content-Format in EST-coaps MUST map to an allowed combination of URI and
 	  Media-Type in EST. The required Content-Formats for these requests and
@@ -548,7 +548,8 @@ representations. -->
 	unsigned integer specifying the Content-Format identifier of the consecutive representation. -->
 	For example, a collection, containing two representations in response to a EST-coaps server-side
 	key generation /skg request, could include a private key in PKCS#8 <xref target="RFC5958"/>
-	with Content-Format identifier 284 (0x011C) and a single certificate in a PKCS#7 container. 
+	with Content-Format identifier 284 (0x011C) and a single certificate in a PKCS#7 container 
+	with Content-Format identifier 281 (0x0119). 
 	Such a collection would look like [284,h'0123456789abcdef', 281,h'fedcba9876543210']
 	in diagnostic CBOR notation. The serialization of such CBOR content would be </t>
     <figure title="Multipart /skg response serialization"><artwork>
@@ -576,7 +577,7 @@ representations. -->
     <section title="Message Bindings">
       <t>The general EST-coaps message characteristics are:
         <list style="symbols">
-          <t>All EST-coaps request messages expect and acknowledgement (with a response payload); EST-coaps requests are confirmable CON CoAP messages.</t>
+          <t>All EST-coaps request messages expect an acknowledgement (with a response payload); EST-coaps requests are confirmable CON CoAP messages.</t>
           <!-- <t>The Ver, TKL, Token, and Message ID values of the CoAP header are not affected by EST.</t> -->
           <t>The CoAP Options used are Uri-Host, Uri-Path, Uri-Port, Content-Format, Block, Accept and Location-Path.
 		  These CoAP Options are used to communicate the HTTP fields specified in the EST
@@ -592,7 +593,7 @@ representations. -->
 		  to CoAPS (coaps://)</t>
         </list></t>
         <t><xref target="est-uri"/> provides the mapping from the EST URI path to the EST-coaps URI path. 
-		<xref target="messagebindings"/> includes some practical examples of EST messages
+		<xref target="messagebindings"/>  includes some practical examples of EST messages
 		translated to CoAP.</t>
     </section> <!-- Message bindings -->
 
@@ -600,8 +601,8 @@ representations. -->
       <t>Section 5.9 of <xref target="RFC7252"/> and Section 7 of <xref target="RFC8075"/>
 	  specify the mapping of HTTP response codes to CoAP response codes.
 	  Every time the HTTP response code 200 is specified in
-	  <xref target="RFC7030"/> in response to a GET request (/cacerts, /csrattrs), in
-	  EST-coaps the equivalent CoAP response code 2.05 or 2.03 MUST be used.
+	  <xref target="RFC7030"/> in response to a GET request (/cacerts, /csrattrs), 
+	  the equivalent CoAP response code 2.05 or 2.03 MUST be used in EST-coaps.
 	  Similarly, 2.01, 2.02 or 2.04 MUST be used in response to EST POST requests
 	  (/simpleenroll, /simplereenroll, /serverkeygen). </t>
 	  
@@ -623,7 +624,7 @@ representations. -->
     </section> <!-- CoAP response codes -->
 
     <section anchor="fragment" title="Message fragmentation">
-      <t>DTLS defines fragmentation only for the handshake and not for secure data exchange (DTLS records). <xref target="RFC6347"/> states that to avoid using IP fragmentation, which involves error-prone datagram reconstitution, invokers of the DTLS record layer SHOULD size DTLS records so that they fit within any Path MTU estimates obtained from the record layer. In addition, invokers residing on a 6LoWPAN over IEEE 802.15.4 <xref target="ieee802.15.4"/> network SHOULD attempt to size CoAP messages such that each DTLS record will fit within one or two IEEE 802.15.4 frames.</t>
+      <t>DTLS defines fragmentation only for the handshake and not for secure data exchange (DTLS records). <xref target="RFC6347"/> states that to avoid using IP fragmentation, which involves error-prone datagram reconstitution, invokers of the DTLS record layer should size DTLS records so that they fit within any Path MTU estimates obtained from the record layer. In addition, invokers residing on a 6LoWPAN over IEEE 802.15.4 <xref target="ieee802.15.4"/> network should attempt to size CoAP messages such that each DTLS record will fit within one or two IEEE 802.15.4 frames.</t>
 
       <t>That is not always possible in EST-coaps. Even though ECC certificates are small in size, they can vary greatly based on signature algorithms, key sizes, and Object Identifier (OID) fields used. For 256-bit curves, common ECDSA cert sizes are 500-1000 bytes which could fluctuate further based on the algorithms, OIDs, Subject Alternative Names (SAN) and cert fields. For 384-bit curves, ECDSA certificates increase in size and can sometimes reach 1.5KB. Additionally, there are times when the EST cacerts response from the server can include multiple certificates that amount to large payloads. Section 4.6 of CoAP <xref target="RFC7252"/> describes the possible payload sizes: "if nothing is known about the size of the headers, good upper bounds are 1152 bytes for the message size and 1024 bytes for the payload size". Section 4.6 of <xref target="RFC7252"/> also suggests that IPv4 implementations may want to limit themselves to more conservative IPv4 datagram sizes such as 576 bytes. <!-- From <xref target="RFC0791"/> follows that the absolute minimum value of the IP MTU for IPv4 is as low as 68 bytes, which would leave only 40 bytes minus security overhead for a UDP payload. --> Even with ECC, EST-coaps messages can still exceed MTU sizes on the Internet or 6LoWPAN <xref target="RFC4919"/> (Section 2 of <xref target="RFC7959"/>). EST-coaps needs to be able to fragment messages into multiple DTLS datagrams.</t>
 
@@ -640,13 +641,15 @@ representations. -->
 	  and respond later with the requested resource representation. In particular, 
 	  a slow server can respond to an EST-coaps enrollment request with an empty ACK with code 0.00,
       before sending the certificate to the client after a short delay. If the certificate
-	  response is large, the server will need more than one Block2 blocks to transfer it. This
+	  response is large, the server will need more than one Block2 blocks to transfer it. </t>
+	  
+	  <t>This
 	  situation is shown in <xref target="fig-est-short-wait"/>. The client sends an enrollment
 	  request that uses N1+1 Block1 blocks. The server uses an empty 0.00 ACK to announce
 	  the delayed response which is provided later with 2.04 messages containing N2+1 Block2 Options. 
-	  The first 2.04 is a confirmable message that is acknowledged by the client with an ACK. 
+	  The first 2.04 is a confirmable message that is acknowledged by the client. 
 	  Onwards, having received the first 256 bytes in the first Block2 block, the client asks for 
-	  a block reduction to 128 bytes in a confirmable enrollment request Uri-Path and acknowledges 
+	  a block reduction to 128 bytes in a confirmable enrollment request and acknowledges 
 	  the Block2 blocks sent up to that point.</t>
       <figure title="EST-COAP enrollment with short wait"
       anchor="fig-est-short-wait"><artwork>
@@ -674,8 +677,8 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
        <-- (ACK) (2:N2/0/128) (2.04 Changed) {Cert resp}
 ]]></artwork></figure>
 
-      <t>If the server is very slow (i.e. minutes) in providing the response (i.e. when a manual intervention is needed),
-      the server SHOULD respond with an ACK containing response code 5.03 (Service unavailable) and a Max-Age
+      <t>If the server is very slow (i.e. minutes) in providing the response (i.e. when a manual intervention is needed), 
+      he SHOULD respond with an ACK containing response code 5.03 (Service unavailable) and a Max-Age
       Option to indicate the time the client SHOULD wait to request the content later. After a delay of Max-Age,
       the client SHOULD resend the identical CSR to the server. As long as the server responds with response code 5.03
       (Service Unavailable) with a Max-Age Option, the client SHOULD keep resending the enrollment request until the server
@@ -749,18 +752,16 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	  Respectively, an /skc request is for a single application/pkix-cert 
 	  certificate and a private key. 
 	  The private key Content-Format requested by the client is depicted in the 
-	  PKCS#10 request. If the request contains SMIMECapabilities the client 
-	  is expecting Content-Format 280. Otherwise he expects a PKCS#8 key in 
-	  Content-Format 284.</t>
-	  
-      <t>
-	    <xref target="RFC7030" /> provides two methods, symmetric and asymmetric, to 
-		optionally encrypt the generated key. The methods are signaled by the client 
-		by using the relevant attributes (SMIMECapabilities and DecryptKeyIdentifier 
-		or AsymmetricDecryptKeyIdentifier) in the CSR request. The symmetric key or
-        the asymmetric keypair establishment method is out of scope of the 
-		specification.
-      </t>
+	  PKCS#10 CSR request. If the request contains SMIMECapabilities and 
+	  DecryptKeyIdentifier or AsymmetricDecryptKeyIdentifier the client 
+	  is expecting Content-Format 280 for the private key. 
+	  Then the private key is encrypted symmetrically or asymmetrically as 
+	  per <xref target="RFC7030" />. 
+	  The symmetric key or the asymmetric keypair establishment method is 
+	  out of scope of the specification.
+	  A /skg or /skc request with a CSR without SMIMECapabilities 
+	  expects an application/multipart-core with an unencrypted PKCS#8 private 
+	  key with Content-Format 284.</t>
 	  
 	  <t>
 	    The EST-coaps server-side key generation response is returned with Content-Format
@@ -770,7 +771,6 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 		The two representations (each consisting of two CBOR array items) do 
         not have to be in a particular order since each representation is 
         preceded by its Content-Format ID. 
-		The certificate part exactly matches the response from an enrollment response.
 		The private key can be in unprotected PKCS#8 <xref target="RFC5958"/>
 		format (Content-Format 284) or protected inside of CMS SignedData
 		(Content-Format 280). The SignedData is signed by the party that
@@ -836,8 +836,8 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	these connections on behalf of various clients.</t>
     <t>When enforcing Proof-of-Possession (POP) linking, the DTLS tls-unique
 	value of the (D)TLS session is used to prove that the private key
-	corresponding to the public key is in the possession of and was used to
-	establish the connection by the client as explained in <xref target="profile7925"/>).
+	corresponding to the public key is in the possession of the client and was used to
+	establish the connection as explained in <xref target="profile7925"/>.
 	<!-- To do that the
 	client CSR needs to include information from the DTLS connection the
 	client establishes with the server. In EST, that information is the (D)TLS
@@ -856,10 +856,10 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	verified this information when acting as an EST server.</t>
 	<t>For some use cases, clients that leverage server-side key generation might
 	prefer for the enrolled keys to be generated by the Registrar if the CA does not
-	support server-side key generation. In these cases, the Registrar MUST support
-	random number generation using proper entropy. Such Registrar is responsible
+	support server-side key generation. Such Registrar is responsible
 	for generating a new CSR signed by a new key which will be returned to the
-	client along with the certificate from the CA. </t>
+	client along with the certificate from the CA. In these cases, the Registrar 
+	MUST support random number generation using proper entropy. </t>
 
     <t><xref target="est-uri"/> contains the URI mappings between EST-coaps and EST
 	that the Registrar MUST adhere to. <xref target="error"/> of this
@@ -875,10 +875,9 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	<t>Due to fragmentation of large messages into blocks, an EST-coaps-to-HTTP
 	Registrar MUST reassemble the BLOCKs before translating the binary content to
 	Base64, and consecutively relay the message upstream. </t>
-    <t>For the discovery of the EST server by the EST client in the CoAP environment,
-	the EST-coaps-to-HTTP Registrar MUST announce itself according to the rules in
-	<xref target="discovery"/>. The available actions of the  Registrars MUST be
-	announced with as many resource paths necessary.
+    <t>If necessary, the EST-coaps-to-HTTP Registrar will support resouce discovery  
+	according to the rules in <xref target="discovery"/>. <!-- The available actions of the  Registrars MUST be
+	announced with as many resource paths necessary. -->
 	<!-- The discovery of the EST server
 	in the HTTP environment follow the rules specified in <xref target="RFC7030"/> --></t>
 	<!-- Next paragraph should be removed because e2e encryption is possible. No need for the registrar to decrypt -->
@@ -929,7 +928,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	affect parameters on the other.</t>
   </section>
   <section anchor="deploy-limit" title = "Deployment limitations">
-    <t>Although EST-coaps paves the way for the utilization of EST by constrained devices in constrained networks, some classes of devices <xref target="RFC7228" /> will not have enough resources to handle the large payloads that come with EST-coaps. The specification of EST-coaps is intended to ensure that EST works for networks of constrained devices that choose to limit their communications stack to UDP/DTLS/CoAP. It is up to the network designer to decide which devices execute the EST protocol and which do not.</t>
+    <t>Although EST-coaps paves the way for the utilization of EST by constrained devices in constrained networks, some classes of devices <xref target="RFC7228" /> will not have enough resources to handle the payloads that come with EST-coaps. The specification of EST-coaps is intended to ensure that EST works for networks of constrained devices that choose to limit their communications stack to DTLS/CoAP. It is up to the network designer to decide which devices execute the EST protocol and which do not.</t>
   </section> <!-- Deployment limits  -->
 
   <section anchor="iana" title="IANA Considerations">
@@ -1038,7 +1037,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	  like the tls-unique-prf defined in <xref target="I-D.josefsson-sasl-tls-cb"/>
 	  by using a TLS exporter <xref target="RFC5705"/> in TLS 1.2 or TLS 1.3's
 	  updated exporter (Section 7.5 of <xref target="RFC8446"/>). Such mechanism
-	  has not been standardized yet. Adopting in this document a channel
+	  has not been standardized yet. Adopting a channel
 	  binding value generated from an exporter would break backwards compatibility.
 	  Thus, in this specification we still depend in the tls-unique mechanism
 	  defined in <xref target="RFC5929"/>, especially since the practicality
@@ -1065,10 +1064,10 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 		the Registrar has a trust relationship with the upstream EST server in order
 		to act on behalf of the clients. When a client uses the Implicit TA
 		database for certificate validation, he SHOULD confirm if the server
-		is acting as an RA by the presence of the id-kp-cmcRA <xref target="RFC6402"/>
-		EKU in the server certificate. If the server certificate does not include
-		the EKU, it is RECOMMENDED that the client includes "Linking Identity and
-		POP Information" (<xref target="profile7925"/>) in requests.</t>
+		is acting as an RA by the presence of the id-kp-cmcRA EKU 
+		<xref target="RFC6402"/> in the server certificate. <!-- If the server certificate does not include
+		the EKU, it is RECOMMENDED that the client includes Identity and
+		POP Information" (<xref target="profile7925"/>) in requests.--></t>
 	  <t>In a server-side key generation case, if no end-to-end encryption is
 	    used, the Registrar may be able see the private key as it acts as a man-in-the-middle.
 		Thus, the client puts its trust on the Registrar not exposing the private key. </t>
@@ -1098,7 +1097,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	discussions that helped in shaping the solution. They would also like to thank Peter
 	Panburana for his feedback on technical details of the solution. Constructive comments
 	were received from Benjamin Kaduk, Eliot Lear, Jim Schaad, Hannes Tschofenig, Julien
-	Vermillard, John Manuel, Oliver Pfaff and Pete Beal.</t>
+	Vermillard, John Manuel, Oliver Pfaff, Pete Beal and Carsten Bormann.</t>
     <t>Interop tests were done by Oliver Pfaff, Thomas Werner, Oskar Camezind,
 	Bjorn Elmers and Joel Hoglund.</t>
 	<t>Robert Moskowitz provided code to create the examples.</t>
@@ -1205,19 +1204,18 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
     <t>This section shows similar examples to the ones presented in Appendix A of
 	<xref target="RFC7030"/>. The payloads in the examples are the hex encoded binary,
 	generated with 'xxd -p', of the PKI certificates created following
-	<xref target="I-D.moskowitz-ecdsa-pki"/>. The payloads are shown unencrypted.
-    In practice the message content would be binary formatted and transferred over
-	an encrypted DTLS tunnel. The hexadecimal representations in the examples below
-	would NOT be transported in hex, but in binary. Hex is used for visualization
-	purposes because a binary representation cannot be rendered well in text.
+	<xref target="I-D.moskowitz-ecdsa-pki"/>. Hex is used for visualization
+	purposes because a binary representation cannot be rendered well in text. 
+	The hexadecimal representations would not be transported in hex, but in binary. 
+	The payloads are shown unencrypted. In practice the message content would be 
+	transferred over an encrypted DTLS tunnel. 
 	<!-- [EDNOTE: No need for these details of how these were generated from I-D.moskowitz-ecdsa-pki. ]
 	In particular, the shell scripts from section 4.2 (create root certificate), section 6.2 (Create the 802.1AR intermediate certificate) and section 6.3 (Create an 802.1AR IdevID certificate) have been used. The 802.1AR IdevID certificate is signed by the 802.1AR intermediate certificate that is signed by the auto-signed root certificate.--></t>
     <t>The certificate responses included in the examples contain Content-Format 
 	281 (application/pkcs7). If the client had requested Content-Format 
 	TBD287 (application/pkix-cert) with an Accept Option, the 
 	server would respond a single DER binary certificate.</t>
-	<t>These examples assume that the resource discovery, returned a
-	short base path of "/est".</t>
+	<t>These examples assume a short root resource path of "/est".</t>
     <t>The corresponding CoAP headers are only shown in <xref target="cacerts"/>.
 	Creating CoAP headers is assumed to be generally understood.</t>
 	<t>The message content breakdown is presented in <xref target="cont_breakdown"/>.</t>
@@ -1392,11 +1390,11 @@ ff958d75419d81a6a245dffae790be95cf75f602f9152618f816a2b23b56
       <t>The breakdown of the request and response is shown in
 	  <xref target="enrolldis"/>.</t>
 	  
-	  <t>As described in <xref target="pending" />, if 
+	  <!-- <t>As described in <xref target="pending" />, if 
 	    the server is not able to provide a response 
 		immediately, it sends an empty ACK with response 
 		code 5.03 (Service Unavailable) and the Max-Age Option.
-		See <xref target="fig-est-long-wait"/> for an example exchange.</t>
+		See <xref target="fig-est-long-wait"/> for an example exchange.</t> -->
 	  
     </section>  <!-- enroll / reenroll -->
 
@@ -1507,7 +1505,7 @@ cannot be rendered well in text. ]
 	<t>The payloads are shown unencrypted. In practice the message contents
 	would be binary formatted and transferred over an encrypted DTLS tunnel.
 	The corresponding CoAP headers are only shown in <xref target="cacertsblock"/>.
-	Creating CoAP headers are assumed to be generally known.</t>
+	Creating CoAP headers is assumed to be generally known.</t>
 
  <section anchor="cacertsblock" title="cacerts">
     <t>This section provides a detailed example of the messages using DTLS and BLOCK
@@ -1667,11 +1665,10 @@ e5c7306163b3c3834bab3c103f743070594c089aaa0ac870cd13b902caa1
 
     <section anchor="enrollblock" title="enroll / reenroll">
       <t>
-      In this example the requested Block2 size of 256 bytes, required by the client,
+      In this example, the requested Block2 size of 256 bytes, required by the client,
 	  is transferred to the server in the very first request message. The block size
 	  256=(2**(SZX+4)) which gives SZX=4. The notation for block numbering is the same
-	  as in <xref target="cacertsblock"/>. It is assumed that CSR takes N1+1 blocks
-	  and the cert response takes N2+1 blocks. The header fields and the payload are
+	  as in <xref target="cacertsblock"/>. The header fields and the payload are
 	  omitted for brevity.
       </t>
 <figure title="EST-COAP enrollment with multiple blocks"
@@ -1707,7 +1704,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/256)          -->
 	binary payloads shown in <xref target="messagebindings"/>.
 </t>
     <section anchor="cacertsdis" title="cacerts">
-      <t>Breakdown of cacerts response containing one root CA certificate. </t>
+      <t>The breakdown of cacerts response containing one root CA certificate is  </t>
 <figure align="left"><artwork><![CDATA[
 Certificate:
     Data:
@@ -1757,7 +1754,7 @@ Certificate:
     </section>  <!--  cacerts payload breakdown -->
 
    <section anchor="enrolldis" title="enroll / reenroll">
-   <t>The breakdown of the request is </t>
+   <t>The breakdown of the enrollment request is </t>
 
 <figure align="left"><artwork><![CDATA[
 Certificate Request:
@@ -1791,7 +1788,7 @@ Certificate Request:
    <t>The CSR contained a ChallengePassword which is used for
    POP linking (<xref target="profile7925"/>). </t>
 
-   <t>The breakdown of the issued certificate response is </t>
+   <t>The breakdown of the issued certificate is </t>
 
 <figure align="left"><artwork><![CDATA[
 Certificate:
@@ -1841,7 +1838,7 @@ Certificate:
    </section> <!-- Re-enroll message breakdown  -->
 
    <section anchor="disskgrequest" title="serverkeygen">
-     <t>The following is the breakdown of the request example used.</t>
+     <t>The following is the breakdown of the server-side key generation request.</t>
 <figure align="left"><artwork><![CDATA[
 Certificate Request:
     Data:
@@ -1867,8 +1864,8 @@ Certificate Request:
          3c:ac:da:a0:cc:7b:ad:7d:14:74:a7:fd:15:5d:09:0d
 ]]></artwork></figure>
 
-     <t>The following is the breakdown of the private key content
-	 of the server-side key generation response payload.</t>
+     <t>Following is the breakdown of the private key content
+	 of the server-side key generation response. </t>
 
 <figure align="left"><artwork><![CDATA[
 Private-Key: (256 bit)
@@ -1886,8 +1883,8 @@ ASN1 OID: prime256v1
 NIST CURVE: P-256
 ]]></artwork></figure>
 
-     <t>The following is the breakdown of the certificate of the
-	 second part of the server-side key generation response payload.</t>
+     <t>The following is the breakdown of the certificate 
+	 in the server-side key generation response payload.</t>
 
 <figure align="left"><artwork><![CDATA[
 Certificate:

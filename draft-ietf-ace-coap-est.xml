@@ -50,7 +50,7 @@
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
 
-<rfc category="std" ipr="trust200902" docName="draft-ietf-ace-coap-est-08">
+<rfc category="std" ipr="trust200902" docName="draft-ietf-ace-coap-est-09">
   <front>
     <title abbrev="EST-coaps">EST over secure CoAP (EST-coaps)</title>
     <author fullname="Peter van der Stok" initials="P." surname="van der Stok">
@@ -128,18 +128,26 @@
 
   <section anchor="changes" title="Change Log">
    <t>EDNOTE: Remove this section before publication</t>
+   <t> -09
+    <list style="empty">
+       <t> WGLC comments taken into account </t>
+       <t> consensus about discovery of content-format </t>
+       <t> added additional path for content-format selection</t>
+       <t> merged DTLS sections </t>
+    </list>
+   </t>
    <t> -08
     <list style="empty">
        <t>added application/pkix-cert Content-Format TBD287.</t>
         <t> discovery text clarified </t>
-        <t> Removed text on ct negotation in connection to multipart-core </t>
+        <t> Removed text on ct negotiation in connection to multipart-core </t>
         <t> removed text that duplicates or contradicts RFC7252 (thanks Klaus) </t>
         <t> Stated that well-known/est is compulsory</t>
         <t> Use of response codes clarified.</t>
         <t> removed bugs: Max-Age and Content-Format Options in Request</t>
         <t> Accept Option explained for est/skg and added in enroll example </t>
 		<t> Added second URI /skc for server-side key gen and a simple cert (not PKCS#7)</t>
-        <t> Persistenc of DTLS connection clarified. </t>
+        <t> Persistence of DTLS connection clarified. </t>
 		<t> Minor text fixes. </t>
     </list>
    </t>
@@ -419,7 +427,7 @@ coaps://est-coaps.example.org:<port>/<root-resource>/
 	  he will make an /skc request.</t>
       <t>Clients and servers MUST support the short resource URIs. <!-- The corresponding longer URIs from <xref target="RFC7030"/> MAY be supported. --></t>
 
-      <t>In the context of CoAP, the presence and location of (path to) the management data are discovered by sending a GET request to "/.well-known/core" including a resource type (RT) parameter with the value "ace.est" <xref target="RFC6690"/>. Upon success, the return payload will contain the root resource of the EST resources. <!-- The server MAY return all available resource paths and the used content types. This is useful when multiple content types are supported by the EST-coaps server and optional functions are available. --> The example below shows the discovery of the presence and location of EST-coaps resources. Linefeeds are included only for readability.</t>
+      <t>In the context of CoAP, the presence and location of (path to) the management data are discovered by sending a GET request to "/.well-known/core" including a resource type (RT) parameter with the value "ace.est*" <xref target="RFC6690"/>. Upon success, the return payload will contain the root resource of the EST resources. <!-- The server MAY return all available resource paths and the used content types. This is useful when multiple content types are supported by the EST-coaps server and optional functions are available. --> The example below shows the discovery of the presence and location of EST-coaps resources. Linefeeds are included only for readability.</t>
 <figure><artwork align="left"><![CDATA[
   REQ: GET /.well-known/core?rt=ace.est*
 
@@ -428,7 +436,7 @@ coaps://est-coaps.example.org:<port>/<root-resource>/
 </est/sen>;rt="ace.est.sen";ct="281 TBD287",
 </est/sren>;rt="ace.est.sren";ct="281 TBD287",
 </est/att>;rt="ace.est.att";ct=285,
-</est/skg>;rt="ace.est.skg";ct=62
+</est/skg>;rt="ace.est.skg";ct=6,
 </est/skc>;rt="ace.est.skc";ct=62
 ]]></artwork>
     <!-- Used quotes when multiple cts are returned as shown in draft-ietf-core-resource-directory-19 -->
@@ -448,7 +456,7 @@ coaps://est-coaps.example.org:<port>/<root-resource>/
 <coaps://[2001:db8:3::123]:61617/est/att>;rt="ace.est.att";
               ct="285",
 <coaps://[2001:db8:3::123]:61617/est/skg>;rt="ace.est.skg";
-              ct=62
+              ct=62,
 <coaps://[2001:db8:3::123]:61617/est/skc>;rt="ace.est.skc";
               ct=62
 ]]></artwork>
@@ -460,9 +468,7 @@ coaps://est-coaps.example.org:<port>/<root-resource>/
 	  (like /est or /est/ArbitraryLabel) or ports. The client 
 	  SHOULD use resource discovery when /.well-known/est 
 	  fails or when the client is unaware of 
-	  the available EST-coaps resources or when she considers 
-	  sending two Uri-Path Options to convey the resource 
-	  wasteful.</t>
+	  the available EST-coaps resources or does not know the address of the server.</t>
 
 	  <t>It is up to the implementation to choose its root resource; throughout this document the example root resource /est is used. </t>
 
@@ -1213,8 +1219,8 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	In particular, the shell scripts from section 4.2 (create root certificate), section 6.2 (Create the 802.1AR intermediate certificate) and section 6.3 (Create an 802.1AR IdevID certificate) have been used. The 802.1AR IdevID certificate is signed by the 802.1AR intermediate certificate that is signed by the auto-signed root certificate.--></t>
     <t>The certificate responses included in the examples contain Content-Format 
 	281 (application/pkcs7). If the client had requested Content-Format 
-	TBD287 (application/pkix-cert) with an Accept Option, the 
-	server would respond a single DER binary certificate.</t>
+	TBD287 (application/pkix-cert) by querying /est/skc, the 
+	server would respond with a single DER binary certificate.</t>
 	<t>These examples assume a short root resource path of "/est".</t>
     <t>The corresponding CoAP headers are only shown in <xref target="cacerts"/>.
 	Creating CoAP headers is assumed to be generally understood.</t>

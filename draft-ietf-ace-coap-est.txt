@@ -5,16 +5,16 @@
 ACE                                                      P. van der Stok
 Internet-Draft                                                Consultant
 Intended status: Standards Track                           P. Kampanakis
-Expires: August 29, 2019                                   Cisco Systems
+Expires: August 30, 2019                                   Cisco Systems
                                                            M. Richardson
                                                                      SSW
                                                                  S. Raza
                                                                RISE SICS
-                                                       February 25, 2019
+                                                       February 26, 2019
 
 
                     EST over secure CoAP (EST-coaps)
-                       draft-ietf-ace-coap-est-08
+                       draft-ietf-ace-coap-est-09
 
 Abstract
 
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 29, 2019.
+   This Internet-Draft will expire on August 30, 2019.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-van der Stok, et al.     Expires August 29, 2019                [Page 1]
+van der Stok, et al.     Expires August 30, 2019                [Page 1]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -68,10 +68,10 @@ Internet-Draft                  EST-coaps                  February 2019
 Table of Contents
 
    1.  Change Log  . . . . . . . . . . . . . . . . . . . . . . . . .   3
-   2.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   5
+   2.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   6
    3.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   6
    4.  DTLS and conformance to RFC7925 profiles  . . . . . . . . . .   6
-   5.  Protocol Design . . . . . . . . . . . . . . . . . . . . . . .   8
+   5.  Protocol Design . . . . . . . . . . . . . . . . . . . . . . .   9
      5.1.  Discovery and URIs  . . . . . . . . . . . . . . . . . . .   9
      5.2.  Mandatory/optional EST Functions  . . . . . . . . . . . .  11
      5.3.  Payload formats . . . . . . . . . . . . . . . . . . . . .  12
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-van der Stok, et al.     Expires August 29, 2019                [Page 2]
+van der Stok, et al.     Expires August 30, 2019                [Page 2]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -120,13 +120,23 @@ Internet-Draft                  EST-coaps                  February 2019
 
    EDNOTE: Remove this section before publication
 
+   -09
+
+      WGLC comments taken into account
+
+      consensus about discovery of content-format
+
+      added additional path for content-format selection
+
+      merged DTLS sections
+
    -08
 
       added application/pkix-cert Content-Format TBD287.
 
       discovery text clarified
 
-      Removed text on ct negotation in connection to multipart-core
+      Removed text on ct negotiation in connection to multipart-core
 
       removed text that duplicates or contradicts RFC7252 (thanks Klaus)
 
@@ -141,7 +151,7 @@ Internet-Draft                  EST-coaps                  February 2019
       Added second URI /skc for server-side key gen and a simple cert
       (not PKCS#7)
 
-      Persistenc of DTLS connection clarified.
+      Persistence of DTLS connection clarified.
 
       Minor text fixes.
 
@@ -153,6 +163,13 @@ Internet-Draft                  EST-coaps                  February 2019
 
       Added CoAP RST as a MAY for an equivalent to an HTTP 204 message.
 
+
+
+van der Stok, et al.     Expires August 30, 2019                [Page 3]
+
+Internet-Draft                  EST-coaps                  February 2019
+
+
       Added serialization example of the /skg CBOR response.
 
       Added text regarding expired IDevIDs and persistent DTLS
@@ -162,13 +179,6 @@ Internet-Draft                  EST-coaps                  February 2019
       Nits and fixes
 
       Removed CBOR envelop for binary data
-
-
-
-van der Stok, et al.     Expires August 29, 2019                [Page 3]
-
-Internet-Draft                  EST-coaps                  February 2019
-
 
       Replaced TBD8 with 62.
 
@@ -207,6 +217,15 @@ Internet-Draft                  EST-coaps                  February 2019
 
    -04:
 
+
+
+
+
+van der Stok, et al.     Expires August 30, 2019                [Page 4]
+
+Internet-Draft                  EST-coaps                  February 2019
+
+
       Updated Delayed response section to reflect short and long delay
       options.
 
@@ -217,14 +236,6 @@ Internet-Draft                  EST-coaps                  February 2019
       Repaired Content-Format specification
 
    -02:
-
-
-
-
-van der Stok, et al.     Expires August 29, 2019                [Page 4]
-
-Internet-Draft                  EST-coaps                  February 2019
-
 
       Added parameter discussion in section 8
 
@@ -259,6 +270,18 @@ Internet-Draft                  EST-coaps                  February 2019
 
       copied from vanderstok-ace-coap-04
 
+
+
+
+
+
+
+
+van der Stok, et al.     Expires August 30, 2019                [Page 5]
+
+Internet-Draft                  EST-coaps                  February 2019
+
+
 2.  Introduction
 
    "Classical" Enrollment over Secure Transport (EST) [RFC7030] is used
@@ -271,16 +294,6 @@ Internet-Draft                  EST-coaps                  February 2019
    (IoT) devices use CoAP instead of HTTP.  Therefore, this
    specification utilizes DTLS [RFC6347] and CoAP [RFC7252] instead of
    TLS [RFC8446] and HTTP [RFC7230].
-
-
-
-
-
-
-van der Stok, et al.     Expires August 29, 2019                [Page 5]
-
-Internet-Draft                  EST-coaps                  February 2019
-
 
    EST responses can be relatively large and for this reason this
    specification also uses CoAP Block-Wise Transfer [RFC7959] to offer a
@@ -316,6 +329,15 @@ Internet-Draft                  EST-coaps                  February 2019
    exchanged CoAP messages.  DTLS is one such secure protocol.  No other
    changes are necessary regarding the secure transport of EST messages.
 
+
+
+
+
+van der Stok, et al.     Expires August 30, 2019                [Page 6]
+
+Internet-Draft                  EST-coaps                  February 2019
+
+
    +------------------------------------------------+
    |    EST request/response messages               |
    +------------------------------------------------+
@@ -330,14 +352,6 @@ Internet-Draft                  EST-coaps                  February 2019
    for DTLS in EST-coaps is TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8
    [RFC7251].  Curve secp256r1 MUST be supported [RFC8422]; this curve
    is equivalent to the NIST P-256 curve.  Additionally, crypto agility
-
-
-
-van der Stok, et al.     Expires August 29, 2019                [Page 6]
-
-Internet-Draft                  EST-coaps                  February 2019
-
-
    is important, and the recommendations in Section 4.4 of [RFC7925] and
    any updates to it concerning Curve25519 and other curves also apply.
 
@@ -372,6 +386,14 @@ Internet-Draft                  EST-coaps                  February 2019
 
    o  a previously installed certificate (e.g., manufacturer IDevID
       [ieee802.1ar] or a certificate issued by some other party); the
+
+
+
+van der Stok, et al.     Expires August 30, 2019                [Page 7]
+
+Internet-Draft                  EST-coaps                  February 2019
+
+
       server is expected to trust that certificate.  IDevID's are
       expected to have a very long life, as long as the device, but
       under some conditions could expire.  In that case, the server MAY
@@ -386,14 +408,6 @@ Internet-Draft                  EST-coaps                  February 2019
    [RFC5272].  Moreover, channel-binding information for linking proof-
    of-identity with connection-based proof-of-possession is OPTIONAL for
    EST-coaps.  When proof-of-possession is desired, a set of actions are
-
-
-
-van der Stok, et al.     Expires August 29, 2019                [Page 7]
-
-Internet-Draft                  EST-coaps                  February 2019
-
-
    required regarding the use of tls-unique, described in Section 3.5 in
    [RFC7030].  The tls-unique information consists of the contents of
    the first "Finished" message in the (D)TLS handshake between server
@@ -428,6 +442,14 @@ Internet-Draft                  EST-coaps                  February 2019
    Given that after a successful enrollment, it is more likely that a
    new EST transaction will take place after a significant amount of
    time, the DTLS connections SHOULD only be kept alive for EST messages
+
+
+
+van der Stok, et al.     Expires August 30, 2019                [Page 8]
+
+Internet-Draft                  EST-coaps                  February 2019
+
+
    that are relatively close to each other.  In some cases, like NAT
    rebinding, keeping the state of a connection is not possible when
    devices sleep for extended periods of time.  In such occasions,
@@ -440,15 +462,6 @@ Internet-Draft                  EST-coaps                  February 2019
    Transfer [RFC7959] to avoid IP fragmentation.  The use of Blocks for
    the transfer of larger EST messages is specified in Section 5.6.
    Figure 1 shows the layered EST-coaps architecture.
-
-
-
-
-
-van der Stok, et al.     Expires August 29, 2019                [Page 8]
-
-Internet-Draft                  EST-coaps                  February 2019
-
 
    The EST-coaps protocol design follows closely the EST design.  The
    supported message types in EST-coaps are:
@@ -485,6 +498,14 @@ Internet-Draft                  EST-coaps                  February 2019
    The EST-coaps server URIs, obtained through discovery of the EST-
    coaps root resource(s) as shown below, are of the form:
 
+
+
+
+van der Stok, et al.     Expires August 30, 2019                [Page 9]
+
+Internet-Draft                  EST-coaps                  February 2019
+
+
    coaps://est-coaps.example.org:<port>/<root-resource>/<short-est>
    coaps://est-coaps.example.org:<port>/<root-resource>/
                                               ArbitraryLabel/<short-est>
@@ -492,19 +513,6 @@ Internet-Draft                  EST-coaps                  February 2019
    Figure 5 in Section 3.2.2 of [RFC7030] enumerates the operations and
    corresponding paths which are supported by EST.  Table 1 provides the
    mapping from the EST URI path to the shorter EST-coaps URI path.
-
-
-
-
-
-
-
-
-
-van der Stok, et al.     Expires August 29, 2019                [Page 9]
-
-Internet-Draft                  EST-coaps                  February 2019
-
 
            +------------------+-------------------------------+
            | EST              | EST-coaps                     |
@@ -529,7 +537,7 @@ Internet-Draft                  EST-coaps                  February 2019
    In the context of CoAP, the presence and location of (path to) the
    management data are discovered by sending a GET request to "/.well-
    known/core" including a resource type (RT) parameter with the value
-   "ace.est" [RFC6690].  Upon success, the return payload will contain
+   "ace.est*" [RFC6690].  Upon success, the return payload will contain
    the root resource of the EST resources.  The example below shows the
    discovery of the presence and location of EST-coaps resources.
    Linefeeds are included only for readability.
@@ -541,11 +549,19 @@ Internet-Draft                  EST-coaps                  February 2019
    </est/sen>;rt="ace.est.sen";ct="281 TBD287",
    </est/sren>;rt="ace.est.sren";ct="281 TBD287",
    </est/att>;rt="ace.est.att";ct=285,
-   </est/skg>;rt="ace.est.skg";ct=62
+   </est/skg>;rt="ace.est.skg";ct=6,
    </est/skc>;rt="ace.est.skc";ct=62
 
    The first three lines of the discovery response above MUST be
    returned if the server supports resource discovery.  The last three
+
+
+
+van der Stok, et al.     Expires August 30, 2019               [Page 10]
+
+Internet-Draft                  EST-coaps                  February 2019
+
+
    lines are only included if the corresponding EST functions are
    implemented.  The Content-Formats in the response allow the client to
    request one that is supported by the server.
@@ -553,14 +569,6 @@ Internet-Draft                  EST-coaps                  February 2019
    Discoverable port numbers can be returned in the response payload.
    An example response payload for non-default CoAPS server port 61617
    follows below.  Linefeeds were included only for readability.
-
-
-
-
-van der Stok, et al.     Expires August 29, 2019               [Page 10]
-
-Internet-Draft                  EST-coaps                  February 2019
-
 
      REQ: GET /.well-known/core?rt=ace.est*
 
@@ -574,7 +582,7 @@ Internet-Draft                  EST-coaps                  February 2019
    <coaps://[2001:db8:3::123]:61617/est/att>;rt="ace.est.att";
                  ct="285",
    <coaps://[2001:db8:3::123]:61617/est/skg>;rt="ace.est.skg";
-                 ct=62
+                 ct=62,
    <coaps://[2001:db8:3::123]:61617/est/skc>;rt="ace.est.skc";
                  ct=62
 
@@ -582,9 +590,8 @@ Internet-Draft                  EST-coaps                  February 2019
    The server SHOULD support resource discovery when he supports non-
    default URIs (like /est or /est/ArbitraryLabel) or ports.  The client
    SHOULD use resource discovery when /.well-known/est fails or when the
-   client is unaware of the available EST-coaps resources or when she
-   considers sending two Uri-Path Options to convey the resource
-   wasteful.
+   client is unaware of the available EST-coaps resources or does not
+   know the address of the server.
 
    It is up to the implementation to choose its root resource;
    throughout this document the example root resource /est is used.
@@ -606,14 +613,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-
-
-
-
-
-
-
-van der Stok, et al.     Expires August 29, 2019               [Page 11]
+van der Stok, et al.     Expires August 30, 2019               [Page 11]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -669,7 +669,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 12]
+van der Stok, et al.     Expires August 30, 2019               [Page 12]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -725,7 +725,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 13]
+van der Stok, et al.     Expires August 30, 2019               [Page 13]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -781,7 +781,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 14]
+van der Stok, et al.     Expires August 30, 2019               [Page 14]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -837,7 +837,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 15]
+van der Stok, et al.     Expires August 30, 2019               [Page 15]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -893,7 +893,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 16]
+van der Stok, et al.     Expires August 30, 2019               [Page 16]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -949,7 +949,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 17]
+van der Stok, et al.     Expires August 30, 2019               [Page 17]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -1005,7 +1005,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 18]
+van der Stok, et al.     Expires August 30, 2019               [Page 18]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -1061,7 +1061,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 19]
+van der Stok, et al.     Expires August 30, 2019               [Page 19]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -1117,7 +1117,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 20]
+van der Stok, et al.     Expires August 30, 2019               [Page 20]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -1173,7 +1173,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 21]
+van der Stok, et al.     Expires August 30, 2019               [Page 21]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -1229,7 +1229,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 22]
+van der Stok, et al.     Expires August 30, 2019               [Page 22]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -1285,7 +1285,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 23]
+van der Stok, et al.     Expires August 30, 2019               [Page 23]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -1341,7 +1341,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 24]
+van der Stok, et al.     Expires August 30, 2019               [Page 24]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -1397,7 +1397,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 25]
+van der Stok, et al.     Expires August 30, 2019               [Page 25]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -1453,7 +1453,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 26]
+van der Stok, et al.     Expires August 30, 2019               [Page 26]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -1509,7 +1509,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 27]
+van der Stok, et al.     Expires August 30, 2019               [Page 27]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -1565,7 +1565,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 28]
+van der Stok, et al.     Expires August 30, 2019               [Page 28]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -1621,7 +1621,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 29]
+van der Stok, et al.     Expires August 30, 2019               [Page 29]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -1640,8 +1640,8 @@ Appendix A.  EST messages to EST-coaps
 
    The certificate responses included in the examples contain Content-
    Format 281 (application/pkcs7).  If the client had requested Content-
-   Format TBD287 (application/pkix-cert) with an Accept Option, the
-   server would respond a single DER binary certificate.
+   Format TBD287 (application/pkix-cert) by querying /est/skc, the
+   server would respond with a single DER binary certificate.
 
    These examples assume a short root resource path of "/est".
 
@@ -1677,7 +1677,7 @@ A.1.  cacerts
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 30]
+van der Stok, et al.     Expires August 30, 2019               [Page 30]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -1733,7 +1733,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 31]
+van der Stok, et al.     Expires August 30, 2019               [Page 31]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -1789,7 +1789,7 @@ A.2.  enroll / reenroll
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 32]
+van der Stok, et al.     Expires August 30, 2019               [Page 32]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -1845,7 +1845,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 33]
+van der Stok, et al.     Expires August 30, 2019               [Page 33]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -1901,7 +1901,7 @@ A.3.  serverkeygen
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 34]
+van der Stok, et al.     Expires August 30, 2019               [Page 34]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -1957,7 +1957,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 35]
+van der Stok, et al.     Expires August 30, 2019               [Page 35]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -2013,7 +2013,7 @@ A.4.  csrattrs
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 36]
+van der Stok, et al.     Expires August 30, 2019               [Page 36]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -2069,7 +2069,7 @@ B.1.  cacerts
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 37]
+van der Stok, et al.     Expires August 30, 2019               [Page 37]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -2125,7 +2125,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 38]
+van der Stok, et al.     Expires August 30, 2019               [Page 38]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -2181,7 +2181,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 39]
+van der Stok, et al.     Expires August 30, 2019               [Page 39]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -2237,7 +2237,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 40]
+van der Stok, et al.     Expires August 30, 2019               [Page 40]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -2293,7 +2293,7 @@ B.2.  enroll / reenroll
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 41]
+van der Stok, et al.     Expires August 30, 2019               [Page 41]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -2349,7 +2349,7 @@ C.1.  cacerts
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 42]
+van der Stok, et al.     Expires August 30, 2019               [Page 42]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -2405,7 +2405,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 43]
+van der Stok, et al.     Expires August 30, 2019               [Page 43]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -2461,7 +2461,7 @@ C.2.  enroll / reenroll
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 44]
+van der Stok, et al.     Expires August 30, 2019               [Page 44]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -2517,7 +2517,7 @@ C.3.  serverkeygen
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 45]
+van der Stok, et al.     Expires August 30, 2019               [Page 45]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -2573,7 +2573,7 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 46]
+van der Stok, et al.     Expires August 30, 2019               [Page 46]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -2629,7 +2629,7 @@ Authors' Addresses
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 47]
+van der Stok, et al.     Expires August 30, 2019               [Page 47]
 
 Internet-Draft                  EST-coaps                  February 2019
 
@@ -2685,4 +2685,4 @@ Internet-Draft                  EST-coaps                  February 2019
 
 
 
-van der Stok, et al.     Expires August 29, 2019               [Page 48]
+van der Stok, et al.     Expires August 30, 2019               [Page 48]

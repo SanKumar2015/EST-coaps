@@ -468,9 +468,9 @@ coaps://est-coaps.example.org:<port>/<root-resource>/
 	  (like /est or /est/ArbitraryLabel) or ports. The client 
 	  SHOULD use resource discovery when /.well-known/est 
 	  fails or when the client is unaware of 
-	  the available EST-coaps resources or considers 
+	  the available EST-coaps resources. <!-- or considers 
 	  sending two Uri-Path Options to convey the resource 
-	  wasteful.</t>
+	  wasteful.--></t>
 
 	  <t>It is up to the implementation to choose its root resource; throughout this document the example root resource /est is used. </t>
 

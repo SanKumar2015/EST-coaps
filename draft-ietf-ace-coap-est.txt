@@ -590,8 +590,7 @@ Internet-Draft                  EST-coaps                  February 2019
    The server SHOULD support resource discovery when he supports non-
    default URIs (like /est or /est/ArbitraryLabel) or ports.  The client
    SHOULD use resource discovery when /.well-known/est fails or when the
-   client is unaware of the available EST-coaps resources or considers
-   sending two Uri-Path Options to convey the resource wasteful.
+   client is unaware of the available EST-coaps resources.
 
    It is up to the implementation to choose its root resource;
    throughout this document the example root resource /est is used.
@@ -606,6 +605,7 @@ Internet-Draft                  EST-coaps                  February 2019
    Table 2 specifies the mandatory-to-implement or optional
    implementation of the EST-coaps functions.  Discovery of the
    existence of optional functions is described in Section 5.1.
+
 
 
 

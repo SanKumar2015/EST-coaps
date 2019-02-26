@@ -549,7 +549,7 @@ Internet-Draft                  EST-coaps                  February 2019
    </est/sen>;rt="ace.est.sen";ct="281 TBD287",
    </est/sren>;rt="ace.est.sren";ct="281 TBD287",
    </est/att>;rt="ace.est.att";ct=285,
-   </est/skg>;rt="ace.est.skg";ct=6,
+   </est/skg>;rt="ace.est.skg";ct=62,
    </est/skc>;rt="ace.est.skc";ct=62
 
    The first three lines of the discovery response above MUST be
@@ -580,7 +580,7 @@ Internet-Draft                  EST-coaps                  February 2019
    <coaps://[2001:db8:3::123]:61617/est/sren>;rt="ace.est.sren";
                  ct="281 TBD287",
    <coaps://[2001:db8:3::123]:61617/est/att>;rt="ace.est.att";
-                 ct="285",
+                 ct=285,
    <coaps://[2001:db8:3::123]:61617/est/skg>;rt="ace.est.skg";
                  ct=62,
    <coaps://[2001:db8:3::123]:61617/est/skc>;rt="ace.est.skc";
@@ -590,8 +590,8 @@ Internet-Draft                  EST-coaps                  February 2019
    The server SHOULD support resource discovery when he supports non-
    default URIs (like /est or /est/ArbitraryLabel) or ports.  The client
    SHOULD use resource discovery when /.well-known/est fails or when the
-   client is unaware of the available EST-coaps resources or does not
-   know the address of the server.
+   client is unaware of the available EST-coaps resources or considers
+   sending two Uri-Path Options to convey the resource wasteful.
 
    It is up to the implementation to choose its root resource;
    throughout this document the example root resource /est is used.

@@ -591,7 +591,7 @@ representations. -->
           <!-- <t>The Ver, TKL, Token, and Message ID values of the CoAP header are not affected by EST.</t> -->
           <t>The CoAP Options used are Uri-Host, Uri-Path, Uri-Port, Content-Format, Block, Accept and Location-Path.
 		  These CoAP Options are used to communicate the HTTP fields specified in the EST
-		  REST messages. The URI-host and Uri-Port Options can be omitted from the COAP 
+		  REST messages. The Uri-host and Uri-Port Options can be omitted from the COAP 
 		  message sent on the wire. When omitted, they are logically assumed to be the transport protocol destination address and port respectively. Explicit Uri-Host and Uri-Port Options are typically used when an endpoint hosts multiple virtual 
 	      servers and uses the Options to route the requests accordingly. 
 	      <!-- Alternatively, if a UDP port to a server is blocked, 
@@ -1249,8 +1249,8 @@ GET coaps://example.com:9085/est/crts
   Options
   Option (Uri-Host) 
      Option Delta = 0x3  (option# 3)
-     Option Length = 0xB
-     Option Value = example.com
+     Option Length = 0xD
+     Option Value = "example.com"
   Option (Uri-Port) 
      Option Delta = 0x4  (option# 3+4=7)
      Option Length = 0x4
@@ -1564,8 +1564,8 @@ cannot be rendered well in text. ]
   Options
    Option (Uri-Host) 
      Option Delta = 0x3  (option# 3)
-     Option Length = 0xB
-     Option Value = example.com
+     Option Length = 0xD
+     Option Value = "example.com"
    Option (Uri-Port) 
      Option Delta = 0x4   (option# 3+4=7)
      Option Length = 0x4
@@ -1662,7 +1662,7 @@ df9c99244b300a06082a8648ce3d0403023067310b300906035504061302
       Option Value = 281
     Option
       Option Delta = 0xB  (option# 12+11=23 Block2 )
-      Option Length = 0x2
+      Option Length = 0x1
       Option Value = 0x92 (block#=9, M=0, SZX=2)
 
   [ The hexadecimal representation below would NOT be transported

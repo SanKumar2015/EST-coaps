@@ -1225,7 +1225,10 @@ POST example.com:61616/est/sen (CON)(2:N2/0/128)          -->
 	281 (application/pkcs7). If the client had requested Content-Format 
 	TBD287 (application/pkix-cert) by querying /est/skc, the 
 	server would respond with a single DER binary certificate.</t>
-	<t>These examples assume a short root resource path of "/est".</t>
+	<t>These examples assume a short resource path of "/est". Even though omitted 
+	from the examples for brevity, before making the EST-coaps requests, a client 
+	would learn about the server supported EST-coaps resources with a GET request 
+	for /.well-known/core?rt=ace.est* as explained in <xref target="discovery"/>.</t>
     <t>The corresponding CoAP headers are only shown in <xref target="cacerts"/>.
 	Creating CoAP headers is assumed to be generally understood.</t>
 	<t>The message content breakdown is presented in <xref target="cont_breakdown"/>.</t>

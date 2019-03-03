@@ -390,8 +390,8 @@ HMAC(finished_key,
     <t>EST-coaps is targeted for low-resource networks with small packets. Saving header space is important and short EST-coaps URIs are specified in this document. These URIs are shorter than the ones in <xref target="RFC7030"/>. Two example EST-coaps resource path names are: </t>
 
 <figure align="left"><artwork><![CDATA[
-coaps://est-coaps.example.org:<port>/.well-known/est/<short-est>
-coaps://est-coaps.example.org:<port>/.well-known/est/
+coaps://example.com:<port>/.well-known/est/<short-est>
+coaps://example.com:<port>/.well-known/est/
                                            ArbitraryLabel/<short-est>
 ]]></artwork></figure>
 
@@ -403,10 +403,11 @@ coaps://est-coaps.example.org:<port>/.well-known/est/
 	  Implementers should consider using short such labels to minimize 
 	  transmission overhead.</t>
 
-	  <t>The EST-coaps server URIs, obtained through discovery of the EST-coaps root resource(s) as shown below, are of the form: </t>
+	  <t>The EST-coaps server URIs, obtained through discovery of the 
+	  EST-coaps resource(s) as shown below, are of the form: </t>
 <figure align="left"><artwork><![CDATA[
-coaps://est-coaps.example.org:<port>/<root-resource>/<short-est>
-coaps://est-coaps.example.org:<port>/<root-resource>/
+coaps://example.com:<port>/<root-resource>/<short-est>
+coaps://example.com:<port>/<root-resource>/
                                            ArbitraryLabel/<short-est>
 ]]></artwork></figure>
 
@@ -443,7 +444,7 @@ coaps://est-coaps.example.org:<port>/<root-resource>/
 ]]></artwork>
     <!-- Used quotes when multiple cts are returned as shown in draft-ietf-core-resource-directory-19 -->
     </figure>
-      <t>The first three lines of the discovery response above MUST be returned if the server supports resource discovery. The last three lines are only included if the corresponding EST functions are implemented. The Content-Formats in the response allow the client to request one that is supported by the server.</t>
+      <t>The first three lines of the discovery response above MUST be returned if the server supports resource discovery. The last three lines are only included if the corresponding EST functions are implemented. The Content-Formats in the response allow the client to request one that is supported by the server. These are the values that would be sent in the client request with an Accept option.</t>
       <t><!--Port numbers, not returned in the example, are assumed to be the default numbers 5683 and 5684 for CoAP and CoAPS respectively (Sections 12.6 and 12.7 of <xref target="RFC7252"/>). --> Discoverable port numbers can be returned in the response payload. An example response payload for non-default CoAPS server port 61617 follows below. Linefeeds were included only for readability.</t>
 <figure><artwork align="left"><![CDATA[
   REQ: GET /.well-known/core?rt=ace.est*
@@ -473,7 +474,7 @@ coaps://est-coaps.example.org:<port>/<root-resource>/
 	  sending two Uri-Path Options to convey the resource 
 	  wasteful.--></t>
 
-	  <t>It is up to the implementation to choose its root resource; throughout this document the example root resource /est is used. </t>
+	  <t>It is up to the implementation to choose its resource paths; throughout this document the example root resource /est is used. </t>
 
     </section> <!-- discovery and URIs -->
 
@@ -1232,7 +1233,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	<section title="cacerts" anchor="cacerts">
       <t>In EST-coaps, a cacerts message can be:</t>
 <figure align="left"><artwork><![CDATA[
-GET coaps://est-coaps.example.org:9085/est/crts
+GET coaps://example.com:9085/est/crts
 (Accept:  281)
 ]]></artwork></figure>
       <t>The corresponding CoAP header fields are shown below. The
@@ -1245,8 +1246,8 @@ GET coaps://est-coaps.example.org:9085/est/crts
   Options
   Option (Uri-Host) 
      Option Delta = 0x3  (option# 3)
-     Option Length = 0x9
-     Option Value = est-coaps.example.org
+     Option Length = 0x15
+     Option Value = example.com
   Option (Uri-Port) 
      Option Delta = 0x4  (option# 3+4=7)
      Option Length = 0x4
@@ -1539,14 +1540,14 @@ cannot be rendered well in text. ]
 	of the response, even though not shown, is 281 (application/pkcs7-mime; smime-type=certs-only).
 	The transfer of the 10 blocks with partially filled block NUM=9 is shown below </t>
     <figure align="left"><artwork><![CDATA[
-   GET coaps://est-coaps.example.org:9085/est/crts (2:0/0/64)  -->
+   GET coaps://example.com:9085/est/crts (2:0/0/64)  -->
                  <--   (2:0/1/64) 2.05 Content
-   GET coaps://est-coaps.example.org:9085/est/crts (2:1/0/64)  -->
+   GET coaps://example.com:9085/est/crts (2:1/0/64)  -->
                  <--   (2:1/1/64) 2.05 Content
                                |
                                |
                                |
-   GET coaps://est-coaps.example.org:9085/est/crts (2:9/0/64) -->
+   GET coaps://example.com:9085/est/crts (2:9/0/64) -->
                  <--   (2:9/0/64) 2.05 Content
 ]]></artwork></figure>
 
@@ -1560,8 +1561,8 @@ cannot be rendered well in text. ]
   Options
    Option (Uri-Host) 
      Option Delta = 0x3  (option# 3)
-     Option Length = 0x9
-     Option Value = est-coaps.example.org
+     Option Length = 0xB
+     Option Value = example.com
    Option (Uri-Port) 
      Option Delta = 0x4   (option# 3+4=7)
      Option Length = 0x4

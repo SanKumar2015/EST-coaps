@@ -450,17 +450,17 @@ coaps://example.com:<port>/<root-resource>/
   REQ: GET /.well-known/core?rt=ace.est*
 
   RES: 2.05 Content
-<coaps://[2001:db8:3::123]:61617/est/crts>;rt="ace.est.crts";
+<coaps://example.com:61617/est/crts>;rt="ace.est.crts";
               ct="281 TBD287", 
-<coaps://[2001:db8:3::123]:61617/est/sen>;rt="ace.est.sen";
+<coaps://example.com:61617/est/sen>;rt="ace.est.sen";
               ct="281 TBD287", 
-<coaps://[2001:db8:3::123]:61617/est/sren>;rt="ace.est.sren";
+<coaps://example.com:61617/est/sren>;rt="ace.est.sren";
               ct="281 TBD287",
-<coaps://[2001:db8:3::123]:61617/est/att>;rt="ace.est.att";
+<coaps://example.com:61617/est/att>;rt="ace.est.att";
               ct=285,
-<coaps://[2001:db8:3::123]:61617/est/skg>;rt="ace.est.skg";
+<coaps://example.com:61617/est/skg>;rt="ace.est.skg";
               ct=62,
-<coaps://[2001:db8:3::123]:61617/est/skc>;rt="ace.est.skc";
+<coaps://example.com:61617/est/skc>;rt="ace.est.skc";
               ct=62
 ]]></artwork>
     </figure>
@@ -664,26 +664,26 @@ representations. -->
       <figure title="EST-COAP enrollment with short wait"
       anchor="fig-est-short-wait"><artwork>
 <![CDATA[
-POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
+POST example.com:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
        <-- (ACK) (1:0/1/256) (2.31 Continue)
-POST [2001:db8::2:1]:61616/est/sen (CON)(1:1/1/256) {CSR req} -->
+POST example.com:61616/est/sen (CON)(1:1/1/256) {CSR req} -->
        <-- (ACK) (1:1/1/256) (2.31 Continue)
                       .
                       .
                       .
-POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
+POST example.com:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
        <-- (0.00 empty ACK)
                       |
        ...... short delay before certificate is ready ......
                       |
       <-- (CON) (1:N1/0/256)(2:0/1/256)(2.04 Changed) {Cert resp}
                                    (ACK)                     -->
-POST [2001:db8::2:1]:61616/est/sen (CON)(2:1/0/128)          -->
+POST example.com:61616/est/sen (CON)(2:1/0/128)          -->
        <-- (ACK) (2:1/1/128) (2.04 Changed) {Cert resp}
                       .
                       .
                       .
-POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
+POST example.com:61616/est/sen (CON)(2:N2/0/128)          -->
        <-- (ACK) (2:N2/0/128) (2.04 Changed) {Cert resp}
 ]]></artwork></figure>
 
@@ -706,13 +706,13 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	anchor="fig-est-long-wait"><artwork>
 <![CDATA[
 
-POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
+POST example.com:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
        <-- (ACK) (1:0/1/256) (2.31 Continue)
-POST [2001:db8::2:1]:61616/est/sen (CON)(1:1/1/256) {CSR req} -->
+POST example.com:61616/est/sen (CON)(1:1/1/256) {CSR req} -->
        <-- (ACK) (1:1/1/256) (2.31 Continue)
                       .
                       .
-POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
+POST example.com:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
      <-- (ACK) (1:N1/0/256) (2:0/0/128)(5.03 Service Unavailable)
                                                         (Max-Age)
                       |
@@ -720,14 +720,14 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
 Client tries one or more times after Max-Age with identical payload
                       |
                       |
-POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
+POST example.com:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
      <-- (ACK) (1:N1/0/256) (2:0/1/128) (2.01 Created){Cert resp}
-POST [2001:db8::2:1]:61616/est/sen (CON)(2:1/0/128)           -->
+POST example.com:61616/est/sen (CON)(2:1/0/128)           -->
      <-- (ACK) (2:1/1/128) (2.01 Created) {Cert resp}
                       .
                       .
                       .
-POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
+POST example.com:61616/est/sen (CON)(2:N2/0/128)          -->
        <-- (ACK) (2:N2/0/128) (2.01 Created) {Cert resp}
 
 ]]></artwork></figure>
@@ -1246,7 +1246,7 @@ GET coaps://example.com:9085/est/crts
   Options
   Option (Uri-Host) 
      Option Delta = 0x3  (option# 3)
-     Option Length = 0x15
+     Option Length = 0xB
      Option Value = example.com
   Option (Uri-Port) 
      Option Delta = 0x4  (option# 3+4=7)
@@ -1336,7 +1336,7 @@ cd13b902caa1003100
       </t>
 
 <figure align="left"><artwork><![CDATA[
-POST [2001:db8::2:1]:61616/est/sen
+POST example.com:61616/est/sen
 (Token: 0x45) 
 (Accept: 281)
 (Content-Format: 286)
@@ -1412,7 +1412,7 @@ ff958d75419d81a6a245dffae790be95cf75f602f9152618f816a2b23b56
       <t>In a serverkeygen exchange the CoAP POST request looks like </t>
 
 <figure align="left"><artwork><![CDATA[
-POST coaps://192.0.2.1:8085/est/skg
+POST coaps://example.com:8085/est/skg
 (Token: 0xa5)
 (Accept: 62)
 (Content-Format: 286)
@@ -1479,7 +1479,7 @@ b53bdaadc9ae60b08f52429c0fa1003100
       <t>Below is a csrattrs exchange </t>
 <figure align="left"><artwork><![CDATA[
 REQ:
-GET coaps://[2001:db8::2:1]:61616/est/att
+GET coaps://example.com:61616/est/att
 
 RES:
 2.05 Content 
@@ -1685,21 +1685,21 @@ e5c7306163b3c3834bab3c103f743070594c089aaa0ac870cd13b902caa1
 	anchor="fig-est-multiple-block"><artwork>
 <![CDATA[
 
-POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
+POST example.com:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
        <-- (ACK) (1:0/1/256) (2.31 Continue)
-POST [2001:db8::2:1]:61616/est/sen (CON)(1:1/1/256) {CSR req} -->
+POST example.com:61616/est/sen (CON)(1:1/1/256) {CSR req} -->
        <-- (ACK) (1:1/1/256) (2.31 Continue)
                       .
                       .
                       .
-POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
+POST example.com:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
        <-- (ACK) (1:N1/0/256)(2:0/1/256)(2.04 Changed){Cert resp}
-POST [2001:db8::2:1]:61616/est/sen (CON)(2:1/0/256)           -->
+POST example.com:61616/est/sen (CON)(2:1/0/256)           -->
        <-- (ACK) (2:1/1/256)(2.04 Changed) {Cert resp}
                       .
                       .
                       .
-POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/256)          -->
+POST example.com:61616/est/sen (CON)(2:N2/0/256)          -->
        <-- (ACK) (2:N2/0/256) (2.04 Changed) {Cert resp}
 
 ]]></artwork></figure>

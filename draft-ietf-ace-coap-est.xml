@@ -396,10 +396,12 @@ coaps://est-coaps.example.org:<port>/.well-known/est/
 ]]></artwork></figure>
 
       <t>The short-est strings are defined in <xref target="est-uri"/>.
-	  The ArbitraryLabel path-segment, if used, SHOULD be of the shortest length
-	  possible (Sections 3.1 and 3.2.2 of <xref target="RFC7030"/>.
+	  <!-- The ArbitraryLabel path-segment, if used, SHOULD be of the shortest length
+	  possible (Sections 3.1 and 3.2.2 of <xref target="RFC7030"/>. -->
 	  Arbitrary Labels are usually defined and used by EST CAs in order
-	  to route client requests to the appropriate certificate profile. </t>
+	  to route client requests to the appropriate certificate profile. 
+	  Implementers should consider using short such labels to minimize 
+	  transmission overhead.</t>
 
 	  <t>The EST-coaps server URIs, obtained through discovery of the EST-coaps root resource(s) as shown below, are of the form: </t>
 <figure align="left"><artwork><![CDATA[
@@ -905,7 +907,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
     EST does not impose any unique values on the CoAP parameters 
 	in <xref target="RFC7252"/>, but the EST parameter values need to 
 	be tuned to the CoAP parameter values. </t>
-    <t>It is RECOMMENDED, based on experiments,
+    <t>It is recommended, based on experiments,
 	<!-- using Nexus Certificate Manager with Californium for
 	CoAP support, communicating with a ContikiOS and tinyDTLS based
 	client, from RISE SICS, --> to follow the default CoAP

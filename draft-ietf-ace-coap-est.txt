@@ -492,7 +492,7 @@ Internet-Draft                  EST-coaps                     March 2019
    The short-est strings are defined in Table 1.  Arbitrary Labels are
    usually defined and used by EST CAs in order to route client requests
    to the appropriate certificate profile.  Implementers should consider
-   using short such labels to minimize transmission overhead.
+   using short labels to minimize transmission overhead.
 
    The EST-coaps server URIs, obtained through discovery of the EST-
    coaps resource(s) as shown below, are of the form:
@@ -590,8 +590,8 @@ Internet-Draft                  EST-coaps                     March 2019
    The server MUST support the default /.well-known/est root resource.
    The server SHOULD support resource discovery when he supports non-
    default URIs (like /est or /est/ArbitraryLabel) or ports.  The client
-   SHOULD use resource discovery when when he is unaware of the
-   available EST-coaps resources.
+   SHOULD use resource discovery when he is unaware of the available
+   EST-coaps resources.
 
    It is up to the implementation to choose its resource paths;
    throughout this document the example root resource /est is used.
@@ -2654,7 +2654,6 @@ Internet-Draft                  EST-coaps                     March 2019
    SE
 
    Email: shahid@sics.se
-
 
 
 

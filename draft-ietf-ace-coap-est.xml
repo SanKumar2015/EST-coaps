@@ -400,7 +400,7 @@ coaps://example.com:<port>/.well-known/est/
 	  possible (Sections 3.1 and 3.2.2 of <xref target="RFC7030"/>. -->
 	  Arbitrary Labels are usually defined and used by EST CAs in order
 	  to route client requests to the appropriate certificate profile. 
-	  Implementers should consider using short such labels to minimize 
+	  Implementers should consider using short labels to minimize 
 	  transmission overhead.</t>
 
 	  <t>The EST-coaps server URIs, obtained through discovery of the 
@@ -469,7 +469,7 @@ coaps://example.com:<port>/<root-resource>/
 	  root resource<!--on port 5684-->. The server SHOULD support 
 	  resource discovery when he supports non-default URIs 
 	  (like /est or /est/ArbitraryLabel) or ports. The client 
-	  SHOULD use resource discovery when when he is unaware 
+	  SHOULD use resource discovery when he is unaware 
 	  of the available EST-coaps resources.<!-- or considers 
 	  sending two Uri-Path Options to convey the resource 
 	  wasteful.--></t>

@@ -5,12 +5,12 @@
 ACE                                                      P. van der Stok
 Internet-Draft                                                Consultant
 Intended status: Standards Track                           P. Kampanakis
-Expires: September 4, 2019                                 Cisco Systems
+Expires: September 6, 2019                                 Cisco Systems
                                                            M. Richardson
                                                                      SSW
                                                                  S. Raza
                                                                RISE SICS
-                                                           March 3, 2019
+                                                           March 5, 2019
 
 
                     EST over secure CoAP (EST-coaps)
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on September 4, 2019.
+   This Internet-Draft will expire on September 6, 2019.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-van der Stok, et al.    Expires September 4, 2019               [Page 1]
+van der Stok, et al.    Expires September 6, 2019               [Page 1]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-van der Stok, et al.    Expires September 4, 2019               [Page 2]
+van der Stok, et al.    Expires September 6, 2019               [Page 2]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -165,7 +165,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019               [Page 3]
+van der Stok, et al.    Expires September 6, 2019               [Page 3]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -221,7 +221,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019               [Page 4]
+van der Stok, et al.    Expires September 6, 2019               [Page 4]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -277,7 +277,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019               [Page 5]
+van der Stok, et al.    Expires September 6, 2019               [Page 5]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -333,7 +333,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019               [Page 6]
+van der Stok, et al.    Expires September 6, 2019               [Page 6]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -389,7 +389,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019               [Page 7]
+van der Stok, et al.    Expires September 6, 2019               [Page 7]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -445,7 +445,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019               [Page 8]
+van der Stok, et al.    Expires September 6, 2019               [Page 8]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -501,7 +501,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019               [Page 9]
+van der Stok, et al.    Expires September 6, 2019               [Page 9]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -532,7 +532,7 @@ Internet-Draft                  EST-coaps                     March 2019
    the client prefers a single application/pkix-cert certificate instead
    of PKCS#7, he will make an /skc request.
 
-   Clients and servers MUST support the short resource URIs.
+   Clients and servers MUST support the short resource EST-coaps URIs.
 
    In the context of CoAP, the presence and location of (path to) the
    management data are discovered by sending a GET request to "/.well-
@@ -557,7 +557,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 10]
+van der Stok, et al.    Expires September 6, 2019              [Page 10]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -574,17 +574,17 @@ Internet-Draft                  EST-coaps                     March 2019
      REQ: GET /.well-known/core?rt=ace.est*
 
      RES: 2.05 Content
-   <coaps://example.com:61617/est/crts>;rt="ace.est.crts";
+   <coaps://[2001:db8:3::123]:61617/est/crts>;rt="ace.est.crts";
                  ct="281 TBD287",
-   <coaps://example.com:61617/est/sen>;rt="ace.est.sen";
+   <coaps://[2001:db8:3::123]:61617/est/sen>;rt="ace.est.sen";
                  ct="281 TBD287",
-   <coaps://example.com:61617/est/sren>;rt="ace.est.sren";
+   <coaps://[2001:db8:3::123]:61617/est/sren>;rt="ace.est.sren";
                  ct="281 TBD287",
-   <coaps://example.com:61617/est/att>;rt="ace.est.att";
+   <coaps://[2001:db8:3::123]:61617/est/att>;rt="ace.est.att";
                  ct=285,
-   <coaps://example.com:61617/est/skg>;rt="ace.est.skg";
+   <coaps://[2001:db8:3::123]:61617/est/skg>;rt="ace.est.skg";
                  ct=62,
-   <coaps://example.com:61617/est/skc>;rt="ace.est.skc";
+   <coaps://[2001:db8:3::123]:61617/est/skc>;rt="ace.est.skc";
                  ct=62
 
    The server MUST support the default /.well-known/est root resource.
@@ -613,7 +613,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 11]
+van der Stok, et al.    Expires September 6, 2019              [Page 11]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -669,7 +669,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 12]
+van der Stok, et al.    Expires September 6, 2019              [Page 12]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -725,7 +725,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 13]
+van der Stok, et al.    Expires September 6, 2019              [Page 13]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -781,7 +781,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 14]
+van der Stok, et al.    Expires September 6, 2019              [Page 14]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -837,7 +837,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 15]
+van der Stok, et al.    Expires September 6, 2019              [Page 15]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -846,26 +846,26 @@ Internet-Draft                  EST-coaps                     March 2019
    point.
 
 
-   POST example.com:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
+   POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
           <-- (ACK) (1:0/1/256) (2.31 Continue)
-   POST example.com:61616/est/sen (CON)(1:1/1/256) {CSR req} -->
+   POST [2001:db8::2:1]:61616/est/sen (CON)(1:1/1/256) {CSR req} -->
           <-- (ACK) (1:1/1/256) (2.31 Continue)
                          .
                          .
                          .
-   POST example.com:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
+   POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
           <-- (0.00 empty ACK)
                          |
           ...... short delay before certificate is ready ......
                          |
          <-- (CON) (1:N1/0/256)(2:0/1/256)(2.04 Changed) {Cert resp}
                                       (ACK)                     -->
-   POST example.com:61616/est/sen (CON)(2:1/0/128)          -->
+   POST [2001:db8::2:1]:61616/est/sen (CON)(2:1/0/128)          -->
           <-- (ACK) (2:1/1/128) (2.04 Changed) {Cert resp}
                          .
                          .
                          .
-   POST example.com:61616/est/sen (CON)(2:N2/0/128)          -->
+   POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
           <-- (ACK) (2:N2/0/128) (2.04 Changed) {Cert resp}
 
                Figure 2: EST-COAP enrollment with short wait
@@ -893,7 +893,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 16]
+van der Stok, et al.    Expires September 6, 2019              [Page 16]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -903,13 +903,13 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-   POST example.com:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
+   POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
           <-- (ACK) (1:0/1/256) (2.31 Continue)
-   POST example.com:61616/est/sen (CON)(1:1/1/256) {CSR req} -->
+   POST [2001:db8::2:1]:61616/est/sen (CON)(1:1/1/256) {CSR req} -->
           <-- (ACK) (1:1/1/256) (2.31 Continue)
                          .
                          .
-   POST example.com:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
+   POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
         <-- (ACK) (1:N1/0/256) (2:0/0/128)(5.03 Service Unavailable)
                                                            (Max-Age)
                          |
@@ -917,14 +917,14 @@ Internet-Draft                  EST-coaps                     March 2019
    Client tries one or more times after Max-Age with identical payload
                          |
                          |
-   POST example.com:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
+   POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
         <-- (ACK) (1:N1/0/256) (2:0/1/128) (2.01 Created){Cert resp}
-   POST example.com:61616/est/sen (CON)(2:1/0/128)           -->
+   POST [2001:db8::2:1]:61616/est/sen (CON)(2:1/0/128)           -->
         <-- (ACK) (2:1/1/128) (2.01 Created) {Cert resp}
                          .
                          .
                          .
-   POST example.com:61616/est/sen (CON)(2:N2/0/128)          -->
+   POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
           <-- (ACK) (2:N2/0/128) (2.01 Created) {Cert resp}
 
 
@@ -949,7 +949,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 17]
+van der Stok, et al.    Expires September 6, 2019              [Page 17]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -1005,7 +1005,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 18]
+van der Stok, et al.    Expires September 6, 2019              [Page 18]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -1061,7 +1061,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 19]
+van der Stok, et al.    Expires September 6, 2019              [Page 19]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -1117,7 +1117,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 20]
+van der Stok, et al.    Expires September 6, 2019              [Page 20]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -1173,7 +1173,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 21]
+van der Stok, et al.    Expires September 6, 2019              [Page 21]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -1229,7 +1229,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 22]
+van der Stok, et al.    Expires September 6, 2019              [Page 22]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -1285,7 +1285,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 23]
+van der Stok, et al.    Expires September 6, 2019              [Page 23]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -1341,7 +1341,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 24]
+van der Stok, et al.    Expires September 6, 2019              [Page 24]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -1397,7 +1397,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 25]
+van der Stok, et al.    Expires September 6, 2019              [Page 25]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -1453,7 +1453,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 26]
+van der Stok, et al.    Expires September 6, 2019              [Page 26]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -1509,7 +1509,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 27]
+van der Stok, et al.    Expires September 6, 2019              [Page 27]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -1565,7 +1565,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 28]
+van der Stok, et al.    Expires September 6, 2019              [Page 28]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -1621,7 +1621,7 @@ Appendix A.  EST messages to EST-coaps
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 29]
+van der Stok, et al.    Expires September 6, 2019              [Page 29]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -1652,7 +1652,7 @@ A.1.  cacerts
 
    In EST-coaps, a cacerts message can be:
 
-   GET coaps://example.com:9085/est/crts
+   GET example.com:9085/est/crts
    (Accept:  281)
 
    The corresponding CoAP header fields are shown below.  The use of
@@ -1677,7 +1677,7 @@ A.1.  cacerts
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 30]
+van der Stok, et al.    Expires September 6, 2019              [Page 30]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -1733,7 +1733,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 31]
+van der Stok, et al.    Expires September 6, 2019              [Page 31]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -1789,12 +1789,12 @@ A.2.  enroll / reenroll
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 32]
+van der Stok, et al.    Expires September 6, 2019              [Page 32]
 
 Internet-Draft                  EST-coaps                     March 2019
 
 
-   POST example.com:61616/est/sen
+   POST [2001:db8::2:321]:61616/est/sen
    (Token: 0x45)
    (Accept: 281)
    (Content-Format: 286)
@@ -1845,7 +1845,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 33]
+van der Stok, et al.    Expires September 6, 2019              [Page 33]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -1901,12 +1901,12 @@ A.3.  serverkeygen
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 34]
+van der Stok, et al.    Expires September 6, 2019              [Page 34]
 
 Internet-Draft                  EST-coaps                     March 2019
 
 
-   POST coaps://example.com:8085/est/skg
+   POST 192.0.2.1:8085/est/skg
    (Token: 0xa5)
    (Accept: 62)
    (Content-Format: 286)
@@ -1957,7 +1957,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 35]
+van der Stok, et al.    Expires September 6, 2019              [Page 35]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -2013,13 +2013,13 @@ A.4.  csrattrs
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 36]
+van der Stok, et al.    Expires September 6, 2019              [Page 36]
 
 Internet-Draft                  EST-coaps                     March 2019
 
 
    REQ:
-   GET coaps://example.com:61616/est/att
+   GET example.com:61616/est/att
 
    RES:
    2.05 Content
@@ -2069,7 +2069,7 @@ B.1.  cacerts
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 37]
+van der Stok, et al.    Expires September 6, 2019              [Page 37]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -2095,14 +2095,14 @@ Internet-Draft                  EST-coaps                     March 2019
    The transfer of the 10 blocks with partially filled block NUM=9 is
    shown below
 
-      GET coaps://example.com:9085/est/crts (2:0/0/64)  -->
+      GET example.com:9085/est/crts (2:0/0/64)  -->
                     <--   (2:0/1/64) 2.05 Content
-      GET coaps://example.com:9085/est/crts (2:1/0/64)  -->
+      GET example.com:9085/est/crts (2:1/0/64)  -->
                     <--   (2:1/1/64) 2.05 Content
                                   |
                                   |
                                   |
-      GET coaps://example.com:9085/est/crts (2:9/0/64) -->
+      GET example.com:9085/est/crts (2:9/0/64) -->
                     <--   (2:9/0/64) 2.05 Content
 
    The header of the GET request looks like
@@ -2125,7 +2125,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 38]
+van der Stok, et al.    Expires September 6, 2019              [Page 38]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -2181,7 +2181,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 39]
+van der Stok, et al.    Expires September 6, 2019              [Page 39]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -2237,7 +2237,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 40]
+van der Stok, et al.    Expires September 6, 2019              [Page 40]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -2293,26 +2293,26 @@ B.2.  enroll / reenroll
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 41]
+van der Stok, et al.    Expires September 6, 2019              [Page 41]
 
 Internet-Draft                  EST-coaps                     March 2019
 
 
-   POST example.com:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
+   POST [2001:db8::2:321]:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
           <-- (ACK) (1:0/1/256) (2.31 Continue)
-   POST example.com:61616/est/sen (CON)(1:1/1/256) {CSR req} -->
+   POST [2001:db8::2:321]:61616/est/sen (CON)(1:1/1/256) {CSR req} -->
           <-- (ACK) (1:1/1/256) (2.31 Continue)
                          .
                          .
                          .
-   POST example.com:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
+   POST [2001:db8::2:321]:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
           <-- (ACK) (1:N1/0/256)(2:0/1/256)(2.04 Changed){Cert resp}
-   POST example.com:61616/est/sen (CON)(2:1/0/256)           -->
+   POST [2001:db8::2:321]:61616/est/sen (CON)(2:1/0/256)           -->
           <-- (ACK) (2:1/1/256)(2.04 Changed) {Cert resp}
                          .
                          .
                          .
-   POST example.com:61616/est/sen (CON)(2:N2/0/256)          -->
+   POST [2001:db8::2:321]:61616/est/sen (CON)(2:N2/0/256)          -->
           <-- (ACK) (2:N2/0/256) (2.04 Changed) {Cert resp}
 
 
@@ -2349,7 +2349,7 @@ C.1.  cacerts
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 42]
+van der Stok, et al.    Expires September 6, 2019              [Page 42]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -2405,7 +2405,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 43]
+van der Stok, et al.    Expires September 6, 2019              [Page 43]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -2461,7 +2461,7 @@ C.2.  enroll / reenroll
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 44]
+van der Stok, et al.    Expires September 6, 2019              [Page 44]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -2517,7 +2517,7 @@ C.3.  serverkeygen
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 45]
+van der Stok, et al.    Expires September 6, 2019              [Page 45]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -2573,7 +2573,7 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 46]
+van der Stok, et al.    Expires September 6, 2019              [Page 46]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -2629,7 +2629,7 @@ Authors' Addresses
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 47]
+van der Stok, et al.    Expires September 6, 2019              [Page 47]
 
 Internet-Draft                  EST-coaps                     March 2019
 
@@ -2685,4 +2685,4 @@ Internet-Draft                  EST-coaps                     March 2019
 
 
 
-van der Stok, et al.    Expires September 4, 2019              [Page 48]
+van der Stok, et al.    Expires September 6, 2019              [Page 48]

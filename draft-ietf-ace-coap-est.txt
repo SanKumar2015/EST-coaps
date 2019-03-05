@@ -709,9 +709,11 @@ Internet-Draft                  EST-coaps                     March 2019
 
    The general EST-coaps message characteristics are:
 
-   o  All EST-coaps request messages expect an acknowledgement (with a
-      response payload); EST-coaps requests are confirmable CON CoAP
-      messages.
+   o  EST-coaps servers sometimes need to provide delayed responses
+      which are conveyed with an empty ACK or an ACK containing response
+      code 5.03 as explained in Section 5.7.  Thus, it is RECOMMENDED
+      for implementers to send EST-coaps requests in confirmable CON
+      CoAP messages.
 
    o  The CoAP Options used are Uri-Host, Uri-Path, Uri-Port, Content-
       Format, Block, Accept and Location-Path.  These CoAP Options are
@@ -720,8 +722,6 @@ Internet-Draft                  EST-coaps                     March 2019
       the COAP message sent on the wire.  When omitted, they are
       logically assumed to be the transport protocol destination address
       and port respectively.  Explicit Uri-Host and Uri-Port Options are
-      typically used when an endpoint hosts multiple virtual servers and
-
 
 
 
@@ -730,6 +730,7 @@ van der Stok, et al.    Expires September 6, 2019              [Page 13]
 Internet-Draft                  EST-coaps                     March 2019
 
 
+      typically used when an endpoint hosts multiple virtual servers and
       uses the Options to route the requests accordingly.  Other COAP
       Options should be handled in accordance with [RFC7252].
 
@@ -777,7 +778,6 @@ Internet-Draft                  EST-coaps                     March 2019
 
    That is not always possible in EST-coaps.  Even though ECC
    certificates are small in size, they can vary greatly based on
-   signature algorithms, key sizes, and Object Identifier (OID) fields
 
 
 
@@ -786,6 +786,7 @@ van der Stok, et al.    Expires September 6, 2019              [Page 14]
 Internet-Draft                  EST-coaps                     March 2019
 
 
+   signature algorithms, key sizes, and Object Identifier (OID) fields
    used.  For 256-bit curves, common ECDSA cert sizes are 500-1000 bytes
    which could fluctuate further based on the algorithms, OIDs, Subject
    Alternative Names (SAN) and cert fields.  For 384-bit curves, ECDSA
@@ -833,7 +834,6 @@ Internet-Draft                  EST-coaps                     March 2019
    2.04 messages containing N2+1 Block2 Options.  The first 2.04 is a
    confirmable message that is acknowledged by the client.  Onwards,
    having received the first 256 bytes in the first Block2 block, the
-   client asks for a block reduction to 128 bytes in a confirmable
 
 
 
@@ -842,6 +842,7 @@ van der Stok, et al.    Expires September 6, 2019              [Page 15]
 Internet-Draft                  EST-coaps                     March 2019
 
 
+   client asks for a block reduction to 128 bytes in a confirmable
    enrollment request and acknowledges the Block2 blocks sent up to that
    point.
 
@@ -889,7 +890,6 @@ Internet-Draft                  EST-coaps                     March 2019
    Option.  The client waits for a period of Max-Age as many times as he
    receives the same 5.03 response and retransmits the enrollment
    request until he receives a certificate in a fragmented 2.01
-
 
 
 

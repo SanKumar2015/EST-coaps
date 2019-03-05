@@ -587,7 +587,9 @@ representations. -->
     <section title="Message Bindings">
       <t>The general EST-coaps message characteristics are:
         <list style="symbols">
-          <t>All EST-coaps request messages expect an acknowledgement (with a response payload); EST-coaps requests are confirmable CON CoAP messages.</t>
+          <t>EST-coaps servers sometimes need to provide delayed responses which are conveyed with an empty ACK
+		  or an ACK containing response code 5.03 as explained in <xref target="pending"/>. 
+		  Thus, it is RECOMMENDED for implementers to send EST-coaps requests in confirmable CON CoAP messages.</t>
           <!-- <t>The Ver, TKL, Token, and Message ID values of the CoAP header are not affected by EST.</t> -->
           <t>The CoAP Options used are Uri-Host, Uri-Path, Uri-Port, Content-Format, Block, Accept and Location-Path.
 		  These CoAP Options are used to communicate the HTTP fields specified in the EST

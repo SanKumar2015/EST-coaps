@@ -128,6 +128,11 @@
 
   <section anchor="changes" title="Change Log">
    <t>EDNOTE: Remove this section before publication</t>
+   <t> -11
+    <list style="empty">
+       <t>Updated Server-side keygen to simplify motivation and added paragraphs in Security considerations to point out that random numbers are still needed (feedback from Hannes).</t>
+    </list>
+   </t>
    <t> -10
     <list style="empty">
        <t>Addressed WGLC comments</t>
@@ -748,18 +753,18 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
      </section> <!-- Delayed Responses -->
 
     <section anchor="serverkey" title="Server-side Key Generation">
-      <t>Constrained devices sometimes do not have the necessary hardware to generate
-      statistically random numbers for private keys and DTLS ephemeral keys.
-      Past experience has also shown that low-resource endpoints sometimes
-	  generate numbers which could allow someone to decrypt the communication
-	  or guess the private key and impersonate as the device <xref target="PsQs"/>
-	  <xref target="RSAorig"/>. 
-	  Additionally, random number key generation is costly, thus energy draining.
-      Even though the random numbers that constitute the identity/cert do not
-      get generated often, an endpoint may not want to spend time and energy
-      generating keypairs, and just ask for one from the server. </t>
+      <t> In scenarios where it is desirable that the server generates the 
+	  private key, server-side key generation should be used. Such 
+	  scenarios could be when it is considered more secure to generate at 
+	  the server the long-lived random private key that identifies the client, 
+	  or when the resources spent to generate a random private key at the 
+	  client are considered scarce, or when the security policy requires 
+	  that the certificate public and corresponding private keys are 
+	  centrally generated and controlled. Of course, that does not 
+	  eliminate the need for proper random numbers in various protocols 
+	  like (D)TLS (<xref target="sec-est"/>).</t>
 
-      <t>In these scenarios, server-side key generation can be used. The client
+      <t>When requesting server-side key generation, the client
       asks for the server or proxy to generate the private key and the certificate
       which are transferred back to the client in the server-side key generation
       response. In all respects, the server SHOULD treat the CSR as it would treat any
@@ -1009,23 +1014,40 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
       <t>The security considerations of Section 6 of <xref target="RFC7030"/> are only
 	  partially valid for the purposes of this document. As HTTP Basic Authentication is
 	  not supported, the considerations expressed for using passwords do not apply.</t>
-      <t>Given that the client has only limited resources and may not be able to generate
-	  sufficiently random keys to encrypt its identity, it is possible that the client
-	  uses server generated private/public keys. The transport of these keys is
-	  inherently risky. Analysis SHOULD be done to establish whether server-side key
-	  generation enhances or decreases the probability of identity stealing.</t>
+      
+	  <t>Modern security protocols require random numbers to be available during
+      the protocol run, for example for nonces, ephemeral (EC) Diffie-Hellman key
+      generation. This capability to generate random numbers is also needed 
+      when the constrained device generates the private key (that corresponds 
+      to the public key enrolled in the CSR). When server-side key generation is 
+      used, the constrained device depends on the server to generate the 
+      private key randomly, but it still needs locally generated random numbers 
+	  for use in security protocols, as explained in Section 12 of <xref target="RFC7925"/>. 
+	  Additionally, the transport of keys generated at the server is inherently risky. 
+	  Analysis SHOULD be done to establish whether server-side key generation increases 
+	  or decreases the probability of digital identity theft.</t>
+
+      <t>It is important to note that sources contributing to the randomness
+      pool used to generate random numbers on laptops or desktop PCs 
+      are not available on many constrained devices, such as mouse 
+      movement, timing of keystrokes, air turbulence on the
+      movement of hard drive heads, as pointed out in <xref target="PsQs"/>.  
+	  Other sources have to be used or dedicated hardware has to be added.
+      Selecting hardware for an IoT device that is capable of producing
+      high-quality random numbers is therefore important <xref target="RSAfact"/>.</t>
+
 	  <t>It is also RECOMMENDED that the Implicit Trust Anchor database used for
 	  EST server authentication is carefully managed to reduce the chance of a
 	  third-party CA with poor certification practices jeopardizing authentication. 
 	  Disabling the Implicit Trust Anchor database after successfully receiving the
 	  Distribution of CA certificates response (Section 4.1.3 of <xref target="RFC7030"/>)
 	  limits any risk to the first DTLS exchange. Alternatively, in a case 
-	  where a /sen request immediately follows a /crt, a client
+	  where a /sen request immediately follows a /crts, a client
 	  MAY choose to keep the connection authenticated by the Implicit 
 	  TA open for efficiency reasons (<xref target="profile7925"/>). A client that pipelines 
-	  EST-coaps /crt request with other requests in the same DTLS connection SHOULD 
+	  EST-coaps /crts request with other requests in the same DTLS connection SHOULD 
 	  revalidate the server certificate chain against the updated Explicit TA from 
-	  the /crt response before proceeding with the subsequent requests. If the 
+	  the /crts response before proceeding with the subsequent requests. If the 
 	  server certificate chain does not authenticate against the database, the client SHOULD close the 
 	  connection without completing the rest of the requests. The updated Explicit 
 	  TA MUST continue to be used in new DTLS connections.</t>
@@ -1070,6 +1092,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
       <t>Interpreters of ASN.1 structures should be aware of the use of invalid ASN.1
 	  length fields and should take appropriate measures to guard against buffer overflows,
 	  stack overruns in particular, and malicious content in general.</t>
+	  
     </section> <!-- EST server considerations -->
 
     <section anchor="sec-proxy" title="HTTPS-CoAPS Registrar considerations">
@@ -1203,14 +1226,14 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
       </front>
 	  <seriesInfo name="IEEE Security and Privacy" value="ISBN 978-1-4799-4686-0"/>
     </reference>
-    <reference anchor="RSAorig">
+    <reference anchor="RSAfact">
       <front>
-        <title>The Million-Key Question - Investigating the Origins of RSA Public Keys</title>
-        <author surname="Petr Svenda, Matus Nemec, Peter Sekan, Rudolf Kvasnovsky, David Formanek, David Komarek, Vashek Matyas">
+        <title>Factoring RSA keys from certified smart cards: Coppersmith in the wild</title>
+        <author surname="Daniel J. Bernstein1, Yun-An Chang, Chen-Mou Cheng, Li-Ping Chou, Nadia Heninger, Tanja Lange, Nicko van Someren">
         </author>
-        <date month="August" year="2016" />
+        <date month="August" year="2013" />
       </front>
-	  <seriesInfo name="USENIX Security Symposium 2016" value="ISBN 978-1-931971-32-4"/>
+	  <seriesInfo name="Advances in Cryptology - " value="ASIACRYPT 2013"/>
     </reference>
     <reference anchor="COREparams" target="https://www.iana.org/assignments/core-parameters/core-parameters.xhtml">
       <front>

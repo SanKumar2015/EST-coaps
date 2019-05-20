@@ -14,7 +14,7 @@ Expires: November 17, 2019                                 Cisco Systems
 
 
                     EST over secure CoAP (EST-coaps)
-                       draft-ietf-ace-coap-est-10
+                       draft-ietf-ace-coap-est-11
 
 Abstract
 

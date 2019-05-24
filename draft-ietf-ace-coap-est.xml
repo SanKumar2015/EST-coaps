@@ -50,7 +50,7 @@
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
 
-<rfc category="std" ipr="trust200902" docName="draft-ietf-ace-coap-est-12">
+<rfc category="std" ipr="trust200902" docName="draft-ietf-ace-coap-est-13">
   <front>
     <title abbrev="EST-coaps">EST over secure CoAP (EST-coaps)</title>
     <author fullname="Peter van der Stok" initials="P." surname="van der Stok">
@@ -128,6 +128,11 @@
 
   <section anchor="changes" title="Change Log">
    <t>EDNOTE: Remove this section before publication</t>
+   <t> -13
+    <list style="empty">
+       <t>Minor nits and some clarifications for Esko's new review from 5/21/2019. </t>
+    </list>
+   </t>
    <t> -12
     <list style="empty">
        <t>Updated section 5 based on Esko's comments and nits identified. </t>
@@ -359,7 +364,11 @@
 	<t>EST-coaps supports the certificate types and Trust Anchors (TA) that are specified for EST in Section 3 of <xref target="RFC7030"/>.
 	</t>
 		
-    <t>CoAP and DTLS can provide proof-of-identity for EST-coaps clients and servers with simple PKI messages as described in Section 3.1 of <xref target="RFC5272"/>. Moreover, channel-binding information for linking proof-of-identity with connection-based proof-of-possession is OPTIONAL for EST-coaps. When proof-of-possession is desired, a set of actions are required regarding the use of tls-unique, described in Section 3.5 in <xref target="RFC7030"/>. The tls-unique information consists of the contents of the first "Finished" message in the (D)TLS handshake between server and client <xref target="RFC5929"/>. The client adds the "Finished" message as a ChallengePassword in the attributes section of the PKCS#10 Request <xref target="RFC5967"/> to prove that the client is indeed in control of the private key at the time of the (D)TLS session establishment. </t>
+    <t>As described in Section 2.1 of <xref target="RFC5272"/> proof-of-identity refers to 
+	a value that can be used to prove that the private key corresponding to the public key 
+	is in the possession of and can be used by an end-entity or client. Additionally channel-binding 
+	information can link proof-of-identity with an established connetion. 
+	Connection-based proof-of-possession is OPTIONAL for EST-coaps clients and servers. When proof-of-possession is desired, a set of actions are required regarding the use of tls-unique, described in Section 3.5 in <xref target="RFC7030"/>. The tls-unique information consists of the contents of the first "Finished" message in the (D)TLS handshake between server and client <xref target="RFC5929"/>. The client adds the "Finished" message as a ChallengePassword in the attributes section of the PKCS#10 Request <xref target="RFC5967"/> to prove that the client is indeed in control of the private key at the time of the (D)TLS session establishment. </t>
 
 	<t>In the case of EST-coaps, the same operations can be performed during the DTLS handshake.
 	For DTLS 1.2, in the event of handshake message fragmentation, the Hash of the handshake messages used in the MAC calculation of the Finished message must be computed as if each handshake message had been sent as a single fragment (Section 4.2.6 of <xref target="RFC6347"/>). The Finished message is calculated as shown in Section 7.4.9 of <xref target="RFC5246"/>.
@@ -541,7 +550,7 @@ This specification contains a set of required-to-implement functions, optional f
 	  and Content-Format in EST-coaps MUST map to an allowed combination of URI and
 	  Media-Type in EST. The required Content-Formats for these requests and
 	  response messages are defined in <xref target="Content-Formats"/>. The CoAP response
-	  codes are defined in <xref target="error"/>.</t>
+	  codes are defined in <xref target="codes"/>.</t>
 	  
 	  <t>Content-Format TBD287 can be used in place of 281 to carry a single 
       certificate instead of a PKCS#7 container 
@@ -610,7 +619,8 @@ representations. -->
 		  or an ACK containing response code 5.03 as explained in <xref target="pending"/>. 
 		  Thus, it is RECOMMENDED for implementers to send EST-coaps requests in confirmable CON CoAP messages.</t>
           <!-- <t>The Ver, TKL, Token, and Message ID values of the CoAP header are not affected by EST.</t> -->
-          <t>The CoAP Options used are Uri-Host, Uri-Path, Uri-Port, Content-Format, Block, Accept and Location-Path.
+          <t>The CoAP Options used are Uri-Host, Uri-Path, Uri-Port, Content-Format, 
+          Block1, Block2, and Accept.
 		  These CoAP Options are used to communicate the HTTP fields specified in the EST
 		  REST messages. The Uri-host and Uri-Port Options can be omitted from the COAP 
 		  message sent on the wire. When omitted, they are logically assumed to be the transport protocol destination address and port respectively. Explicit Uri-Host and Uri-Port Options are typically used when an endpoint hosts multiple virtual 
@@ -628,30 +638,51 @@ representations. -->
 		translated to CoAP.</t>
     </section> <!-- Message bindings -->
 
-    <section anchor="error" title="CoAP response codes">
+    <section anchor="codes" title="CoAP response codes">
       <t>Section 5.9 of <xref target="RFC7252"/> and Section 7 of <xref target="RFC8075"/>
-	  specify the mapping of HTTP response codes to CoAP response codes.
-	  Every time the HTTP response code 200 is specified in
-	  <xref target="RFC7030"/> in response to a GET request (/cacerts, /csrattrs), 
-	  the equivalent CoAP response code 2.05 or 2.03 MUST be used in EST-coaps.
-	  Similarly, 2.01, 2.02 or 2.04 MUST be used in response to EST POST requests
-	  (/simpleenroll, /simplereenroll, /serverkeygen). </t>
+	  specify the mapping of HTTP response codes to CoAP response codes. 
+	  The success code in response to an EST-coaps GET request (/cacerts, /csrattrs), 
+	  is 2.05. Similarly, 2.01 is used in response to EST-coaps POST requests
+	  (/simpleenroll, /simplereenroll, /serverkeygen). Section 7 of 
+	  <xref target="RFC8075"/> maps 2.02 (Deleted) or 2.04 (Changed) to an HTTP 
+	  200 OK response, but 2.01 (Created) is more suitable for the creation 
+	  of certificates in the context of EST-coaps. 
+	  </t>
+	  
+	  <t>EST makes use of HTTP 204 responses when a resource is not available
+	  for the client. 2.04 SHOULD only be used in response to an EST-coaps POST 
+	  when the response comes delayed in a separate (not Piggybacked) message 
+	  after an empty 0.00 message (<xref target="pending"/>)</t>
 	  
 	  <t>HTTP response code 202 with a Retry-After header 
 	  in <xref target="RFC7030"/> has no equivalent in CoAP. 
-	  Retry-After is used in EST for delayed server responses. 
-	  <xref target="pending"/> specifies how EST-coaps handles 
-	  delayed messages.</t>
+	  HTTP 202 with Retry-After is used in EST for delayed server 
+	  responses. <xref target="pending"/> specifies how EST-coaps 
+	  handles delayed messages with 5.03 responses with Max-Age Option.</t>
 
-	  <t>EST makes use of HTTP 204 and 404 responses when a resource is not available
-	  for the client. The equivalent CoAP codes to use in an EST-coaps responses
-      are 2.04 and 4.04. Additionally, EST's HTTP 401 error translates to 4.01 in
-	  EST-coaps. Other EST HTTP error messages are 400, 423 and 503. Their equivalent
-	  CoAP errors are 4.00, 4.03 and 5.03 respectively. In case a CoAP Option 
-	  is unrecognized and critical, the server is expected to return a 4.02 (Bad Option). 
+	  <t>Additionally, EST's HTTP 400, 401, 403, 404 and 503 status codes have 
+	  their equivalent CoAP 4.00, 4.01, 4.03, 4.04 and 5.03 response codes 
+	  respectively in EST-coaps. In case a CoAP Option is unrecognized and 
+	  critical, the server is expected to return a 4.02 (Bad Option). 
 	  <!-- Moreover, if the Content-Format requested in the client 
 	  Accept Option, is not supported the server MUST return a 4.06 (Not Acceptable), 
-	  unless another error code takes precedence for the response.--></t>
+	  unless another error code takes precedence for the response.-->
+	  <xref target="estcoaps-codes"/> summarizes the EST-coaps response codes. </t>
+	  
+      <texttable anchor="estcoaps-codes" title="EST-coaps response codes">
+        <ttcol align="left">operation</ttcol>
+		<ttcol align="left">EST-coaps response code</ttcol>
+        <ttcol align="left">Description</ttcol>
+      
+         <c>/crts, /att</c>     <c>2.05</c> <c>Sucess. Certs included in the response payload.</c>
+		 <c> </c>                    <c>4.xx</c> <c>Failure.</c>
+         <c>/sen, /skg, /sren, /skc</c>   <c>2.01</c> <c>Sucess. Cert included in the response payload.</c>
+		 <c> </c>                    <c>2.04</c> <c>Sucess. Cert included in the delayed separate response payload. </c>
+		 <c> </c>                    <c>5.03</c> <c>Retry in Max-Age Option time.</c>
+		 <c> </c>                    <c>4.xx</c> <c>Failure.</c>
+		 <c> [ Any ] </c>            <c>4.02</c> <c>Unrecognized Option</c>
+      </texttable>
+	  
     </section> <!-- CoAP response codes -->
 
     <section anchor="fragment" title="Message fragmentation">
@@ -659,7 +690,7 @@ representations. -->
 
       <t>That is not always possible in EST-coaps. Even though ECC certificates are small in size, they can vary greatly based on signature algorithms, key sizes, and Object Identifier (OID) fields used. For 256-bit curves, common ECDSA cert sizes are 500-1000 bytes which could fluctuate further based on the algorithms, OIDs, Subject Alternative Names (SAN) and cert fields. For 384-bit curves, ECDSA certificates increase in size and can sometimes reach 1.5KB. Additionally, there are times when the EST cacerts response from the server can include multiple certificates that amount to large payloads. Section 4.6 of CoAP <xref target="RFC7252"/> describes the possible payload sizes: "if nothing is known about the size of the headers, good upper bounds are 1152 bytes for the message size and 1024 bytes for the payload size". Section 4.6 of <xref target="RFC7252"/> also suggests that IPv4 implementations may want to limit themselves to more conservative IPv4 datagram sizes such as 576 bytes. <!-- From <xref target="RFC0791"/> follows that the absolute minimum value of the IP MTU for IPv4 is as low as 68 bytes, which would leave only 40 bytes minus security overhead for a UDP payload. --> Even with ECC, EST-coaps messages can still exceed MTU sizes on the Internet or 6LoWPAN <xref target="RFC4919"/> (Section 2 of <xref target="RFC7959"/>). EST-coaps needs to be able to fragment messages into multiple DTLS datagrams.</t>
 
-	  <t>To perform fragmentation in CoAP, <xref target="RFC7959"/> specifies the Block1 Option for fragmentation of the request payload and the Block2 Option for fragmentation of the return payload of a CoAP flow. As explained in Section 1 of <xref target="RFC7959"/>, block-wise transfers should be used in Confirmable CoAP messages to avoid the exacerbation of lost blocks. The EST-coaps client and server MUST support Block2. Block1 MUST be supported for EST-coaps enrollment requests that exceed the Path MTU. <!-- <xref target="RFC7959"/> defines SZX in the Block Option fields. SZX is used to convey the size of the blocks in the requests or responses. The EST-coaps client MAY specify the Block1 and Block2 sizes for the server and MAY process Block2 sizes from the server. The EST-coaps server MAY specify the Block2 size for the client and MAY process Block1 and Block2 sizes from the client.--></t>
+	  <t>To perform fragmentation in CoAP, <xref target="RFC7959"/> specifies the Block1 Option for fragmentation of the request payload and the Block2 Option for fragmentation of the return payload of a CoAP flow. As explained in Section 1 of <xref target="RFC7959"/>, block-wise transfers should be used in Confirmable CoAP messages to avoid the exacerbation of lost blocks. Both EST-coaps clients and servers MUST support Block2. EST-coaps servers MUST also support Block1. The EST-coaps client MUST support Block1 only if it sends EST-coaps requests with an IP packet size that exceeds the Path MTU. <!-- <xref target="RFC7959"/> defines SZX in the Block Option fields. SZX is used to convey the size of the blocks in the requests or responses. The EST-coaps client MAY specify the Block1 and Block2 sizes for the server and MAY process Block2 sizes from the server. The EST-coaps server MAY specify the Block2 size for the client and MAY process Block1 and Block2 sizes from the client.--></t>
 
       <t><xref target="RFC7959"/> also defines Size1 and Size2 Options to provide size information about the resource representation in a request and response. EST-client and server MAY support Size1 and Size2 Options. <!-- A Size1 response MAY be parsed by the EST-coaps client as a size indication of the resource in the server Block2 responses or by the server as a request for a size estimate by the client. Similarly, the Size2 Option defined in <xref target="RFC7959"/> MAY be parsed by the server as an indication of the size of the resource carried in Block1 Options and by the client in the 4.13 (Request Entity Too Large) response as a maximum request size expected by the server.--> </t>
 
@@ -685,27 +716,27 @@ representations. -->
       <figure title="EST-COAP enrollment with short wait"
       anchor="fig-est-short-wait"><artwork>
 <![CDATA[
-POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
-       <-- (ACK) (1:0/1/256) (2.31 Continue)
-POST [2001:db8::2:1]:61616/est/sen (CON)(1:1/1/256) {CSR req} -->
-       <-- (ACK) (1:1/1/256) (2.31 Continue)
-                      .
-                      .
-                      .
-POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
-       <-- (0.00 empty ACK)
-                      |
-       ...... short delay before certificate is ready ......
-                      |
-      <-- (CON) (1:N1/0/256)(2:0/1/256)(2.04 Changed) {Cert resp}
+POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR (frag# 1)} -->
+   <-- (ACK) (1:0/1/256) (2.31 Continue)
+POST [2001:db8::2:1]:61616/est/sen (CON)(1:1/1/256) {CSR (frag# 2)} -->
+   <-- (ACK) (1:1/1/256) (2.31 Continue)
+                  .
+                  .
+                  .
+POST [2001:db8::2:1]:61616/est/sen(CON)(1:N1/0/256){CSR (frag# N1+1)}-->
+   <-- (0.00 empty ACK)
+                  |
+   ... Short delay before the certificate is ready ...
+                  |
+   <-- (CON) (1:N1/0/256)(2:0/1/256)(2.04 Changed) {Cert resp (frag# 1)}
                                    (ACK)                     -->
 POST [2001:db8::2:1]:61616/est/sen (CON)(2:1/0/128)          -->
-       <-- (ACK) (2:1/1/128) (2.04 Changed) {Cert resp}
-                      .
-                      .
-                      .
+   <-- (ACK) (2:1/1/128) (2.04 Changed) {Cert resp (frag# 2)}
+                  .
+                  .
+                  .
 POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
-       <-- (ACK) (2:N2/0/128) (2.04 Changed) {Cert resp}
+   <-- (ACK) (2:N2/0/128) (2.04 Changed) {Cert resp (frag# N2+1)}
 ]]></artwork></figure>
 
       <t>If the server is very slow (i.e. minutes) in providing the response (i.e. when a manual intervention is needed), 
@@ -726,31 +757,36 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 <figure title="EST-COAP enrollment with long wait"
 	anchor="fig-est-long-wait"><artwork>
 <![CDATA[
-
-POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
-       <-- (ACK) (1:0/1/256) (2.31 Continue)
-POST [2001:db8::2:1]:61616/est/sen (CON)(1:1/1/256) {CSR req} -->
-       <-- (ACK) (1:1/1/256) (2.31 Continue)
-                      .
-                      .
-POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
-     <-- (ACK) (1:N1/0/256) (2:0/0/128)(5.03 Service Unavailable)
-                                                        (Max-Age)
-                      |
-                      |
-Client tries one or more times after Max-Age with identical payload
-                      |
-                      |
-POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
-     <-- (ACK) (1:N1/0/256) (2:0/1/128) (2.01 Created){Cert resp}
+POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR (frag# 1)}  -->
+  <-- (ACK) (1:0/1/256) (2.31 Continue)
+POST [2001:db8::2:1]:61616/est/sen (CON)(1:1/1/256) {CSR (frag# 2)}  -->
+  <-- (ACK) (1:1/1/256) (2.31 Continue)
+                  .
+                  .
+                  .
+POST [2001:db8::2:1]:61616/est/sen(CON)(1:N1/0/256){CSR (frag# N1+1)}-->
+  <-- (ACK) (1:N1/0/256) (5.03 Service Unavailable) (Max-Age)
+                  |
+                  |
+  ... Client tries again after Max-Age with identical payload ...
+                  |
+                  |
+POST [2001:db8::2:1]:61616/est/sen(CON)(1:N1/0/256){CSR (frag# 1)}-->
+  <-- (ACK) (1:0/1/256) (2.31 Continue)
+POST [2001:db8::2:1]:61616/est/sen (CON)(1:1/1/256) {CSR (frag# 2)}  -->
+  <-- (ACK) (1:1/1/256) (2.31 Continue)
+                  .
+                  .
+                  .
+POST [2001:db8::2:1]:61616/est/sen(CON)(1:N1/0/256){CSR (frag# N1+1)}-->
+  <-- (ACK) (1:N1/0/256) (2:0/1/128) (2.01 Created){Cert resp (frag# 1)}
 POST [2001:db8::2:1]:61616/est/sen (CON)(2:1/0/128)           -->
-     <-- (ACK) (2:1/1/128) (2.01 Created) {Cert resp}
-                      .
-                      .
-                      .
+  <-- (ACK) (2:1/1/128) (2.01 Created) {Cert resp (frag# 2)}
+                  .
+                  .
+                  .
 POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
-       <-- (ACK) (2:N2/0/128) (2.01 Created) {Cert resp}
-
+  <-- (ACK) (2:N2/0/128) (2.01 Created) {Cert resp (frag# N2+1)}
 ]]></artwork></figure>
 
       <!-- <t>Comparing <xref target="fig-est-multiple-block"/> with <xref target="fig-est-long-wait"/> we
@@ -893,7 +929,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	MUST support random number generation using proper entropy. </t>
 
     <t><xref target="est-uri"/> contains the URI mappings between EST-coaps and EST
-	that the Registrar MUST adhere to. <xref target="error"/> of this
+	that the Registrar MUST adhere to. <xref target="codes"/> of this
 	specification and Section 7 of <xref target="RFC8075"/> define the mappings
 	between EST-coaps and HTTP response codes, that determine how the Registrar
 	MUST translate CoAP response codes from/to HTTP status codes. The mapping from
@@ -1167,7 +1203,6 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
     <!--&RFC7049;-->
     &RFC7252;
     &RFC7959;
-    &RFC8075;
     &RFC8174;
 	&RFC8446;
     &I-D.ietf-core-multipart-ct;
@@ -1177,6 +1212,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
     <!-- &RFC0791; -->
     &RFC5272;
     &RFC8422;
+	&RFC8075;
     <!-- &RFC4944; -->
     <!--&RFC5273;-->
     &RFC5705;

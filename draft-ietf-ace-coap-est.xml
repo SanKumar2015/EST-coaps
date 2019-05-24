@@ -1440,7 +1440,7 @@ ec9b9a38920220179f10a3436109051abad17590a09bc87c4dce5453a6fc
 ]]></artwork></figure>
 
       <t>
-	    After verification of the CSR by the server, a 2.01 Content response
+	    After verification of the CSR by the server, a 2.01 Created response
 		with the issued certificate will be returned to the client. 
 	  </t>
 
@@ -1511,7 +1511,7 @@ b8c1117896f98e4506c03d70efbe820d8e38ea97e9d65d52c8460c5852c5
 	<t>The response would follow <xref target="I-D.ietf-core-multipart-ct"/> and could look like </t>
 
 <figure align="left"><artwork><![CDATA[
-2.01 Content 
+2.01 Created 
 (Token: 0xa5)
 (Content-Format: 62)
 

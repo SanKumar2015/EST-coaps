@@ -658,11 +658,11 @@ representations. -->
 	  in <xref target="RFC7030"/> has no equivalent in CoAP. 
 	  HTTP 202 with Retry-After is used in EST for delayed server 
 	  responses. <xref target="pending"/> specifies how EST-coaps 
-	  handles delayed messages with 5.03 responses with Max-Age Option.</t>
+	  handles delayed messages with 5.03 responses with a Max-Age Option.</t>
 
 	  <t>Additionally, EST's HTTP 400, 401, 403, 404 and 503 status codes have 
 	  their equivalent CoAP 4.00, 4.01, 4.03, 4.04 and 5.03 response codes 
-	  respectively in EST-coaps. In case a CoAP Option is unrecognized and 
+	  in EST-coaps. In case a CoAP Option is unrecognized and 
 	  critical, the server is expected to return a 4.02 (Bad Option). 
 	  <!-- Moreover, if the Content-Format requested in the client 
 	  Accept Option, is not supported the server MUST return a 4.06 (Not Acceptable), 

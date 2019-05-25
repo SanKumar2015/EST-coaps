@@ -366,7 +366,7 @@
 		
     <t>As described in Section 2.1 of <xref target="RFC5272"/> proof-of-identity refers to 
 	a value that can be used to prove that the private key corresponding to the public key 
-	is in the possession of and can be used by an end-entity or client. Additionally channel-binding 
+	is in the possession of and can be used by an end-entity or client. Additionally, channel-binding 
 	information can link proof-of-identity with an established connetion. 
 	Connection-based proof-of-possession is OPTIONAL for EST-coaps clients and servers. When proof-of-possession is desired, a set of actions are required regarding the use of tls-unique, described in Section 3.5 in <xref target="RFC7030"/>. The tls-unique information consists of the contents of the first "Finished" message in the (D)TLS handshake between server and client <xref target="RFC5929"/>. The client adds the "Finished" message as a ChallengePassword in the attributes section of the PKCS#10 Request <xref target="RFC5967"/> to prove that the client is indeed in control of the private key at the time of the (D)TLS session establishment. </t>
 
@@ -674,10 +674,10 @@ representations. -->
 		<ttcol align="left">EST-coaps response code</ttcol>
         <ttcol align="left">Description</ttcol>
       
-         <c>/crts, /att</c>     <c>2.05</c> <c>Sucess. Certs included in the response payload.</c>
+         <c>/crts, /att</c>     <c>2.05</c> <c>Success. Certs included in the response payload.</c>
 		 <c> </c>                    <c>4.xx</c> <c>Failure.</c>
-         <c>/sen, /skg, /sren, /skc</c>   <c>2.01</c> <c>Sucess. Cert included in the response payload.</c>
-		 <c> </c>                    <c>2.04</c> <c>Sucess. Cert included in the delayed separate response payload. </c>
+         <c>/sen, /skg, /sren, /skc</c>   <c>2.01</c> <c>Success. Cert included in the response payload.</c>
+		 <c> </c>                    <c>2.04</c> <c>Success. Cert included in the delayed separate response payload. </c>
 		 <c> </c>                    <c>5.03</c> <c>Retry in Max-Age Option time.</c>
 		 <c> </c>                    <c>4.xx</c> <c>Failure.</c>
 		 <c> [ Any ] </c>            <c>4.02</c> <c>Unrecognized Option</c>

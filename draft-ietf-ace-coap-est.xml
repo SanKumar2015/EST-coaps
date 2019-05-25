@@ -50,7 +50,7 @@
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
 
-<rfc category="std" ipr="trust200902" docName="draft-ietf-ace-coap-est-13">
+<rfc category="std" ipr="trust200902" docName="draft-ietf-ace-coap-est-12">
   <front>
     <title abbrev="EST-coaps">EST over secure CoAP (EST-coaps)</title>
     <author fullname="Peter van der Stok" initials="P." surname="van der Stok">
@@ -128,19 +128,15 @@
 
   <section anchor="changes" title="Change Log">
    <t>EDNOTE: Remove this section before publication</t>
-   <t> -13
-    <list style="empty">
-       <t>Minor nits and some clarifications for Esko's new review from 5/21/2019. </t>
-    </list>
-   </t>
    <t> -12
     <list style="empty">
-       <t>Updated section 5 based on Esko's comments and nits identified. </t>
+       <t>Nits and some clarifications for Esko's new review from 5/21/2019. </t>
     </list>
    </t>
    <t> -11
     <list style="empty">
        <t>Updated Server-side keygen to simplify motivation and added paragraphs in Security considerations to point out that random numbers are still needed (feedback from Hannes).</t>
+	   <t>Updated section 5 based on Esko's comments and nits identified. </t>
     </list>
    </t>
    <t> -10

@@ -130,13 +130,14 @@
    <t>EDNOTE: Remove this section before publication</t>
    <t> -12
     <list style="empty">
+	   <t>Updated section 5 based on Esko's comments and nits identified. </t>
        <t>Nits and some clarifications for Esko's new review from 5/21/2019. </t>
+	   <t>Nits and some clarifications for Esko's new review from 5/28/2019. </t>
     </list>
    </t>
    <t> -11
     <list style="empty">
        <t>Updated Server-side keygen to simplify motivation and added paragraphs in Security considerations to point out that random numbers are still needed (feedback from Hannes).</t>
-	   <t>Updated section 5 based on Esko's comments and nits identified. </t>
     </list>
    </t>
    <t> -10
@@ -451,7 +452,7 @@ coaps://example.com:<port>/<root-resource>/
       <t>The /skg message is the EST /serverkeygen equivalent where the client 
 	  requests for a certificate in PKCS#7 format and a private key. If the 
 	  client prefers a single application/pkix-cert certificate instead of PKCS#7, 
-	  he will make an /skc request.</t>
+	  she will make an /skc request.</t>
       <t>Clients and servers MUST support the short resource EST-coaps URIs. <!-- The corresponding longer URIs from <xref target="RFC7030"/> MAY be supported. --></t>
 
       <t>In the context of CoAP, the presence and location of (path to) the EST resources are discovered by sending a GET request to "/.well-known/core" including a resource type (RT) parameter with the value "ace.est*" <xref target="RFC6690"/>. <!-- Upon success, the return payload will contain the root resource of the EST resources. The server MAY return all available resource paths and the used content types. This is useful when multiple content types are supported by the EST-coaps server and optional functions are available. --> The example below shows the discovery over CoAPS of the presence and location of EST-coaps resources. Linefeeds are included only for readability.</t>
@@ -493,7 +494,7 @@ coaps://example.com:<port>/<root-resource>/
 	  root resource<!--on port 5684-->. The server SHOULD support 
 	  resource discovery when he supports non-default URIs 
 	  (like /est or /est/ArbitraryLabel) or ports. The client 
-	  SHOULD use resource discovery when he is unaware 
+	  SHOULD use resource discovery when she is unaware 
 	  of the available EST-coaps resources.<!-- or considers 
 	  sending two Uri-Path Options to convey the resource 
 	  wasteful.--></t>
@@ -746,8 +747,8 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	  request that uses N1+1 Block1 blocks to send the CSR to the server. The server needs
       N2+1 Block2 blocks to respond, but also needs to take a long delay (minutes) to provide
       the response. Consequently, the server uses a 5.03 ACK response with a Max-Age Option. The client
-	  waits for a period of Max-Age as many times as he receives the same 5.03 response and retransmits
-      the enrollment request until he receives a certificate in a fragmented 2.01 response. Note that the server
+	  waits for a period of Max-Age as many times as she receives the same 5.03 response and retransmits
+      the enrollment request until she receives a certificate in a fragmented 2.01 response. Note that the server 
 	  asks for a decrease in the block size when acknowledging the first Block2. </t>
 
 <figure title="EST-COAP enrollment with long wait"
@@ -938,8 +939,8 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	<t>Due to fragmentation of large messages into blocks, an EST-coaps-to-HTTP
 	Registrar MUST reassemble the BLOCKs before translating the binary content to
 	Base64, and consecutively relay the message upstream. </t>
-    <t>If necessary, the EST-coaps-to-HTTP Registrar will support resouce discovery  
-	according to the rules in <xref target="discovery"/>. <!-- The available actions of the  Registrars MUST be
+    <t>The EST-coaps-to-HTTP Registrar MUST support resource discovery according 
+    to the rules in Section 5.1. <xref target="discovery"/>. <!-- The available actions of the  Registrars MUST be
 	announced with as many resource paths necessary. -->
 	<!-- The discovery of the EST server
 	in the HTTP environment follow the rules specified in <xref target="RFC7030"/> --></t>
@@ -999,7 +1000,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
   <section anchor="Content-Formats" title="Content-Format Registry">
     <t>Additions to the sub-registry "CoAP Content-Formats", within the "CoRE Parameters"
 	registry <xref target="COREparams"/> are specified in <xref target="Content-Format"/>.
-	These have been registered provisionally in the Expert Review range (0-255).</t>
+	These have been registered provisionally in the IETF Review or IESG Approval range (256-9999).</t>
 
 <texttable anchor="Content-Format" title="New CoAP Content-Formats">
   <ttcol align="left">HTTP Media-Type</ttcol>
@@ -1119,13 +1120,13 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	  updated exporter (Section 7.5 of <xref target="RFC8446"/>). Such mechanism
 	  has not been standardized yet. Adopting a channel
 	  binding value generated from an exporter would break backwards compatibility.
-	  Thus, in this specification we still depend in the tls-unique mechanism
-	  defined in <xref target="RFC5929"/>, especially since the practicality
-	  of such an attack would not expose any messages exchanged with EST-coaps.</t>
+	  Thus, in this specification we still depend on the tls-unique mechanism
+	  defined in <xref target="RFC5929"/>, especially since a 3SHAKE attack 
+      does not expose messages exchanged with EST-coaps.</t>
       <t>Regarding the Certificate Signing Request (CSR), <!--an adversary could exclude
 	  attributes that a server may want, include attributes that a server may not want,
-	  and render meaningless other attributes that a server may want. T-->a CA is expected
-	  to be able to enforce policies to recover from improper CSR requests. </t>
+	  and render meaningless other attributes that a server may want. T-->an EST-coaps 
+      server is expected to be able to recover from improper CSR requests. </t>
       <t>Interpreters of ASN.1 structures should be aware of the use of invalid ASN.1
 	  length fields and should take appropriate measures to guard against buffer overflows,
 	  stack overruns in particular, and malicious content in general.</t>
@@ -1144,7 +1145,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 		the registrar using its implicit or explicit TA database. It also assumes
 		the Registrar has a trust relationship with the upstream EST server in order
 		to act on behalf of the clients. When a client uses the Implicit TA
-		database for certificate validation, he SHOULD confirm if the server
+		database for certificate validation, she SHOULD confirm if the server
 		is acting as an RA by the presence of the id-kp-cmcRA EKU 
 		<xref target="RFC6402"/> in the server certificate. <!-- If the server certificate does not include
 		the EKU, it is RECOMMENDED that the client includes Identity and

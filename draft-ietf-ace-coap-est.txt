@@ -5,12 +5,12 @@
 ACE                                                      P. van der Stok
 Internet-Draft                                                Consultant
 Intended status: Standards Track                           P. Kampanakis
-Expires: November 29, 2019                                 Cisco Systems
+Expires: December 1, 2019                                  Cisco Systems
                                                            M. Richardson
                                                                      SSW
                                                                  S. Raza
                                                                RISE SICS
-                                                            May 28, 2019
+                                                            May 30, 2019
 
 
                     EST over secure CoAP (EST-coaps)
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 29, 2019.
+   This Internet-Draft will expire on December 1, 2019.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-van der Stok, et al.    Expires November 29, 2019               [Page 1]
+van der Stok, et al.    Expires December 1, 2019                [Page 1]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -77,44 +77,44 @@ Table of Contents
      5.3.  Payload formats . . . . . . . . . . . . . . . . . . . . .  13
      5.4.  Message Bindings  . . . . . . . . . . . . . . . . . . . .  14
      5.5.  CoAP response codes . . . . . . . . . . . . . . . . . . .  15
-     5.6.  Message fragmentation . . . . . . . . . . . . . . . . . .  16
-     5.7.  Delayed Responses . . . . . . . . . . . . . . . . . . . .  17
-     5.8.  Server-side Key Generation  . . . . . . . . . . . . . . .  19
-   6.  HTTPS-CoAPS Registrar . . . . . . . . . . . . . . . . . . . .  21
+     5.6.  Message fragmentation . . . . . . . . . . . . . . . . . .  15
+     5.7.  Delayed Responses . . . . . . . . . . . . . . . . . . . .  16
+     5.8.  Server-side Key Generation  . . . . . . . . . . . . . . .  18
+   6.  HTTPS-CoAPS Registrar . . . . . . . . . . . . . . . . . . . .  20
    7.  Parameters  . . . . . . . . . . . . . . . . . . . . . . . . .  22
-   8.  Deployment limitations  . . . . . . . . . . . . . . . . . . .  23
+   8.  Deployment limitations  . . . . . . . . . . . . . . . . . . .  22
    9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  23
      9.1.  Content-Format Registry . . . . . . . . . . . . . . . . .  23
-     9.2.  Resource Type registry  . . . . . . . . . . . . . . . . .  24
-   10. Security Considerations . . . . . . . . . . . . . . . . . . .  25
-     10.1.  EST server considerations  . . . . . . . . . . . . . . .  25
-     10.2.  HTTPS-CoAPS Registrar considerations . . . . . . . . . .  27
-   11. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  27
-   12. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  28
-   13. References  . . . . . . . . . . . . . . . . . . . . . . . . .  28
-     13.1.  Normative References . . . . . . . . . . . . . . . . . .  28
-     13.2.  Informative References . . . . . . . . . . . . . . . . .  29
-   Appendix A.  EST messages to EST-coaps  . . . . . . . . . . . . .  32
-     A.1.  cacerts . . . . . . . . . . . . . . . . . . . . . . . . .  32
-     A.2.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  34
-     A.3.  serverkeygen  . . . . . . . . . . . . . . . . . . . . . .  36
-     A.4.  csrattrs  . . . . . . . . . . . . . . . . . . . . . . . .  38
-   Appendix B.  EST-coaps Block message examples . . . . . . . . . .  39
-     B.1.  cacerts . . . . . . . . . . . . . . . . . . . . . . . . .  39
-     B.2.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  43
-   Appendix C.  Message content breakdown  . . . . . . . . . . . . .  44
-     C.1.  cacerts . . . . . . . . . . . . . . . . . . . . . . . . .  44
-     C.2.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  46
-     C.3.  serverkeygen  . . . . . . . . . . . . . . . . . . . . . .  47
+     9.2.  Resource Type registry  . . . . . . . . . . . . . . . . .  23
+   10. Security Considerations . . . . . . . . . . . . . . . . . . .  24
+     10.1.  EST server considerations  . . . . . . . . . . . . . . .  24
+     10.2.  HTTPS-CoAPS Registrar considerations . . . . . . . . . .  26
+   11. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  26
+   12. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  27
+   13. References  . . . . . . . . . . . . . . . . . . . . . . . . .  27
+     13.1.  Normative References . . . . . . . . . . . . . . . . . .  27
+     13.2.  Informative References . . . . . . . . . . . . . . . . .  28
+   Appendix A.  EST messages to EST-coaps  . . . . . . . . . . . . .  31
+     A.1.  cacerts . . . . . . . . . . . . . . . . . . . . . . . . .  31
+     A.2.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  33
+     A.3.  serverkeygen  . . . . . . . . . . . . . . . . . . . . . .  35
+     A.4.  csrattrs  . . . . . . . . . . . . . . . . . . . . . . . .  37
+   Appendix B.  EST-coaps Block message examples . . . . . . . . . .  38
+     B.1.  cacerts . . . . . . . . . . . . . . . . . . . . . . . . .  38
+     B.2.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  42
+   Appendix C.  Message content breakdown  . . . . . . . . . . . . .  43
+     C.1.  cacerts . . . . . . . . . . . . . . . . . . . . . . . . .  43
+     C.2.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  45
+     C.3.  serverkeygen  . . . . . . . . . . . . . . . . . . . . . .  46
 
 
 
-van der Stok, et al.    Expires November 29, 2019               [Page 2]
+van der Stok, et al.    Expires December 1, 2019                [Page 2]
 
 Internet-Draft                  EST-coaps                       May 2019
 
 
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  49
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  48
 
 1.  Change Log
 
@@ -165,7 +165,7 @@ Internet-Draft                  EST-coaps                       May 2019
 
 
 
-van der Stok, et al.    Expires November 29, 2019               [Page 3]
+van der Stok, et al.    Expires December 1, 2019                [Page 3]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -221,7 +221,7 @@ Internet-Draft                  EST-coaps                       May 2019
 
 
 
-van der Stok, et al.    Expires November 29, 2019               [Page 4]
+van der Stok, et al.    Expires December 1, 2019                [Page 4]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -277,7 +277,7 @@ Internet-Draft                  EST-coaps                       May 2019
 
 
 
-van der Stok, et al.    Expires November 29, 2019               [Page 5]
+van der Stok, et al.    Expires December 1, 2019                [Page 5]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -333,7 +333,7 @@ Internet-Draft                  EST-coaps                       May 2019
 
 
 
-van der Stok, et al.    Expires November 29, 2019               [Page 6]
+van der Stok, et al.    Expires December 1, 2019                [Page 6]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -389,7 +389,7 @@ Internet-Draft                  EST-coaps                       May 2019
 
 
 
-van der Stok, et al.    Expires November 29, 2019               [Page 7]
+van der Stok, et al.    Expires December 1, 2019                [Page 7]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -445,7 +445,7 @@ Internet-Draft                  EST-coaps                       May 2019
 
 
 
-van der Stok, et al.    Expires November 29, 2019               [Page 8]
+van der Stok, et al.    Expires December 1, 2019                [Page 8]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -501,7 +501,7 @@ Internet-Draft                  EST-coaps                       May 2019
 
 
 
-van der Stok, et al.    Expires November 29, 2019               [Page 9]
+van der Stok, et al.    Expires December 1, 2019                [Page 9]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -557,7 +557,7 @@ Internet-Draft                  EST-coaps                       May 2019
 
 
 
-van der Stok, et al.    Expires November 29, 2019              [Page 10]
+van der Stok, et al.    Expires December 1, 2019               [Page 10]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -613,7 +613,7 @@ Internet-Draft                  EST-coaps                       May 2019
 
 
 
-van der Stok, et al.    Expires November 29, 2019              [Page 11]
+van der Stok, et al.    Expires December 1, 2019               [Page 11]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -669,7 +669,7 @@ Internet-Draft                  EST-coaps                       May 2019
 
 
 
-van der Stok, et al.    Expires November 29, 2019              [Page 12]
+van der Stok, et al.    Expires December 1, 2019               [Page 12]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -725,7 +725,7 @@ Internet-Draft                  EST-coaps                       May 2019
 
 
 
-van der Stok, et al.    Expires November 29, 2019              [Page 13]
+van der Stok, et al.    Expires December 1, 2019               [Page 13]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -781,7 +781,7 @@ Internet-Draft                  EST-coaps                       May 2019
 
 
 
-van der Stok, et al.    Expires November 29, 2019              [Page 14]
+van der Stok, et al.    Expires December 1, 2019               [Page 14]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -790,17 +790,14 @@ Internet-Draft                  EST-coaps                       May 2019
 
    Section 5.9 of [RFC7252] and Section 7 of [RFC8075] specify the
    mapping of HTTP response codes to CoAP response codes.  The success
-   code in response to an EST-coaps GET request (/cacerts, /csrattrs),
-   is 2.05.  Similarly, 2.01 is used in response to EST-coaps POST
-   requests (/simpleenroll, /simplereenroll, /serverkeygen).  Section 7
-   of [RFC8075] maps 2.02 (Deleted) or 2.04 (Changed) to an HTTP 200 OK
-   response, but 2.01 (Created) is more suitable for the creation of
-   certificates in the context of EST-coaps.
+   code in response to an EST-coaps GET request (/crts, /att), is 2.05.
+   Similarly, 2.04 is used in successfull response to EST-coaps POST
+   requests (/sen, /sren, /skg, /skc).
 
-   EST makes use of HTTP 204 responses when a resource is not available
-   for the client. 2.04 SHOULD only be used in response to an EST-coaps
-   POST when the response comes delayed in a separate (not Piggybacked)
-   message after an empty 0.00 message (Section 5.7)
+   EST makes use of HTTP 204 or 404 responses when a resource is not
+   available for the client.  In EST-coaps 2.04 is used in response to a
+   POST (/sen, /sren, /skg, /skc). 4.04 is used when the resource is not
+   available for the client.
 
    HTTP response code 202 with a Retry-After header in [RFC7030] has no
    equivalent in CoAP.  HTTP 202 with Retry-After is used in EST for
@@ -809,38 +806,22 @@ Internet-Draft                  EST-coaps                       May 2019
 
    Additionally, EST's HTTP 400, 401, 403, 404 and 503 status codes have
    their equivalent CoAP 4.00, 4.01, 4.03, 4.04 and 5.03 response codes
-   in EST-coaps.  In case a CoAP Option is unrecognized and critical,
-   the server is expected to return a 4.02 (Bad Option).  Table 3
-   summarizes the EST-coaps response codes.
+   in EST-coaps.  Table 3 summarizes the EST-coaps response codes.
 
-   +---------------+---------------+-----------------------------------+
-   | operation     | EST-coaps     | Description                       |
-   |               | response code |                                   |
-   +---------------+---------------+-----------------------------------+
-   | /crts, /att   | 2.05          | Success. Certs included in the    |
-   |               |               | response payload.                 |
-   |               | 4.xx          | Failure.                          |
-   | /sen, /skg,   | 2.01          | Success. Cert included in the     |
-   | /sren, /skc   |               | response payload.                 |
-   |               | 2.04          | Success. Cert included in the     |
-   |               |               | delayed separate response         |
-   |               |               | payload.                          |
-   |               | 5.03          | Retry in Max-Age Option time.     |
-   |               | 4.xx          | Failure.                          |
-   | [ Any ]       | 4.02          | Unrecognized Option               |
-   +---------------+---------------+-----------------------------------+
+   +-----------------+-----------------+-------------------------------+
+   | operation       | EST-coaps       | Description                   |
+   |                 | response code   |                               |
+   +-----------------+-----------------+-------------------------------+
+   | /crts, /att     | 2.05            | Success. Certs included in    |
+   |                 |                 | the response payload.         |
+   |                 | 4.xx / 5.xx     | Failure.                      |
+   | /sen, /skg,     | 2.04            | Success. Cert included in the |
+   | /sren, /skc     |                 | response payload.             |
+   |                 | 5.03            | Retry in Max-Age Option time. |
+   |                 | 4.xx / 5.xx     | Failure.                      |
+   +-----------------+-----------------+-------------------------------+
 
                      Table 3: EST-coaps response codes
-
-
-
-
-
-
-van der Stok, et al.    Expires November 29, 2019              [Page 15]
-
-Internet-Draft                  EST-coaps                       May 2019
-
 
 5.6.  Message fragmentation
 
@@ -853,6 +834,13 @@ Internet-Draft                  EST-coaps                       May 2019
    802.15.4 [ieee802.15.4] network should attempt to size CoAP messages
    such that each DTLS record will fit within one or two IEEE 802.15.4
    frames.
+
+
+
+van der Stok, et al.    Expires December 1, 2019               [Page 15]
+
+Internet-Draft                  EST-coaps                       May 2019
+
 
    That is not always possible in EST-coaps.  Even though ECC
    certificates are small in size, they can vary greatly based on
@@ -889,15 +877,6 @@ Internet-Draft                  EST-coaps                       May 2019
 
    Examples of fragmented EST-coaps messages are shown in Appendix B.
 
-
-
-
-
-van der Stok, et al.    Expires November 29, 2019              [Page 16]
-
-Internet-Draft                  EST-coaps                       May 2019
-
-
 5.7.  Delayed Responses
 
    Server responses can sometimes be delayed.  According to
@@ -911,6 +890,14 @@ Internet-Draft                  EST-coaps                       May 2019
 
    This situation is shown in Figure 2.  The client sends an enrollment
    request that uses N1+1 Block1 blocks.  The server uses an empty 0.00
+
+
+
+van der Stok, et al.    Expires December 1, 2019               [Page 16]
+
+Internet-Draft                  EST-coaps                       May 2019
+
+
    ACK to announce the delayed response which is provided later with
    2.04 messages containing N2+1 Block2 Options.  The first 2.04 is a
    confirmable message that is acknowledged by the client.  Onwards,
@@ -946,14 +933,6 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 
    If the server is very slow (i.e. minutes) in providing the response
    (i.e. when a manual intervention is needed), he SHOULD respond with
-
-
-
-van der Stok, et al.    Expires November 29, 2019              [Page 17]
-
-Internet-Draft                  EST-coaps                       May 2019
-
-
    an ACK containing response code 5.03 (Service unavailable) and a Max-
    Age Option to indicate the time the client SHOULD wait to request the
    content later.  After a delay of Max-Age, the client SHOULD resend
@@ -967,47 +946,20 @@ Internet-Draft                  EST-coaps                       May 2019
    enrollment request that uses N1+1 Block1 blocks to send the CSR to
    the server.  The server needs N2+1 Block2 blocks to respond, but also
    needs to take a long delay (minutes) to provide the response.
+
+
+
+van der Stok, et al.    Expires December 1, 2019               [Page 17]
+
+Internet-Draft                  EST-coaps                       May 2019
+
+
    Consequently, the server uses a 5.03 ACK response with a Max-Age
    Option.  The client waits for a period of Max-Age as many times as
    she receives the same 5.03 response and retransmits the enrollment
-   request until she receives a certificate in a fragmented 2.01
+   request until she receives a certificate in a fragmented 2.04
    response.  Note that the server asks for a decrease in the block size
    when acknowledging the first Block2.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-van der Stok, et al.    Expires November 29, 2019              [Page 18]
-
-Internet-Draft                  EST-coaps                       May 2019
 
 
 POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR (frag# 1)}  -->
@@ -1032,14 +984,14 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(1:1/1/256) {CSR (frag# 2)}  -->
                   .
                   .
 POST [2001:db8::2:1]:61616/est/sen(CON)(1:N1/0/256){CSR (frag# N1+1)}-->
-  <-- (ACK) (1:N1/0/256) (2:0/1/128) (2.01 Created){Cert resp (frag# 1)}
+  <-- (ACK) (1:N1/0/256) (2:0/1/128) (2.04 Changed){Cert resp (frag# 1)}
 POST [2001:db8::2:1]:61616/est/sen (CON)(2:1/0/128)           -->
-  <-- (ACK) (2:1/1/128) (2.01 Created) {Cert resp (frag# 2)}
+  <-- (ACK) (2:1/1/128) (2.04 Changed) {Cert resp (frag# 2)}
                   .
                   .
                   .
 POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
-  <-- (ACK) (2:N2/0/128) (2.01 Created) {Cert resp (frag# N2+1)}
+  <-- (ACK) (2:N2/0/128) (2.04 Changed) {Cert resp (frag# N2+1)}
 
                Figure 3: EST-COAP enrollment with long wait
 
@@ -1050,6 +1002,14 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
    scenarios could be when it is considered more secure to generate at
    the server the long-lived random private key that identifies the
    client, or when the resources spent to generate a random private key
+
+
+
+van der Stok, et al.    Expires December 1, 2019               [Page 18]
+
+Internet-Draft                  EST-coaps                       May 2019
+
+
    at the client are considered scarce, or when the security policy
    requires that the certificate public and corresponding private keys
    are centrally generated and controlled.  Of course, that does not
@@ -1058,14 +1018,6 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 
    When requesting server-side key generation, the client asks for the
    server or proxy to generate the private key and the certificate which
-
-
-
-van der Stok, et al.    Expires November 29, 2019              [Page 19]
-
-Internet-Draft                  EST-coaps                       May 2019
-
-
    are transferred back to the client in the server-side key generation
    response.  In all respects, the server SHOULD treat the CSR as it
    would treat any enroll or re-enroll CSR; the only distinction here is
@@ -1106,6 +1058,14 @@ Internet-Draft                  EST-coaps                       May 2019
    defined (in the CSR) asymmetric public key and is carried in an
    encryptedKey attribute in a KeyTransRecipientInfo structure.
    Finally, if the asymmetric encryption key is suitable for key
+
+
+
+van der Stok, et al.    Expires December 1, 2019               [Page 19]
+
+Internet-Draft                  EST-coaps                       May 2019
+
+
    agreement, the generated private key is encrypted with a symmetric
    key which is encrypted by the client defined (in the CSR) asymmetric
    public key and is carried in an recipientEncryptedKeys attribute in a
@@ -1114,14 +1074,6 @@ Internet-Draft                  EST-coaps                       May 2019
    [RFC7030] recommends the use of additional encryption of the returned
    private key.  For the context of this specification, clients and
    servers that choose to support server-side key generation MUST
-
-
-
-van der Stok, et al.    Expires November 29, 2019              [Page 20]
-
-Internet-Draft                  EST-coaps                       May 2019
-
-
    support unprotected (PKCS#8) private keys (Content-Format 284).
    Symmetric or asymmetric encryption of the private key (CMS
    EnvelopedData, Content-Format 280) SHOULD be supported for
@@ -1161,6 +1113,15 @@ Internet-Draft                  EST-coaps                       May 2019
    authenticate and OPTIONALLY authorize the clients and it MUST be
    authenticated by the EST server or CA.  The trust relationship
    between the Registrar and the EST server SHOULD be pre-established
+
+
+
+
+van der Stok, et al.    Expires December 1, 2019               [Page 20]
+
+Internet-Draft                  EST-coaps                       May 2019
+
+
    for the Registrar to proxy these connections on behalf of various
    clients.
 
@@ -1170,14 +1131,6 @@ Internet-Draft                  EST-coaps                       May 2019
    and was used to establish the connection as explained in Section 4.
    The POP linking information is lost between the EST-coaps client and
    the EST server when a Registrar is present.  The EST server becomes
-
-
-
-van der Stok, et al.    Expires November 29, 2019              [Page 21]
-
-Internet-Draft                  EST-coaps                       May 2019
-
-
    aware of the presence of a Registrar from its TLS client certificate
    that includes id-kp-cmcRA [RFC6402] extended key usage extension
    (EKU).  As explained in Section 3.7 of [RFC7030], the EST server
@@ -1215,6 +1168,16 @@ Internet-Draft                  EST-coaps                       May 2019
    The EST-coaps-to-HTTP Registrar MUST support resource discovery
    according to the rules in Section 5.1.  Section 5.1.
 
+
+
+
+
+
+van der Stok, et al.    Expires December 1, 2019               [Page 21]
+
+Internet-Draft                  EST-coaps                       May 2019
+
+
 7.  Parameters
 
    This section addresses transmission parameters described in sections
@@ -1226,14 +1189,6 @@ Internet-Draft                  EST-coaps                       May 2019
    configuration parameters ([RFC7252]).  However, depending on the
    implementation scenario, retransmissions and timeouts can also occur
    on other networking layers, governed by other configuration
-
-
-
-van der Stok, et al.    Expires November 29, 2019              [Page 22]
-
-Internet-Draft                  EST-coaps                       May 2019
-
-
    parameters.  A change in a server parameter MUST ensure the adjusted
    value is also available to all the endpoints with which these
    adjusted values are to be used to communicate.
@@ -1270,6 +1225,15 @@ Internet-Draft                  EST-coaps                       May 2019
    network designer to decide which devices execute the EST protocol and
    which do not.
 
+
+
+
+
+van der Stok, et al.    Expires December 1, 2019               [Page 22]
+
+Internet-Draft                  EST-coaps                       May 2019
+
+
 9.  IANA Considerations
 
 9.1.  Content-Format Registry
@@ -1278,17 +1242,6 @@ Internet-Draft                  EST-coaps                       May 2019
    "CoRE Parameters" registry [COREparams] are specified in Table 4.
    These have been registered provisionally in the IETF Review or IESG
    Approval range (256-9999).
-
-
-
-
-
-
-
-van der Stok, et al.    Expires November 29, 2019              [Page 23]
-
-Internet-Draft                  EST-coaps                       May 2019
-
 
    +------------------------------+-------+----------------------------+
    | HTTP Media-Type              |    ID | Reference                  |
@@ -1330,6 +1283,13 @@ Internet-Draft                  EST-coaps                       May 2019
    o  rt="ace.est.att".  This resource depicts the support of EST CSR
       attributes.
 
+
+
+van der Stok, et al.    Expires December 1, 2019               [Page 23]
+
+Internet-Draft                  EST-coaps                       May 2019
+
+
    o  rt="ace.est.skg".  This resource depicts the support of EST
       server-side key generation with the returned certificate in a
       PKCS#7 container.
@@ -1337,14 +1297,6 @@ Internet-Draft                  EST-coaps                       May 2019
    o  rt="ace.est.skc".  This resource depicts the support of EST
       server-side key generation with the returned certificate in
       application/pkix-cert format.
-
-
-
-
-van der Stok, et al.    Expires November 29, 2019              [Page 24]
-
-Internet-Draft                  EST-coaps                       May 2019
-
 
 10.  Security Considerations
 
@@ -1386,6 +1338,14 @@ Internet-Draft                  EST-coaps                       May 2019
    certificates response (Section 4.1.3 of [RFC7030]) limits any risk to
    the first DTLS exchange.  Alternatively, in a case where a /sen
    request immediately follows a /crts, a client MAY choose to keep the
+
+
+
+van der Stok, et al.    Expires December 1, 2019               [Page 24]
+
+Internet-Draft                  EST-coaps                       May 2019
+
+
    connection authenticated by the Implicit TA open for efficiency
    reasons (Section 4).  A client that pipelines EST-coaps /crts request
    with other requests in the same DTLS connection SHOULD revalidate the
@@ -1393,15 +1353,6 @@ Internet-Draft                  EST-coaps                       May 2019
    /crts response before proceeding with the subsequent requests.  If
    the server certificate chain does not authenticate against the
    database, the client SHOULD close the connection without completing
-
-
-
-
-van der Stok, et al.    Expires November 29, 2019              [Page 25]
-
-Internet-Draft                  EST-coaps                       May 2019
-
-
    the rest of the requests.  The updated Explicit TA MUST continue to
    be used in new DTLS connections.
 
@@ -1444,20 +1395,18 @@ Internet-Draft                  EST-coaps                       May 2019
    mechanism defined in [RFC5929], especially since a 3SHAKE attack does
    not expose messages exchanged with EST-coaps.
 
+
+
+van der Stok, et al.    Expires December 1, 2019               [Page 25]
+
+Internet-Draft                  EST-coaps                       May 2019
+
+
    Regarding the Certificate Signing Request (CSR), an EST-coaps server
    is expected to be able to recover from improper CSR requests.
 
    Interpreters of ASN.1 structures should be aware of the use of
    invalid ASN.1 length fields and should take appropriate measures to
-
-
-
-
-van der Stok, et al.    Expires November 29, 2019              [Page 26]
-
-Internet-Draft                  EST-coaps                       May 2019
-
-
    guard against buffer overflows, stack overruns in particular, and
    malicious content in general.
 
@@ -1504,12 +1453,7 @@ Internet-Draft                  EST-coaps                       May 2019
 
 
 
-
-
-
-
-
-van der Stok, et al.    Expires November 29, 2019              [Page 27]
+van der Stok, et al.    Expires December 1, 2019               [Page 26]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -1565,7 +1509,7 @@ Internet-Draft                  EST-coaps                       May 2019
 
 
 
-van der Stok, et al.    Expires November 29, 2019              [Page 28]
+van der Stok, et al.    Expires December 1, 2019               [Page 27]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -1621,7 +1565,7 @@ Internet-Draft                  EST-coaps                       May 2019
 
 
 
-van der Stok, et al.    Expires November 29, 2019              [Page 29]
+van der Stok, et al.    Expires December 1, 2019               [Page 28]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -1677,7 +1621,7 @@ Internet-Draft                  EST-coaps                       May 2019
 
 
 
-van der Stok, et al.    Expires November 29, 2019              [Page 30]
+van der Stok, et al.    Expires December 1, 2019               [Page 29]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -1733,7 +1677,7 @@ Internet-Draft                  EST-coaps                       May 2019
 
 
 
-van der Stok, et al.    Expires November 29, 2019              [Page 31]
+van der Stok, et al.    Expires December 1, 2019               [Page 30]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -1789,7 +1733,7 @@ A.1.  cacerts
 
 
 
-van der Stok, et al.    Expires November 29, 2019              [Page 32]
+van der Stok, et al.    Expires December 1, 2019               [Page 31]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -1845,7 +1789,7 @@ Internet-Draft                  EST-coaps                       May 2019
 
 
 
-van der Stok, et al.    Expires November 29, 2019              [Page 33]
+van der Stok, et al.    Expires December 1, 2019               [Page 32]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -1901,7 +1845,7 @@ A.2.  enroll / reenroll
 
 
 
-van der Stok, et al.    Expires November 29, 2019              [Page 34]
+van der Stok, et al.    Expires December 1, 2019               [Page 33]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -1930,7 +1874,7 @@ Internet-Draft                  EST-coaps                       May 2019
    ec9b9a38920220179f10a3436109051abad17590a09bc87c4dce5453a6fc
    1135a1e84eed754377
 
-   After verification of the CSR by the server, a 2.01 Created response
+   After verification of the CSR by the server, a 2.04 Changed response
    with the issued certificate will be returned to the client.
 
 
@@ -1957,12 +1901,12 @@ Internet-Draft                  EST-coaps                       May 2019
 
 
 
-van der Stok, et al.    Expires November 29, 2019              [Page 35]
+van der Stok, et al.    Expires December 1, 2019               [Page 34]
 
 Internet-Draft                  EST-coaps                       May 2019
 
 
-   2.01 Created
+   2.04 Changed
    (Token: 0x45)
    (Content-Format: 281)
 
@@ -2013,7 +1957,7 @@ A.3.  serverkeygen
 
 
 
-van der Stok, et al.    Expires November 29, 2019              [Page 36]
+van der Stok, et al.    Expires December 1, 2019               [Page 35]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -2069,12 +2013,12 @@ Internet-Draft                  EST-coaps                       May 2019
 
 
 
-van der Stok, et al.    Expires November 29, 2019              [Page 37]
+van der Stok, et al.    Expires December 1, 2019               [Page 36]
 
 Internet-Draft                  EST-coaps                       May 2019
 
 
-   2.01 Created
+   2.04 Changed
    (Token: 0xa5)
    (Content-Format: 62)
 
@@ -2125,7 +2069,7 @@ A.4.  csrattrs
 
 
 
-van der Stok, et al.    Expires November 29, 2019              [Page 38]
+van der Stok, et al.    Expires December 1, 2019               [Page 37]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -2181,7 +2125,7 @@ B.1.  cacerts
 
 
 
-van der Stok, et al.    Expires November 29, 2019              [Page 39]
+van der Stok, et al.    Expires December 1, 2019               [Page 38]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -2237,7 +2181,7 @@ Internet-Draft                  EST-coaps                       May 2019
 
 
 
-van der Stok, et al.    Expires November 29, 2019              [Page 40]
+van der Stok, et al.    Expires December 1, 2019               [Page 39]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -2293,7 +2237,7 @@ Internet-Draft                  EST-coaps                       May 2019
 
 
 
-van der Stok, et al.    Expires November 29, 2019              [Page 41]
+van der Stok, et al.    Expires December 1, 2019               [Page 40]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -2349,7 +2293,7 @@ Internet-Draft                  EST-coaps                       May 2019
 
 
 
-van der Stok, et al.    Expires November 29, 2019              [Page 42]
+van der Stok, et al.    Expires December 1, 2019               [Page 41]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -2405,7 +2349,7 @@ B.2.  enroll / reenroll
 
 
 
-van der Stok, et al.    Expires November 29, 2019              [Page 43]
+van der Stok, et al.    Expires December 1, 2019               [Page 42]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -2461,7 +2405,7 @@ C.1.  cacerts
 
 
 
-van der Stok, et al.    Expires November 29, 2019              [Page 44]
+van der Stok, et al.    Expires December 1, 2019               [Page 43]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -2517,7 +2461,7 @@ Internet-Draft                  EST-coaps                       May 2019
 
 
 
-van der Stok, et al.    Expires November 29, 2019              [Page 45]
+van der Stok, et al.    Expires December 1, 2019               [Page 44]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -2573,7 +2517,7 @@ C.2.  enroll / reenroll
 
 
 
-van der Stok, et al.    Expires November 29, 2019              [Page 46]
+van der Stok, et al.    Expires December 1, 2019               [Page 45]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -2629,7 +2573,7 @@ C.3.  serverkeygen
 
 
 
-van der Stok, et al.    Expires November 29, 2019              [Page 47]
+van der Stok, et al.    Expires December 1, 2019               [Page 46]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -2685,7 +2629,7 @@ Internet-Draft                  EST-coaps                       May 2019
 
 
 
-van der Stok, et al.    Expires November 29, 2019              [Page 48]
+van der Stok, et al.    Expires December 1, 2019               [Page 47]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -2741,7 +2685,7 @@ Authors' Addresses
 
 
 
-van der Stok, et al.    Expires November 29, 2019              [Page 49]
+van der Stok, et al.    Expires December 1, 2019               [Page 48]
 
 Internet-Draft                  EST-coaps                       May 2019
 
@@ -2797,4 +2741,4 @@ Internet-Draft                  EST-coaps                       May 2019
 
 
 
-van der Stok, et al.    Expires November 29, 2019              [Page 50]
+van der Stok, et al.    Expires December 1, 2019               [Page 49]

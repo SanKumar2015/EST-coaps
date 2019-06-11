@@ -836,8 +836,8 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	    The EST-coaps server-side key generation response is returned with Content-Format
 		application/multipart-core <xref target="I-D.ietf-core-multipart-ct"/>
 		containing a CBOR array with four items <!--(<xref target="cborpair"/>) -->
-		(<xref target="format"/>) <!-- with the order specified in <xref target="RFC7030"/> -->.
-		The two representations (each consisting of two CBOR array items) do 
+		(<xref target="format"/>). <!-- with the order specified in <xref target="RFC7030"/> -->
+        The two representations (each consisting of two CBOR array items) do 
         not have to be in a particular order since each representation is 
         preceded by its Content-Format ID. 
 		The private key can be in unprotected PKCS#8 <xref target="RFC5958"/>

@@ -20,7 +20,6 @@
 <!ENTITY RFC7030 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7030.xml">
 <!ENTITY RFC7049 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7049.xml">
 <!ENTITY RFC7230 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7230.xml">
-<!ENTITY RFC7231 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7231.xml">
 <!ENTITY RFC7251 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7251.xml">
 <!ENTITY RFC7252 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7252.xml">
 <!ENTITY RFC7925 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7925.xml">
@@ -299,7 +298,7 @@
   </section>  <!-- Terminology -->
 
   <section anchor="profile7925" title="DTLS and conformance to RFC7925 profiles">
-    <t>This section describes how EST-coaps fits into the profiles of low-resource
+    <t>This section describes how EST-coaps conforms to the profiles of low-resource
 	devices described in <xref target="RFC7925"/>.
 	EST-coaps can transport certificates and private keys. Certificates
 	are responses to (re-)enrollment requests or requests for a trusted certificate
@@ -836,7 +835,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
       <t>When requesting server-side key generation, the client
       asks for the server or proxy to generate the private key and the certificate
       which are transferred back to the client in the server-side key generation
-      response. In all respects, the server SHOULD treat the CSR as it would treat any
+      response. In all respects, the server treats the CSR as it would treat any
       enroll or re-enroll CSR; the only distinction here is that the server
       MUST ignore the public key values and signature in the CSR. These
       are included in the request only to allow re-use of existing
@@ -846,7 +845,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	  and private key in two application/multipart-core elements. 
 	  Respectively, an /skc request is for a single application/pkix-cert 
 	  certificate and a private key. 
-	  The private key Content-Format requested by the client is depicted in the 
+	  The private key Content-Format requested by the client is indicated in the 
 	  PKCS#10 CSR request. If the request contains SMIMECapabilities and 
 	  DecryptKeyIdentifier or AsymmetricDecryptKeyIdentifier the client 
 	  is expecting Content-Format 280 for the private key. 
@@ -863,20 +862,18 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 		application/multipart-core <xref target="I-D.ietf-core-multipart-ct"/>
 		containing a CBOR array with four items <!--(<xref target="cborpair"/>) -->
 		(<xref target="format"/>) <!-- with the order specified in <xref target="RFC7030"/> -->.
-		The two representations (each consisting of two CBOR array items) do 
-        not have to be in a particular order since each representation is 
+		The two representations (each consisting of two CBOR array items) are
         preceded by its Content-Format ID. 
-		The private key can be in unprotected PKCS#8 <xref target="RFC5958"/>
+		Dependent on the contents of the CSR, the private key can be in unprotected PKCS#8 <xref target="RFC5958"/>
 		format (Content-Format 284) or protected inside of CMS SignedData
-		(Content-Format 280). The SignedData is signed by the party that
+		(Content-Format 280). The SignedData, placed in the outermost container, is signed by the party that
 		generated the private key, which may be the EST server or 
-		the EST CA. The SignedData is further protected by placing
-		it inside of a CMS EnvelopedData as explained in Section 4.4.2
+		the EST CA. SignedData placed within the Enveloped Data does not need additional signing as explained in Section 4.4.2
 		of <xref target="RFC7030" />. In summary, the symmetrically encrypted key
 		is included in the encryptedKey attribute in a KEKRecipientInfo structure.
 		In the case where the asymmetric encryption key is suitable for transport key
 		operations the generated private key is encrypted with a symmetric key which
-		is encrypted by the client defined (in the CSR) asymmetric public key
+		is encrypted by the "client-defined" (in the CSR) asymmetric public key
 		and is carried in an encryptedKey attribute in a KeyTransRecipientInfo structure.
 		Finally, if the asymmetric encryption key is suitable for key agreement,
 		the generated private key is encrypted with a symmetric key which is
@@ -909,6 +906,8 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	is required to operate between the CoAP environment and the external HTTP
 	network as shown in
 	<xref target="RAfig"/>. </t>
+<t>When not explicitly needed, it is RECOMMENDED to use direct connections between EST server and client</t>
+
 	<figure align="left" anchor="RAfig" title="EST-coaps-to-HTTPS Registrar at the CoAP boundary."><artwork><![CDATA[
                                      Constrained Network
 .------.                         .----------------------------.
@@ -925,7 +924,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 ]]></artwork></figure>
     <t>The EST-coaps-to-HTTPS Registrar MUST terminate EST-coaps downstream and
 	initiate EST connections over TLS upstream. The Registrar MUST authenticate
-	and OPTIONALLY authorize the clients and it MUST be authenticated
+	and authorize the client requests while it MUST be authenticated
 	by the EST server or CA. The trust relationship between the Registrar
 	and the EST server SHOULD be pre-established for the Registrar to proxy
 	these connections on behalf of various clients.</t>
@@ -951,10 +950,10 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	verified this information when acting as an EST server.</t>
 	<t>For some use cases, clients that leverage server-side key generation might
 	prefer for the enrolled keys to be generated by the Registrar if the CA does not
-	support server-side key generation. Such Registrar is responsible
+	support server-side key generation. Such a Registrar is responsible
 	for generating a new CSR signed by a new key which will be returned to the
 	client along with the certificate from the CA. In these cases, the Registrar 
-	MUST support random number generation using proper entropy. </t>
+	MUST use random number generation using proper entropy. </t>
 
     <t><xref target="est-uri"/> contains the URI mappings between EST-coaps and EST
 	that the Registrar MUST adhere to. <xref target="codes"/> of this
@@ -963,15 +962,14 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	MUST translate CoAP response codes from/to HTTP status codes. The mapping from
 	CoAP Content-Format to HTTP Media-Type is defined in <xref target="Content-Formats"/>.
 	Additionally, a conversion from CBOR major type 2 to Base64 encoding MUST take
-	place at the Registrar when server-side key generation is supported. If
+	place at the Registrar. If
 	CMS end-to-end encryption is employed for the private key, the encrypted
-	CMS EnvelopedData blob MUST be converted to binary in CBOR type 2 downstream
-	to the client. </t>
+	CMS EnvelopedData blob MUST be converted at the Registrar to binary CBOR type 2 downstream to the client. </t>
 	<t>Due to fragmentation of large messages into blocks, an EST-coaps-to-HTTP
 	Registrar MUST reassemble the BLOCKs before translating the binary content to
 	Base64, and consecutively relay the message upstream. </t>
     <t>The EST-coaps-to-HTTP Registrar MUST support resource discovery according 
-    to the rules in Section 5.1. <xref target="discovery"/>. <!-- The available actions of the  Registrars MUST be
+    to the rules in <xref target="discovery"/>. <!-- The available actions of the  Registrars MUST be
 	announced with as many resource paths necessary. -->
 	<!-- The discovery of the EST server
 	in the HTTP environment follow the rules specified in <xref target="RFC7030"/> --></t>
@@ -990,8 +988,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
          DEFAULT_LEISURE   | 5 seconds     |
          PROBING_RATE      | 1 byte/second | ]]></artwork></figure> --> 
     EST does not impose any unique values on the CoAP parameters 
-	in <xref target="RFC7252"/>, but the EST parameter values need to 
-	be tuned to the CoAP parameter values. </t>
+	in <xref target="RFC7252"/>, but the setting of the CoAP parameter values may have consequence for the setting of the EST parameter values. </t>
     <t>It is recommended, based on experiments,
 	<!-- using Nexus Certificate Manager with Californium for
 	CoAP support, communicating with a ContikiOS and tinyDTLS based
@@ -1009,14 +1006,12 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
     <list style="symbols">
       <t>NSTART: A parameter that controls the number of simultaneous 
 	  outstanding interactions that a client maintains to a given server. 
-	  An EST-coaps client is not expected to interact with more than 
-	  one servers at the same time, which is the default NSTART value 
+	  An EST-coaps client is expected to control at most one interaction with a given server, which is the default NSTART value 
 	  defined in <xref target="RFC7252"/>.</t>
       <t>DEFAULT_LEISURE: This setting is only relevant in multicast scenarios,
 	  outside the scope of EST-coaps.</t>
       <t>PROBING_RATE: A parameter which specifies the rate of re-sending
-	  non-confirmable messages. The EST messages are defined to be sent as
-	  CoAP confirmable messages, hence this setting is not applicable.</t>
+	  non-confirmable messages. In the rare situations that non-confirmable messages are used, the default PROBING_RATE value defined in RFC7252 applies.</t>
     </list></t>
     <t>Finally, the Table 3 parameters in <xref target="RFC7252"/> are mainly
 	derived from Table 2. Directly changing parameters on one table would
@@ -1041,7 +1036,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
   <c>application/pkcs7-mime; smime-type=server-generated-key</c><c>280</c> <c><xref target="RFC7030"/> <xref target="I-D.ietf-lamps-rfc5751-bis"/> </c>
   <c>application/pkcs7-mime; smime-type=certs-only</c>          <c>281</c> <c><xref target="I-D.ietf-lamps-rfc5751-bis"/></c>
   <c>application/pkcs8</c>                                      <c>284</c> <c><xref target="RFC5958"/> <xref target="I-D.ietf-lamps-rfc5751-bis"/></c>
-  <c>application/csrattrs</c>                                   <c>285</c> <c><xref target="RFC7030"/> <xref target="RFC7231"/></c>
+  <c>application/csrattrs</c>                                   <c>285</c> <c><xref target="RFC7030"/> </c>
   <c>application/pkcs10</c>                                     <c>286</c> <c><xref target="RFC5967"/> <xref target="I-D.ietf-lamps-rfc5751-bis"/></c>
 <c>application/pkix-cert</c>                                     <c>TBD287</c> <c> <xref target="RFC2585"/></c>
 </texttable>
@@ -1064,7 +1059,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
       <t>rt="ace.est.sren". This resource depicts the support
 	  of EST simple reenroll.</t>
       <t>rt="ace.est.att". This resource depicts the support
-	  of EST CSR attributes.</t>
+	  of EST get CSR attributes.</t>
       <t>rt="ace.est.skg". This resource depicts the support
 	  of EST server-side key generation with the returned 
 	  certificate in a PKCS#7 container.</t>
@@ -1082,10 +1077,11 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
     <section anchor="sec-est" title="EST server considerations">
       <t>The security considerations of Section 6 of <xref target="RFC7030"/> are only
 	  partially valid for the purposes of this document. As HTTP Basic Authentication is
-	  not supported, the considerations expressed for using passwords do not apply.</t>
+	  not supported, the considerations expressed for using passwords do not apply. The other portions of the
+security considerations of xref target="RFC7030"/> continue to apply.</t>
       
 	  <t>Modern security protocols require random numbers to be available during
-      the protocol run, for example for nonces, ephemeral (EC) Diffie-Hellman key
+      the protocol run, for example for nonces and ephemeral (EC) Diffie-Hellman key
       generation. This capability to generate random numbers is also needed 
       when the constrained device generates the private key (that corresponds 
       to the public key enrolled in the CSR). When server-side key generation is 
@@ -1093,13 +1089,13 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
       private key randomly, but it still needs locally generated random numbers 
 	  for use in security protocols, as explained in Section 12 of <xref target="RFC7925"/>. 
 	  Additionally, the transport of keys generated at the server is inherently risky. 
-	  Analysis SHOULD be done to establish whether server-side key generation increases 
+	  For those deploying server-side key generation, analysis SHOULD be done to establish whether server-side key generation increases 
 	  or decreases the probability of digital identity theft.</t>
 
       <t>It is important to note that sources contributing to the randomness
       pool used to generate random numbers on laptops or desktop PCs 
       are not available on many constrained devices, such as mouse 
-      movement, timing of keystrokes, air turbulence on the
+      movement, timing of keystrokes, or air turbulence on the
       movement of hard drive heads, as pointed out in <xref target="PsQs"/>.  
 	  Other sources have to be used or dedicated hardware has to be added.
       Selecting hardware for an IoT device that is capable of producing
@@ -1107,13 +1103,13 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 
 	  <t>It is also RECOMMENDED that the Implicit Trust Anchor database used for
 	  EST server authentication is carefully managed to reduce the chance of a
-	  third-party CA with poor certification practices jeopardizing authentication. 
+	  third-party CA with poor certification practices jeopardizing authentication. Remark that the initial /crts request uses the implicit database, and that a compromised implicit database has as consequence that all subsequent exchanges from that client are jeopardized.
 	  Disabling the Implicit Trust Anchor database after successfully receiving the
 	  Distribution of CA certificates response (Section 4.1.3 of <xref target="RFC7030"/>)
 	  limits any risk to the first DTLS exchange. Alternatively, in a case 
 	  where a /sen request immediately follows a /crts, a client
 	  MAY choose to keep the connection authenticated by the Implicit 
-	  TA open for efficiency reasons (<xref target="profile7925"/>). A client that pipelines 
+	  TA open for efficiency reasons (<xref target="profile7925"/>). A client that interleaves 
 	  EST-coaps /crts request with other requests in the same DTLS connection SHOULD 
 	  revalidate the server certificate chain against the updated Explicit TA from 
 	  the /crts response before proceeding with the subsequent requests. If the 
@@ -1134,7 +1130,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	  request links the proof-of-possession to the TLS proof-of-identity. This implies
 	  but does not prove that only the authenticated client currently has access to the
 	  private key.</t>
-	  <t>What's more, POP linking uses tls-unique as it is defined in
+	  <t>What's more, CMC POP linking uses tls-unique as it is defined in
 	  <xref target="RFC5929"/>. The 3SHAKE attack <xref target="tripleshake"/>
 	  poses a risk by allowing a man-in-the-middle to
 	  leverage session resumption and renegotiation to
@@ -1167,11 +1163,11 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
     <section anchor="sec-proxy" title="HTTPS-CoAPS Registrar considerations">
       <t>The Registrar proposed in <xref target="proxy"/> must be deployed with care,
 	    and only when the recommended connections are impossible. When POP linking is used the
-	    Registrar terminating the TLS connection establishes a new one with the upstream
+	    Registrar terminating the DTLS connection establishes a new TLS connection with the upstream
 		CA. Thus, it is impossible for POP linking to be enforced end-to-end for the EST
 		transaction. The EST server could be configured to accept POP linking information
-		that does not match the current TLS session because the authenticated EST Registrar
-		client has verified this information when acting as an EST server. </t>
+		that does not match the current TLS session because the authenticated EST Registrar,
+		acting as an EST-server, assumes that the client has verified this information. </t>
 	  <t>The introduction of an EST-coaps-to-HTTP Registrar assumes the client can trust
 		the registrar using its implicit or explicit TA database. It also assumes
 		the Registrar has a trust relationship with the upstream EST server in order
@@ -1189,7 +1185,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	    if the Registrar will be generating the private key and enrolling the certificates
         with the CA or if the CA will be responsible for generating the key.
 	    In such cases, the existence of a Registrar requires the client to put
-	    its trust on the registrar doing the right thing if it is generating the
+	    its trust on the registrar when it is generating the
 	    private key. </t>
     </section> <!-- proxy considerations -->
   </section>  <!-- Security considerations  -->
@@ -1223,41 +1219,41 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
     &RFC2119;
     &RFC2585;
     &RFC5246;
+    &RFC5958;
     &RFC5967;
     &RFC6347;
-    &I-D.ietf-tls-dtls13;
     &RFC6690;
     &RFC7030;
     <!--&RFC7049;-->
     &RFC7252;
+    &RFC7925;
     &RFC7959;
+    &RFC8075;
     &RFC8174;
-	&RFC8446;
+    &RFC8422;
+    &RFC8446;
+    &I-D.ietf-tls-dtls13;
     &I-D.ietf-core-multipart-ct;
+    &I-D.ietf-lamps-rfc5751-bis;
 
   </references>
   <references title="Informative References">
     <!-- &RFC0791; -->
     &RFC5272;
-    &RFC8422;
-	&RFC8075;
     <!-- &RFC4944; -->
     <!--&RFC5273;-->
     &RFC5705;
-    &RFC5958;
     <!-- &RFC6090; -->
     &RFC6402;
     &RFC7230;
-    &RFC7231;
+    <!-- &RFC7231; -->
     &RFC7228;
     &RFC7251;
-    &RFC7925;
     &RFC4919;
     &RFC5929;
     &RFC7525;
     <!-- &I-D.ietf-anima-bootstrapping-keyinfra; -->
 	&I-D.ietf-tls-dtls-connection-id;
-    &I-D.ietf-lamps-rfc5751-bis;
 	<!-- &I-D.draft-ietf-core-resource-directory-19; -->
     &I-D.moskowitz-ecdsa-pki;
 	&I-D.josefsson-sasl-tls-cb;
@@ -1321,13 +1317,13 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	purposes because a binary representation cannot be rendered well in text. 
 	The hexadecimal representations would not be transported in hex, but in binary. 
 	The payloads are shown unencrypted. In practice the message content would be 
-	transferred over an encrypted DTLS tunnel. 
+	transferred over an encrypted DTLS channel. 
 	<!-- [EDNOTE: No need for these details of how these were generated from I-D.moskowitz-ecdsa-pki. ]
 	In particular, the shell scripts from section 4.2 (create root certificate), section 6.2 (Create the 802.1AR intermediate certificate) and section 6.3 (Create an 802.1AR IdevID certificate) have been used. The 802.1AR IdevID certificate is signed by the 802.1AR intermediate certificate that is signed by the auto-signed root certificate.--></t>
     <t>The certificate responses included in the examples contain Content-Format 
 	281 (application/pkcs7). If the client had requested Content-Format 
 	TBD287 (application/pkix-cert) by querying /est/skc, the 
-	server would respond with a single DER binary certificate.</t>
+	server would respond with a single DER binary certificate in the multipart-core container.</t>
 	<t>These examples assume a short resource path of "/est". Even though omitted 
 	from the examples for brevity, before making the EST-coaps requests, a client 
 	would learn about the server supported EST-coaps resources with a GET request 
@@ -1352,7 +1348,7 @@ GET example.com:9085/est/crts
   Options
   Option (Uri-Host) 
      Option Delta = 0x3  (option# 3)
-     Option Length = 0xD
+     Option Length = 0xB
      Option Value = "example.com"
   Option (Uri-Port) 
      Option Delta = 0x4  (option# 3+4=7)
@@ -1360,11 +1356,11 @@ GET example.com:9085/est/crts
      Option Value = 9085
    Option (Uri-Path)
      Option Delta = 0x4   (option# 7+4=11)
-     Option Length = 0x5
+     Option Length = 0x3
      Option Value = "est"
    Option (Uri-Path)
      Option Delta = 0x0   (option# 11+0=11)
-     Option Length = 0x6
+     Option Length = 0x4
      Option Value = "crts"
    Option (Accept)
      Option Delta = 0x6   (option# 11+6=17)
@@ -1625,12 +1621,11 @@ cannot be rendered well in text. ]
 
  <section anchor="cacertsblock" title="cacerts">
     <t>This section provides a detailed example of the messages using DTLS and BLOCK
-	option Block2. The minimum PMTU is 1280 bytes, which is the example value assumed
-	for the DTLS datagram size. The example block length is taken as 64 which gives an
+	option Block2. The example block length is taken as 64 which gives an
 	SZX value of 2.</t>
     <t>The following is an example of a cacerts exchange over DTLS. The content length of
 	the cacerts response in appendix A.1 of <xref target="RFC7030"/> contains 639
-	bytes in binary. The CoAP message adds around 10 bytes,
+	bytes in binary in this example. The CoAP message adds in this exmple around 10 bytes,
 	the DTLS record 29 bytes. To avoid IP fragmentation, the CoAP Block Option
 	is used and an MTU of 127 is assumed to stay within one IEEE 802.15.4 packet. To stay
 	below the MTU of 127, the payload is split in 9 packets with a payload of 64 bytes
@@ -1641,8 +1636,7 @@ cannot be rendered well in text. ]
 	option is shown below. Block Option is shown in a decomposed way (block-option:NUM/M/size)
 	indicating the kind of Block Option (2 in this case) followed by a colon, and then the block
 	number (NUM), the more bit (M = 0 in Block2 response means it is last block), and block size
-	with exponent (2**(SZX+4)) separated by slashes.  The Length 64 is used with SZX=2 to avoid IP
-	fragmentation. The CoAP Request is sent confirmable (CON) and the Content-Format
+	with exponent (2**(SZX+4)) separated by slashes.  The Length 64 is used with SZX=2. The CoAP Request is sent confirmable (CON) and the Content-Format
 	of the response, even though not shown, is 281 (application/pkcs7-mime; smime-type=certs-only).
 	The transfer of the 10 blocks with partially filled block NUM=9 is shown below </t>
     <figure align="left"><artwork><![CDATA[
@@ -1667,7 +1661,7 @@ cannot be rendered well in text. ]
   Options
    Option (Uri-Host) 
      Option Delta = 0x3  (option# 3)
-     Option Length = 0xD
+     Option Length = 0xB
      Option Value = "example.com"
    Option (Uri-Port) 
      Option Delta = 0x4   (option# 3+4=7)
@@ -1675,11 +1669,11 @@ cannot be rendered well in text. ]
      Option Value = 9085
    Option (Uri-Path)
      Option Delta = 0x4    (option# 7+4=11)
-     Option Length = 0x5
+     Option Length = 0x3
      Option Value = "est"
    Option (Uri-Path)Uri-Path)
      Option Delta = 0x0    (option# 11+0=11)
-     Option Length = 0x6
+     Option Length = 0x4
      Option Value = "crts"
    Option (Accept)
      Option Delta = 0x6   (option# 11+6=17)
@@ -1781,7 +1775,7 @@ e5c7306163b3c3834bab3c103f743070594c089aaa0ac870cd13b902caa1
 
     <section anchor="enrollblock" title="enroll / reenroll">
       <t>
-      In this example, the requested Block2 size of 256 bytes, required by the client,
+      In this example, the requested Block1 size of 256 bytes, required by the client,
 	  is transferred to the server in the very first request message. The block size
 	  256=(2**(SZX+4)) which gives SZX=4. The notation for block numbering is the same
 	  as in <xref target="cacertsblock"/>. The header fields and the payload are
@@ -1791,22 +1785,26 @@ e5c7306163b3c3834bab3c103f743070594c089aaa0ac870cd13b902caa1
 	anchor="fig-est-multiple-block"><artwork>
 <![CDATA[
 
-POST [2001:db8::2:321]:61616/est/sen (CON)(1:0/1/256) {CSR req} -->
+POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR (frag# 1)} -->
+
        <-- (ACK) (1:0/1/256) (2.31 Continue)
-POST [2001:db8::2:321]:61616/est/sen (CON)(1:1/1/256) {CSR req} -->
+POST [2001:db8::2:1]:61616/est/sen (CON)(1:1/1/256) {CSR (frag# 2)} -->
        <-- (ACK) (1:1/1/256) (2.31 Continue)
                       .
                       .
                       .
-POST [2001:db8::2:321]:61616/est/sen (CON)(1:N1/0/256){CSR req} -->
-       <-- (ACK) (1:N1/0/256)(2:0/1/256)(2.04 Changed){Cert resp}
-POST [2001:db8::2:321]:61616/est/sen (CON)(2:1/0/256)           -->
-       <-- (ACK) (2:1/1/256)(2.04 Changed) {Cert resp}
+POST [2001:db8::2:1]:61616/est/sen (CON)(1:N1/0/256){CSR(frag# N1+1)}-->
+                      |
+    ...........Immediate response  .........
+                      |
+  <-- (ACK) (1:N1/0/256)(2:0/1/256)(2.04 Changed){Cert resp (frag# 1)}
+POST [2001:db8::2:1]:61616/est/sen (CON)(2:1/0/256)           -->
+  <-- (ACK) (2:1/1/256)(2.04 Changed) {Cert resp (frag# 2)}
                       .
                       .
                       .
 POST [2001:db8::2:321]:61616/est/sen (CON)(2:N2/0/256)          -->
-       <-- (ACK) (2:N2/0/256) (2.04 Changed) {Cert resp}
+  <-- (ACK) (2:N2/0/256) (2.04 Changed) {Cert resp (frag# N2+1)}
 
 ]]></artwork></figure>
 

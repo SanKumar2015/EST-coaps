@@ -1148,7 +1148,7 @@ security considerations of xref target="RFC7030"/> continue to apply.</t>
 	  updated exporter (Section 7.5 of <xref target="RFC8446"/>) value in 
 	  place of the tls-unique value in the CSR. Such mechanism
 	  has not been standardized yet. Adopting a channel
-	  binding value generated from an exporter would break backwards compatibility.
+	  binding value generated from an exporter would break backwards compatibility for an RA that proxies through to a classic EST server.
 	  Thus, in this specification we still depend on the tls-unique mechanism
 	  defined in <xref target="RFC5929"/>, especially since a 3SHAKE attack 
       does not expose messages exchanged with EST-coaps.</t>

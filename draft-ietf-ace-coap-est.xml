@@ -873,7 +873,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 		is included in the encryptedKey attribute in a KEKRecipientInfo structure.
 		In the case where the asymmetric encryption key is suitable for transport key
 		operations the generated private key is encrypted with a symmetric key which
-		is encrypted by the "client-defined" (in the CSR) asymmetric public key
+		is encrypted by the client-defined (in the CSR) asymmetric public key
 		and is carried in an encryptedKey attribute in a KeyTransRecipientInfo structure.
 		Finally, if the asymmetric encryption key is suitable for key agreement,
 		the generated private key is encrypted with a symmetric key which is

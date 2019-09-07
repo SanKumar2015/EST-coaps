@@ -964,7 +964,8 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	Additionally, a conversion from CBOR major type 2 to Base64 encoding MUST take
 	place at the Registrar. If
 	CMS end-to-end encryption is employed for the private key, the encrypted
-	CMS EnvelopedData blob MUST be converted at the Registrar to binary CBOR type 2 downstream to the client. </t>
+	CMS EnvelopedData blob MUST be converted at the Registrar to binary CBOR 
+	type 2 downstream to the client. </t>
 	<t>Due to fragmentation of large messages into blocks, an EST-coaps-to-HTTP
 	Registrar MUST reassemble the BLOCKs before translating the binary content to
 	Base64, and consecutively relay the message upstream. </t>
@@ -1103,7 +1104,7 @@ security considerations of xref target="RFC7030"/> continue to apply.</t>
 
 	  <t>It is also RECOMMENDED that the Implicit Trust Anchor database used for
 	  EST server authentication is carefully managed to reduce the chance of a
-	  third-party CA with poor certification practices jeopardizing authentication. Remark that the initial /crts request uses the implicit database, and that a compromised implicit database has as consequence that all subsequent exchanges from that client are jeopardized.
+	  third-party CA with poor certification practices jeopardizing authentication. <!--Remark that the initial /crts request uses the implicit database, and that a compromised implicit database has as consequence that all subsequent exchanges from that client are jeopardized. -->
 	  Disabling the Implicit Trust Anchor database after successfully receiving the
 	  Distribution of CA certificates response (Section 4.1.3 of <xref target="RFC7030"/>)
 	  limits any risk to the first DTLS exchange. Alternatively, in a case 

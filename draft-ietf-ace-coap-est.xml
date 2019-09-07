@@ -302,7 +302,7 @@
     <t>This section describes how EST-coaps conforms to the profiles of low-resource
 	devices described in <xref target="RFC7925"/>.
 	EST-coaps can transport certificates and private keys. Certificates
-	are responses to (re-)enrollment requests or requests for a trusted certificate
+	are responses to (re-)enrollment requests or requests a trusted certificate
 	list. Private keys can be transported as responses to a
 	server-side key generation request as described in Section 4.4 of
 	<xref target="RFC7030"/> and discussed in <xref target="serverkey"/>
@@ -357,8 +357,7 @@ Elliptic Curves used by DTLS 1.2
         <t>a previously issued client certificate (e.g., an existing certificate issued
 		by the EST CA); this could be a common case for simple re-enrollment of clients. </t>
         <t>a previously installed certificate (e.g., manufacturer IDevID
-		<xref target="ieee802.1ar"/> or a certificate issued by some other party); the server
-        can use the certificate for DTLS client authentication. IDevID's are expected to have
+		<xref target="ieee802.1ar"/> or a certificate issued by some other party). IDevID's are expected to have
         a very long life, as long as the device, but under some conditions 
 		could expire. In that case, the server MAY want to authenticate 
 		a client certificate against its trust store although the certificate 
@@ -409,11 +408,10 @@ HMAC(finished_key,
 	 message types in EST-coaps are: 
       <list style="symbols">
         <t>CA certificate retrieval needed to receive the complete set of CA certificates. </t>
-		<t>Simple enroll and re-enroll  for a CA to sign public client identity key.</t>
+		<t>Simple enroll and re-enroll for a CA to sign client identity public key.</t>
         <t>Certificate Signing Request (CSR) attribute messages that informs the client 
 		of the fields to include in a CSR.</t>
-        <t>Server-side key generation messages to provide a private client identity key 
-		when the client choses so. </t>
+        <t>Server-side key generation messages to provide a client identity private key when the client chooses so. </t>
       </list></t>
 	  
   <section anchor="discovery" title = "Discovery and URIs">
@@ -763,7 +761,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
    <-- (ACK) (2:N2/0/128) (2.04 Changed) {Cert resp (frag# N2+1)}
 ]]></artwork></figure>
 
-      <t>If the server is very slow (i.e. minutes) in providing the response (i.e. when a manual intervention is needed), 
+      <t>If the server is very slow (i.e., minutes) in providing the response (i.e., when a manual intervention is needed), 
       he SHOULD respond with an ACK containing response code 5.03 (Service unavailable) and a Max-Age
       Option to indicate the time the client SHOULD wait to request the content later. After a delay of Max-Age,
       the client SHOULD resend the identical CSR to the server. As long as the server responds with response code 5.03
@@ -1012,7 +1010,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
       <t>DEFAULT_LEISURE: This setting is only relevant in multicast scenarios,
 	  outside the scope of EST-coaps.</t>
       <t>PROBING_RATE: A parameter which specifies the rate of re-sending
-	  non-confirmable messages. In the rare situations that non-confirmable messages are used, the default PROBING_RATE value defined in RFC7252 applies.</t>
+	  non-confirmable messages. In the rare situations that non-confirmable messages are used, the default PROBING_RATE value defined in <xref target="RFC7252"/> applies.</t>
     </list></t>
     <t>Finally, the Table 3 parameters in <xref target="RFC7252"/> are mainly
 	derived from Table 2. Directly changing parameters on one table would
@@ -1164,13 +1162,14 @@ security considerations of xref target="RFC7030"/> continue to apply.</t>
 
     <section anchor="sec-proxy" title="HTTPS-CoAPS Registrar considerations">
       <t>The Registrar proposed in <xref target="proxy"/> must be deployed with care,
-	    and only when the recommended connections are impossible. When PoP linking is used the
+	    and only when direct client-server connections are not possible. When PoP linking is used the
 	    Registrar terminating the DTLS connection establishes a new TLS connection with the upstream
 		CA. Thus, it is impossible for PoP linking to be enforced end-to-end for the EST
 		transaction. The EST server could be configured to accept PoP linking information
 		that does not match the current TLS session because the authenticated EST Registrar is assumed to have verified PoP linking downstream to the client.</t>
-	  <t>The introduction of an EST-coaps-to-HTTP Registrar assumes the client can trust
-		the registrar using its implicit or explicit TA database. It also assumes
+	  <t>The introduction of an EST-coaps-to-HTTP Registrar assumes the   
+	    client can authenticate 
+		the Registrar using its implicit or explicit TA database. It also assumes
 		the Registrar has a trust relationship with the upstream EST server in order
 		to act on behalf of the clients. When a client uses the Implicit TA
 		database for certificate validation, she SHOULD confirm if the server
@@ -1628,7 +1627,7 @@ cannot be rendered well in text. ]
     <t>The following is an example of a cacerts exchange over DTLS. The content length of
 	the cacerts response in appendix A.1 of <xref target="RFC7030"/> contains 639
 	bytes in binary in this example. The CoAP message adds around 10 bytes in this exmple,
-	the DTLS record 29 bytes. To avoid IP fragmentation, the CoAP Block Option
+	the DTLS record around 29 bytes. To avoid IP fragmentation, the CoAP Block Option
 	is used and an MTU of 127 is assumed to stay within one IEEE 802.15.4 packet. To stay
 	below the MTU of 127, the payload is split in 9 packets with a payload of 64 bytes
 	each, followed by a last tenth packet of 63 bytes. The client sends an IPv6 packet

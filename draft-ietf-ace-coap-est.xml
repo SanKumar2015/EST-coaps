@@ -452,7 +452,6 @@ coaps://example.com:<port>/<root-resource>/
    <c> /cacerts  </c>        <c> /crts </c>
    <c> /simpleenroll </c>    <c> /sen </c>
    <c> /simplereenroll </c>  <c> /sren </c>
-   <c> /fullcmc      </c>    <c> n.a. </c>
    <c> /serverkeygen </c>    <c> /skg (PKCS#7) </c>
    <c> /serverkeygen </c>    <c> /skc (application/pkix-cert)</c>
    <c> /csrattrs </c>        <c> /att </c>

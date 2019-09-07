@@ -420,7 +420,7 @@ HMAC(finished_key,
 
     <t>EST-coaps is targeted for low-resource networks with small packets. Two types of installations are possible (1)rigid ones where the address and the supported functions of the EST server(s) are known, and (2) flexible one where the EST server and it supported functions need to be discovered.</t>
 
-<t>For both types of installations, saving header space is important and short EST-coaps URIs are specified in this document. These URIs are shorter than the ones in <xref target="RFC7030"/>. Two example EST-coaps resource path names are: </t>
+    <t>For both types of installations, saving header space is important and short EST-coaps URIs are specified in this document. These URIs are shorter than the ones in <xref target="RFC7030"/>. Two example EST-coaps resource path names are: </t>
 
 <figure align="left"><artwork><![CDATA[
 coaps://example.com:<port>/.well-known/est/<short-est>
@@ -906,7 +906,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	is required to operate between the CoAP environment and the external HTTP
 	network as shown in
 	<xref target="RAfig"/>. </t>
-<t>When not explicitly needed, it is RECOMMENDED to use direct connections between EST server and client</t>
+    <!-- <t>When not explicitly needed, it is RECOMMENDED to use direct connections between EST server and client</t> -->
 
 	<figure align="left" anchor="RAfig" title="EST-coaps-to-HTTPS Registrar at the CoAP boundary."><artwork><![CDATA[
                                      Constrained Network

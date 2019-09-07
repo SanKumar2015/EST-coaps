@@ -763,7 +763,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
    <-- (ACK) (2:N2/0/128) (2.04 Changed) {Cert resp (frag# N2+1)}
 ]]></artwork></figure>
 
-      <t>If the server is very slow (i.e., minutes) in providing the response (i.e., when a manual intervention is needed), 
+      <t>If the server is very slow (i.e. minutes) in providing the response (i.e. when a manual intervention is needed), 
       he SHOULD respond with an ACK containing response code 5.03 (Service unavailable) and a Max-Age
       Option to indicate the time the client SHOULD wait to request the content later. After a delay of Max-Age,
       the client SHOULD resend the identical CSR to the server. As long as the server responds with response code 5.03
@@ -953,7 +953,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	support server-side key generation. Such a Registrar is responsible
 	for generating a new CSR signed by a new key which will be returned to the
 	client along with the certificate from the CA. In these cases, the Registrar 
-	MUST use random number generation using proper entropy. </t>
+	MUST use random number generation with proper entropy. </t>
 
     <t><xref target="est-uri"/> contains the URI mappings between EST-coaps and EST
 	that the Registrar MUST adhere to. <xref target="codes"/> of this
@@ -1168,8 +1168,7 @@ security considerations of xref target="RFC7030"/> continue to apply.</t>
 	    Registrar terminating the DTLS connection establishes a new TLS connection with the upstream
 		CA. Thus, it is impossible for PoP linking to be enforced end-to-end for the EST
 		transaction. The EST server could be configured to accept PoP linking information
-		that does not match the current TLS session because the authenticated EST Registrar,
-		acting as an EST-server, assumes that the client has verified this information. </t>
+		that does not match the current TLS session because the authenticated EST Registrar is assumed to have verified PoP linking downstream to the client.</t>
 	  <t>The introduction of an EST-coaps-to-HTTP Registrar assumes the client can trust
 		the registrar using its implicit or explicit TA database. It also assumes
 		the Registrar has a trust relationship with the upstream EST server in order
@@ -1628,7 +1627,7 @@ cannot be rendered well in text. ]
 	SZX value of 2.</t>
     <t>The following is an example of a cacerts exchange over DTLS. The content length of
 	the cacerts response in appendix A.1 of <xref target="RFC7030"/> contains 639
-	bytes in binary in this example. The CoAP message adds in this exmple around 10 bytes,
+	bytes in binary in this example. The CoAP message adds around 10 bytes in this exmple,
 	the DTLS record 29 bytes. To avoid IP fragmentation, the CoAP Block Option
 	is used and an MTU of 127 is assumed to stay within one IEEE 802.15.4 packet. To stay
 	below the MTU of 127, the payload is split in 9 packets with a payload of 64 bytes
@@ -1778,7 +1777,7 @@ e5c7306163b3c3834bab3c103f743070594c089aaa0ac870cd13b902caa1
 
     <section anchor="enrollblock" title="enroll / reenroll">
       <t>
-      In this example, the requested Block1 size of 256 bytes, required by the client,
+      In this example, the requested Block2 size of 256 bytes, required by the client,
 	  is transferred to the server in the very first request message. The block size
 	  256=(2**(SZX+4)) which gives SZX=4. The notation for block numbering is the same
 	  as in <xref target="cacertsblock"/>. The header fields and the payload are
@@ -1889,7 +1888,7 @@ Certificate Request:
                 ASN1 OID: prime256v1
                 NIST CURVE: P-256
         Attributes:
-            challengePassword:   <256-bit PoP linking value >
+            challengePassword:   <256-bit PoP linking value>
         Requested Extensions:
             X509v3 Subject Alternative Name: 
                 othername:<unsupported>

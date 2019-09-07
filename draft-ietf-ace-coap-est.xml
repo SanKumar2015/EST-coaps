@@ -358,7 +358,7 @@ Elliptic Curves used by DTLS 1.2
 		by the EST CA); this could be a common case for simple re-enrollment of clients. </t>
         <t>a previously installed certificate (e.g., manufacturer IDevID
 		<xref target="ieee802.1ar"/> or a certificate issued by some other party); the server
-        can use the certificate for DTLS client Authentication. IDevID's are expected to have
+        can use the certificate for DTLS client authentication. IDevID's are expected to have
         a very long life, as long as the device, but under some conditions 
 		could expire. In that case, the server MAY want to authenticate 
 		a client certificate against its trust store although the certificate 

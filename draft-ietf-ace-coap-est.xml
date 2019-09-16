@@ -468,7 +468,7 @@ coaps://example.com:<port>/<root-resource>/
 	  she will make an /skc request. In both cases (i.e., /skg, /skc) a private key MUST be returned</t>
 
       <t>Clients and servers MUST support the short resource EST-coaps URIs. 
-	  <!-- Panos: Commented this out after a review from Carsten that pointed out that we can't make our minds what to use and we let the implementers use what they want. So remove the long URIs. -->
+	  <!-- Panos: Commented this out after a review from Carsten that pointed out that we can't make our minds what to use and we let the implementers use what they want. So we decided to be more specific and pick short URIs only. -->
 	  <!--The corresponding longer URIs from <xref target="RFC7030"/> MAY be supported.--></t>
 
       <t>In the context of CoAP, the presence and location of (path to) the EST resources are discovered by sending a GET request to "/.well-known/core" including a resource type (RT) parameter with the value "ace.est*" <xref target="RFC6690"/>. <!-- Upon success, the return payload will contain the root resource of the EST resources. The server MAY return all available resource paths and the used content types. This is useful when multiple content types are supported by the EST-coaps server and optional functions are available. --> The example below shows the discovery over CoAPS of the presence and location of EST-coaps resources. Linefeeds are included only for readability.</t>
@@ -1637,8 +1637,8 @@ cannot be rendered well in text. ]
 	is used and an MTU of 127 is assumed to stay within one IEEE 802.15.4 packet. To stay
 	below the MTU of 127, the payload is split in 9 packets with a payload of 64 bytes
 	each, followed by a last tenth packet of 63 bytes. The client sends an IPv6 packet
-	containing a UDP datagram with the DTLS record that encapsulates a CoAP
-	request 10 times. The server returns an IPv6 packet containing a UDP datagram with a
+	containing a UDP datagram with DTLS record protection that encapsulates a CoAP
+	request 10 times (one fragment of the request per block). The server returns an IPv6 packet containing a UDP datagram with the 
 	DTLS record that encapsulates the CoAP response. The CoAP request-response exchange with block
 	option is shown below. Block Option is shown in a decomposed way (block-option:NUM/M/size)
 	indicating the kind of Block Option (2 in this case) followed by a colon, and then the block

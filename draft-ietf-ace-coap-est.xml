@@ -50,7 +50,7 @@
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
 
-<rfc category="std" ipr="trust200902" docName="draft-ietf-ace-coap-est-13">
+<rfc category="std" ipr="trust200902" docName="draft-ietf-ace-coap-est-14">
   <front>
     <title abbrev="EST-coaps">EST over secure CoAP (EST-coaps)</title>
     <author fullname="Peter van der Stok" initials="P." surname="van der Stok">
@@ -128,6 +128,11 @@
 
   <section anchor="changes" title="Change Log">
    <t>EDNOTE: Remove this section before publication</t>
+   <t> -14
+    <list style="empty">
+	   <t>Updates to complete Ben's AD review feedback and discussions.</t>
+    </list>
+   </t>
    <t> -13
     <list style="empty">
 	   <t>Updates based on AD's review and discussions </t>

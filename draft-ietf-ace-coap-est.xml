@@ -423,7 +423,7 @@ HMAC(finished_key,
 	  
   <section anchor="discovery" title = "Discovery and URIs">
 
-    <t>EST-coaps is targeted for low-resource networks with small packets. Two types of installations are possible (1)rigid ones where the address and the supported functions of the EST server(s) are known, and (2) flexible one where the EST server and it supported functions need to be discovered.</t>
+    <t>EST-coaps is targeted for low-resource networks with small packets. Two types of installations are possible (1) rigid ones where the address and the supported functions of the EST server(s) are known, and (2) flexible one where the EST server and it supported functions need to be discovered.</t>
 
     <t>For both types of installations, saving header space is important and short EST-coaps URIs are specified in this document. These URIs are shorter than the ones in <xref target="RFC7030"/>. Two example EST-coaps resource path names are: </t>
 
@@ -465,9 +465,11 @@ coaps://example.com:<port>/<root-resource>/
       <t>The /skg message is the EST /serverkeygen equivalent where the client 
 	  requests a certificate in PKCS#7 format and a private key. If the 
 	  client prefers a single application/pkix-cert certificate instead of PKCS#7, 
-	  she will make an /skc request. In both cases a private key MUST be returned</t>
+	  she will make an /skc request. In both cases (i.e., /skg, /skc) a private key MUST be returned</t>
 
-      <t>Clients and servers MUST support the short resource EST-coaps URIs. The corresponding longer URIs from <xref target="RFC7030"/> MAY be supported.</t>
+      <t>Clients and servers MUST support the short resource EST-coaps URIs. 
+	  <!-- Panos: Commented this out after a review from Carsten that pointed out that we can't make our minds what to use and we let the implementers use what they want. So remove the long URIs. -->
+	  <!--The corresponding longer URIs from <xref target="RFC7030"/> MAY be supported.--></t>
 
       <t>In the context of CoAP, the presence and location of (path to) the EST resources are discovered by sending a GET request to "/.well-known/core" including a resource type (RT) parameter with the value "ace.est*" <xref target="RFC6690"/>. <!-- Upon success, the return payload will contain the root resource of the EST resources. The server MAY return all available resource paths and the used content types. This is useful when multiple content types are supported by the EST-coaps server and optional functions are available. --> The example below shows the discovery over CoAPS of the presence and location of EST-coaps resources. Linefeeds are included only for readability.</t>
 <figure><artwork align="left"><![CDATA[
@@ -483,7 +485,7 @@ coaps://example.com:<port>/<root-resource>/
 ]]></artwork>
     <!-- Used quotes when multiple cts are returned as shown in draft-ietf-core-resource-directory-19 -->
     </figure>
-      <t>The first three lines, describing ace.est.crts, ace.est.sen, and ace.est.sren, of the discovery response above MUST be returned if the server supports resource discovery. The last three lines are only included if the corresponding EST functions are implemented (see <xref target="est-implementation"/>). The Content-Formats in the response allow the client to request one that is supported by the server. These are the values that would be sent in the client request with an Accept option. This approach allows future servers to incorporate currently not specified content-formats and resources.</t>
+      <t>The first three lines, describing ace.est.crts, ace.est.sen, and ace.est.sren, of the discovery response above MUST be returned if the server supports resource discovery. The last three lines are only included if the corresponding EST functions are implemented (see <xref target="est-implementation"/>). The Content-Formats in the response allow the client to request one that is supported by the server. These are the values that would be sent in the client request with an Accept option. <!--This approach allows future servers to incorporate currently not specified content-formats and resources.--></t>
       <t><!--Port numbers, not returned in the example, are assumed to be the default numbers 5683 and 5684 for CoAP and CoAPS respectively (Sections 12.6 and 12.7 of <xref target="RFC7252"/>). --> Discoverable port numbers can be returned in the response payload. An example response payload for non-default CoAPS server port 61617 follows below. Linefeeds are included only for readability.</t>
 <figure><artwork align="left"><![CDATA[
   REQ: GET /.well-known/core?rt=ace.est*
@@ -864,7 +866,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 		(<xref target="format"/>) <!-- with the order specified in <xref target="RFC7030"/> -->.
 		The two representations (each consisting of two CBOR array items) are
         preceded by its Content-Format ID. 
-		Dependent on the contents of the CSR, the private key can be in unprotected PKCS#8 <xref target="RFC5958"/>
+		Dependent on the request, the private key can be in unprotected PKCS#8 <xref target="RFC5958"/>
 		format (Content-Format 284) or protected inside of CMS SignedData
 		(Content-Format 280). The SignedData, placed in the outermost container, is signed by the party that
 		generated the private key, which may be the EST server or 
@@ -893,7 +895,8 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	  between the client and a server. Such cases could include architectures
 	  where an entity between the client and the CA terminates the DTLS connection
 	  (Registrar in <xref target="RAfig"/>).</t>
-<t>Following <xref target="RFC7030"/>: "It is strongly RECOMMENDED that the clients request that the returned private key be afforded the additional security of the Cryptographic Message Syntax (CMS) EnvelopedData in addition to the TLS-provided security to protect against unauthorized disclosure."</t>
+      <!-- Panos: Commented this out. EST mandated two layers of encryption but does not say how the extra encryption can be established. It is counter-intuitive to say we don't trust the DTLS connection and we require more encryption on top of it. Due to how hard it is to establish the keys for the extra encryption and that if the DTLS channel is not secure we have bigger problems, I do not agree this paragraph should be here. -->
+      <!--<t>Following <xref target="RFC7030"/>: "It is strongly RECOMMENDED that the clients request that the returned private key be afforded the additional security of the Cryptographic Message Syntax (CMS) EnvelopedData in addition to the TLS-provided security to protect against unauthorized disclosure."</t> -->
 
     </section> <!-- Server-side Key Generation -->
   </section> <!-- protocol design-->
@@ -999,7 +1002,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	depending on the implementation scenario, retransmissions 
 	and timeouts can also occur on other networking layers, 
 	governed by other configuration parameters. When a change in a 
-	server parameter has been effectuated, the parameter values in the communicating endpoints MUST be adjusted when necessary.</t>
+	server parameter has taken place, the parameter values in the communicating endpoints MUST be adjusted as necessary.</t>
 
     <t>Some further comments about some specific parameters, mainly from
 	Table 2 in <xref target="RFC7252"/>:

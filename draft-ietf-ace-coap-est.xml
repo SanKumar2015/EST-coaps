@@ -797,7 +797,7 @@ POST [2001:db8::2:1]:61616/est/sen(CON)(1:N1/0/256){CSR (frag# N1+1)}-->
   ... Client tries again after Max-Age with identical payload ...
                   |
                   |
-POST [2001:db8::2:1]:61616/est/sen(CON)(1:N1/0/256){CSR (frag# 1)}-->
+POST [2001:db8::2:1]:61616/est/sen(CON)(1:0/1/256){CSR (frag# 1)}-->
   <-- (ACK) (1:0/1/256) (2.31 Continue)
 POST [2001:db8::2:1]:61616/est/sen (CON)(1:1/1/256) {CSR (frag# 2)}  -->
   <-- (ACK) (1:1/1/256) (2.31 Continue)

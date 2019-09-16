@@ -808,7 +808,7 @@ POST [2001:db8::2:1]:61616/est/sen(CON)(1:N1/0/256){CSR (frag# N1+1)}-->
                   |
    ... Immediate response when certificate is ready ...
                   |
-  <-- (ACK) (1:N1/0/256) (2:0/1/128) (2.04 Changed){Cert resp (frag# 1)}
+  <-- (ACK) (1:N1/0/256) (2:0/1/256) (2.04 Changed){Cert resp (frag# 1)}
 POST [2001:db8::2:1]:61616/est/sen (CON)(2:1/0/128)           -->
   <-- (ACK) (2:1/1/128) (2.04 Changed) {Cert resp (frag# 2)}
                   .
@@ -891,11 +891,12 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	  that choose to support server-side key generation MUST support unprotected (PKCS#8) 
   private keys (Content-Format 284). Symmetric or asymmetric encryption of the
 	  private key (CMS EnvelopedData, Content-Format 280) SHOULD be supported
-	  for deployments where end-to-end encryption needs to be provided
+	  for deployments where end-to-end encryption is needed 
 	  between the client and a server. Such cases could include architectures
 	  where an entity between the client and the CA terminates the DTLS connection
-	  (Registrar in <xref target="RAfig"/>).</t>
-      <!-- Panos: Commented this out. EST mandated two layers of encryption but does not say how the extra encryption can be established. It is counter-intuitive to say we don't trust the DTLS connection and we require more encryption on top of it. Due to how hard it is to establish the keys for the extra encryption and that if the DTLS channel is not secure we have bigger problems, I do not agree this paragraph should be here. -->
+	  (Registrar in <xref target="RAfig"/>). This document does not 
+	  strongly recommend CMS encryption on top of the DTLS channel like <xref target="RFC7030"/> unless mandated by the usecase. </t>
+      <!-- Panos: Commented this out. EST mandated two layers of encryption but did not say how the extra encryption can be established. It is counter-intuitive to say we don't trust the DTLS connection and we require more encryption on top of it. Due to how hard it is to establish the keys for the extra encryption and that if the DTLS channel is not secure we have bigger problems, I do not agree this paragraph should be here. -->
       <!--<t>Following <xref target="RFC7030"/>: "It is strongly RECOMMENDED that the clients request that the returned private key be afforded the additional security of the Cryptographic Message Syntax (CMS) EnvelopedData in addition to the TLS-provided security to protect against unauthorized disclosure."</t> -->
 
     </section> <!-- Server-side Key Generation -->

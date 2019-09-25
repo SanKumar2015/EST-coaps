@@ -50,7 +50,7 @@
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
 
-<rfc category="std" ipr="trust200902" docName="draft-ietf-ace-coap-est-14">
+<rfc category="std" ipr="trust200902" docName="draft-ietf-ace-coap-est-15">
   <front>
     <title abbrev="EST-coaps">EST over secure CoAP (EST-coaps)</title>
     <author fullname="Peter van der Stok" initials="P." surname="van der Stok">
@@ -128,6 +128,11 @@
 
   <section anchor="changes" title="Change Log">
    <t>EDNOTE: Remove this section before publication</t>
+   <t> -15
+    <list style="empty">
+	   <t>Updates to addressed Ben's AD follow up feedback.</t>
+    </list>
+   </t>
    <t> -14
     <list style="empty">
 	   <t>Updates to complete Ben's AD review feedback and discussions.</t>
@@ -308,7 +313,7 @@
     <t>This section describes how EST-coaps conforms to the profiles of low-resource
 	devices described in <xref target="RFC7925"/>.
 	EST-coaps can transport certificates and private keys. Certificates
-	are responses to (re-)enrollment requests or requests a trusted certificate
+	are responses to (re-)enrollment requests or requests for a trusted certificate
 	list. Private keys can be transported as responses to a
 	server-side key generation request as described in Section 4.4 of
 	<xref target="RFC7030"/> and discussed in <xref target="serverkey"/>
@@ -345,8 +350,8 @@
 	implementations differ from DTLS 1.2
     because they do not support point format negotiation in favor of a single
     point format for each curve. Thus, support for DTLS 1.3 does not mandate
-	point format extensions and negotiation. In addition, DTLS 1.3 uses the "supported_groups" extension in contrast to Supported
-Elliptic Curves used by DTLS 1.2
+	point format extensions and negotiation. In addition, in DTLS 1.3 the 
+    Supported Elliptic Curves extension has been renamed to Supported Groups.
     </t>
 	
     <t>CoAP was designed to avoid IP fragmentation. DTLS is used to secure CoAP messages. However, fragmentation is still possible at the DTLS layer during the DTLS handshake when using ECC ciphersuites. If fragmentation is necessary, "DTLS provides a mechanism for fragmenting a handshake message over several records, each of which can be transmitted separately, thus avoiding IP fragmentation" <xref target="RFC6347"/>.</t>
@@ -538,8 +543,8 @@ This specification contains a set of required-to-implement functions, optional f
    <c> /simpleenroll </c>       <c> MUST </c>
    <c> /simplereenroll </c>     <c> MUST </c>
    <c> /fullcmc     </c>        <c> Not specified </c>
-   <c> /csrattrs </c>           <c> OPTIONAL </c>
    <c> /serverkeygen </c>       <c> OPTIONAL </c>
+   <c> /csrattrs </c>           <c> OPTIONAL </c>
 </texttable>
 
 
@@ -740,9 +745,7 @@ representations. -->
 	  request that uses N1+1 Block1 blocks. The server uses an empty 0.00 ACK to announce
 	  the delayed response which is provided later with 2.04 messages containing N2+1 Block2 Options. 
 	  The first 2.04 is a confirmable message that is acknowledged by the client. 
-	  Onwards, having received the first 256 bytes in the first Block2 block, the client asks for 
-	  a block reduction to 128 bytes in a confirmable enrollment request and acknowledges 
-	  the Block2 blocks sent up to that point.</t>
+	  Onwards, having received the first 256 bytes in the first Block2 block, the client acknowledges the all Block2 blocks in confirmables enrollment request.</t>
 <t> The notation of <xref target = "fig-est-short-wait"/> is explained in <xref target="cacertsblock"/>.</t>
       <figure title="EST-COAP enrollment with short wait"
       anchor="fig-est-short-wait"><artwork>
@@ -761,13 +764,13 @@ POST [2001:db8::2:1]:61616/est/sen(CON)(1:N1/0/256){CSR (frag# N1+1)}-->
                   |
    <-- (CON) (1:N1/0/256)(2:0/1/256)(2.04 Changed) {Cert resp (frag# 1)}
                                    (ACK)                     -->
-POST [2001:db8::2:1]:61616/est/sen (CON)(2:1/0/128)          -->
-   <-- (ACK) (2:1/1/128) (2.04 Changed) {Cert resp (frag# 2)}
+POST [2001:db8::2:1]:61616/est/sen (CON)(2:1/0/256)          -->
+   <-- (ACK) (2:1/1/256) (2.04 Changed) {Cert resp (frag# 2)}
                   .
                   .
                   .
-POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
-   <-- (ACK) (2:N2/0/128) (2.04 Changed) {Cert resp (frag# N2+1)}
+POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/256)          -->
+   <-- (ACK) (2:N2/0/256) (2.04 Changed) {Cert resp (frag# N2+1)}
 ]]></artwork></figure>
 
       <t>If the server is very slow (i.e., minutes) in providing the response (i.e., when a manual intervention is needed), 
@@ -782,8 +785,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
       N2+1 Block2 blocks to respond, but also needs to take a long delay (minutes) to provide
       the response. Consequently, the server uses a 5.03 ACK response with a Max-Age Option. The client
 	  waits for a period of Max-Age as many times as she receives the same 5.03 response and retransmits
-      the enrollment request until she receives a certificate in a fragmented 2.04 <!-- 2.01 Making 2.04 based on comment from Esko https://github.com/SanKumar2015/EST-coaps/issues/145#issuecomment-497029846 --> response. Note that the client 
-	  asks again for a decrease in the block size when acknowledging the first Block2. </t>
+      the enrollment request until she receives a certificate in a fragmented 2.04 <!-- 2.01 Making 2.04 based on comment from Esko https://github.com/SanKumar2015/EST-coaps/issues/145#issuecomment-497029846 --> response. </t>
 
 <figure title="EST-COAP enrollment with long wait"
 	anchor="fig-est-long-wait"><artwork>
@@ -814,13 +816,13 @@ POST [2001:db8::2:1]:61616/est/sen(CON)(1:N1/0/256){CSR (frag# N1+1)}-->
    ... Immediate response when certificate is ready ...
                   |
   <-- (ACK) (1:N1/0/256) (2:0/1/256) (2.04 Changed){Cert resp (frag# 1)}
-POST [2001:db8::2:1]:61616/est/sen (CON)(2:1/0/128)           -->
-  <-- (ACK) (2:1/1/128) (2.04 Changed) {Cert resp (frag# 2)}
+POST [2001:db8::2:1]:61616/est/sen (CON)(2:1/0/256)           -->
+  <-- (ACK) (2:1/1/256) (2.04 Changed) {Cert resp (frag# 2)}
                   .
                   .
                   .
-POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
-  <-- (ACK) (2:N2/0/128) (2.04 Changed) {Cert resp (frag# N2+1)}
+POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/256)          -->
+  <-- (ACK) (2:N2/0/256) (2.04 Changed) {Cert resp (frag# N2+1)}
 ]]></artwork></figure>
 
       <!-- <t>Comparing <xref target="fig-est-multiple-block"/> with <xref target="fig-est-long-wait"/> we
@@ -869,8 +871,8 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 		application/multipart-core <xref target="I-D.ietf-core-multipart-ct"/>
 		containing a CBOR array with four items <!--(<xref target="cborpair"/>) --> 
 		(<xref target="format"/>) <!-- with the order specified in <xref target="RFC7030"/> -->.
-		The two representations (each consisting of two CBOR array items) are
-        preceded by its Content-Format ID. 
+        The two representations (each consisting of two CBOR array items) do  not have to be in a particular order since each representation is 
+		preceded by its Content-Format ID. 
 		Dependent on the request, the private key can be in unprotected PKCS#8 <xref target="RFC5958"/>
 		format (Content-Format 284) or protected inside of CMS SignedData
 		(Content-Format 280). The SignedData, placed in the outermost container, is signed by the party that
@@ -899,8 +901,8 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/128)          -->
 	  for deployments where end-to-end encryption is needed 
 	  between the client and a server. Such cases could include architectures
 	  where an entity between the client and the CA terminates the DTLS connection
-	  (Registrar in <xref target="RAfig"/>). This document does not 
-	  strongly recommend CMS encryption on top of the DTLS channel like <xref target="RFC7030"/> unless mandated by the use-case. </t>
+	  (Registrar in <xref target="RAfig"/>). 
+	  Although <xref target="RFC7030"/> strongly recommends that clients  request the use of CMS encryption on top of the TLS channel's  protection, this document does not make such a recommendation; CMS  encryption can still be used when mandated by the use-case. </t>
       <!-- Panos: Commented this out. EST mandated two layers of encryption but did not say how the extra encryption can be established. It is counter-intuitive to say we don't trust the DTLS connection and we require more encryption on top of it. Due to how hard it is to establish the keys for the extra encryption and that if the DTLS channel is not secure we have bigger problems, I do not agree this paragraph should be here. -->
       <!--<t>Following <xref target="RFC7030"/>: "It is strongly RECOMMENDED that the clients request that the returned private key be afforded the additional security of the Cryptographic Message Syntax (CMS) EnvelopedData in addition to the TLS-provided security to protect against unauthorized disclosure."</t> -->
 

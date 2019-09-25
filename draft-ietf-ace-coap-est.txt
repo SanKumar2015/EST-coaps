@@ -927,12 +927,12 @@ Internet-Draft                  EST-coaps                 September 2019
    request that uses N1+1 Block1 blocks.  The server uses an empty 0.00
    ACK to announce the delayed response which is provided later with
    2.04 messages containing N2+1 Block2 Options.  The first 2.04 is a
-   confirmable message that is acknowledged by the client.  Onwards,
-   having received the first 256 bytes in the first Block2 block, the
-   client acknowledges the all Block2 blocks in confirmables enrollment
-   request.
+   confirmable message that is acknowledged by the client.  Onwards, the
+   client acknowledges all subsequent Block2 blocks.
 
    The notation of Figure 2 is explained in Appendix B.1.
+
+
 
 
 

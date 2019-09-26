@@ -5,12 +5,12 @@
 ACE                                                      P. van der Stok
 Internet-Draft                                                Consultant
 Intended status: Standards Track                           P. Kampanakis
-Expires: March 28, 2020                                    Cisco Systems
+Expires: March 29, 2020                                    Cisco Systems
                                                            M. Richardson
                                                                      SSW
                                                                  S. Raza
                                                                RISE SICS
-                                                      September 25, 2019
+                                                      September 26, 2019
 
 
                     EST over secure CoAP (EST-coaps)
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on March 28, 2020.
+   This Internet-Draft will expire on March 29, 2020.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-van der Stok, et al.     Expires March 28, 2020                 [Page 1]
+van der Stok, et al.     Expires March 29, 2020                 [Page 1]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -96,7 +96,7 @@ Table of Contents
      13.2.  Informative References . . . . . . . . . . . . . . . . .  30
    Appendix A.  EST messages to EST-coaps  . . . . . . . . . . . . .  32
      A.1.  cacerts . . . . . . . . . . . . . . . . . . . . . . . . .  33
-     A.2.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  34
+     A.2.  enroll / reenroll . . . . . . . . . . . . . . . . . . . .  35
      A.3.  serverkeygen  . . . . . . . . . . . . . . . . . . . . . .  36
      A.4.  csrattrs  . . . . . . . . . . . . . . . . . . . . . . . .  38
    Appendix B.  EST-coaps Block message examples . . . . . . . . . .  39
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-van der Stok, et al.     Expires March 28, 2020                 [Page 2]
+van der Stok, et al.     Expires March 29, 2020                 [Page 2]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -165,7 +165,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-van der Stok, et al.     Expires March 28, 2020                 [Page 3]
+van der Stok, et al.     Expires March 29, 2020                 [Page 3]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -221,7 +221,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-van der Stok, et al.     Expires March 28, 2020                 [Page 4]
+van der Stok, et al.     Expires March 29, 2020                 [Page 4]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -277,7 +277,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-van der Stok, et al.     Expires March 28, 2020                 [Page 5]
+van der Stok, et al.     Expires March 29, 2020                 [Page 5]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -333,7 +333,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-van der Stok, et al.     Expires March 28, 2020                 [Page 6]
+van der Stok, et al.     Expires March 29, 2020                 [Page 6]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -389,7 +389,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-van der Stok, et al.     Expires March 28, 2020                 [Page 7]
+van der Stok, et al.     Expires March 29, 2020                 [Page 7]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -445,7 +445,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-van der Stok, et al.     Expires March 28, 2020                 [Page 8]
+van der Stok, et al.     Expires March 29, 2020                 [Page 8]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -501,7 +501,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-van der Stok, et al.     Expires March 28, 2020                 [Page 9]
+van der Stok, et al.     Expires March 29, 2020                 [Page 9]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -557,7 +557,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 10]
+van der Stok, et al.     Expires March 29, 2020                [Page 10]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -613,7 +613,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 11]
+van der Stok, et al.     Expires March 29, 2020                [Page 11]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -669,7 +669,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 12]
+van der Stok, et al.     Expires March 29, 2020                [Page 12]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -725,7 +725,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 13]
+van der Stok, et al.     Expires March 29, 2020                [Page 13]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -781,7 +781,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 14]
+van der Stok, et al.     Expires March 29, 2020                [Page 14]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -837,7 +837,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 15]
+van der Stok, et al.     Expires March 29, 2020                [Page 15]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -893,7 +893,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 16]
+van der Stok, et al.     Expires March 29, 2020                [Page 16]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -949,7 +949,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 17]
+van der Stok, et al.     Expires March 29, 2020                [Page 17]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -1005,7 +1005,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/256)          -->
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 18]
+van der Stok, et al.     Expires March 29, 2020                [Page 18]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -1061,7 +1061,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/256)          -->
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 19]
+van der Stok, et al.     Expires March 29, 2020                [Page 19]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -1117,7 +1117,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 20]
+van der Stok, et al.     Expires March 29, 2020                [Page 20]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -1173,7 +1173,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 21]
+van der Stok, et al.     Expires March 29, 2020                [Page 21]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -1229,7 +1229,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 22]
+van der Stok, et al.     Expires March 29, 2020                [Page 22]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -1285,7 +1285,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 23]
+van der Stok, et al.     Expires March 29, 2020                [Page 23]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -1341,7 +1341,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 24]
+van der Stok, et al.     Expires March 29, 2020                [Page 24]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -1397,7 +1397,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 25]
+van der Stok, et al.     Expires March 29, 2020                [Page 25]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -1436,30 +1436,31 @@ Internet-Draft                  EST-coaps                 September 2019
    [RFC5929].  The 3SHAKE attack [tripleshake] poses a risk by allowing
    a man-in-the-middle to leverage session resumption and renegotiation
    to inject himself between a client and server even when channel
-   binding is in use.  In the context of this specification, an attacker
-   could invalidate the purpose of the PoP linking ChallengePassword in
-   the client request by resuming an EST-coaps connection.  Even though
-   the practical risk of such an attack to EST-coaps is not devastating,
-   we would rather use a more secure channel binding mechanism.  Such a
-   mechanism could include an updated tls-unique value generation like
-   the tls-unique-prf defined in [I-D.josefsson-sasl-tls-cb] by using a
-   TLS exporter [RFC5705] in TLS 1.2 or TLS 1.3's updated exporter
-   (Section 7.5 of [RFC8446]) value in place of the tls-unique value in
-   the CSR.  Such mechanism has not been standardized yet.  Adopting a
-   channel binding value generated from an exporter would break
-   backwards compatibility for an RA that proxies through to a classic
-   EST server.  Thus, in this specification we still depend on the tls-
+   binding is in use.  Implementers should use the Extended Master
+   Secret Extension in DTLS [RFC7627] to prevent such attacks.  In the
+   context of this specification, an attacker could invalidate the
+   purpose of the PoP linking ChallengePassword in the client request by
+   resuming an EST-coaps connection.  Even though the practical risk of
+   such an attack to EST-coaps is not devastating, we would rather use a
+   more secure channel binding mechanism.  Such a mechanism could
+   include an updated tls-unique value generation like the tls-unique-
+   prf defined in [I-D.josefsson-sasl-tls-cb] by using a TLS exporter
+   [RFC5705] in TLS 1.2 or TLS 1.3's updated exporter (Section 7.5 of
+   [RFC8446]) value in place of the tls-unique value in the CSR.  Such
+   mechanism has not been standardized yet.  Adopting a channel binding
+   value generated from an exporter would break backwards compatibility
+   for an RA that proxies through to a classic EST server.  Thus, in
 
 
 
-
-van der Stok, et al.     Expires March 28, 2020                [Page 26]
+van der Stok, et al.     Expires March 29, 2020                [Page 26]
 
 Internet-Draft                  EST-coaps                 September 2019
 
 
-   unique mechanism defined in [RFC5929], especially since a 3SHAKE
-   attack does not expose messages exchanged with EST-coaps.
+   this specification we still depend on the tls-unique mechanism
+   defined in [RFC5929], especially since a 3SHAKE attack does not
+   expose messages exchanged with EST-coaps.
 
    Regarding the Certificate Signing Request (CSR), an EST-coaps server
    is expected to be able to recover from improper CSR requests.
@@ -1508,8 +1509,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-
-van der Stok, et al.     Expires March 28, 2020                [Page 27]
+van der Stok, et al.     Expires March 29, 2020                [Page 27]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -1565,7 +1565,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 28]
+van der Stok, et al.     Expires March 29, 2020                [Page 28]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -1621,7 +1621,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 29]
+van der Stok, et al.     Expires March 29, 2020                [Page 29]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -1677,7 +1677,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 30]
+van der Stok, et al.     Expires March 29, 2020                [Page 30]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -1733,7 +1733,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 31]
+van der Stok, et al.     Expires March 29, 2020                [Page 31]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -1747,6 +1747,12 @@ Internet-Draft                  EST-coaps                 September 2019
               Security (TLS) and Datagram Transport Layer Security
               (DTLS)", BCP 195, RFC 7525, DOI 10.17487/RFC7525, May
               2015, <https://www.rfc-editor.org/info/rfc7525>.
+
+   [RFC7627]  Bhargavan, K., Ed., Delignat-Lavaud, A., Pironti, A.,
+              Langley, A., and M. Ray, "Transport Layer Security (TLS)
+              Session Hash and Extended Master Secret Extension",
+              RFC 7627, DOI 10.17487/RFC7627, September 2015,
+              <https://www.rfc-editor.org/info/rfc7627>.
 
    [RSAfact]  "Factoring RSA keys from certified smart cards:
               Coppersmith in the wild", Advances in Cryptology
@@ -1781,18 +1787,17 @@ Appendix A.  EST messages to EST-coaps
    resources with a GET request for /.well-known/core?rt=ace.est* as
    explained in Section 5.1.
 
+
+
+van der Stok, et al.     Expires March 29, 2020                [Page 32]
+
+Internet-Draft                  EST-coaps                 September 2019
+
+
    The corresponding CoAP headers are only shown in Appendix A.1.
    Creating CoAP headers is assumed to be generally understood.
 
    The message content breakdown is presented in Appendix C.
-
-
-
-
-van der Stok, et al.     Expires March 28, 2020                [Page 32]
-
-Internet-Draft                  EST-coaps                 September 2019
-
 
 A.1.  cacerts
 
@@ -1837,18 +1842,18 @@ A.1.  cacerts
    used when an endpoint hosts multiple virtual servers and uses the
    Options to route the requests accordingly.
 
+
+
+
+van der Stok, et al.     Expires March 29, 2020                [Page 33]
+
+Internet-Draft                  EST-coaps                 September 2019
+
+
    A 2.05 Content response with a cert in EST-coaps will then be
 
    2.05 Content (Content-Format: 281)
       {payload with certificate in binary format}
-
-
-
-
-van der Stok, et al.     Expires March 28, 2020                [Page 33]
-
-Internet-Draft                  EST-coaps                 September 2019
-
 
    with CoAP fields
 
@@ -1893,19 +1898,19 @@ Internet-Draft                  EST-coaps                 September 2019
 
    The breakdown of the payload is shown in Appendix C.1.
 
+
+
+
+van der Stok, et al.     Expires March 29, 2020                [Page 34]
+
+Internet-Draft                  EST-coaps                 September 2019
+
+
 A.2.  enroll / reenroll
 
    During the (re-)enroll exchange the EST-coaps client uses a CSR
    (Content-Format 286) request in the POST request payload.  The Accept
    option tells the server that the client is expecting Content-Format
-
-
-
-van der Stok, et al.     Expires March 28, 2020                [Page 34]
-
-Internet-Draft                  EST-coaps                 September 2019
-
-
    281 (PKCS#7) in the response.  As shown in Appendix C.2, the CSR
    contains a ChallengePassword which is used for PoP linking
    (Section 4).
@@ -1952,12 +1957,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-
-
-
-
-
-van der Stok, et al.     Expires March 28, 2020                [Page 35]
+van der Stok, et al.     Expires March 29, 2020                [Page 35]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -2013,7 +2013,7 @@ A.3.  serverkeygen
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 36]
+van der Stok, et al.     Expires March 29, 2020                [Page 36]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -2069,7 +2069,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 37]
+van der Stok, et al.     Expires March 29, 2020                [Page 37]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -2125,7 +2125,7 @@ A.4.  csrattrs
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 38]
+van der Stok, et al.     Expires March 29, 2020                [Page 38]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -2181,7 +2181,7 @@ B.1.  cacerts
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 39]
+van der Stok, et al.     Expires March 29, 2020                [Page 39]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -2237,7 +2237,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 40]
+van der Stok, et al.     Expires March 29, 2020                [Page 40]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -2293,7 +2293,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 41]
+van der Stok, et al.     Expires March 29, 2020                [Page 41]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -2349,7 +2349,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 42]
+van der Stok, et al.     Expires March 29, 2020                [Page 42]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -2405,7 +2405,7 @@ B.2.  enroll / reenroll
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 43]
+van der Stok, et al.     Expires March 29, 2020                [Page 43]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -2461,7 +2461,7 @@ C.1.  cacerts
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 44]
+van der Stok, et al.     Expires March 29, 2020                [Page 44]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -2517,7 +2517,7 @@ C.2.  enroll / reenroll
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 45]
+van der Stok, et al.     Expires March 29, 2020                [Page 45]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -2573,7 +2573,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 46]
+van der Stok, et al.     Expires March 29, 2020                [Page 46]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -2629,7 +2629,7 @@ C.3.  serverkeygen
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 47]
+van der Stok, et al.     Expires March 29, 2020                [Page 47]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -2685,7 +2685,7 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 48]
+van der Stok, et al.     Expires March 29, 2020                [Page 48]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -2741,7 +2741,7 @@ Authors' Addresses
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 49]
+van der Stok, et al.     Expires March 29, 2020                [Page 49]
 
 Internet-Draft                  EST-coaps                 September 2019
 
@@ -2797,4 +2797,4 @@ Internet-Draft                  EST-coaps                 September 2019
 
 
 
-van der Stok, et al.     Expires March 28, 2020                [Page 50]
+van der Stok, et al.     Expires March 29, 2020                [Page 50]

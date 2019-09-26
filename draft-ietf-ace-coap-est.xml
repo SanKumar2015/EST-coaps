@@ -29,6 +29,7 @@
 <!ENTITY RFC7525 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7525.xml">
 <!ENTITY RFC7228 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7228.xml">
 <!ENTITY RFC7299 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7299.xml">
+<!ENTITY RFC7627 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7627.xml">
 <!ENTITY RFC8075 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8075.xml">
 <!ENTITY RFC8174 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml">
 <!ENTITY RFC8446 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8446.xml">
@@ -1147,7 +1148,9 @@ security considerations of <xref target="RFC7030"/> continue to apply.</t>
 	  leverage session resumption and renegotiation to
 	  inject himself between a client and server even when channel binding is
 	  in use. <!--The attack was possible because of certain (D)TLS implementation
-	  imperfections. --> In the context of this specification, an attacker could
+	  imperfections. --> Implementers should use the Extended Master Secret 
+	  Extension in DTLS <xref target="RFC7627"/> to prevent such attacks. 
+	  In the context of this specification, an attacker could
 	  invalidate the purpose of the PoP linking ChallengePassword in the client
 	  request by resuming an EST-coaps connection. Even though the practical
 	  risk of such an attack to EST-coaps is not devastating,
@@ -1262,6 +1265,7 @@ security considerations of <xref target="RFC7030"/> continue to apply.</t>
     &RFC7228;
     &RFC7251;
     &RFC7299;
+	&RFC7627;
     &RFC4919;
     &RFC5929;
     &RFC7525;

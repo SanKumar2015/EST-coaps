@@ -26,7 +26,7 @@
 <!ENTITY RFC7959 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7959.xml">
 <!ENTITY RFC4919 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4919.xml">
 <!ENTITY RFC5929 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5929.xml">
-<!ENTITY RFC7525 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7525.xml">
+<!-- <!ENTITY RFC7525 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7525.xml"> -->
 <!ENTITY RFC7228 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7228.xml">
 <!ENTITY RFC7299 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7299.xml">
 <!ENTITY RFC7627 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7627.xml">
@@ -1135,7 +1135,7 @@ security considerations of <xref target="RFC7030"/> continue to apply.</t>
 	  is important for the server to ensure that the client is to be trusted. </t>
 	  <t>In accordance with <xref target="RFC7030"/>, TLS cipher suites that include
 	  "_EXPORT_" and "_DES_" in their names MUST NOT be used. More information about
-	  recommendations of TLS and DTLS are included in <xref target="RFC7525"/>.</t>
+	  recommendations of TLS and DTLS are included in <xref target="BCP195"/>.<!--<xref target="RFC7525"/>--></t>
       <t>As described in CMC, Section 6.7 of <xref target="RFC5272"/>, "For keys that can
 	  be used as signature keys, signing the certification request with the private key
 	  serves as a PoP on that key pair". The inclusion of tls-unique in the certificate
@@ -1268,12 +1268,19 @@ security considerations of <xref target="RFC7030"/> continue to apply.</t>
 	&RFC7627;
     &RFC4919;
     &RFC5929;
-    &RFC7525;
+    <!-- &RFC7525; -->
     <!-- &I-D.ietf-anima-bootstrapping-keyinfra; -->
 	&I-D.ietf-tls-dtls-connection-id;
 	<!-- &I-D.draft-ietf-core-resource-directory-19; -->
     &I-D.moskowitz-ecdsa-pki;
 	&I-D.josefsson-sasl-tls-cb;
+    <reference anchor="BCP195" target="https://www.rfc-editor.org/info/bcp195"><front>
+      <title>Recommendations for Secure Use of Transport Layer Security (TLS) and Datagram Transport Layer Security (DTLS)</title>
+      <author initials="Y." surname="Sheffer" fullname="Yaron Sheffer"/>
+      <author initials="R." surname="Holz" fullname="Ralph Holz"/>
+      <author initials="P." surname="Saint-Andre" fullname="Saint-Andre"/>
+      <date year="2015" month="May"/>
+    </front><seriesInfo name="BCP" value="195"/><seriesInfo name="RFC" value="7525"/></reference>
     <reference anchor="ieee802.15.4">
       <front>
         <title>IEEE Standard 802.15.4-2006</title>

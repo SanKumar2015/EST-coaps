@@ -30,9 +30,10 @@
 <!ENTITY RFC7228 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7228.xml">
 <!ENTITY RFC7299 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7299.xml">
 <!ENTITY RFC7627 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7627.xml">
+<!ENTITY RFC7748 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7748.xml">
 <!ENTITY RFC8075 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8075.xml">
 <!ENTITY RFC8174 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml">
-<!ENTITY RFC8446 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8446.xml">
+<!ENTITY RFC8446 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8446.xml"> 
 <!ENTITY I-D.ietf-anima-bootstrapping-keyinfra SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-anima-bootstrapping-keyinfra.xml">
 <!ENTITY I-D.ietf-tls-dtls13 SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-tls-dtls13.xml">
 <!ENTITY I-D.ietf-tls-dtls-connection-id SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-tls-dtls-connection-id.xml">
@@ -344,9 +345,9 @@
     TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 <xref target="RFC7251"/>.
     Curve secp256r1 MUST
     be supported <xref target="RFC8422"/>; this curve is equivalent to the
-    NIST P-256 curve. Additionally, crypto agility is important, and the
-    recommendations in Section 4.4 of <xref target="RFC7925" /> and any
-    updates to it concerning Curve25519 and other curves also apply. 
+    NIST P-256 curve. After the standardization of <xref target="RFC7748" />, 
+	support for Curve25519 will likely be required in the future by 
+	(D)TLS Profiles for the Internet of Things <xref target="RFC7925" />.
     </t>
 
 	<t><!-- Removed DTLS normative language for DTLS. Keeping lowercase wording just to serve as non-normative reminders -->
@@ -390,8 +391,8 @@
 	information can link proof-of-identity with an established connetion. 
 	Connection-based proof-of-possession is OPTIONAL for EST-coaps clients and servers. When proof-of-possession is desired, a set of actions are required regarding the use of tls-unique, described in Section 3.5 in <xref target="RFC7030"/>. The tls-unique information consists of the contents of the first "Finished" message in the (D)TLS handshake between server and client <xref target="RFC5929"/>. The client adds the "Finished" message as a ChallengePassword in the attributes section of the PKCS#10 Request <xref target="RFC5967"/> to prove that the client is indeed in control of the private key at the time of the (D)TLS session establishment. </t>
 
-	<t>In the case of EST-coaps, the same operations can be performed during the DTLS handshake.
-	For DTLS 1.2, in the event of handshake message fragmentation, the Hash of the handshake messages used in the MAC calculation of the Finished message must be computed as if each handshake message had been sent as a single fragment (Section 4.2.6 of <xref target="RFC6347"/>). The Finished message is calculated as shown in Section 7.4.9 of <xref target="RFC5246"/>.
+	<t>In the case of handshake message fragmentation, if proof-of-possession is desired, the Finished 
+    message added as the ChallengePassword in the CSR is calculated as specified by the DTLS standards. We summarize it here for convenience. For DTLS 1.2, in the event of handshake message fragmentation, the Hash of the handshake messages used in the MAC calculation of the Finished message must be computed as if each handshake message had been sent as a single fragment (Section 4.2.6 of <xref target="RFC6347"/>). The Finished message is calculated as shown in Section 7.4.9 of <xref target="RFC5246"/>.
 <!--<figure align="left"><artwork><![CDATA[
 PRF(master_secret, finished_label, Hash(handshake_messages))
    [0..verify_data_length-1];
@@ -399,7 +400,7 @@ PRF(master_secret, finished_label, Hash(handshake_messages))
    Similarly, for DTLS 1.3, the Finished message must be computed as if each
    handshake message had been sent as a single fragment (Section 5.8 of
    <xref target="I-D.ietf-tls-dtls13"/>) following the algorithm described
-   in 4.4.4 of <xref target="RFC8446"/>.
+   in 4.4.4 of <xref target="RFC8446"/>. 
 <!-- <figure align="left"><artwork><![CDATA[
 HMAC(finished_key,
     Transcript-Hash(Handshake Context,
@@ -482,7 +483,7 @@ coaps://example.com:<port>/<root-resource>/
       <t>The /skg message is the EST /serverkeygen equivalent where the client 
 	  requests a certificate in PKCS#7 format and a private key. If the 
 	  client prefers a single application/pkix-cert certificate instead of PKCS#7, 
-	  she will make an /skc request. In both cases (i.e., /skg, /skc) a private key MUST be returned</t>
+	  it will make an /skc request. In both cases (i.e., /skg, /skc) a private key MUST be returned</t>
 
       <t>Clients and servers MUST support the short resource EST-coaps URIs. 
 	  <!-- Panos: Commented this out after a review from Carsten that pointed out that we can't make our minds what to use and we let the implementers use what they want. So we decided to be more specific and pick short URIs only. -->
@@ -525,9 +526,9 @@ coaps://example.com:<port>/<root-resource>/
 
 	  <t>The server MUST support the default /.well-known/est  
 	  root resource<!--on port 5684-->. The server SHOULD support 
-	  resource discovery when he supports non-default URIs 
+	  resource discovery when it supports non-default URIs 
 	  (like /est or /est/ArbitraryLabel) or ports. The client 
-	  SHOULD use resource discovery when she is unaware 
+	  SHOULD use resource discovery when it is unaware 
 	  of the available EST-coaps resources.<!-- or considers 
 	  sending two Uri-Path Options to convey the resource 
 	  wasteful.--></t>
@@ -781,7 +782,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/256)          -->
 ]]></artwork></figure>
 
       <t>If the server is very slow (i.e., minutes) in providing the response (i.e., when a manual intervention is needed), 
-      he SHOULD respond with an ACK containing response code 5.03 (Service unavailable) and a Max-Age
+      it SHOULD respond with an ACK containing response code 5.03 (Service unavailable) and a Max-Age
       Option to indicate the time the client SHOULD wait to request the content later. After a delay of Max-Age,
       the client SHOULD resend the identical CSR to the server. As long as the server responds with response code 5.03
       (Service Unavailable) with a Max-Age Option, the client SHOULD keep resending the enrollment request until the server
@@ -791,8 +792,8 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/256)          -->
 	  request that uses N1+1 Block1 blocks to send the CSR to the server. The server needs
       N2+1 Block2 blocks to respond, but also needs to take a long delay (minutes) to provide
       the response. Consequently, the server uses a 5.03 ACK response with a Max-Age Option. The client
-	  waits for a period of Max-Age as many times as she receives the same 5.03 response and retransmits
-      the enrollment request until she receives a certificate in a fragmented 2.04 <!-- 2.01 Making 2.04 based on comment from Esko https://github.com/SanKumar2015/EST-coaps/issues/145#issuecomment-497029846 --> response. </t>
+	  waits for a period of Max-Age as many times as it receives the same 5.03 response and retransmits
+      the enrollment request until it receives a certificate in a fragmented 2.04 <!-- 2.01 Making 2.04 based on comment from Esko https://github.com/SanKumar2015/EST-coaps/issues/145#issuecomment-497029846 --> response. </t>
 
 <figure title="EST-COAP enrollment with long wait"
 	anchor="fig-est-long-wait"><artwork>
@@ -979,7 +980,8 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/256)          -->
 	place at the Registrar. If
 	CMS end-to-end encryption is employed for the private key, the encrypted
 	CMS EnvelopedData blob MUST be converted at the Registrar to binary CBOR 
-	type 2 downstream to the client. </t>
+	type 2 downstream to the client. This is a format conversion that does 
+    not require decryption of the CMS EnvelopedData.</t>
 	
 	<t>A deviation from the mappings in <xref target="est-uri"/> could take place if 
 	clients that leverage server-side key generation preferred for the enrolled 
@@ -1175,10 +1177,6 @@ security considerations of <xref target="RFC7030"/> continue to apply.</t>
 	  Thus, in this specification we still depend on the tls-unique mechanism
 	  defined in <xref target="RFC5929"/>, especially since a 3SHAKE attack 
       does not expose messages exchanged with EST-coaps.</t>
-      <t>Regarding the Certificate Signing Request (CSR), <!--an adversary could exclude
-	  attributes that a server may want, include attributes that a server may not want,
-	  and render meaningless other attributes that a server may want. T-->an EST-coaps 
-      server is expected to be able to recover from improperly formatted CSR requests. </t>
       <t>Interpreters of ASN.1 structures should be aware of the use of invalid ASN.1
 	  length fields and should take appropriate measures to guard against buffer overflows,
 	  stack overruns in particular, and malicious content in general.</t>
@@ -1197,7 +1195,7 @@ security considerations of <xref target="RFC7030"/> continue to apply.</t>
 		the Registrar using its implicit or explicit TA database. It also assumes
 		the Registrar has a trust relationship with the upstream EST server in order
 		to act on behalf of the clients. When a client uses the Implicit TA
-		database for certificate validation, she SHOULD confirm if the server
+		database for certificate validation, it SHOULD confirm if the server
 		is acting as an RA by the presence of the id-kp-cmcRA EKU 
 		<xref target="RFC6402"/> in the server certificate. <!-- If the server certificate does not include
 		the EKU, it is RECOMMENDED that the client includes Identity and
@@ -1278,6 +1276,7 @@ security considerations of <xref target="RFC7030"/> continue to apply.</t>
 	&RFC7627;
     &RFC4919;
     &RFC5929;
+    &RFC7748;
     <!-- &RFC7525; -->
     <!-- &I-D.ietf-anima-bootstrapping-keyinfra; -->
 	&I-D.ietf-tls-dtls-connection-id;

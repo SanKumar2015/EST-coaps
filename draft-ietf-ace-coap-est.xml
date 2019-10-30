@@ -52,7 +52,7 @@
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
 
-<rfc category="std" ipr="trust200902" docName="draft-ietf-ace-coap-est-16">
+<rfc category="std" ipr="trust200902" docName="draft-ietf-ace-coap-est-17">
   <front>
     <title abbrev="EST-coaps">EST over secure CoAP (EST-coaps)</title>
     <author fullname="Peter van der Stok" initials="P." surname="van der Stok">
@@ -130,6 +130,11 @@
 
   <section anchor="changes" title="Change Log">
    <t>EDNOTE: Remove this section before publication</t>
+   <t> -17
+    <list style="empty">
+	   <t>Typos.</t>
+    </list>
+   </t>
    <t> -16
     <list style="empty">
 	   <t>Updates to address Yaron S.'s Secdir review.</t>
@@ -388,7 +393,7 @@
     <t>As described in Section 2.1 of <xref target="RFC5272"/> proof-of-identity refers to 
 	a value that can be used to prove that the private key corresponding to the certified public key 
 	is in the possession of and can be used by an end-entity or client. Additionally, channel-binding 
-	information can link proof-of-identity with an established connetion. 
+	information can link proof-of-identity with an established connection. 
 	Connection-based proof-of-possession is OPTIONAL for EST-coaps clients and servers. When proof-of-possession is desired, a set of actions are required regarding the use of tls-unique, described in Section 3.5 in <xref target="RFC7030"/>. The tls-unique information consists of the contents of the first "Finished" message in the (D)TLS handshake between server and client <xref target="RFC5929"/>. The client adds the "Finished" message as a ChallengePassword in the attributes section of the PKCS#10 Request <xref target="RFC5967"/> to prove that the client is indeed in control of the private key at the time of the (D)TLS session establishment. </t>
 
 	<t>In the case of handshake message fragmentation, if proof-of-possession is desired, the Finished 
@@ -483,7 +488,7 @@ coaps://example.com:<port>/<root-resource>/
       <t>The /skg message is the EST /serverkeygen equivalent where the client 
 	  requests a certificate in PKCS#7 format and a private key. If the 
 	  client prefers a single application/pkix-cert certificate instead of PKCS#7, 
-	  it will make an /skc request. In both cases (i.e., /skg, /skc) a private key MUST be returned</t>
+	  it will make an /skc request. In both cases (i.e., /skg, /skc) a private key MUST be returned.</t>
 
       <t>Clients and servers MUST support the short resource EST-coaps URIs. 
 	  <!-- Panos: Commented this out after a review from Carsten that pointed out that we can't make our minds what to use and we let the implementers use what they want. So we decided to be more specific and pick short URIs only. -->

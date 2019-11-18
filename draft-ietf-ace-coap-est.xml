@@ -329,8 +329,8 @@
 	are responses to (re-)enrollment requests or requests for a trusted certificate
 	list. Private keys can be transported as responses to a
 	server-side key generation request as described in Section 4.4 of
-	<xref target="RFC7030"/> and discussed in <xref target="serverkey"/>
-	of this document. </t>
+	<xref target="RFC7030"/> (and subsections) and discussed in 
+	<xref target="serverkey"/> of this document. </t>
 	
 	<t>EST-coaps depends on a secure transport mechanism that secures the exchanged CoAP messages. DTLS is one such secure protocol. No other changes are necessary regarding the secure transport of EST messages. <!-- DTLS handshakes use a retramsit times to handle packet loss in lossy environments. as explained in https://tools.ietf.org/html/rfc6347#section-3.2.1 --> </t>
 	
@@ -350,7 +350,7 @@
     TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 <xref target="RFC7251"/>.
     Curve secp256r1 MUST
     be supported <xref target="RFC8422"/>; this curve is equivalent to the
-    NIST P-256 curve. After the standardization of <xref target="RFC7748" />, 
+    NIST P-256 curve. After the publication of <xref target="RFC7748" />, 
 	support for Curve25519 will likely be required in the future by 
 	(D)TLS Profiles for the Internet of Things <xref target="RFC7925" />.
     </t>
@@ -414,7 +414,8 @@ HMAC(finished_key,
     * Only included if present.
 ]]></artwork></figure> --> </t>
 
-   <t>In a constrained CoAP environment, endpoints can't always afford to establish a DTLS connection for every EST transaction. Authenticating and negotiating DTLS keys requires resources on low-end endpoints and consumes valuable bandwidth. To alleviate this situation, an EST-coaps DTLS connection MAY remain open for sequential EST transactions. For example, an EST csrattrs request that is followed by a simpleenroll request can use the same authenticated DTLS connection. However, when a cacerts request is included in the set of sequential EST transactions, some additional security considerations apply regarding the use of the Implicit and Explicit TA database as explained in <xref target="sec-est"/>.</t>
+   <t>In a constrained CoAP environment, endpoints can't always afford to establish a DTLS connection for every EST transaction. Authenticating and negotiating DTLS keys requires resources on low-end endpoints and consumes valuable bandwidth. To alleviate this situation, an EST-coaps DTLS connection MAY remain open for sequential EST transactions which was not the case in <xref target="RFC7030"/>. 
+   For example, an EST csrattrs request that is followed by a simpleenroll request can use the same authenticated DTLS connection. However, when a cacerts request is included in the set of sequential EST transactions, some additional security considerations apply regarding the use of the Implicit and Explicit TA database as explained in <xref target="sec-est"/>.</t>
    
    <t>Given that after a successful enrollment, it is more likely that a new EST transaction will take place after a significant amount of time, the DTLS connections SHOULD only be kept alive for EST messages that are relatively close to each other. In some cases, like NAT rebinding, keeping the state of a connection is not possible when devices sleep for extended periods of time. In such occasions, <xref target="I-D.ietf-tls-dtls-connection-id"/> negotiates a connection ID that can eliminate the need for new handshake and its additional cost; or DTLS session resumption provides a less costly alternative than re-doing a full DTLS handshake. </t>
   </section>  <!-- 7925 profile  -->

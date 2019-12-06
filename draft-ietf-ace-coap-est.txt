@@ -5,16 +5,16 @@
 ACE                                                      P. van der Stok
 Internet-Draft                                                Consultant
 Intended status: Standards Track                           P. Kampanakis
-Expires: April 24, 2020                                    Cisco Systems
+Expires: June 7, 2020                                      Cisco Systems
                                                            M. Richardson
                                                                      SSW
                                                                  S. Raza
                                                                RISE SICS
-                                                        October 22, 2019
+                                                        December 5, 2019
 
 
                     EST over secure CoAP (EST-coaps)
-                       draft-ietf-ace-coap-est-16
+                       draft-ietf-ace-coap-est-17
 
 Abstract
 
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 24, 2020.
+   This Internet-Draft will expire on June 7, 2020.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-van der Stok, et al.     Expires April 24, 2020                 [Page 1]
+van der Stok, et al.      Expires June 7, 2020                  [Page 1]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
    publication of this document.  Please review these documents
@@ -68,7 +68,7 @@ Internet-Draft                  EST-coaps                   October 2019
 Table of Contents
 
    1.  Change Log  . . . . . . . . . . . . . . . . . . . . . . . . .   3
-   2.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   6
+   2.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   7
    3.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   7
    4.  DTLS and conformance to RFC7925 profiles  . . . . . . . . . .   7
    5.  Protocol Design . . . . . . . . . . . . . . . . . . . . . . .  10
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-van der Stok, et al.     Expires April 24, 2020                 [Page 2]
+van der Stok, et al.      Expires June 7, 2020                  [Page 2]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  49
@@ -119,6 +119,12 @@ Internet-Draft                  EST-coaps                   October 2019
 1.  Change Log
 
    EDNOTE: Remove this section before publication
+
+   -17
+
+      v16 remnants by Ben K.
+
+      Typos.
 
    -16
 
@@ -156,19 +162,20 @@ Internet-Draft                  EST-coaps                   October 2019
 
    -10
 
+
+
+
+van der Stok, et al.      Expires June 7, 2020                  [Page 3]
+
+Internet-Draft                  EST-coaps                  December 2019
+
+
       Addressed WGLC comments
 
       More consistent request format in the examples.
 
       Explained root resource difference when there is resource
       discovery
-
-
-
-van der Stok, et al.     Expires April 24, 2020                 [Page 3]
-
-Internet-Draft                  EST-coaps                   October 2019
-
 
       Clarified when the client is supposed to do discovery
 
@@ -211,6 +218,14 @@ Internet-Draft                  EST-coaps                   October 2019
 
    -07:
 
+
+
+
+van der Stok, et al.      Expires June 7, 2020                  [Page 4]
+
+Internet-Draft                  EST-coaps                  December 2019
+
+
       redone examples from scratch with openssl
 
       Updated authors.
@@ -218,13 +233,6 @@ Internet-Draft                  EST-coaps                   October 2019
       Added CoAP RST as a MAY for an equivalent to an HTTP 204 message.
 
       Added serialization example of the /skg CBOR response.
-
-
-
-van der Stok, et al.     Expires April 24, 2020                 [Page 4]
-
-Internet-Draft                  EST-coaps                   October 2019
-
 
       Added text regarding expired IDevIDs and persistent DTLS
       connection that will start using the Explicit TA Database in the
@@ -267,20 +275,19 @@ Internet-Draft                  EST-coaps                   October 2019
 
       repaired again
 
+
+
+van der Stok, et al.      Expires June 7, 2020                  [Page 5]
+
+Internet-Draft                  EST-coaps                  December 2019
+
+
       TBD8 = 62 removed from C-F registration, to be done in CT draft.
 
    -04:
 
       Updated Delayed response section to reflect short and long delay
       options.
-
-
-
-
-van der Stok, et al.     Expires April 24, 2020                 [Page 5]
-
-Internet-Draft                  EST-coaps                   October 2019
-
 
    -03:
 
@@ -323,20 +330,20 @@ Internet-Draft                  EST-coaps                   October 2019
 
       copied from vanderstok-ace-coap-04
 
+
+
+
+van der Stok, et al.      Expires June 7, 2020                  [Page 6]
+
+Internet-Draft                  EST-coaps                  December 2019
+
+
 2.  Introduction
 
    "Classical" Enrollment over Secure Transport (EST) [RFC7030] is used
    for authenticated/authorized endpoint certificate enrollment (and
    optionally key provisioning) through a Certificate Authority (CA) or
    Registration Authority (RA).  EST transports messages over HTTPS.
-
-
-
-
-van der Stok, et al.     Expires April 24, 2020                 [Page 6]
-
-Internet-Draft                  EST-coaps                   October 2019
-
 
    This document defines a new transport for EST based on the
    Constrained Application Protocol (CoAP) since some Internet of Things
@@ -371,8 +378,8 @@ Internet-Draft                  EST-coaps                   October 2019
    certificates and private keys.  Certificates are responses to
    (re-)enrollment requests or requests for a trusted certificate list.
    Private keys can be transported as responses to a server-side key
-   generation request as described in Section 4.4 of [RFC7030] and
-   discussed in Section 5.8 of this document.
+   generation request as described in Section 4.4 of [RFC7030] (and
+   subsections) and discussed in Section 5.8 of this document.
 
    EST-coaps depends on a secure transport mechanism that secures the
    exchanged CoAP messages.  DTLS is one such secure protocol.  No other
@@ -382,16 +389,9 @@ Internet-Draft                  EST-coaps                   October 2019
 
 
 
-
-
-
-
-
-
-
-van der Stok, et al.     Expires April 24, 2020                 [Page 7]
+van der Stok, et al.      Expires June 7, 2020                  [Page 7]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
    +------------------------------------------------+
@@ -408,9 +408,9 @@ Internet-Draft                  EST-coaps                   October 2019
    cipher suite for DTLS in EST-coaps is
    TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 [RFC7251].  Curve secp256r1 MUST
    be supported [RFC8422]; this curve is equivalent to the NIST P-256
-   curve.  After the standardization of [RFC7748], support for
-   Curve25519 will likely be required in the future by (D)TLS Profiles
-   for the Internet of Things [RFC7925].
+   curve.  After the publication of [RFC7748], support for Curve25519
+   will likely be required in the future by (D)TLS Profiles for the
+   Internet of Things [RFC7925].
 
    DTLS 1.2 implementations must use the Supported Elliptic Curves and
    Supported Point Formats Extensions in [RFC8422].  Uncompressed point
@@ -445,9 +445,9 @@ Internet-Draft                  EST-coaps                   October 2019
 
 
 
-van der Stok, et al.     Expires April 24, 2020                 [Page 8]
+van der Stok, et al.      Expires June 7, 2020                  [Page 8]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
    o  a previously installed certificate (e.g., manufacturer IDevID
@@ -464,17 +464,17 @@ Internet-Draft                  EST-coaps                   October 2019
    a value that can be used to prove that the private key corresponding
    to the certified public key is in the possession of and can be used
    by an end-entity or client.  Additionally, channel-binding
-   information can link proof-of-identity with an established connetion.
-   Connection-based proof-of-possession is OPTIONAL for EST-coaps
-   clients and servers.  When proof-of-possession is desired, a set of
-   actions are required regarding the use of tls-unique, described in
-   Section 3.5 in [RFC7030].  The tls-unique information consists of the
-   contents of the first "Finished" message in the (D)TLS handshake
-   between server and client [RFC5929].  The client adds the "Finished"
-   message as a ChallengePassword in the attributes section of the
-   PKCS#10 Request [RFC5967] to prove that the client is indeed in
-   control of the private key at the time of the (D)TLS session
-   establishment.
+   information can link proof-of-identity with an established
+   connection.  Connection-based proof-of-possession is OPTIONAL for
+   EST-coaps clients and servers.  When proof-of-possession is desired,
+   a set of actions are required regarding the use of tls-unique,
+   described in Section 3.5 in [RFC7030].  The tls-unique information
+   consists of the contents of the first "Finished" message in the
+   (D)TLS handshake between server and client [RFC5929].  The client
+   adds the "Finished" message as a ChallengePassword in the attributes
+   section of the PKCS#10 Request [RFC5967] to prove that the client is
+   indeed in control of the private key at the time of the (D)TLS
+   session establishment.
 
    In the case of handshake message fragmentation, if proof-of-
    possession is desired, the Finished message added as the
@@ -495,20 +495,21 @@ Internet-Draft                  EST-coaps                   October 2019
    Authenticating and negotiating DTLS keys requires resources on low-
    end endpoints and consumes valuable bandwidth.  To alleviate this
    situation, an EST-coaps DTLS connection MAY remain open for
-   sequential EST transactions.  For example, an EST csrattrs request
-   that is followed by a simpleenroll request can use the same
-   authenticated DTLS connection.  However, when a cacerts request is
+   sequential EST transactions which was not the case with [RFC7030].
+   For example, an EST csrattrs request that is followed by a
+   simpleenroll request can use the same authenticated DTLS connection.
 
 
 
-van der Stok, et al.     Expires April 24, 2020                 [Page 9]
+van der Stok, et al.      Expires June 7, 2020                  [Page 9]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
-   included in the set of sequential EST transactions, some additional
-   security considerations apply regarding the use of the Implicit and
-   Explicit TA database as explained in Section 10.1.
+   However, when a cacerts request is included in the set of sequential
+   EST transactions, some additional security considerations apply
+   regarding the use of the Implicit and Explicit TA database as
+   explained in Section 10.1.
 
    Given that after a successful enrollment, it is more likely that a
    new EST transaction will take place after a significant amount of
@@ -552,15 +553,17 @@ Internet-Draft                  EST-coaps                   October 2019
    EST-coaps is targeted for low-resource networks with small packets.
    Two types of installations are possible (1) rigid ones where the
    address and the supported functions of the EST server(s) are known,
+
+
+
+
+van der Stok, et al.      Expires June 7, 2020                 [Page 10]
+
+Internet-Draft                  EST-coaps                  December 2019
+
+
    and (2) flexible one where the EST server and it supported functions
    need to be discovered.
-
-
-
-van der Stok, et al.     Expires April 24, 2020                [Page 10]
-
-Internet-Draft                  EST-coaps                   October 2019
-
 
    For both types of installations, saving header space is important and
    short EST-coaps URIs are specified in this document.  These URIs are
@@ -604,20 +607,19 @@ Internet-Draft                  EST-coaps                   October 2019
    requests a certificate in PKCS#7 format and a private key.  If the
    client prefers a single application/pkix-cert certificate instead of
    PKCS#7, it will make an /skc request.  In both cases (i.e., /skg,
-   /skc) a private key MUST be returned
+   /skc) a private key MUST be returned.
 
    Clients and servers MUST support the short resource EST-coaps URIs.
 
+
+
+van der Stok, et al.      Expires June 7, 2020                 [Page 11]
+
+Internet-Draft                  EST-coaps                  December 2019
+
+
    In the context of CoAP, the presence and location of (path to) the
    EST resources are discovered by sending a GET request to "/.well-
-
-
-
-van der Stok, et al.     Expires April 24, 2020                [Page 11]
-
-Internet-Draft                  EST-coaps                   October 2019
-
-
    known/core" including a resource type (RT) parameter with the value
    "ace.est*" [RFC6690].  The example below shows the discovery over
    CoAPS of the presence and location of EST-coaps resources.  Linefeeds
@@ -664,15 +666,16 @@ Internet-Draft                  EST-coaps                   October 2019
    The server MUST support the default /.well-known/est root resource.
    The server SHOULD support resource discovery when it supports non-
    default URIs (like /est or /est/ArbitraryLabel) or ports.  The client
+
+
+
+van der Stok, et al.      Expires June 7, 2020                 [Page 12]
+
+Internet-Draft                  EST-coaps                  December 2019
+
+
    SHOULD use resource discovery when it is unaware of the available
    EST-coaps resources.
-
-
-
-van der Stok, et al.     Expires April 24, 2020                [Page 12]
-
-Internet-Draft                  EST-coaps                   October 2019
-
 
    Throughout this document the example root resource of /est is used.
 
@@ -718,18 +721,19 @@ Internet-Draft                  EST-coaps                   October 2019
    defined in Section 9.1.  The CoAP response codes are defined in
    Section 5.5.
 
+
+
+
+
+van der Stok, et al.      Expires June 7, 2020                 [Page 13]
+
+Internet-Draft                  EST-coaps                  December 2019
+
+
    Content-Format TBD287 can be used in place of 281 to carry a single
    certificate instead of a PKCS#7 container in a /crts, /sen, /sren or
    /skg response.  Content-Format 281 MUST be supported by EST-coaps
    servers.  Servers MAY also support Content-Format TBD287.  It is up
-
-
-
-van der Stok, et al.     Expires April 24, 2020                [Page 13]
-
-Internet-Draft                  EST-coaps                   October 2019
-
-
    to the client to support only Content-Format 281, TBD287 or both.
    The client will use a COAP Accept Option in the request to express
    the preferred response Content-Format.  If an Accept Option is not
@@ -770,6 +774,18 @@ Internet-Draft                  EST-coaps                   October 2019
    (0x0118) instead of 284.  The content format used in the response is
    summarized in Table 3.
 
+
+
+
+
+
+
+
+van der Stok, et al.      Expires June 7, 2020                 [Page 14]
+
+Internet-Draft                  EST-coaps                  December 2019
+
+
              +----------+-----------------+-----------------+
              | Function | Response part 1 | Response part 2 |
              +----------+-----------------+-----------------+
@@ -778,13 +794,6 @@ Internet-Draft                  EST-coaps                   October 2019
              +----------+-----------------+-----------------+
 
              Table 3: response content formats for skg and skc
-
-
-
-van der Stok, et al.     Expires April 24, 2020                [Page 14]
-
-Internet-Draft                  EST-coaps                   October 2019
-
 
    The key and certificate representations are DER-encoded ASN.1, in its
    native binary form.  An example is shown in Appendix A.3.
@@ -825,6 +834,14 @@ Internet-Draft                  EST-coaps                   October 2019
    Similarly, 2.04 is used in successfull response to EST-coaps POST
    requests (/sen, /sren, /skg, /skc).
 
+
+
+
+van der Stok, et al.      Expires June 7, 2020                 [Page 15]
+
+Internet-Draft                  EST-coaps                  December 2019
+
+
    EST makes use of HTTP 204 or 404 responses when a resource is not
    available for the client.  In EST-coaps 2.04 is used in response to a
    POST (/sen, /sren, /skg, /skc). 4.04 is used when the resource is not
@@ -834,13 +851,6 @@ Internet-Draft                  EST-coaps                   October 2019
    equivalent in CoAP.  HTTP 202 with Retry-After is used in EST for
    delayed server responses.  Section 5.7 specifies how EST-coaps
    handles delayed messages with 5.03 responses with a Max-Age Option.
-
-
-
-van der Stok, et al.     Expires April 24, 2020                [Page 15]
-
-Internet-Draft                  EST-coaps                   October 2019
-
 
    Additionally, EST's HTTP 400, 401, 403, 404 and 503 status codes have
    their equivalent CoAP 4.00, 4.01, 4.03, 4.04 and 5.03 response codes
@@ -880,6 +890,14 @@ Internet-Draft                  EST-coaps                   October 2019
    which could fluctuate further based on the algorithms, OIDs, Subject
    Alternative Names (SAN) and cert fields.  For 384-bit curves, ECDSA
    certificates increase in size and can sometimes reach 1.5KB.
+
+
+
+van der Stok, et al.      Expires June 7, 2020                 [Page 16]
+
+Internet-Draft                  EST-coaps                  December 2019
+
+
    Additionally, there are times when the EST cacerts response from the
    server can include multiple certificates that amount to large
    payloads.  Section 4.6 of CoAP [RFC7252] describes the possible
@@ -889,15 +907,6 @@ Internet-Draft                  EST-coaps                   October 2019
    IPv4 implementations may want to limit themselves to more
    conservative IPv4 datagram sizes such as 576 bytes.  Even with ECC,
    EST-coaps messages can still exceed MTU sizes on the Internet or
-
-
-
-
-van der Stok, et al.     Expires April 24, 2020                [Page 16]
-
-Internet-Draft                  EST-coaps                   October 2019
-
-
    6LoWPAN [RFC4919] (Section 2 of [RFC7959]).  EST-coaps needs to be
    able to fragment messages into multiple DTLS datagrams.
 
@@ -940,18 +949,9 @@ Internet-Draft                  EST-coaps                   October 2019
 
 
 
-
-
-
-
-
-
-
-
-
-van der Stok, et al.     Expires April 24, 2020                [Page 17]
+van der Stok, et al.      Expires June 7, 2020                 [Page 17]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
 POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR (frag# 1)} -->
@@ -1005,9 +1005,9 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/256)          -->
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 18]
+van der Stok, et al.      Expires June 7, 2020                 [Page 18]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
 POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR (frag# 1)}  -->
@@ -1061,9 +1061,9 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/256)          -->
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 19]
+van der Stok, et al.      Expires June 7, 2020                 [Page 19]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
    When requesting server-side key generation, the client asks for the
@@ -1117,9 +1117,9 @@ Internet-Draft                  EST-coaps                   October 2019
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 20]
+van der Stok, et al.      Expires June 7, 2020                 [Page 20]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
    [RFC7030] recommends the use of additional encryption of the returned
@@ -1173,9 +1173,9 @@ Internet-Draft                  EST-coaps                   October 2019
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 21]
+van der Stok, et al.      Expires June 7, 2020                 [Page 21]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
    When enforcing Proof-of-Possession (PoP) linking, the DTLS tls-unique
@@ -1229,9 +1229,9 @@ Internet-Draft                  EST-coaps                   October 2019
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 22]
+van der Stok, et al.      Expires June 7, 2020                 [Page 22]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
 7.  Parameters
@@ -1285,9 +1285,9 @@ Internet-Draft                  EST-coaps                   October 2019
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 23]
+van der Stok, et al.      Expires June 7, 2020                 [Page 23]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
 9.  IANA Considerations
@@ -1341,9 +1341,9 @@ Internet-Draft                  EST-coaps                   October 2019
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 24]
+van der Stok, et al.      Expires June 7, 2020                 [Page 24]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
    o  rt="ace.est.skg".  This resource depicts the support of EST
@@ -1397,9 +1397,9 @@ Internet-Draft                  EST-coaps                   October 2019
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 25]
+van der Stok, et al.      Expires June 7, 2020                 [Page 25]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
    request immediately follows a /crts, a client MAY choose to keep the
@@ -1453,9 +1453,9 @@ Internet-Draft                  EST-coaps                   October 2019
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 26]
+van der Stok, et al.      Expires June 7, 2020                 [Page 26]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
    this specification we still depend on the tls-unique mechanism
@@ -1509,9 +1509,9 @@ Internet-Draft                  EST-coaps                   October 2019
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 27]
+van der Stok, et al.      Expires June 7, 2020                 [Page 27]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
    specification and was instrumental in drawing attention to the
@@ -1552,8 +1552,8 @@ Internet-Draft                  EST-coaps                   October 2019
    [I-D.ietf-tls-dtls13]
               Rescorla, E., Tschofenig, H., and N. Modadugu, "The
               Datagram Transport Layer Security (DTLS) Protocol Version
-              1.3", draft-ietf-tls-dtls13-33 (work in progress), October
-              2019.
+              1.3", draft-ietf-tls-dtls13-34 (work in progress),
+              November 2019.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1565,9 +1565,9 @@ Internet-Draft                  EST-coaps                   October 2019
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 28]
+van der Stok, et al.      Expires June 7, 2020                 [Page 28]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
    [RFC2585]  Housley, R. and P. Hoffman, "Internet X.509 Public Key
@@ -1621,9 +1621,9 @@ Internet-Draft                  EST-coaps                   October 2019
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 29]
+van der Stok, et al.      Expires June 7, 2020                 [Page 29]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
    [RFC8075]  Castellani, A., Loreto, S., Rahman, A., Fossati, T., and
@@ -1677,9 +1677,9 @@ Internet-Draft                  EST-coaps                   October 2019
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 30]
+van der Stok, et al.      Expires June 7, 2020                 [Page 30]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
    [ieee802.15.4]
@@ -1733,9 +1733,9 @@ Internet-Draft                  EST-coaps                   October 2019
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 31]
+van der Stok, et al.      Expires June 7, 2020                 [Page 31]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
    [RFC7299]  Housley, R., "Object Identifier Registry for the PKIX
@@ -1789,9 +1789,9 @@ Appendix A.  EST messages to EST-coaps
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 32]
+van der Stok, et al.      Expires June 7, 2020                 [Page 32]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
    The corresponding CoAP headers are only shown in Appendix A.1.
@@ -1845,9 +1845,9 @@ A.1.  cacerts
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 33]
+van der Stok, et al.      Expires June 7, 2020                 [Page 33]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
    A 2.05 Content response with a cert in EST-coaps will then be
@@ -1901,9 +1901,9 @@ Internet-Draft                  EST-coaps                   October 2019
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 34]
+van der Stok, et al.      Expires June 7, 2020                 [Page 34]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
 A.2.  enroll / reenroll
@@ -1957,9 +1957,9 @@ A.2.  enroll / reenroll
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 35]
+van der Stok, et al.      Expires June 7, 2020                 [Page 35]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
    2.04 Changed
@@ -2013,9 +2013,9 @@ A.3.  serverkeygen
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 36]
+van der Stok, et al.      Expires June 7, 2020                 [Page 36]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
    POST 192.0.2.1:8085/est/skg
@@ -2069,9 +2069,9 @@ Internet-Draft                  EST-coaps                   October 2019
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 37]
+van der Stok, et al.      Expires June 7, 2020                 [Page 37]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
    2.04 Changed
@@ -2125,9 +2125,9 @@ A.4.  csrattrs
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 38]
+van der Stok, et al.      Expires June 7, 2020                 [Page 38]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
    REQ:
@@ -2181,9 +2181,9 @@ B.1.  cacerts
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 39]
+van der Stok, et al.      Expires June 7, 2020                 [Page 39]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
    around 10 bytes in this exmple, the DTLS record around 29 bytes.  To
@@ -2237,9 +2237,9 @@ Internet-Draft                  EST-coaps                   October 2019
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 40]
+van der Stok, et al.      Expires June 7, 2020                 [Page 40]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
      Ver = 1
@@ -2293,9 +2293,9 @@ Internet-Draft                  EST-coaps                   October 2019
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 41]
+van der Stok, et al.      Expires June 7, 2020                 [Page 41]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
      Ver = 1
@@ -2349,9 +2349,9 @@ Internet-Draft                  EST-coaps                   October 2019
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 42]
+van der Stok, et al.      Expires June 7, 2020                 [Page 42]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
    The 10th and final Block2:
@@ -2405,9 +2405,9 @@ B.2.  enroll / reenroll
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 43]
+van der Stok, et al.      Expires June 7, 2020                 [Page 43]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
 POST [2001:db8::2:1]:61616/est/sen (CON)(1:0/1/256) {CSR (frag# 1)} -->
@@ -2461,9 +2461,9 @@ C.1.  cacerts
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 44]
+van der Stok, et al.      Expires June 7, 2020                 [Page 44]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
    Certificate:
@@ -2517,9 +2517,9 @@ C.2.  enroll / reenroll
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 45]
+van der Stok, et al.      Expires June 7, 2020                 [Page 45]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
    Certificate Request:
@@ -2573,9 +2573,9 @@ Internet-Draft                  EST-coaps                   October 2019
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 46]
+van der Stok, et al.      Expires June 7, 2020                 [Page 46]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
    Certificate:
@@ -2629,9 +2629,9 @@ C.3.  serverkeygen
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 47]
+van der Stok, et al.      Expires June 7, 2020                 [Page 47]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
    Certificate Request:
@@ -2685,9 +2685,9 @@ Internet-Draft                  EST-coaps                   October 2019
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 48]
+van der Stok, et al.      Expires June 7, 2020                 [Page 48]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
    Certificate:
@@ -2741,9 +2741,9 @@ Authors' Addresses
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 49]
+van der Stok, et al.      Expires June 7, 2020                 [Page 49]
 
-Internet-Draft                  EST-coaps                   October 2019
+Internet-Draft                  EST-coaps                  December 2019
 
 
    Panos Kampanakis
@@ -2797,4 +2797,4 @@ Internet-Draft                  EST-coaps                   October 2019
 
 
 
-van der Stok, et al.     Expires April 24, 2020                [Page 50]
+van der Stok, et al.      Expires June 7, 2020                 [Page 50]

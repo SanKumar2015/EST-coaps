@@ -581,9 +581,9 @@ This specification contains a set of required-to-implement functions, optional f
 	  structure when multiple Media-Types
 	  are present in the payload.--> 
 	  
-      <t>The Content-Format (HTTP Media-Type equivalent) of the CoAP message determines which
+      <t>The Content-Format (HTTP Content-Type equivalent) of the CoAP message determines which
 	  EST message is transported in the CoAP payload. The Media-Types specified in the HTTP
-	  Content-Type header (Section 3.2.2 of <xref target="RFC7030"/>) are 
+	  Content-Type header field (Section 3.2.2 of <xref target="RFC7030"/>) are 
 	  specified by the Content-Format Option (12) of CoAP. The combination of URI-Path
 	  and Content-Format in EST-coaps MUST map to an allowed combination of URI and
 	  Media-Type in EST. The required Content-Formats for these requests and
@@ -710,7 +710,7 @@ representations. -->
 	  a POST (/sen, /sren, /skg, /skc). 4.04 is 
 	  used when the resource is not available for the client. </t>
 	  
-	  <t>HTTP response code 202 with a Retry-After header 
+	  <t>HTTP response code 202 with a Retry-After header field  
 	  in <xref target="RFC7030"/> has no equivalent in CoAP. 
 	  HTTP 202 with Retry-After is used in EST for delayed server 
 	  responses. <xref target="pending"/> specifies how EST-coaps 
@@ -988,7 +988,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/256)          -->
 	specification and Section 7 of <xref target="RFC8075"/> define the mappings
 	between EST-coaps and HTTP response codes, that determine how the Registrar
 	MUST translate CoAP response codes from/to HTTP status codes. The mapping from
-	CoAP Content-Format to HTTP Media-Type is defined in <xref target="Content-Formats"/>.
+	CoAP Content-Format to HTTP Content-Type is defined in <xref target="Content-Formats"/>.
 	Additionally, a conversion from CBOR major type 2 to Base64 encoding MUST take
 	place at the Registrar. If
 	CMS end-to-end encryption is employed for the private key, the encrypted
@@ -1067,7 +1067,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/256)          -->
 	These have been registered provisionally in the IETF Review or IESG Approval range (256-9999).</t>
 
 <texttable anchor="Content-Format" title="New CoAP Content-Formats">
-  <ttcol align="left">HTTP Media-Type</ttcol>
+  <ttcol align="left">HTTP Content-Type</ttcol>
   <ttcol align="right">ID</ttcol>
   <ttcol align="left">Reference</ttcol>
 
@@ -1109,6 +1109,27 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/256)          -->
    <t></t>
   </section> <!-- Resource Type registry -->
 
+  <section anchor="well-known-uris" title="Well-Known URIs Registry">
+	  <t>A new additional reference is requested for 
+	  the est URI in the Well-Known URIs registry: </t>
+	  <texttable>
+        <ttcol align='center'>URI Suffix</ttcol>
+        <ttcol align='center'>Change Controller</ttcol>
+        <ttcol align='center'>References</ttcol>
+		<ttcol align='center'>Status</ttcol>
+        <ttcol align='center'>Related Information</ttcol>
+        <ttcol align='center'>Date Registered</ttcol>
+        <ttcol align='center'>Date Modified</ttcol>
+        <c>est</c>
+		<c>IETF</c>
+		<c>[RFC7030, THIS RFC]</c>
+		<c>permanent</c>
+		<c></c>
+		<c>2013-08-16</c>
+		<c>[THIS RFC publication date]</c>
+      </texttable>
+  </section> <!-- Well Known URIs registry -->
+  
   </section>  <!-- IANA consideration -->
 
   <section anchor="sec" title="Security Considerations">

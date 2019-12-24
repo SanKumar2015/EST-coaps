@@ -418,10 +418,10 @@ HMAC(finished_key,
     * Only included if present.
 ]]></artwork></figure> --> 
 
-   <t>In a constrained CoAP environment, endpoints can't always afford to establish a DTLS connection for every EST transaction. Authenticating and negotiating DTLS keys requires resources on low-end endpoints and consumes valuable bandwidth. To alleviate this situation, an EST-coaps DTLS connection MAY remain open for sequential EST transactions, which was not the case with <xref target="RFC7030"/>. 
-   For example, if an EST csrattrs request is followed by a simpleenroll request, both can use the same authenticated DTLS connection. However, when a cacerts request is included in the set of sequential EST transactions, some additional security considerations apply regarding the use of the Implicit and Explicit TA database as explained in <xref target="sec-est"/>.</t>
+   <t>In a constrained CoAP environment, endpoints can't always afford to establish a DTLS connection for every EST transaction. An EST-coaps DTLS connection MAY remain open for sequential EST transactions, which was not the case with <xref target="RFC7030"/>. 
+   For example, if a /crts request is followed by a /sen request, both can use the same authenticated DTLS connection. However, when a /crts request is included in the set of sequential EST transactions, some additional security considerations apply regarding the use of the Implicit and Explicit TA database as explained in <xref target="sec-est"/>.</t>
    
-   <t>Given that after a successful enrollment, it is more likely that a new EST transaction will take place after a significant amount of time, the DTLS connections SHOULD only be kept alive for EST messages that are relatively close to each other. In some cases, like NAT rebinding, keeping the state of a connection is not possible when devices sleep for extended periods of time. In such occasions, <xref target="I-D.ietf-tls-dtls-connection-id"/> negotiates a connection ID that can eliminate the need for new handshake and its additional cost; or DTLS session resumption provides a less costly alternative than re-doing a full DTLS handshake. </t>
+   <t>Given that after a successful enrollment, it is more likely that a new EST transaction will not take place for a significant amount of time, the DTLS connections SHOULD only be kept alive for EST messages that are relatively close to each other. These could include a /sen immediatelly following a /crts when a device is getting bootstrapped. In some cases, like NAT rebinding, keeping the state of a connection is not possible when devices sleep for extended periods of time. In such occasions, <xref target="I-D.ietf-tls-dtls-connection-id"/> negotiates a connection ID that can eliminate the need for new handshake and its additional cost; or DTLS session resumption provides a less costly alternative than re-doing a full DTLS handshake. </t>
   </section>  <!-- 7925 profile  -->
   
 
@@ -551,7 +551,7 @@ coaps://example.com:<port>/<root-resource>/
 
 <section anchor="implementation" title="Mandatory/optional EST Functions">
 <t>
-This specification contains a set of required-to-implement functions, optional functions, and not specified functions. The latter ones are deemed too expensive for low-resource devices in payload and calculation times.</t>
+This specification contains a set of required-to-implement functions, optional functions, and not specified functions. The unspecified functions are deemed too expensive for low-resource devices in payload and calculation times.</t>
 
 <t> <xref target="est-implementation"/> specifies the mandatory-to-implement or optional implementation of the EST-coaps functions. Discovery of the existence of optional functions is described in <xref target="discovery"/>.</t>
 
@@ -696,7 +696,7 @@ representations. -->
       <t>Section 5.9 of <xref target="RFC7252"/> and Section 7 of <xref target="RFC8075"/>
 	  specify the mapping of HTTP response codes to CoAP response codes. 
 	  The success code in response to an EST-coaps GET request (/crts, /att), 
-	  is 2.05. Similarly, 2.04 is used in successfull response to EST-coaps POST  requests (/sen, /sren, /skg, /skc).</t>
+	  is 2.05. Similarly, 2.04 is used in successful response to EST-coaps POST  requests (/sen, /sren, /skg, /skc).</t>
 	  <!--2.01 Making 2.04 based on comment from Esko https://github.com/SanKumar2015/EST-coaps/issues/145#issuecomment-497029846 --> 
       <!-- Removing because we now use 2.04 based on comment 
       from Esko https://github.com/SanKumar2015/EST-coaps/issues/145#issuecomment-497029846 
@@ -864,7 +864,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/256)          -->
 	  include those where it is considered more secure to generate the 
 	  long-lived, random private key that identifies the client at the server, 
 	  or where the resources spent to generate a random private key at the 
-	  client are considered scarce, or when the security policy requires 
+	  client are considered scarce, or where the security policy requires 
 	  that the certificate public and corresponding private keys are 
 	  centrally generated and controlled. As always, it is necessary 
 	  to use proper random numbers in various protocols such as (D)TLS (<xref target="sec-est"/>).</t>
@@ -886,7 +886,7 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/256)          -->
 	  PKCS#10 CSR request. If the request contains SMIMECapabilities and 
 	  DecryptKeyIdentifier or AsymmetricDecryptKeyIdentifier the client 
 	  is expecting Content-Format 280 for the private key. 
-	  Then the private key is encrypted symmetrically or asymmetrically as 
+	  Then this private key is encrypted symmetrically or asymmetrically as 
 	  per <xref target="RFC7030" />. 
 	  The symmetric key or the asymmetric keypair establishment method is 
 	  out of scope of this specification.
@@ -1165,7 +1165,7 @@ security considerations of <xref target="RFC7030"/> continue to apply.</t>
 	  "RECOMMENDED that the Implicit Trust Anchor database used for
 	  EST server authentication is carefully managed to reduce the chance of a
 	  third-party CA with poor certification practices jeopardizing authentication. 
-	  Disabling the Implicit Trust Anchor database after successfully receiving the
+	  Disabling the Implicit Trust Anchor database after successfuly receiving the
 	  Distribution of CA certificates response (Section 4.1.3) 
 	  limits any risk to the first TLS exchange". Alternatively, in a case 
 	  where a /sen request immediately follows a /crts, a client
@@ -1181,10 +1181,10 @@ security considerations of <xref target="RFC7030"/> continue to apply.</t>
 	  MAY still authenticate the client because IDevIDs are expected to live as long
 	  as the device itself (<xref target="profile7925"/>). In such occasions, checking
 	  the certificate revocation status or authorizing the client using another method
-	  is important for the server to ensure that the client is to be trusted. </t>
+	  is important for the server to raise its confidence that the client can be trusted. </t>
 	  <t>In accordance with <xref target="RFC7030"/>, TLS cipher suites that include
-	  "_EXPORT_" and "_DES_" in their names MUST NOT be used. More information about
-	  recommendations of TLS and DTLS are included in <xref target="BCP195"/>.</t><!--<xref target="RFC7525"/>-->
+	  "_EXPORT_" and "_DES_" in their names MUST NOT be used. More 
+	  recommendations for secure use of TLS and DTLS are included in <xref target="BCP195"/>.</t><!--<xref target="RFC7525"/>-->
       <t>As described in CMC, Section 6.7 of <xref target="RFC5272"/>, "For keys that can
 	  be used as signature keys, signing the certification request with the private key
 	  serves as a PoP on that key pair". The inclusion of tls-unique in the certificate

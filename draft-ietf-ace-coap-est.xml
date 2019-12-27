@@ -908,12 +908,12 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/256)          -->
 		of <xref target="RFC7030" />. In summary, the symmetrically encrypted key
 		is included in the encryptedKey attribute in a KEKRecipientInfo structure.
 		In the case where the asymmetric encryption key is suitable for transport key
-		operations the generated private key is encrypted with a symmetric key which
-		is encrypted by the client-defined (in the CSR) asymmetric public key
+		operations the generated private key is encrypted with a symmetric key. The 
+        symmetric key itself is encrypted by the client-defined (in the CSR) asymmetric public key
 		and is carried in an encryptedKey attribute in a KeyTransRecipientInfo structure.
 		Finally, if the asymmetric encryption key is suitable for key agreement,
-		the generated private key is encrypted with a symmetric key which is
-		encrypted by the client defined (in the CSR) asymmetric public key and
+		the generated private key is encrypted with a symmetric key. The 
+		symmetric key itself is encrypted by the client defined (in the CSR) asymmetric public key and
 		is carried in an recipientEncryptedKeys attribute in a KeyAgreeRecipientInfo. </t>
 		<!-- The EnvelopedData is
    returned in the response as an "application/pkcs7-mime" or "application-pkix_cert" part with an
@@ -1037,7 +1037,9 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/256)          -->
 	However, depending on the implementation scenario, retransmissions 
 	and timeouts can also occur on other networking layers, 
 	governed by other configuration parameters. When a change in a 
-	server parameter has taken place, the parameter values in the communicating endpoints MUST be adjusted as necessary.</t>
+	server parameter has taken place, the parameter values in the communicating endpoints MUST be adjusted as necessary. Examples of how parameters 
+	could be adjusted include higher layer congestion protocols, 
+	provisioning agents and configurations included in firmware updates.</t>
 
     <t>Some further comments about some specific parameters, mainly from
 	Table 2 in <xref target="RFC7252"/>:
@@ -1438,12 +1440,17 @@ GET example.com:9085/est/crts
   Payload = [Empty]
 ]]></artwork></figure>
 
-      <t>The Uri-Host and Uri-Port Options can be omitted if they 
+      <t>As specified in Section 5.10.1 of <xref target="RFC7252"/>,  
+	  the Uri-Host and Uri-Port Options can be omitted if they 
+	  coincide with the transport protocol destination address 
+	  and port respectively.</t>
+	  <!--
+	  The Uri-Host and Uri-Port Options can be omitted if they 
       coincide with the transport protocol destination address and 
 	  port respectively. Explicit Uri-Host and Uri-Port Options 
 	  are typically used when an endpoint hosts multiple virtual 
-	  servers and uses the Options to route the requests accordingly. </t>
-	  <!-- Alternatively, if a UDP port to a server is blocked, 
+	  servers and uses the Options to route the requests accordingly. 
+	  Alternatively, if a UDP port to a server is blocked, 
 	  someone could send the DTLS packets to a known open port 
 	  on the server and use the Uri-Port to convey the intended port 
       he is attempting to reach.-->

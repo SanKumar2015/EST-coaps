@@ -1124,11 +1124,11 @@ POST [2001:db8::2:1]:61616/est/sen (CON)(2:N2/0/256)          -->
         <ttcol align='center'>Date Modified</ttcol>
         <c>est</c>
 		<c>IETF</c>
-		<c>[RFC7030, THIS RFC]</c>
+		<c>[RFC7030] [THIS RFC]</c>
 		<c>permanent</c>
 		<c></c>
 		<c>2013-08-16</c>
-		<c>[THIS RFC publication date]</c>
+		<c>[THIS RFC's publication date]</c>
       </texttable>
   </section> <!-- Well Known URIs registry -->
   

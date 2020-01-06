@@ -1265,7 +1265,7 @@ security considerations of <xref target="RFC7030"/> continue to apply.</t>
 	discussions that helped in shaping the solution. They would also like to thank Peter
 	Panburana for his feedback on technical details of the solution. Constructive comments
 	were received from Benjamin Kaduk, Eliot Lear, Jim Schaad, Hannes Tschofenig, Julien
-	Vermillard, John Manuel, Oliver Pfaff, Pete Beal and Carsten Bormann.</t>
+	Vermillard, John Manuel, Oliver Pfaff, Pete Beal, Carsten Bormann, Barry Leiba, Alexey Melnikov, Adam Roach, Alissa Cooper, Roman Danyliw, and Magnus Westerlund.</t>
     <t>Interop tests were done by Oliver Pfaff, Thomas Werner, Oskar Camezind,
 	Bjorn Elmers and Joel Hoglund.</t>
 	<t>Robert Moskowitz provided code to create the examples.</t>

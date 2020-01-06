@@ -131,6 +131,7 @@
    <t> -18
     <list style="empty">
 	   <t>IESG Reviews fixes. </t>
+	   <t>Removed spurious lines introduced in v-17 due to xml2rfc v3.</t>
     </list>
    </t>
    <t> -17
@@ -456,8 +457,7 @@ HMAC(finished_key,
 
 <figure align="left"><artwork><![CDATA[
 coaps://example.com:<port>/.well-known/est/<short-est>
-coaps://example.com:<port>/.well-known/est/
-                                           ArbitraryLabel/<short-est>
+coaps://example.com:<port>/.well-known/est/ArbitraryLabel/<short-est>
 ]]></artwork></figure>
 
 	  <!-- The ArbitraryLabel path-segment, if used, SHOULD be of the shortest length
@@ -472,8 +472,7 @@ coaps://example.com:<port>/.well-known/est/
 	  EST-coaps resource(s) as shown below, are of the form: </t>
 <figure align="left"><artwork><![CDATA[
 coaps://example.com:<port>/<root-resource>/<short-est>
-coaps://example.com:<port>/<root-resource>/
-                                           ArbitraryLabel/<short-est>
+coaps://example.com:<port>/<root-resource>/ArbitraryLabel/<short-est>
 ]]></artwork></figure>
 
       <t>Figure 5 in Section 3.2.2 of <xref target="RFC7030"/> enumerates the operations and corresponding paths which are supported by EST. <xref target="est-uri"/> provides the mapping from the EST URI path to the shorter EST-coaps URI path.</t>
@@ -770,8 +769,7 @@ representations. -->
 	  request that uses N1+1 Block1 blocks. The server uses an empty 0.00 ACK to announce
 	  the delayed response which is provided later with 2.04 messages containing N2+1 Block2 Options. 
 	  The first 2.04 is a confirmable message that is acknowledged by the client. 
-	  Onwards, the client acknowledges all subsequent Block2 blocks.</t>
-<t> The notation of <xref target = "fig-est-short-wait"/> is explained in <xref target="cacertsblock"/>.</t>
+	  Onwards, the client acknowledges all subsequent Block2 blocks. The notation of <xref target = "fig-est-short-wait"/> is explained in <xref target="cacertsblock"/>.</t>
       <figure title="EST-COAP enrollment with short wait"
       anchor="fig-est-short-wait"><artwork>
 <![CDATA[
